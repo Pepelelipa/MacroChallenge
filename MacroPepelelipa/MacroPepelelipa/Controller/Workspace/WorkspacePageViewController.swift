@@ -9,7 +9,16 @@
 import UIKit
 
 internal class WorkspacePageViewController: UIPageViewController {
+    
     private var workspaceDataSource = WorkspacePageControllerDataSource()
+    
+    private lazy var workspaceDelegate = WorkspacePageControllerDelegate { (viewController) in
+        if let index = self.workspaceDataSource.indexFor(viewController) {
+            self.pageControl.currentPage = index
+        }
+    }
+    
+    private var pageControl: UIPageControl = UIPageControl(frame: .zero)
 
     override init(
         transitionStyle style: UIPageViewController.TransitionStyle,
@@ -29,11 +38,26 @@ internal class WorkspacePageViewController: UIPageViewController {
 
     override func viewDidLoad() {
         self.dataSource = workspaceDataSource
+        self.delegate = workspaceDelegate
         if let first = workspaceDataSource.workspaces.first {
             setViewControllers([first], direction: .forward, animated: true)
         }
-        view.backgroundColor = .red
+        view.backgroundColor = .clear
+        
+        setupPageControl()
     }
-
-    var collections: [WorkspaceViewController] = [WorkspaceViewController()]
+    
+    private func setupPageControl() {
+        
+        self.pageControl.numberOfPages = workspaceDataSource.workspaces.count
+        self.pageControl.currentPage = 0
+        
+        view.addSubview(pageControl)
+        pageControl.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            pageControl.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            pageControl.widthAnchor.constraint(equalTo: view.safeAreaLayoutGuide.widthAnchor)
+        ])
+    }
 }
