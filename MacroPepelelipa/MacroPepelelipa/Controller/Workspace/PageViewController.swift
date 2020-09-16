@@ -72,8 +72,8 @@ internal class WorkspacePageViewController: UIPageViewController {
 
         let nextIndex = sender.currentPage
 
-        setViewControllers([self.workspaceDataSource.workspaces[sender.currentPage]], 
-                           direction: nextIndex > toBePreviousIndex ? .forward : .reverse, 
+        setViewControllers([self.workspaceDataSource.workspaces[sender.currentPage]],
+                           direction: nextIndex > toBePreviousIndex ? .forward : .reverse,
                            animated: true)
     }
 }

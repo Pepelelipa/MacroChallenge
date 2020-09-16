@@ -16,9 +16,8 @@ internal class WorkspacePageControllerDelegate: NSObject, UIPageViewControllerDe
         self.willChangeTo = willChangeTo
     }
 
-    func pageViewController(_ pageViewController: UIPageViewController, 
+    func pageViewController(_ pageViewController: UIPageViewController,
                             willTransitionTo pendingViewControllers: [UIViewController]) {
-
          willChangeTo?(pendingViewControllers.first)
     }
 }
