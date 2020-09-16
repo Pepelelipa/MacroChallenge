@@ -1,4 +1,3 @@
-
 //
 //  WorkspacePageControllerDelegate.swift
 //  MacroPepelelipa
@@ -10,15 +9,16 @@
 import UIKit
 
 internal class WorkspacePageControllerDelegate: NSObject, UIPageViewControllerDelegate {
-    
-    private var willChangeTo: ((UIViewController?) -> ())?
-    
-    init(_ willChangeTo: @escaping (UIViewController?) -> ()) {
+
+    private var willChangeTo: ((UIViewController?) -> Void)?
+
+    init(_ willChangeTo: @escaping (UIViewController?) -> Void) {
         self.willChangeTo = willChangeTo
     }
-    
-    func pageViewController(_ pageViewController: UIPageViewController, willTransitionTo pendingViewControllers: [UIViewController]) {
-        
+
+    func pageViewController(_ pageViewController: UIPageViewController, 
+                            willTransitionTo pendingViewControllers: [UIViewController]) {
+
          willChangeTo?(pendingViewControllers.first)
     }
 }

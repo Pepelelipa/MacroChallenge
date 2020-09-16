@@ -20,8 +20,6 @@ internal class WorkspacePageControllerDataSource: NSObject, UIPageViewController
             return workspaces[currentIndex - 1]
         }
         return nil
-        
-        UIPageControl.appearance()
     }
 
     func pageViewController(
@@ -33,7 +31,7 @@ internal class WorkspacePageControllerDataSource: NSObject, UIPageViewController
         }
         return nil
     }
-    
+
     func indexFor(_ viewController: UIViewController?) -> Int? {
         return workspaces.firstIndex(where: { $0 === viewController })
     }
