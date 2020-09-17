@@ -1,0 +1,12 @@
+/* 
+  Localizable.strings
+  MacroPepelelipa
+
+  Created by Pedro Giuliano Farina on 17/09/20.
+  Copyright © 2020 Pedro Giuliano Farina. All rights reserved.
+*/
+
+"Workspace" = "Coleção";
+"Subject" = "Matéria";
+"Lesson" = "Aula";
+"Notebook" = "Caderno";
