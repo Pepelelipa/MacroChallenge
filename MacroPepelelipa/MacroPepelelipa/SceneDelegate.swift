@@ -12,13 +12,16 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
 
-    func scene(
-        _ scene: UIScene,
-        willConnectTo session: UISceneSession,
-        options connectionOptions: UIScene.ConnectionOptions) {
-        guard scene as? UIWindowScene != nil else {
+    func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
+        guard let scene = scene as? UIWindowScene else {
             return
         }
+        let navController = UINavigationController()
+        navController.isNavigationBarHidden = true
+        navController.viewControllers = [WorkspacePageViewController()]
+        window = UIWindow(windowScene: scene)
+        window?.rootViewController = navController
+        window?.makeKeyAndVisible()
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
