@@ -9,13 +9,16 @@
 import UIKit
 
 class MarkupTextView: UITextView {
-
-    /*
-    // Only override draw() if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func draw(_ rect: CGRect) {
-        // Drawing code
+    
+    init(frame: CGRect, delegate: MarkupTextViewDelegate) {
+        super.init(frame: frame, textContainer: nil)
+        self.delegate = delegate
+        self.backgroundColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
+        self.translatesAutoresizingMaskIntoConstraints = false
     }
-    */
-
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
 }

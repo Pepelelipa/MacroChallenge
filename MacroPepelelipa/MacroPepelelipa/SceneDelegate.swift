@@ -16,9 +16,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         _ scene: UIScene,
         willConnectTo session: UISceneSession,
         options connectionOptions: UIScene.ConnectionOptions) {
-        guard scene as? UIWindowScene != nil else {
+        guard let scene = scene as? UIWindowScene else {
             return
         }
+        window = UIWindow(windowScene: scene)
+        window?.rootViewController = MarkupViewController()
+        window?.makeKeyAndVisible()
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
