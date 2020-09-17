@@ -12,8 +12,8 @@ internal class WorkspaceViewController: UIViewController {
     private var lblName: UILabel = UILabel(frame: .zero)
     private var collectionView: UICollectionView = {
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
-        layout.sectionInset = UIEdgeInsets(top: 3, left: 3, bottom: 3, right: 3)
-        layout.itemSize = CGSize(width: 50, height: 50)
+        layout.sectionInset = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
+        layout.itemSize = CGSize(width: 157.5, height: 230)
 
         return UICollectionView(frame: .zero, collectionViewLayout: layout)
     }()
@@ -40,6 +40,9 @@ internal class WorkspaceViewController: UIViewController {
         ])
     }
     private func setupCollectionView() {
+        collectionView.backgroundColor = view.backgroundColor
+        collectionView.showsVerticalScrollIndicator = false
+
         collectionView.delegate = flowLayoutDelegate
         collectionView.dataSource = dataSource
 
@@ -47,9 +50,7 @@ internal class WorkspaceViewController: UIViewController {
             NotebookCollectionViewCell.self,
             forCellWithReuseIdentifier: NotebookCollectionViewCell.cellID)
 
-        collectionView.backgroundColor = .white
-
-        collectionView.layoutMargins = .init(top: 10, left: 10, bottom: 10, right: 10)
+        collectionView.layoutMargins = .init(top: 5, left: 5, bottom: 5, right: 5)
         view.addSubview(collectionView)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
 
@@ -60,6 +61,5 @@ internal class WorkspaceViewController: UIViewController {
             collectionView.heightAnchor.constraint(equalToConstant: 500)
         ])
 
-        collectionView.reloadData()
     }
 }

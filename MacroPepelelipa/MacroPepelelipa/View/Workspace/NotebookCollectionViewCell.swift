@@ -23,7 +23,9 @@ internal class NotebookCollectionViewCell: UICollectionViewCell {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
+        backgroundColor = .random()
         setupLabel()
+        layer.cornerRadius = 10
     }
     required convenience init?(coder: NSCoder) {
         guard let frame = coder.decodeObject(forKey: "frame") as? CGRect else {
@@ -34,10 +36,17 @@ internal class NotebookCollectionViewCell: UICollectionViewCell {
 
     private func setupLabel() {
         lblName.text = "Teste"
+        lblName.textColor = .black
+        lblName.font = .preferredFont(forTextStyle: .body)
+        lblName.textAlignment = .center
         addSubview(lblName)
+        lblName.translatesAutoresizingMaskIntoConstraints = false
+
         NSLayoutConstraint.activate([
-            lblName.widthAnchor.constraint(equalToConstant: 50),
-            lblName.heightAnchor.constraint(equalToConstant: 50)
+            lblName.centerXAnchor.constraint(equalTo: centerXAnchor),
+            lblName.centerYAnchor.constraint(equalTo: centerYAnchor),
+            lblName.widthAnchor.constraint(equalToConstant: 100),
+            lblName.heightAnchor.constraint(equalToConstant: 30)
         ])
     }
 }

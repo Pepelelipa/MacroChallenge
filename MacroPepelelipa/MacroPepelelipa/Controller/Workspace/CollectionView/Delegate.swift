@@ -9,9 +9,9 @@
 
 import UIKit
 
-internal class WorkspaceCollectionViewFlowLayoutDelegate: NSObject, UICollectionViewDelegate {
+internal class WorkspaceCollectionViewFlowLayoutDelegate: NSObject, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 50, height: 50)
+        return CGSize(width: 157.5, height: 230)
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
