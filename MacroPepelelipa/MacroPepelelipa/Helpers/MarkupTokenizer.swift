@@ -4,6 +4,8 @@
 // See LICENSE file for license
 //
 
+// swiftlint:disable all
+
 import Foundation
 
 private extension CharacterSet {
@@ -48,20 +50,20 @@ struct MarkupTokenizer {
 	}
 
 	mutating func nextToken() -> MarkupToken? {
-		guard let c = current else {
+		guard let char = current else {
 			return nil
 		}
 
 		var token: MarkupToken?
 
-		if CharacterSet.delimiters.contains(c) {
-			token = scan(delimiter: c)
+		if CharacterSet.delimiters.contains(char) {
+			token = scan(delimiter: char)
 		} else {
 			token = scanText()
 		}
 
 		if token == nil {
-			token = .text(String(c))
+			token = .text(String(char))
 			advance()
 		}
 

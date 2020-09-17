@@ -4,6 +4,8 @@
 // See LICENSE file for license
 //
 
+// swiftlint:disable all
+
 import Foundation
 
 public struct MarkupParser {
@@ -55,7 +57,7 @@ public struct MarkupParser {
 		var newElements = elements
 
 		// Convert orphaned opening delimiters to plain text
-		while openingDelimiters.count > 0 {
+		while !openingDelimiters.isEmpty {
 			let openingDelimiter = openingDelimiters.popLast()!
 
 			if openingDelimiter == delimiter {
