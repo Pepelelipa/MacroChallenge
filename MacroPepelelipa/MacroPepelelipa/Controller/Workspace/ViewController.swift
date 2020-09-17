@@ -20,7 +20,7 @@ internal class WorkspaceViewController: UIViewController {
     private let dataSource = WorkspaceCollectionViewDataSource()
     private lazy var flowLayoutDelegate = WorkspaceCollectionViewFlowLayoutDelegate { (selectedCell) in
         #warning("Notebook view is a placeholder only.")
-        let test = UIViewController()
+        let test = NotebookIndexViewController()
         test.view.backgroundColor = selectedCell.backgroundColor
         self.navigationController?.pushViewController(test, animated: true)
         self.navigationController?.isNavigationBarHidden = false

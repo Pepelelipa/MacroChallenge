@@ -20,6 +20,8 @@
 		02DD0A0825114D6700B6696B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 02DD0A0625114D6700B6696B /* LaunchScreen.storyboard */; };
 		02ECA4392512A87100E68588 /* Delegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02ECA4382512A87100E68588 /* Delegate.swift */; };
 		02ECA43C2512ABD100E68588 /* NotebookCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02ECA43B2512ABD100E68588 /* NotebookCollectionViewCell.swift */; };
+		A7BDD5FB2513F5A300DDB6A0 /* SpitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7BDD5FA2513F5A300DDB6A0 /* SpitViewController.swift */; };
+		A7BDD5FF2513F83F00DDB6A0 /* NotebookIndexViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7BDD5FE2513F83F00DDB6A0 /* NotebookIndexViewController.swift */; };
 		A7D4D229251287A700E204CC /* PageControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7D4D228251287A700E204CC /* PageControllerDelegate.swift */; };
 /* End PBXBuildFile section */
 
@@ -40,6 +42,8 @@
 		02DD0A0925114D6700B6696B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		02ECA4382512A87100E68588 /* Delegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Delegate.swift; sourceTree = "<group>"; };
 		02ECA43B2512ABD100E68588 /* NotebookCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotebookCollectionViewCell.swift; sourceTree = "<group>"; };
+		A7BDD5FA2513F5A300DDB6A0 /* SpitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpitViewController.swift; sourceTree = "<group>"; };
+		A7BDD5FE2513F83F00DDB6A0 /* NotebookIndexViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotebookIndexViewController.swift; sourceTree = "<group>"; };
 		A7D4D228251287A700E204CC /* PageControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageControllerDelegate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -144,6 +148,7 @@
 			isa = PBXGroup;
 			children = (
 				0247F78B25115B8900405A61 /* Workspace */,
+				A7BDD5F82513F4DC00DDB6A0 /* Notebook */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -154,6 +159,15 @@
 				02ECA43B2512ABD100E68588 /* NotebookCollectionViewCell.swift */,
 			);
 			path = Workspace;
+			sourceTree = "<group>";
+		};
+		A7BDD5F82513F4DC00DDB6A0 /* Notebook */ = {
+			isa = PBXGroup;
+			children = (
+				A7BDD5FA2513F5A300DDB6A0 /* SpitViewController.swift */,
+				A7BDD5FE2513F83F00DDB6A0 /* NotebookIndexViewController.swift */,
+			);
+			path = Notebook;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -251,6 +265,7 @@
 			files = (
 				02ECA43C2512ABD100E68588 /* NotebookCollectionViewCell.swift in Sources */,
 				0247F78D25115BAA00405A61 /* ViewController.swift in Sources */,
+				A7BDD5FB2513F5A300DDB6A0 /* SpitViewController.swift in Sources */,
 				02ECA4392512A87100E68588 /* Delegate.swift in Sources */,
 				0247F78A25115B3600405A61 /* PageViewController.swift in Sources */,
 				02DD09FC25114D6200B6696B /* AppDelegate.swift in Sources */,
@@ -260,6 +275,7 @@
 				02DD09FE25114D6200B6696B /* SceneDelegate.swift in Sources */,
 				020E22252513F10800A93EAB /* StringExtension.swift in Sources */,
 				0221BCF625115E360055A2E5 /* PageViewControllerDataSource.swift in Sources */,
+				A7BDD5FF2513F83F00DDB6A0 /* NotebookIndexViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
