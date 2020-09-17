@@ -12,20 +12,16 @@ internal class WorkspacePageControllerDataSource: NSObject, UIPageViewController
     internal private(set) var workspaces: [WorkspaceViewController] =
         [WorkspaceViewController(), WorkspaceViewController()]
 
-    func pageViewController(
-        _ pageViewController: UIPageViewController,
-        viewControllerBefore viewController: UIViewController) -> UIViewController? {
-        if let currentIndex = workspaces.firstIndex(where: {$0 === viewController}),
+    func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
+        if let currentIndex = workspaces.firstIndex(where: { $0 === viewController }),
             currentIndex - 1 > -1 {
             return workspaces[currentIndex - 1]
         }
         return nil
     }
 
-    func pageViewController(
-        _ pageViewController: UIPageViewController,
-        viewControllerAfter viewController: UIViewController) -> UIViewController? {
-        if let currentIndex = workspaces.firstIndex(where: {$0 === viewController}),
+    func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
+        if let currentIndex = workspaces.firstIndex(where: { $0 === viewController }),
         currentIndex + 1 < workspaces.count {
             return workspaces[currentIndex + 1]
         }

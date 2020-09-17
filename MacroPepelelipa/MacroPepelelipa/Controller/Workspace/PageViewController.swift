@@ -48,7 +48,6 @@ internal class WorkspacePageViewController: UIPageViewController {
     }
 
     private func setupPageControl() {
-
         self.pageControl.numberOfPages = workspaceDataSource.workspaces.count
         self.pageControl.currentPage = 0
         self.pageControl.isUserInteractionEnabled = true
@@ -64,7 +63,6 @@ internal class WorkspacePageViewController: UIPageViewController {
     }
 
     @IBAction func pageControlValueChanged(_ sender: UIPageControl) {
-
         guard let current = viewControllers?.first,
             let toBePreviousIndex = workspaceDataSource.indexFor(current) else {
             return
