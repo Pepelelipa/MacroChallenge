@@ -37,7 +37,7 @@ internal class WorkspaceViewController: UIViewController {
     }
 
     private func setupLblName() {
-        lblName.text = "Coleção"
+        lblName.text = "Workspace".localized()
         view.addSubview(lblName)
         lblName.font = .preferredFont(forTextStyle: .title1)
         lblName.textAlignment = .center

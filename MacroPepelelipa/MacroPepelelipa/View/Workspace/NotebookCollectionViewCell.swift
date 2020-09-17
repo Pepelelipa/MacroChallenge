@@ -36,7 +36,7 @@ internal class NotebookCollectionViewCell: UICollectionViewCell {
     }
 
     private func setupLabel() {
-        lblName.text = "Teste"
+        lblName.text = "Notebook".localized()
         lblName.textColor = .black
         lblName.font = .preferredFont(forTextStyle: .body)
         lblName.textAlignment = .center
