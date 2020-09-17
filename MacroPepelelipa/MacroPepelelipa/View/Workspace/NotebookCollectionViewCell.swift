@@ -8,6 +8,7 @@
 
 import UIKit
 
+#warning("Notebook Collection View Cell has no actual information yet.")
 internal class NotebookCollectionViewCell: UICollectionViewCell {
     internal static let cellID = "notebookCell"
     private let lblName = UILabel(frame: .zero)

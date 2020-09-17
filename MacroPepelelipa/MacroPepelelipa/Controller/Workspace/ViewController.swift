@@ -18,12 +18,22 @@ internal class WorkspaceViewController: UIViewController {
         return UICollectionView(frame: .zero, collectionViewLayout: layout)
     }()
     private let dataSource = WorkspaceCollectionViewDataSource()
-    private let flowLayoutDelegate = WorkspaceCollectionViewFlowLayoutDelegate()
+    private lazy var flowLayoutDelegate = WorkspaceCollectionViewFlowLayoutDelegate { (selectedCell) in
+        #warning("Notebook view is a placeholder only.")
+        let test = UIViewController()
+        test.view.backgroundColor = selectedCell.backgroundColor
+        self.navigationController?.pushViewController(test, animated: true)
+        self.navigationController?.isNavigationBarHidden = false
+    }
 
     override func viewDidLoad() {
         view.backgroundColor = .random()
         setupLblName()
         setupCollectionView()
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        self.navigationController?.isNavigationBarHidden = true
     }
 
     private func setupLblName() {
@@ -42,6 +52,8 @@ internal class WorkspaceViewController: UIViewController {
     private func setupCollectionView() {
         collectionView.backgroundColor = view.backgroundColor
         collectionView.showsVerticalScrollIndicator = false
+        collectionView.allowsSelection = true
+        collectionView.allowsMultipleSelection = false
 
         collectionView.delegate = flowLayoutDelegate
         collectionView.dataSource = dataSource

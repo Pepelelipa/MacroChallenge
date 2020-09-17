@@ -9,6 +9,7 @@
 import UIKit
 
 internal class WorkspacePageControllerDataSource: NSObject, UIPageViewControllerDataSource {
+    #warning("Workspace Data Source has no data yet.")
     internal private(set) var workspaces: [WorkspaceViewController] =
         [WorkspaceViewController(), WorkspaceViewController()]
 
