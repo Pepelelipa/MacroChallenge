@@ -1,5 +1,5 @@
 //
-//  SpitViewController.swift
+//  SplitViewController.swift
 //  MacroPepelelipa
 //
 //  Created by Leonardo Oliveira on 17/09/20.
@@ -8,6 +8,7 @@
 
 import UIKit
 
-class SpitViewController: UISplitViewController {
+internal class SplitViewController: UISplitViewController {
+    
     
 }

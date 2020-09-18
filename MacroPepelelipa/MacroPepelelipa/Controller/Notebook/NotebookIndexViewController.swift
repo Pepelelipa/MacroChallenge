@@ -8,11 +8,12 @@
 
 import UIKit
 
-class NotebookIndexViewController: UIViewController {
+internal class NotebookIndexViewController: UIViewController {
     
     private let imgViewNotebook: UIImageView = UIImageView(frame: .zero)
     private var lblSubject: UILabel = UILabel(frame: .zero)
     private let tableView: UITableView = UITableView(frame: .zero)
+    private let dataSource = NotebookIndexTableViewDataSource()
     
     override func viewDidLoad() {
         setupImgViewNotebook()
@@ -54,7 +55,11 @@ class NotebookIndexViewController: UIViewController {
     
     private func setupTableView() {
         
+        tableView.dataSource = dataSource
+        tableView.register(NotebookIndexTableViewCell.self, forCellReuseIdentifier: NotebookIndexTableViewCell.cellID)
+        
         tableView.backgroundColor = .random()
+        
         tableView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(tableView)
         
