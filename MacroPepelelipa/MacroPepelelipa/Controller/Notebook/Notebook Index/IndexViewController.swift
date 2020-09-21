@@ -14,11 +14,42 @@ internal class NotebookIndexViewController: UIViewController {
     private var lblSubject: UILabel = UILabel(frame: .zero)
     private let tableView: UITableView = UITableView(frame: .zero)
     private let dataSource = NotebookIndexTableViewDataSource()
-    
+    public weak var delegate: NotebookIndexDelegate?
+
+    private lazy var btnBack: UIButton = {
+        let btn = UIButton(frame: .zero)
+        btn.setImage(UIImage(systemName: "chevron.left"), for: .normal)
+        btn.addTarget(self, action: #selector(btnBackTap(_:)), for: .touchUpInside)
+
+        return btn
+    }()
+
+    @IBAction func btnBackTap(_ sender: UIButton) {
+        delegate?.indexShouldDismiss()
+    }
+
     override func viewDidLoad() {
+        setupBackButton()
         setupImgViewNotebook()
         setupLblSubject()
         setupTableView()
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        delegate?.indexWillAppear()
+    }
+    override func viewWillDisappear(_ animated: Bool) {
+        delegate?.indexWillDisappear()
+    }
+
+    private func setupBackButton() {
+        btnBack.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(btnBack)
+
+        NSLayoutConstraint.activate([
+            btnBack.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
+            btnBack.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20)
+        ])
     }
     
     private func setupImgViewNotebook() {
