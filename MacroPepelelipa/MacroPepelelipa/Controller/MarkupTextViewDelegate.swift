@@ -16,9 +16,13 @@ internal class MarkupTextViewDelegate: NSObject, UITextViewDelegate {
 
     override init() {
         markdownParser = MarkdownParser()
-        text = ""
+        text = "#Título\nTexto"
     }
-        
+    
+    public func parsePlaceholder(on textView: UITextView) {
+        parseString(markdownString: text)
+    }
+    
     private func parseString(markdownString: String) {
         markdownAttributesChanged?(markdownParser.parse(markdownString), nil)
     }

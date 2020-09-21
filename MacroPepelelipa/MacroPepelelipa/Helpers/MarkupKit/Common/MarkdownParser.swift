@@ -105,7 +105,7 @@ open class MarkdownParser {
         italic = MarkdownItalic(font: font)
         code = MarkdownCode(font: font)
         strikethrough = MarkdownStrikethrough(font: font)
-        highlight = MarkdownHighlight(font: font, color: MarkdownColor(cgColor: UIColor.systemPink.cgColor))
+        highlight = MarkdownHighlight(font: font, color: MarkdownColor(cgColor: UIColor.white.cgColor))
         
         self.escapingElements = [codeEscaping, escaping]
         self.unescapingElements = [code, unescaping]
@@ -139,6 +139,7 @@ open class MarkdownParser {
                                       range: NSRange(location: 0, length: attributedString.length))
         attributedString.addAttribute(.foregroundColor, value: color,
                                       range: NSRange(location: 0, length: attributedString.length))
+        
         var elements: [MarkdownElement] = escapingElements
         elements.append(contentsOf: defaultElements)
         elements.append(contentsOf: customElements)

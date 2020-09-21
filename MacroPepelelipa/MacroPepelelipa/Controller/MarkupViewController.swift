@@ -46,6 +46,7 @@ internal class MarkupViewController: UIViewController {
             self?.textView.attributedText = attributedText
         }
         self.view.addSubview(textView)
+        self.textViewDelegate?.parsePlaceholder(on: self.textView)
     }
 
 }
