@@ -30,14 +30,15 @@ open class MarkdownLink: MarkdownLinkElement {
     self.color = color
   }
   
-  
   open func formatText(_ attributedString: NSMutableAttributedString, range: NSRange,
-                         link: String) {
+                       link: String) {
     guard let encodedLink = link.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlHostAllowed)
       else {
       return
     }
-    guard let url = URL(string: link) ?? URL(string: encodedLink) else { return }
+    guard let url = URL(string: link) ?? URL(string: encodedLink) else {
+        return
+    }
     attributedString.addAttribute(NSAttributedString.Key.link, value: url, range: range)
   }
   
@@ -78,7 +79,7 @@ open class MarkdownLink: MarkdownLinkElement {
   }
   
   open func addAttributes(_ attributedString: NSMutableAttributedString, range: NSRange,
-                            link: String) {
+                          link: String) {
     attributedString.addAttributes(attributes, range: range)
   }
 }

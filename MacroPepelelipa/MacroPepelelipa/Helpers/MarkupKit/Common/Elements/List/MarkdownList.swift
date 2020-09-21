@@ -39,7 +39,7 @@ open class MarkdownList: MarkdownLevelElement {
       let offset = levelIndicatorOffsetList[level] else { return }
     let indicator = "\(offset)\(indicatorIcon)"
     attributedString.replaceCharacters(in: range, with: indicator)
-    attributedString.addAttributes([.paragraphStyle : defaultParagraphStyle()], range: range)
+    attributedString.addAttributes([.paragraphStyle: defaultParagraphStyle()], range: range)
   }
 
   private func defaultParagraphStyle() -> NSMutableParagraphStyle {

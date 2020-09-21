@@ -14,7 +14,7 @@ open class MarkdownAutomaticLink: MarkdownLink {
   }
   
   open override func match(_ match: NSTextCheckingResult,
-                             attributedString: NSMutableAttributedString) {
+                           attributedString: NSMutableAttributedString) {
     let linkURLString = attributedString.attributedSubstring(from: match.range).string
     formatText(attributedString, range: match.range, link: linkURLString)
     addAttributes(attributedString, range: match.range, link: linkURLString)

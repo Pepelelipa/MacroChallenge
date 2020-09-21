@@ -13,7 +13,7 @@ open class MarkdownStrikethrough: MarkdownCommonElement {
   
   open var font: MarkdownFont?
   open var color: MarkdownColor?
-  public var attributes: [NSAttributedString.Key : AnyObject] = [ .strikethroughStyle: NSNumber.init(value: NSUnderlineStyle.single.rawValue) ]
+  public var attributes: [NSAttributedString.Key: AnyObject] = [ .strikethroughStyle: NSNumber.init(value: NSUnderlineStyle.single.rawValue) ]
   
   open var regex: String {
     return MarkdownStrikethrough.regex

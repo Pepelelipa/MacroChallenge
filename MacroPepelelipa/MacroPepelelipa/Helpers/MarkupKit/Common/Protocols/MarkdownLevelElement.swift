@@ -21,7 +21,6 @@ public protocol MarkdownLevelElement: MarkdownElement, MarkdownStyle {
 
 public extension MarkdownLevelElement {
   
-  
   func regularExpression() throws -> NSRegularExpression {
     return try NSRegularExpression(pattern: regex, options: .anchorsMatchLines)
   }

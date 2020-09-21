@@ -32,7 +32,9 @@ open class MarkdownCode: MarkdownCommonElement {
 
   open func addAttributes(_ attributedString: NSMutableAttributedString, range: NSRange) {
     let matchString: String = attributedString.attributedSubstring(from: range).string
-    guard let unescapedString = matchString.unescapeUTF16() else { return }
+    guard let unescapedString = matchString.unescapeUTF16() else {
+        return
+    }
     attributedString.replaceCharacters(in: range, with: unescapedString)
     
     var codeAttributes = attributes

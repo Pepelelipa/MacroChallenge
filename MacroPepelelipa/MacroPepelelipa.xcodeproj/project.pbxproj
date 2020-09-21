@@ -40,6 +40,7 @@
 		E4E385C025192656001F0A95 /* MarkdownLevelElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4E3859B25192656001F0A95 /* MarkdownLevelElement.swift */; };
 		E4E385C125192656001F0A95 /* MarkdownElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4E3859C25192656001F0A95 /* MarkdownElement.swift */; };
 		E4E385C225192656001F0A95 /* MarkdownStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4E3859D25192656001F0A95 /* MarkdownStyle.swift */; };
+		E4E385D92519332E001F0A95 /* MarkdownHighlight.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4E385D82519332E001F0A95 /* MarkdownHighlight.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -50,14 +51,9 @@
 		02DD0A0425114D6700B6696B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		02DD0A0725114D6700B6696B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		02DD0A0925114D6700B6696B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		E414C06F2513D801009F3A7B /* MarkupTextViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MarkupTextViewDelegate.swift; path = MacroPepelelipa/MarkupTextViewDelegate.swift; sourceTree = SOURCE_ROOT; };
-		E414C0722513D898009F3A7B /* MarkupNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarkupNode.swift; sourceTree = "<group>"; };
-		E414C0732513D898009F3A7B /* MarkupRenderer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarkupRenderer.swift; sourceTree = "<group>"; };
-		E414C0742513D898009F3A7B /* MarkupTokenizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarkupTokenizer.swift; sourceTree = "<group>"; };
-		E414C0752513D898009F3A7B /* MarkupParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarkupParser.swift; sourceTree = "<group>"; };
-		E414C0762513D898009F3A7B /* MarkupToken.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarkupToken.swift; sourceTree = "<group>"; };
+		E414C06F2513D801009F3A7B /* MarkupTextViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MarkupTextViewDelegate.swift; path = MacroPepelelipa/Controller/MarkupTextViewDelegate.swift; sourceTree = SOURCE_ROOT; };
 		E414C07C2513D936009F3A7B /* MarkupTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarkupTextView.swift; sourceTree = "<group>"; };
-		E414C07E2513D998009F3A7B /* MarkupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MarkupViewController.swift; path = MacroPepelelipa/View/MarkupViewController.swift; sourceTree = SOURCE_ROOT; };
+		E414C07E2513D998009F3A7B /* MarkupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MarkupViewController.swift; path = MacroPepelelipa/Controller/MarkupViewController.swift; sourceTree = SOURCE_ROOT; };
 		E4E3857425192656001F0A95 /* UIFont+Traits.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIFont+Traits.swift"; sourceTree = "<group>"; };
 		E4E3857525192656001F0A95 /* Typealias+UIKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Typealias+UIKit.swift"; sourceTree = "<group>"; };
 		E4E3857825192656001F0A95 /* MarkdownCode+UIKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MarkdownCode+UIKit.swift"; sourceTree = "<group>"; };
@@ -83,6 +79,7 @@
 		E4E3859B25192656001F0A95 /* MarkdownLevelElement.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarkdownLevelElement.swift; sourceTree = "<group>"; };
 		E4E3859C25192656001F0A95 /* MarkdownElement.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarkdownElement.swift; sourceTree = "<group>"; };
 		E4E3859D25192656001F0A95 /* MarkdownStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarkdownStyle.swift; sourceTree = "<group>"; };
+		E4E385D82519332E001F0A95 /* MarkdownHighlight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkdownHighlight.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,7 +114,7 @@
 			children = (
 				E414C0712513D877009F3A7B /* Helpers */,
 				02DD0A1225114EA200B6696B /* Controller */,
-				02DD0A1125114E9D00B6696B /* Model */,
+				E4E385D525193062001F0A95 /* Model */,
 				02DD0A1025114E9800B6696B /* View */,
 				02DD09FB25114D6200B6696B /* AppDelegate.swift */,
 				02DD09FD25114D6200B6696B /* SceneDelegate.swift */,
@@ -137,13 +134,6 @@
 			path = View;
 			sourceTree = "<group>";
 		};
-		02DD0A1125114E9D00B6696B /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
 		02DD0A1225114EA200B6696B /* Controller */ = {
 			isa = PBXGroup;
 			children = (
@@ -156,23 +146,18 @@
 		E414C0712513D877009F3A7B /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
-				E414C0722513D898009F3A7B /* MarkupNode.swift */,
-				E414C0752513D898009F3A7B /* MarkupParser.swift */,
-				E414C0732513D898009F3A7B /* MarkupRenderer.swift */,
-				E414C0762513D898009F3A7B /* MarkupToken.swift */,
-				E414C0742513D898009F3A7B /* MarkupTokenizer.swift */,
-				E4E3857125192656001F0A95 /* Sources */,
+				E4E3857125192656001F0A95 /* MarkupKit */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
 		};
-		E4E3857125192656001F0A95 /* Sources */ = {
+		E4E3857125192656001F0A95 /* MarkupKit */ = {
 			isa = PBXGroup;
 			children = (
 				E4E3857225192656001F0A95 /* UIKit */,
 				E4E3857E25192656001F0A95 /* Common */,
 			);
-			path = Sources;
+			path = MarkupKit;
 			sourceTree = "<group>";
 		};
 		E4E3857225192656001F0A95 /* UIKit */ = {
@@ -250,6 +235,7 @@
 		E4E3858225192656001F0A95 /* Elements */ = {
 			isa = PBXGroup;
 			children = (
+				E4E385D72519330B001F0A95 /* Highlight */,
 				E4E3858325192656001F0A95 /* Escaping */,
 				E4E3858725192656001F0A95 /* Quote */,
 				E4E3858925192656001F0A95 /* Code */,
@@ -350,6 +336,21 @@
 			path = Protocols;
 			sourceTree = "<group>";
 		};
+		E4E385D525193062001F0A95 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		E4E385D72519330B001F0A95 /* Highlight */ = {
+			isa = PBXGroup;
+			children = (
+				E4E385D82519332E001F0A95 /* MarkdownHighlight.swift */,
+			);
+			path = Highlight;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -447,6 +448,7 @@
 				E4E385B325192656001F0A95 /* MarkdownEscaping.swift in Sources */,
 				E4E385BF25192656001F0A95 /* MarkdownLinkElement.swift in Sources */,
 				E4E385C225192656001F0A95 /* MarkdownStyle.swift in Sources */,
+				E4E385D92519332E001F0A95 /* MarkdownHighlight.swift in Sources */,
 				E4E385B825192656001F0A95 /* MarkdownAutomaticLink.swift in Sources */,
 				E4E385B125192656001F0A95 /* String+UTF16.swift in Sources */,
 				E4E385B425192656001F0A95 /* MarkdownUnescaping.swift in Sources */,
