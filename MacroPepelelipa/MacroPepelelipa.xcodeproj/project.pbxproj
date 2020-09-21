@@ -15,6 +15,7 @@
 		E414C0702513D801009F3A7B /* MarkupTextViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E414C06F2513D801009F3A7B /* MarkupTextViewDelegate.swift */; };
 		E414C07D2513D936009F3A7B /* MarkupTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E414C07C2513D936009F3A7B /* MarkupTextView.swift */; };
 		E414C07F2513D998009F3A7B /* MarkupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E414C07E2513D998009F3A7B /* MarkupViewController.swift */; };
+		E4939FD62519499600CD4F6E /* MarkdownColoredBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4939FD52519499600CD4F6E /* MarkdownColoredBackground.swift */; };
 		E4E385AA25192656001F0A95 /* UIFont+Traits.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4E3857425192656001F0A95 /* UIFont+Traits.swift */; };
 		E4E385AB25192656001F0A95 /* Typealias+UIKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4E3857525192656001F0A95 /* Typealias+UIKit.swift */; };
 		E4E385AC25192656001F0A95 /* MarkdownCode+UIKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4E3857825192656001F0A95 /* MarkdownCode+UIKit.swift */; };
@@ -54,6 +55,7 @@
 		E414C06F2513D801009F3A7B /* MarkupTextViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MarkupTextViewDelegate.swift; path = MacroPepelelipa/Controller/MarkupTextViewDelegate.swift; sourceTree = SOURCE_ROOT; };
 		E414C07C2513D936009F3A7B /* MarkupTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarkupTextView.swift; sourceTree = "<group>"; };
 		E414C07E2513D998009F3A7B /* MarkupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MarkupViewController.swift; path = MacroPepelelipa/Controller/MarkupViewController.swift; sourceTree = SOURCE_ROOT; };
+		E4939FD52519499600CD4F6E /* MarkdownColoredBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkdownColoredBackground.swift; sourceTree = "<group>"; };
 		E4E3857425192656001F0A95 /* UIFont+Traits.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIFont+Traits.swift"; sourceTree = "<group>"; };
 		E4E3857525192656001F0A95 /* Typealias+UIKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Typealias+UIKit.swift"; sourceTree = "<group>"; };
 		E4E3857825192656001F0A95 /* MarkdownCode+UIKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MarkdownCode+UIKit.swift"; sourceTree = "<group>"; };
@@ -151,6 +153,16 @@
 			path = Helpers;
 			sourceTree = "<group>";
 		};
+		E4939FD42519497000CD4F6E /* ColoredBackground */ = {
+			isa = PBXGroup;
+			children = (
+				E4939FD52519499600CD4F6E /* MarkdownColoredBackground.swift */,
+				E4E3858925192656001F0A95 /* Code */,
+				E4E385D72519330B001F0A95 /* Highlight */,
+			);
+			path = ColoredBackground;
+			sourceTree = "<group>";
+		};
 		E4E3857125192656001F0A95 /* MarkupKit */ = {
 			isa = PBXGroup;
 			children = (
@@ -235,10 +247,9 @@
 		E4E3858225192656001F0A95 /* Elements */ = {
 			isa = PBXGroup;
 			children = (
-				E4E385D72519330B001F0A95 /* Highlight */,
+				E4939FD42519497000CD4F6E /* ColoredBackground */,
 				E4E3858325192656001F0A95 /* Escaping */,
 				E4E3858725192656001F0A95 /* Quote */,
-				E4E3858925192656001F0A95 /* Code */,
 				E4E3858B25192656001F0A95 /* Italic */,
 				E4E3858D25192656001F0A95 /* Link */,
 				E4E3859025192656001F0A95 /* List */,
@@ -448,6 +459,7 @@
 				E4E385B325192656001F0A95 /* MarkdownEscaping.swift in Sources */,
 				E4E385BF25192656001F0A95 /* MarkdownLinkElement.swift in Sources */,
 				E4E385C225192656001F0A95 /* MarkdownStyle.swift in Sources */,
+				E4939FD62519499600CD4F6E /* MarkdownColoredBackground.swift in Sources */,
 				E4E385D92519332E001F0A95 /* MarkdownHighlight.swift in Sources */,
 				E4E385B825192656001F0A95 /* MarkdownAutomaticLink.swift in Sources */,
 				E4E385B125192656001F0A95 /* String+UTF16.swift in Sources */,

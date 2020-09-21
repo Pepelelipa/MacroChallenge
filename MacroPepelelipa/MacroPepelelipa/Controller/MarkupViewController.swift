@@ -10,15 +10,23 @@ import UIKit
 
 internal class MarkupViewController: UIViewController {
     
+    private lazy var textView: MarkupTextView = {
+        return MarkupTextView(
+            frame: .zero,
+            delegate: self.textViewDelegate ?? MarkupTextViewDelegate()
+        )
+    }()
+    
+    var imageView: UIImageView!
+    
     private var textViewDelegate: MarkupTextViewDelegate?
-    private lazy var textView: MarkupTextView = MarkupTextView(
-        frame: .zero,
-        delegate: self.textViewDelegate ?? MarkupTextViewDelegate()
-    )
 
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpTextView()
+        
+        imageView = UIImageView(image: UIImage(systemName: "ant.fill"))
+        textView.addSubview(imageView)
     }
     
     override func viewDidLayoutSubviews() {
@@ -28,6 +36,11 @@ internal class MarkupViewController: UIViewController {
             textView.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
             textView.widthAnchor.constraint(equalTo: view.safeAreaLayoutGuide.widthAnchor)
         ])
+        
+        imageView.frame = CGRect(x: 0, y: 50, width: 100, height: 100)
+        
+        let exclusionPath = UIBezierPath(rect: imageView.frame)
+        textView.textContainer.exclusionPaths = [exclusionPath]
     }
     
     private func setUpTextView() {

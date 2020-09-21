@@ -78,6 +78,7 @@ open class MarkdownParser {
     
     public let font: MarkdownFont
     public let color: MarkdownColor
+    public let backgroundColor: MarkdownColor
     
     // MARK: Legacy Initializer
     @available(*, deprecated, renamed: "init", message: "This constructor will be removed soon, please use the new opions constructor")
@@ -95,6 +96,7 @@ open class MarkdownParser {
                 customElements: [MarkdownElement] = []) {
         self.font = font
         self.color = color
+        self.backgroundColor = UIColor.clear
         
         header = MarkdownHeader(font: font)
         list = MarkdownList(font: font)
@@ -105,7 +107,7 @@ open class MarkdownParser {
         italic = MarkdownItalic(font: font)
         code = MarkdownCode(font: font)
         strikethrough = MarkdownStrikethrough(font: font)
-        highlight = MarkdownHighlight(font: font, color: MarkdownColor(cgColor: UIColor.white.cgColor))
+        highlight = MarkdownHighlight(font: font, textHighlightColor: UIColor.black, textBackgroundColor: UIColor.yellow)
         
         self.escapingElements = [codeEscaping, escaping]
         self.unescapingElements = [code, unescaping]
@@ -138,6 +140,8 @@ open class MarkdownParser {
         attributedString.addAttribute(.font, value: font,
                                       range: NSRange(location: 0, length: attributedString.length))
         attributedString.addAttribute(.foregroundColor, value: color,
+                                      range: NSRange(location: 0, length: attributedString.length))
+        attributedString.addAttribute(.backgroundColor, value: backgroundColor,
                                       range: NSRange(location: 0, length: attributedString.length))
         
         var elements: [MarkdownElement] = escapingElements
