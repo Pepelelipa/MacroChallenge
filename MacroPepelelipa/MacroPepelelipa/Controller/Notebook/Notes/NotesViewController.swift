@@ -52,7 +52,11 @@ public class NotesViewController: UIViewController {
         if dev == .pad {
             splitViewController?.preferredDisplayMode = .primaryOverlay
         } else {
-            self.navigationController?.popViewController(animated: true)
+            if UIDevice.current.orientation.isLandscape {
+                splitViewController?.preferredDisplayMode = .primaryOverlay
+            } else {
+                self.navigationController?.popViewController(animated: true)
+            }
         }
     }
 }
