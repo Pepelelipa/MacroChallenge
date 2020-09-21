@@ -56,9 +56,10 @@ internal class NotebookIndexViewController: UIViewController {
     private func setupTableView() {
         
         tableView.dataSource = dataSource
+        tableView.tableFooterView = UIView()
         tableView.register(NotebookIndexTableViewCell.self, forCellReuseIdentifier: NotebookIndexTableViewCell.cellID)
         
-        tableView.backgroundColor = .random()
+        tableView.backgroundColor = view.backgroundColor
         
         tableView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(tableView)
