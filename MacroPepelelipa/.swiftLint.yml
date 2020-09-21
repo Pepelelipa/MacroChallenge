@@ -13,6 +13,14 @@ opt_in_rules:
  - force_unwrapping
  - implicitly_unwrapped_optional
 
+#custom rules
+custom_rules:
+  no_prints: # rule identifier
+    included: ".*\\.swift" # regex that defines paths to include during linting. optional.
+    name: "No prints in commits" # rule name. optional.
+    regex: "([p,P]rint)" # matching pattern
+    capture_group: 0 # number of regex capture group to highlight the rule violation at. optional.
+    message: "Please remove before commit" # violation message. optional.
 
 # special configuration for rules 
 colon:
