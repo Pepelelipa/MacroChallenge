@@ -13,14 +13,20 @@ internal class MarkupTextViewDelegate: NSObject, UITextViewDelegate {
     private let markdownParser: MarkdownParser
     public var markdownAttributesChanged: ((NSAttributedString?, Error?) -> Void)?
     private var text: String
+    private var placeholder: String
+    private var isShowingPlaceholder: Bool
 
     override init() {
         markdownParser = MarkdownParser()
-        text = "#Título\nTexto"
+        isShowingPlaceholder = false
+        placeholder = "#Comece aqui a sua nota" // TODO: inserir no arquivo .strings
+        text = ""
     }
     
     public func parsePlaceholder(on textView: UITextView) {
-        parseString(markdownString: text)
+        parseString(markdownString: placeholder)
+        isShowingPlaceholder = true
+        textView.textColor = UIColor(named: "Disabled")
     }
     
     private func parseString(markdownString: String) {
@@ -41,6 +47,15 @@ internal class MarkupTextViewDelegate: NSObject, UITextViewDelegate {
             self.text.removeLast()
         } else {
             self.text.append(text)
+        }
+        return true
+    }
+    
+    func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
+        if isShowingPlaceholder {
+            text = "# "
+            parseString(markdownString: text)
+            isShowingPlaceholder = false
         }
         return true
     }
