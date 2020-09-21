@@ -19,11 +19,16 @@ internal class WorkspaceViewController: UIViewController {
     }()
     private let dataSource = WorkspaceCollectionViewDataSource()
     private lazy var flowLayoutDelegate = WorkspaceCollectionViewFlowLayoutDelegate { (selectedCell) in
-        #warning("Notebook view is a placeholder only.")
-        let test = UIViewController()
-        test.view.backgroundColor = selectedCell.backgroundColor
-        self.navigationController?.pushViewController(test, animated: true)
-        self.navigationController?.isNavigationBarHidden = false
+        let split = SplitViewController()
+
+        #warning("Fade animation as placeholder for Books animation.")
+        let transition = CATransition()
+        transition.duration = 0.4
+        transition.type = CATransitionType.fade
+        transition.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
+        self.view.window?.layer.add(transition, forKey: kCATransition)
+        
+        self.present(split, animated: false)
     }
 
     override func viewDidLoad() {
@@ -69,9 +74,9 @@ internal class WorkspaceViewController: UIViewController {
         NSLayoutConstraint.activate([
             collectionView.topAnchor.constraint(equalTo: lblName.topAnchor, constant: 50),
             collectionView.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
-            collectionView.widthAnchor.constraint(equalTo: view.safeAreaLayoutGuide.widthAnchor, constant: -40),
-            collectionView.heightAnchor.constraint(equalToConstant: 500)
+            collectionView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
+            collectionView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
+            collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -40)
         ])
-
     }
 }
