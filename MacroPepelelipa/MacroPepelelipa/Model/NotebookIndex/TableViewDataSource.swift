@@ -9,17 +9,16 @@
 import UIKit
 
 internal class NotebookIndexTableViewDataSource: NSObject, UITableViewDataSource {
-    
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 5
     }
-    
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
         guard let cell = tableView.dequeueReusableCell(
                 withIdentifier: NotebookIndexTableViewCell.cellID, for: indexPath)
             as? NotebookIndexTableViewCell else {
-                fatalError("Error with reusable table-view cell object for the specified reuse identifier")
+            return UITableViewCell()
         }
 
         return cell
