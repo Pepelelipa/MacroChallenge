@@ -13,7 +13,7 @@ internal class MarkupViewController: UIViewController {
     private var textViewDelegate: MarkupTextViewDelegate?
     private lazy var textView: MarkupTextView = MarkupTextView(
         frame: .zero,
-        delegate: self.textViewDelegate ?? MarkupTextViewDelegate(renderer: MarkupRenderer(baseFont: .systemFont(ofSize: 16)))
+        delegate: self.textViewDelegate ?? MarkupTextViewDelegate()
     )
 
     override func viewDidLoad() {
@@ -31,8 +31,20 @@ internal class MarkupViewController: UIViewController {
     }
     
     private func setUpTextView() {
-        textViewDelegate = MarkupTextViewDelegate(renderer: MarkupRenderer(baseFont: .systemFont(ofSize: 16)))
-        
+        textViewDelegate = MarkupTextViewDelegate()
+        textViewDelegate?.markdownAttributesChanged = { [weak self](attributtedString, error) in
+            if let error = error {
+                NSLog("Error requesting -> \(error)")
+                return
+            }
+          
+            guard let attributedText = attributtedString else {
+                NSLog("No error nor string found")
+                return
+            }
+          
+            self?.textView.attributedText = attributedText
+        }
         self.view.addSubview(textView)
     }
 

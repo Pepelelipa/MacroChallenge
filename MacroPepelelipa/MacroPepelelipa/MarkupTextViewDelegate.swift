@@ -10,20 +10,21 @@ import UIKit
 
 internal class MarkupTextViewDelegate: NSObject, UITextViewDelegate {
     
-    private var renderer: MarkupRenderer
+    private let markdownParser: MarkdownParser
+    public var markdownAttributesChanged: ((NSAttributedString?, Error?) -> Void)?
     private var text: String
-    
-    init(renderer: MarkupRenderer) {
-        self.renderer = MarkupRenderer(baseFont: .systemFont(ofSize: 16))
-        self.text = ""
+
+    override init() {
+        markdownParser = MarkdownParser()
+        text = ""
     }
-    
-    private func render(on textView: UITextView) {
-        textView.attributedText = renderer.render(text: text)
+        
+    private func parseString(markdownString: String) {
+        markdownAttributesChanged?(markdownParser.parse(markdownString), nil)
     }
     
     func textViewDidChange(_ textView: UITextView) {
-        render(on: textView)
+        parseString(markdownString: text)
     }
     
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
@@ -32,7 +33,7 @@ internal class MarkupTextViewDelegate: NSObject, UITextViewDelegate {
         }
         
         let isBackSpace = strcmp(char, "\\b")
-        if isBackSpace == -92 {
+        if isBackSpace == -92 && !self.text.isEmpty {
             self.text.removeLast()
         } else {
             self.text.append(text)
