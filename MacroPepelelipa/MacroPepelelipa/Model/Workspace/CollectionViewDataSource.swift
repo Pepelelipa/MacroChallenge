@@ -9,6 +9,7 @@
 import UIKit
 
 internal class WorkspaceCollectionViewDataSource: NSObject, UICollectionViewDataSource {
+    #warning("No actual data being fed to the source.")
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 10
     }

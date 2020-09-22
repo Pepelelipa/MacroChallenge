@@ -12,6 +12,7 @@ internal class WorkspacePageControllerDelegate: NSObject, UIPageViewControllerDe
 
     private var willChangeTo: ((UIViewController?) -> Void)?
 
+    /// - Parameter willChangeTo: function executed when PageViewController will change to a new view controller
     init(_ willChangeTo: @escaping (UIViewController?) -> Void) {
         self.willChangeTo = willChangeTo
     }

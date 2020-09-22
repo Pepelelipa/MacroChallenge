@@ -9,6 +9,7 @@
 #if DEBUG
 import UIKit
 public extension UIColor {
+    ///Generates a random UIColor
     static func random() -> UIColor {
     return UIColor(
     red: .random(in: 0.4...1),
