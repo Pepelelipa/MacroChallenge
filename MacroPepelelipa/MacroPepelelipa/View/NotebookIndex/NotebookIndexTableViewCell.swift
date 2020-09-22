@@ -12,8 +12,15 @@ import UIKit
 internal class NotebookIndexTableViewCell: UITableViewCell {
 
     internal static let cellID = "notebookIndexCell"
-    private let lessonLbl: UILabel = UILabel(frame: .zero)
+    private let lessonLbl: UILabel = {
+        let lbl = UILabel(frame: .zero)
+        lbl.text = "Lesson".localized()
+        lbl.translatesAutoresizingMaskIntoConstraints = false
 
+        return lbl
+    }()
+
+    ///Title of the lesson
     internal var lessonTitle: String? {
         get {
             return lessonLbl.text
@@ -26,7 +33,8 @@ internal class NotebookIndexTableViewCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         contentView.backgroundColor = .random()
-        setupLabel()
+        contentView.addSubview(lessonLbl)
+        setupConstraints()
     }
 
     required convenience init?(coder: NSCoder) {
@@ -37,11 +45,7 @@ internal class NotebookIndexTableViewCell: UITableViewCell {
         self.init(style: style, reuseIdentifier: reuseIdentifier)
     }
 
-    private func setupLabel() {
-        lessonTitle = "Lesson".localized()
-        lessonLbl.translatesAutoresizingMaskIntoConstraints = false
-        contentView.addSubview(lessonLbl)
-
+    private func setupConstraints() {
         NSLayoutConstraint.activate([
             lessonLbl.topAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.topAnchor),
             lessonLbl.leadingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.leadingAnchor, constant: 10),

@@ -14,6 +14,7 @@ public class NotesViewController: UIViewController {
         let btn = UIButton(frame: .zero)
         btn.setImage(UIImage(systemName: "chevron.left"), for: .normal)
         btn.addTarget(self, action: #selector(btnBackTap(_:)), for: .touchUpInside)
+        btn.translatesAutoresizingMaskIntoConstraints = false
 
         return btn
     }()
@@ -28,7 +29,7 @@ public class NotesViewController: UIViewController {
     }
 
     public override func viewDidLoad() {
-        setupBackButton()
+        view.addSubview(btnBack)
         let dev = UIDevice.current.userInterfaceIdiom
         if dev == .phone {
             btnBack.isHidden = UIDevice.current.orientation.isLandscape
@@ -37,16 +38,14 @@ public class NotesViewController: UIViewController {
         }
     }
 
-    private func setupBackButton() {
-        btnBack.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(btnBack)
-
+    public override func viewDidLayoutSubviews() {
         NSLayoutConstraint.activate([
             btnBack.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
             btnBack.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20)
         ])
     }
 
+    ///Go back to the previous step(opens the notebook index) according to the device and orientation
     @IBAction func btnBackTap(_ sender: UIButton) {
         let dev = UIDevice.current.userInterfaceIdiom
         if dev == .pad {
