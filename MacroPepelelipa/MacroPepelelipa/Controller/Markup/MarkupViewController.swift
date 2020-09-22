@@ -10,6 +10,18 @@ import UIKit
 
 internal class MarkupViewController: UIViewController {
     
+    private var boldButton: UIBarButtonItem = {
+        let barButtonItem = UIBarButtonItem(title: "bold", style: .plain, target: self, action: #selector(pressBoldButton))
+        return barButtonItem
+    }()
+    
+    private lazy var keyboardToolbar: UIToolbar = {
+        let toolBar = UIToolbar()
+        toolBar.sizeToFit()
+        toolBar.items = [boldButton]
+        return toolBar
+    }()
+    
     private lazy var textView: MarkupTextView = {
         return MarkupTextView(
             frame: .zero,
@@ -27,6 +39,8 @@ internal class MarkupViewController: UIViewController {
         
         imageView = UIImageView(image: UIImage(systemName: "ant.fill"))
         textView.addSubview(imageView)
+        
+        textView.inputAccessoryView = keyboardToolbar
     }
     
     override func viewDidLayoutSubviews() {
@@ -60,6 +74,23 @@ internal class MarkupViewController: UIViewController {
         }
         self.view.addSubview(textView)
         self.textViewDelegate?.parsePlaceholder(on: self.textView)
+    }
+    
+    /**
+    In this funcion, we deal with the toolbar button for bold text, adding bold manually.
+    */
+    @objc func pressBoldButton() {
+        let attributedString = NSMutableAttributedString(attributedString: textView.attributedText)
+        
+        let boldFont = UIFont.boldSystemFont(ofSize: UIFont.systemFontSize)
+        
+        let range = textView.selectedRange
+        
+        let attribute = [NSAttributedString.Key.font: boldFont]
+            
+        attributedString.addAttributes(attribute, range: range)
+        
+        textView.attributedText = attributedString
     }
 
 }

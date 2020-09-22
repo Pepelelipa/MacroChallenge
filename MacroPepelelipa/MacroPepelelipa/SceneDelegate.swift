@@ -18,7 +18,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         }
         let navController = UINavigationController()
         navController.isNavigationBarHidden = true
-        navController.viewControllers = [WorkspacePageViewController()]
+        navController.viewControllers = [MarkupViewController()]
         window = UIWindow(windowScene: scene)
         window?.rootViewController = navController
         window?.makeKeyAndVisible()
