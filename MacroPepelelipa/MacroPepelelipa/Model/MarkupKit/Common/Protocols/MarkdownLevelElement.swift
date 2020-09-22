@@ -38,6 +38,13 @@ public extension MarkdownLevelElement {
     addAttributes(attributedString, range: match.range(at: 2), level: level)
     let range = NSRange(location: match.range(at: 1).location,
                         length: match.range(at: 2).location - match.range(at: 1).location)
-    formatText(attributedString, range: range, level: level)
+    
+    if self is MarkdownHeader {
+        if attributedString.string.last == "\n" {
+            formatText(attributedString, range: range, level: level)
+        }
+    } else {
+        formatText(attributedString, range: range, level: level)
+    }
   }
 }

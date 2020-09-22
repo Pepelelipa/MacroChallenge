@@ -25,6 +25,7 @@ internal class MarkupTextViewDelegate: NSObject, UITextViewDelegate {
     }
     
     public func parsePlaceholder(on textView: UITextView) {
+        textView.font = markdownParser.font
         parseString(markdownString: placeholder)
         isShowingPlaceholder = true
 //        textView.textColor = UIColor(named: "Disabled")

@@ -139,6 +139,17 @@ open class MarkdownParser {
     open func parse(_ markdown: NSAttributedString, range: NSRange) -> NSAttributedString {
         let attributedString = NSMutableAttributedString(attributedString: markdown)
 
+//        attributedString.enumerateAttributes(
+//            in: NSRange(location: 0, length: attributedString.length),
+//            options: []) { (attributes, attributesRange, _) in
+//
+//            if let key = attributes.index(forKey: .font),
+//               let value = attributes[key].value as? NSObject,
+//               value == font {
+//                attributedString.addAttribute(.font, value: font, range: attributesRange)
+//            }
+//        }
+        
         attributedString.addAttribute(.font, value: font,
                                       range: NSRange(location: range.location, length: range.length + 1))
         attributedString.addAttribute(.foregroundColor, value: color,
