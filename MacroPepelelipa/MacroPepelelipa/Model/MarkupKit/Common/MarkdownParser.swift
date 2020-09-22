@@ -133,29 +133,20 @@ open class MarkdownParser {
     // MARK: Parsing
     open func parse(_ markdown: String) -> NSAttributedString {
         let string = NSAttributedString(string: markdown)
-        return parse(NSAttributedString(string: markdown), range: NSRange(location: 0, length: string.length))
+        return parse(NSAttributedString(string: markdown), range: NSRange(location: 0, length: string.length), isBackspace: false)
     }
     
-    open func parse(_ markdown: NSAttributedString, range: NSRange) -> NSAttributedString {
+    open func parse(_ markdown: NSAttributedString, range: NSRange, isBackspace: Bool) -> NSAttributedString {
         let attributedString = NSMutableAttributedString(attributedString: markdown)
-
-//        attributedString.enumerateAttributes(
-//            in: NSRange(location: 0, length: attributedString.length),
-//            options: []) { (attributes, attributesRange, _) in
-//
-//            if let key = attributes.index(forKey: .font),
-//               let value = attributes[key].value as? NSObject,
-//               value == font {
-//                attributedString.addAttribute(.font, value: font, range: attributesRange)
-//            }
-//        }
-        
-        attributedString.addAttribute(.font, value: font,
-                                      range: NSRange(location: range.location, length: range.length + 1))
-        attributedString.addAttribute(.foregroundColor, value: color,
-                                      range: NSRange(location: range.location, length: range.length + 1))
-        attributedString.addAttribute(.backgroundColor, value: backgroundColor,
-                                      range: NSRange(location: range.location, length: range.length + 1))
+                
+        if !isBackspace {
+            attributedString.addAttribute(.font, value: font,
+                                          range: NSRange(location: range.location, length: range.length + 1))
+            attributedString.addAttribute(.foregroundColor, value: color,
+                                          range: NSRange(location: range.location, length: range.length + 1))
+            attributedString.addAttribute(.backgroundColor, value: backgroundColor,
+                                          range: NSRange(location: range.location, length: range.length + 1))
+        }
                 
         var elements: [MarkdownElement] = escapingElements
         elements.append(contentsOf: defaultElements)

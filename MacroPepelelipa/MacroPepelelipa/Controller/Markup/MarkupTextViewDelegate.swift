@@ -15,11 +15,13 @@ internal class MarkupTextViewDelegate: NSObject, UITextViewDelegate {
     private var text: String
     private var placeholder: String
     private var isShowingPlaceholder: Bool
+    private var isBackspace: Bool
     private var range: NSRange?
-
+    
     override init() {
         markdownParser = MarkdownParser()
         isShowingPlaceholder = false
+        isBackspace = false
         placeholder = "#Comece aqui a sua nota" // TODO: inserir no arquivo .strings
         text = ""
     }
@@ -28,30 +30,31 @@ internal class MarkupTextViewDelegate: NSObject, UITextViewDelegate {
         textView.font = markdownParser.font
         parseString(markdownString: placeholder)
         isShowingPlaceholder = true
-//        textView.textColor = UIColor(named: "Disabled")
+        //        textView.textColor = UIColor(named: "Disabled")
     }
     
     private func parseString(markdownString: String) {}
     
     func textViewDidChange(_ textView: UITextView) {
-//        parseString(markdownString: text)
-//        markdownAttributesChanged?(markdownParser.parse(textView.attributedText), nil)
+        //        parseString(markdownString: text)
+        //        markdownAttributesChanged?(markdownParser.parse(textView.attributedText), nil)
         if let range = range {
-            textView.attributedText = markdownParser.parse(textView.attributedText, range: range)
+            textView.attributedText = markdownParser.parse(textView.attributedText, range: range, isBackspace: isBackspace)
         }
     }
     
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
-//        guard let char = text.cString(using: String.Encoding.utf8) else {
-//            return false
-//        }
-//
-//        let isBackSpace = strcmp(char, "\\b")
-//        if isBackSpace == -92 && !self.text.isEmpty {
-//            self.text.removeLast()
-//        } else {
-//            self.text.append(text)
-//        }
+        guard let char = text.cString(using: String.Encoding.utf8) else {
+            return false
+        }
+        
+        let backspace = strcmp(char, "\\b")
+        if backspace == -92 {
+            self.isBackspace = true
+        } else {
+            self.isBackspace = false
+        }
+        
         self.range = range
         return true
     }
