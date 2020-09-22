@@ -22,7 +22,7 @@ internal class MarkupTextViewDelegate: NSObject, UITextViewDelegate {
         markdownParser = MarkdownParser()
         isShowingPlaceholder = false
         isBackspace = false
-        placeholder = "#Comece aqui a sua nota" // TODO: inserir no arquivo .strings
+        placeholder = "#" + NSLocalizedString("Start writing here", comment: "")
         text = ""
     }
     
