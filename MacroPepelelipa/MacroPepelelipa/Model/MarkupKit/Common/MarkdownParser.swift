@@ -132,18 +132,20 @@ open class MarkdownParser {
     
     // MARK: Parsing
     open func parse(_ markdown: String) -> NSAttributedString {
-        return parse(NSAttributedString(string: markdown))
+        let string = NSAttributedString(string: markdown)
+        return parse(NSAttributedString(string: markdown), range: NSRange(location: 0, length: string.length))
     }
     
-    open func parse(_ markdown: NSAttributedString) -> NSAttributedString {
+    open func parse(_ markdown: NSAttributedString, range: NSRange) -> NSAttributedString {
         let attributedString = NSMutableAttributedString(attributedString: markdown)
+
         attributedString.addAttribute(.font, value: font,
-                                      range: NSRange(location: 0, length: attributedString.length))
+                                      range: NSRange(location: range.location, length: range.length + 1))
         attributedString.addAttribute(.foregroundColor, value: color,
-                                      range: NSRange(location: 0, length: attributedString.length))
+                                      range: NSRange(location: range.location, length: range.length + 1))
         attributedString.addAttribute(.backgroundColor, value: backgroundColor,
-                                      range: NSRange(location: 0, length: attributedString.length))
-        
+                                      range: NSRange(location: range.location, length: range.length + 1))
+                
         var elements: [MarkdownElement] = escapingElements
         elements.append(contentsOf: defaultElements)
         elements.append(contentsOf: customElements)
@@ -151,6 +153,7 @@ open class MarkdownParser {
         elements.forEach { element in
             element.parse(attributedString)
         }
+                
         return attributedString
     }
     

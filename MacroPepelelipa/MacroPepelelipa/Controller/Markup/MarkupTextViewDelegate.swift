@@ -15,6 +15,7 @@ internal class MarkupTextViewDelegate: NSObject, UITextViewDelegate {
     private var text: String
     private var placeholder: String
     private var isShowingPlaceholder: Bool
+    private var range: NSRange?
 
     override init() {
         markdownParser = MarkdownParser()
@@ -26,28 +27,31 @@ internal class MarkupTextViewDelegate: NSObject, UITextViewDelegate {
     public func parsePlaceholder(on textView: UITextView) {
         parseString(markdownString: placeholder)
         isShowingPlaceholder = true
-        textView.textColor = UIColor(named: "Disabled")
+//        textView.textColor = UIColor(named: "Disabled")
     }
     
-    private func parseString(markdownString: String) {
-        markdownAttributesChanged?(markdownParser.parse(markdownString), nil)
-    }
+    private func parseString(markdownString: String) {}
     
     func textViewDidChange(_ textView: UITextView) {
-        parseString(markdownString: text)
+//        parseString(markdownString: text)
+//        markdownAttributesChanged?(markdownParser.parse(textView.attributedText), nil)
+        if let range = range {
+            textView.attributedText = markdownParser.parse(textView.attributedText, range: range)
+        }
     }
     
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
-        guard let char = text.cString(using: String.Encoding.utf8) else {
-            return false
-        }
-        
-        let isBackSpace = strcmp(char, "\\b")
-        if isBackSpace == -92 && !self.text.isEmpty {
-            self.text.removeLast()
-        } else {
-            self.text.append(text)
-        }
+//        guard let char = text.cString(using: String.Encoding.utf8) else {
+//            return false
+//        }
+//
+//        let isBackSpace = strcmp(char, "\\b")
+//        if isBackSpace == -92 && !self.text.isEmpty {
+//            self.text.removeLast()
+//        } else {
+//            self.text.append(text)
+//        }
+        self.range = range
         return true
     }
     
