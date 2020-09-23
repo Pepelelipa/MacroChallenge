@@ -8,6 +8,9 @@
 import Foundation
 import UIKit
 
+/**
+ This class is responsible to parse the markup text according to the markup elements determined in it.
+ */
 open class MarkdownParser {
     public struct EnabledElements: OptionSet {
         public let rawValue: Int
@@ -44,14 +47,14 @@ open class MarkdownParser {
         ]
     }
     
-    // MARK: Element Arrays
+    // MARK: - Element Arrays
     fileprivate var escapingElements: [MarkdownElement]
     fileprivate var defaultElements: [MarkdownElement] = []
     fileprivate var unescapingElements: [MarkdownElement]
     
     open var customElements: [MarkdownElement]
     
-    // MARK: Basic Elements
+    // MARK: - Basic Elements
     public let header: MarkdownHeader
     public let list: MarkdownList
     public let quote: MarkdownQuote
@@ -63,12 +66,12 @@ open class MarkdownParser {
     public let strikethrough: MarkdownStrikethrough
     public let highlight: MarkdownHighlight
     
-    // MARK: Escaping Elements
+    // MARK: - Escaping Elements
     fileprivate var codeEscaping = MarkdownCodeEscaping()
     fileprivate var escaping = MarkdownEscaping()
     fileprivate var unescaping = MarkdownUnescaping()
     
-    // MARK: Configuration
+    // MARK: - Configuration
     /// Enables individual Markdown elements and automatic link detection
     open var enabledElements: EnabledElements {
         didSet {
@@ -80,7 +83,7 @@ open class MarkdownParser {
     public let color: MarkdownColor
     public let backgroundColor: MarkdownColor
     
-    // MARK: Legacy Initializer
+    // MARK: - Legacy Initializer
     @available(*, deprecated, renamed: "init", message: "This constructor will be removed soon, please use the new opions constructor")
     public convenience init(automaticLinkDetectionEnabled: Bool,
                             font: MarkdownFont = MarkdownParser.defaultFont,
@@ -89,7 +92,7 @@ open class MarkdownParser {
         self.init(font: font, enabledElements: enabledElements, customElements: customElements)
     }
     
-    // MARK: Initializer
+    // MARK: - Initializer
     public init(font: MarkdownFont = MarkdownParser.defaultFont,
                 color: MarkdownColor = MarkdownParser.defaultColor,
                 enabledElements: EnabledElements = .all,
@@ -116,7 +119,7 @@ open class MarkdownParser {
         updateDefaultElements()
     }
     
-    // MARK: Element Extensibility
+    // MARK: - Element Extensibility
     open func addCustomElement(_ element: MarkdownElement) {
         customElements.append(element)
     }
@@ -130,12 +133,33 @@ open class MarkdownParser {
         customElements.remove(at: index)
     }
     
-    // MARK: Parsing
+    // MARK: - Parsing
+    
+    /**
+        This method parses a simple string into a NSAttributedString.
+     
+        - Parameters:
+            - markdown: The string that will be parsed.
+     
+        - Returns: An NSAttributedString parsed from the received string.
+     
+     */
     open func parse(_ markdown: String) -> NSAttributedString {
         let string = NSAttributedString(string: markdown)
         return parse(NSAttributedString(string: markdown), range: NSRange(location: 0, length: string.length), isBackspace: false)
     }
     
+    /**
+        This method parses the text of a NSAttributedString and returns another NSAttributedString after parsing the text. The method takes into consideration the range to parsed, in order to not overrides the existing attributes in the original string. Also, this method does not override any attributes in case of text deletion.
+     
+        - Parameters:
+            - markdown: The NSAttributedString which text will be parsed.
+            - range: An NSRange indicating the range that will receive new attributes.
+            - isBackspace: A boolean indicating if there was text deletion or not.
+     
+        - Returns: An NSAttributedString parsed from the received string.
+     
+     */
     open func parse(_ markdown: NSAttributedString, range: NSRange, isBackspace: Bool) -> NSAttributedString {
         let attributedString = NSMutableAttributedString(attributedString: markdown)
                 

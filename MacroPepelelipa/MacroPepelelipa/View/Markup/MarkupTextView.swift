@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MarkupTextView: UITextView {
+internal class MarkupTextView: UITextView {
     
     private var animator: UIDynamicAnimator?
     private var snap: UISnapBehavior?
@@ -36,7 +36,14 @@ class MarkupTextView: UITextView {
         }
     }
     
-    func checkTouch(_ touch: UITouch) -> UIImageView? {
+    /**
+     This method checks if it finds a UIImageView on the same location were the user touched the screen. If a UIImageView was found, the image is returned. If not, returns nil.
+     
+     - Parameter touch: The UITouch which location will be checked.
+     
+     - Returns: A UIImageView if an image was found on the touch location or nil if nothing was found.
+     */
+    private func checkTouch(_ touch: UITouch) -> UIImageView? {
         for subview in subviews {
             if let image = subview as? UIImageView {
                 if image.frame.contains(touch.location(in: self)) {

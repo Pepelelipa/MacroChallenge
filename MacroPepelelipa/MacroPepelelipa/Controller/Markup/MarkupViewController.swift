@@ -43,7 +43,6 @@ internal class MarkupViewController: UIViewController {
     }
     
     override func viewDidLayoutSubviews() {
-        
         setUpTextFieldConstraints()
         setUpTextViewConstraints()
         
@@ -53,10 +52,17 @@ internal class MarkupViewController: UIViewController {
         textView.textContainer.exclusionPaths = [exclusionPath]
     }
             
+    /**
+     This method is responsible for setting the title UITextField on the main view.
+     */
     private func setUpTextField() {
         self.view.addSubview(textField)
     }
     
+    
+    /**
+     This method sets the UITextView that will receive the markup text. The method sets the UITextView delegate and sets the attributed text of the view. Also, the method calls the delegate function that displays the placeholder.
+     */
     private func setUpTextView() {
         textViewDelegate = MarkupTextViewDelegate()
         textViewDelegate?.markdownAttributesChanged = { [weak self](attributtedString, error) in
@@ -76,6 +82,9 @@ internal class MarkupViewController: UIViewController {
         self.textViewDelegate?.parsePlaceholder(on: self.textView)
     }
     
+    /**
+     This private function sets the constraints for the UITextView on the screen.
+     */
     private func setUpTextViewConstraints() {
         NSLayoutConstraint.activate([
             textView.topAnchor.constraint(equalTo: self.textField.bottomAnchor, constant: 10),
@@ -85,8 +94,10 @@ internal class MarkupViewController: UIViewController {
         ])
     }
     
+    /**
+     This private function sets the constraints for the UITextField on the screen.
+     */
     private func setUpTextFieldConstraints() {
-        
         NSLayoutConstraint.activate([
             textField.heightAnchor.constraint(equalToConstant: 30),
             textField.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 20),

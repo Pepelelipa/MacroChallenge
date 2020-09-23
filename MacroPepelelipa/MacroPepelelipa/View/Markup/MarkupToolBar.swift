@@ -11,7 +11,7 @@ import UIKit
 import PhotosUI
 
 @available(iOS 14, *)
-class MarkupToolBar: UIToolbar {
+internal class MarkupToolBar: UIToolbar {
     
     let textView: MarkupTextView?
     weak var viewController: UIViewController?
@@ -32,7 +32,9 @@ class MarkupToolBar: UIToolbar {
         fatalError("init(coder:) has not been implemented")
     }
     
-    
+    /**
+     A private method to set up all the Buttons on the UIToolBar.
+     */
     private func setUpButtons() {
         
         let imageGalleryButton = createBarButtonItem(systemImageName: "photo", objcFunc: #selector(photoPicker))
@@ -55,7 +57,15 @@ class MarkupToolBar: UIToolbar {
         self.items?.append(flexible)
     }    
     
-    
+    /**
+     This private method creates a UIBarButtonItem with an image and an Objective-C function.
+     
+     - Parameters:
+        - systemImageName: A String containing the name of the button image.
+        - objcFunc: An optional Selector to be added to the button.
+     
+     - Returns: An UIBarButtonItem with an image and a selector, if passed as parameter.
+     */
     private func createBarButtonItem(systemImageName: String, objcFunc: Selector? ) -> UIBarButtonItem {
         guard let guardedObjcFunc = objcFunc else {
             return UIBarButtonItem(image: UIImage(systemName: systemImageName), style: .plain, target: self, action: nil)
