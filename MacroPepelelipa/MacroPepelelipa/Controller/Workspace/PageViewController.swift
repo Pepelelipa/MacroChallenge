@@ -18,7 +18,17 @@ internal class WorkspacePageViewController: UIPageViewController {
         }
     }
 
-    private var pageControl: UIPageControl = UIPageControl(frame: .zero)
+    private lazy var pageControl: UIPageControl = {
+        let pgControl = UIPageControl(frame: .zero)
+
+        pgControl.numberOfPages = workspaceDataSource.workspaces.count
+        pgControl.currentPage = 0
+        pgControl.isUserInteractionEnabled = true
+        pgControl.addTarget(self, action: #selector(pageControlValueChanged(_:)), for: .valueChanged)
+        pgControl.translatesAutoresizingMaskIntoConstraints = false
+
+        return pgControl
+    }()
 
     override init(
         transitionStyle style: UIPageViewController.TransitionStyle,
@@ -43,25 +53,17 @@ internal class WorkspacePageViewController: UIPageViewController {
             setViewControllers([first], direction: .forward, animated: true)
         }
         view.backgroundColor = .clear
-
-        setupPageControl()
+        view.addSubview(pageControl)
     }
 
-    private func setupPageControl() {
-        self.pageControl.numberOfPages = workspaceDataSource.workspaces.count
-        self.pageControl.currentPage = 0
-        self.pageControl.isUserInteractionEnabled = true
-        self.pageControl.addTarget(self, action: #selector(pageControlValueChanged(_:)), for: .valueChanged)
-
-        view.addSubview(pageControl)
-        pageControl.translatesAutoresizingMaskIntoConstraints = false
-
+    override func viewDidLayoutSubviews() {
         NSLayoutConstraint.activate([
             pageControl.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
             pageControl.widthAnchor.constraint(equalTo: view.safeAreaLayoutGuide.widthAnchor)
         ])
     }
 
+    ///Sets the view controllers on the PageViewController when to the UIPageControl page changes
     @IBAction func pageControlValueChanged(_ sender: UIPageControl) {
         guard let current = viewControllers?.first,
             let toBePreviousIndex = workspaceDataSource.indexFor(current) else {

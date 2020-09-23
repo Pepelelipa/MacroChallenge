@@ -19,32 +19,16 @@ internal class SplitViewController: UISplitViewController, NotebookIndexDelegate
     }()
     private let detail = NotesViewController()
 
-    @available(iOS 14, *)
-    override init(style: UISplitViewController.Style) {
-        super.init(style: .doubleColumn)
-        preferredPrimaryColumnWidth = 1/3
-        setup()
-    }
-
     init() {
         super.init(nibName: nil, bundle: nil)
-        setup()
-    }
-
-    required convenience init?(coder: NSCoder) {
-        if #available(iOS 14.0, *),
-           let style = coder.decodeObject(forKey: "style") as? UISplitViewController.Style {
-            self.init(style: style)
-        } else {
-            self.init()
-        }
-    }
-
-    private func setup() {
         modalPresentationStyle = .fullScreen
         viewControllers = [navController, detail]
         master.delegate = self
         preferredDisplayMode = .primaryOverlay
+    }
+
+    required convenience init?(coder: NSCoder) {
+        self.init()
     }
 
     func indexShouldDismiss() {
@@ -59,6 +43,7 @@ internal class SplitViewController: UISplitViewController, NotebookIndexDelegate
         detail.isBtnBackHidden = false
     }
 
+    ///Animates the dismissal with our custom animation
     override func dismiss(animated flag: Bool, completion: (() -> Void)? = nil) {
         if flag {
             let transition = CATransition()
