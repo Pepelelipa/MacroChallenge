@@ -40,7 +40,7 @@ internal class WorkspaceViewController: UIViewController {
         return collectionView
     }()
     private let dataSource = WorkspaceCollectionViewDataSource()
-    private lazy var flowLayoutDelegate = WorkspaceCollectionViewFlowLayoutDelegate { (selectedCell) in
+    private lazy var flowLayoutDelegate = WorkspaceCollectionViewFlowLayoutDelegate { (_) in
         let split = SplitViewController()
 
         #warning("Fade animation as placeholder for Books animation.")

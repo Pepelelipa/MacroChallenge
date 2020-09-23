@@ -15,10 +15,10 @@ public class NotesViewController: UIViewController {
         btn.setImage(UIImage(systemName: "chevron.left"), for: .normal)
         btn.addTarget(self, action: #selector(btnBackTap(_:)), for: .touchUpInside)
         btn.translatesAutoresizingMaskIntoConstraints = false
+        btn.tintColor = UIColor(named: "Highlight")
 
         return btn
     }()
-
     public var isBtnBackHidden: Bool {
         get {
             return btnBack.isHidden
@@ -27,24 +27,6 @@ public class NotesViewController: UIViewController {
             btnBack.isHidden = newValue
         }
     }
-
-    public override func viewDidLoad() {
-        view.addSubview(btnBack)
-        let dev = UIDevice.current.userInterfaceIdiom
-        if dev == .phone {
-            btnBack.isHidden = UIDevice.current.orientation.isLandscape
-        } else if dev == .pad {
-            btnBack.isHidden = true
-        }
-    }
-
-    public override func viewDidLayoutSubviews() {
-        NSLayoutConstraint.activate([
-            btnBack.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
-            btnBack.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20)
-        ])
-    }
-
     ///Go back to the previous step(opens the notebook index) according to the device and orientation
     @IBAction func btnBackTap(_ sender: UIButton) {
         let dev = UIDevice.current.userInterfaceIdiom
@@ -57,5 +39,66 @@ public class NotesViewController: UIViewController {
                 self.navigationController?.popViewController(animated: true)
             }
         }
+    }
+    
+    private var textField: MarkupTextField = MarkupTextField(frame: .zero, placeholder: "Your Title".localized(), paddingSpace: 4)
+    private lazy var textView: MarkupTextView = MarkupTextView(frame: .zero, delegate: self.textViewDelegate)
+    private lazy var textViewDelegate: MarkupTextViewDelegate? = {
+        let delegate = MarkupTextViewDelegate()
+        DispatchQueue.main.async {
+            delegate.markdownAttributesChanged = { [unowned self](attributtedString, error) in
+                if let error = error {
+                    NSLog("Error requesting -> \(error)")
+                    return
+                }
+
+                guard let attributedText = attributtedString else {
+                    NSLog("No error nor string found")
+                    return
+                }
+
+                self.textView.attributedText = attributedText
+            }
+            delegate.parsePlaceholder(on: self.textView)
+        }
+        return delegate
+    }()
+    private lazy var keyboardToolbar: MarkupToolBar = MarkupToolBar(frame: .zero, owner: textView, controller: self)
+
+    public override func viewDidLoad() {
+        view.addSubview(btnBack)
+        let dev = UIDevice.current.userInterfaceIdiom
+        if dev == .phone {
+            btnBack.isHidden = UIDevice.current.orientation.isLandscape
+        } else if dev == .pad {
+            btnBack.isHidden = true
+        }
+
+        view.addSubview(textField)
+        view.addSubview(textView)
+        self.view.backgroundColor = UIColor(named: "Background")
+        
+        textView.inputAccessoryView = keyboardToolbar
+    }
+
+    public override func viewDidLayoutSubviews() {
+        NSLayoutConstraint.activate([
+            btnBack.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
+            btnBack.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20)
+        ])
+
+        NSLayoutConstraint.activate([
+            textView.topAnchor.constraint(equalTo: self.textField.bottomAnchor, constant: 10),
+            textView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
+            textView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
+            textView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+        ])
+
+        NSLayoutConstraint.activate([
+            textField.heightAnchor.constraint(equalToConstant: 30),
+            textField.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 50 + btnBack.frame.height),
+            textField.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
+            textField.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor, constant: -20)
+        ])
     }
 }
