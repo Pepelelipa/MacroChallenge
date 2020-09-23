@@ -19,6 +19,9 @@ class MarkupTextView: UITextView {
         
         self.delegate = delegate
         self.translatesAutoresizingMaskIntoConstraints = false
+        self.backgroundColor = #colorLiteral(red: 0.9882352941, green: 0.9882352941, blue: 0.9882352941, alpha: 1)
+        self.textColor = #colorLiteral(red: 0.7882352941, green: 0.768627451, blue: 0.8117647059, alpha: 1)
+        self.tintColor = #colorLiteral(red: 0.6352941176, green: 0.3490196078, blue: 1, alpha: 1)
         
         animator = UIDynamicAnimator(referenceView: self)
     }

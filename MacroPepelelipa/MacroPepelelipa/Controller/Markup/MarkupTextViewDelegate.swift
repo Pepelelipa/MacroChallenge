@@ -22,7 +22,7 @@ internal class MarkupTextViewDelegate: NSObject, UITextViewDelegate {
         markdownParser = MarkdownParser()
         isShowingPlaceholder = false
         isBackspace = false
-        placeholder = "#" + NSLocalizedString("Start writing here", comment: "")
+        placeholder = "#" + "Start writing here".localized()
         text = ""
     }
     
@@ -61,7 +61,7 @@ internal class MarkupTextViewDelegate: NSObject, UITextViewDelegate {
     
     func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
         if isShowingPlaceholder {
-            text = "# "
+            text = "Não esquece de colocar o que tá acontecendo na sua aula, enquanto você tá jogando joguinho..."
             parseString(markdownString: text)
             isShowingPlaceholder = false
         }

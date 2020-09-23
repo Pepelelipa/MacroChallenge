@@ -10,16 +10,12 @@ import UIKit
 
 internal class MarkupViewController: UIViewController {
     
-    private var boldButton: UIBarButtonItem = {
-        let barButtonItem = UIBarButtonItem(title: "bold", style: .plain, target: self, action: #selector(pressBoldButton))
-        return barButtonItem
+    private var textField: MarkupTextField = {
+        return MarkupTextField(frame: .zero, placeholder: "Vem aqui colocar o seu título!", paddingSpace: 4)
     }()
     
-    private lazy var keyboardToolbar: UIToolbar = {
-        let toolBar = UIToolbar()
-        toolBar.sizeToFit()
-        toolBar.items = [boldButton]
-        return toolBar
+    private lazy var keyboardToolbar: MarkupToolBar = {
+        return MarkupToolBar(frame: .zero, owner: textView)
     }()
     
     private lazy var textView: MarkupTextView = {
@@ -36,6 +32,8 @@ internal class MarkupViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpTextView()
+        setUpTextField()
+        self.view.backgroundColor = #colorLiteral(red: 0.9882352941, green: 0.9882352941, blue: 0.9882352941, alpha: 1)
         
         imageView = UIImageView(image: UIImage(systemName: "ant.fill"))
         textView.addSubview(imageView)
@@ -44,17 +42,18 @@ internal class MarkupViewController: UIViewController {
     }
     
     override func viewDidLayoutSubviews() {
-        NSLayoutConstraint.activate([
-            textView.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor),
-            textView.heightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.heightAnchor),
-            textView.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
-            textView.widthAnchor.constraint(equalTo: view.safeAreaLayoutGuide.widthAnchor)
-        ])
+        
+        setUpTextFieldConstraints()
+        setUpTextViewConstraints()
         
         imageView.frame = CGRect(x: 0, y: 50, width: 100, height: 100)
         
         let exclusionPath = UIBezierPath(rect: imageView.frame)
         textView.textContainer.exclusionPaths = [exclusionPath]
+    }
+            
+    private func setUpTextField() {
+        self.view.addSubview(textField)
     }
     
     private func setUpTextView() {
@@ -74,6 +73,25 @@ internal class MarkupViewController: UIViewController {
 //        }
         self.view.addSubview(textView)
         self.textViewDelegate?.parsePlaceholder(on: self.textView)
+    }
+    
+    private func setUpTextViewConstraints() {
+        NSLayoutConstraint.activate([
+            textView.topAnchor.constraint(equalTo: self.textField.bottomAnchor, constant: 10),
+            textView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
+            textView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
+            textView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+        ])
+    }
+    
+    private func setUpTextFieldConstraints() {
+        
+        NSLayoutConstraint.activate([
+            textField.heightAnchor.constraint(equalToConstant: 30),
+            textField.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 20),
+            textField.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
+            textField.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor, constant: -20)
+        ])
     }
     
     /**
