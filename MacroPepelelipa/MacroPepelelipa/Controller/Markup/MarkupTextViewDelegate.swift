@@ -12,7 +12,6 @@ internal class MarkupTextViewDelegate: NSObject, UITextViewDelegate {
     
     private let markdownParser: MarkdownParser
     public var markdownAttributesChanged: ((NSAttributedString?, Error?) -> Void)?
-    private var text: String
     private var placeholder: String
     private var isShowingPlaceholder: Bool
     private var isBackspace: Bool
@@ -22,24 +21,19 @@ internal class MarkupTextViewDelegate: NSObject, UITextViewDelegate {
         markdownParser = MarkdownParser()
         isShowingPlaceholder = false
         isBackspace = false
-        placeholder = "#" + "Start writing here".localized()
-        text = ""
+        placeholder = "Start writing here".localized()
     }
     
     public func parsePlaceholder(on textView: UITextView) {
+        textView.attributedText = NSAttributedString(string: placeholder)
         textView.font = markdownParser.font
-        parseString(markdownString: placeholder)
         isShowingPlaceholder = true
-        //        textView.textColor = UIColor(named: "Disabled")
+        textView.textColor = UIColor(named: "Disabled")
     }
-    
-    private func parseString(markdownString: String) {}
-    
+        
     func textViewDidChange(_ textView: UITextView) {
-        //        parseString(markdownString: text)
-        //        markdownAttributesChanged?(markdownParser.parse(textView.attributedText), nil)
         if let range = range {
-            textView.attributedText = markdownParser.parse(textView.attributedText, range: range, isBackspace: isBackspace)
+            markdownAttributesChanged?(markdownParser.parse(textView.attributedText, range: range, isBackspace: isBackspace), nil)
         }
     }
     
@@ -61,8 +55,7 @@ internal class MarkupTextViewDelegate: NSObject, UITextViewDelegate {
     
     func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
         if isShowingPlaceholder {
-            text = "Não esquece de colocar o que tá acontecendo na sua aula, enquanto você tá jogando joguinho..."
-            parseString(markdownString: text)
+            textView.attributedText = NSAttributedString(string: "")
             isShowingPlaceholder = false
         }
         return true

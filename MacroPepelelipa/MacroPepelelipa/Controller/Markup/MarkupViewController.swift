@@ -11,7 +11,7 @@ import UIKit
 internal class MarkupViewController: UIViewController {
     
     private var textField: MarkupTextField = {
-        return MarkupTextField(frame: .zero, placeholder: "Vem aqui colocar o seu título!", paddingSpace: 4)
+        return MarkupTextField(frame: .zero, placeholder: "Your Title".localized(), paddingSpace: 4)
     }()
     
     private lazy var keyboardToolbar: MarkupToolBar = {
@@ -58,19 +58,19 @@ internal class MarkupViewController: UIViewController {
     
     private func setUpTextView() {
         textViewDelegate = MarkupTextViewDelegate()
-//        textViewDelegate?.markdownAttributesChanged = { [weak self](attributtedString, error) in
-//            if let error = error {
-//                NSLog("Error requesting -> \(error)")
-//                return
-//            }
-//          
-//            guard let attributedText = attributtedString else {
-//                NSLog("No error nor string found")
-//                return
-//            }
-//          
-//            self?.textView.attributedText = attributedText
-//        }
+        textViewDelegate?.markdownAttributesChanged = { [weak self](attributtedString, error) in
+            if let error = error {
+                NSLog("Error requesting -> \(error)")
+                return
+            }
+          
+            guard let attributedText = attributtedString else {
+                NSLog("No error nor string found")
+                return
+            }
+          
+            self?.textView.attributedText = attributedText
+        }
         self.view.addSubview(textView)
         self.textViewDelegate?.parsePlaceholder(on: self.textView)
     }
