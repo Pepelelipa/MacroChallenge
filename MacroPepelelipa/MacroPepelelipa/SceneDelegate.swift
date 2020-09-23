@@ -17,12 +17,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let scene = scene as? UIWindowScene else {
             return
         }
-//        let navController = UINavigationController()
-//        navController.isNavigationBarHidden = true
-//        navController.viewControllers = [WorkspacePageViewController()]
-        let viewController = MarkupViewController()
+        let navController = UINavigationController()
+        navController.isNavigationBarHidden = true
+        navController.viewControllers = [WorkspacePageViewController()]
         window = UIWindow(windowScene: scene)
-        window?.rootViewController = viewController
+        window?.rootViewController = navController
         window?.makeKeyAndVisible()
     }
 

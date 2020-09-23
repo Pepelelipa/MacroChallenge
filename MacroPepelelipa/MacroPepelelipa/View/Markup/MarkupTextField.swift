@@ -15,9 +15,9 @@ internal class MarkupTextField: UITextField {
         
         self.placeholder = placeholder
         
-        self.backgroundColor = #colorLiteral(red: 0.9882352941, green: 0.9882352941, blue: 0.9882352941, alpha: 1)
-        self.textColor = #colorLiteral(red: 0.1764705882, green: 0.168627451, blue: 0.168627451, alpha: 1)
-        self.tintColor = #colorLiteral(red: 0.6352941176, green: 0.3490196078, blue: 1, alpha: 1)
+        self.backgroundColor = UIColor(named: "Background")
+        self.textColor = UIColor(named: "Title")
+        self.tintColor = UIColor(named: "Highlight")
         
         let markdownFont = MarkdownParser.defaultFont.withSize(26).bold()
         self.font = markdownFont

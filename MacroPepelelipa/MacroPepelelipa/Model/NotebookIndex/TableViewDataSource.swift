@@ -9,7 +9,7 @@
 import UIKit
 
 internal class NotebookIndexTableViewDataSource: NSObject, UITableViewDataSource {
-
+    #warning("No actual data being fed to the source.")
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 5
     }

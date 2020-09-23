@@ -10,7 +10,6 @@ import Foundation
 import UIKit
 import PhotosUI
 
-@available(iOS 14, *)
 internal class MarkupToolBar: UIToolbar {
     
     private let textView: MarkupTextView?
@@ -25,7 +24,7 @@ internal class MarkupToolBar: UIToolbar {
         setUpButtons()
         
         self.sizeToFit()
-        self.tintColor = #colorLiteral(red: 0.7882352941, green: 0.768627451, blue: 0.8117647059, alpha: 1)
+        self.tintColor = UIColor(named: "Tools")
     }
     
     required init?(coder: NSCoder) {
@@ -96,20 +95,20 @@ internal class MarkupToolBar: UIToolbar {
     */
     
     @objc private func photoPicker() {
-        var config = PHPickerConfiguration()
-        config.filter = .images
-        
-        pickerDelegate = MarkupPhotoPickerDelegate()
-        
-        let picker = PHPickerViewController(configuration: config)
-        
-        picker.delegate = pickerDelegate
-        
-        guard let controller = viewController else {
-            return
-        }
-        
-        controller.present(picker, animated: true, completion: nil)
+//        var config = PHPickerConfiguration()
+//        config.filter = .images
+//
+//        pickerDelegate = MarkupPhotoPickerDelegate()
+//
+//        let picker = PHPickerViewController(configuration: config)
+//
+//        picker.delegate = pickerDelegate
+//
+//        guard let controller = viewController else {
+//            return
+//        }
+//
+//        controller.present(picker, animated: true, completion: nil)
     }
     
     /**

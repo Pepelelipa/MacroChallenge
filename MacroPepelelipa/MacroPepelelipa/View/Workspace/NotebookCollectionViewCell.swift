@@ -11,7 +11,16 @@ import UIKit
 #warning("Notebook Collection View Cell has no actual information yet.")
 internal class NotebookCollectionViewCell: UICollectionViewCell {
     internal static let cellID = "notebookCell"
-    private let lblName = UILabel(frame: .zero)
+    private let lblName: UILabel = {
+        let lbl = UILabel(frame: .zero)
+        lbl.text = "Notebook".localized()
+        lbl.textColor = .black
+        lbl.font = .preferredFont(forTextStyle: .body)
+        lbl.textAlignment = .center
+        lbl.translatesAutoresizingMaskIntoConstraints = false
+
+        return lbl
+    }()
 
     internal var text: String? {
         get {
@@ -25,7 +34,8 @@ internal class NotebookCollectionViewCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         backgroundColor = .random()
-        setupLabel()
+        addSubview(lblName)
+        setupConstraints()
         layer.cornerRadius = 10
     }
     required convenience init?(coder: NSCoder) {
@@ -35,14 +45,7 @@ internal class NotebookCollectionViewCell: UICollectionViewCell {
         self.init(frame: frame)
     }
 
-    private func setupLabel() {
-        lblName.text = "Notebook".localized()
-        lblName.textColor = .black
-        lblName.font = .preferredFont(forTextStyle: .body)
-        lblName.textAlignment = .center
-        addSubview(lblName)
-        lblName.translatesAutoresizingMaskIntoConstraints = false
-
+    private func setupConstraints() {
         NSLayoutConstraint.activate([
             lblName.centerXAnchor.constraint(equalTo: centerXAnchor),
             lblName.centerYAnchor.constraint(equalTo: centerYAnchor),

@@ -18,7 +18,7 @@ internal class MarkupTextViewDelegate: NSObject, UITextViewDelegate {
     private var range: NSRange?
     
     override init() {
-        markdownParser = MarkdownParser()
+        markdownParser = MarkdownParser(color: UIColor(named: "Body") ?? .black)
         isShowingPlaceholder = false
         isBackspace = false
         placeholder = "Start writing here".localized()
@@ -33,7 +33,7 @@ internal class MarkupTextViewDelegate: NSObject, UITextViewDelegate {
         textView.attributedText = NSAttributedString(string: placeholder)
         textView.font = markdownParser.font
         isShowingPlaceholder = true
-        textView.textColor = UIColor(named: "Disabled")
+        textView.textColor = UIColor(named: "Placeholder")
     }
         
     func textViewDidChange(_ textView: UITextView) {
