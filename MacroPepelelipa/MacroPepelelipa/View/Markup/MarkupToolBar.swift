@@ -12,7 +12,7 @@ import PhotosUI
 
 internal class MarkupToolBar: UIToolbar {
     
-    private let textView: MarkupTextView?
+    private weak var textView: MarkupTextView?
     private weak var viewController: UIViewController?
     private var pickerDelegate: MarkupPhotoPickerDelegate?
     
