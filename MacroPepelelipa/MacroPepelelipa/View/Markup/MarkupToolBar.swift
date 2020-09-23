@@ -74,6 +74,10 @@ internal class MarkupToolBar: UIToolbar {
         return barButtonItem
     }
     
+    /**
+    In this funcion, we deal with the toolbar button for adding a header, adding it manually.
+    */
+    
     @objc func headerAction() {
         guard let guardedTextView = textView else {
             return
@@ -87,6 +91,10 @@ internal class MarkupToolBar: UIToolbar {
                 
         textView?.attributedText = attributedText          
     }
+    
+    /**
+     In this function, we handle the toolbar button to open the image library. There we instantiate a PHPickerViewController and set its delegate. Finally, there is a present from the instantiated view controller.
+    */
     
     @objc func photoPicker() {
         var config = PHPickerConfiguration()
@@ -104,6 +112,10 @@ internal class MarkupToolBar: UIToolbar {
         
         controller.present(picker, animated: true, completion: nil)
     }
+    
+    /**
+    In this funcion, we deal with the toolbar button for adding a list, adding it manually.
+    */
     
     @objc func listAction()  {
         guard let guardedTextView = textView else {
