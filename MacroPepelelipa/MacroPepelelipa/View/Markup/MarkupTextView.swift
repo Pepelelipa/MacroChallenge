@@ -14,7 +14,7 @@ internal class MarkupTextView: UITextView {
     private var snap: UISnapBehavior?
     private var imageView: UIImageView?
     
-    init(frame: CGRect, delegate: MarkupTextViewDelegate) {
+    init(frame: CGRect, delegate: MarkupTextViewDelegate? = nil) {
         super.init(frame: frame, textContainer: nil)
         
         self.delegate = delegate
