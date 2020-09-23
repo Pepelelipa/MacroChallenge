@@ -28,6 +28,9 @@ class PhotoEditingViewController: UIViewController {
         setUpImageViewConstraints()
     }
     
+    /**
+     This method sets the constraints for the UIImageView on screen.
+     */
     private func setUpImageViewConstraints() {
         NSLayoutConstraint.activate([
             editingImageView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),

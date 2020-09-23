@@ -59,7 +59,6 @@ internal class MarkupViewController: UIViewController {
         self.view.addSubview(textField)
     }
     
-    
     /**
      This method sets the UITextView that will receive the markup text. The method sets the UITextView delegate and sets the attributed text of the view. Also, the method calls the delegate function that displays the placeholder.
      */

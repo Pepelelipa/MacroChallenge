@@ -13,9 +13,9 @@ import PhotosUI
 @available(iOS 14, *)
 internal class MarkupToolBar: UIToolbar {
     
-    let textView: MarkupTextView?
-    weak var viewController: UIViewController?
-    var pickerDelegate: MarkupPhotoPickerDelegate?
+    private let textView: MarkupTextView?
+    private weak var viewController: UIViewController?
+    private var pickerDelegate: MarkupPhotoPickerDelegate?
     
     init(frame: CGRect, owner: MarkupTextView, controller: UIViewController) {
         self.textView = owner
@@ -36,7 +36,6 @@ internal class MarkupToolBar: UIToolbar {
      A private method to set up all the Buttons on the UIToolBar.
      */
     private func setUpButtons() {
-        
         let imageGalleryButton = createBarButtonItem(systemImageName: "photo", objcFunc: #selector(photoPicker))
         let textBoxButton = createBarButtonItem(systemImageName: "textbox", objcFunc: nil)
         let listButton = createBarButtonItem(systemImageName: "text.badge.plus", objcFunc: #selector(listAction))
@@ -78,7 +77,7 @@ internal class MarkupToolBar: UIToolbar {
     In this funcion, we deal with the toolbar button for adding a header, adding it manually.
     */
     
-    @objc func headerAction() {
+    @objc private func headerAction() {
         guard let guardedTextView = textView else {
             return
         }
@@ -96,7 +95,7 @@ internal class MarkupToolBar: UIToolbar {
      In this function, we handle the toolbar button to open the image library. There we instantiate a PHPickerViewController and set its delegate. Finally, there is a present from the instantiated view controller.
     */
     
-    @objc func photoPicker() {
+    @objc private func photoPicker() {
         var config = PHPickerConfiguration()
         config.filter = .images
         
@@ -117,7 +116,7 @@ internal class MarkupToolBar: UIToolbar {
     In this funcion, we deal with the toolbar button for adding a list, adding it manually.
     */
     
-    @objc func listAction()  {
+    @objc private func listAction() {
         guard let guardedTextView = textView else {
             return
         }
@@ -134,7 +133,7 @@ internal class MarkupToolBar: UIToolbar {
     /**
     In this funcion, we deal with the toolbar button for bold text, adding bold manually.
     */
-    @objc func pressBoldButton() {
+    @objc private func pressBoldButton() {
         guard let guardedTextView = textView else { 
             return 
         }

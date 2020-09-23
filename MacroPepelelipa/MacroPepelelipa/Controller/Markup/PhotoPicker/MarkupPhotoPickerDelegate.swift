@@ -20,12 +20,12 @@ class MarkupPhotoPickerDelegate: PHPickerViewControllerDelegate {
                 let provider = result.itemProvider
                 if provider.canLoadObject(ofClass: UIImage.self) {
                     provider.loadObject(ofClass: UIImage.self) { (image, error) in
-                        if image != nil{
+                        if image != nil {
                             if let image = image as? UIImage {
                                 self.photoLibraryImage = image
                             }
-                        } else if let error = error{
-                            print(error.localizedDescription)
+                        } else if let error = error {
+                            fatalError(error.localizedDescription)
                         }
                     }
                 }
