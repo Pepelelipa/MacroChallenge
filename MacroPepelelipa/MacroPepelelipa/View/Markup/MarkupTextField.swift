@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MarkupTextField : UITextField {
+internal class MarkupTextField: UITextField {
     
     init(frame: CGRect, placeholder: String, paddingSpace: CGFloat) {
         super.init(frame: frame)
@@ -24,14 +24,19 @@ class MarkupTextField : UITextField {
         
         self.translatesAutoresizingMaskIntoConstraints = false
         
-        addPadingSpace(space: paddingSpace)
+        addPaddingSpace(space: paddingSpace)
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func addPadingSpace(space: CGFloat) {
+    /**
+     This method adds padding to the sides of the UITextField.
+     
+     - Parameter space: A CGFloat indicating the padding space on each side.
+     */
+    private func addPaddingSpace(space: CGFloat) {
         let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: space, height: self.frame.height))
         self.leftView = paddingView
         self.leftViewMode = UITextField.ViewMode.always

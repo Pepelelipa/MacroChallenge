@@ -24,6 +24,11 @@ internal class MarkupTextViewDelegate: NSObject, UITextViewDelegate {
         placeholder = "Start writing here".localized()
     }
     
+    /**
+     This method displays the placeholder with the correct color on an UITextView.
+     
+     - Parameter textView: The UITextView on which the placeholder will be displayed.
+     */
     public func parsePlaceholder(on textView: UITextView) {
         textView.attributedText = NSAttributedString(string: placeholder)
         textView.font = markdownParser.font
