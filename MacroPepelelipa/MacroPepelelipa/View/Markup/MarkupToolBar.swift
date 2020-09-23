@@ -8,13 +8,18 @@
 
 import Foundation
 import UIKit
+import PhotosUI
 
+@available(iOS 14, *)
 class MarkupToolBar: UIToolbar {
     
     let textView: MarkupTextView?
+    weak var viewController: UIViewController?
+    var pickerDelegate: MarkupPhotoPickerDelegate?
     
-    init(frame: CGRect, owner: MarkupTextView) {
-        self.textView = owner        
+    init(frame: CGRect, owner: MarkupTextView, controller: UIViewController) {
+        self.textView = owner
+        self.viewController = controller
         super.init(frame: frame)
         
         setUpButtons()
@@ -30,11 +35,11 @@ class MarkupToolBar: UIToolbar {
     
     private func setUpButtons() {
         
-        let imageGalleryButton = createBarButtonItem(systemImageName: "photo", objcFunc: nil)
+        let imageGalleryButton = createBarButtonItem(systemImageName: "photo", objcFunc: #selector(photoPicker))
         let textBoxButton = createBarButtonItem(systemImageName: "textbox", objcFunc: nil)
-        let listButton = createBarButtonItem(systemImageName: "text.badge.plus", objcFunc: nil)
+        let listButton = createBarButtonItem(systemImageName: "text.badge.plus", objcFunc: #selector(listAction))
         let paintbrushButton = createBarButtonItem(systemImageName: "paintbrush", objcFunc: nil)
-        let paragraphButton = createBarButtonItem(systemImageName: "paragraph", objcFunc: nil)
+        let paragraphButton = createBarButtonItem(systemImageName: "paragraph", objcFunc: #selector(headerAction))
         
         let flexible = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         
@@ -57,5 +62,70 @@ class MarkupToolBar: UIToolbar {
         }
         let barButtonItem = UIBarButtonItem(image: UIImage(systemName: systemImageName), style: .plain, target: self, action: guardedObjcFunc)
         return barButtonItem
+    }
+    
+    @objc func headerAction() {
+        guard let guardedTextView = textView else {
+            return
+        }
+        
+        let attributedText = NSMutableAttributedString(attributedString: guardedTextView.attributedText)
+        
+        let attibutedString = NSMutableAttributedString(string: "\n#")
+
+        attributedText.append(attibutedString)
+                
+        textView?.attributedText = attributedText          
+    }
+    
+    @objc func photoPicker() {
+        var config = PHPickerConfiguration()
+        config.filter = .images
+        
+        pickerDelegate = MarkupPhotoPickerDelegate()
+        
+        let picker = PHPickerViewController(configuration: config)
+        
+        picker.delegate = pickerDelegate
+        
+        guard let controller = viewController else {
+            return
+        }
+        
+        controller.present(picker, animated: true, completion: nil)
+    }
+    
+    @objc func listAction()  {
+        guard let guardedTextView = textView else {
+            return
+        }
+        
+        let attributedText = NSMutableAttributedString(attributedString: guardedTextView.attributedText)
+                
+        let attibutedString = NSMutableAttributedString(string: "\n ● ")
+        
+        attributedText.append(attibutedString)
+        
+        textView?.attributedText = attributedText        
+    }
+    
+    /**
+    In this funcion, we deal with the toolbar button for bold text, adding bold manually.
+    */
+    @objc func pressBoldButton() {
+        guard let guardedTextView = textView else { 
+            return 
+        }
+        let attibutedText = NSMutableAttributedString(attributedString: guardedTextView.attributedText)
+        
+        let boldFont = UIFont.boldSystemFont(ofSize: UIFont.systemFontSize)
+        
+        let range = guardedTextView.selectedRange
+        
+        let attribute = [NSAttributedString.Key.font: boldFont]
+            
+        attibutedText.addAttributes(attribute, range: range)
+        
+        guardedTextView.attributedText = attibutedText
     }
 }

@@ -8,6 +8,7 @@
 
 import UIKit
 
+@available(iOS 14, *)
 internal class MarkupViewController: UIViewController {
     
     private var textField: MarkupTextField = {
@@ -15,7 +16,7 @@ internal class MarkupViewController: UIViewController {
     }()
     
     private lazy var keyboardToolbar: MarkupToolBar = {
-        return MarkupToolBar(frame: .zero, owner: textView)
+        return MarkupToolBar(frame: .zero, owner: textView, controller: self)
     }()
     
     private lazy var textView: MarkupTextView = {
@@ -93,22 +94,4 @@ internal class MarkupViewController: UIViewController {
             textField.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor, constant: -20)
         ])
     }
-    
-    /**
-    In this funcion, we deal with the toolbar button for bold text, adding bold manually.
-    */
-    @objc func pressBoldButton() {
-        let attributedString = NSMutableAttributedString(attributedString: textView.attributedText)
-        
-        let boldFont = UIFont.boldSystemFont(ofSize: UIFont.systemFontSize)
-        
-        let range = textView.selectedRange
-        
-        let attribute = [NSAttributedString.Key.font: boldFont]
-            
-        attributedString.addAttributes(attribute, range: range)
-        
-        textView.attributedText = attributedString
-    }
-
 }

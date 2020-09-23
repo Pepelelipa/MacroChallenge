@@ -59,6 +59,8 @@
 		A7D4D229251287A700E204CC /* PageControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7D4D228251287A700E204CC /* PageControllerDelegate.swift */; };
 		D9D87534251BAA6700B842C8 /* MarkupTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D87533251BAA6700B842C8 /* MarkupTextField.swift */; };
 		D9D87538251BB26500B842C8 /* MarkupToolBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D87537251BB26500B842C8 /* MarkupToolBar.swift */; };
+		D9D87541251BC4F200B842C8 /* MarkupPhotoPickerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D87540251BC4F200B842C8 /* MarkupPhotoPickerDelegate.swift */; };
+		D9D87544251BD39F00B842C8 /* PhotoEditingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D87543251BD39F00B842C8 /* PhotoEditingViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -117,6 +119,8 @@
 		A7D4D228251287A700E204CC /* PageControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageControllerDelegate.swift; sourceTree = "<group>"; };
 		D9D87533251BAA6700B842C8 /* MarkupTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkupTextField.swift; sourceTree = "<group>"; };
 		D9D87537251BB26500B842C8 /* MarkupToolBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkupToolBar.swift; sourceTree = "<group>"; };
+		D9D87540251BC4F200B842C8 /* MarkupPhotoPickerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkupPhotoPickerDelegate.swift; sourceTree = "<group>"; };
+		D9D87543251BD39F00B842C8 /* PhotoEditingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoEditingViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -361,6 +365,7 @@
 		022D602B251955C000001D5B /* Markup */ = {
 			isa = PBXGroup;
 			children = (
+				D9D8753A251BC3D300B842C8 /* PhotoPicker */,
 				022D6026251955B500001D5B /* MarkupTextViewDelegate.swift */,
 				022D6027251955B500001D5B /* MarkupViewController.swift */,
 			);
@@ -510,6 +515,15 @@
 			path = NotebookIndex;
 			sourceTree = "<group>";
 		};
+		D9D8753A251BC3D300B842C8 /* PhotoPicker */ = {
+			isa = PBXGroup;
+			children = (
+				D9D87540251BC4F200B842C8 /* MarkupPhotoPickerDelegate.swift */,
+				D9D87543251BD39F00B842C8 /* PhotoEditingViewController.swift */,
+			);
+			path = PhotoPicker;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -622,6 +636,7 @@
 				022D60132519559D00001D5B /* MarkdownEscaping.swift in Sources */,
 				022D6028251955B500001D5B /* MarkupTextViewDelegate.swift in Sources */,
 				022D60182519559D00001D5B /* MarkdownCode.swift in Sources */,
+				D9D87544251BD39F00B842C8 /* PhotoEditingViewController.swift in Sources */,
 				02DD09FC25114D6200B6696B /* AppDelegate.swift in Sources */,
 				022D60112519559D00001D5B /* String+UTF16.swift in Sources */,
 				022D601A2519559D00001D5B /* MarkdownAutomaticLink.swift in Sources */,
@@ -636,6 +651,7 @@
 				0221BCF625115E360055A2E5 /* PageViewControllerDataSource.swift in Sources */,
 				026C3CAC251942A7001E32AE /* NotesViewController.swift in Sources */,
 				022D60212519559D00001D5B /* MarkdownLinkElement.swift in Sources */,
+				D9D87541251BC4F200B842C8 /* MarkupPhotoPickerDelegate.swift in Sources */,
 				022D60192519559D00001D5B /* MarkdownColoredBackground.swift in Sources */,
 				A7BDD60A251406D900DDB6A0 /* TableViewDataSource.swift in Sources */,
 				022D600A2519559D00001D5B /* UIFont+Traits.swift in Sources */,
