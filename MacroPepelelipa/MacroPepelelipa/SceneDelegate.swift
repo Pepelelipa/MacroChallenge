@@ -8,6 +8,7 @@
 
 import UIKit
 
+@available(iOS 14, *)
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
