@@ -6,10 +6,10 @@
 //  Copyright © 2020 Pedro Giuliano Farina. All rights reserved.
 //
 
-public protocol Note {
-    var notebook: Notebook { get }
+public protocol NoteEntity {
+    var notebook: NotebookEntity { get }
     var title: NSAttributedString { get }
     var text: NSAttributedString { get }
-    var images: [ImageBox] { get }
-    var textBoxes: [TextBox] { get }
+    var images: [ImageBoxEntity] { get }
+    var textBoxes: [TextBoxEntity] { get }
 }

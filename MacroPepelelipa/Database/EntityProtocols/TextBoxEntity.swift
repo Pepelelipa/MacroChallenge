@@ -7,8 +7,8 @@
 //
 //swiftlint:disable identifier_name
 
-public protocol TextBox {
-    var note: Note { get }
+public protocol TextBoxEntity {
+    var note: NoteEntity { get }
     var text: NSAttributedString { get }
     var x: Float { get }
     var y: Float { get }

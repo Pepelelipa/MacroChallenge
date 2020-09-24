@@ -7,8 +7,8 @@
 //
 //swiftlint:disable identifier_name
 
-public protocol ImageBox {
-    var note: Note { get }
+public protocol ImageBoxEntity {
+    var note: NoteEntity { get }
     var imagePath: String { get }
     var x: Float { get }
     var y: Float { get }

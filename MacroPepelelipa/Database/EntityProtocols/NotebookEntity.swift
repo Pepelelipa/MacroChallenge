@@ -8,8 +8,8 @@
 
 import UIKit
 
-public protocol Notebook {
-    var workspace: Workspace { get }
+public protocol NotebookEntity {
+    var workspace: WorkspaceEntity { get }
     var color: UIColor { get }
-    var notes: [Note] { get }
+    var notes: [NoteEntity] { get }
 }

@@ -6,6 +6,6 @@
 //  Copyright © 2020 Pedro Giuliano Farina. All rights reserved.
 //
 
-public protocol Workspace {
-    var notebooks: [Notebook] { get }
+public protocol WorkspaceEntity {
+    var notebooks: [NotebookEntity] { get }
 }
