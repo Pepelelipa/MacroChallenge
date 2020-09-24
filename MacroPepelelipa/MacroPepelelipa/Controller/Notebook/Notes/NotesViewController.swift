@@ -31,10 +31,10 @@ public class NotesViewController: UIViewController {
     @IBAction func btnBackTap(_ sender: UIButton) {
         let dev = UIDevice.current.userInterfaceIdiom
         if dev == .pad {
-            splitViewController?.preferredDisplayMode = .primaryOverlay
+            splitViewController?.preferredDisplayMode = .oneOverSecondary
         } else {
             if UIDevice.current.orientation.isLandscape {
-                splitViewController?.preferredDisplayMode = .primaryOverlay
+                splitViewController?.preferredDisplayMode = .oneOverSecondary
             } else {
                 self.navigationController?.popViewController(animated: true)
             }
