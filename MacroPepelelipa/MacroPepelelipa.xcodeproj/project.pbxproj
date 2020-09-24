@@ -50,6 +50,11 @@
 		0247F78D25115BAA00405A61 /* WorkspaceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0247F78C25115BAA00405A61 /* WorkspaceViewController.swift */; };
 		026C3CAC251942A7001E32AE /* NotesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 026C3CAB251942A7001E32AE /* NotesViewController.swift */; };
 		026D4C7E251D1A8E00CBED5A /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 020E22242513F10800A93EAB /* StringExtension.swift */; };
+		026D4C90251D1CB900CBED5A /* Workspace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 026D4C8F251D1CB900CBED5A /* Workspace.swift */; };
+		026D4C94251D1CD900CBED5A /* Notebook.swift in Sources */ = {isa = PBXBuildFile; fileRef = 026D4C93251D1CD900CBED5A /* Notebook.swift */; };
+		026D4C97251D1CF800CBED5A /* Note.swift in Sources */ = {isa = PBXBuildFile; fileRef = 026D4C96251D1CF800CBED5A /* Note.swift */; };
+		026D4C9B251D1D1D00CBED5A /* TextBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 026D4C9A251D1D1D00CBED5A /* TextBox.swift */; };
+		026D4C9E251D1D3D00CBED5A /* ImageBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 026D4C9D251D1D3D00CBED5A /* ImageBox.swift */; };
 		029847F2251D13D1004E0B62 /* Database.h in Headers */ = {isa = PBXBuildFile; fileRef = 029847F0251D13D1004E0B62 /* Database.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		029847F5251D13D1004E0B62 /* Database.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 029847EE251D13D1004E0B62 /* Database.framework */; };
 		029847F6251D13D1004E0B62 /* Database.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 029847EE251D13D1004E0B62 /* Database.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -139,6 +144,11 @@
 		0247F78925115B3600405A61 /* PageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageViewController.swift; sourceTree = "<group>"; };
 		0247F78C25115BAA00405A61 /* WorkspaceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkspaceViewController.swift; sourceTree = "<group>"; };
 		026C3CAB251942A7001E32AE /* NotesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesViewController.swift; sourceTree = "<group>"; };
+		026D4C8F251D1CB900CBED5A /* Workspace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Workspace.swift; sourceTree = "<group>"; };
+		026D4C93251D1CD900CBED5A /* Notebook.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notebook.swift; sourceTree = "<group>"; };
+		026D4C96251D1CF800CBED5A /* Note.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Note.swift; sourceTree = "<group>"; };
+		026D4C9A251D1D1D00CBED5A /* TextBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextBox.swift; sourceTree = "<group>"; };
+		026D4C9D251D1D3D00CBED5A /* ImageBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageBox.swift; sourceTree = "<group>"; };
 		029847EE251D13D1004E0B62 /* Database.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Database.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		029847F0251D13D1004E0B62 /* Database.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Database.h; sourceTree = "<group>"; };
 		029847F1251D13D1004E0B62 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -491,9 +501,22 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		026D4C8E251D1CAF00CBED5A /* Entities */ = {
+			isa = PBXGroup;
+			children = (
+				026D4C8F251D1CB900CBED5A /* Workspace.swift */,
+				026D4C93251D1CD900CBED5A /* Notebook.swift */,
+				026D4C96251D1CF800CBED5A /* Note.swift */,
+				026D4C9A251D1D1D00CBED5A /* TextBox.swift */,
+				026D4C9D251D1D3D00CBED5A /* ImageBox.swift */,
+			);
+			path = Entities;
+			sourceTree = "<group>";
+		};
 		029847EF251D13D1004E0B62 /* Database */ = {
 			isa = PBXGroup;
 			children = (
+				026D4C8E251D1CAF00CBED5A /* Entities */,
 				02077727251D190800D97B5A /* EntityProtocols */,
 				029847F0251D13D1004E0B62 /* Database.h */,
 				029847F1251D13D1004E0B62 /* Info.plist */,
@@ -746,11 +769,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				026D4C9E251D1D3D00CBED5A /* ImageBox.swift in Sources */,
 				02077735251D192D00D97B5A /* ImageBoxEntity.swift in Sources */,
+				026D4C90251D1CB900CBED5A /* Workspace.swift in Sources */,
+				026D4C94251D1CD900CBED5A /* Notebook.swift in Sources */,
 				0207772C251D191B00D97B5A /* NotebookEntity.swift in Sources */,
+				026D4C97251D1CF800CBED5A /* Note.swift in Sources */,
 				026D4C7E251D1A8E00CBED5A /* StringExtension.swift in Sources */,
 				02077729251D191600D97B5A /* WorkspaceEntity.swift in Sources */,
 				02077732251D192600D97B5A /* TextBoxEntity.swift in Sources */,
+				026D4C9B251D1D1D00CBED5A /* TextBox.swift in Sources */,
 				0207772F251D192000D97B5A /* NoteEntity.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
