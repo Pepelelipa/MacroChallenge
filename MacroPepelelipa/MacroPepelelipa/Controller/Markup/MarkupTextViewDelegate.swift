@@ -39,18 +39,9 @@ internal class MarkupTextViewDelegate: NSObject, UITextViewDelegate {
     }
         
     func textViewDidChange(_ textView: UITextView) {
-        if textView.attributedText.string.last == "\n" && MarkdownList.isList && !isBackspace {
-            let attributedText = NSMutableAttributedString(attributedString: textView.attributedText)
-            
-            let attributedString = NSMutableAttributedString(string: "* ")
-            MarkdownList.formatListStyle(
-                attributedString,
-                range: NSRange(location: 0, length: attributedString.length),
-                level: 1
-            )
-            
-            attributedText.append(attributedString)
-            textView.attributedText = attributedText
+        if textView.attributedText.string.last == "\n" && !isBackspace {
+            continueBulletList(on: textView)
+            continueNumericList(on: textView)
         }
         
         if let range = range {
@@ -70,8 +61,14 @@ internal class MarkupTextViewDelegate: NSObject, UITextViewDelegate {
             self.isBackspace = false
         }
         
-        if MarkdownList.isList && lastWrittenText == "\n" && text == "\n" {
-            MarkdownList.isList = false
+        if lastWrittenText == "\n" && text == "\n" {
+            if MarkdownList.isList {
+                MarkdownList.isList = false
+            }
+            
+            if MarkdownNumeric.isNumeric {
+                MarkdownNumeric.isNumeric = false
+            }
         }
         lastWrittenText = text
         
@@ -87,5 +84,43 @@ internal class MarkupTextViewDelegate: NSObject, UITextViewDelegate {
             isShowingPlaceholder = false
         }
         return true
+    }
+    
+    private func continueBulletList(on textView: UITextView) {
+        if !MarkdownList.isList {
+            return
+        }
+        
+        let attributedText = NSMutableAttributedString(attributedString: textView.attributedText)
+        
+        let attributedString = NSMutableAttributedString(string: "* ")
+        MarkdownList.formatListStyle(
+            attributedString,
+            range: NSRange(location: 0, length: attributedString.length),
+            level: 1
+        )
+        
+        attributedText.append(attributedString)
+        textView.attributedText = attributedText
+    }
+    
+    private func continueNumericList(on textView: UITextView) {
+        if !MarkdownNumeric.isNumeric {
+            return
+        }
+        
+        MarkdownNumeric.updateNumber(isBackspace: isBackspace)
+        
+        let attributedText = NSMutableAttributedString(attributedString: textView.attributedText)
+        
+        let attributedString = NSMutableAttributedString(string: "2. ")
+        MarkdownNumeric.formatListStyle(
+            attributedString,
+            range: NSRange(location: 0, length: attributedString.length),
+            level: 1
+        )
+        
+        attributedText.append(attributedString)
+        textView.attributedText = attributedText
     }
 }

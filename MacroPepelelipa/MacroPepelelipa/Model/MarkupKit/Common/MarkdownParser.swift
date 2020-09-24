@@ -28,6 +28,7 @@ open class MarkdownParser {
         public static let code          = EnabledElements(rawValue: 1 << 7)
         public static let strikethrough = EnabledElements(rawValue: 1 << 8)
         public static let highlight     = EnabledElements(rawValue: 1 << 9)
+        public static let numeric       = EnabledElements(rawValue: 1 << 10)
         
         public static let disabledAutomaticLink: EnabledElements = [
             .header,
@@ -38,7 +39,8 @@ open class MarkdownParser {
             .italic,
             .code,
             .strikethrough,
-            .highlight
+            .highlight,
+            .numeric
         ]
         
         public static let all: EnabledElements = [
@@ -65,6 +67,7 @@ open class MarkdownParser {
     public let code: MarkdownCode
     public let strikethrough: MarkdownStrikethrough
     public let highlight: MarkdownHighlight
+    public let numeric: MarkdownNumeric
     
     // MARK: - Escaping Elements
     fileprivate var codeEscaping = MarkdownCodeEscaping()
@@ -111,6 +114,7 @@ open class MarkdownParser {
         code = MarkdownCode(font: font)
         strikethrough = MarkdownStrikethrough(font: font)
         highlight = MarkdownHighlight(font: font, textHighlightColor: UIColor.black, textBackgroundColor: UIColor.yellow)
+        numeric = MarkdownNumeric(font: font)
         
         self.escapingElements = [codeEscaping, escaping]
         self.unescapingElements = [code, unescaping]
@@ -171,7 +175,6 @@ open class MarkdownParser {
             attributedString.addAttribute(.backgroundColor, value: backgroundColor,
                                           range: NSRange(location: range.location, length: range.length + 1))
         }
-                
         var elements: [MarkdownElement] = escapingElements
         elements.append(contentsOf: defaultElements)
         elements.append(contentsOf: customElements)
@@ -194,7 +197,8 @@ open class MarkdownParser {
             (.italic, italic),
             (.code, code),
             (.strikethrough, strikethrough),
-            (.highlight, highlight)
+            (.highlight, highlight),
+            (.numeric, numeric)
         ]
         defaultElements = pairs.filter({ (enabled, _) in
                                         enabledElements.contains(enabled) })
