@@ -16,12 +16,14 @@ internal class MarkupTextViewDelegate: NSObject, UITextViewDelegate {
     private var isShowingPlaceholder: Bool
     private var isBackspace: Bool
     private var range: NSRange?
+    private var lastWrittenText: String
     
     override init() {
         markdownParser = MarkdownParser(color: UIColor(named: "Body") ?? .black)
         isShowingPlaceholder = false
         isBackspace = false
         placeholder = "Start writing here".localized()
+        lastWrittenText = ""
     }
     
     /**
@@ -37,6 +39,20 @@ internal class MarkupTextViewDelegate: NSObject, UITextViewDelegate {
     }
         
     func textViewDidChange(_ textView: UITextView) {
+        if textView.attributedText.string.last == "\n" && MarkdownList.isList && !isBackspace {
+            let attributedText = NSMutableAttributedString(attributedString: textView.attributedText)
+            
+            let attributedString = NSMutableAttributedString(string: "* ")
+            MarkdownList.formatListStyle(
+                attributedString,
+                range: NSRange(location: 0, length: attributedString.length),
+                level: 1
+            )
+            
+            attributedText.append(attributedString)
+            textView.attributedText = attributedText
+        }
+        
         if let range = range {
             markdownAttributesChanged?(markdownParser.parse(textView.attributedText, range: range, isBackspace: isBackspace), nil)
         }
@@ -54,13 +70,20 @@ internal class MarkupTextViewDelegate: NSObject, UITextViewDelegate {
             self.isBackspace = false
         }
         
+        if MarkdownList.isList && lastWrittenText == "\n" && text == "\n" {
+            MarkdownList.isList = false
+        }
+        lastWrittenText = text
+        
         self.range = range
+        
         return true
     }
     
     func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
         if isShowingPlaceholder {
             textView.attributedText = NSAttributedString(string: "")
+            textView.textColor = markdownParser.color
             isShowingPlaceholder = false
         }
         return true

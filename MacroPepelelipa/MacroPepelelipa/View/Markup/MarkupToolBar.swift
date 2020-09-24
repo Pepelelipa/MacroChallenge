@@ -122,11 +122,19 @@ internal class MarkupToolBar: UIToolbar {
         
         let attributedText = NSMutableAttributedString(attributedString: guardedTextView.attributedText)
                 
-        let attibutedString = NSMutableAttributedString(string: "\n ● ")
+        let attributedString = NSMutableAttributedString(string: "* ")
+        MarkdownList.formatListStyle(
+            attributedString,
+            range: NSRange(location: 0, length: attributedString.length),
+            level: 1
+        )
         
-        attributedText.append(attibutedString)
+        if !MarkdownList.isList {
+            attributedText.append(NSAttributedString(string: "\n"))
+        }
+        attributedText.append(attributedString)
         
-        textView?.attributedText = attributedText        
+        textView?.attributedText = attributedText
     }
     
     /**
