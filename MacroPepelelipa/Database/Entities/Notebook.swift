@@ -8,8 +8,16 @@
 
 import UIKit
 
-internal struct Notebook: NotebookEntity {
+internal class Notebook: NotebookEntity {
     var workspace: WorkspaceEntity
+    var name: String
     var color: UIColor
-    var notes: [NoteEntity]
+    var notes: [NoteEntity] = []
+
+    internal init(workspace: Workspace, name: String, color: UIColor) {
+        self.workspace = workspace
+        self.name = name
+        self.color = color
+        workspace.notebooks.append(self)
+    }
 }

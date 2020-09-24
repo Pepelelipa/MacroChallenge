@@ -9,6 +9,7 @@
 import UIKit
 
 public protocol NotebookEntity {
+    var name: String { get }
     var workspace: WorkspaceEntity { get }
     var color: UIColor { get }
     var notes: [NoteEntity] { get }

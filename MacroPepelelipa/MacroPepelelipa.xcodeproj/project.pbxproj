@@ -55,6 +55,8 @@
 		026D4C97251D1CF800CBED5A /* Note.swift in Sources */ = {isa = PBXBuildFile; fileRef = 026D4C96251D1CF800CBED5A /* Note.swift */; };
 		026D4C9B251D1D1D00CBED5A /* TextBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 026D4C9A251D1D1D00CBED5A /* TextBox.swift */; };
 		026D4C9E251D1D3D00CBED5A /* ImageBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 026D4C9D251D1D3D00CBED5A /* ImageBox.swift */; };
+		026D4CA2251D1D7B00CBED5A /* Mockdata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 026D4CA1251D1D7B00CBED5A /* Mockdata.swift */; };
+		026D4CA4251D1EA600CBED5A /* ColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0221BCF725116CC60055A2E5 /* ColorExtension.swift */; };
 		029847F2251D13D1004E0B62 /* Database.h in Headers */ = {isa = PBXBuildFile; fileRef = 029847F0251D13D1004E0B62 /* Database.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		029847F5251D13D1004E0B62 /* Database.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 029847EE251D13D1004E0B62 /* Database.framework */; };
 		029847F6251D13D1004E0B62 /* Database.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 029847EE251D13D1004E0B62 /* Database.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -149,6 +151,7 @@
 		026D4C96251D1CF800CBED5A /* Note.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Note.swift; sourceTree = "<group>"; };
 		026D4C9A251D1D1D00CBED5A /* TextBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextBox.swift; sourceTree = "<group>"; };
 		026D4C9D251D1D3D00CBED5A /* ImageBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageBox.swift; sourceTree = "<group>"; };
+		026D4CA1251D1D7B00CBED5A /* Mockdata.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mockdata.swift; sourceTree = "<group>"; };
 		029847EE251D13D1004E0B62 /* Database.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Database.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		029847F0251D13D1004E0B62 /* Database.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Database.h; sourceTree = "<group>"; };
 		029847F1251D13D1004E0B62 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -496,6 +499,7 @@
 		026D4C7D251D1A8000CBED5A /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				0221BCF725116CC60055A2E5 /* ColorExtension.swift */,
 				020E22242513F10800A93EAB /* StringExtension.swift */,
 			);
 			path = Model;
@@ -513,9 +517,18 @@
 			path = Entities;
 			sourceTree = "<group>";
 		};
+		026D4CA0251D1D6C00CBED5A /* Mockup */ = {
+			isa = PBXGroup;
+			children = (
+				026D4CA1251D1D7B00CBED5A /* Mockdata.swift */,
+			);
+			path = Mockup;
+			sourceTree = "<group>";
+		};
 		029847EF251D13D1004E0B62 /* Database */ = {
 			isa = PBXGroup;
 			children = (
+				026D4CA0251D1D6C00CBED5A /* Mockup */,
 				026D4C8E251D1CAF00CBED5A /* Entities */,
 				02077727251D190800D97B5A /* EntityProtocols */,
 				029847F0251D13D1004E0B62 /* Database.h */,
@@ -575,7 +588,6 @@
 				020E22212513F0D400A93EAB /* Strings */,
 				0221BCF425115E150055A2E5 /* Workspace */,
 				A7BDD6082514066700DDB6A0 /* NotebookIndex */,
-				0221BCF725116CC60055A2E5 /* ColorExtension.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -778,8 +790,10 @@
 				026D4C7E251D1A8E00CBED5A /* StringExtension.swift in Sources */,
 				02077729251D191600D97B5A /* WorkspaceEntity.swift in Sources */,
 				02077732251D192600D97B5A /* TextBoxEntity.swift in Sources */,
+				026D4CA2251D1D7B00CBED5A /* Mockdata.swift in Sources */,
 				026D4C9B251D1D1D00CBED5A /* TextBox.swift in Sources */,
 				0207772F251D192000D97B5A /* NoteEntity.swift in Sources */,
+				026D4CA4251D1EA600CBED5A /* ColorExtension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

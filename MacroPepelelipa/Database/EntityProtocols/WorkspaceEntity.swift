@@ -7,5 +7,6 @@
 //
 
 public protocol WorkspaceEntity {
+    var name: String { get }
     var notebooks: [NotebookEntity] { get }
 }
