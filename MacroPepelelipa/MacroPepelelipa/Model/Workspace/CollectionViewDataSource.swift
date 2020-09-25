@@ -7,20 +7,26 @@
 //
 
 import UIKit
+import Database
 
 internal class WorkspaceCollectionViewDataSource: NSObject, UICollectionViewDataSource {
-    #warning("No actual data being fed to the source.")
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+    private weak var workspace: WorkspaceEntity?
+    internal init(workspace: WorkspaceEntity) {
+        self.workspace = workspace
     }
 
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    internal func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return workspace?.notebooks.count ?? 0
+    }
+
+    internal func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(
-            withReuseIdentifier: NotebookCollectionViewCell.cellID, for: indexPath)
-            as? NotebookCollectionViewCell else {
+                withReuseIdentifier: NotebookCollectionViewCell.cellID, for: indexPath)
+                as? NotebookCollectionViewCell,
+                let notebook = workspace?.notebooks[indexPath.row] else {
                 fatalError("Sorry not sorry")
         }
-
+        cell.setNotebook(notebook)
         return cell
     }
 }
