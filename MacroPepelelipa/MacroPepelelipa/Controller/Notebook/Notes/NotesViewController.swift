@@ -9,6 +9,13 @@
 import UIKit
 
 public class NotesViewController: UIViewController {
+    
+    private lazy var imageButton: UIButton = {
+        let button = UIButton(frame: CGRect(x: 60, y: 60, width: 120, height: 120))
+        button.setImage(UIImage(named: "imageButton"), for: .normal)
+        
+        return button
+    }()
 
     private lazy var btnBack: UIButton = {
         let btn = UIButton(frame: .zero)
