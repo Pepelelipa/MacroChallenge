@@ -42,6 +42,7 @@ internal class MarkupTextViewDelegate: NSObject, UITextViewDelegate {
         if textView.attributedText.string.last == "\n" && !isBackspace {
             continueBulletList(on: textView)
             continueNumericList(on: textView)
+            continueQuote(on: textView)
         }
         
         if let range = range {
@@ -57,6 +58,13 @@ internal class MarkupTextViewDelegate: NSObject, UITextViewDelegate {
         let backspace = strcmp(char, "\\b")
         if backspace == -92 {
             self.isBackspace = true
+//            let end = textView.attributedText.string.endIndex
+//            var index = textView.attributedText.string.index(before: end)
+//            var string = textView.attributedText.string[index]
+//            while !string.isNewline {
+//                index = textView.attributedText.string.index(before: index)
+//                string = textView.attributedText.string[index]
+//            }
         } else {
             self.isBackspace = false
         }
@@ -68,6 +76,10 @@ internal class MarkupTextViewDelegate: NSObject, UITextViewDelegate {
             
             if MarkdownNumeric.isNumeric {
                 MarkdownNumeric.isNumeric = false
+            }
+            
+            if MarkdownQuote.isQuote {
+                MarkdownQuote.isQuote = false
             }
         }
         lastWrittenText = text
@@ -120,6 +132,24 @@ internal class MarkupTextViewDelegate: NSObject, UITextViewDelegate {
             level: 1
         )
         
+        attributedText.append(attributedString)
+        textView.attributedText = attributedText
+    }
+    
+    private func continueQuote(on textView: UITextView) {
+        if !MarkdownQuote.isQuote {
+             return
+        }
+                
+        let attributedText = NSMutableAttributedString(attributedString: textView.attributedText)
+        
+        let attributedString = NSMutableAttributedString(string: "> ")
+        MarkdownQuote.formatQuoteStyle(
+            attributedString,
+            range: NSRange(location: 0, length: attributedString.length - 1),
+            level: 1
+        )
+
         attributedText.append(attributedString)
         textView.attributedText = attributedText
     }

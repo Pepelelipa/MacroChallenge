@@ -72,7 +72,6 @@ open class MarkdownNumeric: MarkdownLevelElement {
         }
         
         let firstCharacter = attributedString.attributedSubstring(from: NSRange(location: range.location, length: 1)).string
-        
         let indicator = ". "
         
         if firstCharacter != "1" {
