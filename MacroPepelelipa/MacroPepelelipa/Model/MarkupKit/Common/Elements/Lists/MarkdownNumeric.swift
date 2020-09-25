@@ -46,28 +46,7 @@ open class MarkdownNumeric: MarkdownLevelElement {
     
     public static func formatListStyle(_ attributedString: NSMutableAttributedString, range: NSRange, level: Int) {
         
-        var isValidRange = true
-        
-        attributedString.enumerateAttributes(
-            in: NSRange(location: range.location, length: 2),
-            options: []
-        ) { (attributes, _, _) in
-            
-            if attributes.contains(where: { (attribute) -> Bool in
-                
-                if let font = attribute.value as? NSObject,
-                   attribute.key == .font,
-                   font == MarkdownNumeric.numericFont {
-                    return true
-                }
-                return false
-                
-            }) {
-                isValidRange = false
-            }
-        }
-        
-        if !isValidRange {
+        if MarkdownNumeric.checkNumericIndicator(attributedText: attributedString.attributedSubstring(from: NSRange(location: range.location, length: 2))) {
             return
         }
         
@@ -97,6 +76,29 @@ open class MarkdownNumeric: MarkdownLevelElement {
         } else {
             nextNumber += 1
         }
+    }
+    
+    public static func checkNumericIndicator(attributedText: NSAttributedString) -> Bool {
+        var containsAttributes: Bool = false
+        
+        attributedText.enumerateAttributes(
+            in: NSRange(location: 0, length: attributedText.length),
+            options: []
+        ) { (attributes, _, _) in
+            if attributes.contains(where: { (attribute) -> Bool in
+                if let font = attribute.value as? NSObject,
+                   attribute.key == .font,
+                   font == MarkdownNumeric.numericFont {
+                    return true
+                }
+                return false
+                
+            }) {
+                containsAttributes = true
+            }
+        }
+        
+        return containsAttributes
     }
     
 }

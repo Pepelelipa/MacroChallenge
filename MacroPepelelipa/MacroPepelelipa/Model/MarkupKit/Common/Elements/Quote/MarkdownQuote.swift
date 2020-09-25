@@ -16,7 +16,7 @@ open class MarkdownQuote: MarkdownLevelElement {
     private static let quoteColor = UIColor(named: "Highlight") ?? MarkdownParser.defaultColor
 
     private static var separator: String = ""
-    private static var indicator: String = ""
+    public static var indicator: String = ""
     
     public static var isQuote = false
     
@@ -57,5 +57,29 @@ open class MarkdownQuote: MarkdownLevelElement {
         )
         
         isQuote = true
+    }
+    
+    public static func checkQuoteIndicator(attributedText: NSAttributedString) -> Bool {
+        var containsAttributes: Bool = false
+        
+        attributedText.enumerateAttributes(
+            in: NSRange(location: 0, length: attributedText.length),
+            options: []
+        ) { (attributes, _, _) in
+            if attributes.contains(where: { (attribute) -> Bool in
+                
+                if let font = attribute.value as? NSObject,
+                   attribute.key == .font,
+                   font == MarkdownQuote.quoteFont {
+                    return true
+                }
+                return false
+                
+            }) {
+                containsAttributes = true
+            }
+        }
+        
+        return containsAttributes
     }
 }

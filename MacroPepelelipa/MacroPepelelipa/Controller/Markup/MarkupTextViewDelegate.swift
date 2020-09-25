@@ -153,4 +153,67 @@ internal class MarkupTextViewDelegate: NSObject, UITextViewDelegate {
         attributedText.append(attributedString)
         textView.attributedText = attributedText
     }
+    
+    public func clearIndicatorCharacters(_ textView: UITextView) {
+        let attributedText = textView.attributedText
+        
+        guard let lenght = attributedText?.length, lenght > 0 else {
+            return
+        }
+        
+        var lineLenght = 0
+        var location = lenght - 1
+        var indicatorFound = false
+        var textFound = false
+        
+        while location > 0 {
+            if let substring = attributedText?.attributedSubstring(from: NSRange(location: location, length: 1)) {
+                if substring.string[substring.string.startIndex].isNewline {
+                    break
+                }
+                location -= 1
+                lineLenght += 1
+            } else {
+                break
+            }
+        }
+        
+        guard let line = attributedText?.attributedSubstring(from: NSRange(location: location, length: lineLenght)) else {
+            return
+        }
+        
+        for index in 0..<lineLenght {
+            let char = line.attributedSubstring(from: NSRange(location: index, length: 1))
+            
+            if char.string != "\n" {
+                let quote = MarkdownQuote.checkQuoteIndicator(attributedText: char)
+                let numeric = MarkdownNumeric.checkNumericIndicator(attributedText: char)
+                let list = MarkdownList.checkListIndicator(attributedText: char)
+                
+                if quote || numeric || list {
+                    indicatorFound = true
+                } else if char.string != " " {
+                    textFound = true
+                }
+            }
+        }
+        
+        if indicatorFound && !textFound {
+           clearLine(textView, range: NSRange(location: location, length: lineLenght))
+        }
+    }
+    
+    private func clearLine(_ textView: UITextView, range: NSRange) {
+        let attributedText = NSMutableAttributedString(attributedString: textView.attributedText)
+        
+        var location = range.location
+        
+        if attributedText.attributedSubstring(from: NSRange(location: range.location, length: 1)).string == "\n" {
+            location += 1
+        }
+        
+        attributedText.replaceCharacters(in: NSRange(location: location, length: 3), with: "")
+        textView.attributedText = attributedText
+    }
+    
 }

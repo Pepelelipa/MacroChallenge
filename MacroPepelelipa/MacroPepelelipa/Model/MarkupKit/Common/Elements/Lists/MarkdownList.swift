@@ -60,4 +60,28 @@ open class MarkdownList: MarkdownLevelElement {
         isList = true
     }
     
+    public static func checkListIndicator(attributedText: NSAttributedString) -> Bool {
+        var containsAttributes: Bool = false
+        
+        attributedText.enumerateAttributes(
+            in: NSRange(location: 0, length: attributedText.length),
+            options: []
+        ) { (attributes, _, _) in
+            if attributes.contains(where: { (attribute) -> Bool in
+                
+                if let font = attribute.value as? NSObject,
+                   attribute.key == .font,
+                   font == MarkdownList.listFont {
+                    return true
+                }
+                return false
+                
+            }) {
+                containsAttributes = true
+            }
+        }
+        
+        return containsAttributes
+    }
+    
 }
