@@ -13,7 +13,13 @@ internal class Notebook: NotebookEntity {
     var name: String
     var color: CGColor
     var notes: [NoteEntity] = []
-    var indexes: [String] = []
+    var indexes: [NotebookIndexEntity] {
+        var indexes: [NotebookIndexEntity] = []
+        for note in notes {
+            indexes.append(NotebookIndex(index: note.title.string, note: note))
+        }
+        return indexes
+    }
 
     internal init(workspace: Workspace, name: String, color: CGColor) {
         self.workspace = workspace

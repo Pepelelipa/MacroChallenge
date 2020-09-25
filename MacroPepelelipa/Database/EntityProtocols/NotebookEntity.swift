@@ -13,5 +13,5 @@ public protocol NotebookEntity: class {
     var workspace: WorkspaceEntity { get }
     var color: CGColor { get }
     var notes: [NoteEntity] { get }
-    var indexes: [String] { get }
+    var indexes: [NotebookIndexEntity] { get }
 }

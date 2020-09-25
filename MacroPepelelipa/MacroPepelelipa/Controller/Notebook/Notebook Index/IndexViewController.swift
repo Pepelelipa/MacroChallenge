@@ -57,7 +57,6 @@ internal class NotebookIndexViewController: UIViewController {
         let tableView = UITableView(frame: .zero)
         tableView.dataSource = dataSource
         tableView.tableFooterView = UIView()
-        tableView.register(NotebookIndexTableViewCell.self, forCellReuseIdentifier: NotebookIndexTableViewCell.cellID)
 
         tableView.backgroundColor = view.backgroundColor
 

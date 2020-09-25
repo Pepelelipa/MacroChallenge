@@ -7,21 +7,20 @@
 //
 
 import UIKit
+import Database
 
-#warning("Notebook TableView Cell has no actual information yet.")
 internal class NotebookIndexTableViewCell: UITableViewCell {
+    private let index: NotebookIndexEntity
 
-    internal static let cellID = "notebookIndexCell"
     private let lessonLbl: UILabel = {
         let lbl = UILabel(frame: .zero)
-        lbl.text = "Lesson".localized()
         lbl.translatesAutoresizingMaskIntoConstraints = false
 
         return lbl
     }()
 
     ///Title of the lesson
-    internal var lessonTitle: String? {
+    internal var indexText: String? {
         get {
             return lessonLbl.text
         }
@@ -30,19 +29,20 @@ internal class NotebookIndexTableViewCell: UITableViewCell {
         }
     }
 
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
-        contentView.backgroundColor = .random()
+    init(index: NotebookIndexEntity) {
+        self.index = index
+        super.init(style: .default, reuseIdentifier: nil)
+
         contentView.addSubview(lessonLbl)
+        indexText = index.index
         setupConstraints()
     }
 
     required convenience init?(coder: NSCoder) {
-        guard let style = coder.decodeObject(forKey: "style") as? UITableViewCell.CellStyle,
-              let reuseIdentifier = coder.decodeObject(forKey: "reuseIdentifier") as? String else {
+        guard let index = coder.decodeObject(forKey: "index") as? NotebookIndexEntity else {
             return nil
         }
-        self.init(style: style, reuseIdentifier: reuseIdentifier)
+        self.init(index: index)
     }
 
     private func setupConstraints() {
@@ -50,7 +50,8 @@ internal class NotebookIndexTableViewCell: UITableViewCell {
             lessonLbl.topAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.topAnchor),
             lessonLbl.leadingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.leadingAnchor, constant: 10),
             lessonLbl.trailingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.trailingAnchor),
-            lessonLbl.bottomAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.bottomAnchor)
+            lessonLbl.bottomAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.bottomAnchor),
+            lessonLbl.heightAnchor.constraint(equalToConstant: 30)
         ])
     }
 }
