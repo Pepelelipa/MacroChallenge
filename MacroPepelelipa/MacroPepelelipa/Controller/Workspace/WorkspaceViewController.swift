@@ -54,7 +54,7 @@ internal class WorkspaceViewController: UIViewController {
         return collectionView
     }()
     private let dataSource: WorkspaceCollectionViewDataSource
-    private lazy var flowLayoutDelegate = WorkspaceCollectionViewFlowLayoutDelegate { (notebookViewCell) in
+    private lazy var flowLayoutDelegate = WorkspaceCollectionViewFlowLayoutDelegate { [unowned self] (notebookViewCell) in
         guard let notebook = notebookViewCell.notebook else {
             fatalError("The notebook cell did not have a notebook")
         }
