@@ -11,9 +11,9 @@ import UIKit
 public class NotesViewController: UIViewController {
     
     private lazy var imageButton: UIButton = {
-        let button = UIButton(frame: CGRect(x: 60, y: 60, width: 120, height: 120))
+        let button = UIButton(frame: .zero)
         button.setImage(UIImage(named: "imageButton"), for: .normal)
-        
+        button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
 
@@ -83,12 +83,18 @@ public class NotesViewController: UIViewController {
 
         view.addSubview(textField)
         view.addSubview(textView)
+        view.addSubview(imageButton)
         self.view.backgroundColor = UIColor(named: "Background")
         
         textView.inputAccessoryView = keyboardToolbar
     }
 
     public override func viewDidLayoutSubviews() {
+        NSLayoutConstraint.activate([
+            imageButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -150),
+            imageButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 10)
+        ])
+        
         NSLayoutConstraint.activate([
             btnBack.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
             btnBack.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20)
