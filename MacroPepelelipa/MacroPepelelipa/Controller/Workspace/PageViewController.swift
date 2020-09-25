@@ -30,14 +30,14 @@ internal class WorkspacePageViewController: UIPageViewController {
         return pgControl
     }()
 
-    override init(
+    internal override init(
         transitionStyle style: UIPageViewController.TransitionStyle,
         navigationOrientation: UIPageViewController.NavigationOrientation,
         options: [UIPageViewController.OptionsKey: Any]? = nil) {
         super.init(transitionStyle: .scroll, navigationOrientation: .horizontal, options: options)
     }
 
-    required convenience init?(coder: NSCoder) {
+    internal required convenience init?(coder: NSCoder) {
         if let options =
             coder.decodeObject(forKey: "options") as? [UIPageViewController.OptionsKey: Any]? {
             self.init(transitionStyle: .scroll, navigationOrientation: .horizontal, options: options)

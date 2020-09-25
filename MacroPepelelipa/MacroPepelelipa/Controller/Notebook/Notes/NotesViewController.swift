@@ -7,8 +7,23 @@
 //
 
 import UIKit
+import Database
 
-public class NotesViewController: UIViewController {
+internal class NotesViewController: UIViewController {
+
+    internal private(set) weak var note: NoteEntity?
+    internal init(note: NoteEntity) {
+        self.note = note
+        self.textField.attributedText = note.title
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    internal convenience required init?(coder: NSCoder) {
+        guard let note = coder.decodeObject(forKey: "note") as? NoteEntity else {
+            return nil
+        }
+        self.init(note: note)
+    }
 
     private lazy var btnBack: UIButton = {
         let btn = UIButton(frame: .zero)
