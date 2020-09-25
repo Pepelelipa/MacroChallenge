@@ -7,19 +7,22 @@
 //
 
 import UIKit
+import Database
 
 internal class SplitViewController: UISplitViewController, NotebookIndexDelegate {
 
-    private let master = NotebookIndexViewController()
+    private let master: NotebookIndexViewController
     private lazy var navController: UINavigationController = {
         let nav = UINavigationController(rootViewController: master)
         nav.isNavigationBarHidden = true
 
         return nav
     }()
-    private let detail = NotesViewController()
+    private let detail: NotesViewController
 
-    init() {
+    internal init(notebook: NotebookEntity) {
+        master = NotebookIndexViewController(notebook: notebook)
+        detail = NotesViewController(note: notebook.notes.first!)
         super.init(nibName: nil, bundle: nil)
         modalPresentationStyle = .fullScreen
         viewControllers = [navController, detail]
@@ -27,8 +30,11 @@ internal class SplitViewController: UISplitViewController, NotebookIndexDelegate
         preferredDisplayMode = .oneOverSecondary
     }
 
-    required convenience init?(coder: NSCoder) {
-        self.init()
+    internal required convenience init?(coder: NSCoder) {
+        guard let notebook = coder.decodeObject(forKey: "notebook") as? NotebookEntity else {
+            return nil
+        }
+        self.init(notebook: notebook)
     }
 
     func indexShouldDismiss() {

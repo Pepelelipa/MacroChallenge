@@ -7,8 +7,26 @@
 //
 
 import UIKit
+import Database
 
 internal class NotebookIndexViewController: UIViewController {
+    internal private(set) var notebook: NotebookEntity?
+    internal init(notebook: NotebookEntity) {
+        self.notebook = notebook
+
+        imgViewNotebook.tintColor = UIColor(cgColor: notebook.color)
+        lblSubject.text = notebook.name
+        dataSource = NotebookIndexTableViewDataSource(notebook: notebook)
+        
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    internal required convenience init?(coder: NSCoder) {
+        guard let notebook = coder.decodeObject(forKey: "notebook") as? NotebookEntity else {
+            return nil
+        }
+        self.init(notebook: notebook)
+    }
 
     private lazy var btnBack: UIButton = {
         let btn = UIButton(frame: .zero)
@@ -29,13 +47,12 @@ internal class NotebookIndexViewController: UIViewController {
     }()
     private var lblSubject: UILabel = {
         let lbl = UILabel(frame: .zero)
-        lbl.text = "Subject".localized()
         lbl.textAlignment = .center
         lbl.translatesAutoresizingMaskIntoConstraints = false
 
         return lbl
     }()
-    private let dataSource = NotebookIndexTableViewDataSource()
+    private let dataSource: NotebookIndexTableViewDataSource
     private lazy var tableView: UITableView = {
         let tableView = UITableView(frame: .zero)
         tableView.dataSource = dataSource

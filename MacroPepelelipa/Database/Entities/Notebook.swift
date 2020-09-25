@@ -6,15 +6,16 @@
 //  Copyright © 2020 Pedro Giuliano Farina. All rights reserved.
 //
 
-import UIKit
+import CoreGraphics
 
 internal class Notebook: NotebookEntity {
     var workspace: WorkspaceEntity
     var name: String
-    var color: UIColor
+    var color: CGColor
     var notes: [NoteEntity] = []
+    var indexes: [String] = []
 
-    internal init(workspace: Workspace, name: String, color: UIColor) {
+    internal init(workspace: Workspace, name: String, color: CGColor) {
         self.workspace = workspace
         self.name = name
         self.color = color
