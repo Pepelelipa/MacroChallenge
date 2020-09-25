@@ -12,15 +12,15 @@ import Database
 internal class WorkspacePageControllerDataSource: NSObject, UIPageViewControllerDataSource {
     #warning("Workspace Data Source is mocked up.")
     internal private(set) var workspaces: [WorkspaceViewController] =
-        [WorkspaceViewController(workspace: Database.Mockdata.getWorkspace(
+        [WorkspaceViewController(workspace: Database.Mockdata.getFullWorkspace(
                                     withName: "Faculdade",
                                     notebooksNames: ["Compiladores", "IA", "Economia"],
                                     notesTitles: ["Aula 1", "Aula 2", "Aula 3"])),
-         WorkspaceViewController(workspace: Database.Mockdata.getWorkspace(
+         WorkspaceViewController(workspace: Database.Mockdata.getFullWorkspace(
                                     withName: "Trabalho",
                                     notebooksNames: ["Swift", "Design Patterns", "Prototipação", "Apresentação", "Aulas"],
                                     notesTitles: ["Conceito básico", "Avançado", "Top"])),
-         WorkspaceViewController(workspace: Database.Mockdata.getWorkspace(withName: "Test"))]
+         WorkspaceViewController(workspace: Database.Mockdata.getFullWorkspace(withName: "Test"))]
 
     internal func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
         if let currentIndex = workspaces.firstIndex(where: { $0 === viewController }),

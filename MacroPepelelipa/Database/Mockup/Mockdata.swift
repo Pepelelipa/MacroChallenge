@@ -10,12 +10,12 @@
 import UIKit
 
 public class Mockdata {
-    public static func getWorkspace(withName name: String? = nil, notebooksNames: [String] = [], notesTitles: [String] = []) -> WorkspaceEntity {
+    public static func getFullWorkspace(withName name: String? = nil, notebooksNames: [String] = [], notesTitles: [String] = []) -> WorkspaceEntity {
         let nameCopy = name ?? UUID().uuidString
 
         var notebooksCopy = notebooksNames
         if notebooksNames.isEmpty {
-            for _ in 0...Int.random(in: 0...4) {
+            for _ in 0...Int.random(in: 0...7) {
                 notebooksCopy.append(UUID().uuidString)
             }
         }
@@ -42,6 +42,12 @@ public class Mockdata {
         }
 
         return workspace
+    }
+    public static func createNote(in notebook: NotebookEntity) -> NoteEntity {
+        guard let notebook = notebook as? Notebook else {
+            fatalError("Deu ruim")
+        }
+        return Note(notebook: notebook, title: NSAttributedString(), text: NSAttributedString())
     }
 }
 #endif

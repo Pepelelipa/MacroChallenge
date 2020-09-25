@@ -22,7 +22,13 @@ internal class SplitViewController: UISplitViewController, NotebookIndexDelegate
 
     internal init(notebook: NotebookEntity) {
         master = NotebookIndexViewController(notebook: notebook)
-        detail = NotesViewController(note: notebook.notes.first!)
+        let note: NoteEntity
+        if let lastNote = notebook.notes.last {
+            note = lastNote
+        } else {
+            note = Database.Mockdata.createNote(in: notebook)
+        }
+        detail = NotesViewController(note: note)
         super.init(nibName: nil, bundle: nil)
         modalPresentationStyle = .fullScreen
         viewControllers = [navController, detail]
