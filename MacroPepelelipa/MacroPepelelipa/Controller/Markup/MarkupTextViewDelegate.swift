@@ -106,7 +106,7 @@ internal class MarkupTextViewDelegate: NSObject, UITextViewDelegate {
     
     private func continueNumericList(on textView: UITextView) {
         if !MarkdownNumeric.isNumeric {
-            return
+             return
         }
         
         MarkdownNumeric.updateNumber(isBackspace: isBackspace)

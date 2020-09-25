@@ -57,7 +57,7 @@ open class MarkdownList: MarkdownLevelElement {
         attributedString.addAttributes([.paragraphStyle: defaultParagraphStyle(), .foregroundColor: MarkdownParser.defaultColor], range: range)
         attributedString.addAttribute(.font, value: MarkdownList.listFont, range: NSRange(location: range.location, length: 1))
 
-        MarkdownList.isList = true
+        isList = true
     }
     
 }

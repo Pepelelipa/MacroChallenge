@@ -46,6 +46,31 @@ open class MarkdownNumeric: MarkdownLevelElement {
     
     public static func formatListStyle(_ attributedString: NSMutableAttributedString, range: NSRange, level: Int) {
         
+        var isValidRange = true
+        
+        attributedString.enumerateAttributes(
+            in: NSRange(location: range.location, length: 2),
+            options: []
+        ) { (attributes, _, _) in
+            
+            if attributes.contains(where: { (attribute) -> Bool in
+                
+                if let font = attribute.value as? NSObject,
+                   attribute.key == .font,
+                   font == MarkdownNumeric.numericFont {
+                    return true
+                }
+                return false
+                
+            }) {
+                isValidRange = false
+            }
+        }
+        
+        if !isValidRange {
+            return
+        }
+        
         let firstCharacter = attributedString.attributedSubstring(from: NSRange(location: range.location, length: 1)).string
         
         let indicator = ". "
