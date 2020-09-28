@@ -70,6 +70,11 @@ open class MarkdownNumeric: MarkdownLevelElement {
         isNumeric = true
     }
     
+    /**
+     This method updates the counting number of the numeric list.
+     
+     - Parameter isBackspace: A boolean indicating if the text is beeing deleted or not.
+     */
     public static func updateNumber(isBackspace: Bool) {
         if isBackspace {
             nextNumber -= 1
