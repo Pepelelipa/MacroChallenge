@@ -10,11 +10,21 @@ import Foundation
 import UIKit
 import PhotosUI
 
+enum ListStyle {
+    case bullet
+    case numeric
+    case quote
+}
+
 internal class MarkupToolBar: UIToolbar {
     
     private weak var textView: MarkupTextView?
     private weak var viewController: UIViewController?
     private var pickerDelegate: MarkupPhotoPickerDelegate?
+    
+    private var listButton: UIBarButtonItem?
+    
+    private var listStyle: ListStyle = .bullet
     
     init(frame: CGRect, owner: MarkupTextView, controller: UIViewController) {
         self.textView = owner
@@ -35,9 +45,10 @@ internal class MarkupToolBar: UIToolbar {
      A private method to set up all the Buttons on the UIToolBar.
      */
     private func setUpButtons() {
+        listButton = createBarButtonItem(systemImageName: "list.bullet", objcFunc: #selector(addList))
+        
         let imageGalleryButton = createBarButtonItem(systemImageName: "photo", objcFunc: #selector(photoPicker))
         let textBoxButton = createBarButtonItem(systemImageName: "textbox", objcFunc: nil)
-        let listButton = createBarButtonItem(systemImageName: "text.badge.plus", objcFunc: #selector(listAction))
         let paintbrushButton = createBarButtonItem(systemImageName: "paintbrush", objcFunc: nil)
         let paragraphButton = createBarButtonItem(systemImageName: "paragraph", objcFunc: #selector(headerAction))
         
@@ -47,10 +58,15 @@ internal class MarkupToolBar: UIToolbar {
         for _ in 0...9 {
             self.items?.append(flexible)
         }
+        
         self.items?.append(paintbrushButton)
         self.items?.append(flexible)
-        self.items?.append(listButton)
-        self.items?.append(flexible)
+        
+        if let listBtn = listButton {
+            self.items?.append(listBtn)
+            self.items?.append(flexible)
+        }
+        
         self.items?.append(paragraphButton)
         self.items?.append(flexible)
     }    
@@ -64,12 +80,8 @@ internal class MarkupToolBar: UIToolbar {
      
      - Returns: An UIBarButtonItem with an image and a selector, if passed as parameter.
      */
-    private func createBarButtonItem(systemImageName: String, objcFunc: Selector? ) -> UIBarButtonItem {
-        guard let guardedObjcFunc = objcFunc else {
-            return UIBarButtonItem(image: UIImage(systemName: systemImageName), style: .plain, target: self, action: nil)
-        }
-        let barButtonItem = UIBarButtonItem(image: UIImage(systemName: systemImageName), style: .plain, target: self, action: guardedObjcFunc)
-        return barButtonItem
+    private func createBarButtonItem(systemImageName: String, objcFunc: Selector?) -> UIBarButtonItem {
+        return UIBarButtonItem(image: UIImage(systemName: systemImageName), style: .plain, target: self, action: objcFunc)
     }
     
     /**
@@ -112,24 +124,6 @@ internal class MarkupToolBar: UIToolbar {
     }
     
     /**
-    In this funcion, we deal with the toolbar button for adding a list, adding it manually.
-    */
-    
-    @objc private func listAction() {
-        guard let guardedTextView = textView else {
-            return
-        }
-        
-        let attributedText = NSMutableAttributedString(attributedString: guardedTextView.attributedText)
-                
-        let attibutedString = NSMutableAttributedString(string: "\n ● ")
-        
-        attributedText.append(attibutedString)
-        
-        textView?.attributedText = attributedText        
-    }
-    
-    /**
     In this funcion, we deal with the toolbar button for bold text, adding bold manually.
     */
     @objc private func pressBoldButton() {
@@ -147,5 +141,36 @@ internal class MarkupToolBar: UIToolbar {
         attibutedText.addAttributes(attribute, range: range)
         
         guardedTextView.attributedText = attibutedText
+    }
+    
+    /**
+    In this funcion, we deal with the toolbar button for adding a list, adding it manually.
+    */
+    @objc private func addList() {
+        guard let guardedTextView = textView else {
+            return
+        }
+            
+        let lineCleared = guardedTextView.clearIndicatorCharacters()
+        var nextStyle: ListStyle = .bullet
+        
+        guardedTextView.addList(of: listStyle, lineCleared)
+        
+        switch listStyle {
+        case .bullet:
+            listButton?.image = UIImage(systemName: "list.number")
+            MarkdownQuote.isQuote = false
+            nextStyle = .numeric
+        case .numeric:
+            listButton?.image = UIImage(systemName: "text.quote")
+            MarkdownList.isList = false
+            nextStyle = .quote
+        case .quote:
+            listButton?.image = UIImage(systemName: "list.bullet")
+            MarkdownNumeric.isNumeric = false
+            nextStyle = .bullet
+        }
+            
+        listStyle = nextStyle
     }
 }
