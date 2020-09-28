@@ -18,7 +18,7 @@ internal class MarkupTextViewDelegate: NSObject, UITextViewDelegate {
     private var range: NSRange?
     private var lastWrittenText: String
     
-    override init() {hd
+    override init() {
         markdownParser = MarkdownParser(color: UIColor(named: "Body") ?? .black)
         isShowingPlaceholder = false
         isBackspace = false
@@ -91,55 +91,58 @@ internal class MarkupTextViewDelegate: NSObject, UITextViewDelegate {
         return true
     }
     
+    /**
+     This method continues to add a Bullet List on the UITextView if a Bullet List was already started.
+     
+     - Parameter textView: The UITextView on which will be added the Bullet List.
+     */
     private func continueBulletList(on textView: UITextView) {
-        if !MarkdownList.isList {
-            return
+        if MarkdownList.isList {
+            addBulletList(on: textView, true)
         }
-        
+    }
+    
+    /**
+     This method continues to add a Numeric List on the UITextView if a Numeric List was already started.
+     
+     - Parameter textView: The UITextView on which will be added the Numeric List.
+     */
+    private func continueNumericList(on textView: UITextView) {
+        if MarkdownNumeric.isNumeric {
+            MarkdownNumeric.updateNumber(isBackspace: isBackspace)
+            addNumericList(on: textView, true)
+        }
+    }
+    
+    /**
+     This method continues to add a Quotes on the UITextView if a Quote was already started.
+     
+     - Parameter textView: The UITextView on which will be added the Quote.
+     */
+    private func continueQuote(on textView: UITextView) {
+        if MarkdownQuote.isQuote {
+            addQuote(on: textView, true)
+        }
+    }
+    
+    /**
+     This method adds a bullet to the UITextView and calls the parser's formatting methods.
+     
+     - Parameters:
+        - textView: The UITextView that will be formatted.
+        - lineCleared: A boolean indicating if a line break is needed or not.
+     */
+    public func addBulletList(on textView: UITextView, _ lineCleared: Bool) {
         let attributedText = NSMutableAttributedString(attributedString: textView.attributedText)
         
+        if !MarkdownList.isList && !lineCleared {
+            attributedText.append(NSAttributedString(string: "\n"))
+        }
+
         let attributedString = NSMutableAttributedString(string: "* ")
         MarkdownList.formatListStyle(
             attributedString,
             range: NSRange(location: 0, length: attributedString.length),
-            level: 1
-        )
-        
-        attributedText.append(attributedString)
-        textView.attributedText = attributedText
-    }
-    
-    private func continueNumericList(on textView: UITextView) {
-        if !MarkdownNumeric.isNumeric {
-             return
-        }
-        
-        MarkdownNumeric.updateNumber(isBackspace: isBackspace)
-        
-        let attributedText = NSMutableAttributedString(attributedString: textView.attributedText)
-        
-        let attributedString = NSMutableAttributedString(string: "2. ")
-        MarkdownNumeric.formatListStyle(
-            attributedString,
-            range: NSRange(location: 0, length: attributedString.length),
-            level: 1
-        )
-        
-        attributedText.append(attributedString)
-        textView.attributedText = attributedText
-    }
-    
-    private func continueQuote(on textView: UITextView) {
-        if !MarkdownQuote.isQuote {
-             return
-        }
-                
-        let attributedText = NSMutableAttributedString(attributedString: textView.attributedText)
-        
-        let attributedString = NSMutableAttributedString(string: "> ")
-        MarkdownQuote.formatQuoteStyle(
-            attributedString,
-            range: NSRange(location: 0, length: attributedString.length - 1),
             level: 1
         )
 
@@ -147,6 +150,63 @@ internal class MarkupTextViewDelegate: NSObject, UITextViewDelegate {
         textView.attributedText = attributedText
     }
     
+    /**
+     This method adds a numeric list to the UITextView and calls the parser's formatting methods.
+     
+     - Parameters:
+        - textView: The UITextView that will be formatted.
+        - lineCleared: A boolean indicating if a line break is needed or not.
+     */
+    public func addNumericList(on textView: UITextView, _ lineCleared: Bool) {
+        let attributedText = NSMutableAttributedString(attributedString: textView.attributedText)
+        
+        if !MarkdownNumeric.isNumeric && !lineCleared {
+            attributedText.append(NSAttributedString(string: "\n"))
+        }
+
+        let attributedString = NSMutableAttributedString(string: "2. ")
+        MarkdownNumeric.formatListStyle(
+            attributedString,
+            range: NSRange(location: 0, length: attributedString.length),
+            level: 1
+        )
+
+        attributedText.append(attributedString)
+        textView.attributedText = attributedText
+    }
+    
+    /**
+     This method adds a quote to the UITextView and calls the parser's formatting methods.
+     
+     - Parameters:
+        - textView: The UITextView that will be formatted.
+        - lineCleared: A boolean indicating if a line break is needed or not.
+     */
+    public func addQuote(on textView: UITextView, _ lineCleared: Bool) {
+        let attributedText = NSMutableAttributedString(attributedString: textView.attributedText)
+        
+        if !MarkdownQuote.isQuote && !lineCleared {
+            attributedText.append(NSAttributedString(string: "\n"))
+        }
+
+        let attributedString = NSMutableAttributedString(string: "> ")
+        MarkdownQuote.formatQuoteStyle(
+            attributedString,
+            range: NSRange(location: 0, length: attributedString.length),
+            level: 1
+        )
+
+        attributedText.append(attributedString)
+        textView.attributedText = attributedText
+    }
+    
+    /**
+     This method clears indicators on a line on the UITextView.
+     
+     - Parameter textView: The UITextView which text will be checked and changed in case of any found indicators.
+     
+     - Returns: True if any characters were cleared, false if none was cleared.
+     */
     public func clearIndicatorCharacters(_ textView: UITextView) -> Bool {
         let attributedText = textView.attributedText
         
@@ -193,6 +253,15 @@ internal class MarkupTextViewDelegate: NSObject, UITextViewDelegate {
         return false
     }
     
+    /**
+     This method fins the location and the lenght of an line on a NSAttributedString, based on its full lenght.
+     
+     - Parameters:
+        - attributedString: The NSAttributedString that will be checked.
+        - lenght: The lenght of the attributed string.
+     
+     - Returns: A tuple containing the location of the line and its lenght.
+     */
     private func findLineLocation(attributedString: NSAttributedString?, lenght: Int) -> (location: Int, lineLenght: Int) {
         var line: (location: Int, lineLenght: Int) = (lenght - 1, 0)
         
@@ -211,6 +280,13 @@ internal class MarkupTextViewDelegate: NSObject, UITextViewDelegate {
         return line
     }
     
+    /**
+     This method deletes the caracters from the range's location on the UITextView.
+     
+     - Parameters:
+        - textView: The UITextView which text will be change.
+        - range: The NSRange from which the characters will be deleted.
+     */
     private func clearLine(_ textView: UITextView, range: NSRange) {
         let attributedText = NSMutableAttributedString(attributedString: textView.attributedText)
         
@@ -224,6 +300,13 @@ internal class MarkupTextViewDelegate: NSObject, UITextViewDelegate {
         textView.attributedText = attributedText
     }
     
+    /**
+     This method add a line break on a location on the UITextView.
+     
+     - Parameters:
+        - textView: The UITextView which text will be change.
+        - range: The NSRange on which the line break will be added.
+     */
     private func breakLine(_ textView: UITextView, range: NSRange) {
         let attributedText = NSMutableAttributedString(attributedString: textView.attributedText)
         
@@ -235,7 +318,6 @@ internal class MarkupTextViewDelegate: NSObject, UITextViewDelegate {
         
         attributedText.replaceCharacters(in: NSRange(location: location, length: 1), with: "\n")
         textView.attributedText = attributedText
-
     }
     
 }

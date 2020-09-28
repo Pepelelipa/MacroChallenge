@@ -94,4 +94,19 @@ internal class MarkupTextView: UITextView {
         return delegate.clearIndicatorCharacters(self)
     }
     
+    public func addList(of type: ListStyle, _ lineCleared: Bool) {
+        guard let delegate = self.delegate as? MarkupTextViewDelegate else {
+            return
+        }
+        
+        switch type {
+        case .bullet:
+            delegate.addBulletList(on: self, lineCleared)
+        case .numeric:
+            delegate.addNumericList(on: self, lineCleared)
+        case .quote:
+            delegate.addQuote(on: self, lineCleared)
+        }
+    }
+    
 }

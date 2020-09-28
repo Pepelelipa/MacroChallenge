@@ -154,81 +154,23 @@ internal class MarkupToolBar: UIToolbar {
         let lineCleared = guardedTextView.clearIndicatorCharacters()
         var nextStyle: ListStyle = .bullet
         
+        guardedTextView.addList(of: listStyle, lineCleared)
+        
         switch listStyle {
         case .bullet:
-            addBulletList(on: guardedTextView, lineCleared)
             listButton?.image = UIImage(systemName: "list.number")
             MarkdownQuote.isQuote = false
             nextStyle = .numeric
         case .numeric:
-            addNumericList(on: guardedTextView, lineCleared)
             listButton?.image = UIImage(systemName: "text.quote")
             MarkdownList.isList = false
             nextStyle = .quote
         case .quote:
-            addQuote(on: guardedTextView, lineCleared)
             listButton?.image = UIImage(systemName: "list.bullet")
             MarkdownNumeric.isNumeric = false
             nextStyle = .bullet
         }
             
         listStyle = nextStyle
-    }
-
-    private func addBulletList(on textView: UITextView, _ lineCleared: Bool) {
-        let attributedText = NSMutableAttributedString(attributedString: textView.attributedText)
-        
-        if !MarkdownList.isList && !lineCleared {
-            attributedText.append(NSAttributedString(string: "\n"))
-        }
-
-        let attributedString = NSMutableAttributedString(string: "* ")
-        MarkdownList.formatListStyle(
-            attributedString,
-            range: NSRange(location: 0, length: attributedString.length),
-            level: 1
-        )
-
-        attributedText.append(attributedString)
-        
-        textView.attributedText = attributedText
-    }
-    
-    private func addNumericList(on textView: UITextView, _ lineCleared: Bool) {
-        let attributedText = NSMutableAttributedString(attributedString: textView.attributedText)
-        
-        if !MarkdownNumeric.isNumeric && !lineCleared {
-            attributedText.append(NSAttributedString(string: "\n"))
-        }
-
-        let attributedString = NSMutableAttributedString(string: "2. ")
-        MarkdownNumeric.formatListStyle(
-            attributedString,
-            range: NSRange(location: 0, length: attributedString.length),
-            level: 1
-        )
-
-        attributedText.append(attributedString)
-        
-        textView.attributedText = attributedText
-    }
-    
-    private func addQuote(on textView: UITextView, _ lineCleared: Bool) {
-        let attributedText = NSMutableAttributedString(attributedString: textView.attributedText)
-        
-        if !MarkdownQuote.isQuote && !lineCleared {
-            attributedText.append(NSAttributedString(string: "\n"))
-        }
-
-        let attributedString = NSMutableAttributedString(string: "> ")
-        MarkdownQuote.formatQuoteStyle(
-            attributedString,
-            range: NSRange(location: 0, length: attributedString.length),
-            level: 1
-        )
-
-        attributedText.append(attributedString)
-        
-        textView.attributedText = attributedText
     }
 }
