@@ -7,11 +7,25 @@
 //
 
 import UIKit
+import Database
 
 internal class WorkspaceViewController: UIViewController {
+    internal private(set) weak var workspace: WorkspaceEntity?
+    internal init(workspace: WorkspaceEntity) {
+        self.workspace = workspace
+        self.dataSource = WorkspaceCollectionViewDataSource(workspace: workspace)
+        super.init(nibName: nil, bundle: nil)
+        lblName.text = workspace.name
+    }
+    internal required convenience init?(coder: NSCoder) {
+        guard let workspace = coder.decodeObject(forKey: "workspace") as? WorkspaceEntity else {
+            return nil
+        }
+        self.init(workspace: workspace)
+    }
+
     private var lblName: UILabel = {
         let lblName = UILabel()
-        lblName.text = "Workspace".localized()
         lblName.font = .preferredFont(forTextStyle: .title1)
         lblName.textAlignment = .center
         lblName.translatesAutoresizingMaskIntoConstraints = false
@@ -39,9 +53,12 @@ internal class WorkspaceViewController: UIViewController {
 
         return collectionView
     }()
-    private let dataSource = WorkspaceCollectionViewDataSource()
-    private lazy var flowLayoutDelegate = WorkspaceCollectionViewFlowLayoutDelegate { (_) in
-        let split = SplitViewController()
+    private let dataSource: WorkspaceCollectionViewDataSource
+    private lazy var flowLayoutDelegate = WorkspaceCollectionViewFlowLayoutDelegate { [unowned self] (notebookViewCell) in
+        guard let notebook = notebookViewCell.notebook else {
+            fatalError("The notebook cell did not have a notebook")
+        }
+        let split = SplitViewController(notebook: notebook)
 
         #warning("Fade animation as placeholder for Books animation.")
         let transition = CATransition()
