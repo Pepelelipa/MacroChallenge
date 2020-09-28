@@ -9,13 +9,13 @@
 import UIKit
 import Database
 
-internal class NotesViewController: UIViewController {
+internal class NotesViewController: UIViewController, TextEditingDelegateObserver {
 
     internal private(set) weak var note: NoteEntity?
     internal init(note: NoteEntity) {
         self.note = note
-        self.textField.attributedText = note.title
         super.init(nibName: nil, bundle: nil)
+        self.textField.attributedText = note.title
     }
 
     internal convenience required init?(coder: NSCoder) {
@@ -31,6 +31,18 @@ internal class NotesViewController: UIViewController {
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
+    
+    func textEditingDidBegin() {
+        DispatchQueue.main.async {
+            self.imageButton.isHidden = true
+        }
+    }
+    
+    func textEditingDidEnd() {
+        DispatchQueue.main.async {
+            self.imageButton.isHidden = false
+        }
+    }
 
     private lazy var btnBack: UIButton = {
         let btn = UIButton(frame: .zero)
@@ -63,10 +75,20 @@ internal class NotesViewController: UIViewController {
         }
     }
     
-    private var textField: MarkupTextField = MarkupTextField(frame: .zero, placeholder: "Your Title".localized(), paddingSpace: 4)
+    private lazy var textField: MarkupTextField = {
+        let textField = MarkupTextField(frame: .zero, placeholder: "Your Title".localized(), paddingSpace: 4)
+        textField.delegate = self.textFieldDelegate
+        return textField
+    }()
+    private lazy var textFieldDelegate: MarkupTextFieldDelegate = {
+        let delegate = MarkupTextFieldDelegate()
+        delegate.observer = self
+        return delegate
+    }()
     private lazy var textView: MarkupTextView = MarkupTextView(frame: .zero, delegate: self.textViewDelegate)
     private lazy var textViewDelegate: MarkupTextViewDelegate? = {
         let delegate = MarkupTextViewDelegate()
+        delegate.observer = self
         DispatchQueue.main.async {
             delegate.markdownAttributesChanged = { [unowned self](attributtedString, error) in
                 if let error = error {
@@ -95,13 +117,21 @@ internal class NotesViewController: UIViewController {
         } else if dev == .pad {
             btnBack.isHidden = true
         }
-
+        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(didTap))
+        
+        view.addGestureRecognizer(tap)
         view.addSubview(textField)
         view.addSubview(textView)
         view.addSubview(imageButton)
         self.view.backgroundColor = UIColor(named: "Background")
         
         textView.inputAccessoryView = keyboardToolbar
+    }
+    
+    @IBAction func didTap() {
+        textField.resignFirstResponder()
+        textView.resignFirstResponder()
     }
 
     public override func viewDidLayoutSubviews() {
