@@ -96,9 +96,9 @@ internal class NotebookIndexViewController: UIViewController {
 
         NSLayoutConstraint.activate([
             NSLayoutConstraint(item: imgViewNotebook, attribute: .height, relatedBy: .equal, toItem: imgViewNotebook, attribute: .width, multiplier: (1.33), constant: 0.0),
-            imgViewNotebook.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 25),
-            imgViewNotebook.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
-            imgViewNotebook.heightAnchor.constraint(equalToConstant: 230.0)
+            imgViewNotebook.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 40),
+            imgViewNotebook.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 25),
+            imgViewNotebook.heightAnchor.constraint(equalToConstant: 50.0)
         ])
 
         NSLayoutConstraint.activate([
