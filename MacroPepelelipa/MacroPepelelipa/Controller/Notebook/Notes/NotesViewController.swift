@@ -117,13 +117,21 @@ internal class NotesViewController: UIViewController, TextEditingDelegateObserve
         } else if dev == .pad {
             btnBack.isHidden = true
         }
-
+        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(didTap))
+        
+        view.addGestureRecognizer(tap)
         view.addSubview(textField)
         view.addSubview(textView)
         view.addSubview(imageButton)
         self.view.backgroundColor = UIColor(named: "Background")
         
         textView.inputAccessoryView = keyboardToolbar
+    }
+    
+    @IBAction func didTap() {
+        textField.resignFirstResponder()
+        textView.resignFirstResponder()
     }
 
     public override func viewDidLayoutSubviews() {
