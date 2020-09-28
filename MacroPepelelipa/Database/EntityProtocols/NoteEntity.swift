@@ -6,7 +6,7 @@
 //  Copyright © 2020 Pedro Giuliano Farina. All rights reserved.
 //
 
-public protocol NoteEntity {
+public protocol NoteEntity: class {
     var notebook: NotebookEntity { get }
     var title: NSAttributedString { get }
     var text: NSAttributedString { get }

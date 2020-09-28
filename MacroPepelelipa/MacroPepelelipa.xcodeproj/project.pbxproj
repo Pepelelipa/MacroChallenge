@@ -57,6 +57,8 @@
 		026D4C9E251D1D3D00CBED5A /* ImageBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 026D4C9D251D1D3D00CBED5A /* ImageBox.swift */; };
 		026D4CA2251D1D7B00CBED5A /* Mockdata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 026D4CA1251D1D7B00CBED5A /* Mockdata.swift */; };
 		026D4CA4251D1EA600CBED5A /* ColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0221BCF725116CC60055A2E5 /* ColorExtension.swift */; };
+		027D5931251E8213007BDD8C /* NotebookIndexEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 027D5930251E8213007BDD8C /* NotebookIndexEntity.swift */; };
+		027D5935251E829B007BDD8C /* NotebookIndex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 027D5934251E829B007BDD8C /* NotebookIndex.swift */; };
 		029847F2251D13D1004E0B62 /* Database.h in Headers */ = {isa = PBXBuildFile; fileRef = 029847F0251D13D1004E0B62 /* Database.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		029847F5251D13D1004E0B62 /* Database.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 029847EE251D13D1004E0B62 /* Database.framework */; };
 		029847F6251D13D1004E0B62 /* Database.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 029847EE251D13D1004E0B62 /* Database.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -154,6 +156,8 @@
 		026D4C9A251D1D1D00CBED5A /* TextBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextBox.swift; sourceTree = "<group>"; };
 		026D4C9D251D1D3D00CBED5A /* ImageBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageBox.swift; sourceTree = "<group>"; };
 		026D4CA1251D1D7B00CBED5A /* Mockdata.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mockdata.swift; sourceTree = "<group>"; };
+		027D5930251E8213007BDD8C /* NotebookIndexEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotebookIndexEntity.swift; sourceTree = "<group>"; };
+		027D5934251E829B007BDD8C /* NotebookIndex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotebookIndex.swift; sourceTree = "<group>"; };
 		029847EE251D13D1004E0B62 /* Database.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Database.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		029847F0251D13D1004E0B62 /* Database.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Database.h; sourceTree = "<group>"; };
 		029847F1251D13D1004E0B62 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -211,6 +215,7 @@
 			children = (
 				02077728251D191600D97B5A /* WorkspaceEntity.swift */,
 				0207772B251D191B00D97B5A /* NotebookEntity.swift */,
+				027D5930251E8213007BDD8C /* NotebookIndexEntity.swift */,
 				0207772E251D192000D97B5A /* NoteEntity.swift */,
 				02077731251D192600D97B5A /* TextBoxEntity.swift */,
 				02077734251D192D00D97B5A /* ImageBoxEntity.swift */,
@@ -515,6 +520,7 @@
 			children = (
 				026D4C8F251D1CB900CBED5A /* Workspace.swift */,
 				026D4C93251D1CD900CBED5A /* Notebook.swift */,
+				027D5934251E829B007BDD8C /* NotebookIndex.swift */,
 				026D4C96251D1CF800CBED5A /* Note.swift */,
 				026D4C9A251D1D1D00CBED5A /* TextBox.swift */,
 				026D4C9D251D1D3D00CBED5A /* ImageBox.swift */,
@@ -797,12 +803,14 @@
 			files = (
 				026D4C9E251D1D3D00CBED5A /* ImageBox.swift in Sources */,
 				02077735251D192D00D97B5A /* ImageBoxEntity.swift in Sources */,
+				027D5935251E829B007BDD8C /* NotebookIndex.swift in Sources */,
 				026D4C90251D1CB900CBED5A /* Workspace.swift in Sources */,
 				026D4C94251D1CD900CBED5A /* Notebook.swift in Sources */,
 				0207772C251D191B00D97B5A /* NotebookEntity.swift in Sources */,
 				026D4C97251D1CF800CBED5A /* Note.swift in Sources */,
 				026D4C7E251D1A8E00CBED5A /* StringExtension.swift in Sources */,
 				02077729251D191600D97B5A /* WorkspaceEntity.swift in Sources */,
+				027D5931251E8213007BDD8C /* NotebookIndexEntity.swift in Sources */,
 				02077732251D192600D97B5A /* TextBoxEntity.swift in Sources */,
 				026D4CA2251D1D7B00CBED5A /* Mockdata.swift in Sources */,
 				026D4C9B251D1D1D00CBED5A /* TextBox.swift in Sources */,

@@ -7,10 +7,25 @@
 //
 
 import UIKit
+import Database
 
-public class NotesViewController: UIViewController, TextEditingDelegateObserver {
-    
-    internal var imageButton: UIButton = {
+internal class NotesViewController: UIViewController, TextEditingDelegateObserver {
+
+    internal private(set) weak var note: NoteEntity?
+    internal init(note: NoteEntity) {
+        self.note = note
+        super.init(nibName: nil, bundle: nil)
+        self.textField.attributedText = note.title
+    }
+
+    internal convenience required init?(coder: NSCoder) {
+        guard let note = coder.decodeObject(forKey: "note") as? NoteEntity else {
+            return nil
+        }
+        self.init(note: note)
+    }
+
+    private lazy var imageButton: UIButton = {
         let button = UIButton(frame: .zero)
         button.setImage(UIImage(named: "imageButton"), for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false

@@ -6,7 +6,7 @@
 //  Copyright © 2020 Pedro Giuliano Farina. All rights reserved.
 //
 
-public protocol WorkspaceEntity {
+public protocol WorkspaceEntity: class {
     var name: String { get }
     var notebooks: [NotebookEntity] { get }
 }
