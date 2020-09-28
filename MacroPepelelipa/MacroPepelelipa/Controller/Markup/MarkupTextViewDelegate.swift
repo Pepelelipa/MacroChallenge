@@ -16,6 +16,7 @@ internal class MarkupTextViewDelegate: NSObject, UITextViewDelegate {
     private var isShowingPlaceholder: Bool
     private var isBackspace: Bool
     private var range: NSRange?
+    internal weak var observer: TextEditingDelegateObserver?
     
     override init() {
         markdownParser = MarkdownParser(color: UIColor(named: "Body") ?? .black)
@@ -64,5 +65,13 @@ internal class MarkupTextViewDelegate: NSObject, UITextViewDelegate {
             isShowingPlaceholder = false
         }
         return true
+    }
+    
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        observer?.textEditingDidBegin()
+    }
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        observer?.textEditingDidEnd()
     }
 }

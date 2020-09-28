@@ -7,20 +7,27 @@
 //
 
 import UIKit
+import Database
 
 internal class NotebookIndexTableViewDataSource: NSObject, UITableViewDataSource {
-    #warning("No actual data being fed to the source.")
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+    private weak var notebook: NotebookEntity?
+    private var indexes: [NotebookIndexEntity]? {
+        return notebook?.indexes
     }
 
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(
-                withIdentifier: NotebookIndexTableViewCell.cellID, for: indexPath)
-            as? NotebookIndexTableViewCell else {
+    internal init(notebook: NotebookEntity) {
+        self.notebook = notebook
+    }
+
+    internal func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return indexes?.count ?? 0
+    }
+
+    internal func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let indexes = indexes else {
             return UITableViewCell()
         }
-
+        let cell = NotebookIndexTableViewCell(index: indexes[indexPath.row])
         return cell
     }
 }

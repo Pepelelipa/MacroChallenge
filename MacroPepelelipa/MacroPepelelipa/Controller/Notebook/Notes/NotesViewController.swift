@@ -7,8 +7,42 @@
 //
 
 import UIKit
+import Database
 
-public class NotesViewController: UIViewController {
+internal class NotesViewController: UIViewController, TextEditingDelegateObserver {
+
+    internal private(set) weak var note: NoteEntity?
+    internal init(note: NoteEntity) {
+        self.note = note
+        super.init(nibName: nil, bundle: nil)
+        self.textField.attributedText = note.title
+    }
+
+    internal convenience required init?(coder: NSCoder) {
+        guard let note = coder.decodeObject(forKey: "note") as? NoteEntity else {
+            return nil
+        }
+        self.init(note: note)
+    }
+
+    private lazy var imageButton: UIButton = {
+        let button = UIButton(frame: .zero)
+        button.setImage(UIImage(named: "imageButton"), for: .normal)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+    
+    func textEditingDidBegin() {
+        DispatchQueue.main.async {
+            self.imageButton.isHidden = true
+        }
+    }
+    
+    func textEditingDidEnd() {
+        DispatchQueue.main.async {
+            self.imageButton.isHidden = false
+        }
+    }
 
     private lazy var btnBack: UIButton = {
         let btn = UIButton(frame: .zero)
@@ -31,20 +65,30 @@ public class NotesViewController: UIViewController {
     @IBAction func btnBackTap(_ sender: UIButton) {
         let dev = UIDevice.current.userInterfaceIdiom
         if dev == .pad {
-            splitViewController?.preferredDisplayMode = .primaryOverlay
+            splitViewController?.preferredDisplayMode = .oneOverSecondary
         } else {
             if UIDevice.current.orientation.isLandscape {
-                splitViewController?.preferredDisplayMode = .primaryOverlay
+                splitViewController?.preferredDisplayMode = .oneOverSecondary
             } else {
                 self.navigationController?.popViewController(animated: true)
             }
         }
     }
     
-    private var textField: MarkupTextField = MarkupTextField(frame: .zero, placeholder: "Your Title".localized(), paddingSpace: 4)
+    private lazy var textField: MarkupTextField = {
+        let textField = MarkupTextField(frame: .zero, placeholder: "Your Title".localized(), paddingSpace: 4)
+        textField.delegate = self.textFieldDelegate
+        return textField
+    }()
+    private lazy var textFieldDelegate: MarkupTextFieldDelegate = {
+        let delegate = MarkupTextFieldDelegate()
+        delegate.observer = self
+        return delegate
+    }()
     private lazy var textView: MarkupTextView = MarkupTextView(frame: .zero, delegate: self.textViewDelegate)
     private lazy var textViewDelegate: MarkupTextViewDelegate? = {
         let delegate = MarkupTextViewDelegate()
+        delegate.observer = self
         DispatchQueue.main.async {
             delegate.markdownAttributesChanged = { [unowned self](attributtedString, error) in
                 if let error = error {
@@ -73,15 +117,29 @@ public class NotesViewController: UIViewController {
         } else if dev == .pad {
             btnBack.isHidden = true
         }
-
+        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(didTap))
+        
+        view.addGestureRecognizer(tap)
         view.addSubview(textField)
         view.addSubview(textView)
+        view.addSubview(imageButton)
         self.view.backgroundColor = UIColor(named: "Background")
         
         textView.inputAccessoryView = keyboardToolbar
     }
+    
+    @IBAction func didTap() {
+        textField.resignFirstResponder()
+        textView.resignFirstResponder()
+    }
 
     public override func viewDidLayoutSubviews() {
+        NSLayoutConstraint.activate([
+            imageButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -150),
+            imageButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 10)
+        ])
+        
         NSLayoutConstraint.activate([
             btnBack.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
             btnBack.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20)
