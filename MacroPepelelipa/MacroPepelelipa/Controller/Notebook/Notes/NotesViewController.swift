@@ -8,14 +8,26 @@
 
 import UIKit
 
-public class NotesViewController: UIViewController {
+public class NotesViewController: UIViewController, TextEditingDelegateObserver {
     
-    private lazy var imageButton: UIButton = {
+    internal var imageButton: UIButton = {
         let button = UIButton(frame: .zero)
         button.setImage(UIImage(named: "imageButton"), for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
+    
+    func textEditingDidBegin() {
+        DispatchQueue.main.async {
+            self.imageButton.isHidden = true
+        }
+    }
+    
+    func textEditingDidEnd() {
+        DispatchQueue.main.async {
+            self.imageButton.isHidden = false
+        }
+    }
 
     private lazy var btnBack: UIButton = {
         let btn = UIButton(frame: .zero)
@@ -48,10 +60,20 @@ public class NotesViewController: UIViewController {
         }
     }
     
-    private var textField: MarkupTextField = MarkupTextField(frame: .zero, placeholder: "Your Title".localized(), paddingSpace: 4)
+    private lazy var textField: MarkupTextField = {
+        let textField = MarkupTextField(frame: .zero, placeholder: "Your Title".localized(), paddingSpace: 4)
+        textField.delegate = self.textFieldDelegate
+        return textField
+    }()
+    private lazy var textFieldDelegate: MarkupTextFieldDelegate = {
+        let delegate = MarkupTextFieldDelegate()
+        delegate.observer = self
+        return delegate
+    }()
     private lazy var textView: MarkupTextView = MarkupTextView(frame: .zero, delegate: self.textViewDelegate)
     private lazy var textViewDelegate: MarkupTextViewDelegate? = {
         let delegate = MarkupTextViewDelegate()
+        delegate.observer = self
         DispatchQueue.main.async {
             delegate.markdownAttributesChanged = { [unowned self](attributtedString, error) in
                 if let error = error {
