@@ -13,10 +13,21 @@ internal class NotebookIndexViewController: UIViewController {
     private lazy var btnBack: UIButton = {
         let btn = UIButton(frame: .zero)
         btn.setImage(UIImage(systemName: "chevron.left"), for: .normal)
+        btn.tintColor = UIColor(named: "Highlight")
         btn.addTarget(self, action: #selector(btnBackTap(_:)), for: .touchUpInside)
 
         btn.translatesAutoresizingMaskIntoConstraints = false
 
+        return btn
+    }()
+    private lazy var btnShare: UIButton = {
+        let btn = UIButton(frame: .zero)
+        btn.setImage(UIImage(systemName: "ellipsis.circle"), for: .normal)
+        btn.tintColor = UIColor(named: "Highlight")
+        btn.addTarget(self, action: #selector(shareButtonTap(_:)), for: .touchUpInside)
+        
+        btn.translatesAutoresizingMaskIntoConstraints = false
+        
         return btn
     }()
     private let imgViewNotebook: UIImageView = {
@@ -52,9 +63,14 @@ internal class NotebookIndexViewController: UIViewController {
     @IBAction func btnBackTap(_ sender: UIButton) {
         delegate?.indexShouldDismiss()
     }
+    
+    @IBAction func shareButtonTap(_ sender: UIButton) {
+        delegate?.indexShouldDismiss()
+    }
 
     override func viewDidLoad() {
         view.addSubview(btnBack)
+        view.addSubview(btnShare)
         view.addSubview(imgViewNotebook)
         view.addSubview(lblSubject)
         view.addSubview(tableView)
@@ -68,6 +84,11 @@ internal class NotebookIndexViewController: UIViewController {
     }
 
     override func viewWillLayoutSubviews() {
+        NSLayoutConstraint.activate([
+            btnShare.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
+            btnShare.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20)
+        ])
+        
         NSLayoutConstraint.activate([
             btnBack.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
             btnBack.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20)
