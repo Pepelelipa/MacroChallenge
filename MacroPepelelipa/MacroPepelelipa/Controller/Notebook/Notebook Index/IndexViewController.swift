@@ -58,7 +58,8 @@ internal class NotebookIndexViewController: UIViewController {
     }()
     private var lblSubject: UILabel = {
         let lbl = UILabel(frame: .zero)
-        lbl.textAlignment = .center
+        lbl.textAlignment = .left
+        lbl.font = lbl.font.withSize(26)
         lbl.translatesAutoresizingMaskIntoConstraints = false
 
         return lbl
@@ -70,6 +71,7 @@ internal class NotebookIndexViewController: UIViewController {
         tableView.tableFooterView = UIView()
 
         tableView.backgroundColor = view.backgroundColor
+        tableView.separatorStyle = .none
 
         tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
@@ -85,6 +87,8 @@ internal class NotebookIndexViewController: UIViewController {
     }
 
     override func viewDidLoad() {
+        view.backgroundColor = UIColor(named: "Background")
+        
         view.addSubview(btnBack)
         view.addSubview(btnShare)
         view.addSubview(imgViewNotebook)
@@ -118,14 +122,15 @@ internal class NotebookIndexViewController: UIViewController {
         ])
 
         NSLayoutConstraint.activate([
-            lblSubject.topAnchor.constraint(equalTo: imgViewNotebook.bottomAnchor, constant: 20),
-            lblSubject.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            lblSubject.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            lblSubject.heightAnchor.constraint(equalToConstant: 30)
+            NSLayoutConstraint(item: lblSubject, attribute: .centerY, relatedBy: .equal, toItem: imgViewNotebook, attribute: .centerY, multiplier: 1.0, constant: 0.0),
+            lblSubject.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 40),
+            lblSubject.leadingAnchor.constraint(equalTo: imgViewNotebook.trailingAnchor, constant: 20),
+            lblSubject.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
+            lblSubject.heightAnchor.constraint(equalToConstant: 60)
         ])
 
         NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: lblSubject.bottomAnchor, constant: 20),
+            tableView.topAnchor.constraint(equalTo: lblSubject.bottomAnchor, constant: 40),
             tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)

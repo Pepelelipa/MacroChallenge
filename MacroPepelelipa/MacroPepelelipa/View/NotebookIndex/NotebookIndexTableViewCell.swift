@@ -32,6 +32,7 @@ internal class NotebookIndexTableViewCell: UITableViewCell {
     init(index: NotebookIndexEntity) {
         self.index = index
         super.init(style: .default, reuseIdentifier: nil)
+        self.backgroundColor = UIColor(named: "Background")
 
         contentView.addSubview(lessonLbl)
         indexText = index.index
@@ -48,7 +49,7 @@ internal class NotebookIndexTableViewCell: UITableViewCell {
     private func setupConstraints() {
         NSLayoutConstraint.activate([
             lessonLbl.topAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.topAnchor),
-            lessonLbl.leadingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.leadingAnchor, constant: 10),
+            lessonLbl.leadingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.leadingAnchor, constant: 20),
             lessonLbl.trailingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.trailingAnchor),
             lessonLbl.bottomAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.bottomAnchor),
             lessonLbl.heightAnchor.constraint(equalToConstant: 30)
