@@ -87,11 +87,11 @@ internal class MarkupTextView: UITextView {
         }
     }
     
-    public func clearIndicatorCharacters() {
+    public func clearIndicatorCharacters() -> Bool {
         guard let delegate = self.delegate as? MarkupTextViewDelegate else {
-            return
+            return false
         }
-        delegate.clearIndicatorCharacters(self)
+        return delegate.clearIndicatorCharacters(self)
     }
     
 }

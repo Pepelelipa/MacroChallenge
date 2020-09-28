@@ -18,7 +18,7 @@ internal class MarkupTextViewDelegate: NSObject, UITextViewDelegate {
     private var range: NSRange?
     private var lastWrittenText: String
     
-    override init() {
+    override init() {hd
         markdownParser = MarkdownParser(color: UIColor(named: "Body") ?? .black)
         isShowingPlaceholder = false
         isBackspace = false
@@ -58,13 +58,6 @@ internal class MarkupTextViewDelegate: NSObject, UITextViewDelegate {
         let backspace = strcmp(char, "\\b")
         if backspace == -92 {
             self.isBackspace = true
-//            let end = textView.attributedText.string.endIndex
-//            var index = textView.attributedText.string.index(before: end)
-//            var string = textView.attributedText.string[index]
-//            while !string.isNewline {
-//                index = textView.attributedText.string.index(before: index)
-//                string = textView.attributedText.string[index]
-//            }
         } else {
             self.isBackspace = false
         }
@@ -154,32 +147,22 @@ internal class MarkupTextViewDelegate: NSObject, UITextViewDelegate {
         textView.attributedText = attributedText
     }
     
-    public func clearIndicatorCharacters(_ textView: UITextView) {
+    public func clearIndicatorCharacters(_ textView: UITextView) -> Bool {
         let attributedText = textView.attributedText
         
         guard let lenght = attributedText?.length, lenght > 0 else {
-            return
+            return false
         }
         
-        var lineLenght = 0
-        var location = lenght - 1
+        let lineInfo = findLineLocation(attributedString: attributedText, lenght: lenght)
+        
+        let lineLenght = lineInfo.lineLenght
+        let location = lineInfo.location
         var indicatorFound = false
         var textFound = false
         
-        while location > 0 {
-            if let substring = attributedText?.attributedSubstring(from: NSRange(location: location, length: 1)) {
-                if substring.string[substring.string.startIndex].isNewline {
-                    break
-                }
-                location -= 1
-                lineLenght += 1
-            } else {
-                break
-            }
-        }
-        
         guard let line = attributedText?.attributedSubstring(from: NSRange(location: location, length: lineLenght)) else {
-            return
+            return false
         }
         
         for index in 0..<lineLenght {
@@ -198,9 +181,34 @@ internal class MarkupTextViewDelegate: NSObject, UITextViewDelegate {
             }
         }
         
-        if indicatorFound && !textFound {
-           clearLine(textView, range: NSRange(location: location, length: lineLenght))
+        if textFound {
+            breakLine(textView, range: NSRange(location: location + lineLenght, length: 1))
+        } else {
+            if indicatorFound {
+                clearLine(textView, range: NSRange(location: location, length: lineLenght))
+                return true
+            }
         }
+        
+        return false
+    }
+    
+    private func findLineLocation(attributedString: NSAttributedString?, lenght: Int) -> (location: Int, lineLenght: Int) {
+        var line: (location: Int, lineLenght: Int) = (lenght - 1, 0)
+        
+        while line.location > 0 {
+            if let substring = attributedString?.attributedSubstring(from: NSRange(location: line.location, length: 1)) {
+                if substring.string[substring.string.startIndex].isNewline {
+                    break
+                }
+                line.location -= 1
+                line.lineLenght += 1
+            } else {
+                break
+            }
+        }
+        
+        return line
     }
     
     private func clearLine(_ textView: UITextView, range: NSRange) {
@@ -214,6 +222,20 @@ internal class MarkupTextViewDelegate: NSObject, UITextViewDelegate {
         
         attributedText.replaceCharacters(in: NSRange(location: location, length: 3), with: "")
         textView.attributedText = attributedText
+    }
+    
+    private func breakLine(_ textView: UITextView, range: NSRange) {
+        let attributedText = NSMutableAttributedString(attributedString: textView.attributedText)
+        
+        var location = range.location
+        
+        if attributedText.attributedSubstring(from: NSRange(location: range.location, length: 1)).string == "\n" {
+            location += 1
+        }
+        
+        attributedText.replaceCharacters(in: NSRange(location: location, length: 1), with: "\n")
+        textView.attributedText = attributedText
+
     }
     
 }

@@ -80,7 +80,7 @@ internal class MarkupToolBar: UIToolbar {
      
      - Returns: An UIBarButtonItem with an image and a selector, if passed as parameter.
      */
-    private func createBarButtonItem(systemImageName: String, objcFunc: Selector? ) -> UIBarButtonItem {
+    private func createBarButtonItem(systemImageName: String, objcFunc: Selector?) -> UIBarButtonItem {
         return UIBarButtonItem(image: UIImage(systemName: systemImageName), style: .plain, target: self, action: objcFunc)
     }
     
@@ -151,29 +151,36 @@ internal class MarkupToolBar: UIToolbar {
             return
         }
             
-        guardedTextView.clearIndicatorCharacters()
+        let lineCleared = guardedTextView.clearIndicatorCharacters()
         var nextStyle: ListStyle = .bullet
         
         switch listStyle {
         case .bullet:
-            addBulletList(on: guardedTextView)
+            addBulletList(on: guardedTextView, lineCleared)
             listButton?.image = UIImage(systemName: "list.number")
+            MarkdownQuote.isQuote = false
             nextStyle = .numeric
         case .numeric:
-            addNumericList(on: guardedTextView)
+            addNumericList(on: guardedTextView, lineCleared)
             listButton?.image = UIImage(systemName: "text.quote")
+            MarkdownList.isList = false
             nextStyle = .quote
         case .quote:
-            addQuote(on: guardedTextView)
+            addQuote(on: guardedTextView, lineCleared)
             listButton?.image = UIImage(systemName: "list.bullet")
+            MarkdownNumeric.isNumeric = false
             nextStyle = .bullet
         }
             
         listStyle = nextStyle
     }
 
-    private func addBulletList(on textView: UITextView) {
+    private func addBulletList(on textView: UITextView, _ lineCleared: Bool) {
         let attributedText = NSMutableAttributedString(attributedString: textView.attributedText)
+        
+        if !MarkdownList.isList && !lineCleared {
+            attributedText.append(NSAttributedString(string: "\n"))
+        }
 
         let attributedString = NSMutableAttributedString(string: "* ")
         MarkdownList.formatListStyle(
@@ -182,16 +189,17 @@ internal class MarkupToolBar: UIToolbar {
             level: 1
         )
 
-        if !MarkdownList.isList {
-            attributedText.append(NSAttributedString(string: "\n"))
-        }
         attributedText.append(attributedString)
         
         textView.attributedText = attributedText
     }
     
-    private func addNumericList(on textView: UITextView) {
+    private func addNumericList(on textView: UITextView, _ lineCleared: Bool) {
         let attributedText = NSMutableAttributedString(attributedString: textView.attributedText)
+        
+        if !MarkdownNumeric.isNumeric && !lineCleared {
+            attributedText.append(NSAttributedString(string: "\n"))
+        }
 
         let attributedString = NSMutableAttributedString(string: "2. ")
         MarkdownNumeric.formatListStyle(
@@ -200,16 +208,17 @@ internal class MarkupToolBar: UIToolbar {
             level: 1
         )
 
-        if !MarkdownNumeric.isNumeric {
-            attributedText.append(NSAttributedString(string: "\n"))
-        }
         attributedText.append(attributedString)
         
         textView.attributedText = attributedText
     }
     
-    private func addQuote(on textView: UITextView) {
+    private func addQuote(on textView: UITextView, _ lineCleared: Bool) {
         let attributedText = NSMutableAttributedString(attributedString: textView.attributedText)
+        
+        if !MarkdownQuote.isQuote && !lineCleared {
+            attributedText.append(NSAttributedString(string: "\n"))
+        }
 
         let attributedString = NSMutableAttributedString(string: "> ")
         MarkdownQuote.formatQuoteStyle(
@@ -218,9 +227,6 @@ internal class MarkupToolBar: UIToolbar {
             level: 1
         )
 
-        if !MarkdownQuote.isQuote {
-            attributedText.append(NSAttributedString(string: "\n"))
-        }
         attributedText.append(attributedString)
         
         textView.attributedText = attributedText
