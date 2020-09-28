@@ -63,7 +63,7 @@ internal class NotebookIndexViewController: UIViewController {
         tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
     }()
-    public weak var delegate: NotebookIndexDelegate?
+    internal weak var delegate: NotebookIndexDelegate?
 
     @IBAction func btnBackTap(_ sender: UIButton) {
         delegate?.indexShouldDismiss()
