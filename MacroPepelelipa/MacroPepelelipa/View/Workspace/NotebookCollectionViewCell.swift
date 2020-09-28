@@ -7,13 +7,23 @@
 //
 
 import UIKit
+import Database
 
-#warning("Notebook Collection View Cell has no actual information yet.")
 internal class NotebookCollectionViewCell: UICollectionViewCell {
     internal static let cellID = "notebookCell"
+
+    internal private(set) weak var notebook: NotebookEntity? {
+        didSet {
+            DispatchQueue.main.async {
+                self.text = self.notebook?.name
+            }
+        }
+    }
+    internal func setNotebook(_ notebook: NotebookEntity) {
+        self.notebook = notebook
+    }
     private let lblName: UILabel = {
         let lbl = UILabel(frame: .zero)
-        lbl.text = "Notebook".localized()
         lbl.textColor = .black
         lbl.font = .preferredFont(forTextStyle: .body)
         lbl.textAlignment = .center

@@ -7,28 +7,40 @@
 //
 
 import UIKit
+import Database
 
 internal class SplitViewController: UISplitViewController, NotebookIndexDelegate {
 
-    private let master = NotebookIndexViewController()
+    private let master: NotebookIndexViewController
     private lazy var navController: UINavigationController = {
         let nav = UINavigationController(rootViewController: master)
         nav.isNavigationBarHidden = true
 
         return nav
     }()
-    private let detail = NotesViewController()
+    private let detail: NotesViewController
 
-    init() {
+    internal init(notebook: NotebookEntity) {
+        master = NotebookIndexViewController(notebook: notebook)
+        let note: NoteEntity
+        if let lastNote = notebook.notes.last {
+            note = lastNote
+        } else {
+            note = Database.Mockdata.createNote(in: notebook)
+        }
+        detail = NotesViewController(note: note)
         super.init(nibName: nil, bundle: nil)
         modalPresentationStyle = .fullScreen
         viewControllers = [navController, detail]
         master.delegate = self
-        preferredDisplayMode = .primaryOverlay
+        preferredDisplayMode = .oneOverSecondary
     }
 
-    required convenience init?(coder: NSCoder) {
-        self.init()
+    internal required convenience init?(coder: NSCoder) {
+        guard let notebook = coder.decodeObject(forKey: "notebook") as? NotebookEntity else {
+            return nil
+        }
+        self.init(notebook: notebook)
     }
 
     func indexShouldDismiss() {
