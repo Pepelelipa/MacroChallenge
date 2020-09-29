@@ -60,6 +60,7 @@ internal class NotebookIndexViewController: UIViewController {
         let lbl = UILabel(frame: .zero)
         lbl.textAlignment = .left
         lbl.font = lbl.font.withSize(26)
+        lbl.numberOfLines = 0
         lbl.translatesAutoresizingMaskIntoConstraints = false
 
         return lbl
@@ -118,7 +119,7 @@ internal class NotebookIndexViewController: UIViewController {
             NSLayoutConstraint(item: imgViewNotebook, attribute: .height, relatedBy: .equal, toItem: imgViewNotebook, attribute: .width, multiplier: (1.33), constant: 0.0),
             imgViewNotebook.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 40),
             imgViewNotebook.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 25),
-            imgViewNotebook.heightAnchor.constraint(equalToConstant: 50.0)
+            imgViewNotebook.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.08)
         ])
 
         NSLayoutConstraint.activate([
@@ -126,7 +127,7 @@ internal class NotebookIndexViewController: UIViewController {
             lblSubject.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 40),
             lblSubject.leadingAnchor.constraint(equalTo: imgViewNotebook.trailingAnchor, constant: 20),
             lblSubject.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
-            lblSubject.heightAnchor.constraint(equalToConstant: 60)
+            lblSubject.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.08)
         ])
 
         NSLayoutConstraint.activate([
