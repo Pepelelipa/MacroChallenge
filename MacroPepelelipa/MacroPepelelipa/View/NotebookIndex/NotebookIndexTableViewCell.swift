@@ -33,6 +33,13 @@ internal class NotebookIndexTableViewCell: UITableViewCell {
         self.index = index
         super.init(style: .default, reuseIdentifier: nil)
         self.backgroundColor = UIColor(named: "Background")
+        
+        if index.isTitle == true {
+            lessonLbl.font = lessonLbl.font.withSize(20)
+            lessonLbl.font = lessonLbl.font.bold()
+        } else {
+            lessonLbl.font = lessonLbl.font.withSize(18)
+        }
 
         contentView.addSubview(lessonLbl)
         indexText = index.index
