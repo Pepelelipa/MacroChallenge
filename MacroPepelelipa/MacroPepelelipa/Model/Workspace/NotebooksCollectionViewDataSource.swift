@@ -9,7 +9,7 @@
 import UIKit
 import Database
 
-internal class WorkspaceCollectionViewDataSource: NSObject, UICollectionViewDataSource {
+internal class NotebooksCollectionViewDataSource: NSObject, UICollectionViewDataSource {
     private weak var workspace: WorkspaceEntity?
     internal init(workspace: WorkspaceEntity) {
         self.workspace = workspace

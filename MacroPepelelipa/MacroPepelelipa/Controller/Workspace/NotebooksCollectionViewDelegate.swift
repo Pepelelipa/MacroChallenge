@@ -9,7 +9,7 @@
 
 import UIKit
 
-internal class WorkspaceCollectionViewFlowLayoutDelegate: NSObject, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+internal class NotebooksCollectionViewDelegate: NSObject, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
 
     private var didSelectCell: ((NotebookCollectionViewCell) -> Void)?
     init(_ didSelectCell: @escaping (NotebookCollectionViewCell) -> Void) {
