@@ -2,7 +2,9 @@
 //  MarkupTextView.swift
 //  MacroPepelelipa
 //
-//  Created by Lia Kassardjian on 16/09/20.
+//  Created by Lia Kassardjian, 
+//             Leonardo Amorim de Oliveira and 
+//             Pedro Henrique Guedes Silveira on 16/09/20.
 //  Copyright © 2020 Pedro Giuliano Farina. All rights reserved.
 //
 
@@ -14,6 +16,11 @@ internal class MarkupTextView: UITextView {
     private var snap: UISnapBehavior?
     private var imageView: UIImageView?
     private var initialCenter = CGPoint()
+    
+    private lazy var tapGesture: UITapGestureRecognizer = {
+        let gesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
+        return gesture
+    }()
     
     private lazy var panGesture: UIPanGestureRecognizer = {
         let gesture = UIPanGestureRecognizer(target: self, action: #selector(handlePan(_:)))
@@ -112,7 +119,17 @@ internal class MarkupTextView: UITextView {
         
         let textBox = TextBoxView(frame: frame)
         textBox.addGestureRecognizer(panGesture)
+        textBox.addGestureRecognizer(tapGesture)
         self.addSubview(textBox)
+    }
+    
+    @IBAction private func handleTap(_ gestureRecognizer: UITapGestureRecognizer) {
+        
+        if let ownerView = gestureRecognizer.view as? TextBoxView {
+            ownerView.canEdit = true
+            ownerView.backgroundColor = .blue
+            
+        }
     }
     
     @IBAction private func handlePan(_ gestureRecognizer: UIPanGestureRecognizer) {

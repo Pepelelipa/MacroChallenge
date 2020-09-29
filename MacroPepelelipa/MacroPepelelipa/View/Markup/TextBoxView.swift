@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-internal class TextBoxView: UIView {
+internal class TextBoxView: UIView, TextBoxEditingDelegateObserver {
     
     private let markupTextViewDelegate = MarkupTextViewDelegate()
     
@@ -19,6 +19,8 @@ internal class TextBoxView: UIView {
         return textView
     }()
     
+    var canEdit: Bool = false
+    
     override init(frame: CGRect) {  
         super.init(frame: frame)
         
@@ -27,5 +29,13 @@ internal class TextBoxView: UIView {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func textViewDidBeginEditing() {
+        
+        DispatchQueue.main.async {
+            self.canEdit = false
+            self.backgroundColor = .red
+        }
     }
 }

@@ -2,7 +2,9 @@
 //  MarkupTextViewDelegate.swift
 //  MacroPepelelipa
 //
-//  Created by Lia Kassardjian on 17/09/20.
+//  Created by Lia Kassardjian, 
+//             Leonardo Amorim de Oliveira and 
+//             Pedro Henrique Guedes Silveira on 17/09/20.
 //  Copyright © 2020 Pedro Giuliano Farina. All rights reserved.
 //
 
@@ -19,6 +21,7 @@ internal class MarkupTextViewDelegate: NSObject, UITextViewDelegate {
     private var lastWrittenText: String
 
     internal weak var observer: TextEditingDelegateObserver?
+    internal weak var textBoxObserver: TextBoxEditingDelegateObserver?
 
     override init() {
         markdownParser = MarkdownParser(color: UIColor(named: "Body") ?? .black)
@@ -324,6 +327,7 @@ internal class MarkupTextViewDelegate: NSObject, UITextViewDelegate {
     
     func textViewDidBeginEditing(_ textView: UITextView) {
         observer?.textEditingDidBegin()
+        textBoxObserver?.textViewDidBeginEditing()
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {
