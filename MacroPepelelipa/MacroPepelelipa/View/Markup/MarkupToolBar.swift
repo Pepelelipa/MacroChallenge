@@ -48,7 +48,7 @@ internal class MarkupToolBar: UIToolbar {
         listButton = createBarButtonItem(systemImageName: "list.bullet", objcFunc: #selector(addList))
         
         let imageGalleryButton = createBarButtonItem(systemImageName: "photo", objcFunc: #selector(photoPicker))
-        let textBoxButton = createBarButtonItem(systemImageName: "textbox", objcFunc: nil)
+        let textBoxButton = createBarButtonItem(systemImageName: "textbox", objcFunc: #selector(addTextBox))
         let paintbrushButton = createBarButtonItem(systemImageName: "paintbrush", objcFunc: nil)
         let paragraphButton = createBarButtonItem(systemImageName: "paragraph", objcFunc: #selector(headerAction))
         
@@ -172,5 +172,10 @@ internal class MarkupToolBar: UIToolbar {
         }
             
         listStyle = nextStyle
+    }
+    
+    @objc private func addTextBox() {
+        let textBox = TextBoxView(frame: .init(x: 100, y: 100, width: 100, height: 100))
+        self.textView?.addSubview(textBox)
     }
 }

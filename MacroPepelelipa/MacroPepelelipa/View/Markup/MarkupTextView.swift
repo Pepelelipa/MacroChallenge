@@ -33,7 +33,24 @@ internal class MarkupTextView: UITextView {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         for touch in touches {
             imageView = checkTouch(touch)
+            
+            if let textBox = checkTouchInTextBox(touch) {
+                 self.backgroundColor = .blue
+            } else {
+                self.backgroundColor = .red
+            }
         }
+    }
+    
+    private func checkTouchInTextBox(_ touch: UITouch) -> TextBoxView? {
+        for subview in subviews {
+            if let textBox = subview as? TextBoxView {
+                if textBox.frame.contains(touch.location(in: self)) {
+                    return textBox as TextBoxView
+                }
+            }
+        }
+        return nil
     }
     
     /**
