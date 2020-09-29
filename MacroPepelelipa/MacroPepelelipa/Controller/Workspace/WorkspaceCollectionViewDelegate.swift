@@ -15,11 +15,21 @@ internal class WorkspaceCollectionViewDelegate: NSObject, UICollectionViewDelega
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: collectionView.frame.width, height: 217)
+        let size: CGSize
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            size = CGSize(width: collectionView.frame.width/2.1, height: collectionView.frame.height/2)
+        } else {
+            if UIDevice.current.orientation.isLandscape {
+                size = CGSize(width: collectionView.frame.width/2.1, height: collectionView.frame.height/1.5)
+            } else {
+                size = CGSize(width: collectionView.frame.width, height: collectionView.frame.height/3)
+            }
+        }
+        return size
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return .init(top: 0, left: 20, bottom: 40, right: 20)
+        return .init(top: 0, left: 0, bottom: 40, right: 0)
     }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
