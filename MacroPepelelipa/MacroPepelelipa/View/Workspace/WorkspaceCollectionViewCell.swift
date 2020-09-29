@@ -31,11 +31,28 @@ internal class WorkspaceCollectionViewCell: UICollectionViewCell {
 
         return lbl
     }()
+    private lazy var collectionView: UICollectionView = {
+        let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
+
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        collectionView.backgroundColor = .random()
+        collectionView.showsVerticalScrollIndicator = false
+        collectionView.showsHorizontalScrollIndicator = false
+        collectionView.allowsMultipleSelection = false
+
+        collectionView.register(
+            WorkspaceCollectionViewCell.self,
+            forCellWithReuseIdentifier: WorkspaceCollectionViewCell.cellID)
+
+        return collectionView
+    }()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
         backgroundColor = .random()
         addSubview(lblWorkspaceName)
+        addSubview(collectionView)
         setupConstraints()
         layer.cornerRadius = 10
     }
@@ -47,10 +64,17 @@ internal class WorkspaceCollectionViewCell: UICollectionViewCell {
     }
     private func setupConstraints() {
         NSLayoutConstraint.activate([
-            lblWorkspaceName.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
             lblWorkspaceName.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 20),
+            lblWorkspaceName.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
             lblWorkspaceName.trailingAnchor.constraint(lessThanOrEqualTo: contentView.trailingAnchor, constant: -20),
             lblWorkspaceName.heightAnchor.constraint(equalToConstant: 30)
+        ])
+
+        NSLayoutConstraint.activate([
+            collectionView.topAnchor.constraint(equalTo: lblWorkspaceName.bottomAnchor, constant: 20),
+            collectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
+            collectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
+            collectionView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -20)
         ])
     }
 }
