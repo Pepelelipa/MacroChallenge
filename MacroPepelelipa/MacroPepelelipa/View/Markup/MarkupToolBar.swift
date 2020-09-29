@@ -175,7 +175,7 @@ internal class MarkupToolBar: UIToolbar {
     }
     
     @objc private func addTextBox() {
-        let textBox = TextBoxView(frame: .init(x: 100, y: 100, width: 100, height: 100))
-        self.textView?.addSubview(textBox)
+        let frame = CGRect(x: UIScreen.main.bounds.midX, y: UIScreen.main.bounds.midY, width: 100.0, height: 100.0)
+        self.textView?.addTextBox(with: frame)
     }
 }

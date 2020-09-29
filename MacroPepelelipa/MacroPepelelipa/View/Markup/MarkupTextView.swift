@@ -13,6 +13,12 @@ internal class MarkupTextView: UITextView {
     private var animator: UIDynamicAnimator?
     private var snap: UISnapBehavior?
     private var imageView: UIImageView?
+    private var initialCenter = CGPoint()
+    
+    private lazy var panGesture: UIPanGestureRecognizer = {
+        let gesture = UIPanGestureRecognizer(target: self, action: #selector(handlePan(_:)))
+        return gesture
+    }()
     
     init(frame: CGRect, delegate: MarkupTextViewDelegate? = nil) {
         super.init(frame: frame, textContainer: nil)
@@ -22,35 +28,11 @@ internal class MarkupTextView: UITextView {
         self.backgroundColor = UIColor(named: "Background")
         self.textColor = UIColor(named: "Placeholder")
         self.tintColor = UIColor(named: "Highlight")
-        
         animator = UIDynamicAnimator(referenceView: self)
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-    
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        for touch in touches {
-            imageView = checkTouch(touch)
-            
-            if let textBox = checkTouchInTextBox(touch) {
-                 self.backgroundColor = .blue
-            } else {
-                self.backgroundColor = .red
-            }
-        }
-    }
-    
-    private func checkTouchInTextBox(_ touch: UITouch) -> TextBoxView? {
-        for subview in subviews {
-            if let textBox = subview as? TextBoxView {
-                if textBox.frame.contains(touch.location(in: self)) {
-                    return textBox as TextBoxView
-                }
-            }
-        }
-        return nil
     }
     
     /**
@@ -126,4 +108,30 @@ internal class MarkupTextView: UITextView {
         }
     }
     
+    func addTextBox(with frame: CGRect) {
+        
+        let textBox = TextBoxView(frame: frame)
+        textBox.addGestureRecognizer(panGesture)
+        self.addSubview(textBox)
+    }
+    
+    @IBAction private func handlePan(_ gestureRecognizer: UIPanGestureRecognizer) {
+        
+        guard let ownerView = gestureRecognizer.view else {
+            return
+        }
+        
+        let translation = gestureRecognizer.translation(in: self)
+        
+        if gestureRecognizer.state == .began {
+            initialCenter = ownerView.center
+        }
+        
+        if gestureRecognizer.state != .cancelled {
+            let newCenter = CGPoint(x: initialCenter.x + translation.x, y: initialCenter.y + translation.y)
+            ownerView.center = newCenter
+        } else {
+            ownerView.center = initialCenter
+        }
+    }
 }
