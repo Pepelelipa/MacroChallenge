@@ -18,6 +18,15 @@ internal class NotebookIndexTableViewCell: UITableViewCell {
 
         return lbl
     }()
+    
+    private var selectedView: UIView = {
+        let stdView = UIView(frame: .zero)
+        stdView.layer.cornerRadius = 15
+        stdView.backgroundColor = UIColor(named: "Highlight")
+        stdView.translatesAutoresizingMaskIntoConstraints = false
+        
+        return stdView
+    }()
 
     ///Title of the lesson
     internal var indexText: String? {
@@ -40,7 +49,8 @@ internal class NotebookIndexTableViewCell: UITableViewCell {
         } else {
             lessonLbl.font = lessonLbl.font.withSize(18)
         }
-
+        
+        contentView.addSubview(selectedView)
         contentView.addSubview(lessonLbl)
         indexText = index.index
         setupConstraints()
@@ -52,14 +62,32 @@ internal class NotebookIndexTableViewCell: UITableViewCell {
         }
         self.init(index: index)
     }
+    
+    override func setSelected(_ selected: Bool, animated: Bool) {
+        super.setSelected(selected, animated: animated)
+        if selected == true {
+            selectedView.isHidden = false
+            self.selectionStyle = .none
+            lessonLbl.textColor = UIColor(named: "Background")
+        } else {
+            selectedView.isHidden = true
+            self.selectionStyle = .none
+            lessonLbl.textColor = UIColor(named: "Title")
+        }
+    }
 
     private func setupConstraints() {
         NSLayoutConstraint.activate([
             lessonLbl.topAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.topAnchor),
-            lessonLbl.leadingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.leadingAnchor, constant: 20),
-            lessonLbl.trailingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.trailingAnchor),
+            lessonLbl.leadingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.leadingAnchor, constant: index.isTitle ? 20 : 40),
             lessonLbl.bottomAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.bottomAnchor),
             lessonLbl.heightAnchor.constraint(equalToConstant: 30)
+        ])
+        
+        NSLayoutConstraint.activate([
+            selectedView.leadingAnchor.constraint(equalTo: lessonLbl.leadingAnchor, constant: -10),
+            selectedView.trailingAnchor.constraint(equalTo: lessonLbl.trailingAnchor, constant: 10),
+            selectedView.heightAnchor.constraint(equalTo: lessonLbl.heightAnchor, multiplier: 1.0)
         ])
     }
 }
