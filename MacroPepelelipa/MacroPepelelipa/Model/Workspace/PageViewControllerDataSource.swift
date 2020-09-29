@@ -15,7 +15,7 @@ internal class WorkspacePageControllerDataSource: NSObject, UIPageViewController
         [WorkspaceViewController(workspace: Database.Mockdata.getFullWorkspace(
                                     withName: "Faculdade",
                                     notebooksNames: ["Estrutura de Dados Compiladores", "IA", "Economia"],
-                                    notesTitles: ["Aula 1", "Aula 2", "Aula 3"])),
+                                    notesTitles: ["Aula 1", "      Aula 2", "Aula 3"])),
          WorkspaceViewController(workspace: Database.Mockdata.getFullWorkspace(
                                     withName: "Trabalho",
                                     notebooksNames: ["Swift", "Design Patterns", "Prototipação", "Apresentação", "Aulas"],
