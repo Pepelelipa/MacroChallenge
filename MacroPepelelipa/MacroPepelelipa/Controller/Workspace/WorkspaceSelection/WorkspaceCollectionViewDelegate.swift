@@ -19,18 +19,29 @@ internal class WorkspaceCollectionViewDelegate: NSObject, UICollectionViewDelega
         let isLandscape = UIDevice.current.orientation.isLandscape
         if UIDevice.current.userInterfaceIdiom == .pad {
             if isLandscape {
-                size = CGSize(width: collectionView.bounds.width/2.1, height: collectionView.bounds.height/2)
+                let width = collectionView.bounds.width/2 - 25
+                size = CGSize(width: width, height: width/1.7)
             } else {
-                size = CGSize(width: collectionView.bounds.width/2.1, height: collectionView.bounds.height/3.5)
+                let width = collectionView.bounds.width/2.1
+                size = CGSize(width: width, height: width/1.5)
             }
         } else {
             if isLandscape {
-                size = CGSize(width: collectionView.bounds.width/2.1, height: collectionView.bounds.height/1.5)
+                let width = collectionView.bounds.width/2.1
+                size = CGSize(width: width, height: width/1.45)
             } else {
-                size = CGSize(width: collectionView.bounds.width, height: collectionView.bounds.height/3)
+                let width = collectionView.bounds.width
+                size = CGSize(width: width, height: width/1.45)
             }
         }
         return size
+    }
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            return 50
+        }
+        return 20
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {

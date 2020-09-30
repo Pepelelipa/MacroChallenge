@@ -90,9 +90,9 @@ internal class WorkspaceCollectionViewCell: UICollectionViewCell {
         NSLayoutConstraint.activate([
             collectionView.topAnchor.constraint(equalTo: lblWorkspaceName.bottomAnchor, constant: 20),
             collectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
-            collectionView.trailingAnchor.constraint(lessThanOrEqualTo: contentView.trailingAnchor, constant: -20),
+            collectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
             collectionView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -20),
-            collectionView.widthAnchor.constraint(equalTo: collectionView.heightAnchor, multiplier: 2)
+            collectionView.widthAnchor.constraint(greaterThanOrEqualTo: collectionView.heightAnchor, multiplier: 2)
         ])
     }
 }

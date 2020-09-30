@@ -19,7 +19,7 @@ internal class WorkspaceCellNotebookCollectionViewDelegate: NSObject, UICollecti
         if indexPath.row == 0 || (totalNotebooks < 5 && indexPath.row == 1) {
             return CGSize(width: collectionView.bounds.width/2.7, height: collectionView.bounds.height)
         }
-        return CGSize(width: collectionView.bounds.width/5.7, height: collectionView.bounds.height/2.15)
+        return CGSize(width: collectionView.bounds.width/5.7, height: collectionView.bounds.height/2.3)
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
