@@ -9,25 +9,55 @@
 import UIKit
 
 public extension UIColor {
-    static var actionColor: UIColor? {
+    #if DEBUG
+    ///Generates a random UIColor
+    static func random(alpha: CGFloat = 1) -> UIColor {
+        return UIColor(
+            red: .random(in: 0.4...1),
+            green: .random(in: 0.4...1),
+            blue: .random(in: 0.4...1),
+            alpha: alpha)
+    }
+    #endif
+
+    ///Gets all the notebooks colors
+    static var notebookColors: [UIColor] = {
+        var colors: [UIColor] = []
+        for i in 0...24 {
+            if let color = UIColor(named: "nb\(i)") {
+                colors.append(color)
+            }
+        }
+        return colors
+    }()
+
+    ///Generates a random notebook color
+    static func randomNotebookColor(alpha: CGFloat = 1) -> UIColor? {
+        guard let color = notebookColors.randomElement() else {
+            return nil
+        }
+        return color.withAlphaComponent(alpha)
+    }
+
+    static var actionColor: UIColor? = {
         UIColor(named: "Action")
-    }
-    static var backgroundColor: UIColor? {
+    }()
+    static var backgroundColor: UIColor? = {
         UIColor(named: "Background")
-    }
-    static var bodyColor: UIColor? {
+    }()
+    static var bodyColor: UIColor? = {
         UIColor(named: "Body")
-    }
-    static var placeholderColor: UIColor? {
+    }()
+    static var placeholderColor: UIColor? = {
         UIColor(named: "Placeholder")
-    }
-    static var rootColor: UIColor? {
+    }()
+    static var rootColor: UIColor? = {
         UIColor(named: "Root")
-    }
-    static var titleColor: UIColor? {
+    }()
+    static var titleColor: UIColor? = {
         UIColor(named: "Title")
-    }
-    static var toolsColor: UIColor? {
+    }()
+    static var toolsColor: UIColor? = {
         UIColor(named: "Tools")
-    }
+    }()
 }

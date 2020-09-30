@@ -14,7 +14,7 @@ internal class NotebookIndexViewController: UIViewController {
     internal init(notebook: NotebookEntity) {
         self.notebook = notebook
 
-        imgViewNotebook.tintColor = UIColor(cgColor: notebook.color)
+        imgViewNotebook.tintColor = UIColor(named: notebook.colorName)
         lblSubject.text = notebook.name
         dataSource = NotebookIndexTableViewDataSource(notebook: notebook)
         

@@ -37,10 +37,11 @@ internal class WorkspaceCellNotebookCollectionViewDataSource: NSObject, UICollec
         if indexPath.row == 7 || (indexPath.row == 4 && (workspace?.notebooks.count ?? 5 < 5)) {
             cell.isHidden = true
         } else if indexPath.row < workspace?.notebooks.count ?? 0,
-           let color = workspace?.notebooks[indexPath.row].color {
-            cell.color = UIColor(cgColor: color)
+           let colorName = workspace?.notebooks[indexPath.row].colorName {
+            cell.color = UIColor(named: colorName) ?? .random()
         } else {
-            cell.color = .random(alpha: 0.3)
+            let randomColor = UIColor.randomNotebookColor(alpha: 0.3) ?? UIColor.random(alpha: 0.3)
+            cell.color = randomColor
         }
         return cell
     }

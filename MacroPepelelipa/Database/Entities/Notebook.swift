@@ -6,12 +6,10 @@
 //  Copyright © 2020 Pedro Giuliano Farina. All rights reserved.
 //
 
-import CoreGraphics
-
 internal class Notebook: NotebookEntity {
     var workspace: WorkspaceEntity
     var name: String
-    var color: CGColor
+    var colorName: String
     var notes: [NoteEntity] = []
     var indexes: [NotebookIndexEntity] {
         var indexes: [NotebookIndexEntity] = []
@@ -21,10 +19,10 @@ internal class Notebook: NotebookEntity {
         return indexes
     }
 
-    internal init(workspace: Workspace, name: String, color: CGColor) {
+    internal init(workspace: Workspace, name: String, colorName: String) {
         self.workspace = workspace
         self.name = name
-        self.color = color
+        self.colorName = colorName
         workspace.notebooks.append(self)
     }
 }
