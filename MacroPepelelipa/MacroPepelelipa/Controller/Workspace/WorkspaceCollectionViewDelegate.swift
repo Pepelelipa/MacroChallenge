@@ -16,10 +16,15 @@ internal class WorkspaceCollectionViewDelegate: NSObject, UICollectionViewDelega
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let size: CGSize
+        let isLandscape = UIDevice.current.orientation.isLandscape
         if UIDevice.current.userInterfaceIdiom == .pad {
-            size = CGSize(width: collectionView.frame.width/2.1, height: collectionView.frame.height/2)
+            if isLandscape {
+                size = CGSize(width: collectionView.frame.width/2.1, height: collectionView.frame.height/2)
+            } else {
+                size = CGSize(width: collectionView.frame.width/2.1, height: collectionView.frame.height/3.5)
+            }
         } else {
-            if UIDevice.current.orientation.isLandscape {
+            if isLandscape {
                 size = CGSize(width: collectionView.frame.width/2.1, height: collectionView.frame.height/1.5)
             } else {
                 size = CGSize(width: collectionView.frame.width, height: collectionView.frame.height/3)

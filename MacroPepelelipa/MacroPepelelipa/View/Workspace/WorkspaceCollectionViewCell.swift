@@ -53,6 +53,9 @@ internal class WorkspaceCollectionViewCell: UICollectionViewCell {
         backgroundColor = .random()
         addSubview(lblWorkspaceName)
         addSubview(collectionView)
+        collectionView.register(
+            WorkspaceCellNotebookCollectionViewCell.self,
+            forCellWithReuseIdentifier: WorkspaceCellNotebookCollectionViewCell.cellID)
         setupConstraints()
         layer.cornerRadius = 10
     }
