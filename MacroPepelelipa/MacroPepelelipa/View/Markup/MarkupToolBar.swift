@@ -36,7 +36,7 @@ internal class MarkupToolBar: UIToolbar {
     public static var headerStyle: HeaderStyle = .h1 {
         didSet {
             if MarkupToolBar.headerStyle == .h1 {
-                paragraphButton?.image = UIImage(systemName: "a.circle")
+                paragraphButton?.image = UIImage(named: "h1")
             }
         }
     }
@@ -60,12 +60,12 @@ internal class MarkupToolBar: UIToolbar {
      A private method to set up all the Buttons on the UIToolBar.
      */
     private func setUpButtons() {
-        listButton = createBarButtonItem(systemImageName: "list.bullet", objcFunc: #selector(addList))
-        MarkupToolBar.paragraphButton = createBarButtonItem(systemImageName: "a.circle", objcFunc: #selector(addHeader))
+        listButton = createBarButtonItem(imageName: "list.bullet", systemImage: true, objcFunc: #selector(addList))
+        MarkupToolBar.paragraphButton = createBarButtonItem(imageName: "h1", systemImage: false, objcFunc: #selector(addHeader))
         
-        let imageGalleryButton = createBarButtonItem(systemImageName: "photo", objcFunc: #selector(photoPicker))
-        let textBoxButton = createBarButtonItem(systemImageName: "textbox", objcFunc: nil)
-        let paintbrushButton = createBarButtonItem(systemImageName: "paintbrush", objcFunc: nil)
+        let imageGalleryButton = createBarButtonItem(imageName: "photo", systemImage: true, objcFunc: #selector(photoPicker))
+        let textBoxButton = createBarButtonItem(imageName: "textbox", systemImage: true, objcFunc: nil)
+        let paintbrushButton = createBarButtonItem(imageName: "paintbrush", systemImage: true, objcFunc: nil)
         let flexible = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         
         self.items = [flexible, textBoxButton, flexible, imageGalleryButton]
@@ -96,8 +96,15 @@ internal class MarkupToolBar: UIToolbar {
      
      - Returns: An UIBarButtonItem with an image and a selector, if passed as parameter.
      */
-    private func createBarButtonItem(systemImageName: String, objcFunc: Selector?) -> UIBarButtonItem {
-        return UIBarButtonItem(image: UIImage(systemName: systemImageName), style: .plain, target: self, action: objcFunc)
+    private func createBarButtonItem(imageName: String, systemImage: Bool, objcFunc: Selector?) -> UIBarButtonItem {
+        var buttonImage: UIImage?
+        if systemImage {
+            buttonImage = UIImage(systemName: imageName)
+        } else {
+            buttonImage = UIImage(named: imageName)
+        }
+        
+        return UIBarButtonItem(image: buttonImage, style: .plain, target: self, action: objcFunc)
     }
     
     /**
@@ -109,16 +116,16 @@ internal class MarkupToolBar: UIToolbar {
                 
         switch MarkupToolBar.headerStyle {
         case .h1:
-            MarkupToolBar.paragraphButton?.image = UIImage(systemName: "b.circle")
+            MarkupToolBar.paragraphButton?.image = UIImage(named: "h2")
             nextStyle = .h2
         case .h2:
-            MarkupToolBar.paragraphButton?.image = UIImage(systemName: "c.circle")
+            MarkupToolBar.paragraphButton?.image = UIImage(named: "h3")
             nextStyle = .h3
         case .h3:
             MarkupToolBar.paragraphButton?.image = UIImage(systemName: "paragraph")
             nextStyle = .paragraph
         case .paragraph:
-            MarkupToolBar.paragraphButton?.image = UIImage(systemName: "a.circle")
+            MarkupToolBar.paragraphButton?.image = UIImage(named: "h1")
             nextStyle = .h1
         }
             

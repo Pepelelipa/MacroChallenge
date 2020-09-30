@@ -140,6 +140,10 @@ class MarkdownEditor {
         
         let mutableAttributedText = NSMutableAttributedString(attributedString: attributedText)
         
+        if headerRange.location + headerRange.length > attributedText.length {
+            headerRange.length = attributedText.length - headerRange.location
+        }
+        
         mutableAttributedText.addAttribute(.font, value: markdownParser.font, range: headerRange)
         textView.attributedText = mutableAttributedText
     }
