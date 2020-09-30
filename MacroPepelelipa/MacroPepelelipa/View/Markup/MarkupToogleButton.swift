@@ -10,7 +10,7 @@ import UIKit
 
 internal class MarkupToogleButton: UIButton {
     
-    init(frame: CGRect,normalStateImage: UIImage?, highlightedStateImage: UIImage?, title: String?) {
+    init(frame: CGRect, normalStateImage: UIImage?, highlightedStateImage: UIImage?, title: String?) {
         super.init(frame: frame)
         self.addTarget(self, action: #selector(toogleButton), for: .touchDown)
         
@@ -31,11 +31,11 @@ internal class MarkupToogleButton: UIButton {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func setFont(fontName: String){
-        guard let _ = UIFont(name: fontName, size: 16) else {
+    private func setFont(fontName: String) {
+        guard let font = UIFont(name: fontName, size: 16) else {
             return
         }
-        setFont(fontName: fontName)
+        self.titleLabel?.font = font
     }
     
     @objc private func toogleButton() {
