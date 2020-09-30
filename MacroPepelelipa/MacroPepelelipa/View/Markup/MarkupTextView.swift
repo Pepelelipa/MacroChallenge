@@ -17,15 +17,7 @@ internal class MarkupTextView: UITextView {
     private var imageView: UIImageView?
     private var initialCenter = CGPoint()
     
-    private lazy var tapGesture: UITapGestureRecognizer = {
-        let gesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
-        return gesture
-    }()
-    
-    private lazy var panGesture: UIPanGestureRecognizer = {
-        let gesture = UIPanGestureRecognizer(target: self, action: #selector(handlePan(_:)))
-        return gesture
-    }()
+    var textBoxes: [TextBoxView] = []
     
     init(frame: CGRect, delegate: MarkupTextViewDelegate? = nil) {
         super.init(frame: frame, textContainer: nil)
@@ -117,9 +109,14 @@ internal class MarkupTextView: UITextView {
     
     func addTextBox(with frame: CGRect) {
         
+        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePan(_:)))
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
+
+        
         let textBox = TextBoxView(frame: frame)
         textBox.addGestureRecognizer(panGesture)
         textBox.addGestureRecognizer(tapGesture)
+        self.textBoxes.append(textBox)
         self.addSubview(textBox)
     }
     

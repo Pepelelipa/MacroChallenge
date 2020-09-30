@@ -34,6 +34,10 @@ internal class NotesViewController: UIViewController, TextEditingDelegateObserve
     
     func textEditingDidBegin() {
         DispatchQueue.main.async {
+            self.textView.textBoxes.forEach { (textBox) in
+                textBox.canEdit = false
+                textBox.backgroundColor = .red
+            }
             self.imageButton.isHidden = true
         }
     }

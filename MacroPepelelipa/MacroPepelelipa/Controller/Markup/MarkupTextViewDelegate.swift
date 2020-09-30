@@ -333,5 +333,4 @@ internal class MarkupTextViewDelegate: NSObject, UITextViewDelegate {
     func textViewDidEndEditing(_ textView: UITextView) {
         observer?.textEditingDidEnd()
     }
-
 }
