@@ -32,11 +32,13 @@ internal class WorkspaceCellNotebookCollectionViewDataSource: NSObject, UICollec
                 as? WorkspaceCellNotebookCollectionViewCell else {
             fatalError("Sorry not sorry")
         }
-        if indexPath.row < workspace?.notebooks.count ?? 0,
+        cell.isHidden = false
+
+        if indexPath.row == 7 || (indexPath.row == 4 && (workspace?.notebooks.count ?? 5 < 5)) {
+            cell.isHidden = true
+        } else if indexPath.row < workspace?.notebooks.count ?? 0,
            let color = workspace?.notebooks[indexPath.row].color {
             cell.color = UIColor(cgColor: color)
-        } else if indexPath.row == 7 || (indexPath.row == 4 && (workspace?.notebooks.count ?? 5 < 5)) {
-            cell.isHidden = true
         } else {
             cell.color = .random(alpha: 0.3)
         }

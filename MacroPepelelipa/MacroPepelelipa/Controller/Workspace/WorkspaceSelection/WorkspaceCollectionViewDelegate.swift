@@ -19,15 +19,15 @@ internal class WorkspaceCollectionViewDelegate: NSObject, UICollectionViewDelega
         let isLandscape = UIDevice.current.orientation.isLandscape
         if UIDevice.current.userInterfaceIdiom == .pad {
             if isLandscape {
-                size = CGSize(width: collectionView.frame.width/2.1, height: collectionView.frame.height/2)
+                size = CGSize(width: collectionView.bounds.width/2.1, height: collectionView.bounds.height/2)
             } else {
-                size = CGSize(width: collectionView.frame.width/2.1, height: collectionView.frame.height/3.5)
+                size = CGSize(width: collectionView.bounds.width/2.1, height: collectionView.bounds.height/3.5)
             }
         } else {
             if isLandscape {
-                size = CGSize(width: collectionView.frame.width/2.1, height: collectionView.frame.height/1.5)
+                size = CGSize(width: collectionView.bounds.width/2.1, height: collectionView.bounds.height/1.5)
             } else {
-                size = CGSize(width: collectionView.frame.width, height: collectionView.frame.height/3)
+                size = CGSize(width: collectionView.bounds.width, height: collectionView.bounds.height/3)
             }
         }
         return size

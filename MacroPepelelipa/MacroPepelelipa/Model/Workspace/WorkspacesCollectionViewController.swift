@@ -20,6 +20,7 @@ internal class WorkspacesCollectionViewDataSource: NSObject, UICollectionViewDat
             notebooksNames: ["Swift", "Design Patterns", "Prototipação", "Apresentação", "Aulas"],
             notesTitles: ["Conceito básico", "Avançado", "Top"]),
         Database.Mockdata.getFullWorkspace(),
+        Database.Mockdata.getFullWorkspace(),
         Database.Mockdata.getFullWorkspace()
     ]
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

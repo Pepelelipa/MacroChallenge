@@ -27,8 +27,8 @@ internal class WorkspaceCellNotebookCollectionViewCell: UICollectionViewCell {
         super.init(frame: frame)
         bookView.translatesAutoresizingMaskIntoConstraints = false
         shadowView.translatesAutoresizingMaskIntoConstraints = false
-        shadowView.contentMode = .scaleAspectFit
-        bookView.contentMode = .scaleAspectFit
+        shadowView.contentMode = .scaleToFill
+        bookView.contentMode = .scaleToFill
         bookView.addSubview(shadowView)
         addSubview(bookView)
         setupConstraints()
