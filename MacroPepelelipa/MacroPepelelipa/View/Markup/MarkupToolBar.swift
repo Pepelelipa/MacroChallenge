@@ -16,6 +16,13 @@ enum ListStyle {
     case quote
 }
 
+enum HeaderStyle {
+    case h1
+    case h2
+    case h3
+    case paragraph
+}
+
 internal class MarkupToolBar: UIToolbar {
     
     private weak var textView: MarkupTextView?
@@ -23,8 +30,16 @@ internal class MarkupToolBar: UIToolbar {
     private var pickerDelegate: MarkupPhotoPickerDelegate?
     
     private var listButton: UIBarButtonItem?
+    private static var paragraphButton: UIBarButtonItem?
     
     private var listStyle: ListStyle = .bullet
+    public static var headerStyle: HeaderStyle = .h1 {
+        didSet {
+            if MarkupToolBar.headerStyle == .h1 {
+                paragraphButton?.image = UIImage(systemName: "a.circle")
+            }
+        }
+    }
     
     init(frame: CGRect, owner: MarkupTextView, controller: UIViewController) {
         self.textView = owner
@@ -46,12 +61,11 @@ internal class MarkupToolBar: UIToolbar {
      */
     private func setUpButtons() {
         listButton = createBarButtonItem(systemImageName: "list.bullet", objcFunc: #selector(addList))
+        MarkupToolBar.paragraphButton = createBarButtonItem(systemImageName: "a.circle", objcFunc: #selector(addHeader))
         
         let imageGalleryButton = createBarButtonItem(systemImageName: "photo", objcFunc: #selector(photoPicker))
         let textBoxButton = createBarButtonItem(systemImageName: "textbox", objcFunc: nil)
         let paintbrushButton = createBarButtonItem(systemImageName: "paintbrush", objcFunc: nil)
-        let paragraphButton = createBarButtonItem(systemImageName: "paragraph", objcFunc: #selector(headerAction))
-        
         let flexible = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         
         self.items = [flexible, textBoxButton, flexible, imageGalleryButton]
@@ -67,8 +81,10 @@ internal class MarkupToolBar: UIToolbar {
             self.items?.append(flexible)
         }
         
-        self.items?.append(paragraphButton)
-        self.items?.append(flexible)
+        if let paragraphBtn = MarkupToolBar.paragraphButton {
+            self.items?.append(paragraphBtn)
+            self.items?.append(flexible)
+        }
     }    
     
     /**
@@ -87,19 +103,26 @@ internal class MarkupToolBar: UIToolbar {
     /**
     In this funcion, we deal with the toolbar button for adding a header, adding it manually.
     */
-    
-    @objc private func headerAction() {
-        guard let guardedTextView = textView else {
-            return
-        }
-        
-        let attributedText = NSMutableAttributedString(attributedString: guardedTextView.attributedText)
-        
-        let attibutedString = NSMutableAttributedString(string: "\n#")
-
-        attributedText.append(attibutedString)
+    @objc private func addHeader() {
+        textView?.addHeader(with: MarkupToolBar.headerStyle)
+        var nextStyle: HeaderStyle = MarkupToolBar.headerStyle
                 
-        textView?.attributedText = attributedText          
+        switch MarkupToolBar.headerStyle {
+        case .h1:
+            MarkupToolBar.paragraphButton?.image = UIImage(systemName: "b.circle")
+            nextStyle = .h2
+        case .h2:
+            MarkupToolBar.paragraphButton?.image = UIImage(systemName: "c.circle")
+            nextStyle = .h3
+        case .h3:
+            MarkupToolBar.paragraphButton?.image = UIImage(systemName: "paragraph")
+            nextStyle = .paragraph
+        case .paragraph:
+            MarkupToolBar.paragraphButton?.image = UIImage(systemName: "a.circle")
+            nextStyle = .h1
+        }
+            
+        MarkupToolBar.headerStyle = nextStyle
     }
     
     /**
