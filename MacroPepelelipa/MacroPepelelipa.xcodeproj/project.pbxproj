@@ -82,7 +82,6 @@
 		A7BDD5FF2513F83F00DDB6A0 /* IndexViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7BDD5FE2513F83F00DDB6A0 /* IndexViewController.swift */; };
 		A7BDD60A251406D900DDB6A0 /* TableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7BDD609251406D900DDB6A0 /* TableViewDataSource.swift */; };
 		A7BDD60F2514078600DDB6A0 /* NotebookIndexTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7BDD60E2514078600DDB6A0 /* NotebookIndexTableViewCell.swift */; };
-		A7D4D229251287A700E204CC /* PageControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7D4D228251287A700E204CC /* PageControllerDelegate.swift */; };
 		D9D87534251BAA6700B842C8 /* MarkupTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D87533251BAA6700B842C8 /* MarkupTextField.swift */; };
 		D9D87538251BB26500B842C8 /* MarkupToolBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D87537251BB26500B842C8 /* MarkupToolBar.swift */; };
 		D9D87541251BC4F200B842C8 /* MarkupPhotoPickerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D87540251BC4F200B842C8 /* MarkupPhotoPickerDelegate.swift */; };
@@ -191,7 +190,6 @@
 		A7BDD5FE2513F83F00DDB6A0 /* IndexViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndexViewController.swift; sourceTree = "<group>"; };
 		A7BDD609251406D900DDB6A0 /* TableViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewDataSource.swift; sourceTree = "<group>"; };
 		A7BDD60E2514078600DDB6A0 /* NotebookIndexTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotebookIndexTableViewCell.swift; sourceTree = "<group>"; };
-		A7D4D228251287A700E204CC /* PageControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageControllerDelegate.swift; sourceTree = "<group>"; };
 		D9D87533251BAA6700B842C8 /* MarkupTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkupTextField.swift; sourceTree = "<group>"; };
 		D9D87537251BB26500B842C8 /* MarkupToolBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkupToolBar.swift; sourceTree = "<group>"; };
 		D9D87540251BC4F200B842C8 /* MarkupPhotoPickerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkupPhotoPickerDelegate.swift; sourceTree = "<group>"; };
@@ -482,11 +480,8 @@
 		0247F78B25115B8900405A61 /* Workspace */ = {
 			isa = PBXGroup;
 			children = (
-				02E5A22B25239E36009DFFB5 /* WorkspaceSelectionViewController.swift */,
-				02CD7CA02523B48900A140A3 /* WorkspaceCollectionViewDelegate.swift */,
-				0247F78C25115BAA00405A61 /* NotebooksSelectionViewController.swift */,
-				02AC9AD9251BF35200A067D0 /* NotebooksCollectionViewDelegate.swift */,
-				A7D4D228251287A700E204CC /* PageControllerDelegate.swift */,
+				0292F5EA252508C300AFB495 /* WorkspaceSelection */,
+				0292F5EB252508CF00AFB495 /* WorkspaceSelected */,
 			);
 			path = Workspace;
 			sourceTree = "<group>";
@@ -545,6 +540,24 @@
 				026D4CA1251D1D7B00CBED5A /* Mockdata.swift */,
 			);
 			path = Mockup;
+			sourceTree = "<group>";
+		};
+		0292F5EA252508C300AFB495 /* WorkspaceSelection */ = {
+			isa = PBXGroup;
+			children = (
+				02E5A22B25239E36009DFFB5 /* WorkspaceSelectionViewController.swift */,
+				02CD7CA02523B48900A140A3 /* WorkspaceCollectionViewDelegate.swift */,
+			);
+			path = WorkspaceSelection;
+			sourceTree = "<group>";
+		};
+		0292F5EB252508CF00AFB495 /* WorkspaceSelected */ = {
+			isa = PBXGroup;
+			children = (
+				0247F78C25115BAA00405A61 /* NotebooksSelectionViewController.swift */,
+				02AC9AD9251BF35200A067D0 /* NotebooksCollectionViewDelegate.swift */,
+			);
+			path = WorkspaceSelected;
 			sourceTree = "<group>";
 		};
 		029847EF251D13D1004E0B62 /* Database */ = {
@@ -867,7 +880,6 @@
 				022D60112519559D00001D5B /* String+UTF16.swift in Sources */,
 				022D601A2519559D00001D5B /* MarkdownAutomaticLink.swift in Sources */,
 				022D60162519559D00001D5B /* MarkdownItalic.swift in Sources */,
-				A7D4D229251287A700E204CC /* PageControllerDelegate.swift in Sources */,
 				0221BCF825116CC60055A2E5 /* ColorExtension.swift in Sources */,
 				02A8BCEC2512A453006B685E /* NotebooksCollectionViewDataSource.swift in Sources */,
 				02DD09FE25114D6200B6696B /* SceneDelegate.swift in Sources */,
