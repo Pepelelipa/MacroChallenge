@@ -133,7 +133,9 @@ internal class MarkupToolBar: UIToolbar {
     }
     
     @objc private func openEditTextContainer() {
-        guard let notesViewController = viewController as? NotesViewController else { return }
+        guard let notesViewController = viewController as? NotesViewController else {
+            return
+        }
         
         notesViewController.changeTextViewInput(isCustom: true)
     }

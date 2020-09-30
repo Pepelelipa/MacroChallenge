@@ -126,6 +126,7 @@ internal class NotesViewController: UIViewController, TextEditingDelegateObserve
         let tap = UITapGestureRecognizer(target: self, action: #selector(didTap))
         
         view.addGestureRecognizer(tap)
+        view.addSubview(markupContainerView)
         view.addSubview(textField)
         view.addSubview(textView)
         view.addSubview(imageButton)
@@ -134,12 +135,15 @@ internal class NotesViewController: UIViewController, TextEditingDelegateObserve
         textView.inputAccessoryView = keyboardToolbar
     }
     
-    private var button = UIButton()
+    private var button = UIButton(frame: .init(x: 100, y: 100, width: 50, height: 50))
     
     public func changeTextViewInput(isCustom: Bool) {
         if isCustom == true {
-            textView.inputView = markupContainerView
-//            textView.inputView = button
+//            textView.inputView = markupContainerView
+            button.backgroundColor = .blue
+            textView.inputView = button
+            textView.reloadInputViews()
+            
         } else {
             textView.inputView = nil
         }
