@@ -88,6 +88,7 @@
 		D9D87541251BC4F200B842C8 /* MarkupPhotoPickerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D87540251BC4F200B842C8 /* MarkupPhotoPickerDelegate.swift */; };
 		D9D87544251BD39F00B842C8 /* PhotoEditingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D87543251BD39F00B842C8 /* PhotoEditingViewController.swift */; };
 		E45C20D2251D24BD0022AD95 /* MarkdownNumeric.swift in Sources */ = {isa = PBXBuildFile; fileRef = E45C20D1251D24BD0022AD95 /* MarkdownNumeric.swift */; };
+		E4FCA4942523B52F00DE88B8 /* MarkdownEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4FCA4932523B52F00DE88B8 /* MarkdownEditor.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -197,6 +198,7 @@
 		D9D87540251BC4F200B842C8 /* MarkupPhotoPickerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkupPhotoPickerDelegate.swift; sourceTree = "<group>"; };
 		D9D87543251BD39F00B842C8 /* PhotoEditingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoEditingViewController.swift; sourceTree = "<group>"; };
 		E45C20D1251D24BD0022AD95 /* MarkdownNumeric.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkdownNumeric.swift; sourceTree = "<group>"; };
+		E4FCA4932523B52F00DE88B8 /* MarkdownEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkdownEditor.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -322,6 +324,7 @@
 		022D5FE62519559D00001D5B /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				E4FCA4932523B52F00DE88B8 /* MarkdownEditor.swift */,
 				022D5FE72519559D00001D5B /* MarkdownParser.swift */,
 				022D5FE82519559D00001D5B /* Extensions */,
 				022D5FEA2519559D00001D5B /* Elements */,
@@ -895,6 +898,7 @@
 				022D60212519559D00001D5B /* MarkdownLinkElement.swift in Sources */,
 				D9D87541251BC4F200B842C8 /* MarkupPhotoPickerDelegate.swift in Sources */,
 				022D60192519559D00001D5B /* MarkdownColoredBackground.swift in Sources */,
+				E4FCA4942523B52F00DE88B8 /* MarkdownEditor.swift in Sources */,
 				A7BDD60A251406D900DDB6A0 /* TableViewDataSource.swift in Sources */,
 				022D600A2519559D00001D5B /* UIFont+Traits.swift in Sources */,
 				022D600E2519559D00001D5B /* Typealias+UIKit.swift in Sources */,
