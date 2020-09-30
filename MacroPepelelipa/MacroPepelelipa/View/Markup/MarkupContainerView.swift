@@ -10,37 +10,22 @@ import UIKit
 
 internal class MarkupContainerView: UIView {
     
-    private let textView: MarkupTextView
+    private weak var textView: MarkupTextView?
     
     private lazy var firstColorSelector: MarkupToogleButton = {
-        let button = createButton(
-            action: #selector(placeHolderAction),
-            normalStateImage: UIImage(named: "turnTextToBlack"),
-            highlightedStateImage: UIImage(named: "turnTextToBlackHighlighted"),
-            titleLabel: nil
-        )
+        let button = MarkupToogleButton(frame: CGRect(x: 0, y: 0, width: 22, height: 22), color: .red)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
     
     private lazy var secondColorSelector: MarkupToogleButton = {
-        let button = createButton(
-            action: #selector(placeHolderAction),
-            normalStateImage: UIImage(named: "turnTextToGreen"),
-            highlightedStateImage: UIImage(named: "turnTextToGreenHighlighted"),
-            titleLabel: nil
-        )
+        let button = MarkupToogleButton(frame: CGRect(x: 0, y: 0, width: 22, height: 22), color: .green)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
         
     private lazy var thirdColorSelector: MarkupToogleButton = {
-        let button =  createButton(
-            action: #selector(placeHolderAction),
-            normalStateImage: UIImage(named: "turnTextToRed"),
-            highlightedStateImage: UIImage(named: "turnTextToRedHighlighted"),
-            titleLabel: nil
-        )
+        let button = MarkupToogleButton(frame: CGRect(x: 0, y: 0, width: 22, height: 22), color: .blue)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -48,8 +33,7 @@ internal class MarkupContainerView: UIView {
     private lazy var italicText: MarkupToogleButton = {
         let button = createButton(
             action: #selector(placeHolderAction),
-            normalStateImage: UIImage(named: "icon-italic"),
-            highlightedStateImage: UIImage(named: "icon-italicHighlighted"),
+            normalStateImage: UIImage(systemName: "italic"),
             titleLabel: nil
         )
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -57,31 +41,31 @@ internal class MarkupContainerView: UIView {
     }()
     
     private lazy var boldText: MarkupToogleButton = {
-        let button = createButton(action: #selector(placeHolderAction), normalStateImage: UIImage(named: "icon-bold"), highlightedStateImage: UIImage(named: "icon-boldHighlighted"), titleLabel: nil)
+        let button = createButton(action: #selector(placeHolderAction), normalStateImage: UIImage(systemName: "bold"), titleLabel: nil)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
     
     private lazy var highlightText: MarkupToogleButton = {
-        let button = createButton(action: #selector(placeHolderAction), normalStateImage: UIImage(systemName: "pencil.tip"), highlightedStateImage: UIImage(systemName: "pencil.tip"), titleLabel: nil)
+        let button = createButton(action: #selector(placeHolderAction), normalStateImage: UIImage(systemName: "pencil.tip"), titleLabel: nil)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
     
     private lazy var firstFontSelector: MarkupToogleButton = {
-        let button = createButton(action: #selector(placeHolderAction), normalStateImage: nil, highlightedStateImage: nil, titleLabel: "Merrieather")
+        let button = createButton(action: #selector(placeHolderAction), normalStateImage: nil, titleLabel: "Merrieather")
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
            
     private lazy var secondFontSelector: MarkupToogleButton = {
-        let button = createButton(action: #selector(placeHolderAction), normalStateImage: nil, highlightedStateImage: nil, titleLabel: "Open Sans")
+        let button = createButton(action: #selector(placeHolderAction), normalStateImage: nil, titleLabel: "Open Sans")
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
     
     private lazy var thirdFontSelector: MarkupToogleButton = {
-        let button = createButton(action: #selector(placeHolderAction), normalStateImage: nil, highlightedStateImage: nil, titleLabel: "Dancin")
+        let button = createButton(action: #selector(placeHolderAction), normalStateImage: nil, titleLabel: "Dancin")
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -91,33 +75,34 @@ internal class MarkupContainerView: UIView {
         
         super.init(frame: frame)
         
-        self.backgroundColor = UIColor(named: "Background")
+        self.backgroundColor = .gray//UIColor(named: "Background")
         
         let buttons = [firstColorSelector, secondColorSelector, thirdColorSelector, italicText, boldText, highlightText, firstFontSelector, secondFontSelector, thirdFontSelector]
         buttons.forEach {
             self.addSubview($0)
         }
         createConstraints()
-        setupLayer()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func setupLayer() {
-        layer.cornerRadius = 10
-        let shadowColor = #colorLiteral(red: 0.05490196078, green: 0.01568627451, blue: 0.07843137255, alpha: 1)
-        layer.shadowColor = shadowColor.cgColor
-        layer.shadowRadius = 2
-        layer.shadowOffset = .zero
-        layer.shadowOpacity = 0.16
-        layer.shouldRasterize = true
-        layer.rasterizationScale = UIScreen.main.scale
+    private func createButton(action: Selector, normalStateImage: UIImage?, titleLabel: String?) -> MarkupToogleButton {
+        var button = MarkupToogleButton(frame: .zero, normalStateImage: nil, title: nil)
+        button.addTarget(self, action: action, for: .touchUpInside)
+        
+        if normalStateImage != nil {
+            let markupButton = MarkupToogleButton(frame: .zero, normalStateImage: normalStateImage, title: nil)
+            button = markupButton
+        } else if titleLabel != nil {
+            let markupButton = MarkupToogleButton(frame: .zero, normalStateImage: nil, title: titleLabel)
+            button = markupButton
+        }
+        return button
     }
     
-    private func createConstraints() {
-        
+    public func createConstraints() {
         NSLayoutConstraint.activate([
             firstColorSelector.topAnchor.constraint(equalTo: self.topAnchor, constant: 20),
             firstColorSelector.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20),
@@ -180,20 +165,6 @@ internal class MarkupContainerView: UIView {
             secondFontSelector.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 0.28),
             secondFontSelector.heightAnchor.constraint(equalToConstant: 22)
         ])
-    }
-
-    private func createButton(action: Selector, normalStateImage: UIImage?, highlightedStateImage: UIImage?, titleLabel: String?) -> MarkupToogleButton {
-        var button = MarkupToogleButton(frame: .zero, normalStateImage: nil, highlightedStateImage: nil, title: nil)
-        button.addTarget(self, action: action, for: .touchUpInside)
-        
-        if normalStateImage != nil && highlightedStateImage != nil {
-            let markupButton = MarkupToogleButton(frame: .zero, normalStateImage: normalStateImage, highlightedStateImage: highlightedStateImage, title: nil)
-            button = markupButton
-        } else if titleLabel != nil {
-            let markupButton = MarkupToogleButton(frame: .zero, normalStateImage: nil, highlightedStateImage: nil, title: titleLabel)
-            button = markupButton
-        }
-        return button
     }
     
     @objc func placeHolderAction() {

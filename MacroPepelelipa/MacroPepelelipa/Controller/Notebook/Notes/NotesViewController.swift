@@ -33,7 +33,17 @@ internal class NotesViewController: UIViewController, TextEditingDelegateObserve
     }()
     
     private lazy var markupContainerView: MarkupContainerView = {
-        let container = MarkupContainerView(frame: .zero, owner: textView)
+        let screenWidth = UIScreen.main.bounds.width
+        let screenHeight = UIScreen.main.bounds.height
+        
+        let width: CGFloat = screenWidth - 60
+        let height: CGFloat = 100
+        
+        let xPosition: CGFloat = screenWidth/2 - width/2
+        let yPosition: CGFloat = screenHeight - height - 20
+        
+        let container = MarkupContainerView(frame: CGRect(x: xPosition, y: yPosition, width: width, height: height), owner: textView)
+        container.autoresizingMask = []
         return container
     }()
     
@@ -58,6 +68,7 @@ internal class NotesViewController: UIViewController, TextEditingDelegateObserve
 
         return btn
     }()
+    
     public var isBtnBackHidden: Bool {
         get {
             return btnBack.isHidden
@@ -66,6 +77,7 @@ internal class NotesViewController: UIViewController, TextEditingDelegateObserve
             btnBack.isHidden = newValue
         }
     }
+    
     ///Go back to the previous step(opens the notebook index) according to the device and orientation
     @IBAction func btnBackTap(_ sender: UIButton) {
         let dev = UIDevice.current.userInterfaceIdiom
@@ -85,12 +97,15 @@ internal class NotesViewController: UIViewController, TextEditingDelegateObserve
         textField.delegate = self.textFieldDelegate
         return textField
     }()
+    
     private lazy var textFieldDelegate: MarkupTextFieldDelegate = {
         let delegate = MarkupTextFieldDelegate()
         delegate.observer = self
         return delegate
     }()
+    
     private lazy var textView: MarkupTextView = MarkupTextView(frame: .zero, delegate: self.textViewDelegate)
+    
     private lazy var textViewDelegate: MarkupTextViewDelegate? = {
         let delegate = MarkupTextViewDelegate()
         delegate.observer = self
@@ -112,6 +127,7 @@ internal class NotesViewController: UIViewController, TextEditingDelegateObserve
         }
         return delegate
     }()
+    
     private lazy var keyboardToolbar: MarkupToolBar = MarkupToolBar(frame: .zero, owner: textView, controller: self)
 
     public override func viewDidLoad() {
@@ -139,13 +155,12 @@ internal class NotesViewController: UIViewController, TextEditingDelegateObserve
     
     public func changeTextViewInput(isCustom: Bool) {
         if isCustom == true {
-//            textView.inputView = markupContainerView
-            button.backgroundColor = .blue
-            textView.inputView = button
+            textView.inputView = markupContainerView
             textView.reloadInputViews()
-            
+            keyboardToolbar.isHidden = true
         } else {
             textView.inputView = nil
+            keyboardToolbar.isHidden = false
         }
 
     }
@@ -179,5 +194,12 @@ internal class NotesViewController: UIViewController, TextEditingDelegateObserve
             textField.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
             textField.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor, constant: -20)
         ])
+    
+//        NSLayoutConstraint.activate([
+//            markupContainerView.widthAnchor.constraint(equalToConstant: self.view.frame.width - 60),
+//            markupContainerView.centerXAnchor.constraint(equalToSystemSpacingAfter: self.view.centerXAnchor, multiplier: 0),
+//            markupContainerView.heightAnchor.constraint(equalToConstant: 10),
+//            markupContainerView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: 40)
+//        ])
     }
 }

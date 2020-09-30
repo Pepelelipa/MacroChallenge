@@ -10,21 +10,31 @@ import UIKit
 
 internal class MarkupToogleButton: UIButton {
     
-    init(frame: CGRect, normalStateImage: UIImage?, highlightedStateImage: UIImage?, title: String?) {
+    init(frame: CGRect, normalStateImage: UIImage?, title: String?) {
         super.init(frame: frame)
         self.addTarget(self, action: #selector(toogleButton), for: .touchDown)
         
         self.setTitle(title, for: .normal)
         self.setTitle(title, for: .selected)
         
+        self.tintColor = UIColor(named: "Placeholder")
+        
         if let titleLabel = title {
             self.setTitleColor(UIColor(named: "Placeholder"), for: .normal)
-            self.setTitleColor(UIColor(named: "Title"), for: .selected)
+            self.setTitleColor(UIColor(named: "Body"), for: .selected)
             setFont(fontName: titleLabel)
         }
         
         self.setImage(normalStateImage, for: .normal)
-        self.setImage(highlightedStateImage, for: [.selected])
+    }
+    
+    init(frame: CGRect, color: UIColor) {
+        super.init(frame: frame)
+        self.addTarget(self, action: #selector(toogleButton), for: .touchDown)
+        
+        self.backgroundColor = color
+        
+        self.layer.cornerRadius = frame.height / 2
     }
     
     required init?(coder: NSCoder) {
@@ -40,5 +50,11 @@ internal class MarkupToogleButton: UIButton {
     
     @objc private func toogleButton() {
         self.isSelected.toggle()
+        
+        if isSelected {
+            self.tintColor = UIColor(named: "Body")
+        } else {
+            self.tintColor = UIColor(named: "Placeholder")
+        }
     }
 }
