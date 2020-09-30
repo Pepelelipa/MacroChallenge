@@ -5,11 +5,10 @@
 //  Created by Pedro Giuliano Farina on 16/09/20.
 //  Copyright © 2020 Pedro Giuliano Farina. All rights reserved.
 //
-//swiftlint:disable type_name
 
 import UIKit
 
-internal class WorkspaceCollectionViewFlowLayoutDelegate: NSObject, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+internal class NotebooksCollectionViewDelegate: NSObject, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
 
     private var didSelectCell: ((NotebookCollectionViewCell) -> Void)?
     init(_ didSelectCell: @escaping (NotebookCollectionViewCell) -> Void) {

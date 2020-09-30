@@ -6,12 +6,10 @@
 //  Copyright © 2020 Pedro Giuliano Farina. All rights reserved.
 //
 
-import CoreGraphics
-
 public protocol NotebookEntity: class {
     var name: String { get }
     var workspace: WorkspaceEntity { get }
-    var color: CGColor { get }
+    var colorName: String { get }
     var notes: [NoteEntity] { get }
     var indexes: [NotebookIndexEntity] { get }
 }

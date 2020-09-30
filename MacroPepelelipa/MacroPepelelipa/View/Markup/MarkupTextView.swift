@@ -19,9 +19,9 @@ internal class MarkupTextView: UITextView {
         
         self.delegate = delegate
         self.translatesAutoresizingMaskIntoConstraints = false
-        self.backgroundColor = UIColor(named: "Background")
-        self.textColor = UIColor(named: "Placeholder")
-        self.tintColor = UIColor(named: "Highlight")
+        self.backgroundColor = .backgroundColor
+        self.textColor = .placeholderColor
+        self.tintColor = .actionColor
         
         animator = UIDynamicAnimator(referenceView: self)
     }

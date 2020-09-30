@@ -1,6 +1,7 @@
 disabled_rules:
  - trailing_whitespace
  - weak_delegate
+ - type_name
 
 # rule identifiers to opt in
 opt_in_rules:

@@ -6,7 +6,7 @@
   Copyright © 2020 Pedro Giuliano Farina. All rights reserved.
 */
 
-"Workspace" = "Coleção";
+"Workspaces" = "Coleções";
 "Subject" = "Matéria";
 "Lesson" = "Aula";
 "Notebook" = "Caderno";

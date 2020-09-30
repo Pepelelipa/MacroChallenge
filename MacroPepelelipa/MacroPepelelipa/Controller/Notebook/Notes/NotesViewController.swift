@@ -49,7 +49,7 @@ internal class NotesViewController: UIViewController, TextEditingDelegateObserve
         btn.setImage(UIImage(systemName: "chevron.left"), for: .normal)
         btn.addTarget(self, action: #selector(btnBackTap(_:)), for: .touchUpInside)
         btn.translatesAutoresizingMaskIntoConstraints = false
-        btn.tintColor = UIColor(named: "Highlight")
+        btn.tintColor = .actionColor
 
         return btn
     }()
@@ -124,7 +124,7 @@ internal class NotesViewController: UIViewController, TextEditingDelegateObserve
         view.addSubview(textField)
         view.addSubview(textView)
         view.addSubview(imageButton)
-        self.view.backgroundColor = UIColor(named: "Background")
+        self.view.backgroundColor = .backgroundColor
         
         textView.inputAccessoryView = keyboardToolbar
     }

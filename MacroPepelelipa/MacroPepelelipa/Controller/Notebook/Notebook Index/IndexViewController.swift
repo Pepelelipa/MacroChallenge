@@ -14,7 +14,7 @@ internal class NotebookIndexViewController: UIViewController {
     internal init(notebook: NotebookEntity) {
         self.notebook = notebook
 
-        imgViewNotebook.tintColor = UIColor(cgColor: notebook.color)
+        imgViewNotebook.tintColor = UIColor(named: notebook.colorName)
         lblSubject.text = notebook.name
         dataSource = NotebookIndexTableViewDataSource(notebook: notebook)
         
@@ -31,7 +31,7 @@ internal class NotebookIndexViewController: UIViewController {
     private lazy var btnBack: UIButton = {
         let btn = UIButton(frame: .zero)
         btn.setImage(UIImage(systemName: "chevron.left"), for: .normal)
-        btn.tintColor = UIColor(named: "Highlight")
+        btn.tintColor = .actionColor
         btn.addTarget(self, action: #selector(btnBackTap(_:)), for: .touchUpInside)
 
         btn.translatesAutoresizingMaskIntoConstraints = false
@@ -41,7 +41,7 @@ internal class NotebookIndexViewController: UIViewController {
     private lazy var btnShare: UIButton = {
         let btn = UIButton(frame: .zero)
         btn.setImage(UIImage(systemName: "ellipsis.circle"), for: .normal)
-        btn.tintColor = UIColor(named: "Highlight")
+        btn.tintColor = .actionColor
         btn.addTarget(self, action: #selector(shareButtonTap(_:)), for: .touchUpInside)
         
         btn.translatesAutoresizingMaskIntoConstraints = false
@@ -88,7 +88,7 @@ internal class NotebookIndexViewController: UIViewController {
     }
 
     override func viewDidLoad() {
-        view.backgroundColor = UIColor(named: "Background")
+        view.backgroundColor = .backgroundColor
         
         view.addSubview(btnBack)
         view.addSubview(btnShare)

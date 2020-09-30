@@ -22,7 +22,7 @@ internal class MarkupTextViewDelegate: NSObject, UITextViewDelegate {
     internal weak var observer: TextEditingDelegateObserver?
 
     override init() {
-        markdownParser = MarkdownParser(color: UIColor(named: "Body") ?? .black)
+        markdownParser = MarkdownParser(color: .bodyColor ?? .black)
         markdownEditor = MarkdownEditor(markdownParser: markdownParser)
         isShowingPlaceholder = false
         isBackspace = false
@@ -39,7 +39,7 @@ internal class MarkupTextViewDelegate: NSObject, UITextViewDelegate {
         textView.attributedText = NSAttributedString(string: placeholder)
         textView.font = markdownParser.font
         isShowingPlaceholder = true
-        textView.textColor = UIColor(named: "Placeholder")
+        textView.textColor = .placeholderColor
     }
         
     func textViewDidChange(_ textView: UITextView) {
