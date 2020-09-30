@@ -82,9 +82,9 @@ open class MarkdownParser {
         }
     }
     
-    public let font: MarkdownFont
-    public let color: MarkdownColor
-    public let backgroundColor: MarkdownColor
+    public var font: MarkdownFont
+    public var color: MarkdownColor
+    public var backgroundColor: MarkdownColor
     
     // MARK: - Legacy Initializer
     @available(*, deprecated, renamed: "init", message: "This constructor will be removed soon, please use the new opions constructor")
@@ -205,4 +205,5 @@ open class MarkdownParser {
             .map({ (_, element) in
                     element })
     }
+    
 }

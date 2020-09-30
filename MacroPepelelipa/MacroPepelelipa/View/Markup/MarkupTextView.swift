@@ -99,14 +99,15 @@ internal class MarkupTextView: UITextView {
             return
         }
         
-        switch type {
-        case .bullet:
-            delegate.addBulletList(on: self, lineCleared)
-        case .numeric:
-            delegate.addNumericList(on: self, lineCleared)
-        case .quote:
-            delegate.addQuote(on: self, lineCleared)
+        delegate.addList(on: self, type: type, lineCleared)
+    }
+    
+    public func addHeader(with style: HeaderStyle) {
+        guard let delegate = self.delegate as? MarkupTextViewDelegate else {
+            return
         }
+        
+        delegate.addHeader(on: self, with: style)
     }
     
 }
