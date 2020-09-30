@@ -9,4 +9,5 @@
 internal struct NotebookIndex: NotebookIndexEntity {
     var index: String
     weak var note: NoteEntity?
+    var isTitle: Bool
 }

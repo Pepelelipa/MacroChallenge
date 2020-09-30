@@ -31,10 +31,21 @@ internal class NotebookIndexViewController: UIViewController {
     private lazy var btnBack: UIButton = {
         let btn = UIButton(frame: .zero)
         btn.setImage(UIImage(systemName: "chevron.left"), for: .normal)
+        btn.tintColor = UIColor(named: "Highlight")
         btn.addTarget(self, action: #selector(btnBackTap(_:)), for: .touchUpInside)
 
         btn.translatesAutoresizingMaskIntoConstraints = false
 
+        return btn
+    }()
+    private lazy var btnShare: UIButton = {
+        let btn = UIButton(frame: .zero)
+        btn.setImage(UIImage(systemName: "ellipsis.circle"), for: .normal)
+        btn.tintColor = UIColor(named: "Highlight")
+        btn.addTarget(self, action: #selector(shareButtonTap(_:)), for: .touchUpInside)
+        
+        btn.translatesAutoresizingMaskIntoConstraints = false
+        
         return btn
     }()
     private let imgViewNotebook: UIImageView = {
@@ -47,7 +58,9 @@ internal class NotebookIndexViewController: UIViewController {
     }()
     private var lblSubject: UILabel = {
         let lbl = UILabel(frame: .zero)
-        lbl.textAlignment = .center
+        lbl.textAlignment = .left
+        lbl.font = lbl.font.withSize(26)
+        lbl.numberOfLines = 0
         lbl.translatesAutoresizingMaskIntoConstraints = false
 
         return lbl
@@ -59,6 +72,7 @@ internal class NotebookIndexViewController: UIViewController {
         tableView.tableFooterView = UIView()
 
         tableView.backgroundColor = view.backgroundColor
+        tableView.separatorStyle = .none
 
         tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
@@ -68,9 +82,16 @@ internal class NotebookIndexViewController: UIViewController {
     @IBAction func btnBackTap(_ sender: UIButton) {
         delegate?.indexShouldDismiss()
     }
+    
+    @IBAction func shareButtonTap(_ sender: UIButton) {
+        delegate?.indexShouldDismiss()
+    }
 
     override func viewDidLoad() {
+        view.backgroundColor = UIColor(named: "Background")
+        
         view.addSubview(btnBack)
+        view.addSubview(btnShare)
         view.addSubview(imgViewNotebook)
         view.addSubview(lblSubject)
         view.addSubview(tableView)
@@ -85,26 +106,32 @@ internal class NotebookIndexViewController: UIViewController {
 
     override func viewWillLayoutSubviews() {
         NSLayoutConstraint.activate([
+            btnShare.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
+            btnShare.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20)
+        ])
+        
+        NSLayoutConstraint.activate([
             btnBack.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
             btnBack.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20)
         ])
 
         NSLayoutConstraint.activate([
             NSLayoutConstraint(item: imgViewNotebook, attribute: .height, relatedBy: .equal, toItem: imgViewNotebook, attribute: .width, multiplier: (1.33), constant: 0.0),
-            imgViewNotebook.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 25),
-            imgViewNotebook.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
-            imgViewNotebook.heightAnchor.constraint(equalToConstant: 230.0)
+            imgViewNotebook.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 40),
+            imgViewNotebook.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 25),
+            imgViewNotebook.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.08)
         ])
 
         NSLayoutConstraint.activate([
-            lblSubject.topAnchor.constraint(equalTo: imgViewNotebook.bottomAnchor, constant: 20),
-            lblSubject.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            lblSubject.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            lblSubject.heightAnchor.constraint(equalToConstant: 30)
+            NSLayoutConstraint(item: lblSubject, attribute: .centerY, relatedBy: .equal, toItem: imgViewNotebook, attribute: .centerY, multiplier: 1.0, constant: 0.0),
+            lblSubject.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 40),
+            lblSubject.leadingAnchor.constraint(equalTo: imgViewNotebook.trailingAnchor, constant: 20),
+            lblSubject.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
+            lblSubject.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.08)
         ])
 
         NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: lblSubject.bottomAnchor, constant: 20),
+            tableView.topAnchor.constraint(equalTo: lblSubject.bottomAnchor, constant: 40),
             tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
