@@ -18,12 +18,17 @@ internal class WorkspaceCellNotebookCollectionViewCell: UICollectionViewCell {
             return bookView.tintColor
         }
         set {
+            shadowView.alpha = newValue.cgColor.alpha
             bookView.tintColor = newValue
         }
     }
 
     override init(frame: CGRect) {
         super.init(frame: frame)
+        bookView.translatesAutoresizingMaskIntoConstraints = false
+        shadowView.translatesAutoresizingMaskIntoConstraints = false
+        shadowView.contentMode = .scaleAspectFit
+        bookView.contentMode = .scaleAspectFit
         bookView.addSubview(shadowView)
         addSubview(bookView)
         setupConstraints()

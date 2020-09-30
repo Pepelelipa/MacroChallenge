@@ -9,7 +9,7 @@
 import UIKit
 import Database
 
-internal class WorkspaceCellCollectionViewDataSource: NSObject, UICollectionViewDataSource {
+internal class WorkspaceCellNotebookCollectionViewDataSource: NSObject, UICollectionViewDataSource {
 
     private weak var workspace: WorkspaceEntity?
 
@@ -18,7 +18,12 @@ internal class WorkspaceCellCollectionViewDataSource: NSObject, UICollectionView
     }
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return workspace?.notebooks.count ?? 0
+
+        if workspace?.notebooks.count ?? 0 < 5 {
+            return 5
+        } else {
+            return 8
+        }
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -26,6 +31,14 @@ internal class WorkspaceCellCollectionViewDataSource: NSObject, UICollectionView
                 withReuseIdentifier: WorkspaceCellNotebookCollectionViewCell.cellID, for: indexPath)
                 as? WorkspaceCellNotebookCollectionViewCell else {
             fatalError("Sorry not sorry")
+        }
+        if indexPath.row < workspace?.notebooks.count ?? 0,
+           let color = workspace?.notebooks[indexPath.row].color {
+            cell.color = UIColor(cgColor: color)
+        } else if indexPath.row == 7 || (indexPath.row == 4 && (workspace?.notebooks.count ?? 5 < 5)) {
+            cell.isHidden = true
+        } else {
+            cell.color = .random(alpha: 0.3)
         }
         return cell
     }

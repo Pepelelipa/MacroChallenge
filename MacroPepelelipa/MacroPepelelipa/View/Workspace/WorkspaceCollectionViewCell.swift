@@ -19,6 +19,11 @@ internal class WorkspaceCollectionViewCell: UICollectionViewCell {
     }
     internal func setWorkspace(_ workspace: WorkspaceEntity) {
         self.workspace = workspace
+        dataSource = .init(workspace: workspace)
+        delegate = .init(totalNotebooks: workspace.notebooks.count)
+        collectionView.dataSource = dataSource
+        collectionView.delegate = delegate
+        collectionView.reloadData()
     }
 
     private var lblWorkspaceName: UILabel = {
@@ -33,6 +38,7 @@ internal class WorkspaceCollectionViewCell: UICollectionViewCell {
     }()
     private lazy var collectionView: UICollectionView = {
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
 
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
@@ -41,12 +47,20 @@ internal class WorkspaceCollectionViewCell: UICollectionViewCell {
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.allowsMultipleSelection = false
 
+        collectionView.dataSource = dataSource
+        collectionView.delegate = delegate
+
         collectionView.register(
             WorkspaceCollectionViewCell.self,
             forCellWithReuseIdentifier: WorkspaceCollectionViewCell.cellID)
 
         return collectionView
     }()
+    private var dataSource: WorkspaceCellNotebookCollectionViewDataSource?
+    private var delegate: WorkspaceCellNotebookCollectionViewDelegate?
+    internal func invalidateLayout() {
+        collectionView.collectionViewLayout.invalidateLayout()
+    }
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -75,9 +89,10 @@ internal class WorkspaceCollectionViewCell: UICollectionViewCell {
 
         NSLayoutConstraint.activate([
             collectionView.topAnchor.constraint(equalTo: lblWorkspaceName.bottomAnchor, constant: 20),
-            collectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
-            collectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
-            collectionView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -20)
+            collectionView.leadingAnchor.constraint(greaterThanOrEqualTo: contentView.leadingAnchor, constant: 20),
+            collectionView.trailingAnchor.constraint(lessThanOrEqualTo: contentView.trailingAnchor, constant: -20),
+            collectionView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -20),
+            collectionView.widthAnchor.constraint(equalTo: collectionView.heightAnchor, multiplier: 2)
         ])
     }
 }

@@ -49,6 +49,11 @@ internal class WorkspaceSelectionViewController: UIViewController {
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
         collectionView.collectionViewLayout.invalidateLayout()
+        for visibleCell in collectionView.visibleCells {
+            if let cell = visibleCell as? WorkspaceCollectionViewCell {
+                cell.invalidateLayout()
+            }
+        }
     }
 
     override func viewDidLayoutSubviews() {
