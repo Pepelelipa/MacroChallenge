@@ -36,7 +36,7 @@ internal class WorkspaceCollectionViewCell: UICollectionViewCell {
 
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
-        collectionView.backgroundColor = .random()
+        collectionView.backgroundColor = .backgroundColor
         collectionView.showsVerticalScrollIndicator = false
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.allowsMultipleSelection = false
@@ -50,7 +50,7 @@ internal class WorkspaceCollectionViewCell: UICollectionViewCell {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        backgroundColor = .random()
+        backgroundColor = .backgroundColor
         addSubview(lblWorkspaceName)
         addSubview(collectionView)
         collectionView.register(
