@@ -23,9 +23,10 @@ internal class TextBoxView: UIView {
     }()
     
     var canEdit: Bool = false
+    var owner: MarkupTextView
     
-    override init(frame: CGRect) {  
-                
+    init(frame: CGRect, owner: MarkupTextView) {  
+        self.owner = owner
         super.init(frame: frame)
         self.addSubview(markupTextView)
         

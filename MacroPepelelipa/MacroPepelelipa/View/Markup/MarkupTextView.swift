@@ -17,7 +17,7 @@ internal class MarkupTextView: UITextView {
     private var imageView: UIImageView?
     private var initialCenter = CGPoint()
     
-    var textBoxes: [TextBoxView] = []
+    var textBoxes: Set<TextBoxView> = []
     
     init(frame: CGRect, delegate: MarkupTextViewDelegate? = nil) {
         super.init(frame: frame, textContainer: nil)
@@ -113,39 +113,42 @@ internal class MarkupTextView: UITextView {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
 
         
-        let textBox = TextBoxView(frame: frame)
+        let textBox = TextBoxView(frame: frame, owner: self)
         textBox.addGestureRecognizer(panGesture)
         textBox.addGestureRecognizer(tapGesture)
-        self.textBoxes.append(textBox)
+        self.textBoxes.insert(textBox)
         self.addSubview(textBox)
     }
     
     @IBAction private func handleTap(_ gestureRecognizer: UITapGestureRecognizer) {
         
-        if let ownerView = gestureRecognizer.view as? TextBoxView {
-            ownerView.canEdit = true
-            ownerView.backgroundColor = .blue
-            
-        }
+        if let textBox = gestureRecognizer.view as? TextBoxView {
+            textBox.canEdit = true
+            textBox.backgroundColor = .blue
+            textBox.owner.endEditing(true)
+        } 
     }
     
     @IBAction private func handlePan(_ gestureRecognizer: UIPanGestureRecognizer) {
         
-        guard let ownerView = gestureRecognizer.view else {
+        guard let textBox = gestureRecognizer.view as? TextBoxView else {
             return
         }
         
-        let translation = gestureRecognizer.translation(in: self)
-        
-        if gestureRecognizer.state == .began {
-            initialCenter = ownerView.center
-        }
-        
-        if gestureRecognizer.state != .cancelled {
-            let newCenter = CGPoint(x: initialCenter.x + translation.x, y: initialCenter.y + translation.y)
-            ownerView.center = newCenter
-        } else {
-            ownerView.center = initialCenter
+        if textBox.canEdit {
+
+            let translation = gestureRecognizer.translation(in: self)
+            
+            if gestureRecognizer.state == .began {
+                initialCenter = textBox.center
+            }
+            
+            if gestureRecognizer.state != .cancelled {
+                let newCenter = CGPoint(x: initialCenter.x + translation.x, y: initialCenter.y + translation.y)
+                textBox.center = newCenter
+            } else {
+                textBox.center = initialCenter
+            }
         }
     }
 }

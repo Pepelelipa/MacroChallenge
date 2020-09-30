@@ -21,7 +21,6 @@ internal class MarkupTextViewDelegate: NSObject, UITextViewDelegate {
     private var lastWrittenText: String
 
     internal weak var observer: TextEditingDelegateObserver?
-    internal weak var textBoxObserver: TextBoxEditingDelegateObserver?
 
     override init() {
         markdownParser = MarkdownParser(color: UIColor(named: "Body") ?? .black)
@@ -327,7 +326,6 @@ internal class MarkupTextViewDelegate: NSObject, UITextViewDelegate {
     
     func textViewDidBeginEditing(_ textView: UITextView) {
         observer?.textEditingDidBegin()
-        textBoxObserver?.textViewDidBeginEditing()
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {
