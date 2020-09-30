@@ -17,7 +17,6 @@ internal class Notebook: NotebookEntity {
         var indexes: [NotebookIndexEntity] = []
         for note in notes {
             indexes.append(NotebookIndex(index: note.title.string, note: note, isTitle: true))
-            indexes.append(NotebookIndex(index: note.title.string, note: note, isTitle: false))
         }
         return indexes
     }
