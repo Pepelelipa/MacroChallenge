@@ -8,7 +8,7 @@
 
 import UIKit
 
-internal class WorkspaceCollectionViewDelegate: NSObject, UICollectionViewDelegateFlowLayout, UICollectionViewDelegate {
+internal class WorkspacesCollectionViewDelegate: NSObject, UICollectionViewDelegateFlowLayout, UICollectionViewDelegate {
     private var didSelectCell: ((WorkspaceCollectionViewCell) -> Void)?
     init(_ didSelectCell: @escaping (WorkspaceCollectionViewCell) -> Void) {
         self.didSelectCell = didSelectCell
