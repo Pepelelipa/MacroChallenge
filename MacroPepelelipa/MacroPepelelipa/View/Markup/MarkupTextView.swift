@@ -16,6 +16,7 @@ internal class MarkupTextView: UITextView {
     private var snap: UISnapBehavior?
     private var imageView: UIImageView?
     private var initialCenter = CGPoint()
+    private var scale: CGFloat = 1.0
     
     var textBoxes: Set<TextBoxView> = []
     
@@ -109,13 +110,14 @@ internal class MarkupTextView: UITextView {
     
     func addTextBox(with frame: CGRect) {
         
-        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePan(_:)))
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
-
+        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePan(_:)))
+        let pinchGesture = UIPinchGestureRecognizer(target: self, action: #selector(handlePinch(_:)))
         
         let textBox = TextBoxView(frame: frame, owner: self)
-        textBox.addGestureRecognizer(panGesture)
         textBox.addGestureRecognizer(tapGesture)
+        textBox.addGestureRecognizer(panGesture)
+        textBox.addGestureRecognizer(pinchGesture)
         self.textBoxes.insert(textBox)
         self.addSubview(textBox)
     }
@@ -149,6 +151,25 @@ internal class MarkupTextView: UITextView {
             } else {
                 textBox.center = initialCenter
             }
+        }
+    }
+    
+    @IBAction private func handlePinch(_ gestureRecognizer: UIPinchGestureRecognizer) {
+        
+        guard let textBox = gestureRecognizer.view as? TextBoxView else {
+            return
+        }
+        
+        if textBox.canEdit, gestureRecognizer.state == .began || gestureRecognizer.state == .changed {
+            textBox.transform = CGAffineTransform(scaleX: scale + gestureRecognizer.scale, y: scale + gestureRecognizer.scale)
+            
+            if gestureRecognizer.scale < 0.5 {
+                gestureRecognizer.scale = 1
+            } else if gestureRecognizer.scale > 3 {
+                gestureRecognizer.scale = 3
+            }
+            
+            scale = gestureRecognizer.scale
         }
     }
 }
