@@ -40,7 +40,7 @@ internal class WorkspaceSelectionViewController: UIViewController {
     private let collectionDataSource = WorkspacesCollectionViewDataSource()
 
     override func viewDidLoad() {
-        view.backgroundColor = .random()
+        view.backgroundColor = UIColor(named: "")
         navigationItem.largeTitleDisplayMode = .always
         navigationItem.title = "Workspaces".localized()
         view.addSubview(collectionView)
