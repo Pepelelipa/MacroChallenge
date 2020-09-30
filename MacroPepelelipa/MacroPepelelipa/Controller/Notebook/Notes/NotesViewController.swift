@@ -32,6 +32,11 @@ internal class NotesViewController: UIViewController, TextEditingDelegateObserve
         return button
     }()
     
+    private lazy var markupContainerView: MarkupContainerView = {
+        let container = MarkupContainerView(frame: .zero, owner: textView)
+        return container
+    }()
+    
     func textEditingDidBegin() {
         DispatchQueue.main.async {
             self.imageButton.isHidden = true
@@ -127,6 +132,18 @@ internal class NotesViewController: UIViewController, TextEditingDelegateObserve
         self.view.backgroundColor = UIColor(named: "Background")
         
         textView.inputAccessoryView = keyboardToolbar
+    }
+    
+    private var button = UIButton()
+    
+    public func changeTextViewInput(isCustom: Bool) {
+        if isCustom == true {
+            textView.inputView = markupContainerView
+//            textView.inputView = button
+        } else {
+            textView.inputView = nil
+        }
+
     }
     
     @IBAction func didTap() {

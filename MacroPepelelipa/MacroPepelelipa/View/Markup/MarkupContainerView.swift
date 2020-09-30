@@ -8,7 +8,7 @@
 
 import UIKit
 
-internal class MarkupContainerVeiw: UIView {
+internal class MarkupContainerView: UIView {
     
     private let textView: MarkupTextView
     

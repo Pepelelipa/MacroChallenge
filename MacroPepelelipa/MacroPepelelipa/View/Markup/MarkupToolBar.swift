@@ -65,7 +65,7 @@ internal class MarkupToolBar: UIToolbar {
         
         let imageGalleryButton = createBarButtonItem(imageName: "photo", systemImage: true, objcFunc: #selector(photoPicker))
         let textBoxButton = createBarButtonItem(imageName: "textbox", systemImage: true, objcFunc: nil)
-        let paintbrushButton = createBarButtonItem(imageName: "paintbrush", systemImage: true, objcFunc: nil)
+        let paintbrushButton = createBarButtonItem(imageName: "paintbrush", systemImage: true, objcFunc: #selector(openEditTextContainer))
         let flexible = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         
         self.items = [flexible, textBoxButton, flexible, imageGalleryButton]
@@ -132,6 +132,12 @@ internal class MarkupToolBar: UIToolbar {
         MarkupToolBar.headerStyle = nextStyle
     }
     
+    @objc private func openEditTextContainer() {
+        guard let notesViewController = viewController as? NotesViewController else { return }
+        
+        notesViewController.changeTextViewInput(isCustom: true)
+    }
+    
     /**
      In this function, we handle the toolbar button to open the image library. There we instantiate a PHPickerViewController and set its delegate. Finally, there is a present from the instantiated view controller.
     */
@@ -157,19 +163,19 @@ internal class MarkupToolBar: UIToolbar {
     In this funcion, we deal with the toolbar button for bold text, adding bold manually.
     */
     @objc private func pressBoldButton() {
-        guard let guardedTextView = textView else { 
-            return 
+        guard let guardedTextView = textView else {
+            return
         }
         let attibutedText = NSMutableAttributedString(attributedString: guardedTextView.attributedText)
-        
+
         let boldFont = UIFont.boldSystemFont(ofSize: UIFont.systemFontSize)
-        
+
         let range = guardedTextView.selectedRange
-        
+
         let attribute = [NSAttributedString.Key.font: boldFont]
-            
+
         attibutedText.addAttributes(attribute, range: range)
-        
+
         guardedTextView.attributedText = attibutedText
     }
     
