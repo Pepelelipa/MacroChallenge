@@ -10,7 +10,7 @@ import UIKit
 import Database
 
 internal class WorkspaceCollectionViewCell: UICollectionViewCell {
-    internal static let cellID = "workspaceCell"
+    internal class func cellID() -> String { "workspaceCell" }
     
     internal private(set) weak var workspace: WorkspaceEntity? {
         didSet {
@@ -46,13 +46,14 @@ internal class WorkspaceCollectionViewCell: UICollectionViewCell {
         collectionView.showsVerticalScrollIndicator = false
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.allowsMultipleSelection = false
+        collectionView.isUserInteractionEnabled = false
 
         collectionView.dataSource = dataSource
         collectionView.delegate = delegate
 
         collectionView.register(
             WorkspaceCollectionViewCell.self,
-            forCellWithReuseIdentifier: WorkspaceCollectionViewCell.cellID)
+            forCellWithReuseIdentifier: WorkspaceCollectionViewCell.cellID())
 
         return collectionView
     }()
@@ -69,7 +70,7 @@ internal class WorkspaceCollectionViewCell: UICollectionViewCell {
         addSubview(collectionView)
         collectionView.register(
             WorkspaceCellNotebookCollectionViewCell.self,
-            forCellWithReuseIdentifier: WorkspaceCellNotebookCollectionViewCell.cellID)
+            forCellWithReuseIdentifier: WorkspaceCellNotebookCollectionViewCell.cellID())
         setupConstraints()
         layer.cornerRadius = 10
     }
@@ -81,17 +82,17 @@ internal class WorkspaceCollectionViewCell: UICollectionViewCell {
     }
     private func setupConstraints() {
         NSLayoutConstraint.activate([
-            lblWorkspaceName.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 20),
-            lblWorkspaceName.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
-            lblWorkspaceName.trailingAnchor.constraint(lessThanOrEqualTo: contentView.trailingAnchor, constant: -20),
+            lblWorkspaceName.topAnchor.constraint(equalTo: topAnchor, constant: 20),
+            lblWorkspaceName.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
+            lblWorkspaceName.trailingAnchor.constraint(lessThanOrEqualTo: trailingAnchor, constant: -20),
             lblWorkspaceName.heightAnchor.constraint(equalToConstant: 30)
         ])
 
         NSLayoutConstraint.activate([
             collectionView.topAnchor.constraint(equalTo: lblWorkspaceName.bottomAnchor, constant: 20),
-            collectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
-            collectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
-            collectionView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -20),
+            collectionView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
+            collectionView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
+            collectionView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -20),
             collectionView.widthAnchor.constraint(greaterThanOrEqualTo: collectionView.heightAnchor, multiplier: 2)
         ])
     }
