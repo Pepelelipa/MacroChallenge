@@ -25,6 +25,9 @@ internal class NotesViewController: UIViewController, TextEditingDelegateObserve
         self.init(note: note)
     }
 
+    private let screenWidth = UIScreen.main.bounds.width
+    private let screenHeight = UIScreen.main.bounds.height
+    
     private lazy var imageButton: UIButton = {
         let button = UIButton(frame: .zero)
         button.setImage(UIImage(named: "imageButton"), for: .normal)
@@ -33,11 +36,8 @@ internal class NotesViewController: UIViewController, TextEditingDelegateObserve
     }()
     
     private lazy var markupContainerView: MarkupContainerView = {
-        let screenWidth = UIScreen.main.bounds.width
-        let screenHeight = UIScreen.main.bounds.height
-        
         let width: CGFloat = screenWidth - 60
-        let height: CGFloat = 100
+        let height: CGFloat = screenHeight/4
         
         let xPosition: CGFloat = screenWidth/2 - width/2
         let yPosition: CGFloat = screenHeight - height - 20
@@ -46,7 +46,7 @@ internal class NotesViewController: UIViewController, TextEditingDelegateObserve
         container.autoresizingMask = []
         return container
     }()
-    
+
     func textEditingDidBegin() {
         DispatchQueue.main.async {
             self.imageButton.isHidden = true
@@ -151,11 +151,10 @@ internal class NotesViewController: UIViewController, TextEditingDelegateObserve
         textView.inputAccessoryView = keyboardToolbar
     }
     
-    private var button = UIButton(frame: .init(x: 100, y: 100, width: 50, height: 50))
-    
     public func changeTextViewInput(isCustom: Bool) {
         if isCustom == true {
             textView.inputView = markupContainerView
+            textView.inputView?.backgroundColor = .white
             textView.reloadInputViews()
             keyboardToolbar.isHidden = true
         } else {
@@ -194,12 +193,5 @@ internal class NotesViewController: UIViewController, TextEditingDelegateObserve
             textField.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
             textField.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor, constant: -20)
         ])
-    
-//        NSLayoutConstraint.activate([
-//            markupContainerView.widthAnchor.constraint(equalToConstant: self.view.frame.width - 60),
-//            markupContainerView.centerXAnchor.constraint(equalToSystemSpacingAfter: self.view.centerXAnchor, multiplier: 0),
-//            markupContainerView.heightAnchor.constraint(equalToConstant: 10),
-//            markupContainerView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: 40)
-//        ])
     }
 }

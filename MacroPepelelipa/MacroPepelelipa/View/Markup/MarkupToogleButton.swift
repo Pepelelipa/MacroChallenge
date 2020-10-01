@@ -10,8 +10,8 @@ import UIKit
 
 internal class MarkupToogleButton: UIButton {
     
-    init(frame: CGRect, normalStateImage: UIImage?, title: String?) {
-        super.init(frame: frame)
+    init(normalStateImage: UIImage?, title: String?) {
+        super.init(frame: .zero)
         self.addTarget(self, action: #selector(toogleButton), for: .touchDown)
         
         self.setTitle(title, for: .normal)
@@ -25,7 +25,8 @@ internal class MarkupToogleButton: UIButton {
             setFont(fontName: titleLabel)
         }
         
-        self.setImage(normalStateImage, for: .normal)
+        self.setBackgroundImage(normalStateImage, for: .normal)
+        
     }
     
     init(frame: CGRect, color: UIColor) {
