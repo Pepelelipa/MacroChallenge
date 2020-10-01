@@ -28,7 +28,7 @@ internal class WorkspaceSelectionViewController: UIViewController {
 
         return collectionView
     }()
-    private lazy var collectionDelegate = WorkspaceCollectionViewDelegate { [unowned self] (selectedCell) in
+    private lazy var collectionDelegate = WorkspacesCollectionViewDelegate { [unowned self] (selectedCell) in
         guard let workspace = selectedCell.workspace else {
             fatalError("The workspace cell did not have a workspace")
         }
@@ -48,10 +48,10 @@ internal class WorkspaceSelectionViewController: UIViewController {
 
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
-        collectionView.reloadData()
+        collectionView.collectionViewLayout.invalidateLayout()
         for visibleCell in collectionView.visibleCells {
             if let cell = visibleCell as? WorkspaceCollectionViewCell {
-                cell.reloadData()
+                cell.invalidateLayout()
             }
         }
     }

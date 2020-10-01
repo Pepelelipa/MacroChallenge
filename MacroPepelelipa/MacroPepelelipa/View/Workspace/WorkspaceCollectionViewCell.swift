@@ -58,8 +58,8 @@ internal class WorkspaceCollectionViewCell: UICollectionViewCell {
     }()
     private var dataSource: WorkspaceCellNotebookCollectionViewDataSource?
     private var delegate: WorkspaceCellNotebookCollectionViewDelegate?
-    internal func reloadData() {
-        collectionView.reloadData()
+    internal func invalidateLayout() {
+        collectionView.collectionViewLayout.invalidateLayout()
     }
 
     override init(frame: CGRect) {
