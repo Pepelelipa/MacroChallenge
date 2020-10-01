@@ -88,6 +88,7 @@ internal class NotebookIndexViewController: UIViewController {
     }
 
     override func viewDidLoad() {
+        super.viewDidLoad()
         view.backgroundColor = .backgroundColor
         
         view.addSubview(btnBack)
