@@ -110,6 +110,7 @@ internal class NotesViewController: UIViewController, TextEditingDelegateObserve
     private lazy var keyboardToolbar: MarkupToolBar = MarkupToolBar(frame: .zero, owner: textView, controller: self)
 
     public override func viewDidLoad() {
+        super.viewDidLoad()
         view.addSubview(btnBack)
         let dev = UIDevice.current.userInterfaceIdiom
         if dev == .phone {

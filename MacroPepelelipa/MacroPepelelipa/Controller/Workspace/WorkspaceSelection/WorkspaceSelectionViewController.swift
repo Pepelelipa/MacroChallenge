@@ -40,14 +40,26 @@ internal class WorkspaceSelectionViewController: UIViewController {
     private let collectionDataSource = WorkspacesCollectionViewDataSource()
 
     override func viewDidLoad() {
+        super.viewDidLoad()
         view.backgroundColor = .rootColor
         navigationItem.largeTitleDisplayMode = .always
         navigationItem.title = "Workspaces".localized()
         view.addSubview(collectionView)
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            self.invalidateLayout()
+        }
+    }
+
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
+        invalidateLayout()
+    }
+
+    private func invalidateLayout() {
         collectionView.collectionViewLayout.invalidateLayout()
         for visibleCell in collectionView.visibleCells {
             if let cell = visibleCell as? WorkspaceCollectionViewCell {

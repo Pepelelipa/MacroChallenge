@@ -60,9 +60,16 @@ internal class NotebooksSelectionViewController: UIViewController {
     }
 
     override func viewDidLoad() {
+        super.viewDidLoad()
         navigationItem.title = workspace?.name
         view.backgroundColor = .backgroundColor
         view.addSubview(collectionView)
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            self.collectionView.collectionViewLayout.invalidateLayout()
+        }
     }
 
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
