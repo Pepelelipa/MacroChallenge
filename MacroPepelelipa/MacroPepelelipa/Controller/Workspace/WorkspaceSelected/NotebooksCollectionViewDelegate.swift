@@ -16,11 +16,28 @@ internal class NotebooksCollectionViewDelegate: NSObject, UICollectionViewDelega
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 157.5, height: 230)
+        let isLandscape = UIDevice.current.orientation.isLandscape
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            if isLandscape {
+                let width = collectionView.bounds.width/5
+                return CGSize(width: width, height: width * 1.68)
+            } else {
+                let width = collectionView.bounds.width/4
+                return CGSize(width: width, height: width * 1.67)
+            }
+        } else {
+            if isLandscape {
+                let width = collectionView.bounds.width/5.2
+                return CGSize(width: width, height: width * 1.74)
+            } else {
+                let width = collectionView.bounds.width/2.3
+                return CGSize(width: width, height: width * 1.72)
+            }
+        }
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return .init(top: 3, left: 3, bottom: 3, right: 3)
+        return .init(top: 0, left: 0, bottom: 0, right: 0)
     }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {

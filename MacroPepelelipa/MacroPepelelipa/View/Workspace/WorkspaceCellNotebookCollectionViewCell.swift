@@ -9,44 +9,30 @@
 import UIKit
 
 internal class WorkspaceCellNotebookCollectionViewCell: UICollectionViewCell {
-    internal static let cellID = "workspaceCellNotebookCell"
+    internal class func cellID() -> String { "workspaceCellNotebookCell" }
 
-    private let shadowView = UIImageView(image: #imageLiteral(resourceName: "BooklikeShadow"))
-    private let bookView = UIImageView(image: #imageLiteral(resourceName: "Book"))
+    private let notebookView = NotebookView(frame: .zero)
     public var color: UIColor {
         get {
-            return bookView.tintColor
+            return notebookView.color
         }
         set {
-            shadowView.alpha = newValue.cgColor.alpha
-            bookView.tintColor = newValue
+            notebookView.color = newValue
         }
     }
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        bookView.translatesAutoresizingMaskIntoConstraints = false
-        shadowView.translatesAutoresizingMaskIntoConstraints = false
-        shadowView.contentMode = .scaleToFill
-        bookView.contentMode = .scaleToFill
-        bookView.addSubview(shadowView)
-        addSubview(bookView)
+        addSubview(notebookView)
         setupConstraints()
     }
 
-    func setupConstraints() {
+    private func setupConstraints() {
         NSLayoutConstraint.activate([
-            shadowView.centerXAnchor.constraint(equalTo: bookView.centerXAnchor),
-            shadowView.centerYAnchor.constraint(equalTo: bookView.centerYAnchor),
-            shadowView.widthAnchor.constraint(equalTo: bookView.widthAnchor),
-            shadowView.heightAnchor.constraint(equalTo: bookView.heightAnchor)
-        ])
-
-        NSLayoutConstraint.activate([
-            bookView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
-            bookView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            bookView.widthAnchor.constraint(equalTo: contentView.widthAnchor),
-            bookView.heightAnchor.constraint(equalTo: contentView.heightAnchor)
+            notebookView.centerXAnchor.constraint(equalTo: centerXAnchor),
+            notebookView.centerYAnchor.constraint(equalTo: centerYAnchor),
+            notebookView.widthAnchor.constraint(equalTo: widthAnchor),
+            notebookView.heightAnchor.constraint(equalTo: heightAnchor)
         ])
     }
 

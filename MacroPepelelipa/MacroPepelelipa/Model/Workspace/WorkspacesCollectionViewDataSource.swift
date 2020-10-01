@@ -29,7 +29,7 @@ internal class WorkspacesCollectionViewDataSource: NSObject, UICollectionViewDat
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(
-                withReuseIdentifier: WorkspaceCollectionViewCell.cellID, for: indexPath)
+                withReuseIdentifier: WorkspaceCollectionViewCell.cellID(), for: indexPath)
                 as? WorkspaceCollectionViewCell else {
             fatalError("Sorry not sorry")
         }

@@ -20,7 +20,7 @@ internal class WorkspacesCollectionViewDelegate: NSObject, UICollectionViewDeleg
         if UIDevice.current.userInterfaceIdiom == .pad {
             if isLandscape {
                 let width = collectionView.bounds.width/2 - 25
-                size = CGSize(width: width, height: width/1.7)
+                size = CGSize(width: width, height: width/1.6)
             } else {
                 let width = collectionView.bounds.width/2.1
                 size = CGSize(width: width, height: width/1.5)

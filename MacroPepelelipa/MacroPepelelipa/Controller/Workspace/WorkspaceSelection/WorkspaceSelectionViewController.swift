@@ -24,7 +24,7 @@ internal class WorkspaceSelectionViewController: UIViewController {
 
         collectionView.register(
             WorkspaceCollectionViewCell.self,
-            forCellWithReuseIdentifier: WorkspaceCollectionViewCell.cellID)
+            forCellWithReuseIdentifier: WorkspaceCollectionViewCell.cellID())
 
         return collectionView
     }()

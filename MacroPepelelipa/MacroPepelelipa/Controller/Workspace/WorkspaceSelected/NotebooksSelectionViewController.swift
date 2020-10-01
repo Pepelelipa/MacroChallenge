@@ -15,7 +15,6 @@ internal class NotebooksSelectionViewController: UIViewController {
         self.workspace = workspace
         self.collectionDataSource = NotebooksCollectionViewDataSource(workspace: workspace)
         super.init(nibName: nil, bundle: nil)
-        lblName.text = workspace.name
     }
     internal required convenience init?(coder: NSCoder) {
         guard let workspace = coder.decodeObject(forKey: "workspace") as? WorkspaceEntity else {
@@ -24,14 +23,6 @@ internal class NotebooksSelectionViewController: UIViewController {
         self.init(workspace: workspace)
     }
 
-    private var lblName: UILabel = {
-        let lblName = UILabel()
-        lblName.font = .preferredFont(forTextStyle: .title1)
-        lblName.textAlignment = .center
-        lblName.translatesAutoresizingMaskIntoConstraints = false
-
-        return lblName
-    }()
     private lazy var collectionView: UICollectionView = {
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
 
@@ -47,7 +38,7 @@ internal class NotebooksSelectionViewController: UIViewController {
 
         collectionView.register(
             NotebookCollectionViewCell.self,
-            forCellWithReuseIdentifier: NotebookCollectionViewCell.cellID)
+            forCellWithReuseIdentifier: NotebookCollectionViewCell.cellID())
 
         return collectionView
     }()
@@ -70,24 +61,22 @@ internal class NotebooksSelectionViewController: UIViewController {
 
     override func viewDidLoad() {
         navigationItem.title = workspace?.name
-        view.backgroundColor = .random()
-        view.addSubview(lblName)
+        view.backgroundColor = .backgroundColor
         view.addSubview(collectionView)
+    }
+
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        collectionView.collectionViewLayout.invalidateLayout()
     }
 
     override func viewDidLayoutSubviews() {
         NSLayoutConstraint.activate([
-            lblName.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 25),
-            lblName.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
-            lblName.widthAnchor.constraint(equalTo: view.safeAreaLayoutGuide.widthAnchor)
-        ])
-
-        NSLayoutConstraint.activate([
-            collectionView.topAnchor.constraint(equalTo: lblName.topAnchor, constant: 50),
+            collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
             collectionView.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
             collectionView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
             collectionView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
-            collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -40)
+            collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
     }
 }

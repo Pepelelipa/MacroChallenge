@@ -21,7 +21,7 @@ internal class NotebooksCollectionViewDataSource: NSObject, UICollectionViewData
 
     internal func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(
-                withReuseIdentifier: NotebookCollectionViewCell.cellID, for: indexPath)
+                withReuseIdentifier: NotebookCollectionViewCell.cellID(), for: indexPath)
                 as? NotebookCollectionViewCell,
                 let notebook = workspace?.notebooks[indexPath.row] else {
                 fatalError("Sorry not sorry")
