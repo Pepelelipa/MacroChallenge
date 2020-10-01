@@ -32,14 +32,28 @@ internal class NotesViewController: UIViewController, TextEditingDelegateObserve
         return button
     }()
     
+    var textBoxes: Set<TextBoxView> = []    
+    
+    private var initialCenter = CGPoint()
+    private var scale: CGFloat = 1.0
+    private var currentBoxViewPosition: CGPoint = .zero
+
     func textEditingDidBegin() {
         DispatchQueue.main.async {
-            self.textView.textBoxes.forEach { (textBox) in
-                textBox.canEdit = false
+            self.textBoxes.forEach { (textBox) in
+                textBox.state = .idle
+                textBox.markupTextView.isUserInteractionEnabled = false
                 textBox.backgroundColor = .red
             }
             self.imageButton.isHidden = true
+            
+            if !self.resizeHandles.isEmpty {
+                self.resizeHandles.forEach { (resizeHandle) in
+                    resizeHandle.removeFromSuperview()
+                }
+            }
         }
+        
     }
     
     func textEditingDidEnd() {
@@ -89,7 +103,7 @@ internal class NotesViewController: UIViewController, TextEditingDelegateObserve
         delegate.observer = self
         return delegate
     }()
-    private lazy var textView: MarkupTextView = MarkupTextView(frame: .zero, delegate: self.textViewDelegate)
+    lazy var textView: MarkupTextView = MarkupTextView(frame: .zero, delegate: self.textViewDelegate)
     private lazy var textViewDelegate: MarkupTextViewDelegate? = {
         let delegate = MarkupTextViewDelegate()
         delegate.observer = self
@@ -111,8 +125,11 @@ internal class NotesViewController: UIViewController, TextEditingDelegateObserve
         }
         return delegate
     }()
+    
     private lazy var keyboardToolbar: MarkupToolBar = MarkupToolBar(frame: .zero, owner: textView, controller: self)
 
+    private var resizeHandles = [ResizeHandleView]()
+    
     public override func viewDidLoad() {
         view.addSubview(btnBack)
         let dev = UIDevice.current.userInterfaceIdiom
@@ -162,5 +179,110 @@ internal class NotesViewController: UIViewController, TextEditingDelegateObserve
             textField.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
             textField.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor, constant: -20)
         ])
+    }
+    
+    func addTextBox(with frame: CGRect) {
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
+        let doubleTapGesture = UITapGestureRecognizer(target: self, action: #selector(handleDoubleTap(_:)))
+        doubleTapGesture.numberOfTapsRequired = 2
+        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePan(_:)))
+        let pinchGesture = UIPinchGestureRecognizer(target: self, action: #selector(handlePinch(_:)))
+        
+        let textBox = TextBoxView(frame: frame, owner: textView)
+        
+        textBox.addGestureRecognizer(tapGesture)
+        textBox.addGestureRecognizer(doubleTapGesture)
+        textBox.addGestureRecognizer(panGesture)
+        textBox.addGestureRecognizer(pinchGesture)
+        self.textBoxes.insert(textBox)
+        self.textView.addSubview(textBox)
+    }
+    
+    func uptadeResizeHandles() {
+        resizeHandles.forEach { (handle) in
+            handle.updatePosition()
+        }
+    }
+    
+    func placeResizeHandles(boxView: BoxView) {
+        if !resizeHandles.isEmpty {
+            resizeHandles.forEach { (resizeHandle) in
+                resizeHandle.removeFromSuperview()
+            }
+            resizeHandles.removeAll()
+        }
+        ResizeHandleView.createResizeHandleView(on: boxView, handlesArray: &resizeHandles, inside: self)
+        resizeHandles[0].setNeedsDisplay()
+    }
+    
+    func updateResizeHandles() {
+        resizeHandles.forEach { (resizeHandle) in
+            resizeHandle.updatePosition()
+        }
+    }
+    
+    func moveBoxView(boxView: BoxView, by vector: CGPoint) {
+        boxView.center = currentBoxViewPosition + vector
+        uptadeResizeHandles()
+    }
+    
+    @IBAction private func handleTap(_ gestureRecognizer: UITapGestureRecognizer) {
+        
+        if let boxView = gestureRecognizer.view as? BoxView {
+            boxView.state = .editing
+            placeResizeHandles(boxView: boxView)            
+            boxView.owner.endEditing(true)
+        } 
+    }
+    
+    @IBAction private func handleDoubleTap(_ gestureRecognizer: UITapGestureRecognizer) {
+    
+        if let textBox = gestureRecognizer.view as? TextBoxView {
+            textBox.markupTextView.isUserInteractionEnabled = true
+            textBox.markupTextView.becomeFirstResponder()
+        }
+    }
+
+    @IBAction private func handlePan(_ gestureRecognizer: UIPanGestureRecognizer) {
+        
+        guard let boxView = gestureRecognizer.view as? BoxView else {
+            return
+        }
+        
+        if boxView.state == .editing {
+
+            let translation = gestureRecognizer.translation(in: self.textView)
+            
+            if gestureRecognizer.state == .began {
+                initialCenter = boxView.center
+            }
+            
+            if gestureRecognizer.state != .cancelled {
+                let newCenter = CGPoint(x: initialCenter.x + translation.x, y: initialCenter.y + translation.y)
+                moveBoxView(boxView: boxView, by: newCenter)
+            } else {
+                boxView.center = initialCenter
+            }
+        }
+    }
+    
+    @IBAction private func handlePinch(_ gestureRecognizer: UIPinchGestureRecognizer) {
+        
+        guard let boxView = gestureRecognizer.view as? BoxView else {
+            return
+        }
+        
+        if boxView.state == .editing, gestureRecognizer.state == .began || gestureRecognizer.state == .changed {
+            boxView.transform = CGAffineTransform(scaleX: scale + gestureRecognizer.scale, y: scale + gestureRecognizer.scale)
+            
+            if gestureRecognizer.scale < 0.5 {
+                gestureRecognizer.scale = 1
+            } else if gestureRecognizer.scale > 3 {
+                gestureRecognizer.scale = 3
+            }
+            
+            scale = gestureRecognizer.scale
+        }
     }
 }

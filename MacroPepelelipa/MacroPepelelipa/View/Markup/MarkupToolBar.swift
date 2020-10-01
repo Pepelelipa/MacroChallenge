@@ -19,14 +19,14 @@ enum ListStyle {
 internal class MarkupToolBar: UIToolbar {
     
     private weak var textView: MarkupTextView?
-    private weak var viewController: UIViewController?
+    private weak var viewController: NotesViewController?
     private var pickerDelegate: MarkupPhotoPickerDelegate?
     
     private var listButton: UIBarButtonItem?
     
     private var listStyle: ListStyle = .bullet
     
-    init(frame: CGRect, owner: MarkupTextView, controller: UIViewController) {
+    init(frame: CGRect, owner: MarkupTextView, controller: NotesViewController) {
         self.textView = owner
         self.viewController = controller
         super.init(frame: frame)
@@ -176,6 +176,6 @@ internal class MarkupToolBar: UIToolbar {
     
     @objc private func addTextBox() {
         let frame = CGRect(x: UIScreen.main.bounds.midX, y: UIScreen.main.bounds.midY, width: 100.0, height: 100.0)
-        self.textView?.addTextBox(with: frame)
+        self.viewController?.addTextBox(with: frame)
     }
 }

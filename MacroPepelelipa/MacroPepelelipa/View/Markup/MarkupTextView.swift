@@ -15,11 +15,7 @@ internal class MarkupTextView: UITextView {
     private var animator: UIDynamicAnimator?
     private var snap: UISnapBehavior?
     private var imageView: UIImageView?
-    private var initialCenter = CGPoint()
-    private var scale: CGFloat = 1.0
-    
-    var textBoxes: Set<TextBoxView> = []
-    
+
     init(frame: CGRect, delegate: MarkupTextViewDelegate? = nil) {
         super.init(frame: frame, textContainer: nil)
         
@@ -105,71 +101,6 @@ internal class MarkupTextView: UITextView {
             delegate.addNumericList(on: self, lineCleared)
         case .quote:
             delegate.addQuote(on: self, lineCleared)
-        }
-    }
-    
-    func addTextBox(with frame: CGRect) {
-        
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
-        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePan(_:)))
-        let pinchGesture = UIPinchGestureRecognizer(target: self, action: #selector(handlePinch(_:)))
-        
-        let textBox = TextBoxView(frame: frame, owner: self)
-        textBox.addGestureRecognizer(tapGesture)
-        textBox.addGestureRecognizer(panGesture)
-        textBox.addGestureRecognizer(pinchGesture)
-        self.textBoxes.insert(textBox)
-        self.addSubview(textBox)
-    }
-    
-    @IBAction private func handleTap(_ gestureRecognizer: UITapGestureRecognizer) {
-        
-        if let textBox = gestureRecognizer.view as? TextBoxView {
-            textBox.canEdit = true
-            textBox.backgroundColor = .blue
-            textBox.owner.endEditing(true)
-        } 
-    }
-    
-    @IBAction private func handlePan(_ gestureRecognizer: UIPanGestureRecognizer) {
-        
-        guard let textBox = gestureRecognizer.view as? TextBoxView else {
-            return
-        }
-        
-        if textBox.canEdit {
-
-            let translation = gestureRecognizer.translation(in: self)
-            
-            if gestureRecognizer.state == .began {
-                initialCenter = textBox.center
-            }
-            
-            if gestureRecognizer.state != .cancelled {
-                let newCenter = CGPoint(x: initialCenter.x + translation.x, y: initialCenter.y + translation.y)
-                textBox.center = newCenter
-            } else {
-                textBox.center = initialCenter
-            }
-        }
-    }
-    
-    @IBAction private func handlePinch(_ gestureRecognizer: UIPinchGestureRecognizer) {
-        
-        guard let textBox = gestureRecognizer.view as? TextBoxView else {
-            return
-        }
-        
-        if textBox.canEdit, gestureRecognizer.state == .began || gestureRecognizer.state == .changed {
-            textBox.transform = CGAffineTransform(scaleX: scale + gestureRecognizer.scale, y: scale + gestureRecognizer.scale)
-            
-            if gestureRecognizer.scale < 0.5 {
-                gestureRecognizer.scale = 1
-            } else if gestureRecognizer.scale > 3 {
-                gestureRecognizer.scale = 3
-            }
-            
-            scale = gestureRecognizer.scale
         }
     }
 }
