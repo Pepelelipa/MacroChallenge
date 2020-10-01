@@ -67,7 +67,9 @@ internal class NotebooksSelectionViewController: UIViewController {
     }
 
     override func viewWillAppear(_ animated: Bool) {
-        collectionView.collectionViewLayout.invalidateLayout()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            self.collectionView.collectionViewLayout.invalidateLayout()
+        }
     }
 
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
