@@ -50,5 +50,8 @@ public class Mockdata {
         }
         return Note(notebook: notebook, title: NSAttributedString(), text: NSAttributedString())
     }
+    public static func createWorkspace(with name: String) -> WorkspaceEntity {
+        return Workspace(name: name)
+    }
 }
 #endif
