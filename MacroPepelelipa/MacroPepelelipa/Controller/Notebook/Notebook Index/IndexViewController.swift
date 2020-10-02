@@ -16,7 +16,7 @@ internal class NotebookIndexViewController: UIViewController {
 
         imgViewNotebook.tintColor = UIColor(named: notebook.colorName)
         lblSubject.text = notebook.name
-        dataSource = NotebookIndexTableViewDataSource(notebook: notebook)
+        tableViewDataSource = NotebookIndexTableViewDataSource(notebook: notebook)
         
         super.init(nibName: nil, bundle: nil)
     }
@@ -65,10 +65,18 @@ internal class NotebookIndexViewController: UIViewController {
 
         return lbl
     }()
-    private let dataSource: NotebookIndexTableViewDataSource
+    private let tableViewDataSource: NotebookIndexTableViewDataSource
+    private lazy var tableViewDelegate: NotebookIndexTableViewDelegate = NotebookIndexTableViewDelegate { [unowned self] (selectedCell) in
+        guard let note = selectedCell.indexNote else {
+            fatalError("The index did not have a note")
+        }
+        
+        self.splitViewController?.showDetailViewController(NotesViewController(note: note), sender: self)
+    }
     private lazy var tableView: UITableView = {
         let tableView = UITableView(frame: .zero)
-        tableView.dataSource = dataSource
+        tableView.dataSource = tableViewDataSource
+        tableView.delegate = tableViewDelegate
         tableView.tableFooterView = UIView()
 
         tableView.backgroundColor = view.backgroundColor

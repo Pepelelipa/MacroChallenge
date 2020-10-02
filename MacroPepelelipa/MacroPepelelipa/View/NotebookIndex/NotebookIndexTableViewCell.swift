@@ -37,6 +37,10 @@ internal class NotebookIndexTableViewCell: UITableViewCell {
             lessonLbl.text = newValue
         }
     }
+    
+    internal var indexNote: NoteEntity? {
+        return index.note
+    }
 
     init(index: NotebookIndexEntity) {
         self.index = index
