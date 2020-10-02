@@ -35,6 +35,10 @@ internal class NotesViewController: UIViewController, TextEditingDelegateObserve
         return button
     }()
     
+    public lazy var formatViewDelegate: MarkupFormatViewDelegate = {
+        return MarkupFormatViewDelegate()
+    }()
+    
     private lazy var markupContainerView: MarkupContainerView = {
         let width: CGFloat = screenWidth - 60
         let height: CGFloat = screenHeight/4
@@ -44,6 +48,8 @@ internal class NotesViewController: UIViewController, TextEditingDelegateObserve
         
         let container = MarkupContainerView(frame: CGRect(x: xPosition, y: yPosition, width: width, height: height), owner: textView)
         container.autoresizingMask = []
+        container.isHidden = true
+        container.delegate = self.formatViewDelegate
         return container
     }()
 

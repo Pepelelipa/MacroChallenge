@@ -12,6 +12,8 @@ internal class MarkupContainerView: UIView {
     
     private weak var textView: MarkupTextView?
     
+    public weak var delegate: MarkupFormatViewDelegate?
+    
     private lazy var backgroundView: UIView = {
         let bckView = UIView(frame: .zero)
         bckView.backgroundColor = UIColor(named: "Background")
@@ -20,9 +22,9 @@ internal class MarkupContainerView: UIView {
         return bckView
     }()
     
-    private lazy var cancelContainer: MarkupToogleButton = {
+    private lazy var dismissButton: MarkupToogleButton = {
         let button = createButton(
-            action: #selector(dismissContainer),
+            action: #selector(delegate?.dismissContainer),
             normalStateImage: UIImage(systemName: "xmark.circle"),
             titleLabel: nil
         )
@@ -41,62 +43,51 @@ internal class MarkupContainerView: UIView {
         return fmtLabel
     }()
     
-    private lazy var firstColorSelector: MarkupToogleButton = {
-        let button = MarkupToogleButton(frame: CGRect(x: 0, y: 0, width: 22, height: 22), color: .red)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        return button
-    }()
-    
-    private lazy var secondColorSelector: MarkupToogleButton = {
-        let button = MarkupToogleButton(frame: CGRect(x: 0, y: 0, width: 22, height: 22), color: .green)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        return button
-    }()
+    private lazy var colorSelector: [MarkupToogleButton] = {
+        var buttons = [MarkupToogleButton]()
+        var buttonColors: [UIColor] = [.red, .blue, .green]
         
-    private lazy var thirdColorSelector: MarkupToogleButton = {
-        let button = MarkupToogleButton(frame: CGRect(x: 0, y: 0, width: 22, height: 22), color: .blue)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        return button
-    }()
-       
-    private lazy var italicText: MarkupToogleButton = {
-        let button = createButton(
-            action: #selector(placeHolderAction),
-            normalStateImage: UIImage(systemName: "italic"),
-            titleLabel: nil
-        )
-        button.translatesAutoresizingMaskIntoConstraints = false
-        return button
+        buttonColors.forEach { (color) in
+            var newButton = MarkupToogleButton(frame: .zero, color: color)
+            newButton.translatesAutoresizingMaskIntoConstraints = false
+            buttons.append(newButton)
+        }
+        
+        return buttons
     }()
     
-    private lazy var boldText: MarkupToogleButton = {
-        let button = createButton(action: #selector(placeHolderAction), normalStateImage: UIImage(systemName: "bold"), titleLabel: nil)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        return button
+    private lazy var formatSelector: [MarkupToogleButton] = {
+        var buttons = [MarkupToogleButton]()
+        var imageNames = ["italic", "bold", "pencil.tip"]
+        
+        imageNames.forEach { (imageName) in
+            var newButton = createButton(
+                action: #selector(delegate?.placeHolderAction),
+                normalStateImage: UIImage(systemName: imageName),
+                titleLabel: nil
+            )
+            newButton.translatesAutoresizingMaskIntoConstraints = false
+            buttons.append(newButton)
+        }
+        
+        return buttons
     }()
     
-    private lazy var highlightText: MarkupToogleButton = {
-        let button = createButton(action: #selector(placeHolderAction), normalStateImage: UIImage(systemName: "pencil.tip"), titleLabel: nil)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        return button
-    }()
-    
-    private lazy var firstFontSelector: MarkupToogleButton = {
-        let button = createButton(action: #selector(placeHolderAction), normalStateImage: nil, titleLabel: "Merriweather")
-        button.translatesAutoresizingMaskIntoConstraints = false
-        return button
-    }()
-           
-    private lazy var secondFontSelector: MarkupToogleButton = {
-        let button = createButton(action: #selector(placeHolderAction), normalStateImage: nil, titleLabel: "Open Sans")
-        button.translatesAutoresizingMaskIntoConstraints = false
-        return button
-    }()
-    
-    private lazy var thirdFontSelector: MarkupToogleButton = {
-        let button = createButton(action: #selector(placeHolderAction), normalStateImage: nil, titleLabel: "Dancin")
-        button.translatesAutoresizingMaskIntoConstraints = false
-        return button
+    private lazy var fontSelector: [MarkupToogleButton] = {
+        var buttons = [MarkupToogleButton]()
+        var fontName = ["Merriweather", "Open Sans", "Dancin"]
+        
+        fontName.forEach { (fontName) in
+            var newButton = createButton(
+                action: #selector(delegate?.placeHolderAction),
+                normalStateImage: nil,
+                titleLabel: fontName
+            )
+            newButton.translatesAutoresizingMaskIntoConstraints = false
+            buttons.append(newButton)
+        }
+        
+        return buttons
     }()
     
     init(frame: CGRect, owner: MarkupTextView) {
@@ -105,13 +96,23 @@ internal class MarkupContainerView: UIView {
         super.init(frame: frame)
         
         self.backgroundColor = .gray//UIColor(named: "Background")
-        
-        let buttons = [firstColorSelector, secondColorSelector, thirdColorSelector, italicText, boldText, highlightText, firstFontSelector, secondFontSelector, thirdFontSelector, cancelContainer, formatLabel]
-        
+                
         self.addSubview(backgroundView)
-        buttons.forEach {
-            backgroundView.addSubview($0)
+        
+        colorSelector.forEach { (selector) in
+            backgroundView.addSubview(selector)
         }
+        
+        formatSelector.forEach { (selector) in
+            backgroundView.addSubview(selector)
+        }
+        
+        fontSelector.forEach { (selector) in
+            backgroundView.addSubview(selector)
+        }
+        
+        backgroundView.addSubview(dismissButton)
+        backgroundView.addSubview(formatLabel)
         
         createConstraints()
     }
@@ -135,7 +136,6 @@ internal class MarkupContainerView: UIView {
     }
     
     public func createConstraints() {
-        
         backgroundView.layer.zPosition = -1
         
         NSLayoutConstraint.activate([
@@ -146,90 +146,81 @@ internal class MarkupContainerView: UIView {
         ])
         
         NSLayoutConstraint.activate([
-            firstFontSelector.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor, constant: 16),
-            firstFontSelector.bottomAnchor.constraint(equalTo: backgroundView.bottomAnchor, constant: -16),
-            firstFontSelector.widthAnchor.constraint(equalTo: backgroundView.widthAnchor, multiplier: 0.3)
-        ])
-        
-        NSLayoutConstraint.activate([
-            thirdFontSelector.bottomAnchor.constraint(equalTo: backgroundView.bottomAnchor, constant: -16),
-            thirdFontSelector.trailingAnchor.constraint(equalTo: backgroundView.trailingAnchor, constant: -16),
-            thirdFontSelector.widthAnchor.constraint(equalTo: backgroundView.widthAnchor, multiplier: 0.3)
-        ])
-        
-        NSLayoutConstraint.activate([
-            secondFontSelector.bottomAnchor.constraint(equalTo: backgroundView.bottomAnchor, constant: -16),
-            secondFontSelector.leadingAnchor.constraint(equalTo: firstFontSelector.trailingAnchor, constant: 6),
-            secondFontSelector.widthAnchor.constraint(equalTo: backgroundView.widthAnchor, multiplier: 0.3)
-        ])
-        
-        NSLayoutConstraint.activate([
             formatLabel.topAnchor.constraint(equalTo: backgroundView.topAnchor, constant: 16),
             formatLabel.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor, constant: 16),
             formatLabel.widthAnchor.constraint(equalTo: backgroundView.widthAnchor, multiplier: 0.5)
         ])
         
         NSLayoutConstraint.activate([
-            cancelContainer.topAnchor.constraint(equalTo: backgroundView.topAnchor, constant: 16),
-            cancelContainer.trailingAnchor.constraint(equalTo: backgroundView.trailingAnchor, constant: -16),
-            cancelContainer.widthAnchor.constraint(equalTo: backgroundView.heightAnchor, multiplier: 0.15),
-            cancelContainer.heightAnchor.constraint(equalTo: backgroundView.heightAnchor, multiplier: 0.15)
+            dismissButton.topAnchor.constraint(equalTo: backgroundView.topAnchor, constant: 16),
+            dismissButton.trailingAnchor.constraint(equalTo: backgroundView.trailingAnchor, constant: -16),
+            dismissButton.widthAnchor.constraint(equalTo: backgroundView.heightAnchor, multiplier: 0.15),
+            dismissButton.heightAnchor.constraint(equalTo: backgroundView.heightAnchor, multiplier: 0.15)
         ])
         
-        NSLayoutConstraint.activate([
-            firstColorSelector.topAnchor.constraint(greaterThanOrEqualTo: formatLabel.bottomAnchor, constant: 10),
-            firstColorSelector.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor, constant: 16),
-            firstColorSelector.bottomAnchor.constraint(greaterThanOrEqualTo: firstFontSelector.topAnchor, constant: -16),
-            firstColorSelector.heightAnchor.constraint(equalTo: backgroundView.heightAnchor, multiplier: 0.15),
-            firstColorSelector.widthAnchor.constraint(equalTo: backgroundView.heightAnchor, multiplier: 0.15)
-        ])
-        
-        NSLayoutConstraint.activate([
-            secondColorSelector.topAnchor.constraint(equalTo: firstColorSelector.topAnchor),
-            secondColorSelector.leadingAnchor.constraint(equalTo: firstColorSelector.trailingAnchor, constant: 10),
-            secondColorSelector.bottomAnchor.constraint(equalTo: firstColorSelector.bottomAnchor),
-            secondColorSelector.heightAnchor.constraint(equalTo: firstColorSelector.heightAnchor),
-            secondColorSelector.widthAnchor.constraint(equalTo: firstColorSelector.widthAnchor)
-        ])
-        
-        NSLayoutConstraint.activate([
-            thirdColorSelector.topAnchor.constraint(equalTo: firstColorSelector.topAnchor),
-            thirdColorSelector.leadingAnchor.constraint(equalTo: secondColorSelector.trailingAnchor, constant: 10),
-            thirdColorSelector.bottomAnchor.constraint(equalTo: firstColorSelector.bottomAnchor),
-            thirdColorSelector.heightAnchor.constraint(equalTo: firstColorSelector.heightAnchor),
-            thirdColorSelector.widthAnchor.constraint(equalTo: firstColorSelector.widthAnchor)
-        ])
-        
-        NSLayoutConstraint.activate([
-            italicText.topAnchor.constraint(greaterThanOrEqualTo: formatLabel.bottomAnchor, constant: 10),
-            italicText.trailingAnchor.constraint(equalTo: backgroundView.trailingAnchor, constant: -16),
-            italicText.bottomAnchor.constraint(greaterThanOrEqualTo: thirdFontSelector.topAnchor, constant: -16),
-            italicText.heightAnchor.constraint(equalTo: backgroundView.heightAnchor, multiplier: 0.1),
-            italicText.widthAnchor.constraint(equalTo: backgroundView.heightAnchor, multiplier: 0.12)
-        ])
-        
-        NSLayoutConstraint.activate([
-            boldText.topAnchor.constraint(equalTo: italicText.topAnchor),
-            boldText.trailingAnchor.constraint(equalTo: italicText.leadingAnchor, constant: -16),
-            boldText.bottomAnchor.constraint(equalTo: italicText.bottomAnchor),
-            boldText.heightAnchor.constraint(equalTo: backgroundView.heightAnchor, multiplier: 0.15),
-            boldText.widthAnchor.constraint(equalTo: italicText.widthAnchor)
-        ])
-        
-        NSLayoutConstraint.activate([
-            highlightText.topAnchor.constraint(equalTo: italicText.topAnchor),
-            highlightText.trailingAnchor.constraint(equalTo: boldText.leadingAnchor, constant: -16),
-            highlightText.bottomAnchor.constraint(equalTo: italicText.bottomAnchor),
-            highlightText.heightAnchor.constraint(equalTo: backgroundView.heightAnchor, multiplier: 0.15),
-            highlightText.widthAnchor.constraint(equalTo: italicText.widthAnchor)
-        ])
+        setFontSelectorConstraints()
+        setColorSelectorConstraints()
+        setFormatSelectorConstraints()
     }
     
-    @objc func dismissContainer() {
+    private func setFontSelectorConstraints() {
+        NSLayoutConstraint.activate([
+            fontSelector[0].leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor, constant: 16),
+            fontSelector[2].trailingAnchor.constraint(equalTo: backgroundView.trailingAnchor, constant: -16),
+            fontSelector[1].leadingAnchor.constraint(equalTo: fontSelector[0].trailingAnchor, constant: 6)
+        ])
         
+        fontSelector.forEach { (selector) in
+            NSLayoutConstraint.activate([
+                selector.bottomAnchor.constraint(equalTo: backgroundView.bottomAnchor, constant: -16),
+                selector.widthAnchor.constraint(equalTo: backgroundView.widthAnchor, multiplier: 0.3)
+            ])
+        }
     }
     
-    @objc func placeHolderAction() {
+    private func setColorSelectorConstraints() {
+        NSLayoutConstraint.activate([
+            colorSelector[0].topAnchor.constraint(greaterThanOrEqualTo: formatLabel.bottomAnchor, constant: 10),
+            colorSelector[0].leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor, constant: 16),
+            colorSelector[0].bottomAnchor.constraint(greaterThanOrEqualTo: fontSelector[0].topAnchor, constant: -16),
+            colorSelector[0].heightAnchor.constraint(equalTo: backgroundView.heightAnchor, multiplier: 0.15),
+            colorSelector[0].widthAnchor.constraint(equalTo: backgroundView.heightAnchor, multiplier: 0.15)
+        ])
         
+        for index in 1..<colorSelector.count {
+            NSLayoutConstraint.activate([
+                colorSelector[index].topAnchor.constraint(equalTo: colorSelector[0].topAnchor),
+                colorSelector[index].leadingAnchor.constraint(equalTo: colorSelector[index - 1].trailingAnchor, constant: 10),
+                colorSelector[index].bottomAnchor.constraint(equalTo: colorSelector[0].bottomAnchor),
+                colorSelector[index].heightAnchor.constraint(equalTo: colorSelector[0].heightAnchor),
+                colorSelector[index].widthAnchor.constraint(equalTo: colorSelector[0].widthAnchor)
+            ])
+        }
+    }
+    
+    private func setFormatSelectorConstraints() {
+        NSLayoutConstraint.activate([
+            formatSelector[0].topAnchor.constraint(greaterThanOrEqualTo: formatLabel.bottomAnchor, constant: 10),
+            formatSelector[0].trailingAnchor.constraint(equalTo: backgroundView.trailingAnchor, constant: -16),
+            formatSelector[0].bottomAnchor.constraint(greaterThanOrEqualTo: fontSelector[2].topAnchor, constant: -16),
+            formatSelector[0].heightAnchor.constraint(equalTo: backgroundView.heightAnchor, multiplier: 0.15),
+            formatSelector[0].widthAnchor.constraint(equalTo: backgroundView.heightAnchor, multiplier: 0.12)
+        ])
+        
+        for index in 1..<formatSelector.count {
+            NSLayoutConstraint.activate([
+                formatSelector[index].topAnchor.constraint(equalTo: formatSelector[0].topAnchor),
+                formatSelector[index].trailingAnchor.constraint(equalTo: formatSelector[index - 1].leadingAnchor, constant: -16),
+                formatSelector[index].bottomAnchor.constraint(equalTo: formatSelector[0].bottomAnchor),
+                formatSelector[index].heightAnchor.constraint(equalTo: backgroundView.heightAnchor, multiplier: 0.15),
+                formatSelector[index].widthAnchor.constraint(equalTo: formatSelector[0].widthAnchor)
+            ])
+        }
+    }
+    
+    override func didMoveToWindow() {
+        colorSelector.forEach { (selector) in
+            selector.setCornerRadius()
+        }
     }
 }

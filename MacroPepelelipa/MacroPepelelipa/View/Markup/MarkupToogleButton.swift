@@ -10,23 +10,28 @@ import UIKit
 
 internal class MarkupToogleButton: UIButton {
     
-    init(normalStateImage: UIImage?, title: String?) {
+    var baseColor: UIColor?
+    var selectedColor: UIColor?
+    
+    init(normalStateImage: UIImage?, title: String?, baseColor: UIColor? = UIColor(named: "Placeholder"), selectedColor: UIColor? = UIColor(named: "Body")) {
         super.init(frame: .zero)
         self.addTarget(self, action: #selector(toogleButton), for: .touchDown)
         
         self.setTitle(title, for: .normal)
         self.setTitle(title, for: .selected)
         
-        self.tintColor = UIColor(named: "Placeholder")
+        self.baseColor = baseColor
+        self.selectedColor = selectedColor
+                
+        self.tintColor = baseColor
         
         if let titleLabel = title {
-            self.setTitleColor(UIColor(named: "Placeholder"), for: .normal)
-            self.setTitleColor(UIColor(named: "Body"), for: .selected)
+            self.setTitleColor(baseColor, for: .normal)
+            self.setTitleColor(selectedColor, for: .selected)
             setFont(fontName: titleLabel)
         }
         
         self.setBackgroundImage(normalStateImage, for: .normal)
-        
     }
     
     init(frame: CGRect, color: UIColor) {
@@ -49,13 +54,17 @@ internal class MarkupToogleButton: UIButton {
         self.titleLabel?.font = font
     }
     
+    public func setCornerRadius() {
+        self.layer.cornerRadius = self.frame.height / 2
+    }
+    
     @objc private func toogleButton() {
         self.isSelected.toggle()
         
         if isSelected {
-            self.tintColor = UIColor(named: "Body")
+            self.tintColor = selectedColor
         } else {
-            self.tintColor = UIColor(named: "Placeholder")
+            self.tintColor = baseColor
         }
     }
 }

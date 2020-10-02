@@ -82,6 +82,7 @@
 		D9D87538251BB26500B842C8 /* MarkupToolBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D87537251BB26500B842C8 /* MarkupToolBar.swift */; };
 		D9D87541251BC4F200B842C8 /* MarkupPhotoPickerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D87540251BC4F200B842C8 /* MarkupPhotoPickerDelegate.swift */; };
 		D9D87544251BD39F00B842C8 /* PhotoEditingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D87543251BD39F00B842C8 /* PhotoEditingViewController.swift */; };
+		E4277C4C2527B824002CD6B1 /* MarkupFormatViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4277C4B2527B824002CD6B1 /* MarkupFormatViewDelegate.swift */; };
 		E45C20D2251D24BD0022AD95 /* MarkdownNumeric.swift in Sources */ = {isa = PBXBuildFile; fileRef = E45C20D1251D24BD0022AD95 /* MarkdownNumeric.swift */; };
 		E4FCA4942523B52F00DE88B8 /* MarkdownEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4FCA4932523B52F00DE88B8 /* MarkdownEditor.swift */; };
 /* End PBXBuildFile section */
@@ -187,6 +188,7 @@
 		D9D87537251BB26500B842C8 /* MarkupToolBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkupToolBar.swift; sourceTree = "<group>"; };
 		D9D87540251BC4F200B842C8 /* MarkupPhotoPickerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkupPhotoPickerDelegate.swift; sourceTree = "<group>"; };
 		D9D87543251BD39F00B842C8 /* PhotoEditingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoEditingViewController.swift; sourceTree = "<group>"; };
+		E4277C4B2527B824002CD6B1 /* MarkupFormatViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkupFormatViewDelegate.swift; sourceTree = "<group>"; };
 		E45C20D1251D24BD0022AD95 /* MarkdownNumeric.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkdownNumeric.swift; sourceTree = "<group>"; };
 		E4FCA4932523B52F00DE88B8 /* MarkdownEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkdownEditor.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -457,6 +459,7 @@
 			children = (
 				D9D8753A251BC3D300B842C8 /* PhotoPicker */,
 				022D6026251955B500001D5B /* MarkupTextViewDelegate.swift */,
+				E4277C4B2527B824002CD6B1 /* MarkupFormatViewDelegate.swift */,
 			);
 			path = Markup;
 			sourceTree = "<group>";
@@ -890,6 +893,7 @@
 				022D601B2519559D00001D5B /* MarkdownLink.swift in Sources */,
 				022D601E2519559D00001D5B /* MarkdownHeader.swift in Sources */,
 				022D60102519559D00001D5B /* MarkdownParser.swift in Sources */,
+				E4277C4C2527B824002CD6B1 /* MarkupFormatViewDelegate.swift in Sources */,
 				022D60122519559D00001D5B /* MarkdownCodeEscaping.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
