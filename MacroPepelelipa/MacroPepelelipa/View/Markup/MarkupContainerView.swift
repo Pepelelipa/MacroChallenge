@@ -139,80 +139,89 @@ internal class MarkupContainerView: UIView {
         backgroundView.layer.zPosition = -1
         
         NSLayoutConstraint.activate([
-            backgroundView.topAnchor.constraint(equalTo: self.topAnchor, constant: 20),
-            backgroundView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20),
-            backgroundView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -20),
-            backgroundView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -20)
+            backgroundView.topAnchor.constraint(equalTo: self.topAnchor, constant: 16),
+            backgroundView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 16),
+            backgroundView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -16),
+            backgroundView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -16)
         ])
         
         NSLayoutConstraint.activate([
-            cancelContainer.topAnchor.constraint(equalTo: backgroundView.topAnchor, constant: 20),
+            firstFontSelector.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor, constant: 16),
+            firstFontSelector.bottomAnchor.constraint(equalTo: backgroundView.bottomAnchor, constant: -16),
+            firstFontSelector.widthAnchor.constraint(equalTo: backgroundView.widthAnchor, multiplier: 0.3)
+        ])
+        
+        NSLayoutConstraint.activate([
+            thirdFontSelector.bottomAnchor.constraint(equalTo: backgroundView.bottomAnchor, constant: -16),
+            thirdFontSelector.trailingAnchor.constraint(equalTo: backgroundView.trailingAnchor, constant: -16),
+            thirdFontSelector.widthAnchor.constraint(equalTo: backgroundView.widthAnchor, multiplier: 0.3)
+        ])
+        
+        NSLayoutConstraint.activate([
+            secondFontSelector.bottomAnchor.constraint(equalTo: backgroundView.bottomAnchor, constant: -16),
+            secondFontSelector.leadingAnchor.constraint(equalTo: firstFontSelector.trailingAnchor, constant: 6),
+            secondFontSelector.widthAnchor.constraint(equalTo: backgroundView.widthAnchor, multiplier: 0.3)
+        ])
+        
+        NSLayoutConstraint.activate([
+            formatLabel.topAnchor.constraint(equalTo: backgroundView.topAnchor, constant: 16),
+            formatLabel.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor, constant: 16),
+            formatLabel.widthAnchor.constraint(equalTo: backgroundView.widthAnchor, multiplier: 0.5)
+        ])
+        
+        NSLayoutConstraint.activate([
+            cancelContainer.topAnchor.constraint(equalTo: backgroundView.topAnchor, constant: 16),
             cancelContainer.trailingAnchor.constraint(equalTo: backgroundView.trailingAnchor, constant: -16),
-            cancelContainer.widthAnchor.constraint(equalTo: backgroundView.heightAnchor, multiplier: 0.18),
-            cancelContainer.heightAnchor.constraint(equalTo: backgroundView.heightAnchor, multiplier: 0.18)
+            cancelContainer.widthAnchor.constraint(equalTo: backgroundView.heightAnchor, multiplier: 0.15),
+            cancelContainer.heightAnchor.constraint(equalTo: backgroundView.heightAnchor, multiplier: 0.15)
         ])
         
         NSLayoutConstraint.activate([
-            formatLabel.topAnchor.constraint(equalTo: backgroundView.topAnchor, constant: 20),
-            formatLabel.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor, constant: 20),
-            formatLabel.trailingAnchor.constraint(equalTo: cancelContainer.leadingAnchor, constant: 10)
+            firstColorSelector.topAnchor.constraint(greaterThanOrEqualTo: formatLabel.bottomAnchor, constant: 10),
+            firstColorSelector.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor, constant: 16),
+            firstColorSelector.bottomAnchor.constraint(greaterThanOrEqualTo: firstFontSelector.topAnchor, constant: -16),
+            firstColorSelector.heightAnchor.constraint(equalTo: backgroundView.heightAnchor, multiplier: 0.15),
+            firstColorSelector.widthAnchor.constraint(equalTo: backgroundView.heightAnchor, multiplier: 0.15)
         ])
         
         NSLayoutConstraint.activate([
-            firstFontSelector.bottomAnchor.constraint(equalTo: backgroundView.bottomAnchor, constant: -20),
-            firstFontSelector.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor, constant: 20),
-            firstFontSelector.widthAnchor.constraint(equalTo: backgroundView.widthAnchor, multiplier: 0.28),
-            firstFontSelector.heightAnchor.constraint(equalToConstant: 22)
+            secondColorSelector.topAnchor.constraint(equalTo: firstColorSelector.topAnchor),
+            secondColorSelector.leadingAnchor.constraint(equalTo: firstColorSelector.trailingAnchor, constant: 10),
+            secondColorSelector.bottomAnchor.constraint(equalTo: firstColorSelector.bottomAnchor),
+            secondColorSelector.heightAnchor.constraint(equalTo: firstColorSelector.heightAnchor),
+            secondColorSelector.widthAnchor.constraint(equalTo: firstColorSelector.widthAnchor)
         ])
         
         NSLayoutConstraint.activate([
-            thirdFontSelector.bottomAnchor.constraint(equalTo: backgroundView.bottomAnchor, constant: -20),
-            thirdFontSelector.trailingAnchor.constraint(equalTo: backgroundView.trailingAnchor, constant: -20),
-            thirdFontSelector.widthAnchor.constraint(equalTo: backgroundView.widthAnchor, multiplier: 0.28),
-            thirdFontSelector.heightAnchor.constraint(equalToConstant: 22)
+            thirdColorSelector.topAnchor.constraint(equalTo: firstColorSelector.topAnchor),
+            thirdColorSelector.leadingAnchor.constraint(equalTo: secondColorSelector.trailingAnchor, constant: 10),
+            thirdColorSelector.bottomAnchor.constraint(equalTo: firstColorSelector.bottomAnchor),
+            thirdColorSelector.heightAnchor.constraint(equalTo: firstColorSelector.heightAnchor),
+            thirdColorSelector.widthAnchor.constraint(equalTo: firstColorSelector.widthAnchor)
         ])
         
         NSLayoutConstraint.activate([
-            secondFontSelector.bottomAnchor.constraint(equalTo: backgroundView.bottomAnchor, constant: -20),
-            secondFontSelector.leadingAnchor.constraint(equalTo: firstFontSelector.trailingAnchor, constant: 10),
-            secondFontSelector.widthAnchor.constraint(equalTo: backgroundView.widthAnchor, multiplier: 0.28),
-            secondFontSelector.heightAnchor.constraint(equalToConstant: 22)
-        ])
-        
-        NSLayoutConstraint.activate([
-            firstColorSelector.bottomAnchor.constraint(equalTo: firstFontSelector.topAnchor, constant: -20),
-            firstColorSelector.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor, constant: 20)
-        ])
-        
-        NSLayoutConstraint.activate([
-            secondColorSelector.bottomAnchor.constraint(equalTo: firstFontSelector.topAnchor, constant: -20),
-            secondColorSelector.leadingAnchor.constraint(equalTo: firstColorSelector.trailingAnchor, constant: 16)
-        ])
-        
-        NSLayoutConstraint.activate([
-            thirdColorSelector.bottomAnchor.constraint(equalTo: firstFontSelector.topAnchor, constant: -20),
-            thirdColorSelector.leadingAnchor.constraint(equalTo: secondColorSelector.trailingAnchor, constant: 16)
-        ])
-        
-        NSLayoutConstraint.activate([
-            italicText.bottomAnchor.constraint(equalTo: thirdFontSelector.topAnchor, constant: -20),
+            italicText.topAnchor.constraint(greaterThanOrEqualTo: formatLabel.bottomAnchor, constant: 10),
             italicText.trailingAnchor.constraint(equalTo: backgroundView.trailingAnchor, constant: -16),
-            italicText.widthAnchor.constraint(equalTo: backgroundView.heightAnchor, multiplier: 0.15),
-            italicText.heightAnchor.constraint(equalTo: backgroundView.heightAnchor, multiplier: 0.18)
+            italicText.bottomAnchor.constraint(greaterThanOrEqualTo: thirdFontSelector.topAnchor, constant: -16),
+            italicText.heightAnchor.constraint(equalTo: backgroundView.heightAnchor, multiplier: 0.1),
+            italicText.widthAnchor.constraint(equalTo: backgroundView.heightAnchor, multiplier: 0.12)
         ])
         
         NSLayoutConstraint.activate([
-            boldText.bottomAnchor.constraint(equalTo: thirdFontSelector.topAnchor, constant: -20),
+            boldText.topAnchor.constraint(equalTo: italicText.topAnchor),
             boldText.trailingAnchor.constraint(equalTo: italicText.leadingAnchor, constant: -16),
-            boldText.widthAnchor.constraint(equalTo: backgroundView.heightAnchor, multiplier: 0.15),
-            boldText.heightAnchor.constraint(equalTo: backgroundView.heightAnchor, multiplier: 0.18)
+            boldText.bottomAnchor.constraint(equalTo: italicText.bottomAnchor),
+            boldText.heightAnchor.constraint(equalTo: backgroundView.heightAnchor, multiplier: 0.15),
+            boldText.widthAnchor.constraint(equalTo: italicText.widthAnchor)
         ])
         
         NSLayoutConstraint.activate([
-            highlightText.bottomAnchor.constraint(equalTo: thirdFontSelector.topAnchor, constant: -20),
+            highlightText.topAnchor.constraint(equalTo: italicText.topAnchor),
             highlightText.trailingAnchor.constraint(equalTo: boldText.leadingAnchor, constant: -16),
-            highlightText.widthAnchor.constraint(equalTo: backgroundView.heightAnchor, multiplier: 0.15),
-            highlightText.heightAnchor.constraint(equalTo: backgroundView.heightAnchor, multiplier: 0.18)
+            highlightText.bottomAnchor.constraint(equalTo: italicText.bottomAnchor),
+            highlightText.heightAnchor.constraint(equalTo: backgroundView.heightAnchor, multiplier: 0.15),
+            highlightText.widthAnchor.constraint(equalTo: italicText.widthAnchor)
         ])
     }
     
