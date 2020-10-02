@@ -161,14 +161,13 @@ internal class NotesViewController: UIViewController, TextEditingDelegateObserve
         if isCustom == true {
             textView.inputView = markupContainerView
             textView.inputView?.backgroundColor = .white
-            textView.reloadInputViews()
-            markupContainerView.isHidden = false
-            keyboardToolbar.isHidden = true
         } else {
             textView.inputView = nil
-            keyboardToolbar.isHidden = false
-            markupContainerView.isHidden = true
         }
+        
+        keyboardToolbar.isHidden.toggle()
+        markupContainerView.isHidden.toggle()
+        textView.reloadInputViews()
     }
     
     @IBAction func didTap() {

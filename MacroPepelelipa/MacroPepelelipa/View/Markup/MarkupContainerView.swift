@@ -22,11 +22,10 @@ internal class MarkupContainerView: UIView {
         return bckView
     }()
     
-    private lazy var dismissButton: MarkupToogleButton = {
-        let button = createButton(
-            normalStateImage: UIImage(systemName: "xmark.circle"),
-            titleLabel: nil
-        )
+    private lazy var dismissButton: UIButton = {
+        let button = UIButton()
+        button.tintColor = UIColor(named: "Placeholder") ?? .black
+        button.setBackgroundImage(UIImage(systemName: "xmark.circle"), for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.addTarget(delegate, action: #selector(delegate?.dismissContainer), for: .touchDown)
 
@@ -224,9 +223,5 @@ internal class MarkupContainerView: UIView {
         colorSelector.forEach { (selector) in
             selector.setCornerRadius()
         }
-    }
-    
-    @objc public func dismissContainer() {
-        print("Fechando...")
     }
 }
