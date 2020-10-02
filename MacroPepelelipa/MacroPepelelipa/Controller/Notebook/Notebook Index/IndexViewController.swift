@@ -13,8 +13,6 @@ internal class NotebookIndexViewController: UIViewController {
     internal private(set) var notebook: NotebookEntity?
     internal init(notebook: NotebookEntity) {
         self.notebook = notebook
-
-        imgViewNotebook.tintColor = UIColor(named: notebook.colorName)
         lblSubject.text = notebook.name
         tableViewDataSource = NotebookIndexTableViewDataSource(notebook: notebook)
         
@@ -48,9 +46,11 @@ internal class NotebookIndexViewController: UIViewController {
         
         return btn
     }()
-    private let imgViewNotebook: UIImageView = {
-        let imgView = UIImageView(frame: .zero)
-        imgView.image = UIImage(systemName: "book")
+    private lazy var imgViewNotebook: NotebookView = {
+        let imgView = NotebookView(frame: .zero)
+        if let color = UIColor(named: self.notebook?.colorName ?? "") {
+            imgView.color = color
+        }
         imgView.translatesAutoresizingMaskIntoConstraints = false
         imgView.contentMode = .scaleAspectFill
 
