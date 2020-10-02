@@ -6,6 +6,8 @@
 //  Copyright © 2020 Pedro Giuliano Farina. All rights reserved.
 //
 
+import UIKit
+
 internal protocol TextEditingDelegateObserver: class {
     /**
      The method that is initialized when the observer sends the notification that the text editing has started

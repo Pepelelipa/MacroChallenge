@@ -9,7 +9,7 @@
 import UIKit
 import Database
 
-internal class NotesViewController: UIViewController, TextEditingDelegateObserver {
+internal class NotesViewController: UIViewController, TextEditingDelegateObserver, AddingBoxViewDelegateObserver {
     
     internal var textBoxes: Set<TextBoxView> = []    
 
@@ -82,7 +82,11 @@ internal class NotesViewController: UIViewController, TextEditingDelegateObserve
         return delegate
     }()
     
-    private lazy var keyboardToolbar: MarkupToolBar = MarkupToolBar(frame: .zero, owner: textView, controller: self)
+    private lazy var keyboardToolbar: MarkupToolBar = {
+        let toolBar = MarkupToolBar(frame: .zero, owner: textView)
+        toolBar.observer = self
+        return toolBar
+    }()
     
     internal init(note: NoteEntity) {
         self.note = note
