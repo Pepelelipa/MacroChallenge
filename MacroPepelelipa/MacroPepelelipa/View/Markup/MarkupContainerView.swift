@@ -11,9 +11,9 @@ import UIKit
 internal class MarkupContainerView: UIView {
     
     private weak var textView: MarkupTextView?
-    
+    private weak var viewController: NotesViewController?
     public weak var delegate: MarkupFormatViewDelegate?
-    
+        
     private lazy var backgroundView: UIView = {
         let bckView = UIView(frame: .zero)
         bckView.backgroundColor = UIColor(named: "Background")
@@ -24,11 +24,12 @@ internal class MarkupContainerView: UIView {
     
     private lazy var dismissButton: MarkupToogleButton = {
         let button = createButton(
-            action: #selector(delegate?.dismissContainer),
             normalStateImage: UIImage(systemName: "xmark.circle"),
             titleLabel: nil
         )
         button.translatesAutoresizingMaskIntoConstraints = false
+        button.addTarget(delegate, action: #selector(delegate?.dismissContainer), for: .touchDown)
+
         return button
     }()
     
@@ -62,11 +63,11 @@ internal class MarkupContainerView: UIView {
         
         imageNames.forEach { (imageName) in
             var newButton = createButton(
-                action: #selector(delegate?.placeHolderAction),
                 normalStateImage: UIImage(systemName: imageName),
                 titleLabel: nil
             )
             newButton.translatesAutoresizingMaskIntoConstraints = false
+            newButton.addTarget(delegate, action: #selector(delegate?.placeHolderAction), for: .touchDown)
             buttons.append(newButton)
         }
         
@@ -79,19 +80,21 @@ internal class MarkupContainerView: UIView {
         
         fontName.forEach { (fontName) in
             var newButton = createButton(
-                action: #selector(delegate?.placeHolderAction),
                 normalStateImage: nil,
                 titleLabel: fontName
             )
             newButton.translatesAutoresizingMaskIntoConstraints = false
+            newButton.addTarget(delegate, action: #selector(delegate?.placeHolderAction), for: .touchDown)
             buttons.append(newButton)
         }
         
         return buttons
     }()
     
-    init(frame: CGRect, owner: MarkupTextView) {
+    init(frame: CGRect, owner: MarkupTextView, delegate: MarkupFormatViewDelegate?, viewController: NotesViewController) {
         self.textView = owner
+        self.delegate = delegate
+        self.viewController = viewController
         
         super.init(frame: frame)
         
@@ -121,9 +124,8 @@ internal class MarkupContainerView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func createButton(action: Selector, normalStateImage: UIImage?, titleLabel: String?) -> MarkupToogleButton {
+    private func createButton(normalStateImage: UIImage?, titleLabel: String?) -> MarkupToogleButton {
         var button = MarkupToogleButton(normalStateImage: nil, title: nil)
-        button.addTarget(self, action: action, for: .touchUpInside)
         
         if normalStateImage != nil {
             let markupButton = MarkupToogleButton(normalStateImage: normalStateImage, title: nil)
@@ -222,5 +224,9 @@ internal class MarkupContainerView: UIView {
         colorSelector.forEach { (selector) in
             selector.setCornerRadius()
         }
+    }
+    
+    @objc public func dismissContainer() {
+        print("Fechando...")
     }
 }

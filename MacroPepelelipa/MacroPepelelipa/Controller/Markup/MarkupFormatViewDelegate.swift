@@ -7,14 +7,21 @@
 //
 
 import Foundation
+import UIKit
 
 class MarkupFormatViewDelegate {
     
-    @objc func dismissContainer() {
-        
+    private weak var viewController: NotesViewController?
+    
+    init(viewController: NotesViewController) {
+        self.viewController = viewController
     }
     
-    @objc func placeHolderAction() {
+    @objc public func dismissContainer() {
+        viewController?.changeTextViewInput(isCustom: false)
+    }
+    
+    @objc public func placeHolderAction() {
         
     }
 }

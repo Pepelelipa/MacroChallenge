@@ -35,8 +35,8 @@ internal class NotesViewController: UIViewController, TextEditingDelegateObserve
         return button
     }()
     
-    public lazy var formatViewDelegate: MarkupFormatViewDelegate = {
-        return MarkupFormatViewDelegate()
+    public lazy var formatViewDelegate: MarkupFormatViewDelegate? = {
+        return MarkupFormatViewDelegate(viewController: self)
     }()
     
     private lazy var markupContainerView: MarkupContainerView = {
@@ -46,7 +46,7 @@ internal class NotesViewController: UIViewController, TextEditingDelegateObserve
         let xPosition: CGFloat = screenWidth/2 - width/2
         let yPosition: CGFloat = screenHeight - height - 20
         
-        let container = MarkupContainerView(frame: CGRect(x: xPosition, y: yPosition, width: width, height: height), owner: textView)
+        let container = MarkupContainerView(frame: CGRect(x: xPosition, y: yPosition, width: width, height: height), owner: textView, delegate: self.formatViewDelegate, viewController: self)
         container.autoresizingMask = []
         container.isHidden = true
         container.delegate = self.formatViewDelegate
@@ -162,12 +162,13 @@ internal class NotesViewController: UIViewController, TextEditingDelegateObserve
             textView.inputView = markupContainerView
             textView.inputView?.backgroundColor = .white
             textView.reloadInputViews()
+            markupContainerView.isHidden = false
             keyboardToolbar.isHidden = true
         } else {
             textView.inputView = nil
             keyboardToolbar.isHidden = false
+            markupContainerView.isHidden = true
         }
-
     }
     
     @IBAction func didTap() {
