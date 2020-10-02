@@ -18,7 +18,7 @@ internal class SplitViewController: UISplitViewController, NotebookIndexDelegate
 
         return nav
     }()
-    internal let detail: NotesViewController
+    private let detail: NotesViewController
 
     internal init(notebook: NotebookEntity) {
         master = NotebookIndexViewController(notebook: notebook)
