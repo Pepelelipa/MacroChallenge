@@ -59,8 +59,25 @@ internal class NotebooksSelectionViewController: UIViewController {
         self.present(split, animated: false)
     }
 
+    private lazy var btnAdd: UIBarButtonItem = {
+        let item = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(btnAddTap))
+        return item
+    }()
+    @IBAction func btnAddTap() {
+        btnAdd.isEnabled = false
+        let backBar = navigationItem.backBarButtonItem
+        navigationItem.hidesBackButton = true
+        let addController = AddNotebookViewController(dismissHandler: {
+            self.btnAdd.isEnabled = true
+            self.navigationItem.hidesBackButton = false
+        })
+        addController.moveTo(self)
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        navigationItem.rightBarButtonItem = btnAdd
         navigationItem.title = workspace?.name
         view.backgroundColor = .backgroundColor
         view.addSubview(collectionView)

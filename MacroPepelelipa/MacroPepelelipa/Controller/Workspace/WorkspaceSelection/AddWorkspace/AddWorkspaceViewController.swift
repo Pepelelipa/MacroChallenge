@@ -9,19 +9,7 @@
 import UIKit
 import Database
 
-internal class AddWorkspaceViewController: UIViewController {
-
-    private var dismissHandler: (() -> Void)?
-    internal init(dismissHandler: (() -> Void)? = nil) {
-        self.dismissHandler = dismissHandler
-        super.init(nibName: nil, bundle: nil)
-        view.backgroundColor = .backgroundColor
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.layer.cornerRadius = 20
-    }
-    required convenience init?(coder: NSCoder) {
-        self.init()
-    }
+internal class AddWorkspaceViewController: PopupContainerViewController {
 
     private lazy var txtName: UITextField = {
         let txtName = UITextField()
@@ -50,6 +38,7 @@ internal class AddWorkspaceViewController: UIViewController {
         view.addSubview(txtName)
         btnConfirm.isEnabled = false
         view.addSubview(btnConfirm)
+        txtName.becomeFirstResponder()
     }
 
     override func viewDidLayoutSubviews() {
@@ -68,24 +57,8 @@ internal class AddWorkspaceViewController: UIViewController {
         ])
     }
 
-    var backgroundBlur: UIView?
-    internal func moveTo(_ viewController: UIViewController) {
-        willMove(toParent: viewController)
-        let backgroundBlur = UIView()
-        self.backgroundBlur = backgroundBlur
-        backgroundBlur.translatesAutoresizingMaskIntoConstraints = false
-        backgroundBlur.backgroundColor = UIColor(red: 0.1, green: 0.1, blue: 0.1, alpha: 0.5)
-        viewController.view.addSubview(backgroundBlur)
-        NSLayoutConstraint.activate([
-            backgroundBlur.centerXAnchor.constraint(equalTo: viewController.view.centerXAnchor),
-            backgroundBlur.centerYAnchor.constraint(equalTo: viewController.view.centerYAnchor),
-            backgroundBlur.widthAnchor.constraint(equalTo: viewController.view.widthAnchor),
-            backgroundBlur.heightAnchor.constraint(equalTo: viewController.view.heightAnchor)
-        ])
-
-        viewController.addChild(self)
-        viewController.view.addSubview(view)
-
+    internal override func moveTo(_ viewController: UIViewController) {
+        super.moveTo(viewController)
         NSLayoutConstraint.activate([
             view.centerXAnchor.constraint(equalTo: viewController.view.centerXAnchor),
             view.centerYAnchor.constraint(equalTo: viewController.view.centerYAnchor),
@@ -93,16 +66,8 @@ internal class AddWorkspaceViewController: UIViewController {
             view.heightAnchor.constraint(greaterThanOrEqualTo: viewController.view.heightAnchor, multiplier: 0.18),
             view.widthAnchor.constraint(lessThanOrEqualTo: viewController.view.widthAnchor, multiplier: 0.8)
         ])
-
-        didMove(toParent: viewController)
-
-        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(backgroundTap))
-        backgroundBlur.addGestureRecognizer(tapGestureRecognizer)
     }
 
-    @IBAction func backgroundTap() {
-        dismissFromParent()
-    }
     @IBAction func textChanged(_ textField: UITextField) {
         let trimmed = textField.text?.trimmingCharacters(in: .whitespaces)
         if trimmed == "" {
@@ -119,14 +84,5 @@ internal class AddWorkspaceViewController: UIViewController {
             _ = Mockdata.createWorkspace(with: text)
             dismissFromParent()
         }
-    }
-
-    func dismissFromParent() {
-        willMove(toParent: nil)
-        removeFromParent()
-        didMove(toParent: nil)
-        view.removeFromSuperview()
-        backgroundBlur?.removeFromSuperview()
-        dismissHandler?()
     }
 }
