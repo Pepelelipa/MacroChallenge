@@ -29,6 +29,12 @@ internal extension CGRect {
         return [topLeftCorner, topRightCorner, bottomLeftCorner, bottomRightCorner]
     }
     
+    /**
+     Access the CGPoint of a Resize Handle from the Corner Enum
+     - Parameters
+        - Corner: The corner of the object.  
+     - Returns: The CGPoint of the corner.
+     */
     func getCornerPosition(_ corner: CornerEnum) -> CGPoint {
         switch corner {
         case .topLeft:

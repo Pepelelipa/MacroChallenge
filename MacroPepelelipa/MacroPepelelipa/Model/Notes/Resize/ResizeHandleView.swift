@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-final internal class ResizeHandleView: UIView {
+internal class ResizeHandleView: UIView {
         
     unowned var referenceView: BoxView
     unowned var owner: NotesViewController
@@ -30,7 +30,7 @@ final internal class ResizeHandleView: UIView {
         var temp = referenceView.frame.getCornerPosition(corner)
         temp.x -= size.width/2
         temp.y -= size.height/2
-        let diff: CGFloat = size.width/2.82 // to position the ring tangent to the frames corner: width/2 * √2/2 :: width/2/√2
+        let diff: CGFloat = size.width/2.82 
         switch corner {
         case .topLeft:
             temp.x -= diff
@@ -51,7 +51,7 @@ final internal class ResizeHandleView: UIView {
     let minimumWidht: CGFloat = 120
     let minimumHeight: CGFloat = 120
 
-    init(referenceView: BoxView, owner: NotesViewController, corner: CornerEnum) {
+    internal init(referenceView: BoxView, owner: NotesViewController, corner: CornerEnum) {
         self.referenceView = referenceView
         self.owner = owner
         self.corner = corner
@@ -78,6 +78,13 @@ final internal class ResizeHandleView: UIView {
         path.fill()
     }
     
+    /**
+     Create a resize handle for each corner of the view
+     - Parameters
+        - View: The view that will receive the resize handle
+        - HandlesArray: Owners Array of Handle View
+        - Owner : The View Controller of the reciving view
+     */
     static func createResizeHandleView(on view: BoxView, handlesArray: inout [ResizeHandleView], inside owner: NotesViewController) {
         for corner in CornerEnum.allCases {
             let resizeView = ResizeHandleView(referenceView: view, owner: owner, corner: corner)
@@ -87,6 +94,9 @@ final internal class ResizeHandleView: UIView {
         }
     }
     
+    /**
+     Update the Resize Handle Position
+     */
     public func updatePosition() {
         switch corner {
         case .topLeft:
@@ -101,6 +111,9 @@ final internal class ResizeHandleView: UIView {
         self.setNeedsDisplay()
     }
     
+    /**
+     Update the view Size and your resize handles
+     */
     private func updateReferenceView() {
         switch corner {
         case .topLeft:
@@ -132,7 +145,11 @@ final internal class ResizeHandleView: UIView {
         owner.uptadeResizeHandles()
     }
     
-    @objc public func dragHandle(_ sender: UIPanGestureRecognizer) {
+    /**
+     Handles the Pan Gesture of the resize handle 
+     */
+    
+    @objc private func dragHandle(_ sender: UIPanGestureRecognizer) {
         self.center = sender.location(in: owner.textView)
         updateReferenceView()
     }

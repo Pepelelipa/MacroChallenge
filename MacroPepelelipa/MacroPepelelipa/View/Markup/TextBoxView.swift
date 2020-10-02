@@ -11,7 +11,7 @@ import UIKit
 
 internal class TextBoxView: UIView, BoxView {
     
-    var state: BoxViewState {
+    internal var state: BoxViewState {
         didSet {
             switch state {
             case .idle:
@@ -22,9 +22,19 @@ internal class TextBoxView: UIView, BoxView {
         }
     }
     
-    var internalFrame: CGRect = .zero
+    internal var owner: MarkupTextView
+    
+    internal var internalFrame: CGRect = .zero
     
     internal var boxViewBorder = CAShapeLayer()
+    
+    internal lazy var markupTextView: MarkupTextView = {
+        let textView = MarkupTextView(frame: .zero)
+        textView.delegate = markupTextViewDelegate
+        textView.translatesAutoresizingMaskIntoConstraints = false
+        textView.isUserInteractionEnabled = false
+        return textView
+    }()
     
     private lazy var markupTextViewDelegate: MarkupTextViewDelegate? = {
         let delegate = MarkupTextViewDelegate()
@@ -46,18 +56,8 @@ internal class TextBoxView: UIView, BoxView {
         }
         return delegate
     }()
-    
-    lazy var markupTextView: MarkupTextView = {
-        let textView = MarkupTextView(frame: .zero)
-        textView.delegate = markupTextViewDelegate
-        textView.translatesAutoresizingMaskIntoConstraints = false
-        textView.isUserInteractionEnabled = false
-        return textView
-    }()
-        
-    var owner: MarkupTextView
-        
-    init(frame: CGRect, owner: MarkupTextView) {  
+                
+    internal init(frame: CGRect, owner: MarkupTextView) {  
         self.owner = owner
         self.state = .editing
 
@@ -84,11 +84,9 @@ internal class TextBoxView: UIView, BoxView {
         ])
     }
     
-    private func setUpLayer() {
-        self.layer.borderWidth = 1
-        self.layer.borderColor = UIColor.black.cgColor
-    }
-    
+    /**
+     Draw the text box border.
+     */
     func setUpBorder() {
         boxViewBorder.strokeColor = UIColor.actionColor?.cgColor
         boxViewBorder.lineDashPattern = [2, 2]

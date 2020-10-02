@@ -14,6 +14,9 @@ enum BoxViewState {
     case editing
 }
 
+/**
+ The protocol that defines the view that will move within the UI Text View
+ */
 protocol BoxView: UIView {
     var state: BoxViewState { get set }
     var internalFrame: CGRect { get set }

@@ -10,21 +10,16 @@ import UIKit
 import Database
 
 internal class NotesViewController: UIViewController, TextEditingDelegateObserver {
+    
+    internal var textBoxes: Set<TextBoxView> = []    
 
-    internal private(set) weak var note: NoteEntity?    
-    internal init(note: NoteEntity) {
-        self.note = note
-        super.init(nibName: nil, bundle: nil)
-        self.textField.attributedText = note.title
-    }
-
-    internal convenience required init?(coder: NSCoder) {
-        guard let note = coder.decodeObject(forKey: "note") as? NoteEntity else {
-            return nil
-        }
-        self.init(note: note)
-    }
-
+    internal private(set) weak var note: NoteEntity?  
+        
+    private var resizeHandles = [ResizeHandleView]()
+    private var initialCenter = CGPoint()
+    private var scale: CGFloat = 1.0
+    private var currentBoxViewPosition: CGPoint = .zero
+    
     private lazy var imageButton: UIButton = {
         let button = UIButton(frame: .zero)
         button.setImage(UIImage(named: "imageButton"), for: .normal)
@@ -32,36 +27,6 @@ internal class NotesViewController: UIViewController, TextEditingDelegateObserve
         return button
     }()
     
-    var textBoxes: Set<TextBoxView> = []    
-    
-    private var initialCenter = CGPoint()
-    private var scale: CGFloat = 1.0
-    private var currentBoxViewPosition: CGPoint = .zero
-
-    func textEditingDidBegin() {
-        DispatchQueue.main.async {
-            self.textBoxes.forEach { (textBox) in
-                textBox.state = .idle
-                textBox.markupTextView.isUserInteractionEnabled = false
-                textBox.backgroundColor = .red
-            }
-            self.imageButton.isHidden = true
-            
-            if !self.resizeHandles.isEmpty {
-                self.resizeHandles.forEach { (resizeHandle) in
-                    resizeHandle.removeFromSuperview()
-                }
-            }
-        }
-        
-    }
-    
-    func textEditingDidEnd() {
-        DispatchQueue.main.async {
-            self.imageButton.isHidden = false
-        }
-    }
-
     private lazy var btnBack: UIButton = {
         let btn = UIButton(frame: .zero)
         btn.setImage(UIImage(systemName: "chevron.left"), for: .normal)
@@ -71,6 +36,7 @@ internal class NotesViewController: UIViewController, TextEditingDelegateObserve
 
         return btn
     }()
+    
     public var isBtnBackHidden: Bool {
         get {
             return btnBack.isHidden
@@ -79,31 +45,21 @@ internal class NotesViewController: UIViewController, TextEditingDelegateObserve
             btnBack.isHidden = newValue
         }
     }
-    ///Go back to the previous step(opens the notebook index) according to the device and orientation
-    @IBAction func btnBackTap(_ sender: UIButton) {
-        let dev = UIDevice.current.userInterfaceIdiom
-        if dev == .pad {
-            splitViewController?.preferredDisplayMode = .oneOverSecondary
-        } else {
-            if UIDevice.current.orientation.isLandscape {
-                splitViewController?.preferredDisplayMode = .oneOverSecondary
-            } else {
-                self.navigationController?.popViewController(animated: true)
-            }
-        }
-    }
+    
+    internal lazy var textView: MarkupTextView = MarkupTextView(frame: .zero, delegate: self.textViewDelegate)
     
     private lazy var textField: MarkupTextField = {
         let textField = MarkupTextField(frame: .zero, placeholder: "Your Title".localized(), paddingSpace: 4)
         textField.delegate = self.textFieldDelegate
         return textField
     }()
+    
     private lazy var textFieldDelegate: MarkupTextFieldDelegate = {
         let delegate = MarkupTextFieldDelegate()
         delegate.observer = self
         return delegate
     }()
-    lazy var textView: MarkupTextView = MarkupTextView(frame: .zero, delegate: self.textViewDelegate)
+    
     private lazy var textViewDelegate: MarkupTextViewDelegate? = {
         let delegate = MarkupTextViewDelegate()
         delegate.observer = self
@@ -127,8 +83,19 @@ internal class NotesViewController: UIViewController, TextEditingDelegateObserve
     }()
     
     private lazy var keyboardToolbar: MarkupToolBar = MarkupToolBar(frame: .zero, owner: textView, controller: self)
+    
+    internal init(note: NoteEntity) {
+        self.note = note
+        super.init(nibName: nil, bundle: nil)
+        self.textField.attributedText = note.title
+    }
 
-    private var resizeHandles = [ResizeHandleView]()
+    internal convenience required init?(coder: NSCoder) {
+        guard let note = coder.decodeObject(forKey: "note") as? NoteEntity else {
+            return nil
+        }
+        self.init(note: note)
+    }
     
     public override func viewDidLoad() {
         super.viewDidLoad()
@@ -151,11 +118,6 @@ internal class NotesViewController: UIViewController, TextEditingDelegateObserve
         textView.inputAccessoryView = keyboardToolbar
     }
     
-    @IBAction func didTap() {
-        textField.resignFirstResponder()
-        textView.resignFirstResponder()
-    }
-
     public override func viewDidLayoutSubviews() {
         NSLayoutConstraint.activate([
             imageButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -150),
@@ -182,8 +144,35 @@ internal class NotesViewController: UIViewController, TextEditingDelegateObserve
         ])
     }
     
+    func textEditingDidBegin() {
+        DispatchQueue.main.async {
+            self.textBoxes.forEach { (textBox) in
+                textBox.state = .idle
+                textBox.markupTextView.isUserInteractionEnabled = false
+                textBox.backgroundColor = .red
+            }
+            self.imageButton.isHidden = true
+            
+            if !self.resizeHandles.isEmpty {
+                self.resizeHandles.forEach { (resizeHandle) in
+                    resizeHandle.removeFromSuperview()
+                }
+            }
+        }
+    }
+    
+    func textEditingDidEnd() {
+        DispatchQueue.main.async {
+            self.imageButton.isHidden = false
+        }
+    }
+    
+    /**
+     Create a text box
+     - Parameters
+        - frame: The text box frame.
+     */
     func addTextBox(with frame: CGRect) {
-        
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
         let doubleTapGesture = UITapGestureRecognizer(target: self, action: #selector(handleDoubleTap(_:)))
         doubleTapGesture.numberOfTapsRequired = 2
@@ -200,6 +189,9 @@ internal class NotesViewController: UIViewController, TextEditingDelegateObserve
         self.textView.addSubview(textBox)
     }
     
+    /**
+     Uptade the resize handle position and the border of the text box.
+     */
     func uptadeResizeHandles() {
         resizeHandles.forEach { (handle) in
             handle.updatePosition()
@@ -209,6 +201,11 @@ internal class NotesViewController: UIViewController, TextEditingDelegateObserve
         }
     }
     
+    /**
+     Adds and positions the resize handles in the box view
+     - Parameters
+        - boxView: The Box View who will receive the resize handle.
+     */
     func placeResizeHandles(boxView: BoxView) {
         if !resizeHandles.isEmpty {
             resizeHandles.forEach { (resizeHandle) in
@@ -220,19 +217,46 @@ internal class NotesViewController: UIViewController, TextEditingDelegateObserve
         resizeHandles[0].setNeedsDisplay()
     }
     
+    /**
+     Updates the position of the resize handles.
+     */
     func updateResizeHandles() {
         resizeHandles.forEach { (resizeHandle) in
             resizeHandle.updatePosition()
         }
     }
     
+    /**
+     Move the box view and uptade their resize handles position.
+     - Parameters
+        - boxView: The Box View who will be moved.
+        - vector: The new position of the box view.
+     */
     func moveBoxView(boxView: BoxView, by vector: CGPoint) {
         boxView.center = currentBoxViewPosition + vector
         uptadeResizeHandles()
     }
     
+    ///Go back to the previous step(opens the notebook index) according to the device and orientation
+    @IBAction func btnBackTap(_ sender: UIButton) {
+        let dev = UIDevice.current.userInterfaceIdiom
+        if dev == .pad {
+            splitViewController?.preferredDisplayMode = .oneOverSecondary
+        } else {
+            if UIDevice.current.orientation.isLandscape {
+                splitViewController?.preferredDisplayMode = .oneOverSecondary
+            } else {
+                self.navigationController?.popViewController(animated: true)
+            }
+        }
+    }
+    
+    @IBAction func didTap() {
+        textField.resignFirstResponder()
+        textView.resignFirstResponder()
+    }
+    
     @IBAction private func handleTap(_ gestureRecognizer: UITapGestureRecognizer) {
-        
         if let boxView = gestureRecognizer.view as? BoxView {
             boxView.state = .editing
             placeResizeHandles(boxView: boxView)            
@@ -241,7 +265,6 @@ internal class NotesViewController: UIViewController, TextEditingDelegateObserve
     }
     
     @IBAction private func handleDoubleTap(_ gestureRecognizer: UITapGestureRecognizer) {
-    
         if let textBox = gestureRecognizer.view as? TextBoxView {
             textBox.markupTextView.isUserInteractionEnabled = true
             textBox.markupTextView.becomeFirstResponder()
@@ -249,7 +272,6 @@ internal class NotesViewController: UIViewController, TextEditingDelegateObserve
     }
 
     @IBAction private func handlePan(_ gestureRecognizer: UIPanGestureRecognizer) {
-        
         guard let boxView = gestureRecognizer.view as? BoxView else {
             return
         }
@@ -277,7 +299,6 @@ internal class NotesViewController: UIViewController, TextEditingDelegateObserve
     }
     
     @IBAction private func handlePinch(_ gestureRecognizer: UIPinchGestureRecognizer) {
-        
         guard let boxView = gestureRecognizer.view as? BoxView else {
             return
         }
