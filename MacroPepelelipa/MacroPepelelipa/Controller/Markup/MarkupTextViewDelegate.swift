@@ -2,7 +2,9 @@
 //  MarkupTextViewDelegate.swift
 //  MacroPepelelipa
 //
-//  Created by Lia Kassardjian on 17/09/20.
+//  Created by Lia Kassardjian, 
+//             Leonardo Amorim de Oliveira and 
+//             Pedro Henrique Guedes Silveira on 17/09/20.
 //  Copyright © 2020 Pedro Giuliano Farina. All rights reserved.
 //
 
@@ -183,5 +185,4 @@ internal class MarkupTextViewDelegate: NSObject, UITextViewDelegate {
     func textViewDidEndEditing(_ textView: UITextView) {
         observer?.textEditingDidEnd()
     }
-
 }

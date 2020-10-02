@@ -88,6 +88,13 @@
 		D9D87538251BB26500B842C8 /* MarkupToolBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D87537251BB26500B842C8 /* MarkupToolBar.swift */; };
 		D9D87541251BC4F200B842C8 /* MarkupPhotoPickerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D87540251BC4F200B842C8 /* MarkupPhotoPickerDelegate.swift */; };
 		D9D87544251BD39F00B842C8 /* PhotoEditingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D87543251BD39F00B842C8 /* PhotoEditingViewController.swift */; };
+		D9F4A9A125277A6000BFDC19 /* BoxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9F4A9A025277A6000BFDC19 /* BoxView.swift */; };
+		D9F4A9A825277A6B00BFDC19 /* CGPointExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9F4A9A425277A6A00BFDC19 /* CGPointExtension.swift */; };
+		D9F4A9A925277A6B00BFDC19 /* CornerEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9F4A9A525277A6A00BFDC19 /* CornerEnum.swift */; };
+		D9F4A9AA25277A6B00BFDC19 /* ResizeHandleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9F4A9A625277A6A00BFDC19 /* ResizeHandleView.swift */; };
+		D9F4A9AB25277A6B00BFDC19 /* CGRectExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9F4A9A725277A6A00BFDC19 /* CGRectExtension.swift */; };
+		D9F4A9AE25277AC900BFDC19 /* TextBoxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9F4A9AD25277AC900BFDC19 /* TextBoxView.swift */; };
+		D9F4A9BD2527D0A600BFDC19 /* AddingBoxViewDelegateObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9F4A9BC2527D0A600BFDC19 /* AddingBoxViewDelegateObserver.swift */; };
 		E45C20D2251D24BD0022AD95 /* MarkdownNumeric.swift in Sources */ = {isa = PBXBuildFile; fileRef = E45C20D1251D24BD0022AD95 /* MarkdownNumeric.swift */; };
 		E4FCA4942523B52F00DE88B8 /* MarkdownEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4FCA4932523B52F00DE88B8 /* MarkdownEditor.swift */; };
 /* End PBXBuildFile section */
@@ -200,6 +207,13 @@
 		D9D87537251BB26500B842C8 /* MarkupToolBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkupToolBar.swift; sourceTree = "<group>"; };
 		D9D87540251BC4F200B842C8 /* MarkupPhotoPickerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkupPhotoPickerDelegate.swift; sourceTree = "<group>"; };
 		D9D87543251BD39F00B842C8 /* PhotoEditingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoEditingViewController.swift; sourceTree = "<group>"; };
+		D9F4A9A025277A6000BFDC19 /* BoxView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoxView.swift; sourceTree = "<group>"; };
+		D9F4A9A425277A6A00BFDC19 /* CGPointExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGPointExtension.swift; sourceTree = "<group>"; };
+		D9F4A9A525277A6A00BFDC19 /* CornerEnum.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CornerEnum.swift; sourceTree = "<group>"; };
+		D9F4A9A625277A6A00BFDC19 /* ResizeHandleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResizeHandleView.swift; sourceTree = "<group>"; };
+		D9F4A9A725277A6A00BFDC19 /* CGRectExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGRectExtension.swift; sourceTree = "<group>"; };
+		D9F4A9AD25277AC900BFDC19 /* TextBoxView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextBoxView.swift; sourceTree = "<group>"; };
+		D9F4A9BC2527D0A600BFDC19 /* AddingBoxViewDelegateObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddingBoxViewDelegateObserver.swift; sourceTree = "<group>"; };
 		E45C20D1251D24BD0022AD95 /* MarkdownNumeric.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkdownNumeric.swift; sourceTree = "<group>"; };
 		E4FCA4932523B52F00DE88B8 /* MarkdownEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkdownEditor.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -478,6 +492,7 @@
 		022D602F251955D700001D5B /* Markup */ = {
 			isa = PBXGroup;
 			children = (
+				D9F4A9AD25277AC900BFDC19 /* TextBoxView.swift */,
 				022D602C251955D300001D5B /* MarkupTextView.swift */,
 				D9D87533251BAA6700B842C8 /* MarkupTextField.swift */,
 				D9D87537251BB26500B842C8 /* MarkupToolBar.swift */,
@@ -673,6 +688,8 @@
 		1E9EF4A725225B7A00CC623B /* Notes */ = {
 			isa = PBXGroup;
 			children = (
+				D9F4A9A325277A6A00BFDC19 /* Resize */,
+				D9F4A9A025277A6000BFDC19 /* BoxView.swift */,
 				1E9EF4A825225B9B00CC623B /* TextEditingDelegateObserver.swift */,
 			);
 			path = Notes;
@@ -711,6 +728,18 @@
 				D9D87543251BD39F00B842C8 /* PhotoEditingViewController.swift */,
 			);
 			path = PhotoPicker;
+			sourceTree = "<group>";
+		};
+		D9F4A9A325277A6A00BFDC19 /* Resize */ = {
+			isa = PBXGroup;
+			children = (
+				D9F4A9A425277A6A00BFDC19 /* CGPointExtension.swift */,
+				D9F4A9A525277A6A00BFDC19 /* CornerEnum.swift */,
+				D9F4A9A625277A6A00BFDC19 /* ResizeHandleView.swift */,
+				D9F4A9A725277A6A00BFDC19 /* CGRectExtension.swift */,
+				D9F4A9BC2527D0A600BFDC19 /* AddingBoxViewDelegateObserver.swift */,
+			);
+			path = Resize;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -872,13 +901,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D9F4A9BD2527D0A600BFDC19 /* AddingBoxViewDelegateObserver.swift in Sources */,
 				023886062523CAEC00F807E9 /* WorkspaceCellNotebookCollectionViewCell.swift in Sources */,
 				02ECA43C2512ABD100E68588 /* NotebookCollectionViewCell.swift in Sources */,
 				022D60232519559D00001D5B /* MarkdownElement.swift in Sources */,
 				02207A392523A5970001FD7E /* WorkspacesCollectionViewDataSource.swift in Sources */,
 				0213BFB5251943C40085ABC3 /* IndexDelegateProtocol.swift in Sources */,
+				D9F4A9AB25277A6B00BFDC19 /* CGRectExtension.swift in Sources */,
 				022D600B2519559D00001D5B /* MarkdownCode+UIKit.swift in Sources */,
 				022D60152519559D00001D5B /* MarkdownQuote.swift in Sources */,
+				D9F4A9AE25277AC900BFDC19 /* TextBoxView.swift in Sources */,
 				0247F78D25115BAA00405A61 /* NotebooksSelectionViewController.swift in Sources */,
 				022D601D2519559D00001D5B /* MarkdownBold.swift in Sources */,
 				02AC9ADA251BF35200A067D0 /* NotebooksCollectionViewDelegate.swift in Sources */,
@@ -904,6 +936,8 @@
 				020E22252513F10800A93EAB /* StringExtension.swift in Sources */,
 				022D60222519559D00001D5B /* MarkdownLevelElement.swift in Sources */,
 				02E4E99525266F3900290A39 /* NotebookView.swift in Sources */,
+				D9F4A9A825277A6B00BFDC19 /* CGPointExtension.swift in Sources */,
+				D9F4A9A125277A6000BFDC19 /* BoxView.swift in Sources */,
 				022D60242519559D00001D5B /* MarkdownStyle.swift in Sources */,
 				02E5A22C25239E36009DFFB5 /* WorkspaceSelectionViewController.swift in Sources */,
 				026C3CAC251942A7001E32AE /* NotesViewController.swift in Sources */,
@@ -914,6 +948,7 @@
 				E4FCA4942523B52F00DE88B8 /* MarkdownEditor.swift in Sources */,
 				A7BDD60A251406D900DDB6A0 /* TableViewDataSource.swift in Sources */,
 				022D600A2519559D00001D5B /* UIFont+Traits.swift in Sources */,
+				D9F4A9AA25277A6B00BFDC19 /* ResizeHandleView.swift in Sources */,
 				A792F03A25279E8400AB1766 /* NotebookIndexTableViewDelegate.swift in Sources */,
 				022D600E2519559D00001D5B /* Typealias+UIKit.swift in Sources */,
 				D9D87538251BB26500B842C8 /* MarkupToolBar.swift in Sources */,
@@ -931,6 +966,7 @@
 				022D601E2519559D00001D5B /* MarkdownHeader.swift in Sources */,
 				02458EDC2525094C00466BFF /* WorkspaceCellNotebookCollectionViewDelegate.swift in Sources */,
 				022D60102519559D00001D5B /* MarkdownParser.swift in Sources */,
+				D9F4A9A925277A6B00BFDC19 /* CornerEnum.swift in Sources */,
 				022D60122519559D00001D5B /* MarkdownCodeEscaping.swift in Sources */,
 				023886022523CA2700F807E9 /* WorkspaceCellNotebookCollectionViewDataSource.swift in Sources */,
 			);
