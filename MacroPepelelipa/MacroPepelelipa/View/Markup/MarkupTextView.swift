@@ -21,9 +21,10 @@ internal class MarkupTextView: UITextView {
         
         self.delegate = delegate
         self.translatesAutoresizingMaskIntoConstraints = false
-        self.backgroundColor = UIColor(named: "Background")
-        self.textColor = UIColor(named: "Placeholder")
-        self.tintColor = UIColor(named: "Highlight")
+        self.backgroundColor = .backgroundColor
+        self.textColor = .placeholderColor
+        self.tintColor = .actionColor
+        
         animator = UIDynamicAnimator(referenceView: self)
     }
     
@@ -94,13 +95,14 @@ internal class MarkupTextView: UITextView {
             return
         }
         
-        switch type {
-        case .bullet:
-            delegate.addBulletList(on: self, lineCleared)
-        case .numeric:
-            delegate.addNumericList(on: self, lineCleared)
-        case .quote:
-            delegate.addQuote(on: self, lineCleared)
+        delegate.addList(on: self, type: type, lineCleared)
+    }
+    
+    public func addHeader(with style: HeaderStyle) {
+        guard let delegate = self.delegate as? MarkupTextViewDelegate else {
+            return
         }
+        
+        delegate.addHeader(on: self, with: style)
     }
 }

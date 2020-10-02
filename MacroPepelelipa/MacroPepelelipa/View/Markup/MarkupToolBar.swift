@@ -16,6 +16,13 @@ enum ListStyle {
     case quote
 }
 
+enum HeaderStyle {
+    case h1
+    case h2
+    case h3
+    case paragraph
+}
+
 internal class MarkupToolBar: UIToolbar {
     
     private weak var textView: MarkupTextView?
@@ -23,8 +30,16 @@ internal class MarkupToolBar: UIToolbar {
     private var pickerDelegate: MarkupPhotoPickerDelegate?
     
     private var listButton: UIBarButtonItem?
+    private static var paragraphButton: UIBarButtonItem?
     
     private var listStyle: ListStyle = .bullet
+    public static var headerStyle: HeaderStyle = .h1 {
+        didSet {
+            if MarkupToolBar.headerStyle == .h1 {
+                paragraphButton?.image = UIImage(named: "h1")
+            }
+        }
+    }
     
     init(frame: CGRect, owner: MarkupTextView, controller: NotesViewController) {
         self.textView = owner
@@ -34,7 +49,7 @@ internal class MarkupToolBar: UIToolbar {
         setUpButtons()
         
         self.sizeToFit()
-        self.tintColor = UIColor(named: "Tools")
+        self.tintColor = .toolsColor
     }
     
     required init?(coder: NSCoder) {
@@ -45,13 +60,12 @@ internal class MarkupToolBar: UIToolbar {
      A private method to set up all the Buttons on the UIToolBar.
      */
     private func setUpButtons() {
-        listButton = createBarButtonItem(systemImageName: "list.bullet", objcFunc: #selector(addList))
-        
-        let imageGalleryButton = createBarButtonItem(systemImageName: "photo", objcFunc: #selector(photoPicker))
-        let textBoxButton = createBarButtonItem(systemImageName: "textbox", objcFunc: #selector(addTextBox))
-        let paintbrushButton = createBarButtonItem(systemImageName: "paintbrush", objcFunc: nil)
-        let paragraphButton = createBarButtonItem(systemImageName: "paragraph", objcFunc: #selector(headerAction))
-        
+
+        listButton = createBarButtonItem(imageName: "list.bullet", systemImage: true, objcFunc: #selector(addList))
+        MarkupToolBar.paragraphButton = createBarButtonItem(imageName: "h1", systemImage: false, objcFunc: #selector(addHeader))        
+        let imageGalleryButton = createBarButtonItem(imageName: "photo", systemImage: true, objcFunc: #selector(photoPicker))
+        let textBoxButton = createBarButtonItem(imageName: "textbox", systemImage: true, objcFunc: nil)
+        let paintbrushButton = createBarButtonItem(imageName: "paintbrush", systemImage: true, objcFunc: nil)
         let flexible = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         
         self.items = [flexible, textBoxButton, flexible, imageGalleryButton]
@@ -67,8 +81,10 @@ internal class MarkupToolBar: UIToolbar {
             self.items?.append(flexible)
         }
         
-        self.items?.append(paragraphButton)
-        self.items?.append(flexible)
+        if let paragraphBtn = MarkupToolBar.paragraphButton {
+            self.items?.append(paragraphBtn)
+            self.items?.append(flexible)
+        }
     }    
     
     /**
@@ -80,26 +96,40 @@ internal class MarkupToolBar: UIToolbar {
      
      - Returns: An UIBarButtonItem with an image and a selector, if passed as parameter.
      */
-    private func createBarButtonItem(systemImageName: String, objcFunc: Selector?) -> UIBarButtonItem {
-        return UIBarButtonItem(image: UIImage(systemName: systemImageName), style: .plain, target: self, action: objcFunc)
+    private func createBarButtonItem(imageName: String, systemImage: Bool, objcFunc: Selector?) -> UIBarButtonItem {
+        var buttonImage: UIImage?
+        if systemImage {
+            buttonImage = UIImage(systemName: imageName)
+        } else {
+            buttonImage = UIImage(named: imageName)
+        }
+        
+        return UIBarButtonItem(image: buttonImage, style: .plain, target: self, action: objcFunc)
     }
     
     /**
     In this funcion, we deal with the toolbar button for adding a header, adding it manually.
     */
-    
-    @objc private func headerAction() {
-        guard let guardedTextView = textView else {
-            return
-        }
-        
-        let attributedText = NSMutableAttributedString(attributedString: guardedTextView.attributedText)
-        
-        let attibutedString = NSMutableAttributedString(string: "\n#")
-
-        attributedText.append(attibutedString)
+    @objc private func addHeader() {
+        textView?.addHeader(with: MarkupToolBar.headerStyle)
+        var nextStyle: HeaderStyle = MarkupToolBar.headerStyle
                 
-        textView?.attributedText = attributedText          
+        switch MarkupToolBar.headerStyle {
+        case .h1:
+            MarkupToolBar.paragraphButton?.image = UIImage(named: "h2")
+            nextStyle = .h2
+        case .h2:
+            MarkupToolBar.paragraphButton?.image = UIImage(named: "h3")
+            nextStyle = .h3
+        case .h3:
+            MarkupToolBar.paragraphButton?.image = UIImage(systemName: "paragraph")
+            nextStyle = .paragraph
+        case .paragraph:
+            MarkupToolBar.paragraphButton?.image = UIImage(named: "h1")
+            nextStyle = .h1
+        }
+            
+        MarkupToolBar.headerStyle = nextStyle
     }
     
     /**

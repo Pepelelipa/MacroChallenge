@@ -18,8 +18,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             return
         }
         let navController = UINavigationController()
-        navController.isNavigationBarHidden = true
-        navController.viewControllers = [WorkspacePageViewController()]
+        navController.navigationBar.tintColor = .actionColor
+        navController.navigationBar.prefersLargeTitles = true
+        navController.viewControllers = [WorkspaceSelectionViewController()]
         window = UIWindow(windowScene: scene)
         window?.rootViewController = navController
         window?.makeKeyAndVisible()

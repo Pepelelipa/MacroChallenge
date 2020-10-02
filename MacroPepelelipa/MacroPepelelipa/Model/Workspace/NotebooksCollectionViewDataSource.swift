@@ -9,7 +9,7 @@
 import UIKit
 import Database
 
-internal class WorkspaceCollectionViewDataSource: NSObject, UICollectionViewDataSource {
+internal class NotebooksCollectionViewDataSource: NSObject, UICollectionViewDataSource {
     private weak var workspace: WorkspaceEntity?
     internal init(workspace: WorkspaceEntity) {
         self.workspace = workspace
@@ -21,7 +21,7 @@ internal class WorkspaceCollectionViewDataSource: NSObject, UICollectionViewData
 
     internal func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(
-                withReuseIdentifier: NotebookCollectionViewCell.cellID, for: indexPath)
+                withReuseIdentifier: NotebookCollectionViewCell.cellID(), for: indexPath)
                 as? NotebookCollectionViewCell,
                 let notebook = workspace?.notebooks[indexPath.row] else {
                 fatalError("Sorry not sorry")

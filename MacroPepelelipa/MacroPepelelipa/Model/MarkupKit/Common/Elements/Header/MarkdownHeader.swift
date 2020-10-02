@@ -36,11 +36,16 @@ open class MarkdownHeader: MarkdownLevelElement {
     
     open func attributesForLevel(_ level: Int) -> [NSAttributedString.Key: AnyObject] {
         var attributes = self.attributes
-        if let font = font {
-            let headerFontSize: CGFloat = font.pointSize + 4 + (-1 * CGFloat(level) * CGFloat(fontIncrease))
-            
-            attributes[NSAttributedString.Key.font] = font.withSize(headerFontSize).bold()
+        
+        switch level {
+        case 0:
+            attributes[NSAttributedString.Key.font] = MarkdownHeader.firstHeaderFont
+        case 1:
+            attributes[NSAttributedString.Key.font] = MarkdownHeader.secondHeaderFont
+        default:
+            attributes[NSAttributedString.Key.font] = MarkdownHeader.thirdHeaderFont
         }
+        
         return attributes
     }
 }
