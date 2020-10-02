@@ -64,7 +64,7 @@ internal class MarkupToolBar: UIToolbar {
         listButton = createBarButtonItem(imageName: "list.bullet", systemImage: true, objcFunc: #selector(addList))
         MarkupToolBar.paragraphButton = createBarButtonItem(imageName: "h1", systemImage: false, objcFunc: #selector(addHeader))        
         let imageGalleryButton = createBarButtonItem(imageName: "photo", systemImage: true, objcFunc: #selector(photoPicker))
-        let textBoxButton = createBarButtonItem(imageName: "textbox", systemImage: true, objcFunc: nil)
+        let textBoxButton = createBarButtonItem(imageName: "textbox", systemImage: true, objcFunc: #selector(addTextBox))
         let paintbrushButton = createBarButtonItem(imageName: "paintbrush", systemImage: true, objcFunc: nil)
         let flexible = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         
