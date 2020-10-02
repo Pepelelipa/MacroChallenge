@@ -149,7 +149,6 @@ internal class NotesViewController: UIViewController, TextEditingDelegateObserve
             self.textBoxes.forEach { (textBox) in
                 textBox.state = .idle
                 textBox.markupTextView.isUserInteractionEnabled = false
-                textBox.backgroundColor = .red
             }
             self.imageButton.isHidden = true
             
