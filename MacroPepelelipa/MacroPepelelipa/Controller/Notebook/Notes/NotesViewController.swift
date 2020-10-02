@@ -40,16 +40,14 @@ internal class NotesViewController: UIViewController, TextEditingDelegateObserve
     }()
     
     private lazy var markupContainerView: MarkupContainerView = {
-        let width: CGFloat = screenWidth - 60
         let height: CGFloat = screenHeight/4
         
-        let xPosition: CGFloat = screenWidth/2 - width/2
-        let yPosition: CGFloat = screenHeight - height - 20
+        let container = MarkupContainerView(frame: CGRect(x: 0, y: 0, width: screenWidth, height: height), owner: textView, delegate: self.formatViewDelegate, viewController: self)
         
-        let container = MarkupContainerView(frame: CGRect(x: xPosition, y: yPosition, width: width, height: height), owner: textView, delegate: self.formatViewDelegate, viewController: self)
         container.autoresizingMask = []
         container.isHidden = true
         container.delegate = self.formatViewDelegate
+        
         return container
     }()
 
@@ -160,7 +158,6 @@ internal class NotesViewController: UIViewController, TextEditingDelegateObserve
     public func changeTextViewInput(isCustom: Bool) {
         if isCustom == true {
             textView.inputView = markupContainerView
-            textView.inputView?.backgroundColor = .white
         } else {
             textView.inputView = nil
         }

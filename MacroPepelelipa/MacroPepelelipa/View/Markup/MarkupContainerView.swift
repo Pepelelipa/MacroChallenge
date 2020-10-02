@@ -16,9 +16,10 @@ internal class MarkupContainerView: UIView {
         
     private lazy var backgroundView: UIView = {
         let bckView = UIView(frame: .zero)
-        bckView.backgroundColor = UIColor(named: "Background")
+        bckView.backgroundColor = .white
         bckView.layer.cornerRadius = 15
         bckView.translatesAutoresizingMaskIntoConstraints = false
+        
         return bckView
     }()
     
@@ -97,7 +98,7 @@ internal class MarkupContainerView: UIView {
         
         super.init(frame: frame)
         
-        self.backgroundColor = .gray//UIColor(named: "Background")
+        self.backgroundColor = UIColor(named: "Background") ?? .white
                 
         self.addSubview(backgroundView)
         
@@ -219,9 +220,27 @@ internal class MarkupContainerView: UIView {
         }
     }
     
+    private func setBackgroundShadow() {
+        backgroundView.clipsToBounds = true
+        backgroundView.layer.masksToBounds = false
+        
+        let shadowColor = #colorLiteral(red: 0.05490196078, green: 0.01568627451, blue: 0.07843137255, alpha: 1)
+        backgroundView.layer.shadowColor = shadowColor.cgColor
+        backgroundView.layer.shadowOpacity = 0.16
+        backgroundView.layer.shadowOffset = CGSize(width: 0, height: 4)
+        backgroundView.layer.shadowRadius = 12
+        backgroundView.layer.masksToBounds = false
+
+        backgroundView.layer.shadowPath = UIBezierPath(rect: backgroundView.bounds).cgPath
+        backgroundView.layer.shouldRasterize = true
+        backgroundView.layer.rasterizationScale = UIScreen.main.scale
+    }
+    
     override func didMoveToWindow() {
         colorSelector.forEach { (selector) in
             selector.setCornerRadius()
         }
+        
+        setBackgroundShadow()
     }
 }
