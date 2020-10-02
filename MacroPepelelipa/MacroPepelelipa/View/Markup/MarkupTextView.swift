@@ -12,7 +12,7 @@ import UIKit
 
 internal class MarkupTextView: UITextView {
     
-    private var animator: UIDynamicAnimator?
+    internal var animator: UIDynamicAnimator?
     private var snap: UISnapBehavior?
     private var imageView: UIImageView?
 

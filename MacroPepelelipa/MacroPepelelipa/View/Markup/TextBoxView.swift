@@ -11,9 +11,20 @@ import UIKit
 
 internal class TextBoxView: UIView, BoxView {
     
-    var state: BoxViewState = .idle
+    var state: BoxViewState {
+        didSet {
+            switch state {
+            case .idle:
+                boxViewBorder.isHidden = true
+            case .editing:
+                boxViewBorder.isHidden = false
+            }
+        }
+    }
     
     var internalFrame: CGRect = .zero
+    
+    internal var boxViewBorder = CAShapeLayer()
     
     private lazy var markupTextViewDelegate: MarkupTextViewDelegate? = {
         let delegate = MarkupTextViewDelegate()
@@ -48,13 +59,16 @@ internal class TextBoxView: UIView, BoxView {
         
     init(frame: CGRect, owner: MarkupTextView) {  
         self.owner = owner
+        self.state = .editing
+
         super.init(frame: frame)
+        
         self.addSubview(markupTextView)
         self.markupTextView.font = UIFont(name: self.markupTextView.font?.fontName ?? "", size: 16)
         
         setUpTextViewConstraints()
-        setUpLayer()
-        
+        setUpBorder()   
+        self.layer.addSublayer(boxViewBorder)
     }
     
     required init?(coder: NSCoder) {
@@ -74,4 +88,13 @@ internal class TextBoxView: UIView, BoxView {
         self.layer.borderWidth = 1
         self.layer.borderColor = UIColor.black.cgColor
     }
+    
+    func setUpBorder() {
+        boxViewBorder.strokeColor = UIColor.actionColor?.cgColor
+        boxViewBorder.lineDashPattern = [2, 2]
+        boxViewBorder.frame = self.bounds
+        boxViewBorder.fillColor = nil
+        boxViewBorder.path = UIBezierPath(rect: self.bounds).cgPath
+    }
+    
 }

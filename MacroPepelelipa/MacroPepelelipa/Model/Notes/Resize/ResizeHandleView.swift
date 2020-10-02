@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 final internal class ResizeHandleView: UIView {
-    
+        
     unowned var referenceView: BoxView
     unowned var owner: NotesViewController
     
@@ -69,7 +69,7 @@ final internal class ResizeHandleView: UIView {
     override func draw(_ rect: CGRect) {
         let path = UIBezierPath()
         
-        UIColor.blue.setFill()
+        UIColor.actionColor?.setFill()
         let center = CGPoint(x: rect.width/2, y: rect.height/2)
         let width: CGFloat = constant/2 + 32.0 * scale
         let radius = max(rect.width/2, rect.height/2) - width/2

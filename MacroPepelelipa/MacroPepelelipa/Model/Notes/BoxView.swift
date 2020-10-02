@@ -18,4 +18,5 @@ protocol BoxView: UIView {
     var state: BoxViewState { get set }
     var internalFrame: CGRect { get set }
     var owner: MarkupTextView { get set }
+    var boxViewBorder: CAShapeLayer { get set }
 }

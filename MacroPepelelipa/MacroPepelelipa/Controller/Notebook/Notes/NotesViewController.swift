@@ -11,7 +11,7 @@ import Database
 
 internal class NotesViewController: UIViewController, TextEditingDelegateObserver {
 
-    internal private(set) weak var note: NoteEntity?
+    internal private(set) weak var note: NoteEntity?    
     internal init(note: NoteEntity) {
         self.note = note
         super.init(nibName: nil, bundle: nil)
@@ -204,6 +204,9 @@ internal class NotesViewController: UIViewController, TextEditingDelegateObserve
         resizeHandles.forEach { (handle) in
             handle.updatePosition()
         }
+        textBoxes.forEach { (textBox) in
+            textBox.setUpBorder()
+        }
     }
     
     func placeResizeHandles(boxView: BoxView) {
@@ -255,7 +258,7 @@ internal class NotesViewController: UIViewController, TextEditingDelegateObserve
 
             let translation = gestureRecognizer.translation(in: self.textView)
             
-            if gestureRecognizer.state == .began {
+            if gestureRecognizer.state == .began {                
                 initialCenter = boxView.center
             }
             
@@ -264,6 +267,11 @@ internal class NotesViewController: UIViewController, TextEditingDelegateObserve
                 moveBoxView(boxView: boxView, by: newCenter)
             } else {
                 boxView.center = initialCenter
+            }
+            
+            if gestureRecognizer.state == .ended {
+                let exclusionPath  = UIBezierPath(rect: boxView.frame)
+                self.textView.textContainer.exclusionPaths = [exclusionPath]
             }
         }
     }
