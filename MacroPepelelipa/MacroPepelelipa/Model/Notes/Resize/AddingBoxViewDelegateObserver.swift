@@ -8,6 +8,6 @@
 
 import UIKit
 
-internal protocol AddingBoxViewDelegateObserver: AnyObject {
+internal protocol AddingBoxViewDelegateObserver: class {
     func addTextBox(with frame: CGRect)
 }
