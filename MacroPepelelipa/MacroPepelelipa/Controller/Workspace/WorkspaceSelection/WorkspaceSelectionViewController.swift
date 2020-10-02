@@ -39,9 +39,22 @@ internal class WorkspaceSelectionViewController: UIViewController {
     }
     private let collectionDataSource = WorkspacesCollectionViewDataSource()
 
+    private lazy var btnAdd: UIBarButtonItem = {
+        let item = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(btnAddTap))
+        return item
+    }()
+    @IBAction func btnAddTap() {
+        btnAdd.isEnabled = false
+        let addController = AddWorkspaceViewController(dismissHandler: {
+            self.btnAdd.isEnabled = true
+        })
+        addController.moveTo(self)
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .rootColor
+        navigationItem.rightBarButtonItem = btnAdd
         navigationItem.largeTitleDisplayMode = .always
         navigationItem.title = "Workspaces".localized()
         view.addSubview(collectionView)

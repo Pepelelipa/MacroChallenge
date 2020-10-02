@@ -54,6 +54,7 @@
 		023886062523CAEC00F807E9 /* WorkspaceCellNotebookCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 023886052523CAEC00F807E9 /* WorkspaceCellNotebookCollectionViewCell.swift */; };
 		02458EDC2525094C00466BFF /* WorkspaceCellNotebookCollectionViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02458EDB2525094C00466BFF /* WorkspaceCellNotebookCollectionViewDelegate.swift */; };
 		0247F78D25115BAA00405A61 /* NotebooksSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0247F78C25115BAA00405A61 /* NotebooksSelectionViewController.swift */; };
+		02695ECE25279EAE007D60C3 /* AddWorkspaceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02695ECD25279EAE007D60C3 /* AddWorkspaceViewController.swift */; };
 		026C3CAC251942A7001E32AE /* NotesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 026C3CAB251942A7001E32AE /* NotesViewController.swift */; };
 		026D4C7E251D1A8E00CBED5A /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 020E22242513F10800A93EAB /* StringExtension.swift */; };
 		026D4C90251D1CB900CBED5A /* Workspace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 026D4C8F251D1CB900CBED5A /* Workspace.swift */; };
@@ -170,6 +171,7 @@
 		023886052523CAEC00F807E9 /* WorkspaceCellNotebookCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkspaceCellNotebookCollectionViewCell.swift; sourceTree = "<group>"; };
 		02458EDB2525094C00466BFF /* WorkspaceCellNotebookCollectionViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkspaceCellNotebookCollectionViewDelegate.swift; sourceTree = "<group>"; };
 		0247F78C25115BAA00405A61 /* NotebooksSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotebooksSelectionViewController.swift; sourceTree = "<group>"; };
+		02695ECD25279EAE007D60C3 /* AddWorkspaceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddWorkspaceViewController.swift; sourceTree = "<group>"; };
 		026C3CAB251942A7001E32AE /* NotesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesViewController.swift; sourceTree = "<group>"; };
 		026D4C8F251D1CB900CBED5A /* Workspace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Workspace.swift; sourceTree = "<group>"; };
 		026D4C93251D1CD900CBED5A /* Notebook.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notebook.swift; sourceTree = "<group>"; };
@@ -505,6 +507,14 @@
 			path = Workspace;
 			sourceTree = "<group>";
 		};
+		02695ECC25279E96007D60C3 /* AddWorkspace */ = {
+			isa = PBXGroup;
+			children = (
+				02695ECD25279EAE007D60C3 /* AddWorkspaceViewController.swift */,
+			);
+			path = AddWorkspace;
+			sourceTree = "<group>";
+		};
 		026C3CAE25194353001E32AE /* Notebook Index */ = {
 			isa = PBXGroup;
 			children = (
@@ -564,6 +574,7 @@
 		0292F5EA252508C300AFB495 /* WorkspaceSelection */ = {
 			isa = PBXGroup;
 			children = (
+				02695ECC25279E96007D60C3 /* AddWorkspace */,
 				02E5A22B25239E36009DFFB5 /* WorkspaceSelectionViewController.swift */,
 				02CD7CA02523B48900A140A3 /* WorkspacesCollectionViewDelegate.swift */,
 				02458EDB2525094C00466BFF /* WorkspaceCellNotebookCollectionViewDelegate.swift */,
@@ -927,6 +938,7 @@
 				02E5A22C25239E36009DFFB5 /* WorkspaceSelectionViewController.swift in Sources */,
 				026C3CAC251942A7001E32AE /* NotesViewController.swift in Sources */,
 				022D60212519559D00001D5B /* MarkdownLinkElement.swift in Sources */,
+				02695ECE25279EAE007D60C3 /* AddWorkspaceViewController.swift in Sources */,
 				D9D87541251BC4F200B842C8 /* MarkupPhotoPickerDelegate.swift in Sources */,
 				022D60192519559D00001D5B /* MarkdownColoredBackground.swift in Sources */,
 				E4FCA4942523B52F00DE88B8 /* MarkdownEditor.swift in Sources */,
