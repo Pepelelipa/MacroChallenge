@@ -37,7 +37,7 @@ internal class WorkspaceCollectionViewCell: UICollectionViewCell {
         return lbl
     }()
     private lazy var collectionView: UICollectionView = {
-        let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
+        let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
 
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)

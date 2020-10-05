@@ -38,6 +38,21 @@ internal class AddNotebookViewController: PopupContainerViewController {
 
     private let notebookView = NotebookView(frame: .zero)
 
+    private lazy var collectionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        collectionView.backgroundColor = .random()
+        collectionView.showsVerticalScrollIndicator = false
+        collectionView.showsHorizontalScrollIndicator = false
+        collectionView.allowsSelection = false
+        collectionView.isUserInteractionEnabled = false
+
+        return collectionView
+    }()
+
     private lazy var btnConfirm: UIButton = {
         let btnConfirm = UIButton()
         btnConfirm.translatesAutoresizingMaskIntoConstraints = false
@@ -55,7 +70,7 @@ internal class AddNotebookViewController: PopupContainerViewController {
         NSLayoutConstraint.activate([
             view.centerXAnchor.constraint(equalTo: viewController.view.centerXAnchor),
             view.centerYAnchor.constraint(equalTo: viewController.view.centerYAnchor),
-            view.heightAnchor.constraint(equalTo: viewController.view.heightAnchor, multiplier: 0.7),
+            view.heightAnchor.constraint(equalTo: viewController.view.heightAnchor, multiplier: 0.6),
             view.widthAnchor.constraint(greaterThanOrEqualTo: view.heightAnchor, multiplier: 0.78),
             view.widthAnchor.constraint(lessThanOrEqualTo: view.widthAnchor, multiplier: 0.8)
         ])
@@ -67,6 +82,7 @@ internal class AddNotebookViewController: PopupContainerViewController {
             notebookView.color = color
         }
         view.addSubview(txtName)
+        view.addSubview(collectionView)
         view.addSubview(notebookView)
         view.addSubview(btnConfirm)
         btnConfirm.isEnabled = false
@@ -80,7 +96,8 @@ internal class AddNotebookViewController: PopupContainerViewController {
         NSLayoutConstraint.activate([
             txtName.topAnchor.constraint(equalTo: view.topAnchor, constant: 20),
             txtName.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 30),
-            txtName.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -30)
+            txtName.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -30),
+            txtName.heightAnchor.constraint(greaterThanOrEqualToConstant: 35)
         ])
 
         NSLayoutConstraint.activate([
@@ -91,12 +108,21 @@ internal class AddNotebookViewController: PopupContainerViewController {
         ])
 
         NSLayoutConstraint.activate([
+            collectionView.topAnchor.constraint(equalTo: notebookView.bottomAnchor, constant: 30),
+            collectionView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.3),
+            collectionView.widthAnchor.constraint(lessThanOrEqualTo: collectionView.heightAnchor, multiplier: 2.8),
+            collectionView.leadingAnchor.constraint(greaterThanOrEqualTo: view.leadingAnchor, constant: 20),
+            collectionView.trailingAnchor.constraint(lessThanOrEqualTo: view.trailingAnchor, constant: -20),
+            collectionView.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+        ])
+
+        NSLayoutConstraint.activate([
             btnConfirm.bottomAnchor.constraint(lessThanOrEqualTo: view.bottomAnchor, constant: -20),
-            btnConfirm.topAnchor.constraint(greaterThanOrEqualTo: txtName.topAnchor, constant: 30),
+            btnConfirm.topAnchor.constraint(greaterThanOrEqualTo: collectionView.bottomAnchor, constant: 30),
             btnConfirm.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             btnConfirm.leadingAnchor.constraint(greaterThanOrEqualTo: view.leadingAnchor, constant: 60),
             btnConfirm.trailingAnchor.constraint(lessThanOrEqualTo: view.trailingAnchor, constant: -60),
-            btnConfirm.heightAnchor.constraint(equalToConstant: 45)
+            btnConfirm.heightAnchor.constraint(greaterThanOrEqualToConstant: 45)
         ])
     }
 

@@ -35,10 +35,12 @@ internal class AddWorkspaceViewController: PopupContainerViewController {
     }()
 
     internal override func moveTo(_ viewController: UIViewController) {
+        let centerYConstraint = view.centerYAnchor.constraint(equalTo: viewController.view.centerYAnchor)
+        self.centerYConstraint = centerYConstraint
         super.moveTo(viewController)
         NSLayoutConstraint.activate([
             view.centerXAnchor.constraint(equalTo: viewController.view.centerXAnchor),
-            view.centerYAnchor.constraint(equalTo: viewController.view.centerYAnchor),
+            centerYConstraint,
             view.heightAnchor.constraint(greaterThanOrEqualToConstant: 130),
             view.heightAnchor.constraint(greaterThanOrEqualTo: viewController.view.heightAnchor, multiplier: 0.18),
             view.widthAnchor.constraint(lessThanOrEqualTo: viewController.view.widthAnchor, multiplier: 0.8)
@@ -53,31 +55,30 @@ internal class AddWorkspaceViewController: PopupContainerViewController {
 
         let selfTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(selfTap))
         view.addGestureRecognizer(selfTapGestureRecognizer)
+        txtName.becomeFirstResponder()
     }
 
     @IBAction func selfTap() {
         txtName.resignFirstResponder()
     }
 
-    var originY: CGFloat?
+    var centerYConstraint: NSLayoutConstraint?
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         NSLayoutConstraint.activate([
             txtName.topAnchor.constraint(equalTo: view.topAnchor, constant: 20),
             txtName.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 30),
-            txtName.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -30)
+            txtName.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -30),
+            txtName.heightAnchor.constraint(equalToConstant: 40)
         ])
         NSLayoutConstraint.activate([
             btnConfirm.bottomAnchor.constraint(lessThanOrEqualTo: view.bottomAnchor, constant: -20),
-            btnConfirm.topAnchor.constraint(greaterThanOrEqualTo: txtName.topAnchor, constant: 30),
+            btnConfirm.topAnchor.constraint(greaterThanOrEqualTo: txtName.bottomAnchor, constant: 30),
             btnConfirm.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             btnConfirm.leadingAnchor.constraint(greaterThanOrEqualTo: view.leadingAnchor, constant: 60),
             btnConfirm.trailingAnchor.constraint(lessThanOrEqualTo: view.trailingAnchor, constant: -60),
             btnConfirm.heightAnchor.constraint(equalToConstant: 45)
         ])
-        if originY == nil {
-            originY = view.frame.origin.y
-        }
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -90,18 +91,12 @@ internal class AddWorkspaceViewController: PopupContainerViewController {
     }
 
     @objc func keyboardWillShow(notification: NSNotification) {
-        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue,
-           let originY = originY {
-            if self.view.frame.origin.y == originY {
-                self.view.frame.origin.y -= keyboardSize.height
-            }
+        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
+            centerYConstraint?.constant -= keyboardSize.height
         }
     }
     @objc func keyboardWillHide(notification: NSNotification) {
-        if let originY = originY,
-           self.view.frame.origin.y != originY {
-            self.view.frame.origin.y = originY
-        }
+        centerYConstraint?.constant = 0
     }
 
     // MARK: UIControls Events
