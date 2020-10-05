@@ -62,11 +62,11 @@ internal class AddNotebookViewController: PopupContainerViewController {
     }
 
     override func viewDidLoad() {
+        super.viewDidLoad()
         if let color = UIColor.randomNotebookColor() {
             notebookView.color = color
         }
         view.addSubview(txtName)
-        txtName.becomeFirstResponder()
         view.addSubview(notebookView)
         view.addSubview(btnConfirm)
         btnConfirm.isEnabled = false
@@ -76,6 +76,7 @@ internal class AddNotebookViewController: PopupContainerViewController {
     }
 
     override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
         NSLayoutConstraint.activate([
             txtName.topAnchor.constraint(equalTo: view.topAnchor, constant: 20),
             txtName.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 30),

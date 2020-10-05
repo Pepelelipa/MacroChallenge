@@ -34,9 +34,20 @@ internal class AddWorkspaceViewController: PopupContainerViewController {
         return btnConfirm
     }()
 
+    internal override func moveTo(_ viewController: UIViewController) {
+        super.moveTo(viewController)
+        NSLayoutConstraint.activate([
+            view.centerXAnchor.constraint(equalTo: viewController.view.centerXAnchor),
+            view.centerYAnchor.constraint(equalTo: viewController.view.centerYAnchor),
+            view.heightAnchor.constraint(greaterThanOrEqualToConstant: 130),
+            view.heightAnchor.constraint(greaterThanOrEqualTo: viewController.view.heightAnchor, multiplier: 0.18),
+            view.widthAnchor.constraint(lessThanOrEqualTo: viewController.view.widthAnchor, multiplier: 0.8)
+        ])
+    }
+
     override func viewDidLoad() {
+        super.viewDidLoad()
         view.addSubview(txtName)
-        txtName.becomeFirstResponder()
         view.addSubview(btnConfirm)
         btnConfirm.isEnabled = false
 
@@ -48,7 +59,9 @@ internal class AddWorkspaceViewController: PopupContainerViewController {
         txtName.resignFirstResponder()
     }
 
+    var originY: CGFloat?
     override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
         NSLayoutConstraint.activate([
             txtName.topAnchor.constraint(equalTo: view.topAnchor, constant: 20),
             txtName.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 30),
@@ -62,17 +75,33 @@ internal class AddWorkspaceViewController: PopupContainerViewController {
             btnConfirm.trailingAnchor.constraint(lessThanOrEqualTo: view.trailingAnchor, constant: -60),
             btnConfirm.heightAnchor.constraint(equalToConstant: 45)
         ])
+        if originY == nil {
+            originY = view.frame.origin.y
+        }
     }
 
-    internal override func moveTo(_ viewController: UIViewController) {
-        super.moveTo(viewController)
-        NSLayoutConstraint.activate([
-            view.centerXAnchor.constraint(equalTo: viewController.view.centerXAnchor),
-            view.centerYAnchor.constraint(equalTo: viewController.view.centerYAnchor),
-            view.heightAnchor.constraint(greaterThanOrEqualToConstant: 130),
-            view.heightAnchor.constraint(greaterThanOrEqualTo: viewController.view.heightAnchor, multiplier: 0.18),
-            view.widthAnchor.constraint(lessThanOrEqualTo: viewController.view.widthAnchor, multiplier: 0.8)
-        ])
+    override func viewWillAppear(_ animated: Bool) {
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    override func viewWillDisappear(_ animated: Bool) {
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+
+    @objc func keyboardWillShow(notification: NSNotification) {
+        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue,
+           let originY = originY {
+            if self.view.frame.origin.y == originY {
+                self.view.frame.origin.y -= keyboardSize.height
+            }
+        }
+    }
+    @objc func keyboardWillHide(notification: NSNotification) {
+        if let originY = originY,
+           self.view.frame.origin.y != originY {
+            self.view.frame.origin.y = originY
+        }
     }
 
     // MARK: UIControls Events
