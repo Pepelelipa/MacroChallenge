@@ -2,7 +2,9 @@
 //  MarkupTextView.swift
 //  MacroPepelelipa
 //
-//  Created by Lia Kassardjian on 16/09/20.
+//  Created by Lia Kassardjian, 
+//             Leonardo Amorim de Oliveira and 
+//             Pedro Henrique Guedes Silveira on 16/09/20.
 //  Copyright © 2020 Pedro Giuliano Farina. All rights reserved.
 //
 
@@ -10,30 +12,24 @@ import UIKit
 
 internal class MarkupTextView: UITextView {
     
-    private var animator: UIDynamicAnimator?
+    internal var animator: UIDynamicAnimator?
     private var snap: UISnapBehavior?
     private var imageView: UIImageView?
-    
+
     init(frame: CGRect, delegate: MarkupTextViewDelegate? = nil) {
         super.init(frame: frame, textContainer: nil)
         
         self.delegate = delegate
         self.translatesAutoresizingMaskIntoConstraints = false
-        self.backgroundColor = UIColor(named: "Background")
-        self.textColor = UIColor(named: "Placeholder")
-        self.tintColor = UIColor(named: "Highlight")
+        self.backgroundColor = .backgroundColor
+        self.textColor = .placeholderColor
+        self.tintColor = .actionColor
         
         animator = UIDynamicAnimator(referenceView: self)
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-    
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        for touch in touches {
-            imageView = checkTouch(touch)
-        }
     }
     
     /**
@@ -109,5 +105,4 @@ internal class MarkupTextView: UITextView {
         
         delegate.addHeader(on: self, with: style)
     }
-    
 }

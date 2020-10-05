@@ -13,10 +13,8 @@ internal class NotebookIndexViewController: UIViewController {
     internal private(set) var notebook: NotebookEntity?
     internal init(notebook: NotebookEntity) {
         self.notebook = notebook
-
-        imgViewNotebook.tintColor = UIColor(cgColor: notebook.color)
         lblSubject.text = notebook.name
-        dataSource = NotebookIndexTableViewDataSource(notebook: notebook)
+        tableViewDataSource = NotebookIndexTableViewDataSource(notebook: notebook)
         
         super.init(nibName: nil, bundle: nil)
     }
@@ -31,7 +29,7 @@ internal class NotebookIndexViewController: UIViewController {
     private lazy var btnBack: UIButton = {
         let btn = UIButton(frame: .zero)
         btn.setImage(UIImage(systemName: "chevron.left"), for: .normal)
-        btn.tintColor = UIColor(named: "Highlight")
+        btn.tintColor = .actionColor
         btn.addTarget(self, action: #selector(btnBackTap(_:)), for: .touchUpInside)
 
         btn.translatesAutoresizingMaskIntoConstraints = false
@@ -41,16 +39,18 @@ internal class NotebookIndexViewController: UIViewController {
     private lazy var btnShare: UIButton = {
         let btn = UIButton(frame: .zero)
         btn.setImage(UIImage(systemName: "ellipsis.circle"), for: .normal)
-        btn.tintColor = UIColor(named: "Highlight")
+        btn.tintColor = .actionColor
         btn.addTarget(self, action: #selector(shareButtonTap(_:)), for: .touchUpInside)
         
         btn.translatesAutoresizingMaskIntoConstraints = false
         
         return btn
     }()
-    private let imgViewNotebook: UIImageView = {
-        let imgView = UIImageView(frame: .zero)
-        imgView.image = UIImage(systemName: "book")
+    private lazy var imgViewNotebook: NotebookView = {
+        let imgView = NotebookView(frame: .zero)
+        if let color = UIColor(named: self.notebook?.colorName ?? "") {
+            imgView.color = color
+        }
         imgView.translatesAutoresizingMaskIntoConstraints = false
         imgView.contentMode = .scaleAspectFill
 
@@ -65,10 +65,18 @@ internal class NotebookIndexViewController: UIViewController {
 
         return lbl
     }()
-    private let dataSource: NotebookIndexTableViewDataSource
+    private let tableViewDataSource: NotebookIndexTableViewDataSource
+    private lazy var tableViewDelegate: NotebookIndexTableViewDelegate = NotebookIndexTableViewDelegate { [unowned self] (selectedCell) in
+        guard let note = selectedCell.indexNote else {
+            fatalError("The index did not have a note")
+        }
+        
+        self.splitViewController?.showDetailViewController(NotesViewController(note: note), sender: self)
+    }
     private lazy var tableView: UITableView = {
         let tableView = UITableView(frame: .zero)
-        tableView.dataSource = dataSource
+        tableView.dataSource = tableViewDataSource
+        tableView.delegate = tableViewDelegate
         tableView.tableFooterView = UIView()
 
         tableView.backgroundColor = view.backgroundColor
@@ -88,7 +96,8 @@ internal class NotebookIndexViewController: UIViewController {
     }
 
     override func viewDidLoad() {
-        view.backgroundColor = UIColor(named: "Background")
+        super.viewDidLoad()
+        view.backgroundColor = .backgroundColor
         
         view.addSubview(btnBack)
         view.addSubview(btnShare)

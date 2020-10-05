@@ -1,5 +1,5 @@
 //
-//  CollectionViewController.swift
+//  NotebooksCollectionViewController.swift
 //  MacroPepelelipa
 //
 //  Created by Pedro Giuliano Farina on 15/09/20.
@@ -9,11 +9,11 @@
 import UIKit
 import Database
 
-internal class WorkspaceViewController: UIViewController {
+internal class NotebooksSelectionViewController: UIViewController {
     internal private(set) weak var workspace: WorkspaceEntity?
     internal init(workspace: WorkspaceEntity) {
         self.workspace = workspace
-        self.dataSource = WorkspaceCollectionViewDataSource(workspace: workspace)
+        self.collectionDataSource = NotebooksCollectionViewDataSource(workspace: workspace)
         super.init(nibName: nil, bundle: nil)
         lblName.text = workspace.name
     }
@@ -44,8 +44,8 @@ internal class WorkspaceViewController: UIViewController {
         collectionView.allowsSelection = true
         collectionView.allowsMultipleSelection = false
 
-        collectionView.delegate = flowLayoutDelegate
-        collectionView.dataSource = dataSource
+        collectionView.delegate = collectionDelegate
+        collectionView.dataSource = collectionDataSource
 
         collectionView.register(
             NotebookCollectionViewCell.self,
@@ -53,8 +53,8 @@ internal class WorkspaceViewController: UIViewController {
 
         return collectionView
     }()
-    private let dataSource: WorkspaceCollectionViewDataSource
-    private lazy var flowLayoutDelegate = WorkspaceCollectionViewFlowLayoutDelegate { [unowned self] (notebookViewCell) in
+    private let collectionDataSource: NotebooksCollectionViewDataSource
+    private lazy var collectionDelegate = NotebooksCollectionViewFlowLayoutDelegate { [unowned self] (notebookViewCell) in
         guard let notebook = notebookViewCell.notebook else {
             fatalError("The notebook cell did not have a notebook")
         }

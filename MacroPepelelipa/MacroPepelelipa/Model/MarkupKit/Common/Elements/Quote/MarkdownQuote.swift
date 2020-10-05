@@ -13,7 +13,7 @@ open class MarkdownQuote: MarkdownLevelElement {
     fileprivate static let regex = "^(\\>{1,%@})\\s*(.+)$"
     
     private static let quoteFont = MarkdownParser.defaultFont.light() ?? MarkdownParser.defaultFont
-    private static let quoteColor = UIColor(named: "Highlight") ?? MarkdownParser.defaultColor
+    private static let quoteColor = .actionColor ?? MarkdownParser.defaultColor
 
     private static var separator: String = ""
     public static var indicator: String = ""

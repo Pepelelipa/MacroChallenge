@@ -10,12 +10,16 @@ import UIKit
 import Database
 
 internal class NotebookCollectionViewCell: UICollectionViewCell {
-    internal static let cellID = "notebookCell"
+    internal class func cellID() -> String { "notebookCell" }
 
     internal private(set) weak var notebook: NotebookEntity? {
         didSet {
             DispatchQueue.main.async {
                 self.text = self.notebook?.name
+                if let colorName = self.notebook?.colorName,
+                   let color = UIColor(named: colorName) {
+                    self.notebookView.color = color
+                }
             }
         }
     }
@@ -24,12 +28,20 @@ internal class NotebookCollectionViewCell: UICollectionViewCell {
     }
     private let lblName: UILabel = {
         let lbl = UILabel(frame: .zero)
+        lbl.numberOfLines = 0
         lbl.textColor = .black
         lbl.font = .preferredFont(forTextStyle: .body)
-        lbl.textAlignment = .center
+        lbl.textAlignment = .left
         lbl.translatesAutoresizingMaskIntoConstraints = false
 
         return lbl
+    }()
+    private lazy var notebookView: NotebookView = {
+        let notebook = NotebookView(frame: .zero)
+        if let color = UIColor(named: self.notebook?.colorName ?? "") {
+            notebook.color = color
+        }
+        return notebook
     }()
 
     internal var text: String? {
@@ -43,10 +55,10 @@ internal class NotebookCollectionViewCell: UICollectionViewCell {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        backgroundColor = .random()
+        backgroundColor = .backgroundColor
+        addSubview(notebookView)
         addSubview(lblName)
         setupConstraints()
-        layer.cornerRadius = 10
     }
     required convenience init?(coder: NSCoder) {
         guard let frame = coder.decodeObject(forKey: "frame") as? CGRect else {
@@ -57,10 +69,16 @@ internal class NotebookCollectionViewCell: UICollectionViewCell {
 
     private func setupConstraints() {
         NSLayoutConstraint.activate([
-            lblName.centerXAnchor.constraint(equalTo: centerXAnchor),
-            lblName.centerYAnchor.constraint(equalTo: centerYAnchor),
-            lblName.widthAnchor.constraint(equalToConstant: 100),
-            lblName.heightAnchor.constraint(equalToConstant: 30)
+            notebookView.centerXAnchor.constraint(equalTo: centerXAnchor),
+            notebookView.topAnchor.constraint(equalTo: topAnchor),
+            notebookView.widthAnchor.constraint(equalTo: widthAnchor),
+            notebookView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.8)
+        ])
+
+        NSLayoutConstraint.activate([
+            lblName.centerYAnchor.constraint(equalTo: notebookView.bottomAnchor, constant: 20),
+            lblName.leadingAnchor.constraint(equalTo: notebookView.leadingAnchor),
+            lblName.widthAnchor.constraint(equalTo: widthAnchor)
         ])
     }
 }

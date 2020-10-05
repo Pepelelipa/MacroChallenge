@@ -1,3 +1,4 @@
+//swiftlint:disable all
 //
 //  Mockdata.swift
 //  Database
@@ -31,7 +32,7 @@ public class Mockdata {
 
         var notebooks: [Notebook] = []
         for notebookName in notebooksCopy {
-            notebooks.append(Notebook(workspace: workspace, name: notebookName, color: .random()))
+            notebooks.append(Notebook(workspace: workspace, name: notebookName, colorName: "nb\(Int.random(in: 0...24))"))
         }
 
         var notes: [Note] = []
@@ -48,6 +49,9 @@ public class Mockdata {
             fatalError("Deu ruim")
         }
         return Note(notebook: notebook, title: NSAttributedString(), text: NSAttributedString())
+    }
+    public static func createWorkspace(with name: String) -> WorkspaceEntity {
+        return Workspace(name: name)
     }
 }
 #endif

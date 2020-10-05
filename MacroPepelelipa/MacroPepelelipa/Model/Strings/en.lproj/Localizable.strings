@@ -6,10 +6,11 @@
   Copyright © 2020 Pedro Giuliano Farina. All rights reserved.
 */
 
-"Workspace" = "Workspace";
+"Workspaces" = "Workspaces";
 "Subject" = "Subject";
 "Lesson" = "Lesson";
 "Notebook" = "Notebook";
 "Start writing here" = "Do not forget to copy what is happening in your class, while you are playing a little game...";
 "Your Title" = "Your Title";
-
+"New workspace name" = "New workspace name";
+"Create new workspace" = "Create new workspace";
