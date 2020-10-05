@@ -41,7 +41,7 @@ internal class AddNotebookViewController: PopupContainerViewController {
     private lazy var btnConfirm: UIButton = {
         let btnConfirm = UIButton()
         btnConfirm.translatesAutoresizingMaskIntoConstraints = false
-        btnConfirm.setTitle("Create new workspace".localized(), for: .normal)
+        btnConfirm.setTitle("Create new notebook".localized(), for: .normal)
         btnConfirm.addTarget(self, action: #selector(btnConfirmTap), for: .touchUpInside)
         btnConfirm.tintColor = .white
         btnConfirm.setBackgroundImage(UIImage(named: "btnWorkspaceBackground"), for: .normal)
