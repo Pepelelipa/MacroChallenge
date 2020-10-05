@@ -63,6 +63,7 @@ internal class MarkupContainerView: UIView {
     private lazy var formatSelector: [MarkupToggleButton] = {
         var buttons = [MarkupToggleButton]()
         var imageNames = ["italic", "bold", "pencil.tip"]
+        var targetNames = ["delegate?.makeTextItalic", "delegate?.makeTextBold", "delegate?.highlightText"]
         
         imageNames.forEach { (imageName) in
             var newButton = createButton(
@@ -70,9 +71,13 @@ internal class MarkupContainerView: UIView {
                 titleLabel: nil
             )
             newButton.translatesAutoresizingMaskIntoConstraints = false
-            newButton.addTarget(delegate, action: #selector(delegate?.placeHolderAction), for: .touchDown)
+            
             buttons.append(newButton)
         }
+        
+        buttons[0].addTarget(delegate, action: #selector(delegate?.makeTextItalic), for: .touchDown)
+        buttons[1].addTarget(delegate, action: #selector(delegate?.makeTextBold), for: .touchDown)
+        buttons[2].addTarget(delegate, action: #selector(delegate?.highlightText), for: .touchDown)
         
         return buttons
     }()

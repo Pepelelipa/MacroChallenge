@@ -30,4 +30,25 @@ class MarkupFormatViewDelegate {
     @objc public func placeHolderAction() {
         
     }
+    
+    /**
+     Makes the selected or coming text italic.
+     */
+    @objc public func makeTextItalic() {
+        
+    }
+    
+    /**
+     Makes the selected or coming text bold.
+     */
+    @objc public func makeTextBold() {
+        
+    }
+    
+    /**
+      Gives the selected of coming text highlighted.
+     */
+    @objc public func highlightText() {
+        
+    }
 }
