@@ -24,7 +24,8 @@ internal class NotebooksCollectionViewDataSource: NSObject, UICollectionViewData
                 withReuseIdentifier: NotebookCollectionViewCell.cellID(), for: indexPath)
                 as? NotebookCollectionViewCell,
                 let notebook = workspace?.notebooks[indexPath.row] else {
-                fatalError("Sorry not sorry")
+            #warning("handle error")
+            return UICollectionViewCell()
         }
         cell.setNotebook(notebook)
         return cell

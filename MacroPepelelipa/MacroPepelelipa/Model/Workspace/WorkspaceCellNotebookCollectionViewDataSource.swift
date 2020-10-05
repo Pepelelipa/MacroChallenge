@@ -30,7 +30,8 @@ internal class WorkspaceCellNotebookCollectionViewDataSource: NSObject, UICollec
         guard let cell = collectionView.dequeueReusableCell(
                 withReuseIdentifier: WorkspaceCellNotebookCollectionViewCell.cellID(), for: indexPath)
                 as? WorkspaceCellNotebookCollectionViewCell else {
-            fatalError("Sorry not sorry")
+            #warning("handle error")
+            return UICollectionViewCell()
         }
         cell.isHidden = false
 

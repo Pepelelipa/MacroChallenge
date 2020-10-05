@@ -45,7 +45,9 @@ internal class NotebooksSelectionViewController: UIViewController {
     private let collectionDataSource: NotebooksCollectionViewDataSource
     private lazy var collectionDelegate = NotebooksCollectionViewDelegate { [unowned self] (selectedCell) in
         guard let notebook = selectedCell.notebook else {
-            fatalError("The notebook cell did not have a notebook")
+            #warning("handle error")
+            print("The notebook cell did not have a notebook")
+            return
         }
         let split = SplitViewController(notebook: notebook)
 

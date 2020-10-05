@@ -30,7 +30,9 @@ internal class WorkspaceSelectionViewController: UIViewController {
     }()
     private lazy var collectionDelegate = WorkspacesCollectionViewDelegate { [unowned self] (selectedCell) in
         guard let workspace = selectedCell.workspace else {
-            fatalError("The workspace cell did not have a workspace")
+            #warning("handle error")
+            print("The workspace cell did not have a workspace")
+            return
         }
 
         let notebooksSelectionView = NotebooksSelectionViewController(workspace: workspace)

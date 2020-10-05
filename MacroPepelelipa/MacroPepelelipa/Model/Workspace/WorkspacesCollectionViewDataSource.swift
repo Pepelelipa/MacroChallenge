@@ -31,7 +31,8 @@ internal class WorkspacesCollectionViewDataSource: NSObject, UICollectionViewDat
         guard let cell = collectionView.dequeueReusableCell(
                 withReuseIdentifier: WorkspaceCollectionViewCell.cellID(), for: indexPath)
                 as? WorkspaceCollectionViewCell else {
-            fatalError("Sorry not sorry")
+            #warning("handle error")
+            return UICollectionViewCell()
         }
         cell.setWorkspace(workspaces[indexPath.row])
         return cell

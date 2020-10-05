@@ -68,7 +68,9 @@ internal class NotebookIndexViewController: UIViewController {
     private let tableViewDataSource: NotebookIndexTableViewDataSource
     private lazy var tableViewDelegate: NotebookIndexTableViewDelegate = NotebookIndexTableViewDelegate { [unowned self] (selectedCell) in
         guard let note = selectedCell.indexNote else {
-            fatalError("The index did not have a note")
+            #warning("handle error")
+            print("The index did not have a note")
+            return
         }
         
         self.splitViewController?.showDetailViewController(NotesViewController(note: note), sender: self)

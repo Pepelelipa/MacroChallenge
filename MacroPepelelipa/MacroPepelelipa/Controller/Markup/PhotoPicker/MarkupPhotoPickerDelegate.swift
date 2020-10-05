@@ -25,7 +25,8 @@ class MarkupPhotoPickerDelegate: PHPickerViewControllerDelegate {
                                 self.photoLibraryImage = image
                             }
                         } else if let error = error {
-                            fatalError(error.localizedDescription)
+                            print(error.localizedDescription)
+                            #warning("handle error")
                         }
                     }
                 }
