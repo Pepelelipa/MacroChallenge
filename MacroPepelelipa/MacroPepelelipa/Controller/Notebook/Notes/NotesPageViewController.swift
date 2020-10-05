@@ -6,7 +6,6 @@
 //  Copyright © 2020 Pedro Giuliano Farina. All rights reserved.
 //
 
-
 import UIKit
 import Database
 
@@ -14,10 +13,11 @@ internal class NotesPageViewController: UIPageViewController {
     
     internal private(set) var notes: [NoteEntity] = []
     private var pageControl: UIPageControl = UIPageControl(frame: .zero)
+    private lazy var noteDataSource = NotesPageViewControllerDataSource(notes: notes)
     
     internal init(notes: [NoteEntity]) {
         self.notes = notes
-        super.init(transitionStyle: .scroll, navigationOrientation: .horizontal, options: .none)
+        super.init(transitionStyle: .scroll, navigationOrientation: .vertical, options: .none)
     }
 
     internal convenience required init?(coder: NSCoder) {
@@ -28,6 +28,7 @@ internal class NotesPageViewController: UIPageViewController {
     }
 
     override func viewDidLoad() {
+        self.dataSource = noteDataSource
         view.backgroundColor = .clear
         setupPageControl()
     }
