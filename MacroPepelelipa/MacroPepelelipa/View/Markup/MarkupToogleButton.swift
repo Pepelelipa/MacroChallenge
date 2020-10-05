@@ -13,7 +13,7 @@ internal class MarkupToogleButton: UIButton {
     var baseColor: UIColor?
     var selectedColor: UIColor?
     
-    init(normalStateImage: UIImage?, title: String?, baseColor: UIColor? = UIColor(named: "Placeholder"), selectedColor: UIColor? = UIColor(named: "Body")) {
+    init(normalStateImage: UIImage?, title: String?, baseColor: UIColor? = UIColor.placeholderColor, selectedColor: UIColor? = UIColor.bodyColor) {
         super.init(frame: .zero)
         self.addTarget(self, action: #selector(toogleButton), for: .touchDown)
         

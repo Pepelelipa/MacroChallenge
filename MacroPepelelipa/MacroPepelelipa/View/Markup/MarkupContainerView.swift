@@ -25,7 +25,7 @@ internal class MarkupContainerView: UIView {
     
     private lazy var dismissButton: UIButton = {
         let button = UIButton()
-        button.tintColor = UIColor(named: "Placeholder") ?? .black
+        button.tintColor = UIColor.placeholderColor
         button.setBackgroundImage(UIImage(systemName: "xmark.circle"), for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.addTarget(delegate, action: #selector(delegate?.dismissContainer), for: .touchDown)
@@ -37,8 +37,7 @@ internal class MarkupContainerView: UIView {
         let fmtLabel = UILabel(frame: .zero)
         fmtLabel.text = "Format".localized()
         fmtLabel.font = fmtLabel.font.withSize(22)
-        #warning("Change the way the color is called")
-        fmtLabel.textColor = UIColor(named: "Body")
+        fmtLabel.textColor = UIColor.bodyColor
         
         fmtLabel.translatesAutoresizingMaskIntoConstraints = false
         return fmtLabel
@@ -46,7 +45,7 @@ internal class MarkupContainerView: UIView {
     
     private lazy var colorSelector: [MarkupToogleButton] = {
         var buttons = [MarkupToogleButton]()
-        var buttonColors: [UIColor] = [.red, .blue, .green]
+        var buttonColors: [UIColor] = [UIColor.bodyColor ?? .black, .blue, .green]
         
         buttonColors.forEach { (color) in
             var newButton = MarkupToogleButton(frame: .zero, color: color)
@@ -98,7 +97,7 @@ internal class MarkupContainerView: UIView {
         
         super.init(frame: frame)
         
-        self.backgroundColor = UIColor(named: "Background") ?? .white
+        self.backgroundColor = UIColor.backgroundColor
                 
         self.addSubview(backgroundView)
         
