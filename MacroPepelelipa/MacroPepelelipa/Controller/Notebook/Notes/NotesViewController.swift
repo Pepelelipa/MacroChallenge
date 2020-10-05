@@ -9,11 +9,14 @@
 import UIKit
 import Database
 
-internal class NotesViewController: UIViewController, TextEditingDelegateObserver, AddingBoxViewDelegateObserver {
+internal class NotesViewController: UIViewController, TextEditingDelegateObserver, MarkupToolBarObserver {
     
     internal var textBoxes: Set<TextBoxView> = []    
 
-    internal private(set) weak var note: NoteEntity?  
+    private let screenWidth = UIScreen.main.bounds.width
+    private let screenHeight = UIScreen.main.bounds.height
+
+    internal private(set) weak var note: NoteEntity?
         
     private var resizeHandles = [ResizeHandleView]()
     private var initialCenter = CGPoint()
@@ -27,6 +30,22 @@ internal class NotesViewController: UIViewController, TextEditingDelegateObserve
         return button
     }()
     
+    public lazy var formatViewDelegate: MarkupFormatViewDelegate? = {
+        return MarkupFormatViewDelegate(viewController: self)
+    }()
+    
+    private lazy var markupContainerView: MarkupContainerView = {
+        let height: CGFloat = screenHeight/4
+        
+        let container = MarkupContainerView(frame: CGRect(x: 0, y: 0, width: screenWidth, height: height), owner: self.textView, delegate: self.formatViewDelegate, viewController: self)
+        
+        container.autoresizingMask = []
+        container.isHidden = true
+        container.delegate = self.formatViewDelegate
+        
+        return container
+    }()
+
     private lazy var btnBack: UIButton = {
         let btn = UIButton(frame: .zero)
         btn.setImage(UIImage(systemName: "chevron.left"), for: .normal)
@@ -45,9 +64,9 @@ internal class NotesViewController: UIViewController, TextEditingDelegateObserve
             btnBack.isHidden = newValue
         }
     }
-    
+
     internal lazy var textView: MarkupTextView = MarkupTextView(frame: .zero, delegate: self.textViewDelegate)
-    
+
     private lazy var textField: MarkupTextField = {
         let textField = MarkupTextField(frame: .zero, placeholder: "Your Title".localized(), paddingSpace: 4)
         textField.delegate = self.textFieldDelegate
@@ -59,7 +78,7 @@ internal class NotesViewController: UIViewController, TextEditingDelegateObserve
         delegate.observer = self
         return delegate
     }()
-    
+     
     private lazy var textViewDelegate: MarkupTextViewDelegate? = {
         let delegate = MarkupTextViewDelegate()
         delegate.observer = self
@@ -114,6 +133,7 @@ internal class NotesViewController: UIViewController, TextEditingDelegateObserve
         let tap = UITapGestureRecognizer(target: self, action: #selector(didTap))
         
         view.addGestureRecognizer(tap)
+        view.addSubview(markupContainerView)
         view.addSubview(textField)
         view.addSubview(textView)
         view.addSubview(imageButton)
@@ -122,6 +142,23 @@ internal class NotesViewController: UIViewController, TextEditingDelegateObserve
         textView.inputAccessoryView = keyboardToolbar
     }
     
+    /**
+     This method changes de main input view based on it being custom or not.
+     
+     - Parameter isCustom: A boolean indicating if the input view will be a custom view or not.
+     */
+    public func changeTextViewInput(isCustom: Bool) {
+        if isCustom == true {
+            textView.inputView = markupContainerView
+        } else {
+            textView.inputView = nil
+        }
+        
+        keyboardToolbar.isHidden.toggle()
+        markupContainerView.isHidden.toggle()
+        textView.reloadInputViews()
+    }
+
     public override func viewDidLayoutSubviews() {
         NSLayoutConstraint.activate([
             imageButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -150),
