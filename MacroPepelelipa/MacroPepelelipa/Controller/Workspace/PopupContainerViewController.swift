@@ -43,12 +43,6 @@ internal class PopupContainerViewController: UIViewController {
 
         let backgroundTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(backgroundTap))
         backgroundBlur.addGestureRecognizer(backgroundTapGestureRecognizer)
-
-        let selfTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(selfTap))
-        view.addGestureRecognizer(selfTapGestureRecognizer)
-    }
-    @IBAction internal func selfTap() {
-        resignFirstResponder()
     }
     @IBAction internal func backgroundTap() {
         dismissFromParent()

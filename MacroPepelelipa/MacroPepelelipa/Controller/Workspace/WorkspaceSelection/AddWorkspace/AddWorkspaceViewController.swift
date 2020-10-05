@@ -36,9 +36,16 @@ internal class AddWorkspaceViewController: PopupContainerViewController {
 
     override func viewDidLoad() {
         view.addSubview(txtName)
-        btnConfirm.isEnabled = false
-        view.addSubview(btnConfirm)
         txtName.becomeFirstResponder()
+        view.addSubview(btnConfirm)
+        btnConfirm.isEnabled = false
+
+        let selfTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(selfTap))
+        view.addGestureRecognizer(selfTapGestureRecognizer)
+    }
+
+    @IBAction func selfTap() {
+        txtName.resignFirstResponder()
     }
 
     override func viewDidLayoutSubviews() {
@@ -68,6 +75,7 @@ internal class AddWorkspaceViewController: PopupContainerViewController {
         ])
     }
 
+    // MARK: UIControls Events
     @IBAction func textChanged(_ textField: UITextField) {
         let trimmed = textField.text?.trimmingCharacters(in: .whitespaces)
         if trimmed == "" {
@@ -81,7 +89,7 @@ internal class AddWorkspaceViewController: PopupContainerViewController {
     }
     @IBAction func btnConfirmTap() {
         if let text = txtName.text {
-            _ = Mockdata.createWorkspace(with: text)
+            _ = Mockdata.createWorkspace(named: text)
             dismissFromParent()
         }
     }

@@ -50,8 +50,14 @@ public class Mockdata {
         }
         return Note(notebook: notebook, title: NSAttributedString(), text: NSAttributedString())
     }
-    public static func createWorkspace(with name: String) -> WorkspaceEntity {
+    public static func createWorkspace(named name: String) -> WorkspaceEntity {
         return Workspace(name: name)
+    }
+    public static func createNotebook(on workspace: WorkspaceEntity, named name: String, colorName: String) -> NotebookEntity {
+        guard let workspace = workspace as? Workspace else {
+            fatalError("Deu ruim")
+        }
+        return Notebook(workspace: workspace, name: name, colorName: colorName)
     }
 }
 #endif

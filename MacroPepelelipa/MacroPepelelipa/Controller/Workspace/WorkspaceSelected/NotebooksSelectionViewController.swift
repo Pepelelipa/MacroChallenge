@@ -65,9 +65,8 @@ internal class NotebooksSelectionViewController: UIViewController {
     }()
     @IBAction func btnAddTap() {
         btnAdd.isEnabled = false
-        let backBar = navigationItem.backBarButtonItem
         navigationItem.hidesBackButton = true
-        let addController = AddNotebookViewController(dismissHandler: {
+        let addController = AddNotebookViewController(workspace: workspace, dismissHandler: {
             self.btnAdd.isEnabled = true
             self.navigationItem.hidesBackButton = false
         })
