@@ -25,8 +25,10 @@ enum HeaderStyle {
 
 internal class MarkupToolBar: UIToolbar {
     
+    internal weak var observer: AddingBoxViewDelegateObserver?
+    private weak var viewController: NotesViewController?
+    
     private weak var textView: MarkupTextView?
-    private weak var viewController: UIViewController?
     private var pickerDelegate: MarkupPhotoPickerDelegate?
     
     private var listButton: UIBarButtonItem?
@@ -41,15 +43,15 @@ internal class MarkupToolBar: UIToolbar {
         }
     }
     
-    init(frame: CGRect, owner: MarkupTextView, controller: UIViewController) {
+    init(frame: CGRect, owner: MarkupTextView, viewController: NotesViewController) {
         self.textView = owner
-        self.viewController = controller
+        self.viewController = viewController
         super.init(frame: frame)
         
         setUpButtons()
         
         self.sizeToFit()
-        self.tintColor = UIColor(named: "Tools")
+        self.tintColor = .toolsColor
     }
     
     required init?(coder: NSCoder) {
@@ -61,11 +63,12 @@ internal class MarkupToolBar: UIToolbar {
      */
     private func setUpButtons() {
         listButton = createBarButtonItem(imageName: "list.bullet", systemImage: true, objcFunc: #selector(addList))
-        MarkupToolBar.paragraphButton = createBarButtonItem(imageName: "h1", systemImage: false, objcFunc: #selector(addHeader))
-        
+        MarkupToolBar.paragraphButton = createBarButtonItem(imageName: "h1", systemImage: false, objcFunc: #selector(addHeader))        
         let imageGalleryButton = createBarButtonItem(imageName: "photo", systemImage: true, objcFunc: #selector(photoPicker))
-        let textBoxButton = createBarButtonItem(imageName: "textbox", systemImage: true, objcFunc: nil)
+
+        let textBoxButton = createBarButtonItem(imageName: "textbox", systemImage: true, objcFunc: #selector(addTextBox))
         let paintbrushButton = createBarButtonItem(imageName: "paintbrush", systemImage: true, objcFunc: #selector(openEditTextContainer))
+
         let flexible = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         
         self.items = [flexible, textBoxButton, flexible, imageGalleryButton]
@@ -85,7 +88,11 @@ internal class MarkupToolBar: UIToolbar {
             self.items?.append(paragraphBtn)
             self.items?.append(flexible)
         }
-    }    
+    }
+    
+    @objc private func openEditTextContainer() {
+        viewController?.changeTextViewInput(isCustom: true)
+    }
     
     /**
      This private method creates a UIBarButtonItem with an image and an Objective-C function.
@@ -130,14 +137,6 @@ internal class MarkupToolBar: UIToolbar {
         }
             
         MarkupToolBar.headerStyle = nextStyle
-    }
-    
-    @objc private func openEditTextContainer() {
-        guard let notesViewController = viewController as? NotesViewController else {
-            return
-        }
-        
-        notesViewController.changeTextViewInput(isCustom: true)
     }
     
     /**
@@ -210,5 +209,10 @@ internal class MarkupToolBar: UIToolbar {
         }
             
         listStyle = nextStyle
+    }
+    
+    @objc private func addTextBox() {
+        let frame = CGRect(x: UIScreen.main.bounds.midX, y: UIScreen.main.bounds.midY, width: 100.0, height: 100.0)
+        observer?.addTextBox(with: frame)
     }
 }

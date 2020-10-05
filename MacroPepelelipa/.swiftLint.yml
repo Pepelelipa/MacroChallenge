@@ -1,6 +1,7 @@
 disabled_rules:
  - trailing_whitespace
  - weak_delegate
+ - type_name
 
 # rule identifiers to opt in
 opt_in_rules:
@@ -21,6 +22,12 @@ custom_rules:
     regex: "([p,P]rint)" # matching pattern
     capture_group: 0 # number of regex capture group to highlight the rule violation at. optional.
     message: "Please remove before commit" # violation message. optional.
+  mockup: # rule identifier
+    included: ".*\\.swift" # regex that defines paths to include during linting. optional.
+    name: "Mockup data being used" # rule name. optional.
+    regex: "([m,M]ock)" # matching pattern
+    capture_group: 0 # number of regex capture group to highlight the rule violation at. optional.
+    message: "You're using mocked up data in the project." # violation message. optional.
 
 # special configuration for rules 
 colon:

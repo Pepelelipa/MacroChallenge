@@ -22,7 +22,7 @@ internal class NotebookIndexTableViewCell: UITableViewCell {
     private var selectedView: UIView = {
         let stdView = UIView(frame: .zero)
         stdView.layer.cornerRadius = 15
-        stdView.backgroundColor = UIColor(named: "Highlight")
+        stdView.backgroundColor = .actionColor
         stdView.translatesAutoresizingMaskIntoConstraints = false
         
         return stdView
@@ -37,11 +37,15 @@ internal class NotebookIndexTableViewCell: UITableViewCell {
             lessonLbl.text = newValue
         }
     }
+    
+    internal var indexNote: NoteEntity? {
+        return index.note
+    }
 
     init(index: NotebookIndexEntity) {
         self.index = index
         super.init(style: .default, reuseIdentifier: nil)
-        self.backgroundColor = UIColor(named: "Background")
+        self.backgroundColor = .backgroundColor
         
         if index.isTitle == true {
             lessonLbl.font = lessonLbl.font.withSize(20)
@@ -68,11 +72,11 @@ internal class NotebookIndexTableViewCell: UITableViewCell {
         if selected == true {
             selectedView.isHidden = false
             self.selectionStyle = .none
-            lessonLbl.textColor = UIColor(named: "Background")
+            lessonLbl.textColor = .backgroundColor
         } else {
             selectedView.isHidden = true
             self.selectionStyle = .none
-            lessonLbl.textColor = UIColor(named: "Title")
+            lessonLbl.textColor = .titleColor
         }
     }
 
