@@ -25,7 +25,7 @@ enum HeaderStyle {
 
 internal class MarkupToolBar: UIToolbar {
     
-    internal weak var observer: AddingBoxViewDelegateObserver?
+    internal weak var observer: MarkupToolBarObserver?
     
     private weak var textView: MarkupTextView?
     private var pickerDelegate: MarkupPhotoPickerDelegate?
@@ -60,12 +60,13 @@ internal class MarkupToolBar: UIToolbar {
      A private method to set up all the Buttons on the UIToolBar.
      */
     private func setUpButtons() {
-
         listButton = createBarButtonItem(imageName: "list.bullet", systemImage: true, objcFunc: #selector(addList))
         MarkupToolBar.paragraphButton = createBarButtonItem(imageName: "h1", systemImage: false, objcFunc: #selector(addHeader))        
         let imageGalleryButton = createBarButtonItem(imageName: "photo", systemImage: true, objcFunc: #selector(photoPicker))
+
         let textBoxButton = createBarButtonItem(imageName: "textbox", systemImage: true, objcFunc: #selector(addTextBox))
-        let paintbrushButton = createBarButtonItem(imageName: "paintbrush", systemImage: true, objcFunc: nil)
+        let paintbrushButton = createBarButtonItem(imageName: "paintbrush", systemImage: true, objcFunc: #selector(openEditTextContainer))
+
         let flexible = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         
         self.items = [flexible, textBoxButton, flexible, imageGalleryButton]
@@ -85,7 +86,11 @@ internal class MarkupToolBar: UIToolbar {
             self.items?.append(paragraphBtn)
             self.items?.append(flexible)
         }
-    }    
+    }
+    
+    @objc private func openEditTextContainer() {
+        observer?.changeTextViewInput(isCustom: true)
+    }
     
     /**
      This private method creates a UIBarButtonItem with an image and an Objective-C function.
@@ -157,19 +162,19 @@ internal class MarkupToolBar: UIToolbar {
     In this funcion, we deal with the toolbar button for bold text, adding bold manually.
     */
     @objc private func pressBoldButton() {
-        guard let guardedTextView = textView else { 
-            return 
+        guard let guardedTextView = textView else {
+            return
         }
         let attibutedText = NSMutableAttributedString(attributedString: guardedTextView.attributedText)
-        
+
         let boldFont = UIFont.boldSystemFont(ofSize: UIFont.systemFontSize)
-        
+
         let range = guardedTextView.selectedRange
-        
+
         let attribute = [NSAttributedString.Key.font: boldFont]
-            
+
         attibutedText.addAttributes(attribute, range: range)
-        
+
         guardedTextView.attributedText = attibutedText
     }
     
