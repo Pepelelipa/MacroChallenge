@@ -142,6 +142,11 @@ internal class NotesViewController: UIViewController, TextEditingDelegateObserve
         textView.inputAccessoryView = keyboardToolbar
     }
     
+    /**
+     This method changes de main input view based on it being custom or not.
+     
+     - Parameter isCustom: A boolean indicating if the input view will be a custom view or not.
+     */
     public func changeTextViewInput(isCustom: Bool) {
         if isCustom == true {
             textView.inputView = markupContainerView

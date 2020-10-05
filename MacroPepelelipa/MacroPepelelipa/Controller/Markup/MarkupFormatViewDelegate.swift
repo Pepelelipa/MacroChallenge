@@ -17,10 +17,16 @@ class MarkupFormatViewDelegate {
         self.viewController = viewController
     }
     
+    /**
+     Dismisses the custom input view.
+     */
     @objc public func dismissContainer() {
         viewController?.changeTextViewInput(isCustom: false)
     }
     
+    /**
+     This is a placeholder action. **It must be changed when the buttons are implemented.** 
+     */
     @objc public func placeHolderAction() {
         
     }

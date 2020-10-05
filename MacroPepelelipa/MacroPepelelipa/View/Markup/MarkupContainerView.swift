@@ -43,12 +43,16 @@ internal class MarkupContainerView: UIView {
         return fmtLabel
     }()
     
-    private lazy var colorSelector: [MarkupToogleButton] = {
-        var buttons = [MarkupToogleButton]()
-        var buttonColors: [UIColor] = [UIColor.bodyColor ?? .black, .blue, .green]
+    private lazy var colorSelector: [MarkupToggleButton] = {
+        var buttons = [MarkupToggleButton]()
+        var buttonColors: [UIColor] = [
+            UIColor.bodyColor ?? .black,
+            UIColor.notebookColors[14],
+            UIColor.notebookColors[12]
+        ]
         
         buttonColors.forEach { (color) in
-            var newButton = MarkupToogleButton(frame: .zero, color: color)
+            var newButton = MarkupToggleButton(frame: .zero, color: color)
             newButton.translatesAutoresizingMaskIntoConstraints = false
             buttons.append(newButton)
         }
@@ -56,8 +60,8 @@ internal class MarkupContainerView: UIView {
         return buttons
     }()
     
-    private lazy var formatSelector: [MarkupToogleButton] = {
-        var buttons = [MarkupToogleButton]()
+    private lazy var formatSelector: [MarkupToggleButton] = {
+        var buttons = [MarkupToggleButton]()
         var imageNames = ["italic", "bold", "pencil.tip"]
         
         imageNames.forEach { (imageName) in
@@ -73,8 +77,8 @@ internal class MarkupContainerView: UIView {
         return buttons
     }()
     
-    private lazy var fontSelector: [MarkupToogleButton] = {
-        var buttons = [MarkupToogleButton]()
+    private lazy var fontSelector: [MarkupToggleButton] = {
+        var buttons = [MarkupToggleButton]()
         var fontName = ["Merriweather", "Open Sans", "Dancin"]
         
         fontName.forEach { (fontName) in
@@ -123,19 +127,31 @@ internal class MarkupContainerView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func createButton(normalStateImage: UIImage?, titleLabel: String?) -> MarkupToogleButton {
-        var button = MarkupToogleButton(normalStateImage: nil, title: nil)
+    /**
+     This method creates a MarkupToggleButton with a UIImage or a title.
+     
+     - Parameters:
+        - normalStateImage: The UIImage that will be the button's background.
+        - titleLabel: The string containing the button's title.
+     
+     - Returns: The created MarkupToggleButton.
+     */
+    private func createButton(normalStateImage: UIImage?, titleLabel: String?) -> MarkupToggleButton {
+        var button = MarkupToggleButton(normalStateImage: nil, title: nil)
         
         if normalStateImage != nil {
-            let markupButton = MarkupToogleButton(normalStateImage: normalStateImage, title: nil)
+            let markupButton = MarkupToggleButton(normalStateImage: normalStateImage, title: nil)
             button = markupButton
         } else if titleLabel != nil {
-            let markupButton = MarkupToogleButton(normalStateImage: nil, title: titleLabel)
+            let markupButton = MarkupToggleButton(normalStateImage: nil, title: titleLabel)
             button = markupButton
         }
         return button
     }
     
+    /**
+     This method sets the constraints for the inner elements of the container view.
+     */
     public func createConstraints() {
         backgroundView.layer.zPosition = -1
         
@@ -164,6 +180,9 @@ internal class MarkupContainerView: UIView {
         setFormatSelectorConstraints()
     }
     
+    /**
+     This method sets the contraints for the font selector buttons.
+     */
     private func setFontSelectorConstraints() {
         NSLayoutConstraint.activate([
             fontSelector[0].leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor, constant: 16),
@@ -179,6 +198,9 @@ internal class MarkupContainerView: UIView {
         }
     }
     
+    /**
+     This method sets the contraints for the color selector buttons.
+     */
     private func setColorSelectorConstraints() {
         NSLayoutConstraint.activate([
             colorSelector[0].topAnchor.constraint(greaterThanOrEqualTo: formatLabel.bottomAnchor, constant: 10),
@@ -199,6 +221,9 @@ internal class MarkupContainerView: UIView {
         }
     }
     
+    /**
+     This method sets the contraints for the format selector buttons.
+     */
     private func setFormatSelectorConstraints() {
         NSLayoutConstraint.activate([
             formatSelector[0].topAnchor.constraint(greaterThanOrEqualTo: formatLabel.bottomAnchor, constant: 10),
@@ -219,6 +244,9 @@ internal class MarkupContainerView: UIView {
         }
     }
     
+    /**
+     This method sets the shadow for the background view.
+     */
     private func setBackgroundShadow() {
         backgroundView.clipsToBounds = true
         backgroundView.layer.masksToBounds = false

@@ -80,7 +80,7 @@
 		1E9EF4A925225B9B00CC623B /* TextEditingDelegateObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E9EF4A825225B9B00CC623B /* TextEditingDelegateObserver.swift */; };
 		1E9EF4AD2522609400CC623B /* MarkupTextFieldDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E9EF4AC2522609400CC623B /* MarkupTextFieldDelegate.swift */; };
 		1EE652C2252504400015E3D4 /* MarkupContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EE652C1252504400015E3D4 /* MarkupContainerView.swift */; };
-		1EE652C72525049E0015E3D4 /* MarkupToogleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EE652C62525049E0015E3D4 /* MarkupToogleButton.swift */; };
+		1EE652C72525049E0015E3D4 /* MarkupToggleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EE652C62525049E0015E3D4 /* MarkupToggleButton.swift */; };
 		A792F03A25279E8400AB1766 /* NotebookIndexTableViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A792F03925279E8400AB1766 /* NotebookIndexTableViewDelegate.swift */; };
 		A7BDD5FB2513F5A300DDB6A0 /* SplitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7BDD5FA2513F5A300DDB6A0 /* SplitViewController.swift */; };
 		A7BDD5FF2513F83F00DDB6A0 /* IndexViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7BDD5FE2513F83F00DDB6A0 /* IndexViewController.swift */; };
@@ -90,7 +90,6 @@
 		D9D87538251BB26500B842C8 /* MarkupToolBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D87537251BB26500B842C8 /* MarkupToolBar.swift */; };
 		D9D87541251BC4F200B842C8 /* MarkupPhotoPickerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D87540251BC4F200B842C8 /* MarkupPhotoPickerDelegate.swift */; };
 		D9D87544251BD39F00B842C8 /* PhotoEditingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D87543251BD39F00B842C8 /* PhotoEditingViewController.swift */; };
-		E4277C4C2527B824002CD6B1 /* MarkupFormatViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4277C4B2527B824002CD6B1 /* MarkupFormatViewDelegate.swift */; };
 		D9F4A9A125277A6000BFDC19 /* BoxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9F4A9A025277A6000BFDC19 /* BoxView.swift */; };
 		D9F4A9A825277A6B00BFDC19 /* CGPointExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9F4A9A425277A6A00BFDC19 /* CGPointExtension.swift */; };
 		D9F4A9A925277A6B00BFDC19 /* CornerEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9F4A9A525277A6A00BFDC19 /* CornerEnum.swift */; };
@@ -98,6 +97,7 @@
 		D9F4A9AB25277A6B00BFDC19 /* CGRectExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9F4A9A725277A6A00BFDC19 /* CGRectExtension.swift */; };
 		D9F4A9AE25277AC900BFDC19 /* TextBoxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9F4A9AD25277AC900BFDC19 /* TextBoxView.swift */; };
 		D9F4A9BD2527D0A600BFDC19 /* AddingBoxViewDelegateObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9F4A9BC2527D0A600BFDC19 /* AddingBoxViewDelegateObserver.swift */; };
+		E4277C4C2527B824002CD6B1 /* MarkupFormatViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4277C4B2527B824002CD6B1 /* MarkupFormatViewDelegate.swift */; };
 		E45C20D2251D24BD0022AD95 /* MarkdownNumeric.swift in Sources */ = {isa = PBXBuildFile; fileRef = E45C20D1251D24BD0022AD95 /* MarkdownNumeric.swift */; };
 		E4FCA4942523B52F00DE88B8 /* MarkdownEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4FCA4932523B52F00DE88B8 /* MarkdownEditor.swift */; };
 /* End PBXBuildFile section */
@@ -202,7 +202,7 @@
 		1E9EF4A825225B9B00CC623B /* TextEditingDelegateObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextEditingDelegateObserver.swift; sourceTree = "<group>"; };
 		1E9EF4AC2522609400CC623B /* MarkupTextFieldDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkupTextFieldDelegate.swift; sourceTree = "<group>"; };
 		1EE652C1252504400015E3D4 /* MarkupContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkupContainerView.swift; sourceTree = "<group>"; };
-		1EE652C62525049E0015E3D4 /* MarkupToogleButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkupToogleButton.swift; sourceTree = "<group>"; };
+		1EE652C62525049E0015E3D4 /* MarkupToggleButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkupToggleButton.swift; sourceTree = "<group>"; };
 		A792F03925279E8400AB1766 /* NotebookIndexTableViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotebookIndexTableViewDelegate.swift; sourceTree = "<group>"; };
 		A7BDD5FA2513F5A300DDB6A0 /* SplitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplitViewController.swift; sourceTree = "<group>"; };
 		A7BDD5FE2513F83F00DDB6A0 /* IndexViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndexViewController.swift; sourceTree = "<group>"; };
@@ -212,7 +212,6 @@
 		D9D87537251BB26500B842C8 /* MarkupToolBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkupToolBar.swift; sourceTree = "<group>"; };
 		D9D87540251BC4F200B842C8 /* MarkupPhotoPickerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkupPhotoPickerDelegate.swift; sourceTree = "<group>"; };
 		D9D87543251BD39F00B842C8 /* PhotoEditingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoEditingViewController.swift; sourceTree = "<group>"; };
-		E4277C4B2527B824002CD6B1 /* MarkupFormatViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkupFormatViewDelegate.swift; sourceTree = "<group>"; };
 		D9F4A9A025277A6000BFDC19 /* BoxView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoxView.swift; sourceTree = "<group>"; };
 		D9F4A9A425277A6A00BFDC19 /* CGPointExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGPointExtension.swift; sourceTree = "<group>"; };
 		D9F4A9A525277A6A00BFDC19 /* CornerEnum.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CornerEnum.swift; sourceTree = "<group>"; };
@@ -220,6 +219,7 @@
 		D9F4A9A725277A6A00BFDC19 /* CGRectExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGRectExtension.swift; sourceTree = "<group>"; };
 		D9F4A9AD25277AC900BFDC19 /* TextBoxView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextBoxView.swift; sourceTree = "<group>"; };
 		D9F4A9BC2527D0A600BFDC19 /* AddingBoxViewDelegateObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddingBoxViewDelegateObserver.swift; sourceTree = "<group>"; };
+		E4277C4B2527B824002CD6B1 /* MarkupFormatViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkupFormatViewDelegate.swift; sourceTree = "<group>"; };
 		E45C20D1251D24BD0022AD95 /* MarkdownNumeric.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkdownNumeric.swift; sourceTree = "<group>"; };
 		E4FCA4932523B52F00DE88B8 /* MarkdownEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkdownEditor.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -504,7 +504,7 @@
 				D9D87533251BAA6700B842C8 /* MarkupTextField.swift */,
 				D9D87537251BB26500B842C8 /* MarkupToolBar.swift */,
 				1EE652C1252504400015E3D4 /* MarkupContainerView.swift */,
-				1EE652C62525049E0015E3D4 /* MarkupToogleButton.swift */,
+				1EE652C62525049E0015E3D4 /* MarkupToggleButton.swift */,
 			);
 			path = Markup;
 			sourceTree = "<group>";
@@ -944,7 +944,7 @@
 				1E9EF4AD2522609400CC623B /* MarkupTextFieldDelegate.swift in Sources */,
 				020E22252513F10800A93EAB /* StringExtension.swift in Sources */,
 				022D60222519559D00001D5B /* MarkdownLevelElement.swift in Sources */,
-				1EE652C72525049E0015E3D4 /* MarkupToogleButton.swift in Sources */,
+				1EE652C72525049E0015E3D4 /* MarkupToggleButton.swift in Sources */,
 				02E4E99525266F3900290A39 /* NotebookView.swift in Sources */,
 				D9F4A9A825277A6B00BFDC19 /* CGPointExtension.swift in Sources */,
 				D9F4A9A125277A6000BFDC19 /* BoxView.swift in Sources */,
