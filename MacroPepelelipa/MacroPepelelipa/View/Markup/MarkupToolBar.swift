@@ -25,8 +25,7 @@ enum HeaderStyle {
 
 internal class MarkupToolBar: UIToolbar {
     
-    internal weak var observer: AddingBoxViewDelegateObserver?
-    private weak var viewController: NotesViewController?
+    internal weak var observer: MarkupToolBarObserver?
     
     private weak var textView: MarkupTextView?
     private var pickerDelegate: MarkupPhotoPickerDelegate?
@@ -43,9 +42,8 @@ internal class MarkupToolBar: UIToolbar {
         }
     }
     
-    init(frame: CGRect, owner: MarkupTextView, viewController: NotesViewController) {
+    init(frame: CGRect, owner: MarkupTextView) {
         self.textView = owner
-        self.viewController = viewController
         super.init(frame: frame)
         
         setUpButtons()
@@ -91,7 +89,7 @@ internal class MarkupToolBar: UIToolbar {
     }
     
     @objc private func openEditTextContainer() {
-        viewController?.changeTextViewInput(isCustom: true)
+        observer?.changeTextViewInput(isCustom: true)
     }
     
     /**

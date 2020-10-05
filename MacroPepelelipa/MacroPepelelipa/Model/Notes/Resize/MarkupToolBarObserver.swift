@@ -10,4 +10,5 @@ import UIKit
 
 internal protocol MarkupToolBarObserver: class {
     func addTextBox(with frame: CGRect)
+    func changeTextViewInput(isCustom: Bool)
 }
