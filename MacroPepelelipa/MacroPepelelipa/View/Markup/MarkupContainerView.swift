@@ -8,7 +8,7 @@
 
 import UIKit
 
-internal class MarkupContainerView: UIView {
+internal class MarkupContainerView: UIView, TextEditingDelegateObserver {
     
     private weak var textView: MarkupTextView?
     private weak var viewController: NotesViewController?
@@ -70,9 +70,13 @@ internal class MarkupContainerView: UIView {
                 titleLabel: nil
             )
             newButton.translatesAutoresizingMaskIntoConstraints = false
-            newButton.addTarget(delegate, action: #selector(delegate?.placeHolderAction), for: .touchDown)
+            
             buttons.append(newButton)
         }
+        
+        buttons[0].addTarget(delegate, action: #selector(delegate?.makeTextItalic), for: .touchDown)
+        buttons[1].addTarget(delegate, action: #selector(delegate?.makeTextBold), for: .touchDown)
+        buttons[2].addTarget(delegate, action: #selector(delegate?.highlightText), for: .touchDown)
         
         return buttons
     }()
@@ -121,10 +125,20 @@ internal class MarkupContainerView: UIView {
         backgroundView.addSubview(formatLabel)
         
         createConstraints()
+        
+        (viewController.textView.delegate as? MarkupTextViewDelegate)?.addObserver(self)
+    }
+    
+    deinit {
+        (self.textView?.delegate as? MarkupTextViewDelegate)?.removeObserver(self)
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func textReceivedEnter() {
+        formatSelector[0].toogleButton()
     }
     
     /**

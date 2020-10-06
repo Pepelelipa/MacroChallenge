@@ -81,7 +81,7 @@ internal class NotesViewController: UIViewController, TextEditingDelegateObserve
      
     private lazy var textViewDelegate: MarkupTextViewDelegate? = {
         let delegate = MarkupTextViewDelegate()
-        delegate.observer = self
+        delegate.addObserver(self)
         DispatchQueue.main.async {
             delegate.markdownAttributesChanged = { [unowned self](attributtedString, error) in
                 if let error = error {
@@ -111,6 +111,10 @@ internal class NotesViewController: UIViewController, TextEditingDelegateObserve
         self.note = note
         super.init(nibName: nil, bundle: nil)
         self.textField.attributedText = note.title
+    }
+    
+    deinit {
+        textViewDelegate?.removeObserver(self)
     }
 
     internal convenience required init?(coder: NSCoder) {

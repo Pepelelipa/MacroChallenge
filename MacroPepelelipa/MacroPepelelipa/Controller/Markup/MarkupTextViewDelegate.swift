@@ -21,7 +21,17 @@ internal class MarkupTextViewDelegate: NSObject, UITextViewDelegate {
     private var range: NSRange?
     private var lastWrittenText: String
 
-    internal weak var observer: TextEditingDelegateObserver?
+    internal private(set) var observers: [TextEditingDelegateObserver] = []
+    
+    func addObserver(_ observer: TextEditingDelegateObserver) {
+        self.observers.append(observer)
+    }
+    
+    func removeObserver(_ observer: TextEditingDelegateObserver) {
+        if let index = self.observers.firstIndex(where: { $0 === observer }) {
+            self.observers.remove(at: index)
+        }
+    }
 
     override init() {
         markdownParser = MarkdownParser(color: .bodyColor ?? .black)
@@ -71,6 +81,9 @@ internal class MarkupTextViewDelegate: NSObject, UITextViewDelegate {
         if text == "\n" {
             markdownParser.font = MarkdownParser.defaultFont
             MarkupToolBar.headerStyle = .h1
+            observers.forEach({
+                $0.textReceivedEnter()
+            })
             
             if lastWrittenText == "\n" {
                 if MarkdownList.isList {
@@ -157,6 +170,26 @@ internal class MarkupTextViewDelegate: NSObject, UITextViewDelegate {
     }
     
     /**
+     This method calls the editor's method to add italic attributes on the UITextView based on the selected range.
+     
+     - Parameters:
+        - textView: The UITextView which attributed text will receive new attributes.
+     */
+    public func addItalic(on textView: UITextView) {
+        markdownEditor.addItalic(on: textView)
+    }
+    
+    /**
+     This method calls the editor's method to remove italic attributes on the UITextView based on the selected range.
+     
+     - Parameters:
+        - textView: The UITextView which attributed text will receive new attributes.
+     */
+    public func removeItalic(on textView: UITextView) {
+        markdownEditor.removeItalic(on: textView)
+    }
+    
+    /**
      This method calls the editor's method to add header attributes on the UITextView based on the selected range and the chosen style.
      
      - Parameters:
@@ -179,10 +212,14 @@ internal class MarkupTextViewDelegate: NSObject, UITextViewDelegate {
     }
     
     func textViewDidBeginEditing(_ textView: UITextView) {
-        observer?.textEditingDidBegin()
+        observers.forEach({
+            $0.textEditingDidBegin()
+        })
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {
-        observer?.textEditingDidEnd()
+        observers.forEach({
+            $0.textEditingDidEnd()
+        })
     }
 }
