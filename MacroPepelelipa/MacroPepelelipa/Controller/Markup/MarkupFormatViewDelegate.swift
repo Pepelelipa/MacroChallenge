@@ -42,7 +42,7 @@ class MarkupFormatViewDelegate {
         }
         
         if textView?.font == textView?.font?.italic() {
-            textView?.removeItalic()
+            textView?.removesFormatAttributes()
             button.isSelected = false
         } else {
             textView?.addItalic()

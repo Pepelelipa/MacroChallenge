@@ -114,7 +114,13 @@ class MarkdownEditor {
         textView.attributedText = mutableAttributedText
     }
     
-    public func removeItalic(on textView: UITextView) {
+    /**
+     This method removes italic attributes on the UITextView based on the selected range.
+     
+     - Parameters:
+        - textView: The UITextView which attributed text will receive new attributes.
+     */
+    public func removesFormatAttributes(on textView: UITextView) {
         guard let attributedText = textView.attributedText else {
             return
         }
@@ -124,6 +130,29 @@ class MarkdownEditor {
         let mutableAttributedText = NSMutableAttributedString(attributedString: attributedText)
         
         mutableAttributedText.addAttribute(.font, value: markdownParser.font, range: range)
+        textView.attributedText = mutableAttributedText
+    }
+    
+    /**
+     This method adds bold attributes on the UITextView based on the selected range.
+     
+     - Parameters:
+        - textView: The UITextView which attributed text will receive new attributes.
+     */
+    public func addBold(on textView: UITextView) {
+        guard let attributedText = textView.attributedText else {
+            return
+        }
+        
+        let range = textView.selectedRange
+        
+        let mutableAttributedText = NSMutableAttributedString(attributedString: attributedText)
+        
+        guard let newFontValue = markdownParser.font.italic() else {
+            return
+        }
+        
+        mutableAttributedText.addAttribute(.font, value: newFontValue, range: range)
         textView.attributedText = mutableAttributedText
     }
     

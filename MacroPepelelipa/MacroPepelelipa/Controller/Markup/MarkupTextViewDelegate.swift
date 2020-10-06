@@ -180,13 +180,13 @@ internal class MarkupTextViewDelegate: NSObject, UITextViewDelegate {
     }
     
     /**
-     This method calls the editor's method to remove italic attributes on the UITextView based on the selected range.
+     This method calls the editor's method to remove all format attributes on the UITextView based on the selected range.
      
      - Parameters:
         - textView: The UITextView which attributed text will receive new attributes.
      */
-    public func removeItalic(on textView: UITextView) {
-        markdownEditor.removeItalic(on: textView)
+    public func removesFormatAttributes(on textView: UITextView) {
+        markdownEditor.removesFormatAttributes(on: textView)
     }
     
     /**

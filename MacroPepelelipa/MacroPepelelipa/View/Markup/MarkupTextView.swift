@@ -118,13 +118,13 @@ internal class MarkupTextView: UITextView {
     }
     
     /**
-     This method calls the delegate's method to remove italic attributes.
+     This method calls the delegate's method to remove format attributes.
      */
-    public func removeItalic() {
+    public func removesFormatAttributes() {
         guard let delegate = self.delegate as? MarkupTextViewDelegate else {
             return
         }
         
-        delegate.removeItalic(on: self)
+        delegate.removesFormatAttributes(on: self)
     }
 }
