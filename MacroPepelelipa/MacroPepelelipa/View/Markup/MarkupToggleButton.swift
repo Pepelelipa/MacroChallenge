@@ -8,11 +8,6 @@
 
 import UIKit
 
-//enum MarkupToggleButtonSelecting {
-//    case selected
-//    case notSelected
-//}
-
 internal class MarkupToggleButton: UIButton {
     
     var baseColor: UIColor?
