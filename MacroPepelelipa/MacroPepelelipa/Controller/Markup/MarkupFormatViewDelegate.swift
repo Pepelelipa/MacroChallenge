@@ -12,9 +12,11 @@ import UIKit
 class MarkupFormatViewDelegate {
     
     private weak var viewController: NotesViewController?
+    private weak var textView: MarkupTextView?
     
     init(viewController: NotesViewController) {
         self.viewController = viewController
+        self.textView = viewController.textView
     }
     
     /**
@@ -34,7 +36,15 @@ class MarkupFormatViewDelegate {
     /**
      Makes the selected or coming text italic.
      */
-    @objc public func makeTextItalic() {
+    @IBAction public func makeTextItalic(_ sender: AnyObject) {
+        guard let button = sender as? MarkupToggleButton else {
+            return
+        }
+        if button.isSelected {
+            textView?.addItalic()
+        } else {
+            
+        }
         
     }
     

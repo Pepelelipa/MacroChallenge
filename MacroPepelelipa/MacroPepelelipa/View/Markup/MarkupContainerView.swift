@@ -63,7 +63,6 @@ internal class MarkupContainerView: UIView {
     private lazy var formatSelector: [MarkupToggleButton] = {
         var buttons = [MarkupToggleButton]()
         var imageNames = ["italic", "bold", "pencil.tip"]
-        var targetNames = ["delegate?.makeTextItalic", "delegate?.makeTextBold", "delegate?.highlightText"]
         
         imageNames.forEach { (imageName) in
             var newButton = createButton(

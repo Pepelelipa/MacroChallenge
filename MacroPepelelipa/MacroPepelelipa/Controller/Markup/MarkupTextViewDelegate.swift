@@ -157,6 +157,26 @@ internal class MarkupTextViewDelegate: NSObject, UITextViewDelegate {
     }
     
     /**
+     This method calls the editor's method to add italic attributes on the UITextView based on the selected range.
+     
+     - Parameters:
+        - textView: The UITextView which attributed text will receive new attributes.
+     */
+    public func addItalic(on textView: UITextView) {
+        markdownEditor.addItalic(on: textView)
+    }
+    
+    /**
+     This method calls the editor's method to remove italic attributes on the UITextView based on the selected range.
+     
+     - Parameters:
+        - textView: The UITextView which attributed text will receive new attributes.
+     */
+    public func removeItalic(on textView: UITextView) {
+        markdownEditor.removeItalic(on: textView)
+    }
+    
+    /**
      This method calls the editor's method to add header attributes on the UITextView based on the selected range and the chosen style.
      
      - Parameters:

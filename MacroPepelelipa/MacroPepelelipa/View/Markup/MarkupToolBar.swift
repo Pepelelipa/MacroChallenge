@@ -162,20 +162,22 @@ internal class MarkupToolBar: UIToolbar {
     In this funcion, we deal with the toolbar button for bold text, adding bold manually.
     */
     @objc private func pressBoldButton() {
-        guard let guardedTextView = textView else {
-            return
-        }
-        let attibutedText = NSMutableAttributedString(attributedString: guardedTextView.attributedText)
+//        guard let guardedTextView = textView else {
+//            return
+//        }
+//        let attibutedText = NSMutableAttributedString(attributedString: guardedTextView.attributedText)
+//
+//        guardedTextView.font = guardedTextView.font?.bold()
+        
+//        let boldFont = UIFont.boldSystemFont(ofSize: UIFont.systemFontSize)
 
-        let boldFont = UIFont.boldSystemFont(ofSize: UIFont.systemFontSize)
+//        let range = guardedTextView.selectedRange
 
-        let range = guardedTextView.selectedRange
-
-        let attribute = [NSAttributedString.Key.font: boldFont]
-
-        attibutedText.addAttributes(attribute, range: range)
-
-        guardedTextView.attributedText = attibutedText
+//        let attribute = [NSAttributedString.Key.font: boldFont]
+//
+//        attibutedText.addAttributes(attribute, range: range)
+//
+//        guardedTextView.attributedText = attibutedText
     }
     
     /**
