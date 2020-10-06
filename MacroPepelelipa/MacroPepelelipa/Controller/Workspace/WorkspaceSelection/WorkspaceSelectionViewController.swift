@@ -30,8 +30,13 @@ internal class WorkspaceSelectionViewController: UIViewController {
     }()
     private lazy var collectionDelegate = WorkspacesCollectionViewDelegate { [unowned self] (selectedCell) in
         guard let workspace = selectedCell.workspace else {
-            #warning("handle error")
-            print("The workspace cell did not have a workspace")
+            let alertController = ErrorAlertController(
+                title: "Could not open this workspace".localized(),
+                message: "The app could not load this workspace".localized(),
+                preferredStyle: .alert)
+                .setLogMessage(logMessage: "The workspace cell did not have a workspace".localized())
+            
+            self.present(alertController, animated: true, completion: nil)
             return
         }
 
@@ -39,7 +44,7 @@ internal class WorkspaceSelectionViewController: UIViewController {
 
         self.navigationController?.pushViewController(notebooksSelectionView, animated: true)
     }
-    private let collectionDataSource = WorkspacesCollectionViewDataSource()
+    private lazy var collectionDataSource = WorkspacesCollectionViewDataSource(viewController: self)
 
     private lazy var btnAdd: UIBarButtonItem = {
         let item = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(btnAddTap))

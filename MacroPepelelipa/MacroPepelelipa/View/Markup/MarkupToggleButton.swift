@@ -43,8 +43,8 @@ internal class MarkupToggleButton: UIButton {
         self.layer.cornerRadius = frame.height / 2
     }
     
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+    required convenience init?(coder: NSCoder) {
+        self.init(coder: coder)
     }
     
     private func setFont(fontName: String) {

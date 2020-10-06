@@ -62,8 +62,8 @@ internal class ResizeHandleView: UIView {
         self.backgroundColor = .clear
     }
     
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+    required convenience init?(coder: NSCoder) {
+        self.init(coder: coder)
     }
     
     override func draw(_ rect: CGRect) {

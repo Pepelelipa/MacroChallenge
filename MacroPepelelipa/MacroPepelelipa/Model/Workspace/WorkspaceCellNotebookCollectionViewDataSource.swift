@@ -12,9 +12,11 @@ import Database
 internal class WorkspaceCellNotebookCollectionViewDataSource: NSObject, UICollectionViewDataSource {
 
     private weak var workspace: WorkspaceEntity?
+    private weak var viewController: UIViewController?
 
-    init(workspace: WorkspaceEntity) {
+    init(workspace: WorkspaceEntity, viewController: UIViewController? = nil) {
         self.workspace = workspace
+        self.viewController = viewController
     }
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -30,7 +32,13 @@ internal class WorkspaceCellNotebookCollectionViewDataSource: NSObject, UICollec
         guard let cell = collectionView.dequeueReusableCell(
                 withReuseIdentifier: WorkspaceCellNotebookCollectionViewCell.cellID(), for: indexPath)
                 as? WorkspaceCellNotebookCollectionViewCell else {
-            #warning("handle error")
+            let alertController = ErrorAlertController(
+                title: "Error presenting a notebook".localized(),
+                message: "The app could not present a notebook".localized(),
+                preferredStyle: .alert)
+                .setLogMessage(logMessage: "A notebook cell could not be loaded in a workspace".localized())
+            
+            viewController?.present(alertController, animated: true, completion: nil)
             return UICollectionViewCell()
         }
         cell.isHidden = false

@@ -28,8 +28,8 @@ internal class MarkupTextView: UITextView {
         animator = UIDynamicAnimator(referenceView: self)
     }
     
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+    required convenience init?(coder: NSCoder) {
+        self.init(coder: coder)
     }
     
     /**

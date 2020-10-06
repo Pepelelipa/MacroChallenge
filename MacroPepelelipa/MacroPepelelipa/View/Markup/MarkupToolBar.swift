@@ -52,8 +52,8 @@ internal class MarkupToolBar: UIToolbar {
         self.tintColor = .toolsColor
     }
     
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+    required convenience init?(coder: NSCoder) {
+        self.init(coder: coder)
     }
     
     /**
