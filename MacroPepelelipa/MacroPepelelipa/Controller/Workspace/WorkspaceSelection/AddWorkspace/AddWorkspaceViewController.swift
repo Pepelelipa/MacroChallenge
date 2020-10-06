@@ -92,7 +92,7 @@ internal class AddWorkspaceViewController: PopupContainerViewController {
 
     @objc func keyboardWillShow(notification: NSNotification) {
         if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
-            centerYConstraint?.constant -= keyboardSize.height
+            centerYConstraint?.constant = -keyboardSize.height*0.5
         }
     }
     @objc func keyboardWillHide(notification: NSNotification) {
@@ -115,6 +115,13 @@ internal class AddWorkspaceViewController: PopupContainerViewController {
         if let text = txtName.text {
             _ = Mockdata.createWorkspace(named: text)
             dismissFromParent()
+        }
+    }
+    override func backgroundTap() {
+        if txtName.isEditing {
+            txtName.endEditing(true)
+        } else {
+            super.backgroundTap()
         }
     }
 }
