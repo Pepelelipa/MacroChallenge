@@ -157,6 +157,29 @@ class MarkdownEditor {
     }
     
     /**
+     This method adds bold and italic attributes on the UITextView based on the selected range.
+     
+     - Parameters:
+        - textView: The UITextView which attributed text will receive new attributes.
+     */
+    public func addBoldItalic(on textView: UITextView) {
+        guard let attributedText = textView.attributedText else {
+            return
+        }
+        
+        let range = textView.selectedRange
+        
+        let mutableAttributedText = NSMutableAttributedString(attributedString: attributedText)
+        
+        guard let newFontValue = markdownParser.font.bold() else {
+            return
+        }
+        
+        mutableAttributedText.addAttribute(.font, value: newFontValue, range: range)
+        textView.attributedText = mutableAttributedText
+    }
+    
+    /**
      This method adds header attributes on the UITextView based on the selected range and the chosen style.
      
      - Parameters:

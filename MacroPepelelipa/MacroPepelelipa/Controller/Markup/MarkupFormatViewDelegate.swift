@@ -62,6 +62,9 @@ class MarkupFormatViewDelegate {
         if textView?.font == textView?.font?.bold() {
             textView?.removesFormatAttributes()
             button.isSelected = false
+        } else if textView?.font == textView?.font?.italic() {
+            textView?.addBoldItalic()
+            button.isSelected = true
         } else {
             textView?.addBold()
             button.isSelected = true
