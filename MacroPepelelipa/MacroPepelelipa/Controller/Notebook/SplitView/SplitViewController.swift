@@ -18,17 +18,18 @@ internal class SplitViewController: UISplitViewController, NotebookIndexDelegate
 
         return nav
     }()
-    private let detail: NotesViewController
+    private let detail: NotesPageViewController
 
     internal init(notebook: NotebookEntity) {
         master = NotebookIndexViewController(notebook: notebook)
-        let note: NoteEntity
-        if let lastNote = notebook.notes.last {
-            note = lastNote
+        let notes: [NoteEntity]
+        if !notebook.notes.isEmpty {
+            notes = notebook.notes
         } else {
-            note = Database.Mockdata.createNote(in: notebook)
+            let note = Database.Mockdata.createNote(in: notebook)
+            notes = [note]
         }
-        detail = NotesViewController(note: note)
+        detail = NotesPageViewController(notes: notes)
         super.init(nibName: nil, bundle: nil)
         modalPresentationStyle = .fullScreen
         viewControllers = [navController, detail]
@@ -48,11 +49,15 @@ internal class SplitViewController: UISplitViewController, NotebookIndexDelegate
     }
 
     func indexWillAppear() {
-        detail.isBtnBackHidden = true
+        if let notesViewController = detail.presentingViewController as? NotesViewController {
+            notesViewController.isBtnBackHidden = true
+        }
     }
 
     func indexWillDisappear() {
-        detail.isBtnBackHidden = false
+        if let notesViewController = detail.presentingViewController as? NotesViewController {
+            notesViewController.isBtnBackHidden = false
+        }
     }
 
     ///Animates the dismissal with our custom animation

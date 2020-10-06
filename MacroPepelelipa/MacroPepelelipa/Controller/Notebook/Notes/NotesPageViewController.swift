@@ -12,8 +12,15 @@ import Database
 internal class NotesPageViewController: UIPageViewController {
     
     internal private(set) var notes: [NoteEntity] = []
-    private var pageControl: UIPageControl = UIPageControl(frame: .zero)
-    private lazy var noteDataSource = NotesPageViewControllerDataSource(notes: notes)
+    private lazy var noteDataSource = NotesPageViewControllerDataSource(notesViewControllers: notesViewControllers)
+    
+    private lazy var notesViewControllers: [NotesViewController] = {
+        var viewControllers: [NotesViewController] = []
+        for i in 0..<self.notes.count {
+            viewControllers.append(NotesViewController(note: notes[i]))
+        }
+        return viewControllers
+    }()
     
     internal init(notes: [NoteEntity]) {
         self.notes = notes
@@ -29,21 +36,9 @@ internal class NotesPageViewController: UIPageViewController {
 
     override func viewDidLoad() {
         self.dataSource = noteDataSource
+        if let firstViewController = notesViewControllers.first {
+            setViewControllers([firstViewController], direction: .forward, animated: true)
+        }
         view.backgroundColor = .clear
-        setupPageControl()
-    }
-
-    private func setupPageControl() {
-        self.pageControl.numberOfPages = notes.count
-        self.pageControl.currentPage = 0
-        self.pageControl.isUserInteractionEnabled = true
-
-        view.addSubview(pageControl)
-        pageControl.translatesAutoresizingMaskIntoConstraints = false
-
-        NSLayoutConstraint.activate([
-            pageControl.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-            pageControl.widthAnchor.constraint(equalTo: view.safeAreaLayoutGuide.widthAnchor)
-        ])
     }
 }

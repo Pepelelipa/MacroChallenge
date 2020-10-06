@@ -11,44 +11,37 @@ import Database
 
 internal class NotesPageViewControllerDataSource: NSObject, UIPageViewControllerDataSource {
     
-    private var notes: [NoteEntity]?
+    private var notesViewControllers: [NotesViewController]?
     
-    internal lazy var notesViewControllers: [NotesViewController] = {
-        
-        var viewControllers: [NotesViewController] = []
-        
-        if let notebookNotes = notes {
-            
-            for i in 0..<notebookNotes.count {
-                viewControllers.append(NotesViewController(note: notebookNotes[i]))
-            }
-        }
-        
-         return viewControllers
-    }()
-    
-    internal init(notes: [NoteEntity]) {
-        self.notes = notes
+    internal init(notesViewControllers: [NotesViewController]) {
+        self.notesViewControllers = notesViewControllers
     }
 
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
-        if let currentIndex = notesViewControllers.firstIndex(where: { $0 === viewController }),
+        
+        if let notes = notesViewControllers, 
+           let currentIndex = notes.firstIndex(where: { $0 === viewController }),
            currentIndex - 1 > -1 {
-            return notesViewControllers[currentIndex - 1]
+            return notes[currentIndex - 1]
         }
         return nil
     }
 
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
-        if let currentIndex = notesViewControllers.firstIndex(where: { $0 === viewController }),
-           currentIndex + 1 < notesViewControllers.count {
-            return notesViewControllers[currentIndex + 1]
+        
+        if let notes = notesViewControllers, 
+           let currentIndex = notes.firstIndex(where: { $0 === viewController }),
+           currentIndex + 1 < notes.count {
+            return notes[currentIndex + 1]
         }
         return nil
     }
     
     func indexFor(_ viewController: UIViewController?) -> Int? {
-        return notesViewControllers.firstIndex(where: { $0 === viewController })
+        if let currentIndex = notesViewControllers?.firstIndex(where: { $0 === viewController }) {
+            return currentIndex
+        }
+        return nil
     }
+    
  }
-
