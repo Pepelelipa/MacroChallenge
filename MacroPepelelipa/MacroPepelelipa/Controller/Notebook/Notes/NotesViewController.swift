@@ -143,7 +143,12 @@ internal class NotesViewController: UIViewController, TextEditingDelegateObserve
         view.addSubview(imageButton)
         self.view.backgroundColor = .backgroundColor
         
-        textView.inputAccessoryView = keyboardToolbar
+        if UIDevice.current.userInterfaceIdiom == .phone {
+            textView.inputAccessoryView = keyboardToolbar
+        } else if UIDevice.current.userInterfaceIdiom == .pad {
+            textView.inputAccessoryView = nil
+        }
+        
     }
     
     /**
