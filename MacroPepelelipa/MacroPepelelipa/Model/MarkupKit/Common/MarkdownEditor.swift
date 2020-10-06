@@ -115,7 +115,7 @@ class MarkdownEditor {
     }
     
     /**
-     This method removes italic attributes on the UITextView based on the selected range.
+     This method removes all format attributes on the UITextView based on the selected range.
      
      - Parameters:
         - textView: The UITextView which attributed text will receive new attributes.
@@ -148,7 +148,7 @@ class MarkdownEditor {
         
         let mutableAttributedText = NSMutableAttributedString(attributedString: attributedText)
         
-        guard let newFontValue = markdownParser.font.italic() else {
+        guard let newFontValue = markdownParser.font.bold() else {
             return
         }
         

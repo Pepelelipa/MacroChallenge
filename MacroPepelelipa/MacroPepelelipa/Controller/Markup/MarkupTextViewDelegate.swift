@@ -180,6 +180,16 @@ internal class MarkupTextViewDelegate: NSObject, UITextViewDelegate {
     }
     
     /**
+     This method calls the editor's method to add bold attributes on the UITextView based on the selected range.
+     
+     - Parameters:
+        - textView: The UITextView which attributed text will receive new attributes.
+     */
+    public func addBold(on textView: UITextView) {
+        markdownEditor.addBold(on: textView)
+    }
+    
+    /**
      This method calls the editor's method to remove all format attributes on the UITextView based on the selected range.
      
      - Parameters:

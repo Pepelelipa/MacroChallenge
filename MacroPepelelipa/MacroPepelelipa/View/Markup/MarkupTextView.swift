@@ -118,6 +118,17 @@ internal class MarkupTextView: UITextView {
     }
     
     /**
+     This method calls the delegate's method to add bold attributes.
+     */
+    public func addBold() {
+        guard let delegate = self.delegate as? MarkupTextViewDelegate else {
+            return
+        }
+        
+        delegate.addBold(on: self)
+    }
+    
+    /**
      This method calls the delegate's method to remove format attributes.
      */
     public func removesFormatAttributes() {
