@@ -679,10 +679,10 @@
 		02DD0A1225114EA200B6696B /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				E4017A92252D09DC00ABB87C /* Extensions */,
 				022D602B251955C000001D5B /* Markup */,
 				0247F78B25115B8900405A61 /* Workspace */,
 				A7BDD5F82513F4DC00DDB6A0 /* Notebook */,
-				E4017A8C252CEA9B00ABB87C /* ErrorAlertController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -752,6 +752,14 @@
 				D9F4A9BC2527D0A600BFDC19 /* MarkupToolBarObserver.swift */,
 			);
 			path = Resize;
+			sourceTree = "<group>";
+		};
+		E4017A92252D09DC00ABB87C /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				E4017A8C252CEA9B00ABB87C /* ErrorAlertController.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

@@ -68,11 +68,11 @@ internal class NotebookIndexViewController: UIViewController {
     private let tableViewDataSource: NotebookIndexTableViewDataSource
     private lazy var tableViewDelegate: NotebookIndexTableViewDelegate = NotebookIndexTableViewDelegate { [unowned self] (selectedCell) in
         guard let note = selectedCell.indexNote else {
-            let alertController = ErrorAlertController(
+            let alertController = UIAlertController(
                 title: "Could not open this note".localized(),
                 message: "The app could not open the selected note".localized(),
                 preferredStyle: .alert)
-                .setLogMessage(logMessage: "The index did not have a note".localized())
+                .makeErrorMessage(with: "The index did not have a note".localized())
             
             self.present(alertController, animated: true, completion: nil)            
             return

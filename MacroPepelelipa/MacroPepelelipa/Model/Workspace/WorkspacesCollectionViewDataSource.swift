@@ -38,11 +38,11 @@ internal class WorkspacesCollectionViewDataSource: NSObject, UICollectionViewDat
         guard let cell = collectionView.dequeueReusableCell(
                 withReuseIdentifier: WorkspaceCollectionViewCell.cellID(), for: indexPath)
                 as? WorkspaceCollectionViewCell else {
-            let alertController = ErrorAlertController(
+            let alertController = UIAlertController(
                 title: "Error presenting a workspace".localized(),
                 message: "The app could not present a workspace".localized(),
                 preferredStyle: .alert)
-                .setLogMessage(logMessage: "A workspace cell could not be loaded".localized())
+                .makeErrorMessage(with: "A workspace cell could not be loaded".localized())
             
             viewController?.present(alertController, animated: true, completion: nil)
             return UICollectionViewCell()

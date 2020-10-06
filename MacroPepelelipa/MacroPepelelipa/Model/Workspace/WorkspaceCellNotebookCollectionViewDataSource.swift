@@ -32,11 +32,11 @@ internal class WorkspaceCellNotebookCollectionViewDataSource: NSObject, UICollec
         guard let cell = collectionView.dequeueReusableCell(
                 withReuseIdentifier: WorkspaceCellNotebookCollectionViewCell.cellID(), for: indexPath)
                 as? WorkspaceCellNotebookCollectionViewCell else {
-            let alertController = ErrorAlertController(
+            let alertController = UIAlertController(
                 title: "Error presenting a notebook".localized(),
                 message: "The app could not present a notebook".localized(),
                 preferredStyle: .alert)
-                .setLogMessage(logMessage: "A notebook cell could not be loaded in a workspace".localized())
+                .makeErrorMessage(with: "A notebook cell could not be loaded in a workspace".localized())
             
             viewController?.present(alertController, animated: true, completion: nil)
             return UICollectionViewCell()

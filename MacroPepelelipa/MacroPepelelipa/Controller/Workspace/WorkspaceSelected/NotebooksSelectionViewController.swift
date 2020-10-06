@@ -45,11 +45,11 @@ internal class NotebooksSelectionViewController: UIViewController {
     private var collectionDataSource: NotebooksCollectionViewDataSource?
     private lazy var collectionDelegate = NotebooksCollectionViewDelegate { [unowned self] (selectedCell) in
         guard let notebook = selectedCell.notebook else {
-            let alertController = ErrorAlertController(
+            let alertController = UIAlertController(
                 title: "Could not open this notebook".localized(),
                 message: "The app could not load this notebook".localized(),
                 preferredStyle: .alert)
-                .setLogMessage(logMessage: "The notebook collection view cell did not have a notebook".localized())
+                .makeErrorMessage(with: "The notebook collection view cell did not have a notebook".localized())
             
             self.present(alertController, animated: true, completion: nil)
             return

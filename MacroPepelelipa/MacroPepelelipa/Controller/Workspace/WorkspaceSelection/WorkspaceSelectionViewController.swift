@@ -30,11 +30,11 @@ internal class WorkspaceSelectionViewController: UIViewController {
     }()
     private lazy var collectionDelegate = WorkspacesCollectionViewDelegate { [unowned self] (selectedCell) in
         guard let workspace = selectedCell.workspace else {
-            let alertController = ErrorAlertController(
+            let alertController = UIAlertController(
                 title: "Could not open this workspace".localized(),
                 message: "The app could not load this workspace".localized(),
                 preferredStyle: .alert)
-                .setLogMessage(logMessage: "The workspace cell did not have a workspace".localized())
+                .makeErrorMessage(with: "The workspace cell did not have a workspace".localized())
             
             self.present(alertController, animated: true, completion: nil)
             return
