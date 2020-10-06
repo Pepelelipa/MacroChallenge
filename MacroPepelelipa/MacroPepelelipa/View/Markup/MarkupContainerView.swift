@@ -138,7 +138,9 @@ internal class MarkupContainerView: UIView, TextEditingDelegateObserver {
     }
     
     func textReceivedEnter() {
-        formatSelector[0].toogleButton()
+        formatSelector.forEach({
+            $0.toogleButton()
+        })
     }
     
     /**
