@@ -81,6 +81,7 @@
 		1E9EF4AD2522609400CC623B /* MarkupTextFieldDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E9EF4AC2522609400CC623B /* MarkupTextFieldDelegate.swift */; };
 		1EE652C2252504400015E3D4 /* MarkupContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EE652C1252504400015E3D4 /* MarkupContainerView.swift */; };
 		1EE652C72525049E0015E3D4 /* MarkupToggleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EE652C62525049E0015E3D4 /* MarkupToggleButton.swift */; };
+		1EFA49CE252D15C500602904 /* MarkupNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EFA49CD252D15C500602904 /* MarkupNavigationBar.swift */; };
 		A792F03A25279E8400AB1766 /* NotebookIndexTableViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A792F03925279E8400AB1766 /* NotebookIndexTableViewDelegate.swift */; };
 		A7BDD5FB2513F5A300DDB6A0 /* SplitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7BDD5FA2513F5A300DDB6A0 /* SplitViewController.swift */; };
 		A7BDD5FF2513F83F00DDB6A0 /* IndexViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7BDD5FE2513F83F00DDB6A0 /* IndexViewController.swift */; };
@@ -203,6 +204,7 @@
 		1E9EF4AC2522609400CC623B /* MarkupTextFieldDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkupTextFieldDelegate.swift; sourceTree = "<group>"; };
 		1EE652C1252504400015E3D4 /* MarkupContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkupContainerView.swift; sourceTree = "<group>"; };
 		1EE652C62525049E0015E3D4 /* MarkupToggleButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkupToggleButton.swift; sourceTree = "<group>"; };
+		1EFA49CD252D15C500602904 /* MarkupNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkupNavigationBar.swift; sourceTree = "<group>"; };
 		A792F03925279E8400AB1766 /* NotebookIndexTableViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotebookIndexTableViewDelegate.swift; sourceTree = "<group>"; };
 		A7BDD5FA2513F5A300DDB6A0 /* SplitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplitViewController.swift; sourceTree = "<group>"; };
 		A7BDD5FE2513F83F00DDB6A0 /* IndexViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndexViewController.swift; sourceTree = "<group>"; };
@@ -505,6 +507,7 @@
 				D9D87537251BB26500B842C8 /* MarkupToolBar.swift */,
 				1EE652C1252504400015E3D4 /* MarkupContainerView.swift */,
 				1EE652C62525049E0015E3D4 /* MarkupToggleButton.swift */,
+				1EFA49CD252D15C500602904 /* MarkupNavigationBar.swift */,
 			);
 			path = Markup;
 			sourceTree = "<group>";
@@ -943,6 +946,7 @@
 				02DD09FE25114D6200B6696B /* SceneDelegate.swift in Sources */,
 				1E9EF4AD2522609400CC623B /* MarkupTextFieldDelegate.swift in Sources */,
 				020E22252513F10800A93EAB /* StringExtension.swift in Sources */,
+				1EFA49CE252D15C500602904 /* MarkupNavigationBar.swift in Sources */,
 				022D60222519559D00001D5B /* MarkdownLevelElement.swift in Sources */,
 				1EE652C72525049E0015E3D4 /* MarkupToggleButton.swift in Sources */,
 				02E4E99525266F3900290A39 /* NotebookView.swift in Sources */,
