@@ -44,7 +44,12 @@ internal class MarkupToggleButton: UIButton {
     }
     
     required convenience init?(coder: NSCoder) {
-        self.init(coder: coder)
+        guard let frame = coder.decodeObject(forKey: "frame") as? CGRect,
+        let color = coder.decodeObject(forKey: "color") as? UIColor else {
+            return nil
+        }
+
+        self.init(frame: frame, color: color)
     }
     
     private func setFont(fontName: String) {

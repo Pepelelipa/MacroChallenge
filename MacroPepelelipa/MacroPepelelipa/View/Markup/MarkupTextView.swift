@@ -29,7 +29,12 @@ internal class MarkupTextView: UITextView {
     }
     
     required convenience init?(coder: NSCoder) {
-        self.init(coder: coder)
+        guard let frame = coder.decodeObject(forKey: "frame") as? CGRect,
+              let delegate = coder.decodeObject(forKey: "delegate") as? MarkupTextViewDelegate else {
+            return nil
+        }
+
+        self.init(frame: frame, delegate: delegate)
     }
     
     /**

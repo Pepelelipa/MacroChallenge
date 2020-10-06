@@ -53,7 +53,12 @@ internal class MarkupToolBar: UIToolbar {
     }
     
     required convenience init?(coder: NSCoder) {
-        self.init(coder: coder)
+        guard let frame = coder.decodeObject(forKey: "frame") as? CGRect,
+              let owner = coder.decodeObject(forKey: "owner") as? MarkupTextView else {
+            return nil
+        }
+
+        self.init(frame: frame, owner: owner)
     }
     
     /**
