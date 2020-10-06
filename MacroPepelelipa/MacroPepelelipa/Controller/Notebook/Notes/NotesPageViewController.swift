@@ -14,7 +14,7 @@ internal class NotesPageViewController: UIPageViewController {
     internal private(set) var notes: [NoteEntity] = []
     private lazy var noteDataSource = NotesPageViewControllerDataSource(notesViewControllers: notesViewControllers)
     
-    private lazy var notesViewControllers: [NotesViewController] = {
+    internal private(set) lazy var notesViewControllers: [NotesViewController] = {
         var viewControllers: [NotesViewController] = []
         for i in 0..<self.notes.count {
             viewControllers.append(NotesViewController(note: notes[i]))

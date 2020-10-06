@@ -10,17 +10,15 @@ import UIKit
 
 internal class NotebookIndexTableViewDelegate: NSObject, UITableViewDelegate {
     
-    private var didSelectCell: ((NotebookIndexTableViewCell) -> Void)?
-    init(_ didSelectCell: @escaping (NotebookIndexTableViewCell) -> Void) {
-        self.didSelectCell = didSelectCell
-    }
+    internal weak var observer: IndexObserverDelegate?
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        guard let cell = tableView.cellForRow(at: indexPath) as? NotebookIndexTableViewCell else {
+        guard let cell = tableView.cellForRow(at: indexPath) as? NotebookIndexTableViewCell,
+              let note = cell.indexNote else {
             return
         }
         
-        didSelectCell?(cell)
+        observer?.indexDidChange(for: note)
     }
 }

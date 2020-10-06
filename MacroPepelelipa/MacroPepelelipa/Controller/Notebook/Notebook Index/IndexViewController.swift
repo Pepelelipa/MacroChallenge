@@ -9,7 +9,8 @@
 import UIKit
 import Database
 
-internal class NotebookIndexViewController: UIViewController {
+internal class NotebookIndexViewController: UIViewController, IndexObserverDelegate {
+    
     internal private(set) var notebook: NotebookEntity?
     internal init(notebook: NotebookEntity) {
         self.notebook = notebook
@@ -66,13 +67,11 @@ internal class NotebookIndexViewController: UIViewController {
         return lbl
     }()
     private let tableViewDataSource: NotebookIndexTableViewDataSource
-    private lazy var tableViewDelegate: NotebookIndexTableViewDelegate = NotebookIndexTableViewDelegate { [unowned self] (selectedCell) in
-        guard let note = selectedCell.indexNote else {
-            fatalError("The index did not have a note")
-        }
-        
-        self.splitViewController?.showDetailViewController(NotesViewController(note: note), sender: self)
-    }
+    private lazy var tableViewDelegate: NotebookIndexTableViewDelegate = {
+        let delegate = NotebookIndexTableViewDelegate()
+        delegate.observer = self
+        return delegate
+    }()
     private lazy var tableView: UITableView = {
         let tableView = UITableView(frame: .zero)
         tableView.dataSource = tableViewDataSource
@@ -145,5 +144,16 @@ internal class NotebookIndexViewController: UIViewController {
             tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
+    }
+    
+    func indexDidChange(for note: NoteEntity) {
+        
+        guard let notesPageViewController = splitViewController?.viewControllers.last as? NotesPageViewController else {
+            return
+        }
+        
+        if let notesViewController = notesPageViewController.notesViewControllers.first(where: { $0.note === note }) {
+            notesPageViewController.setViewControllers([notesViewController], direction: .forward, animated: false, completion: nil)
+        }
     }
 }
