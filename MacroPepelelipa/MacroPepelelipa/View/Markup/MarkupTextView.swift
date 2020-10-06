@@ -105,4 +105,26 @@ internal class MarkupTextView: UITextView {
         
         delegate.addHeader(on: self, with: style)
     }
+    
+    /**
+     This method calls the delegate's method to add italic attributes.
+     */
+    public func addItalic() {
+        guard let delegate = self.delegate as? MarkupTextViewDelegate else {
+            return
+        }
+        
+        delegate.addItalic(on: self)
+    }
+    
+    /**
+     This method calls the delegate's method to remove italic attributes.
+     */
+    public func removeItalic() {
+        guard let delegate = self.delegate as? MarkupTextViewDelegate else {
+            return
+        }
+        
+        delegate.removeItalic(on: self)
+    }
 }
