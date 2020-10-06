@@ -17,4 +17,20 @@ internal protocol TextEditingDelegateObserver: class {
      The method that is initialized when the observer sends the notification that the text editing has ended
      */
     func textEditingDidEnd()
+    /**
+     The method that is initialized when the observer sends the notification that the text has received a \n
+     */
+    func textReceivedEnter()
+}
+
+extension TextEditingDelegateObserver {
+    func textEditingDidBegin() {
+        
+    }
+    func textEditingDidEnd() {
+        
+    }
+    func textReceivedEnter() {
+        
+    }
 }

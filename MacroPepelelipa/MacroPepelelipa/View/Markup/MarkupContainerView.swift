@@ -8,7 +8,7 @@
 
 import UIKit
 
-internal class MarkupContainerView: UIView {
+internal class MarkupContainerView: UIView, TextEditingDelegateObserver {
     
     private weak var textView: MarkupTextView?
     private weak var viewController: NotesViewController?
@@ -125,10 +125,20 @@ internal class MarkupContainerView: UIView {
         backgroundView.addSubview(formatLabel)
         
         createConstraints()
+        
+        (viewController.textView.delegate as? MarkupTextViewDelegate)?.addObserver(self)
+    }
+    
+    deinit {
+        (self.textView?.delegate as? MarkupTextViewDelegate)?.removeObserver(self)
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func textReceivedEnter() {
+        formatSelector[0].toogleButton()
     }
     
     /**

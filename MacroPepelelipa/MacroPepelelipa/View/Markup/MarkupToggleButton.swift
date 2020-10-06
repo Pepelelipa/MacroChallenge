@@ -8,6 +8,11 @@
 
 import UIKit
 
+//enum MarkupToggleButtonSelecting {
+//    case selected
+//    case notSelected
+//}
+
 internal class MarkupToggleButton: UIButton {
     
     var baseColor: UIColor?
@@ -58,7 +63,7 @@ internal class MarkupToggleButton: UIButton {
         self.layer.cornerRadius = self.frame.height / 2
     }
     
-    @objc private func toogleButton() {
+    @objc internal func toogleButton() {
         self.isSelected.toggle()
         
         if isSelected {

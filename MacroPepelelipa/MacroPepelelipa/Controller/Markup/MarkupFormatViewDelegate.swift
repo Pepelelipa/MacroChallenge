@@ -40,10 +40,13 @@ class MarkupFormatViewDelegate {
         guard let button = sender as? MarkupToggleButton else {
             return
         }
-        if button.isSelected {
-            textView?.addItalic()
+        
+        if textView?.font == textView?.font?.italic() {
+            textView?.removeItalic()
+            button.isSelected = false
         } else {
-            
+            textView?.addItalic()
+            button.isSelected = true
         }
         
     }
