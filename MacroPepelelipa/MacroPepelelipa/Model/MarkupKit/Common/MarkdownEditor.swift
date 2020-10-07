@@ -92,12 +92,13 @@ class MarkdownEditor {
     }
     
     /**
-     This method adds italic attributes on the UITextView based on the selected range.
+     This private method toggles a trait on the textview's attributed text.
      
      - Parameters:
-        - textView: The UITextView which attributed text will receive new attributes.
+        - trait: The trait to be toggled on the text.
+        - textView: The UITextView which attributed text will receive a new font.
      */
-    public func addItalic(on textView: UITextView) {
+    private func setFontTrait(trait: UIFontDescriptor.SymbolicTraits, _ textView: UITextView) {
         guard let attributedText = textView.attributedText else {
             return
         }
@@ -111,15 +112,14 @@ class MarkdownEditor {
         
         var newFont = markdownParser.font
         
-        if font.fontDescriptor.symbolicTraits.contains(.traitItalic) {
-            var traits = font.fontDescriptor.symbolicTraits
-            traits.remove(.traitItalic)
-            
-            if let descriptor = font.fontDescriptor.withSymbolicTraits(traits) {
-                newFont = UIFont(descriptor: descriptor, size: 0)
-            }
+        if font.fontDescriptor.symbolicTraits.contains(trait) {
+            newFont = newFont.removeTrait(trait)
         } else {
-            newFont = font.italic() ?? markdownParser.font
+            if trait == .traitItalic {
+                newFont = font.italic() ?? markdownParser.font
+            } else if trait == .traitBold {
+                newFont = font.bold() ?? markdownParser.font
+            }
         }
         
         mutableAttributedText.addAttribute(.font, value: newFont, range: range)
@@ -127,23 +127,13 @@ class MarkdownEditor {
     }
     
     /**
-     This method removes all format attributes on the UITextView based on the selected range.
+     This method adds italic attributes on the UITextView based on the selected range.
      
      - Parameters:
         - textView: The UITextView which attributed text will receive new attributes.
      */
-    public func removeFontTrait(font: UIFont, trait: UIFontDescriptor.SymbolicTraits) -> UIFont {
-        var traits = font.fontDescriptor.symbolicTraits
-        
-        if traits.contains(trait) {
-            traits.remove(trait)
-        }
-        
-        if let descriptor = font.fontDescriptor.withSymbolicTraits(traits) {
-            return UIFont(descriptor: descriptor, size: 0)
-        }
-        
-        return font
+    public func addItalic(on textView: UITextView) {
+        setFontTrait(trait: .traitItalic, textView)
     }
     
     /**
@@ -153,45 +143,9 @@ class MarkdownEditor {
         - textView: The UITextView which attributed text will receive new attributes.
      */
     public func addBold(on textView: UITextView) {
-        guard let attributedText = textView.attributedText else {
-            return
-        }
-        
-        let range = textView.selectedRange
-        
-        let mutableAttributedText = NSMutableAttributedString(attributedString: attributedText)
-        
-        guard let newFontValue = markdownParser.font.bold() else {
-            return
-        }
-        
-        mutableAttributedText.addAttribute(.font, value: newFontValue, range: range)
-        textView.attributedText = mutableAttributedText
+        setFontTrait(trait: .traitBold, textView)
     }
-    
-    /**
-     This method adds bold and italic attributes on the UITextView based on the selected range.
-     
-     - Parameters:
-        - textView: The UITextView which attributed text will receive new attributes.
-     */
-    public func addBoldItalic(on textView: UITextView) {
-        guard let attributedText = textView.attributedText else {
-            return
-        }
-        
-        let range = textView.selectedRange
-        
-        let mutableAttributedText = NSMutableAttributedString(attributedString: attributedText)
-        
-        guard let newFontValue = markdownParser.font.bold() else {
-            return
-        }
-        
-        mutableAttributedText.addAttribute(.font, value: newFontValue, range: range)
-        textView.attributedText = mutableAttributedText
-    }
-    
+
     /**
      This method adds header attributes on the UITextView based on the selected range and the chosen style.
      

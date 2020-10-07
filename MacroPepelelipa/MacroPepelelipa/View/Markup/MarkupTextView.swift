@@ -96,70 +96,35 @@ internal class MarkupTextView: UITextView {
     }
     
     public func addList(of type: ListStyle, _ lineCleared: Bool) {
-        guard let delegate = self.delegate as? MarkupTextViewDelegate else {
-            return
-        }
-        
-        delegate.addList(on: self, type: type, lineCleared)
+        (self.delegate as? MarkupTextViewDelegate)?.addList(on: self, type: type, lineCleared)
     }
     
     public func addHeader(with style: HeaderStyle) {
-        guard let delegate = self.delegate as? MarkupTextViewDelegate else {
-            return
-        }
-        
-        delegate.addHeader(on: self, with: style)
+        (self.delegate as? MarkupTextViewDelegate)?.addHeader(on: self, with: style)
     }
     
     /**
      This method calls the delegate's method to add italic attributes.
      */
     public func addItalic() {
-        guard let delegate = self.delegate as? MarkupTextViewDelegate else {
-            return
-        }
-        
-        delegate.addItalic(on: self)
+        (self.delegate as? MarkupTextViewDelegate)?.addItalic(on: self)
     }
     
     /**
      This method calls the delegate's method to add bold attributes.
      */
     public func addBold() {
-        guard let delegate = self.delegate as? MarkupTextViewDelegate else {
-            return
-        }
-        
-        delegate.addBold(on: self)
-    }
-    
-    /**
-     This method calls the delegate's method to add bold and italic attributes.
-     */
-    public func addBoldItalic() {
-        guard let delegate = self.delegate as? MarkupTextViewDelegate else {
-            return
-        }
-        
-        delegate.addBoldItalic(on: self)
+        (self.delegate as? MarkupTextViewDelegate)?.addBold(on: self)
     }
     
     /**
      This method calls the delegate's method to remove format attributes.
      */
     public func removeFontTrait(_ trait: UIFontDescriptor.SymbolicTraits) {
-        guard let delegate = self.delegate as? MarkupTextViewDelegate else {
-            return
-        }
-        
-        delegate.removeFontTrait(on: self, trait: trait)
+        (self.delegate as? MarkupTextViewDelegate)?.removeFontTrait(trait: trait)
     }
     
     public func setFontAttributes(with trait: UIFontDescriptor.SymbolicTraits) {
-        guard let delegate = self.delegate as? MarkupTextViewDelegate else {
-            return
-        }
-        
-        delegate.setFontAttributes(with: trait)
+        (self.delegate as? MarkupTextViewDelegate)?.setFontAttributes(with: trait)
     }
 }

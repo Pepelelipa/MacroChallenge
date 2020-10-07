@@ -190,23 +190,13 @@ internal class MarkupTextViewDelegate: NSObject, UITextViewDelegate {
     }
     
     /**
-     This method calls the editor's method to add bold and italic attributes on the UITextView based on the selected range.
+     This method sets the parser's font to be the same font, but without a specifc trait.
      
      - Parameters:
-        - textView: The UITextView which attributed text will receive new attributes.
+        - trait: The trait that will be removed from the parser's font.
      */
-    public func addBoldItalic(on textView: UITextView) {
-        markdownEditor.addBoldItalic(on: textView)
-    }
-    
-    /**
-     This method calls the editor's method to remove all format attributes on the UITextView based on the selected range.
-     
-     - Parameters:
-        - textView: The UITextView which attributed text will receive new attributes.
-     */
-    public func removeFontTrait(on textView: UITextView, trait: UIFontDescriptor.SymbolicTraits) {
-        markdownParser.font = markdownEditor.removeFontTrait(font: markdownParser.font, trait: trait)
+    public func removeFontTrait(trait: UIFontDescriptor.SymbolicTraits) {
+        markdownParser.font = markdownParser.font.removeTrait(trait)
     }
     
     /**

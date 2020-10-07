@@ -52,21 +52,17 @@ class MarkupFormatViewDelegate {
     /**
      Makes the selected or coming text bold.
      */
-    @IBAction public func makeTextBold(_ sender: AnyObject) {
-//        guard let button = sender as? MarkupToggleButton else {
-//            return
-//        }
-//
-//        if textView?.font == textView?.font?.bold() {
-//            textView?.removesFormatAttributes()
-//            button.isSelected = false
-//        } else if textView?.font == textView?.font?.italic() {
-//            textView?.addBoldItalic()
-//            button.isSelected = true
-//        } else {
-//            textView?.addBold()
-//            button.isSelected = true
-//        }
+    @IBAction public func makeTextBold(_ sender: MarkupToggleButton) {
+        if textView?.selectedRange.length == 0 {
+            if sender.isSelected {
+                textView?.setFontAttributes(with: .traitBold)
+            } else {
+                textView?.removeFontTrait(.traitBold)
+            }
+        } else {
+            textView?.addBold()
+            sender.isSelected = false
+        }
     }
     
     /**
