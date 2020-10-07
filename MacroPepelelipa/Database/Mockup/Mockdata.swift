@@ -55,7 +55,7 @@ public class Mockdata {
     }
     public static func createNotebook(on workspace: WorkspaceEntity, named name: String, colorName: String) -> NotebookEntity {
         guard let workspace = workspace as? Workspace else {
-            fatalError("Deu ruim")
+            fatalError("Failed to load mocked data")
         }
         return Notebook(workspace: workspace, name: name, colorName: colorName)
     }

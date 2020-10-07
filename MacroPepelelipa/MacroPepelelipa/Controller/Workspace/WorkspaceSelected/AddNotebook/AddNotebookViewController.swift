@@ -38,7 +38,7 @@ internal class AddNotebookViewController: PopupContainerViewController {
 
     private let notebookView = NotebookView(frame: .zero)
 
-    private let collectionViewDataSource = ColorSelectionCollectionViewDataSource()
+    private lazy var collectionViewDataSource = ColorSelectionCollectionViewDataSource(viewController: self)
     private lazy var collectionViewDelegate = ColorSelectionCollectionViewDelegate {
         self.notebookView.color = $0.color ?? .clear
     }
@@ -191,9 +191,16 @@ internal class AddNotebookViewController: PopupContainerViewController {
     @IBAction func btnConfirmTap() {
         guard let workspace = workspace, let text = txtName.text,
               let notebookColorName = UIColor.notebookColorName(of: notebookView.color) else {
-            fatalError("Deu ruim")
+            let alertController = UIAlertController(
+                title: "Error creating new notebook".localized(),
+                message: "The app could not retrieve the necessary information".localized(),
+                preferredStyle: .alert)
+                .makeErrorMessage(with: "Not possible to retrieve a workspace or notebook name in notebook creation".localized())
+
+            present(alertController, animated: true, completion: nil)
+            dismissFromParent()
+            return
         }
-        print(notebookColorName)
         _ = Mockdata.createNotebook(on: workspace, named: text, colorName: notebookColorName)
         dismissFromParent()
     }

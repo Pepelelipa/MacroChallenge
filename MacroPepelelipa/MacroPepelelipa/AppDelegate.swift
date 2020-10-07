@@ -34,7 +34,7 @@ struct AppUtility {
         }
     }
     /// OPTIONAL Added method to adjust lock and rotate to the desired orientation
-    static func setOrientation(_ orientation: UIInterfaceOrientationMask, andRotateTo rotateOrientation:UIInterfaceOrientation) {
+    static func setOrientation(_ orientation: UIInterfaceOrientationMask, andRotateTo rotateOrientation :UIInterfaceOrientation) {
 
         self.setOrientation(orientation)
 

@@ -35,3 +35,9 @@
 "The index did not have a note" = "The index did not have a note";
 "Could not load image" = "Could not load image";
 "The app could not load the selected image" = "The app could not load the selected image";
+"Error creating new notebook" = "Error creating new notebook";
+"The app could not retrieve the necessary information" = "The app could not retrieve the necessary information";
+"Not possible to retrieve a workspace or notebook name in notebook creation" = "Not possible to retrieve a workspace or notebook name in notebook creation";
+"Error presenting notebook creation" = "Error presenting notebook creation";
+"The app could not present a color" = "The app could not present a color";
+"A color cell could not be loaded in the creation of a notebook" = "A color cell could not be loaded in the creation of a notebook";

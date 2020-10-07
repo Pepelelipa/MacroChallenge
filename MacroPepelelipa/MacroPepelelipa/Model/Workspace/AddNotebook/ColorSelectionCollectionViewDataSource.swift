@@ -9,6 +9,12 @@
 import UIKit
 
 internal class ColorSelectionCollectionViewDataSource: NSObject, UICollectionViewDataSource {
+
+    private weak var viewController: UIViewController?
+    init(viewController: UIViewController? = nil) {
+        self.viewController = viewController
+    }
+
     private var colors: [UIColor] {
         UIColor.notebookColors
     }
@@ -21,7 +27,14 @@ internal class ColorSelectionCollectionViewDataSource: NSObject, UICollectionVie
         guard let cell = collectionView.dequeueReusableCell(
                 withReuseIdentifier: ColorSelectionCollectionViewCell.cellID(), for: indexPath)
                 as? ColorSelectionCollectionViewCell else {
-            fatalError("Sorry not sorry")
+            let alertController = UIAlertController(
+                title: "Error presenting notebook creation".localized(),
+                message: "The app could not present a color".localized(),
+                preferredStyle: .alert)
+                .makeErrorMessage(with: "A color cell could not be loaded in the creation of a notebook".localized())
+
+            viewController?.present(alertController, animated: true, completion: nil)
+            return UICollectionViewCell()
         }
         cell.color = colors[indexPath.row]
 
