@@ -221,7 +221,7 @@ internal class NotesViewController: UIViewController,
     }
     
     /**
-     Create a text box
+     Create a Text Box
      - Parameters
         - frame: The text box frame.
      */
@@ -242,8 +242,13 @@ internal class NotesViewController: UIViewController,
         self.textView.addSubview(textBox)
     }
     
+    /**
+     Create a Image Box
+     - Parameters
+        - frame: The text box frame.
+        - Image: The image displayed on Image Box.
+     */
     func addImageBox(with frame: CGRect, image: UIImage) {
-                
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
         let doubleTapGesture = UITapGestureRecognizer(target: self, action: #selector(handleDoubleTap(_:)))
         doubleTapGesture.numberOfTapsRequired = 2
@@ -260,6 +265,10 @@ internal class NotesViewController: UIViewController,
         self.textView.addSubview(imageBox)
     }
     
+    
+    /**
+     Present the native Image Picker. There we instantiate a PHPickerViewController and set its delegate. Finally, there is a present from the view controller.
+     */
     func presentPicker() {
         var config = PHPickerConfiguration()
         config.filter = .images

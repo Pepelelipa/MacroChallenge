@@ -142,7 +142,7 @@ internal class MarkupToolBar: UIToolbar {
     }
     
     /**
-     In this function, we handle the toolbar button to open the image library. There we instantiate a PHPickerViewController and set its delegate. Finally, there is a present from the instantiated view controller.
+     In this function, we handle the toolbar button to open the image library. 
     */
     
     @objc private func photoPicker() {

@@ -32,13 +32,13 @@ internal class ImageBoxView: UIView, BoxView {
     
     internal lazy var markupImageView: UIImageView = {
         let imageView = UIImageView(image: markupUIImage)
-        imageView.contentMode = .scaleToFill
+        imageView.contentMode = .scaleAspectFit
         return imageView
     }()
 
     internal init(frame: CGRect, owner: MarkupTextView, image: UIImage) {  
         self.owner = owner
-        self.state = .editing
+        self.state = .idle
         self.markupUIImage = image
 
         super.init(frame: frame)
