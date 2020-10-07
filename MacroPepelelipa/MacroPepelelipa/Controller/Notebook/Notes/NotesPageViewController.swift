@@ -12,19 +12,18 @@ import Database
 internal class NotesPageViewController: UIPageViewController {
     
     internal private(set) var notes: [NoteEntity] = []
-    private lazy var noteDataSource = NotesPageViewControllerDataSource(notesViewControllers: notesViewControllers)
-    
-    internal private(set) lazy var notesViewControllers: [NotesViewController] = {
-        var viewControllers: [NotesViewController] = []
-        for i in 0..<self.notes.count {
-            viewControllers.append(NotesViewController(note: notes[i]))
+    internal private (set) var notesViewControllers: [NotesViewController] = []
+    private lazy var noteDataSource = NotesPageViewControllerDataSource(notes: notes)
+    private lazy var noteDelegate = NotesPageViewControllerDelegate { [unowned self] (viewController) in 
+        if let notesViewController = viewController as? NotesViewController {
+            self.setNotesViewControllers(for: notesViewController)
         }
-        return viewControllers
-    }()
+    }
     
     internal init(notes: [NoteEntity]) {
         self.notes = notes
         super.init(transitionStyle: .scroll, navigationOrientation: .vertical, options: .none)
+        setNotesViewControllers(for: NotesViewController(note: notes[notes.count-1]))
     }
 
     internal convenience required init?(coder: NSCoder) {
@@ -36,9 +35,45 @@ internal class NotesPageViewController: UIPageViewController {
 
     override func viewDidLoad() {
         self.dataSource = noteDataSource
-        if let firstViewController = notesViewControllers.first {
-            setViewControllers([firstViewController], direction: .forward, animated: true)
+        self.delegate = noteDelegate
+        
+        if let viewController = notes.count > 2 ? notesViewControllers[1] : notesViewControllers.first {
+            setViewControllers([viewController], direction: .forward, animated: true)
         }
+        
         view.backgroundColor = .clear
+    }
+    
+    private func setupPageView() {
+        
+        if let viewController = notes.count > 2 ? notesViewControllers[1] : notesViewControllers.first {
+            setViewControllers([viewController], direction: .forward, animated: true)
+        }
+    }
+    
+    internal func setNotesViewControllers(for notesViewController: NotesViewController) {
+        var index: Int = 0
+        
+        for i in 0..<self.notes.count where notesViewController.note === notes[i] {
+            index = i
+        }
+        
+        var viewControllers: [NotesViewController] = []
+        
+        if index - 1 > -1 {
+            viewControllers.append(NotesViewController(note: notes[index-1]))
+        }
+        
+        viewControllers.append(notesViewController)
+        
+        if index + 1 < notes.count {
+            viewControllers.append(NotesViewController(note: notes[index+1]))
+        }
+        
+        self.notesViewControllers = viewControllers
+        
+        if let viewController = notes.count > 2 ? notesViewControllers[1] : notesViewControllers.first {
+            setViewControllers([viewController], direction: .forward, animated: true)
+        }
     }
 }

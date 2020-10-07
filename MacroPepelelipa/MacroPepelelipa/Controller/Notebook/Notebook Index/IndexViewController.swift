@@ -152,8 +152,8 @@ internal class NotebookIndexViewController: UIViewController, IndexObserverDeleg
             return
         }
         
-        if let notesViewController = notesPageViewController.notesViewControllers.first(where: { $0.note === note }) {
-            notesPageViewController.setViewControllers([notesViewController], direction: .forward, animated: false, completion: nil)
+        if let selectedNote = notesPageViewController.notes.first(where: { $0 === note }) {
+            notesPageViewController.setNotesViewControllers(for: NotesViewController(note: selectedNote))
         }
     }
 }
