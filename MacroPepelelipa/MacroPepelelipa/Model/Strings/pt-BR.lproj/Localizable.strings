@@ -15,22 +15,3 @@
 "Format" = "Formatação";
 "New workspace name" = "Nome da nova coleção";
 "Create new workspace" = "Criar nova coleção";
-"Done" = "OK";
-"Could not open this notebook" = "Não foi possível abrir este caderno";
-"The app could not load this notebook" = "O aplicativo não pôde carregar este caderno";
-"The notebook collection view cell did not have a notebook" = "A célula desse caderno na collection view não possuía um caderno";
-"Could not open this workspace" = "Não foi possível abrir esta coleção";
-"The app could not load this workspace" = "O aplicativo não pôde carregar esta coleção de cadernos";
-"The workspace cell did not have a workspace" = "A célula dessa coleção não continha uma coleção";
-"Error presenting a workspace" = "Erro ao exibir as coleções";
-"The app could not present a workspace" = "O aplicativo não pôde exibir uma coleção";
-"A workspace cell could not be loaded" = "Uma célula da coleção não pôde ser carregada";
-"Error presenting a notebook" = "Erro ao exibir um caderno";
-"The app could not present a notebook" = "O aplicativo não pôde exibir um caderno";
-"A notebook cell could not be loaded in a workspace" = "Uma célula de um caderno não pôde ser carregada em uma coleção";
-"Could not open this note" = "Não foi possível abrir esta nota";
-"The app could not open the selected note" = "O aplicativo não pôde abrir a nota selecionada";
-"The index did not have a note" = "O índice não tinha uma nota";
-"Could not load image" = "Não foi possível carregar a imagem";
-"The app could not load the selected image" = "O aplicativo não pôde carregar a imagem selecionada";
-

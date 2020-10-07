@@ -19,13 +19,8 @@ internal class AddWorkspaceViewController: UIViewController {
         view.translatesAutoresizingMaskIntoConstraints = false
         view.layer.cornerRadius = 20
     }
-    
     required convenience init?(coder: NSCoder) {
-        guard let dismissHandler = coder.decodeObject(forKey: "dismissHandler") as? () -> Void else {
-            return nil
-        }
-
-        self.init(dismissHandler: dismissHandler)
+        self.init()
     }
 
     private lazy var txtName: UITextField = {

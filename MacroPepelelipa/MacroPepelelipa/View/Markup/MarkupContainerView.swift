@@ -133,14 +133,8 @@ internal class MarkupContainerView: UIView, TextEditingDelegateObserver {
         (self.textView?.delegate as? MarkupTextViewDelegate)?.removeObserver(self)
     }
     
-    required convenience init?(coder: NSCoder) {
-        guard let frame = coder.decodeObject(forKey: "frame") as? CGRect,
-        let owner = coder.decodeObject(forKey: "owner") as? MarkupTextView,
-        let viewController = coder.decodeObject(forKey: "viewController") as? NotesViewController else {
-            return nil
-        }
-        let delegate = coder.decodeObject(forKey: "delegate") as? MarkupFormatViewDelegate
-        self.init(frame: frame, owner: owner, delegate: delegate, viewController: viewController)
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     func textReceivedEnter() {

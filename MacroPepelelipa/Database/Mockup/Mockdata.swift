@@ -46,7 +46,7 @@ public class Mockdata {
     }
     public static func createNote(in notebook: NotebookEntity) -> NoteEntity {
         guard let notebook = notebook as? Notebook else {
-            fatalError("Failed to load mocked data")
+            fatalError("Deu ruim")
         }
         return Note(notebook: notebook, title: NSAttributedString(), text: NSAttributedString())
     }

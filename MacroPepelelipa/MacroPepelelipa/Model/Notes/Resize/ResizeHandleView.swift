@@ -62,13 +62,8 @@ internal class ResizeHandleView: UIView {
         self.backgroundColor = .clear
     }
     
-    required convenience init?(coder: NSCoder) {
-        guard let referenceView = coder.decodeObject(forKey: "referenceView") as? BoxView,
-            let owner = coder.decodeObject(forKey: "owner") as? NotesViewController,
-            let corner = coder.decodeObject(forKey: "corner") as? CornerEnum else {
-                    return nil
-            }
-        self.init(referenceView: referenceView, owner: owner, corner: corner)
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     override func draw(_ rect: CGRect) {

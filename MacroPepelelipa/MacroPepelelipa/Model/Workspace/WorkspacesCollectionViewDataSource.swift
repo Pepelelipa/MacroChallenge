@@ -10,13 +10,6 @@ import UIKit
 import Database
 
 internal class WorkspacesCollectionViewDataSource: NSObject, UICollectionViewDataSource {
-    
-    private weak var viewController: UIViewController?
-    
-    init(viewController: UIViewController? = nil) {
-        self.viewController = viewController
-    }
-    
     private var workspaces: [WorkspaceEntity] = [
         Database.Mockdata.getFullWorkspace(
             withName: "Faculdade",
@@ -38,16 +31,9 @@ internal class WorkspacesCollectionViewDataSource: NSObject, UICollectionViewDat
         guard let cell = collectionView.dequeueReusableCell(
                 withReuseIdentifier: WorkspaceCollectionViewCell.cellID(), for: indexPath)
                 as? WorkspaceCollectionViewCell else {
-            let alertController = UIAlertController(
-                title: "Error presenting a workspace".localized(),
-                message: "The app could not present a workspace".localized(),
-                preferredStyle: .alert)
-                .makeErrorMessage(with: "A workspace cell could not be loaded".localized())
-            
-            viewController?.present(alertController, animated: true, completion: nil)
-            return UICollectionViewCell()
+            fatalError("Sorry not sorry")
         }
-        cell.setWorkspace(workspaces[indexPath.row], viewController: viewController)
+        cell.setWorkspace(workspaces[indexPath.row])
         return cell
     }
 }

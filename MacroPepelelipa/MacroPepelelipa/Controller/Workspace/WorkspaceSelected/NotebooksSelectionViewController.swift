@@ -12,9 +12,9 @@ import Database
 internal class NotebooksSelectionViewController: UIViewController {
     internal private(set) weak var workspace: WorkspaceEntity?
     internal init(workspace: WorkspaceEntity) {
-        super.init(nibName: nil, bundle: nil)
         self.workspace = workspace
-        self.collectionDataSource = NotebooksCollectionViewDataSource(workspace: workspace, viewController: self)
+        self.collectionDataSource = NotebooksCollectionViewDataSource(workspace: workspace)
+        super.init(nibName: nil, bundle: nil)
     }
     internal required convenience init?(coder: NSCoder) {
         guard let workspace = coder.decodeObject(forKey: "workspace") as? WorkspaceEntity else {
@@ -42,17 +42,10 @@ internal class NotebooksSelectionViewController: UIViewController {
 
         return collectionView
     }()
-    private var collectionDataSource: NotebooksCollectionViewDataSource?
+    private let collectionDataSource: NotebooksCollectionViewDataSource
     private lazy var collectionDelegate = NotebooksCollectionViewDelegate { [unowned self] (selectedCell) in
         guard let notebook = selectedCell.notebook else {
-            let alertController = UIAlertController(
-                title: "Could not open this notebook".localized(),
-                message: "The app could not load this notebook".localized(),
-                preferredStyle: .alert)
-                .makeErrorMessage(with: "The notebook collection view cell did not have a notebook".localized())
-            
-            self.present(alertController, animated: true, completion: nil)
-            return
+            fatalError("The notebook cell did not have a notebook")
         }
         let split = SplitViewController(notebook: notebook)
 

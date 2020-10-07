@@ -71,13 +71,8 @@ internal class TextBoxView: UIView, BoxView {
         self.layer.addSublayer(boxViewBorder)
     }
     
-    required convenience init?(coder: NSCoder) {
-        guard let frame = coder.decodeObject(forKey: "frame") as? CGRect,
-              let owner = coder.decodeObject(forKey: "owner") as? MarkupTextView else {
-            return nil
-        }
-
-        self.init(frame: frame, owner: owner)
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     private func setUpTextViewConstraints() {

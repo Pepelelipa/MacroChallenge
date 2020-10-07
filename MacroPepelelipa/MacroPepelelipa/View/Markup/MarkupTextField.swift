@@ -27,14 +27,8 @@ internal class MarkupTextField: UITextField {
         addPaddingSpace(space: paddingSpace)
     }
     
-    required convenience init?(coder: NSCoder) {
-        guard let frame = coder.decodeObject(forKey: "frame") as? CGRect,
-              let placeholder = coder.decodeObject(forKey: "placeholder") as? String,
-              let paddingSpace = coder.decodeObject(forKey: "paddingSpace") as? CGFloat else {
-            return nil
-        }
-
-        self.init(frame: frame, placeholder: placeholder, paddingSpace: paddingSpace)
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     /**
