@@ -76,7 +76,7 @@ internal class MarkupContainerView: UIView, TextEditingDelegateObserver {
         
         buttons[0].addTarget(delegate, action: #selector(delegate?.makeTextItalic), for: .touchDown)
         buttons[1].addTarget(delegate, action: #selector(delegate?.makeTextBold), for: .touchDown)
-        buttons[2].addTarget(delegate, action: #selector(delegate?.highlightText), for: .touchDown)
+        buttons[2].addTarget(delegate, action: #selector(delegate?.highlightText), for: .touchUpInside)
         
         return buttons
     }()
@@ -294,6 +294,7 @@ internal class MarkupContainerView: UIView, TextEditingDelegateObserver {
     public func updateSelectors() {
         formatSelector[0].isSelected = textView?.checkTrait(.traitItalic) ?? false
         formatSelector[1].isSelected = textView?.checkTrait(.traitBold) ?? false
+        formatSelector[2].isSelected = textView?.checkBackground() ?? false
 
         formatSelector.forEach { (button) in
             button.setTintColor()

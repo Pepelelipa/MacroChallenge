@@ -222,6 +222,18 @@ internal class MarkupTextViewDelegate: NSObject, UITextViewDelegate {
         }
     }
     
+    public func setTextToHighlight() {
+        markdownEditor.setTextToHighlight()
+    }
+    
+    public func setTextToNormal() {
+        markdownEditor.setTextToNormal()
+    }
+    
+    public func addHighlight(on textView: UITextView) {
+        markdownEditor.addHighlight(on: textView, with: .blue)
+    }
+    
     /**
      This method checks if the attributed text of a UITextView has a font trait in the selected range.
      
@@ -247,6 +259,33 @@ internal class MarkupTextViewDelegate: NSObject, UITextViewDelegate {
         }
         
         return font.fontDescriptor.symbolicTraits.contains(trait)
+    }
+    
+    public func checkBackground(on textView: UITextView) -> Bool {
+        var flag: Bool = false
+        
+        if textView.attributedText.length == 0 {
+            flag = false
+            return flag
+        }
+        
+        var location  = textView.selectedRange.location
+        
+        if location == textView.attributedText.length && location != 0 {
+            location = textView.selectedRange.location - 1
+        }
+        
+        guard let backgroundColor = textView.attributedText.attribute(.backgroundColor, at: location, effectiveRange: nil) as? UIColor else {
+            flag = false
+            return flag
+        }
+        
+        if backgroundColor == UIColor.backgroundColor {
+            flag = false
+        } else if backgroundColor == MarkdownCode.defaultHighlightColor {
+            flag = true
+        }
+        return flag
     }
     
     /**

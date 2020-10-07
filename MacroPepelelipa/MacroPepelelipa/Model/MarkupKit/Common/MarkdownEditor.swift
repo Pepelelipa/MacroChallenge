@@ -203,6 +203,36 @@ class MarkdownEditor {
         textView.attributedText = mutableAttributedText
     }
     
+    public func addHighlight(on textView: UITextView, with selectedColor: UIColor) {
+        guard let attributedText = textView.attributedText else {
+            return
+        }
+        
+        let range = textView.selectedRange
+        let mutableAtrributedText = NSMutableAttributedString(attributedString: attributedText)
+        
+        guard let color = mutableAtrributedText.attribute(.backgroundColor, at: range.location, effectiveRange: nil) as? UIColor else {
+            return
+        }
+        
+        var newColor = MarkdownCode.defaultHighlightColor
+        
+        if color == newColor {
+            newColor = markdownParser.backgroundColor
+        }
+                
+        mutableAtrributedText.addAttribute(.backgroundColor, value: newColor, range: range)
+        textView.attributedText = mutableAtrributedText
+    }
+    
+    public func setTextToHighlight() {
+        markdownParser.backgroundColor = MarkdownCode.defaultHighlightColor
+    }
+    
+    public func setTextToNormal() {
+        markdownParser.backgroundColor = UIColor.backgroundColor ?? .black
+    }
+
     /**
      This method clears indicators on a line on the UITextView.
      

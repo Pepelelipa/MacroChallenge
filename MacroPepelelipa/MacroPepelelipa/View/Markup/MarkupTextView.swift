@@ -133,6 +133,18 @@ internal class MarkupTextView: UITextView {
         (self.delegate as? MarkupTextViewDelegate)?.setFontAttributes(with: trait)
     }
     
+    public func setTextToHighlight() {
+        (self.delegate as? MarkupTextViewDelegate)?.setTextToHighlight()
+    }
+    
+    public func setTextToNormal() {
+        (self.delegate as? MarkupTextViewDelegate)?.setTextToNormal()
+    }
+    
+    public func addHighlight() {
+        (self.delegate as? MarkupTextViewDelegate)?.addHighlight(on: self)
+    }
+    
     /**
      This method calls the delegate's method to check if the font already has a trait in the selected range.
      
@@ -143,5 +155,12 @@ internal class MarkupTextView: UITextView {
             return false
         }
         return delegate.checkTrait(trait, on: self)
+    }
+    
+    public func checkBackground() -> Bool {
+        guard let delegate = self.delegate as? MarkupTextViewDelegate else {
+            return false
+        }
+        return delegate.checkBackground(on: self)
     }
 }

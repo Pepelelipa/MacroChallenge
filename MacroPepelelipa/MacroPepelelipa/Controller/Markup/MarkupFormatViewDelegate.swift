@@ -68,7 +68,16 @@ class MarkupFormatViewDelegate {
     /**
       Gives the selected of coming text highlighted.
      */
-    @objc public func highlightText() {
-        
+    @objc public func highlightText(_ sender: MarkupToggleButton) {
+        if textView?.selectedRange.length == 0 {
+            if sender.isSelected {
+                textView?.setTextToHighlight()
+            } else {
+                textView?.setTextToNormal()
+            }
+        } else {
+            textView?.addHighlight()
+            sender.isSelected = false
+        }
     }
 }
