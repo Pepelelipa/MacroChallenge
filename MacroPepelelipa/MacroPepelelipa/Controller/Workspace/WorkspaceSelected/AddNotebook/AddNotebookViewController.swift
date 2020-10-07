@@ -189,10 +189,12 @@ internal class AddNotebookViewController: PopupContainerViewController {
     }
 
     @IBAction func btnConfirmTap() {
-        guard let workspace = workspace, let text = txtName.text else {
+        guard let workspace = workspace, let text = txtName.text,
+              let notebookColorName = UIColor.notebookColorName(of: notebookView.color) else {
             fatalError("Deu ruim")
         }
-        _ = Mockdata.createNotebook(on: workspace, named: text, colorName: "")
+        print(notebookColorName)
+        _ = Mockdata.createNotebook(on: workspace, named: text, colorName: notebookColorName)
         dismissFromParent()
     }
 
