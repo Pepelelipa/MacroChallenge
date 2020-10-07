@@ -33,4 +33,6 @@
 "The index did not have a note" = "O índice não tinha uma nota";
 "Could not load image" = "Não foi possível carregar a imagem";
 "The app could not load the selected image" = "O aplicativo não pôde carregar a imagem selecionada";
-
+"Error presenting Photo Library" = "Erro ao apresentar a biblioteca de fotos";
+"The app could not present the Photo Library" = "O aplicativo não foi capaz de apresentar a biblioteca de fotos";
+"The app could not load the native Image Picker Controller" = "O aplicativo não foi capaz de carregar o controller de seleção de imagens nativo";
