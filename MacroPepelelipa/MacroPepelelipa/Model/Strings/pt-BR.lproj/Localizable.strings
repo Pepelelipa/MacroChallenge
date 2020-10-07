@@ -15,6 +15,8 @@
 "Format" = "Formatação";
 "New workspace name" = "Nome da nova coleção";
 "Create new workspace" = "Criar nova coleção";
+"New notebook name" = "Nome do novo caderno";
+"Create new notebook" = "Criar novo caderno";
 "Done" = "OK";
 "Could not open this notebook" = "Não foi possível abrir este caderno";
 "The app could not load this notebook" = "O aplicativo não pôde carregar este caderno";
@@ -33,4 +35,12 @@
 "The index did not have a note" = "O índice não tinha uma nota";
 "Could not load image" = "Não foi possível carregar a imagem";
 "The app could not load the selected image" = "O aplicativo não pôde carregar a imagem selecionada";
-
+"Error creating new notebook" = "Não foi possível criar um novo caderno";
+"The app could not retrieve the necessary information" = "O aplicativo não conseguiu reunir as informações necessárias.";
+"Not possible to retrieve a workspace or notebook name in notebook creation" = "Não foi possível recuperar o workspace ou o nome do notebook na criação do mesmo";
+"Error presenting notebook creation" = "Não foi possível apresentar a criação de cadernos.";
+"The app could not present a color" = "O aplicativo não conseguiu mostrar uma cor";
+"A color cell could not be loaded in the creation of a notebook" = "Uma célula de cor não foi inicializada na criação de um caderno";
+"Error presenting Photo Library" = "Erro ao apresentar a biblioteca de fotos";
+"The app could not present the Photo Library" = "O aplicativo não foi capaz de apresentar a biblioteca de fotos";
+"The app could not load the native Image Picker Controller" = "O aplicativo não foi capaz de carregar o controller de seleção de imagens nativo";

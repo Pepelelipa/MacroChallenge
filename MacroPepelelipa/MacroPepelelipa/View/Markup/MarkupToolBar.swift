@@ -28,7 +28,6 @@ internal class MarkupToolBar: UIToolbar {
     internal weak var observer: MarkupToolBarObserver?
     
     private weak var textView: MarkupTextView?
-    private var pickerDelegate: MarkupPhotoPickerDelegate?
     
     private var listButton: UIBarButtonItem?
     private static var paragraphButton: UIBarButtonItem?
@@ -143,24 +142,11 @@ internal class MarkupToolBar: UIToolbar {
     }
     
     /**
-     In this function, we handle the toolbar button to open the image library. There we instantiate a PHPickerViewController and set its delegate. Finally, there is a present from the instantiated view controller.
+     In this function, we handle the toolbar button to open the image library. 
     */
     
     @objc private func photoPicker() {
-//        var config = PHPickerConfiguration()
-//        config.filter = .images
-//
-//        pickerDelegate = MarkupPhotoPickerDelegate()
-//
-//        let picker = PHPickerViewController(configuration: config)
-//
-//        picker.delegate = pickerDelegate
-//
-//        guard let controller = viewController else {
-//            return
-//        }
-//
-//        controller.present(picker, animated: true, completion: nil)
+        observer?.presentPicker()
     }
     
     /**
