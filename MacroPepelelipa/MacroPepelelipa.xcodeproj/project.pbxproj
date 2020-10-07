@@ -98,6 +98,7 @@
 		D9F4A9AB25277A6B00BFDC19 /* CGRectExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9F4A9A725277A6A00BFDC19 /* CGRectExtension.swift */; };
 		D9F4A9AE25277AC900BFDC19 /* TextBoxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9F4A9AD25277AC900BFDC19 /* TextBoxView.swift */; };
 		D9F4A9BD2527D0A600BFDC19 /* MarkupToolBarObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9F4A9BC2527D0A600BFDC19 /* MarkupToolBarObserver.swift */; };
+		E4017A8D252CEA9B00ABB87C /* ErrorAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4017A8C252CEA9B00ABB87C /* ErrorAlertController.swift */; };
 		E4277C4C2527B824002CD6B1 /* MarkupFormatViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4277C4B2527B824002CD6B1 /* MarkupFormatViewDelegate.swift */; };
 		E45C20D2251D24BD0022AD95 /* MarkdownNumeric.swift in Sources */ = {isa = PBXBuildFile; fileRef = E45C20D1251D24BD0022AD95 /* MarkdownNumeric.swift */; };
 		E4FCA4942523B52F00DE88B8 /* MarkdownEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4FCA4932523B52F00DE88B8 /* MarkdownEditor.swift */; };
@@ -221,6 +222,7 @@
 		D9F4A9A725277A6A00BFDC19 /* CGRectExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGRectExtension.swift; sourceTree = "<group>"; };
 		D9F4A9AD25277AC900BFDC19 /* TextBoxView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextBoxView.swift; sourceTree = "<group>"; };
 		D9F4A9BC2527D0A600BFDC19 /* MarkupToolBarObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkupToolBarObserver.swift; sourceTree = "<group>"; };
+		E4017A8C252CEA9B00ABB87C /* ErrorAlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorAlertController.swift; sourceTree = "<group>"; };
 		E4277C4B2527B824002CD6B1 /* MarkupFormatViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkupFormatViewDelegate.swift; sourceTree = "<group>"; };
 		E45C20D1251D24BD0022AD95 /* MarkdownNumeric.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkdownNumeric.swift; sourceTree = "<group>"; };
 		E4FCA4932523B52F00DE88B8 /* MarkdownEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkdownEditor.swift; sourceTree = "<group>"; };
@@ -680,6 +682,7 @@
 		02DD0A1225114EA200B6696B /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				E4017A92252D09DC00ABB87C /* Extensions */,
 				022D602B251955C000001D5B /* Markup */,
 				0247F78B25115B8900405A61 /* Workspace */,
 				A7BDD5F82513F4DC00DDB6A0 /* Notebook */,
@@ -752,6 +755,14 @@
 				D9F4A9A725277A6A00BFDC19 /* CGRectExtension.swift */,
 			);
 			path = Resize;
+			sourceTree = "<group>";
+		};
+		E4017A92252D09DC00ABB87C /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				E4017A8C252CEA9B00ABB87C /* ErrorAlertController.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -924,6 +935,7 @@
 				022D60152519559D00001D5B /* MarkdownQuote.swift in Sources */,
 				D9F4A9AE25277AC900BFDC19 /* TextBoxView.swift in Sources */,
 				0247F78D25115BAA00405A61 /* NotebooksSelectionViewController.swift in Sources */,
+				E4017A8D252CEA9B00ABB87C /* ErrorAlertController.swift in Sources */,
 				022D601D2519559D00001D5B /* MarkdownBold.swift in Sources */,
 				D9E4B0C9252E316900665CDC /* ImageBoxView.swift in Sources */,
 				02AC9ADA251BF35200A067D0 /* NotebooksCollectionViewDelegate.swift in Sources */,
