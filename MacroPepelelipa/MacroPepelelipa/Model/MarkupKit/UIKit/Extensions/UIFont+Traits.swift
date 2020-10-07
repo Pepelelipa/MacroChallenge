@@ -18,10 +18,40 @@ extension UIFont {
     }
     
     func withTraits(_ traits: UIFontDescriptor.SymbolicTraits...) -> UIFont? {
-        guard let descriptor = fontDescriptor.withSymbolicTraits(UIFontDescriptor.SymbolicTraits(traits)) else {
+        var newTraits = fontDescriptor.symbolicTraits
+        for trait in traits {
+            if !newTraits.contains(trait) {
+                newTraits.insert(trait)
+            }
+        }
+        
+        guard let descriptor = fontDescriptor.withSymbolicTraits(newTraits) else {
             return nil
         }
         return UIFont(descriptor: descriptor, size: 0)
+    }
+    
+    /**
+     This method removes a trait from a UIFont.
+     
+     - Parameters:
+        - font: The UIFont that will be checked to remove the trait.
+        - trait: A symbolic trait describing the trait to be removed.
+     
+     - Returns: A UIFont without the chosen trait.
+     */
+    public func removeTrait(_ trait: UIFontDescriptor.SymbolicTraits) -> UIFont {
+        var traits = self.fontDescriptor.symbolicTraits
+        
+        if traits.contains(trait) {
+            traits.remove(trait)
+        }
+        
+        if let descriptor = self.fontDescriptor.withSymbolicTraits(traits) {
+            return UIFont(descriptor: descriptor, size: 0)
+        }
+        
+        return self
     }
     
     func bold() -> UIFont? {

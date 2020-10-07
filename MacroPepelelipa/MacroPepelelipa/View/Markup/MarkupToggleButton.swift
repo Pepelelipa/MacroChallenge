@@ -65,7 +65,10 @@ internal class MarkupToggleButton: UIButton {
     
     @objc internal func toogleButton() {
         self.isSelected.toggle()
-        
+        setTintColor()
+    }
+    
+    public func setTintColor() {
         if isSelected {
             self.tintColor = selectedColor
         } else {

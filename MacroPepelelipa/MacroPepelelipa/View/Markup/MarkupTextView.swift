@@ -96,40 +96,52 @@ internal class MarkupTextView: UITextView {
     }
     
     public func addList(of type: ListStyle, _ lineCleared: Bool) {
-        guard let delegate = self.delegate as? MarkupTextViewDelegate else {
-            return
-        }
-        
-        delegate.addList(on: self, type: type, lineCleared)
+        (self.delegate as? MarkupTextViewDelegate)?.addList(on: self, type: type, lineCleared)
     }
     
     public func addHeader(with style: HeaderStyle) {
-        guard let delegate = self.delegate as? MarkupTextViewDelegate else {
-            return
-        }
-        
-        delegate.addHeader(on: self, with: style)
+        (self.delegate as? MarkupTextViewDelegate)?.addHeader(on: self, with: style)
     }
     
     /**
      This method calls the delegate's method to add italic attributes.
      */
     public func addItalic() {
-        guard let delegate = self.delegate as? MarkupTextViewDelegate else {
-            return
-        }
-        
-        delegate.addItalic(on: self)
+        (self.delegate as? MarkupTextViewDelegate)?.addItalic(on: self)
     }
     
     /**
-     This method calls the delegate's method to remove italic attributes.
+     This method calls the delegate's method to add bold attributes.
      */
-    public func removeItalic() {
+    public func addBold() {
+        (self.delegate as? MarkupTextViewDelegate)?.addBold(on: self)
+    }
+    
+    /**
+     This method calls the delegate's method to remove format attributes.
+     */
+    public func removeFontTrait(_ trait: UIFontDescriptor.SymbolicTraits) {
+        (self.delegate as? MarkupTextViewDelegate)?.removeFontTrait(trait: trait)
+    }
+    
+    /**
+     This method calls the delegate's method to set the font with a trait.
+     
+     - Parameter trait: The trait to be added to the font.
+     */
+    public func setFontAttributes(with trait: UIFontDescriptor.SymbolicTraits) {
+        (self.delegate as? MarkupTextViewDelegate)?.setFontAttributes(with: trait)
+    }
+    
+    /**
+     This method calls the delegate's method to check if the font already has a trait in the selected range.
+     
+     - Parameter trait: The trait to be checked.
+     */
+    public func checkTrait(_ trait: UIFontDescriptor.SymbolicTraits) -> Bool {
         guard let delegate = self.delegate as? MarkupTextViewDelegate else {
-            return
+            return false
         }
-        
-        delegate.removeItalic(on: self)
+        return delegate.checkTrait(trait, on: self)
     }
 }

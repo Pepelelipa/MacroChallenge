@@ -143,10 +143,6 @@ internal class MarkupContainerView: UIView, TextEditingDelegateObserver {
         self.init(frame: frame, owner: owner, delegate: delegate, viewController: viewController)
     }
     
-    func textReceivedEnter() {
-        formatSelector[0].toogleButton()
-    }
-    
     /**
      This method creates a MarkupToggleButton with a UIImage or a title.
      
@@ -289,5 +285,18 @@ internal class MarkupContainerView: UIView, TextEditingDelegateObserver {
         }
         
         setBackgroundShadow()
+        updateSelectors()
+    }
+    
+    /**
+     This public methos updates the selectors appearence based on the text style.
+     */
+    public func updateSelectors() {
+        formatSelector[0].isSelected = textView?.checkTrait(.traitItalic) ?? false
+        formatSelector[1].isSelected = textView?.checkTrait(.traitBold) ?? false
+
+        formatSelector.forEach { (button) in
+            button.setTintColor()
+        }
     }
 }
