@@ -103,14 +103,26 @@ class MarkdownEditor {
         }
         
         let range = textView.selectedRange
-        
         let mutableAttributedText = NSMutableAttributedString(attributedString: attributedText)
-        
-        guard let newFontValue = markdownParser.font.italic() else {
+                
+        guard let font = mutableAttributedText.attribute(.font, at: range.location, effectiveRange: nil) as? UIFont else {
             return
         }
         
-        mutableAttributedText.addAttribute(.font, value: newFontValue, range: range)
+        var newFont = markdownParser.font
+        
+        if font.fontDescriptor.symbolicTraits.contains(.traitItalic) {
+            var traits = font.fontDescriptor.symbolicTraits
+            traits.remove(.traitItalic)
+            
+            if let descriptor = font.fontDescriptor.withSymbolicTraits(traits) {
+                newFont = UIFont(descriptor: descriptor, size: 0)
+            }
+        } else {
+            newFont = font.italic() ?? markdownParser.font
+        }
+        
+        mutableAttributedText.addAttribute(.font, value: newFont, range: range)
         textView.attributedText = mutableAttributedText
     }
     
@@ -120,17 +132,18 @@ class MarkdownEditor {
      - Parameters:
         - textView: The UITextView which attributed text will receive new attributes.
      */
-    public func removesFormatAttributes(on textView: UITextView) {
-        guard let attributedText = textView.attributedText else {
-            return
+    public func removeFontTrait(font: UIFont, trait: UIFontDescriptor.SymbolicTraits) -> UIFont {
+        var traits = font.fontDescriptor.symbolicTraits
+        
+        if traits.contains(trait) {
+            traits.remove(trait)
         }
         
-        let range = textView.selectedRange
+        if let descriptor = font.fontDescriptor.withSymbolicTraits(traits) {
+            return UIFont(descriptor: descriptor, size: 0)
+        }
         
-        let mutableAttributedText = NSMutableAttributedString(attributedString: attributedText)
-        
-        mutableAttributedText.addAttribute(.font, value: markdownParser.font, range: range)
-        textView.attributedText = mutableAttributedText
+        return font
     }
     
     /**

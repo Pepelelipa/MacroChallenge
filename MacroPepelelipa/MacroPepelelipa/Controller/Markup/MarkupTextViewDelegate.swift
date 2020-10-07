@@ -205,8 +205,8 @@ internal class MarkupTextViewDelegate: NSObject, UITextViewDelegate {
      - Parameters:
         - textView: The UITextView which attributed text will receive new attributes.
      */
-    public func removesFormatAttributes(on textView: UITextView) {
-        markdownEditor.removesFormatAttributes(on: textView)
+    public func removeFontTrait(on textView: UITextView, trait: UIFontDescriptor.SymbolicTraits) {
+        markdownParser.font = markdownEditor.removeFontTrait(font: markdownParser.font, trait: trait)
     }
     
     /**
@@ -218,6 +218,14 @@ internal class MarkupTextViewDelegate: NSObject, UITextViewDelegate {
      */
     public func addHeader(on textView: UITextView, with style: HeaderStyle) {
         markdownEditor.addHeader(on: textView, with: style)
+    }
+    
+    public func setFontAttributes(with trait: UIFontDescriptor.SymbolicTraits) {
+        if trait == .traitItalic {
+            markdownParser.font = markdownParser.font.italic() ?? markdownParser.font
+        } else if trait == .traitBold {
+            markdownParser.font = markdownParser.font.bold() ?? markdownParser.font
+        }
     }
     
     /**

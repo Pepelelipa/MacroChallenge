@@ -291,5 +291,8 @@ internal class MarkupContainerView: UIView, TextEditingDelegateObserver {
         }
         
         setBackgroundShadow()
+        formatSelector.forEach { (button) in
+            button.setTintColor()
+        }
     }
 }

@@ -147,11 +147,19 @@ internal class MarkupTextView: UITextView {
     /**
      This method calls the delegate's method to remove format attributes.
      */
-    public func removesFormatAttributes() {
+    public func removeFontTrait(_ trait: UIFontDescriptor.SymbolicTraits) {
         guard let delegate = self.delegate as? MarkupTextViewDelegate else {
             return
         }
         
-        delegate.removesFormatAttributes(on: self)
+        delegate.removeFontTrait(on: self, trait: trait)
+    }
+    
+    public func setFontAttributes(with trait: UIFontDescriptor.SymbolicTraits) {
+        guard let delegate = self.delegate as? MarkupTextViewDelegate else {
+            return
+        }
+        
+        delegate.setFontAttributes(with: trait)
     }
 }
