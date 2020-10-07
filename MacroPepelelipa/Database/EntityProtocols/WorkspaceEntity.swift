@@ -9,4 +9,6 @@
 public protocol WorkspaceEntity: class {
     var name: String { get }
     var notebooks: [NotebookEntity] { get }
+
+    func save() throws
 }

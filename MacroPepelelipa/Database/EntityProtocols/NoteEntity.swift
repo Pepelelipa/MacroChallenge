@@ -12,4 +12,6 @@ public protocol NoteEntity: class {
     var text: NSAttributedString { get }
     var images: [ImageBoxEntity] { get }
     var textBoxes: [TextBoxEntity] { get }
+
+    func save() throws
 }

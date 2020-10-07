@@ -12,4 +12,6 @@ public protocol NotebookEntity: class {
     var colorName: String { get }
     var notes: [NoteEntity] { get }
     var indexes: [NotebookIndexEntity] { get }
+
+    func save() throws
 }
