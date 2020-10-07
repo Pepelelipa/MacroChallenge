@@ -15,3 +15,22 @@
 "Format" = "Format";
 "New workspace name" = "New workspace name";
 "Create new workspace" = "Create new workspace";
+"Done" = "Done";
+"Could not open this notebook" = "Could not open this notebook";
+"The app could not load this notebook" = "The app could not load this notebook";
+"The notebook collection view cell did not have a notebook" = "The notebook collection view cell did not have a notebook";
+"Could not open this workspace" = "Could not open this workspace";
+"The app could not load this workspace" = "The app could not load this workspace";
+"The workspace cell did not have a workspace" = "The workspace cell did not have a workspace";
+"Error presenting a workspace" = "Error presenting a workspace";
+"The app could not present a workspace" = "The app could not present a workspace";
+"A workspace cell could not be loaded" = "A workspace cell could not be loaded";
+"Error presenting a notebook" = "Error presenting a notebook";
+"The app could not present a notebook" = "The app could not present a notebook";
+"A notebook cell could not be loaded in a workspace" = "A notebook cell could not be loaded in a workspace";
+"Could not open this note" = "Could not open this note";
+"The app could not open the selected note" = "The app could not open the selected note";
+"The index did not have a note" = "The index did not have a note";
+"Could not load image" = "Could not load image";
+"The app could not load the selected image" = "The app could not load the selected image";
+
