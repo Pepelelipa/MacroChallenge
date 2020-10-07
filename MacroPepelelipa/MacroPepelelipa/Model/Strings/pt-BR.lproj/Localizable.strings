@@ -41,3 +41,6 @@
 "Error presenting notebook creation" = "Não foi possível apresentar a criação de cadernos.";
 "The app could not present a color" = "O aplicativo não conseguiu mostrar uma cor";
 "A color cell could not be loaded in the creation of a notebook" = "Uma célula de cor não foi inicializada na criação de um caderno";
+"Error presenting Photo Library" = "Erro ao apresentar a biblioteca de fotos";
+"The app could not present the Photo Library" = "O aplicativo não foi capaz de apresentar a biblioteca de fotos";
+"The app could not load the native Image Picker Controller" = "O aplicativo não foi capaz de carregar o controller de seleção de imagens nativo";
