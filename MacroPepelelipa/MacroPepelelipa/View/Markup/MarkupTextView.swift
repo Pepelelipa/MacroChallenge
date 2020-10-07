@@ -124,7 +124,24 @@ internal class MarkupTextView: UITextView {
         (self.delegate as? MarkupTextViewDelegate)?.removeFontTrait(trait: trait)
     }
     
+    /**
+     This method calls the delegate's method to set the font with a trait.
+     
+     - Parameter trait: The trait to be added to the font.
+     */
     public func setFontAttributes(with trait: UIFontDescriptor.SymbolicTraits) {
         (self.delegate as? MarkupTextViewDelegate)?.setFontAttributes(with: trait)
+    }
+    
+    /**
+     This method calls the delegate's method to check if the font already has a trait in the selected range.
+     
+     - Parameter trait: The trait to be checked.
+     */
+    public func checkTrait(_ trait: UIFontDescriptor.SymbolicTraits) -> Bool {
+        guard let delegate = self.delegate as? MarkupTextViewDelegate else {
+            return false
+        }
+        return delegate.checkTrait(trait, on: self)
     }
 }

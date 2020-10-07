@@ -79,7 +79,6 @@ internal class MarkupTextViewDelegate: NSObject, UITextViewDelegate {
         }
         
         if text == "\n" {
-            markdownParser.font = MarkdownParser.defaultFont
             MarkupToolBar.headerStyle = .h1
             observers.forEach({
                 $0.textReceivedEnter()
@@ -210,12 +209,44 @@ internal class MarkupTextViewDelegate: NSObject, UITextViewDelegate {
         markdownEditor.addHeader(on: textView, with: style)
     }
     
+    /**
+     This method sets the parser's font to have a new trait.
+     
+     - Parameter trait: The trait to be added to the font.
+     */
     public func setFontAttributes(with trait: UIFontDescriptor.SymbolicTraits) {
         if trait == .traitItalic {
             markdownParser.font = markdownParser.font.italic() ?? markdownParser.font
         } else if trait == .traitBold {
             markdownParser.font = markdownParser.font.bold() ?? markdownParser.font
         }
+    }
+    
+    /**
+     This method checks if the attributed text of a UITextView has a font trait in the selected range.
+     
+     - Parameters:
+        - trait: The trait to be checked.
+        - textView: The UITextView which attributed text will be checked.
+     
+     - Returns: A boolean indicating if the trait was found in the selected range.
+     */
+    public func checkTrait(_ trait: UIFontDescriptor.SymbolicTraits, on textView: UITextView) -> Bool {
+        if textView.attributedText.length == 0 {
+            return false
+        }
+        
+        var location = textView.selectedRange.location
+        
+        if location == textView.attributedText.length && location != 0 {
+            location = textView.selectedRange.location - 1
+        }
+        
+        guard let font = textView.attributedText.attribute(.font, at: location, effectiveRange: nil) as? UIFont else {
+            return false
+        }
+        
+        return font.fontDescriptor.symbolicTraits.contains(trait)
     }
     
     /**
@@ -239,5 +270,9 @@ internal class MarkupTextViewDelegate: NSObject, UITextViewDelegate {
         observers.forEach({
             $0.textEditingDidEnd()
         })
+    }
+    
+    func textViewDidChangeSelection(_ textView: UITextView) {
+        (textView.inputView as? MarkupContainerView)?.updateSelectors()
     }
 }
