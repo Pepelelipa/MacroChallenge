@@ -347,4 +347,18 @@ class MarkdownEditor {
         attributedText.replaceCharacters(in: NSRange(location: location, length: 1), with: "\n")
         textView.attributedText = attributedText
     }
+    
+    /**
+     This method sets the text color for a UITextView attributed text within a given range.
+     
+     - Parameters:
+        - color: The color for the attributed text in range.
+        - range: A NSRange indicating the range for the new color.
+        - textView: The UITextView which text will be changed.
+     */
+    public func setTextColor(_ color: UIColor, in range: NSRange, _ textView: UITextView) {
+        let attributedText = NSMutableAttributedString(attributedString: textView.attributedText)
+        attributedText.addAttribute(.foregroundColor, value: color, range: range)
+        textView.attributedText = attributedText
+    }
 }

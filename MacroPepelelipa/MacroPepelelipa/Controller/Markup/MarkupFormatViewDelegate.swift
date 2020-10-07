@@ -66,6 +66,16 @@ class MarkupFormatViewDelegate {
     }
     
     /**
+     Changes the color for the selected or coming text.
+     */
+    @IBAction public func changeTextColor(_ sender: MarkupToggleButton) {
+        if let textView = self.textView,
+            let color = sender.backgroundColor {
+            sender.isSelected = textView.setTextColor(color)
+        }
+    }
+    
+    /**
       Gives the selected of coming text highlighted.
      */
     @objc public func highlightText() {

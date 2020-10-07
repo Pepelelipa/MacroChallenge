@@ -54,6 +54,7 @@ internal class MarkupContainerView: UIView, TextEditingDelegateObserver {
         buttonColors.forEach { (color) in
             var newButton = MarkupToggleButton(frame: .zero, color: color)
             newButton.translatesAutoresizingMaskIntoConstraints = false
+            newButton.addTarget(delegate, action: #selector(delegate?.changeTextColor), for: .touchDown)
             buttons.append(newButton)
         }
         

@@ -250,6 +250,19 @@ internal class MarkupTextViewDelegate: NSObject, UITextViewDelegate {
     }
     
     /**
+     This method sets the parser's color.
+     
+     - Parameter color: The new text color.
+     */
+    public func setTextColor(_ color: UIColor, range: NSRange? = nil, textView: UITextView) {
+        if let colorRange = range {
+            markdownEditor.setTextColor(color, in: colorRange, textView)
+        } else {
+            markdownParser.color = color
+        }
+    }
+    
+    /**
      This method clears indicators on a line on the UITextView.
      
      - Parameter textView: The UITextView which text will be checked and changed in case of any found indicators.
