@@ -109,6 +109,7 @@ internal class NotesViewController: UIViewController, TextEditingDelegateObserve
     
     private lazy var keyboardToolbar: MarkupToolBar = {
         let toolBar = MarkupToolBar(frame: .zero, configurations: markupConfig)
+//        toolBar.observer = self
         return toolBar
     }()
     

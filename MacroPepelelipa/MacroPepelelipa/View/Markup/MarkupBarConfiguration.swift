@@ -59,6 +59,44 @@ internal class MarkupBarConfiguration {
         return UIBarButtonItem(image: buttonImage, style: .plain, target: self, action: objcFunc)
     }
     
+    internal func createButton(imageName: String, systemImage: Bool, objcFunc: Selector) -> UIButton {
+        let button = UIButton(frame: .zero)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        
+        var buttonImage: UIImage?
+        if systemImage {
+            buttonImage = UIImage(systemName: imageName)
+        } else {
+            buttonImage = UIImage(named: imageName)
+        }
+        
+        button.setImage(buttonImage, for: .normal)
+        button.addTarget(self, action: objcFunc, for: .touchUpInside)
+        
+        return button
+    }
+    
+    internal func setupUIButtons() -> [UIButton] {
+        var buttons: [UIButton] = []
+        
+        let listButton = createButton(imageName: "list.bullet", systemImage: true, objcFunc: #selector(addList))
+        buttons.append(listButton)
+        
+        let paragraphButton = createButton(imageName: "h1", systemImage: false, objcFunc: #selector(addHeader))
+        buttons.append(paragraphButton)
+        
+        let imageGalleryButton = createButton(imageName: "photo", systemImage: true, objcFunc: #selector(photoPicker))
+        buttons.append(imageGalleryButton)
+        
+        let textBoxButton = createButton(imageName: "textbox", systemImage: true, objcFunc: #selector(addTextBox))
+        buttons.append(textBoxButton)
+        
+        let paintbrushButton = createButton(imageName: "paintbrush", systemImage: true, objcFunc: #selector(openEditTextContainer))
+        buttons.append(paintbrushButton)
+        
+        return buttons
+    }
+    
     internal func setUpButtons() -> [UIBarButtonItem] {
         var barButtonItems: [UIBarButtonItem] = []
         

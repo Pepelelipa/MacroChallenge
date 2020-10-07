@@ -45,7 +45,17 @@ internal class MarkupNavigationView: UIView {
         }
         
         NSLayoutConstraint.activate([
-            barButtonItems[0]
+            barButtonItems[3].topAnchor.constraint(equalTo: self.topAnchor, constant: 10),
+            barButtonItems[3].leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 10),
+            barButtonItems[3].bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -10),
+            barButtonItems[3].heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.15)
+        ])
+        
+        NSLayoutConstraint.activate([
+            barButtonItems[2].topAnchor.constraint(equalTo: barButtonItems[0].topAnchor),
+            barButtonItems[2].leadingAnchor.constraint(equalTo: barButtonItems[0].trailingAnchor, constant: 10),
+            barButtonItems[2].bottomAnchor.constraint(equalTo: barButtonItems[0].bottomAnchor),
+            barButtonItems[2].heightAnchor.constraint(equalTo: barButtonItems[0].heightAnchor)
         ])
     }
 }

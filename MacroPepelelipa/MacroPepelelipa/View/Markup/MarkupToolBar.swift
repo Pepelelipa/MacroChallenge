@@ -40,7 +40,7 @@ internal class MarkupToolBar: UIToolbar {
     /**
      A private method to set up all the Buttons on the UIToolBar.
      */
-    public func setUpButtons() {
+    private func setUpButtons() {
         
         guard let barButtonItems = markupBarConfiguration?.setUpButtons() else {
             return
