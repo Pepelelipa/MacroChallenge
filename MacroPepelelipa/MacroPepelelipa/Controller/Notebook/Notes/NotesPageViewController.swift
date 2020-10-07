@@ -12,7 +12,7 @@ import Database
 internal class NotesPageViewController: UIPageViewController {
     
     internal private(set) var notes: [NoteEntity] = []
-    internal private (set) var notesViewControllers: [NotesViewController] = []
+    private var notesViewControllers: [NotesViewController] = []
     private lazy var noteDataSource = NotesPageViewControllerDataSource(notes: notes)
     private lazy var noteDelegate = NotesPageViewControllerDelegate { [unowned self] (viewController) in 
         if let notesViewController = viewController as? NotesViewController {
@@ -51,7 +51,7 @@ internal class NotesPageViewController: UIPageViewController {
         }
     }
     
-    internal func setNotesViewControllers(for notesViewController: NotesViewController) {
+    internal func setNotesViewControllers(for notesViewController: NotesViewController, fromIndex: Bool = false) {
         var index: Int = 0
         
         for i in 0..<self.notes.count where notesViewController.note === notes[i] {
@@ -72,8 +72,12 @@ internal class NotesPageViewController: UIPageViewController {
         
         self.notesViewControllers = viewControllers
         
-        if let viewController = notes.count > 2 ? notesViewControllers[1] : notesViewControllers.first {
-            setViewControllers([viewController], direction: .forward, animated: true)
+        if !fromIndex {
+            if let viewController = viewControllers.count > 2 ? notesViewControllers[1] : notesViewControllers.first {
+                setViewControllers([viewController], direction: .forward, animated: true)
+            }
+        } else {
+            setViewControllers([notesViewController], direction: .forward, animated: true)
         }
     }
 }
