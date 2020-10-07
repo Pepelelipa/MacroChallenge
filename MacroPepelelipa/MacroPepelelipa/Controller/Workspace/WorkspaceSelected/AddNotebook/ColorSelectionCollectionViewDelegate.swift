@@ -9,6 +9,12 @@
 import UIKit
 
 internal class ColorSelectionCollectionViewDelegate: NSObject, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+
+    private var selectionHandler: ((ColorSelectionCollectionViewCell) -> Void)?
+    init(selectionHandler: ((ColorSelectionCollectionViewCell) -> Void)? = nil) {
+        self.selectionHandler = selectionHandler
+    }
+
     func getWidth(from frame: CGRect) -> CGFloat {
         return frame.height/4.65
     }
@@ -27,5 +33,11 @@ internal class ColorSelectionCollectionViewDelegate: NSObject, UICollectionViewD
         let rightInset = leftInset
 
         return UIEdgeInsets(top: 0, left: leftInset, bottom: 0, right: rightInset)
+    }
+
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if let cell = collectionView.cellForItem(at: indexPath) as? ColorSelectionCollectionViewCell {
+            selectionHandler?(cell)
+        }
     }
 }

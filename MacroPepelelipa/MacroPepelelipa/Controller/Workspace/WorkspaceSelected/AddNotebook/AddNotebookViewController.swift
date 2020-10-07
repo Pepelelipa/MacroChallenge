@@ -39,7 +39,9 @@ internal class AddNotebookViewController: PopupContainerViewController {
     private let notebookView = NotebookView(frame: .zero)
 
     private let collectionViewDataSource = ColorSelectionCollectionViewDataSource()
-    private let collectionViewDelegate = ColorSelectionCollectionViewDelegate()
+    private lazy var collectionViewDelegate = ColorSelectionCollectionViewDelegate {
+        self.notebookView.color = $0.color ?? .clear
+    }
     private lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
@@ -85,14 +87,14 @@ internal class AddNotebookViewController: PopupContainerViewController {
             view.centerYAnchor.constraint(equalTo: viewController.view.centerYAnchor),
             view.heightAnchor.constraint(equalTo: viewController.view.heightAnchor, multiplier: 0.6),
             view.widthAnchor.constraint(greaterThanOrEqualTo: view.heightAnchor, multiplier: 0.7),
-            view.widthAnchor.constraint(lessThanOrEqualTo: view.widthAnchor, multiplier: 0.8)
+            view.widthAnchor.constraint(lessThanOrEqualTo: viewController.view.widthAnchor, multiplier: 0.95)
         ]
         landscapeViewConstraints = [
             view.centerXAnchor.constraint(equalTo: viewController.view.centerXAnchor),
             view.centerYAnchor.constraint(equalTo: viewController.view.centerYAnchor),
             view.heightAnchor.constraint(equalTo: viewController.view.heightAnchor, multiplier: 0.7),
             view.widthAnchor.constraint(greaterThanOrEqualTo: view.heightAnchor, multiplier: 1.4),
-            view.widthAnchor.constraint(lessThanOrEqualTo: view.widthAnchor, multiplier: 0.8)
+            view.widthAnchor.constraint(lessThanOrEqualTo: viewController.view.widthAnchor, multiplier: 0.8)
         ]
         if UIDevice.current.orientation.isLandscape {
             NSLayoutConstraint.activate(landscapeViewConstraints)
@@ -113,6 +115,7 @@ internal class AddNotebookViewController: PopupContainerViewController {
         btnConfirm.isEnabled = false
 
         let selfTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(selfTap))
+        selfTapGestureRecognizer.numberOfTapsRequired = 2
         view.addGestureRecognizer(selfTapGestureRecognizer)
     }
 

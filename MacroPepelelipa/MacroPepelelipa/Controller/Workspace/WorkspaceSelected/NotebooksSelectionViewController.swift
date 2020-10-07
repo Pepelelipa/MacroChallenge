@@ -66,9 +66,11 @@ internal class NotebooksSelectionViewController: UIViewController {
     @IBAction func btnAddTap() {
         btnAdd.isEnabled = false
         navigationItem.hidesBackButton = true
+        AppUtility.setOrientation(.portrait, andRotateTo: .portrait)
         let addController = AddNotebookViewController(workspace: workspace, dismissHandler: {
             self.btnAdd.isEnabled = true
             self.navigationItem.hidesBackButton = false
+            AppUtility.setOrientation(.all)
         })
         addController.moveTo(self)
     }

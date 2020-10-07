@@ -11,18 +11,31 @@ import UIKit
 internal class ColorSelectionCollectionViewCell: UICollectionViewCell {
     internal class func cellID() -> String { "colorSelectionCell" }
 
+    private var roundView: UIView
     internal var color: UIColor? {
         get {
-            return backgroundColor
+            return roundView.backgroundColor
         }
         set {
-            self.backgroundColor = newValue
+            roundView.backgroundColor = newValue
         }
     }
 
     override init(frame: CGRect) {
+        roundView = UIView(frame: .zero)
+        roundView.translatesAutoresizingMaskIntoConstraints = false
         super.init(frame: frame)
-        self.layer.cornerRadius = frame.height/2
+
+        addSubview(roundView)
+
+        NSLayoutConstraint.activate([
+            roundView.centerXAnchor.constraint(equalTo: centerXAnchor),
+            roundView.centerYAnchor.constraint(equalTo: centerYAnchor),
+            roundView.widthAnchor.constraint(equalTo: widthAnchor),
+            roundView.heightAnchor.constraint(equalTo: heightAnchor)
+        ])
+
+        roundView.layer.cornerRadius = frame.height/2
     }
 
     required convenience init?(coder: NSCoder) {
