@@ -17,9 +17,9 @@ internal class WorkspaceCollectionViewCell: UICollectionViewCell {
             self.lblWorkspaceName.text = workspace?.name
         }
     }
-    internal func setWorkspace(_ workspace: WorkspaceEntity) {
+    internal func setWorkspace(_ workspace: WorkspaceEntity, viewController: UIViewController? = nil) {
         self.workspace = workspace
-        dataSource = .init(workspace: workspace)
+        dataSource = .init(workspace: workspace, viewController: viewController)
         delegate = .init(totalNotebooks: workspace.notebooks.count)
         collectionView.dataSource = dataSource
         collectionView.delegate = delegate
