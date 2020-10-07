@@ -276,6 +276,18 @@ internal class NotesViewController: UIViewController,
         
         if let itemProvider = results.first?.itemProvider, itemProvider.canLoadObject(ofClass: UIImage.self) {
             itemProvider.loadObject(ofClass: UIImage.self) { [weak self] (loadedImage, error) in
+                
+                if let error = error, let self = self {
+                    let alertController = UIAlertController(
+                        title: "Error presenting Photo Library".localized(),
+                        message: "The app could not present the Photo Library".localized(),
+                        preferredStyle: .alert)
+                        .makeErrorMessage(with: "The app could not load the native Image Picker Controller".localized())
+                    self.present(alertController, animated: true, completion: nil)
+                    NSLog("Error requesting -> \(error)")
+                    return
+                }
+    
                 DispatchQueue.main.async {
                     guard let self = self, let image = loadedImage as? UIImage else {
                         return
