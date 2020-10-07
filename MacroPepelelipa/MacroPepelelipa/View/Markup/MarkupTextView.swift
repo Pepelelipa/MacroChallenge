@@ -2,7 +2,9 @@
 //  MarkupTextView.swift
 //  MacroPepelelipa
 //
-//  Created by Lia Kassardjian on 16/09/20.
+//  Created by Lia Kassardjian, 
+//             Leonardo Amorim de Oliveira and 
+//             Pedro Henrique Guedes Silveira on 16/09/20.
 //  Copyright © 2020 Pedro Giuliano Farina. All rights reserved.
 //
 
@@ -10,10 +12,10 @@ import UIKit
 
 internal class MarkupTextView: UITextView {
     
-    private var animator: UIDynamicAnimator?
+    internal var animator: UIDynamicAnimator?
     private var snap: UISnapBehavior?
     private var imageView: UIImageView?
-    
+
     init(frame: CGRect, delegate: MarkupTextViewDelegate? = nil) {
         super.init(frame: frame, textContainer: nil)
         
@@ -26,14 +28,13 @@ internal class MarkupTextView: UITextView {
         animator = UIDynamicAnimator(referenceView: self)
     }
     
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        for touch in touches {
-            imageView = checkTouch(touch)
+    required convenience init?(coder: NSCoder) {
+        guard let frame = coder.decodeObject(forKey: "frame") as? CGRect,
+              let delegate = coder.decodeObject(forKey: "delegate") as? MarkupTextViewDelegate else {
+            return nil
         }
+
+        self.init(frame: frame, delegate: delegate)
     }
     
     /**
@@ -110,4 +111,25 @@ internal class MarkupTextView: UITextView {
         delegate.addHeader(on: self, with: style)
     }
     
+    /**
+     This method calls the delegate's method to add italic attributes.
+     */
+    public func addItalic() {
+        guard let delegate = self.delegate as? MarkupTextViewDelegate else {
+            return
+        }
+        
+        delegate.addItalic(on: self)
+    }
+    
+    /**
+     This method calls the delegate's method to remove italic attributes.
+     */
+    public func removeItalic() {
+        guard let delegate = self.delegate as? MarkupTextViewDelegate else {
+            return
+        }
+        
+        delegate.removeItalic(on: self)
+    }
 }
