@@ -10,6 +10,8 @@
 internal struct TextBox: TextBoxEntity {
     var note: NoteEntity
     var text: NSAttributedString
+    var width: Float
+    var heigth: Float
     var x: Float
     var y: Float
     var z: Float

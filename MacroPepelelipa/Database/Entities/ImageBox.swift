@@ -10,6 +10,8 @@
 internal struct ImageBox: ImageBoxEntity {
     var note: NoteEntity
     var imagePath: String
+    var width: Float
+    var heigth: Float
     var x: Float
     var y: Float
     var z: Float

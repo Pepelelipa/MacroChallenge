@@ -10,6 +10,8 @@
 public protocol ImageBoxEntity {
     var note: NoteEntity { get }
     var imagePath: String { get }
+    var width: Float { get }
+    var heigth: Float { get }
     var x: Float { get }
     var y: Float { get }
     var z: Float { get }
