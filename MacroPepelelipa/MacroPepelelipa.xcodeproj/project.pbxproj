@@ -77,6 +77,7 @@
 		02E4E99525266F3900290A39 /* NotebookView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02E4E99425266F3900290A39 /* NotebookView.swift */; };
 		02E5A22C25239E36009DFFB5 /* WorkspaceSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02E5A22B25239E36009DFFB5 /* WorkspaceSelectionViewController.swift */; };
 		02ECA43C2512ABD100E68588 /* NotebookCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02ECA43B2512ABD100E68588 /* NotebookCollectionViewCell.swift */; };
+		1E6E148C252E33E700383E10 /* MarkupBarConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E6E148B252E33E700383E10 /* MarkupBarConfiguration.swift */; };
 		1E9EF4A925225B9B00CC623B /* TextEditingDelegateObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E9EF4A825225B9B00CC623B /* TextEditingDelegateObserver.swift */; };
 		1E9EF4AD2522609400CC623B /* MarkupTextFieldDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E9EF4AC2522609400CC623B /* MarkupTextFieldDelegate.swift */; };
 		1EE652C2252504400015E3D4 /* MarkupContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EE652C1252504400015E3D4 /* MarkupContainerView.swift */; };
@@ -200,6 +201,7 @@
 		02E4E99425266F3900290A39 /* NotebookView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotebookView.swift; sourceTree = "<group>"; };
 		02E5A22B25239E36009DFFB5 /* WorkspaceSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkspaceSelectionViewController.swift; sourceTree = "<group>"; };
 		02ECA43B2512ABD100E68588 /* NotebookCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotebookCollectionViewCell.swift; sourceTree = "<group>"; };
+		1E6E148B252E33E700383E10 /* MarkupBarConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkupBarConfiguration.swift; sourceTree = "<group>"; };
 		1E9EF4A825225B9B00CC623B /* TextEditingDelegateObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextEditingDelegateObserver.swift; sourceTree = "<group>"; };
 		1E9EF4AC2522609400CC623B /* MarkupTextFieldDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkupTextFieldDelegate.swift; sourceTree = "<group>"; };
 		1EE652C1252504400015E3D4 /* MarkupContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkupContainerView.swift; sourceTree = "<group>"; };
@@ -508,6 +510,7 @@
 				1EE652C1252504400015E3D4 /* MarkupContainerView.swift */,
 				1EE652C62525049E0015E3D4 /* MarkupToggleButton.swift */,
 				1EFA49CD252D15C500602904 /* MarkupNavigationBar.swift */,
+				1E6E148B252E33E700383E10 /* MarkupBarConfiguration.swift */,
 			);
 			path = Markup;
 			sourceTree = "<group>";
@@ -921,6 +924,7 @@
 				0213BFB5251943C40085ABC3 /* IndexDelegateProtocol.swift in Sources */,
 				D9F4A9AB25277A6B00BFDC19 /* CGRectExtension.swift in Sources */,
 				022D600B2519559D00001D5B /* MarkdownCode+UIKit.swift in Sources */,
+				1E6E148C252E33E700383E10 /* MarkupBarConfiguration.swift in Sources */,
 				022D60152519559D00001D5B /* MarkdownQuote.swift in Sources */,
 				D9F4A9AE25277AC900BFDC19 /* TextBoxView.swift in Sources */,
 				0247F78D25115BAA00405A61 /* NotebooksSelectionViewController.swift in Sources */,

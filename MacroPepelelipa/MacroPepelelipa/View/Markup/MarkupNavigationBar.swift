@@ -8,16 +8,12 @@
 
 import UIKit
 
-class MarkupNavigationBar: UINavigationBar {
-    internal weak var observer: MarkupToolBarObserver?
+internal class MarkupNavigationBar: UINavigationBar {
+    private weak var markupBarConfiguration: MarkupBarConfiguration?
     
-    private weak var textView: MarkupTextView?
-    private var pickerDelegate: MarkupPhotoPickerDelegate?
-    
-    private var listButton: UIBarButtonItem?
     private static var paragraphButton: UIBarButtonItem?
+    private var navigationItem: UINavigationItem?
     
-    private var listStyle: ListStyle = .bullet
     public static var headerStyle: HeaderStyle = .h1 {
         didSet {
             if MarkupToolBar.headerStyle == .h1 {
@@ -26,11 +22,12 @@ class MarkupNavigationBar: UINavigationBar {
         }
     }
     
-    init(frame: CGRect, owner: MarkupTextView) {
-        self.textView = owner
+    init(frame: CGRect, configurations: MarkupBarConfiguration) {
+        self.markupBarConfiguration = configurations
         super.init(frame: frame)
         
 //        setUpButtons()
+        navigationItem?.titleView = MarkupToolBar(frame: .infinite, configurations: configurations)
         
         self.sizeToFit()
         self.tintColor = .toolsColor
@@ -41,22 +38,40 @@ class MarkupNavigationBar: UINavigationBar {
     }
     
     /**
-     This private method creates a UIBarButtonItem with an image and an Objective-C function.
-     
-     - Parameters:
-        - systemImageName: A String containing the name of the button image.
-        - objcFunc: An optional Selector to be added to the button.
-     
-     - Returns: An UIBarButtonItem with an image and a selector, if passed as parameter.
+     A private method to set up all the Buttons on the UIToolBar.
      */
-    private func createBarButtonItem(imageName: String, systemImage: Bool, objcFunc: Selector?) -> UIBarButtonItem {
-        var buttonImage: UIImage?
-        if systemImage {
-            buttonImage = UIImage(systemName: imageName)
-        } else {
-            buttonImage = UIImage(named: imageName)
-        }
-        
-        return UIBarButtonItem(image: buttonImage, style: .plain, target: self, action: objcFunc)
-    }
+//    public func setUpButtons() {
+//
+//        guard let barButtonItems = markupBarConfiguration?.setUpButtons() else {
+//            return
+//        }
+//
+//        let flexible = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+//        let button = UIButton(frame: .zero)
+//
+//        navigationItem?.titleView = button
+//
+//        navigationItem?.backBarButtonItem = flexible
+//
+//
+//
+//        self.items = [flexible, barButtonItems[3], flexible, barButtonItems[2]]
+//        for _ in 0...9 {
+////            navigationItem?.titleView = flexible
+//            self.items?.append(flexible)
+//        }
+//
+//        self.items?.append(barButtonItems[4])
+//        self.items?.append(flexible)
+//
+//        self.items?.append(barButtonItems[0])
+//        self.items?.append(flexible)
+//
+//        MarkupToolBar.paragraphButton = barButtonItems[1]
+//
+//        if let paragraphBtn = MarkupToolBar.paragraphButton {
+//            self.items?.append(paragraphBtn)
+//            self.items?.append(flexible)
+//        }
+//    }
 }
