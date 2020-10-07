@@ -15,6 +15,8 @@
 "Format" = "Format";
 "New workspace name" = "New workspace name";
 "Create new workspace" = "Create new workspace";
+"New notebook name" = "New notebook name";
+"Create new notebook" = "Create new notebook";
 "Done" = "Done";
 "Could not open this notebook" = "Could not open this notebook";
 "The app could not load this notebook" = "The app could not load this notebook";
@@ -33,4 +35,12 @@
 "The index did not have a note" = "The index did not have a note";
 "Could not load image" = "Could not load image";
 "The app could not load the selected image" = "The app could not load the selected image";
-
+"Error creating new notebook" = "Error creating new notebook";
+"The app could not retrieve the necessary information" = "The app could not retrieve the necessary information";
+"Not possible to retrieve a workspace or notebook name in notebook creation" = "Not possible to retrieve a workspace or notebook name in notebook creation";
+"Error presenting notebook creation" = "Error presenting notebook creation";
+"The app could not present a color" = "The app could not present a color";
+"A color cell could not be loaded in the creation of a notebook" = "A color cell could not be loaded in the creation of a notebook";
+"Error presenting Photo Library" = "Error presenting Photo Library";
+"The app could not present the Photo Library" = "The app could not present the Photo Library";
+"The app could not load the native Image Picker Controller" = "The app could not load the native Image Picker Controller";

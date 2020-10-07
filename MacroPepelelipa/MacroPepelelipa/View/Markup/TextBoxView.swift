@@ -59,7 +59,7 @@ internal class TextBoxView: UIView, BoxView {
                 
     internal init(frame: CGRect, owner: MarkupTextView) {  
         self.owner = owner
-        self.state = .editing
+        self.state = .idle
 
         super.init(frame: frame)
         
