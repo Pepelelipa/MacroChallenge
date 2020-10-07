@@ -52,10 +52,31 @@ internal class MarkupNavigationView: UIView {
         ])
         
         NSLayoutConstraint.activate([
-            barButtonItems[2].topAnchor.constraint(equalTo: barButtonItems[0].topAnchor),
-            barButtonItems[2].leadingAnchor.constraint(equalTo: barButtonItems[0].trailingAnchor, constant: 10),
-            barButtonItems[2].bottomAnchor.constraint(equalTo: barButtonItems[0].bottomAnchor),
-            barButtonItems[2].heightAnchor.constraint(equalTo: barButtonItems[0].heightAnchor)
+            barButtonItems[2].topAnchor.constraint(equalTo: barButtonItems[3].topAnchor),
+            barButtonItems[2].leadingAnchor.constraint(equalTo: barButtonItems[3].trailingAnchor, constant: 10),
+            barButtonItems[2].bottomAnchor.constraint(equalTo: barButtonItems[3].bottomAnchor),
+            barButtonItems[2].heightAnchor.constraint(equalTo: barButtonItems[3].heightAnchor)
+        ])
+        
+        NSLayoutConstraint.activate([
+            barButtonItems[0].topAnchor.constraint(equalTo: barButtonItems[3].topAnchor),
+            barButtonItems[0].leadingAnchor.constraint(equalTo: barButtonItems[2].trailingAnchor, constant: 10),
+            barButtonItems[0].bottomAnchor.constraint(equalTo: barButtonItems[3].bottomAnchor),
+            barButtonItems[0].heightAnchor.constraint(equalTo: barButtonItems[3].heightAnchor)
+        ])
+        
+        NSLayoutConstraint.activate([
+            barButtonItems[4].topAnchor.constraint(equalTo: barButtonItems[3].topAnchor),
+            barButtonItems[4].leadingAnchor.constraint(equalTo: barButtonItems[0].trailingAnchor, constant: 10),
+            barButtonItems[4].bottomAnchor.constraint(equalTo: barButtonItems[3].bottomAnchor),
+            barButtonItems[4].heightAnchor.constraint(equalTo: barButtonItems[3].heightAnchor)
+        ])
+        
+        NSLayoutConstraint.activate([
+            barButtonItems[1].topAnchor.constraint(equalTo: barButtonItems[3].topAnchor),
+            barButtonItems[1].leadingAnchor.constraint(equalTo: barButtonItems[4].trailingAnchor, constant: 10),
+            barButtonItems[1].bottomAnchor.constraint(equalTo: barButtonItems[3].bottomAnchor),
+            barButtonItems[1].heightAnchor.constraint(equalTo: barButtonItems[3].heightAnchor)
         ])
     }
 }
