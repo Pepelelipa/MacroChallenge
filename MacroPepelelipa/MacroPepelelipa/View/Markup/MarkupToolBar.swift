@@ -28,7 +28,6 @@ internal class MarkupToolBar: UIToolbar {
     internal weak var observer: MarkupToolBarObserver?
     
     private weak var textView: MarkupTextView?
-    private var pickerDelegate: MarkupPhotoPickerDelegate?
     
     private var listButton: UIBarButtonItem?
     private static var paragraphButton: UIBarButtonItem?
@@ -142,20 +141,7 @@ internal class MarkupToolBar: UIToolbar {
     */
     
     @objc private func photoPicker() {
-//        var config = PHPickerConfiguration()
-//        config.filter = .images
-//
-//        pickerDelegate = MarkupPhotoPickerDelegate()
-//
-//        let picker = PHPickerViewController(configuration: config)
-//
-//        picker.delegate = pickerDelegate
-//
-//        guard let controller = viewController else {
-//            return
-//        }
-//
-//        controller.present(picker, animated: true, completion: nil)
+        observer?.presentPicker()
     }
     
     /**

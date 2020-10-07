@@ -8,10 +8,15 @@
 
 import UIKit
 import Database
+import PhotosUI
 
-internal class NotesViewController: UIViewController, TextEditingDelegateObserver, MarkupToolBarObserver {
+internal class NotesViewController: UIViewController, 
+                                    TextEditingDelegateObserver,
+                                    MarkupToolBarObserver,
+                                    PHPickerViewControllerDelegate {
     
-    internal var textBoxes: Set<TextBoxView> = []    
+    internal var textBoxes: Set<TextBoxView> = []  
+    internal var imageBoxes: Set<ImageBoxView> = []
 
     private let screenWidth = UIScreen.main.bounds.width
     private let screenHeight = UIScreen.main.bounds.height
@@ -22,6 +27,7 @@ internal class NotesViewController: UIViewController, TextEditingDelegateObserve
     private var initialCenter = CGPoint()
     private var scale: CGFloat = 1.0
     private var currentBoxViewPosition: CGPoint = .zero
+    private var libraryImage: UIImage?
     
     private lazy var imageButton: UIButton = {
         let button = UIButton(frame: .zero)
@@ -195,6 +201,9 @@ internal class NotesViewController: UIViewController, TextEditingDelegateObserve
                 textBox.state = .idle
                 textBox.markupTextView.isUserInteractionEnabled = false
             }
+            self.imageBoxes.forEach { (imageBox) in
+                imageBox.state = .idle
+            }
             self.imageButton.isHidden = true
             
             if !self.resizeHandles.isEmpty {
@@ -233,6 +242,50 @@ internal class NotesViewController: UIViewController, TextEditingDelegateObserve
         self.textView.addSubview(textBox)
     }
     
+    func addImageBox(with frame: CGRect, image: UIImage) {
+                
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
+        let doubleTapGesture = UITapGestureRecognizer(target: self, action: #selector(handleDoubleTap(_:)))
+        doubleTapGesture.numberOfTapsRequired = 2
+        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePan(_:)))
+        let pinchGesture = UIPinchGestureRecognizer(target: self, action: #selector(handlePinch(_:)))
+        
+        let imageBox = ImageBoxView(frame: frame, owner: textView, image: image)
+        
+        imageBox.addGestureRecognizer(tapGesture)
+        imageBox.addGestureRecognizer(doubleTapGesture)
+        imageBox.addGestureRecognizer(panGesture)
+        imageBox.addGestureRecognizer(pinchGesture)
+        self.imageBoxes.insert(imageBox)
+        self.textView.addSubview(imageBox)
+    }
+    
+    func presentPicker() {
+        var config = PHPickerConfiguration()
+        config.filter = .images
+                
+        let picker = PHPickerViewController(configuration: config)
+        
+        picker.delegate = self
+
+        present(picker, animated: true, completion: nil)   
+    }
+    
+    func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
+        picker.dismiss(animated: true)
+        
+        if let itemProvider = results.first?.itemProvider, itemProvider.canLoadObject(ofClass: UIImage.self) {
+            itemProvider.loadObject(ofClass: UIImage.self) { [weak self] (loadedImage, error) in
+                DispatchQueue.main.async {
+                    guard let self = self, let image = loadedImage as? UIImage else {
+                        return
+                    }
+                    let frame = CGRect(x: UIScreen.main.bounds.midX, y: UIScreen.main.bounds.midY, width: 100.0, height: 100.0)
+                    self.addImageBox(with: frame, image: image)
+                }
+            }
+        }
+    }
     /**
      Uptade the resize handle position and the border of the text box.
      */
@@ -243,10 +296,13 @@ internal class NotesViewController: UIViewController, TextEditingDelegateObserve
         textBoxes.forEach { (textBox) in
             textBox.setUpBorder()
         }
+        imageBoxes.forEach { (imageBox) in
+            imageBox.setUpBorder()
+        }
     }
     
     /**
-     Adds and positions the resize handles in the box view
+     Adds and position the resize handles in the box view
      - Parameters
         - boxView: The Box View who will receive the resize handle.
      */
