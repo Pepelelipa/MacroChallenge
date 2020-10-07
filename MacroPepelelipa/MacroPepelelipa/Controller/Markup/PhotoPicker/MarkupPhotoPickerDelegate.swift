@@ -25,7 +25,13 @@ class MarkupPhotoPickerDelegate: PHPickerViewControllerDelegate {
                                 self.photoLibraryImage = image
                             }
                         } else if let error = error {
-                            fatalError(error.localizedDescription)
+                            let alertController = UIAlertController(
+                                title: "Could not load image".localized(),
+                                message: "The app could not load the selected image".localized(),
+                                preferredStyle: .alert)
+                                .makeErrorMessage(with: error.localizedDescription)
+                            
+                            picker.present(alertController, animated: true, completion: nil)
                         }
                     }
                 }

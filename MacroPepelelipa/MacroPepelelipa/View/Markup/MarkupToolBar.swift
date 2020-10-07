@@ -52,8 +52,13 @@ internal class MarkupToolBar: UIToolbar {
         self.tintColor = .toolsColor
     }
     
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+    required convenience init?(coder: NSCoder) {
+        guard let frame = coder.decodeObject(forKey: "frame") as? CGRect,
+              let owner = coder.decodeObject(forKey: "owner") as? MarkupTextView else {
+            return nil
+        }
+
+        self.init(frame: frame, owner: owner)
     }
     
     /**
