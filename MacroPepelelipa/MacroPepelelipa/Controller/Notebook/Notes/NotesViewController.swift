@@ -23,6 +23,12 @@ internal class NotesViewController: UIViewController, TextEditingDelegateObserve
     private var scale: CGFloat = 1.0
     private var currentBoxViewPosition: CGPoint = .zero
     
+    private lazy var viewTeste: UIView = {
+       let viewTst = MarkupNavigationView(frame: CGRect(x: 300, y: 100, width: 500, height: 50), configurations: markupConfig)
+        viewTst.backgroundColor = .random()
+        return viewTst
+    }()
+    
     private lazy var imageButton: UIButton = {
         let button = UIButton(frame: .zero)
         button.setImage(UIImage(named: "imageButton"), for: .normal)
@@ -147,6 +153,7 @@ internal class NotesViewController: UIViewController, TextEditingDelegateObserve
         view.addSubview(textField)
         view.addSubview(textView)
         view.addSubview(imageButton)
+        view.addSubview(viewTeste)
         self.view.backgroundColor = .backgroundColor
         
         if UIDevice.current.userInterfaceIdiom == .phone {
