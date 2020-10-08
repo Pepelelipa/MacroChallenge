@@ -12,6 +12,7 @@ import Database
 internal class AddNotebookViewController: PopupContainerViewController {
     private weak var workspace: WorkspaceEntity?
     private lazy var keyboardToolBar = AddNotebookToolBar(frame: .zero, owner: txtName)
+    private var txtNoteDelegate = AddNotebookTextFieldDelegate()
 
     init(workspace: WorkspaceEntity?, dismissHandler: (() -> Void)? = nil) {
         super.init(dismissHandler: dismissHandler)
@@ -33,6 +34,8 @@ internal class AddNotebookViewController: PopupContainerViewController {
         txtName.font = .preferredFont(forTextStyle: .title1)
         txtName.tintColor = .actionColor
         txtName.addTarget(self, action: #selector(textChanged(_:)), for: .editingChanged)
+        txtName.returnKeyType = UIReturnKeyType.done 
+        txtName.delegate = txtNoteDelegate
 
         return txtName
     }()
