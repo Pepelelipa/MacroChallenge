@@ -83,4 +83,7 @@ internal class NoteObject: NoteEntity {
         observers.forEach({$0.entityDidChangeTo(self)})
     }
 
+    deinit {
+        observers.forEach({$0.entityWasDeleted(self)})
+    }
 }
