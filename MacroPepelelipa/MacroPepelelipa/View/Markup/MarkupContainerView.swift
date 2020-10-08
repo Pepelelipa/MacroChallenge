@@ -229,13 +229,13 @@ internal class MarkupContainerView: UIView, TextEditingDelegateObserver {
         NSLayoutConstraint.activate([
             merriweather.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor, constant: 16),
             dancing.trailingAnchor.constraint(equalTo: backgroundView.trailingAnchor, constant: -16),
-            openSans.leadingAnchor.constraint(equalTo: merriweather.trailingAnchor, constant: 6)
+            openSans.leadingAnchor.constraint(equalTo: merriweather.trailingAnchor, constant: 15)
         ])
         
-        for (_, selector) in fontSelector {
+        for (key, selector) in fontSelector {
             NSLayoutConstraint.activate([
                 selector.bottomAnchor.constraint(equalTo: backgroundView.bottomAnchor, constant: -16),
-                selector.widthAnchor.constraint(equalTo: backgroundView.widthAnchor, multiplier: 0.3)
+                selector.widthAnchor.constraint(equalTo: backgroundView.widthAnchor, multiplier: key == .merriweather ? 0.35 : 0.25)
             ])
         }
     }

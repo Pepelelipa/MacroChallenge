@@ -14,11 +14,11 @@ extension UIFont {
     }()
     
     static let openSans: UIFont? = {
-        return UIFont(name: "OpenSans", size: UIFont.labelFontSize)
+        return UIFont(name: "OpenSans", size: UIFont.labelFontSize + 1)
     }()
     
     static let dancingScript: UIFont? = {
-        return UIFont(name: "DancingScript", size: UIFont.labelFontSize)
+        return UIFont(name: "Dancing Script", size: UIFont.labelFontSize + 3)
     }()
     
     func withStyle(style: UIFont.TextStyle, maxPointSize: CGFloat? = nil) -> UIFont {
