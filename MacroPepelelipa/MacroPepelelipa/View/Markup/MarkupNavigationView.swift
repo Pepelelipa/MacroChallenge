@@ -30,6 +30,7 @@ internal class MarkupNavigationView: UIStackView {
         
         self.sizeToFit()
         self.tintColor = UIColor.toolsColor
+
     }
     
     required init(coder: NSCoder) {

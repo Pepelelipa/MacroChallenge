@@ -17,6 +17,7 @@ internal class SplitViewController: UISplitViewController, NotebookIndexDelegate
         nav.isNavigationBarHidden = true
         return nav
     }()
+    
     private let detail: NotesViewController
 
     internal init(notebook: NotebookEntity) {
@@ -32,7 +33,7 @@ internal class SplitViewController: UISplitViewController, NotebookIndexDelegate
         modalPresentationStyle = .fullScreen
         viewControllers = [navController, detail]
         master.delegate = self
-        preferredDisplayMode = .oneBesideSecondary
+        preferredDisplayMode = .oneOverSecondary
     }
 
     internal required convenience init?(coder: NSCoder) {
