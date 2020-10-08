@@ -33,14 +33,14 @@ internal class NoteObject: NoteEntity {
             textBoxes.removeAll()
             if let textBoxes = coreDataObject.textBoxes?.allObjects as? [TextBox] {
                 textBoxes.forEach { (textBox) in
-                    //TODO: TextBoxObject constructor from TextBox
+                    self.textBoxes.append(TextBoxObject(in: self, coreDataObject: textBox))
                 }
             }
 
             images.removeAll()
             if let images = coreDataObject.images?.allObjects as? [ImageBox] {
                 images.forEach { (imageBox) in
-                    //TODO: ImageBoxObject constructor from ImageBox
+                    self.images.append(ImageBoxObject(in: self, coreDataObject: imageBox))
                 }
             }
         }

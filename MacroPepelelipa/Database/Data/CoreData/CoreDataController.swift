@@ -62,6 +62,32 @@ internal class CoreDataController {
         return note
     }
 
+    //MARK: TextBox
+    internal func createTextBox(in note: Note) throws -> TextBox {
+        guard let textBox = NSEntityDescription.insertNewObject(forEntityName: "TextBox", into: context) as? TextBox else {
+            throw CoreDataError.FailedToParseObject
+        }
+
+        textBox.note = note
+
+        try saveContext()
+
+        return textBox
+    }
+
+    //MARK: TextBox
+    internal func createImageBox(in note: Note) throws -> ImageBox {
+        guard let imageBox = NSEntityDescription.insertNewObject(forEntityName: "ImageBox", into: context) as? ImageBox else {
+            throw CoreDataError.FailedToParseObject
+        }
+
+        imageBox.note = note
+
+        try saveContext()
+
+        return imageBox
+    }
+
     //MARK: Context
     private func saveContext() throws {
         if context.hasChanges {

@@ -10,7 +10,7 @@
 public protocol TextBoxEntity {
     var text: NSAttributedString { get }
     var width: Float { get }
-    var heigth: Float { get }
+    var height: Float { get }
     var x: Float { get }
     var y: Float { get }
     var z: Float { get }
