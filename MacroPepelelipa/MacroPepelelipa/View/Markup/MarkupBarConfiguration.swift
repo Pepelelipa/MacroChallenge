@@ -267,7 +267,12 @@ internal class MarkupBarConfiguration {
     }
     
     @objc private func openEditTextContainer() {
-        observer?.changeTextViewInput(isCustom: true)
+        if UIDevice.current.userInterfaceIdiom == .phone {
+            observer?.changeTextViewInput(isCustom: true)
+        } else if UIDevice.current.userInterfaceIdiom == .pad {
+            // TODO: create the pop over action here.
+        }
+        
     }
     
     @objc internal func photoPicker() {
