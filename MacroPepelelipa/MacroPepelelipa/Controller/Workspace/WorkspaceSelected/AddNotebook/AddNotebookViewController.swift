@@ -11,6 +11,7 @@ import Database
 
 internal class AddNotebookViewController: PopupContainerViewController {
     private weak var workspace: WorkspaceEntity?
+    private lazy var keyboardToolBar = AddNotebookToolBar(frame: .zero, owner: txtName)
 
     init(workspace: WorkspaceEntity?, dismissHandler: (() -> Void)? = nil) {
         super.init(dismissHandler: dismissHandler)
@@ -117,6 +118,7 @@ internal class AddNotebookViewController: PopupContainerViewController {
         let selfTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(selfTap))
         selfTapGestureRecognizer.numberOfTapsRequired = 2
         view.addGestureRecognizer(selfTapGestureRecognizer)
+        self.txtName.inputAccessoryView = keyboardToolBar
     }
 
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
