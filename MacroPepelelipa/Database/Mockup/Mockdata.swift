@@ -46,12 +46,18 @@ public class Mockdata {
     }
     public static func createNote(in notebook: NotebookEntity) -> NoteEntity {
         guard let notebook = notebook as? Notebook else {
-            fatalError("Deu ruim")
+            fatalError("Failed to load mocked data")
         }
         return Note(notebook: notebook, title: NSAttributedString(), text: NSAttributedString())
     }
-    public static func createWorkspace(with name: String) -> WorkspaceEntity {
+    public static func createWorkspace(named name: String) -> WorkspaceEntity {
         return Workspace(name: name)
+    }
+    public static func createNotebook(on workspace: WorkspaceEntity, named name: String, colorName: String) -> NotebookEntity {
+        guard let workspace = workspace as? Workspace else {
+            fatalError("Failed to load mocked data")
+        }
+        return Notebook(workspace: workspace, name: name, colorName: colorName)
     }
 }
 #endif

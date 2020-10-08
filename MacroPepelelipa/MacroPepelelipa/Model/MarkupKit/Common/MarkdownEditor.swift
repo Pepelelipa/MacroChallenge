@@ -92,41 +92,60 @@ class MarkdownEditor {
     }
     
     /**
+     This private method toggles a trait on the textview's attributed text.
+     
+     - Parameters:
+        - trait: The trait to be toggled on the text.
+        - textView: The UITextView which attributed text will receive a new font.
+     */
+    private func setFontTrait(trait: UIFontDescriptor.SymbolicTraits, _ textView: UITextView) {
+        guard let attributedText = textView.attributedText else {
+            return
+        }
+        
+        let range = textView.selectedRange
+        let mutableAttributedText = NSMutableAttributedString(attributedString: attributedText)
+                
+        guard let font = mutableAttributedText.attribute(.font, at: range.location, effectiveRange: nil) as? UIFont else {
+            return
+        }
+        
+        var newFont = markdownParser.font
+        
+        if font.fontDescriptor.symbolicTraits.contains(trait) {
+            newFont = newFont.removeTrait(trait)
+        } else {
+            if trait == .traitItalic {
+                newFont = font.italic() ?? markdownParser.font
+            } else if trait == .traitBold {
+                newFont = font.bold() ?? markdownParser.font
+            }
+        }
+        
+        mutableAttributedText.addAttribute(.font, value: newFont, range: range)
+        textView.attributedText = mutableAttributedText
+    }
+    
+    /**
      This method adds italic attributes on the UITextView based on the selected range.
      
      - Parameters:
         - textView: The UITextView which attributed text will receive new attributes.
      */
     public func addItalic(on textView: UITextView) {
-        guard let attributedText = textView.attributedText else {
-            return
-        }
-        
-        let range = textView.selectedRange
-        
-        let mutableAttributedText = NSMutableAttributedString(attributedString: attributedText)
-        
-        guard let newFontValue = markdownParser.font.italic() else {
-            return
-        }
-        
-        mutableAttributedText.addAttribute(.font, value: newFontValue, range: range)
-        textView.attributedText = mutableAttributedText
+        setFontTrait(trait: .traitItalic, textView)
     }
     
-    public func removeItalic(on textView: UITextView) {
-        guard let attributedText = textView.attributedText else {
-            return
-        }
-        
-        let range = textView.selectedRange
-        
-        let mutableAttributedText = NSMutableAttributedString(attributedString: attributedText)
-        
-        mutableAttributedText.addAttribute(.font, value: markdownParser.font, range: range)
-        textView.attributedText = mutableAttributedText
+    /**
+     This method adds bold attributes on the UITextView based on the selected range.
+     
+     - Parameters:
+        - textView: The UITextView which attributed text will receive new attributes.
+     */
+    public func addBold(on textView: UITextView) {
+        setFontTrait(trait: .traitBold, textView)
     }
-    
+
     /**
      This method adds header attributes on the UITextView based on the selected range and the chosen style.
      
@@ -184,6 +203,35 @@ class MarkdownEditor {
         textView.attributedText = mutableAttributedText
     }
     
+    /**
+     This method adds background color attribute on the UITextView based on the selected range.
+     
+     - Parameters:
+        - textView: The UITextView which attributed text will receive new attributes.
+     */
+    public func setBackgroundColor(on textView: UITextView) {
+        guard let attributedText = textView.attributedText else {
+            return
+        }
+        
+        let range = textView.selectedRange
+        let mutableAtrributedText = NSMutableAttributedString(attributedString: attributedText)
+        
+        guard let color = mutableAtrributedText.attribute(.backgroundColor, at: range.location, effectiveRange: nil) as? UIColor else {
+            return
+        }
+        
+        var newColor = MarkdownCode.defaultHighlightColor
+        
+        if color == newColor {
+            newColor = UIColor.backgroundColor ?? markdownParser.backgroundColor  
+            markdownParser.backgroundColor = newColor
+        }
+                
+        mutableAtrributedText.addAttribute(.backgroundColor, value: newColor, range: range)
+        textView.attributedText = mutableAtrributedText
+    }
+
     /**
      This method clears indicators on a line on the UITextView.
      

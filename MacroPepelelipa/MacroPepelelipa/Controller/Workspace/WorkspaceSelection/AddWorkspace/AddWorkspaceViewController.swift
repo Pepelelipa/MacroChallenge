@@ -9,19 +9,7 @@
 import UIKit
 import Database
 
-internal class AddWorkspaceViewController: UIViewController {
-
-    private var dismissHandler: (() -> Void)?
-    internal init(dismissHandler: (() -> Void)? = nil) {
-        self.dismissHandler = dismissHandler
-        super.init(nibName: nil, bundle: nil)
-        view.backgroundColor = .backgroundColor
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.layer.cornerRadius = 20
-    }
-    required convenience init?(coder: NSCoder) {
-        self.init()
-    }
+internal class AddWorkspaceViewController: PopupContainerViewController {
 
     private lazy var txtName: UITextField = {
         let txtName = UITextField()
@@ -46,21 +34,46 @@ internal class AddWorkspaceViewController: UIViewController {
         return btnConfirm
     }()
 
-    override func viewDidLoad() {
-        view.addSubview(txtName)
-        btnConfirm.isEnabled = false
-        view.addSubview(btnConfirm)
+    internal override func moveTo(_ viewController: UIViewController) {
+        let centerYConstraint = view.centerYAnchor.constraint(equalTo: viewController.view.centerYAnchor)
+        self.centerYConstraint = centerYConstraint
+        super.moveTo(viewController)
+        NSLayoutConstraint.activate([
+            view.centerXAnchor.constraint(equalTo: viewController.view.centerXAnchor),
+            centerYConstraint,
+            view.heightAnchor.constraint(greaterThanOrEqualToConstant: 130),
+            view.heightAnchor.constraint(greaterThanOrEqualTo: viewController.view.heightAnchor, multiplier: 0.18),
+            view.widthAnchor.constraint(lessThanOrEqualTo: viewController.view.widthAnchor, multiplier: 0.8)
+        ])
     }
 
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        view.addSubview(txtName)
+        view.addSubview(btnConfirm)
+        btnConfirm.isEnabled = false
+
+        let selfTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(selfTap))
+        view.addGestureRecognizer(selfTapGestureRecognizer)
+        txtName.becomeFirstResponder()
+    }
+
+    @IBAction func selfTap() {
+        txtName.resignFirstResponder()
+    }
+
+    var centerYConstraint: NSLayoutConstraint?
     override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
         NSLayoutConstraint.activate([
             txtName.topAnchor.constraint(equalTo: view.topAnchor, constant: 20),
             txtName.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 30),
-            txtName.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -30)
+            txtName.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -30),
+            txtName.heightAnchor.constraint(equalToConstant: 40)
         ])
         NSLayoutConstraint.activate([
             btnConfirm.bottomAnchor.constraint(lessThanOrEqualTo: view.bottomAnchor, constant: -20),
-            btnConfirm.topAnchor.constraint(greaterThanOrEqualTo: txtName.topAnchor, constant: 30),
+            btnConfirm.topAnchor.constraint(greaterThanOrEqualTo: txtName.bottomAnchor, constant: 30),
             btnConfirm.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             btnConfirm.leadingAnchor.constraint(greaterThanOrEqualTo: view.leadingAnchor, constant: 60),
             btnConfirm.trailingAnchor.constraint(lessThanOrEqualTo: view.trailingAnchor, constant: -60),
@@ -68,41 +81,25 @@ internal class AddWorkspaceViewController: UIViewController {
         ])
     }
 
-    var backgroundBlur: UIView?
-    internal func moveTo(_ viewController: UIViewController) {
-        willMove(toParent: viewController)
-        let backgroundBlur = UIView()
-        self.backgroundBlur = backgroundBlur
-        backgroundBlur.translatesAutoresizingMaskIntoConstraints = false
-        backgroundBlur.backgroundColor = UIColor(red: 0.1, green: 0.1, blue: 0.1, alpha: 0.5)
-        viewController.view.addSubview(backgroundBlur)
-        NSLayoutConstraint.activate([
-            backgroundBlur.centerXAnchor.constraint(equalTo: viewController.view.centerXAnchor),
-            backgroundBlur.centerYAnchor.constraint(equalTo: viewController.view.centerYAnchor),
-            backgroundBlur.widthAnchor.constraint(equalTo: viewController.view.widthAnchor),
-            backgroundBlur.heightAnchor.constraint(equalTo: viewController.view.heightAnchor)
-        ])
-
-        viewController.addChild(self)
-        viewController.view.addSubview(view)
-
-        NSLayoutConstraint.activate([
-            view.centerXAnchor.constraint(equalTo: viewController.view.centerXAnchor),
-            view.centerYAnchor.constraint(equalTo: viewController.view.centerYAnchor),
-            view.heightAnchor.constraint(greaterThanOrEqualToConstant: 130),
-            view.heightAnchor.constraint(greaterThanOrEqualTo: viewController.view.heightAnchor, multiplier: 0.18),
-            view.widthAnchor.constraint(lessThanOrEqualTo: viewController.view.widthAnchor, multiplier: 0.8)
-        ])
-
-        didMove(toParent: viewController)
-
-        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(backgroundTap))
-        backgroundBlur.addGestureRecognizer(tapGestureRecognizer)
+    override func viewWillAppear(_ animated: Bool) {
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    override func viewWillDisappear(_ animated: Bool) {
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
     }
 
-    @IBAction func backgroundTap() {
-        dismissFromParent()
+    @objc func keyboardWillShow(notification: NSNotification) {
+        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
+            centerYConstraint?.constant = -keyboardSize.height*0.5
+        }
     }
+    @objc func keyboardWillHide(notification: NSNotification) {
+        centerYConstraint?.constant = 0
+    }
+
+    // MARK: UIControls Events
     @IBAction func textChanged(_ textField: UITextField) {
         let trimmed = textField.text?.trimmingCharacters(in: .whitespaces)
         if trimmed == "" {
@@ -116,17 +113,15 @@ internal class AddWorkspaceViewController: UIViewController {
     }
     @IBAction func btnConfirmTap() {
         if let text = txtName.text {
-            _ = Mockdata.createWorkspace(with: text)
+            _ = Mockdata.createWorkspace(named: text)
             dismissFromParent()
         }
     }
-
-    func dismissFromParent() {
-        willMove(toParent: nil)
-        removeFromParent()
-        didMove(toParent: nil)
-        view.removeFromSuperview()
-        backgroundBlur?.removeFromSuperview()
-        dismissHandler?()
+    override func backgroundTap() {
+        if txtName.isEditing {
+            txtName.endEditing(true)
+        } else {
+            super.backgroundTap()
+        }
     }
 }

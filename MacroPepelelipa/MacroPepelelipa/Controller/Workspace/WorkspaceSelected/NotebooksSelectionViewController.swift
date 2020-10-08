@@ -12,9 +12,9 @@ import Database
 internal class NotebooksSelectionViewController: UIViewController {
     internal private(set) weak var workspace: WorkspaceEntity?
     internal init(workspace: WorkspaceEntity) {
-        self.workspace = workspace
-        self.collectionDataSource = NotebooksCollectionViewDataSource(workspace: workspace)
         super.init(nibName: nil, bundle: nil)
+        self.workspace = workspace
+        self.collectionDataSource = NotebooksCollectionViewDataSource(workspace: workspace, viewController: self)
     }
     internal required convenience init?(coder: NSCoder) {
         guard let workspace = coder.decodeObject(forKey: "workspace") as? WorkspaceEntity else {
@@ -42,10 +42,17 @@ internal class NotebooksSelectionViewController: UIViewController {
 
         return collectionView
     }()
-    private let collectionDataSource: NotebooksCollectionViewDataSource
+    private var collectionDataSource: NotebooksCollectionViewDataSource?
     private lazy var collectionDelegate = NotebooksCollectionViewDelegate { [unowned self] (selectedCell) in
         guard let notebook = selectedCell.notebook else {
-            fatalError("The notebook cell did not have a notebook")
+            let alertController = UIAlertController(
+                title: "Could not open this notebook".localized(),
+                message: "The app could not load this notebook".localized(),
+                preferredStyle: .alert)
+                .makeErrorMessage(with: "The notebook collection view cell did not have a notebook".localized())
+            
+            self.present(alertController, animated: true, completion: nil)
+            return
         }
         let split = SplitViewController(notebook: notebook)
 
@@ -59,8 +66,26 @@ internal class NotebooksSelectionViewController: UIViewController {
         self.present(split, animated: false)
     }
 
+    private lazy var btnAdd: UIBarButtonItem = {
+        let item = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(btnAddTap))
+        return item
+    }()
+    @IBAction func btnAddTap() {
+        btnAdd.isEnabled = false
+        navigationItem.hidesBackButton = true
+        AppUtility.setOrientation(.portrait, andRotateTo: .portrait)
+        let addController = AddNotebookViewController(workspace: workspace, dismissHandler: {
+            self.btnAdd.isEnabled = true
+            self.navigationItem.hidesBackButton = false
+            AppUtility.setOrientation(.all)
+        })
+        addController.moveTo(self)
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        navigationItem.rightBarButtonItem = btnAdd
         navigationItem.title = workspace?.name
         view.backgroundColor = .backgroundColor
         view.addSubview(collectionView)

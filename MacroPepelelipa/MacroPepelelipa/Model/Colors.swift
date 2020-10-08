@@ -23,7 +23,7 @@ public extension UIColor {
     ///Gets all the notebooks colors
     static var notebookColors: [UIColor] = {
         var colors: [UIColor] = []
-        for i in 0...24 {
+        for i in 0...23 {
             if let color = UIColor(named: "nb\(i)") {
                 colors.append(color)
             }
@@ -37,6 +37,14 @@ public extension UIColor {
             return nil
         }
         return color.withAlphaComponent(alpha)
+    }
+
+    ///Gets the name of an UIColor
+    static func notebookColorName(of color: UIColor) -> String? {
+        if let index = notebookColors.firstIndex(of: color) {
+            return "nb\(index)"
+        }
+        return nil
     }
 
     static var actionColor: UIColor? = {

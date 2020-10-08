@@ -76,7 +76,7 @@ internal class MarkupContainerView: UIView, TextEditingDelegateObserver {
         
         buttons[0].addTarget(delegate, action: #selector(delegate?.makeTextItalic), for: .touchDown)
         buttons[1].addTarget(delegate, action: #selector(delegate?.makeTextBold), for: .touchDown)
-        buttons[2].addTarget(delegate, action: #selector(delegate?.highlightText), for: .touchDown)
+        buttons[2].addTarget(delegate, action: #selector(delegate?.highlightText), for: .touchUpInside)
         
         return buttons
     }()
@@ -133,12 +133,14 @@ internal class MarkupContainerView: UIView, TextEditingDelegateObserver {
         (self.textView?.delegate as? MarkupTextViewDelegate)?.removeObserver(self)
     }
     
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    func textReceivedEnter() {
-        formatSelector[0].toogleButton()
+    required convenience init?(coder: NSCoder) {
+        guard let frame = coder.decodeObject(forKey: "frame") as? CGRect,
+        let owner = coder.decodeObject(forKey: "owner") as? MarkupTextView,
+        let viewController = coder.decodeObject(forKey: "viewController") as? NotesViewController else {
+            return nil
+        }
+        let delegate = coder.decodeObject(forKey: "delegate") as? MarkupFormatViewDelegate
+        self.init(frame: frame, owner: owner, delegate: delegate, viewController: viewController)
     }
     
     /**
@@ -283,5 +285,19 @@ internal class MarkupContainerView: UIView, TextEditingDelegateObserver {
         }
         
         setBackgroundShadow()
+        updateSelectors()
+    }
+    
+    /**
+     This public methos updates the selectors appearence based on the text style.
+     */
+    public func updateSelectors() {
+        formatSelector[0].isSelected = textView?.checkTrait(.traitItalic) ?? false
+        formatSelector[1].isSelected = textView?.checkTrait(.traitBold) ?? false
+        formatSelector[2].isSelected = textView?.checkBackground() ?? false
+
+        formatSelector.forEach { (button) in
+            button.setTintColor()
+        }
     }
 }
