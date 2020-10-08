@@ -46,7 +46,7 @@ internal class WorkspaceObject: WorkspaceEntity {
     }
 
     func save() throws {
-        #warning("Workspace isn't saving yet.")
+        try DataManager.shared().saveObjects()
     }
 
     private func notifyObservers() {

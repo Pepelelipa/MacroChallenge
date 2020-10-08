@@ -73,7 +73,7 @@ internal class NotebookObject: NotebookEntity {
     }
 
     func save() throws {
-        #warning("Notebook isn't saving yet")
+        try DataManager.shared().saveObjects()
     }
 
     private func notifyObservers() {

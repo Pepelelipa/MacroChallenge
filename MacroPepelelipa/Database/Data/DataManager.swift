@@ -9,6 +9,12 @@
 public class DataManager {
     private let coreDataController = CoreDataController()
 
+    ///Save all modified objects
+    /// - Throws: Throws if Core Data fails to save.
+    internal func saveObjects() throws {
+        try coreDataController.saveContext()
+    }
+
     //MARK: Workspace
     /**
      Creates a Workspace into the Database

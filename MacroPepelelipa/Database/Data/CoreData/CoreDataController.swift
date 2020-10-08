@@ -170,7 +170,7 @@ internal class CoreDataController {
     }
 
     //MARK: Context
-    private func saveContext() throws {
+    internal func saveContext() throws {
         if context.hasChanges {
             do {
                 try context.save()

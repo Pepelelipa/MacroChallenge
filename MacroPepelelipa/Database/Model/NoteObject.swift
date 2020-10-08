@@ -76,7 +76,7 @@ internal class NoteObject: NoteEntity {
     }
 
     func save() throws {
-        #warning("Note isn't saving yet")
+        try DataManager.shared().saveObjects()
     }
 
     private func notifyObservers() {

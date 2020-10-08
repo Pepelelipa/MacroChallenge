@@ -7,5 +7,7 @@
 //
 
 public protocol ModifiableEntity {
+    /// Save modifications
+    /// - Throws: Throws if fails to save.
     func save() throws
 }
