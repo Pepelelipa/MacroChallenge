@@ -9,9 +9,12 @@
 import Foundation
 import UIKit
 
-class AddNotebookTextFieldDelegate: NSObject, UITextFieldDelegate {
+class AddNewSpaceTextFieldDelegate: NSObject, UITextFieldDelegate {
+    
+    weak var observer: AddWorkspaceObserver?
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        observer?.addWorkspace()
         textField.resignFirstResponder()
         return true
     }

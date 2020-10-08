@@ -11,8 +11,8 @@ import Database
 
 internal class AddNotebookViewController: PopupContainerViewController {
     private weak var workspace: WorkspaceEntity?
-    private lazy var keyboardToolBar = AddNotebookToolBar(frame: .zero, owner: txtName)
-    private var txtNoteDelegate = AddNotebookTextFieldDelegate()
+    private lazy var keyboardToolBar = AddNewSpaceToolBar(frame: .zero, owner: txtName)
+    private var txtNoteDelegate = AddNewSpaceTextFieldDelegate()
 
     init(workspace: WorkspaceEntity?, dismissHandler: (() -> Void)? = nil) {
         super.init(dismissHandler: dismissHandler)

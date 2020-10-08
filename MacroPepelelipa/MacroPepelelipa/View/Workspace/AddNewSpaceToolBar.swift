@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-internal class AddNotebookToolBar: UIToolbar {
+internal class AddNewSpaceToolBar: UIToolbar {
     
     private lazy var doneButton: UIBarButtonItem = {
         let barButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(placeHolderMethod))
@@ -44,34 +44,4 @@ internal class AddNotebookToolBar: UIToolbar {
         let items = [flexibe, doneButton]
         self.items = items
     }
-    
-    /**
-     A private method to set up all the Buttons on the UIToolBar.
-     */
-//    private func setUpButtons() {
-//        
-//        guard let barButtonItems = markupBarConfiguration?.setUpButtons() else {
-//            return
-//        }
-//
-//        let flexible = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-//        
-//        self.items = [flexible, barButtonItems[3], flexible, barButtonItems[2]]
-//        for _ in 0...9 {
-//            self.items?.append(flexible)
-//        }
-//        
-//        self.items?.append(barButtonItems[4])
-//        self.items?.append(flexible)
-//        
-//        self.items?.append(barButtonItems[0])
-//        self.items?.append(flexible)
-//        
-//        MarkupToolBar.paragraphButton = barButtonItems[1]
-//        
-//        if let paragraphBtn = MarkupToolBar.paragraphButton {
-//            self.items?.append(paragraphBtn)
-//            self.items?.append(flexible)
-//        }
-//    }
 }
