@@ -20,7 +20,14 @@ internal class NotebookObject: NotebookEntity {
     var colorName: String
 
     var notes: [NoteEntity] = []
-    var indexes: [NotebookIndexEntity] = []
+    var indexes: [NotebookIndexEntity] {
+        var indexes: [NotebookIndexObject] = []
+        for note in notes {
+            indexes.append(NotebookIndexObject(index: note.title.string, note: note, isTitle: true))
+            //TODO: get the H1 texts from note
+        }
+        return indexes
+    }
 
     private var observers: [EntityObserver] = []
 
