@@ -17,6 +17,8 @@ internal struct TextBoxObject: TextBoxEntity {
         self.x = coreDataObject.x
         self.y = coreDataObject.y
         self.z = coreDataObject.z
+
+        note.textBoxes.append(self)
     }
 
     private weak var note: NoteObject?
@@ -26,10 +28,10 @@ internal struct TextBoxObject: TextBoxEntity {
         }
         throw NoteError.NoteWasNull
     }
-    var text: NSAttributedString
-    var width: Float
-    var height: Float
-    var x: Float
-    var y: Float
-    var z: Float
+    public var text: NSAttributedString
+    public var width: Float
+    public var height: Float
+    public var x: Float
+    public var y: Float
+    public var z: Float
 }

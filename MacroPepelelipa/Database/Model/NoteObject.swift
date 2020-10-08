@@ -17,11 +17,29 @@ internal class NoteObject: NoteEntity {
     }
     private weak var notebook: NotebookObject?
 
-    var title: NSAttributedString
-    var text: NSAttributedString
+    public var title: NSAttributedString {
+        didSet {
+            coreDataObject.title = title
+            notifyObservers()
+        }
+    }
+    var text: NSAttributedString {
+        didSet {
+            coreDataObject.text = text
+            notifyObservers()
+        }
+    }
 
-    var textBoxes: [TextBoxEntity] = []
-    var images: [ImageBoxEntity] = []
+    public internal(set) var textBoxes: [TextBoxEntity] = [] {
+        didSet {
+            notifyObservers()
+        }
+    }
+    public internal(set) var images: [ImageBoxEntity] = [] {
+        didSet {
+            notifyObservers()
+        }
+    }
 
     private var observers: [EntityObserver] = []
 
@@ -51,6 +69,8 @@ internal class NoteObject: NoteEntity {
         self.coreDataObject = note
         self.title = note.title ?? NSAttributedString()
         self.text = note.text ?? NSAttributedString()
+        
+        notebook.notes.append(self)
     }
 
     func addObserver(_ observer: EntityObserver) {

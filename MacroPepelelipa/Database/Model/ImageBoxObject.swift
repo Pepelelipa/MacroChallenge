@@ -17,6 +17,8 @@ internal struct ImageBoxObject: ImageBoxEntity {
         self.x = coreDataObject.x
         self.y = coreDataObject.y
         self.z = coreDataObject.z
+
+        note.images.append(self)
     }
 
     private weak var note: NoteObject?

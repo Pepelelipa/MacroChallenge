@@ -9,18 +9,32 @@
 internal class NotebookObject: NotebookEntity {
 
     private weak var workspace: WorkspaceObject?
-    func getWorkspace() throws -> WorkspaceEntity {
+    public func getWorkspace() throws -> WorkspaceEntity {
         if let workspace = workspace {
             return workspace
         }
         throw WorkspaceError.WorkspaceWasNull
     }
 
-    var name: String
-    var colorName: String
+    public var name: String {
+        didSet {
+            coreDataObject.name = name
+            notifyObservers()
+        }
+    }
+    public var colorName: String {
+        didSet {
+            coreDataObject.colorName = colorName
+            notifyObservers()
+        }
+    }
 
-    var notes: [NoteEntity] = []
-    var indexes: [NotebookIndexEntity] {
+    public internal(set) var notes: [NoteEntity] = [] {
+        didSet {
+            notifyObservers()
+        }
+    }
+    public var indexes: [NotebookIndexEntity] {
         var indexes: [NotebookIndexObject] = []
         for note in notes {
             indexes.append(NotebookIndexObject(index: note.title.string, note: note, isTitle: true))
@@ -50,6 +64,8 @@ internal class NotebookObject: NotebookEntity {
         self.coreDataObject = notebook
         self.name = notebook.name ?? ""
         self.colorName = notebook.colorName ?? ""
+        
+        workspace.notebooks.append(self)
     }
 
     func addObserver(_ observer: EntityObserver) {

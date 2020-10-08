@@ -7,9 +7,18 @@
 //
 
 internal class WorkspaceObject: WorkspaceEntity {
-    var name: String
+    public var name: String {
+        didSet {
+            coreDataObject.name = name
+            notifyObservers()
+        }
+    }
 
-    var notebooks: [NotebookEntity] = []
+    public internal(set) var notebooks: [NotebookEntity] = [] {
+        didSet {
+            notifyObservers()
+        }
+    }
     
     private var observers: [EntityObserver] = []
 
