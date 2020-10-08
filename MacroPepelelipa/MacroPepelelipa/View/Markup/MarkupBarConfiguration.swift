@@ -70,7 +70,7 @@ internal class MarkupBarConfiguration {
             buttonImage = UIImage(named: imageName)
         }
         
-        button.setImage(buttonImage, for: .normal)
+        button.setBackgroundImage(buttonImage, for: .normal)
         button.addTarget(self, action: objcFunc, for: .touchUpInside)
         
         return button
@@ -79,10 +79,10 @@ internal class MarkupBarConfiguration {
     internal func setupUIButtons() -> [UIButton] {
         var buttons: [UIButton] = []
         
-        let listButton = createButton(imageName: "list.bullet", systemImage: true, objcFunc: #selector(addList))
+        let listButton = createButton(imageName: "list.bullet", systemImage: true, objcFunc: #selector(addListButton))
         buttons.append(listButton)
         
-        let paragraphButton = createButton(imageName: "h1", systemImage: false, objcFunc: #selector(addHeader))
+        let paragraphButton = createButton(imageName: "h1", systemImage: false, objcFunc: #selector(addHeaderButton))
         buttons.append(paragraphButton)
         
         let imageGalleryButton = createButton(imageName: "photo", systemImage: true, objcFunc: #selector(photoPicker))
@@ -116,6 +116,28 @@ internal class MarkupBarConfiguration {
         barButtonItems.append(paintbrushButton)
         
         return barButtonItems
+    }
+    
+    @objc internal func addHeaderButton(paragraphButton: UIButton) {
+        textView?.addHeader(with: MarkupToolBar.headerStyle)
+        var nextStyle: HeaderStyle = MarkupToolBar.headerStyle
+                
+        switch MarkupToolBar.headerStyle {
+        case .h1:
+            paragraphButton.setBackgroundImage(UIImage(named: "h2"), for: .normal)
+            nextStyle = .h2
+        case .h2:
+            paragraphButton.setBackgroundImage(UIImage(named: "h3"), for: .normal)
+            nextStyle = .h3
+        case .h3:
+            paragraphButton.setBackgroundImage(UIImage(systemName: "paragraph"), for: .normal)
+            nextStyle = .paragraph
+        case .paragraph:
+            paragraphButton.setBackgroundImage(UIImage(named: "h1"), for: .normal)
+            nextStyle = .h1
+        }
+            
+        MarkupToolBar.headerStyle = nextStyle
     }
     
     /**
@@ -160,8 +182,38 @@ internal class MarkupBarConfiguration {
 //        controller.present(picker, animated: true, completion: nil)
     }
     
+    @objc internal func addListButton(listButton: UIButton) {
+        guard let guardedTextView = textView else {
+            return
+        }
+            
+        let lineCleared = guardedTextView.clearIndicatorCharacters()
+        var nextStyle: ListStyle = .bullet
+        
+        guardedTextView.addList(of: listStyle, lineCleared)
+        
+        switch listStyle {
+        case .bullet:
+            listButton.setBackgroundImage(UIImage(systemName: "list.number"), for: .normal)
+            MarkdownQuote.isQuote = false
+            nextStyle = .numeric
+        case .numeric:
+            listButton.setBackgroundImage(UIImage(systemName: "text.quote"), for: .normal)
+            MarkdownList.isList = false
+            nextStyle = .quote
+        case .quote:
+            listButton.setBackgroundImage(UIImage(systemName: "list.bullet"), for: .normal)
+            MarkdownNumeric.isNumeric = false
+            nextStyle = .bullet
+        }
+        
+        listStyle = nextStyle
+    }
+    
     /**
-    In this funcion, we deal with the toolbar button for adding a list, adding it manually.
+    In this funcion, we deal with the toolbar button for adding a list, adding it manually, when the function receives a UIBarButtonItem.
+    - Parameters:
+        - listButton: The UIBarButtonItem.
     */
     @objc internal func addList(listButton: UIBarButtonItem) {
         guard let guardedTextView = textView else {

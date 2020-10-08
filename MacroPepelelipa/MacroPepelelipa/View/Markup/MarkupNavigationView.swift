@@ -29,7 +29,7 @@ internal class MarkupNavigationView: UIStackView {
         setButtonConstraints()
         
         self.sizeToFit()
-        self.tintColor = .toolsColor
+        self.tintColor = UIColor.toolsColor
     }
     
     required init(coder: NSCoder) {
@@ -46,7 +46,7 @@ internal class MarkupNavigationView: UIStackView {
         
         self.axis = .horizontal
         self.alignment = .fill
-        self.distribution = .fillEqually
+        self.distribution = .fillProportionally
         self.spacing = 5.0
         
         self.addArrangedSubview(barButtonItems[3])

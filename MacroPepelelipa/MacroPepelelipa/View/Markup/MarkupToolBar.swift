@@ -30,7 +30,7 @@ internal class MarkupToolBar: UIToolbar {
         setUpButtons()
         
         self.sizeToFit()
-        self.tintColor = .toolsColor
+        self.tintColor = UIColor.toolsColor
     }
     
     required init?(coder: NSCoder) {

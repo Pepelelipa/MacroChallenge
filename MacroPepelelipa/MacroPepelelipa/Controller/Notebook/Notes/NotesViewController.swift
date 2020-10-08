@@ -24,8 +24,8 @@ internal class NotesViewController: UIViewController, TextEditingDelegateObserve
     private var currentBoxViewPosition: CGPoint = .zero
     
     private lazy var viewTeste: UIView = {
-       let viewTst = MarkupNavigationView(frame: CGRect(x: 300, y: 100, width: 500, height: 50), configurations: markupConfig)
-        viewTst.backgroundColor = .random()
+       let viewTst = MarkupNavigationView(frame: CGRect(x: 350, y: 50, width: 220, height: 30), configurations: markupConfig)
+        viewTst.backgroundColor = .white
         return viewTst
     }()
     
