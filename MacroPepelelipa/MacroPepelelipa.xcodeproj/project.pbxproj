@@ -95,7 +95,6 @@
 		D9D87538251BB26500B842C8 /* MarkupToolBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D87537251BB26500B842C8 /* MarkupToolBar.swift */; };
 		D9D87544251BD39F00B842C8 /* PhotoEditingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D87543251BD39F00B842C8 /* PhotoEditingViewController.swift */; };
 		D9E4B0C9252E316900665CDC /* ImageBoxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9E4B0C8252E316900665CDC /* ImageBoxView.swift */; };
-		D9E4B0CD252E34D300665CDC /* IsAddingImageDelegateObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9E4B0CC252E34D300665CDC /* IsAddingImageDelegateObserver.swift */; };
 		D9F4A9A125277A6000BFDC19 /* BoxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9F4A9A025277A6000BFDC19 /* BoxView.swift */; };
 		D9F4A9A825277A6B00BFDC19 /* CGPointExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9F4A9A425277A6A00BFDC19 /* CGPointExtension.swift */; };
 		D9F4A9A925277A6B00BFDC19 /* CornerEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9F4A9A525277A6A00BFDC19 /* CornerEnum.swift */; };
@@ -224,7 +223,6 @@
 		D9D87537251BB26500B842C8 /* MarkupToolBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkupToolBar.swift; sourceTree = "<group>"; };
 		D9D87543251BD39F00B842C8 /* PhotoEditingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoEditingViewController.swift; sourceTree = "<group>"; };
 		D9E4B0C8252E316900665CDC /* ImageBoxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageBoxView.swift; sourceTree = "<group>"; };
-		D9E4B0CC252E34D300665CDC /* IsAddingImageDelegateObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IsAddingImageDelegateObserver.swift; sourceTree = "<group>"; };
 		D9F4A9A025277A6000BFDC19 /* BoxView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoxView.swift; sourceTree = "<group>"; };
 		D9F4A9A425277A6A00BFDC19 /* CGPointExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGPointExtension.swift; sourceTree = "<group>"; };
 		D9F4A9A525277A6A00BFDC19 /* CornerEnum.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CornerEnum.swift; sourceTree = "<group>"; };
@@ -745,7 +743,6 @@
 				D9F4A9A325277A6A00BFDC19 /* Resize */,
 				D9F4A9A025277A6000BFDC19 /* BoxView.swift */,
 				1E9EF4A825225B9B00CC623B /* TextEditingDelegateObserver.swift */,
-				D9E4B0CC252E34D300665CDC /* IsAddingImageDelegateObserver.swift */,
 				D9F4A9BC2527D0A600BFDC19 /* MarkupToolBarObserver.swift */,
 			);
 			path = Notes;
@@ -1011,10 +1008,8 @@
 				026C3CAC251942A7001E32AE /* NotesViewController.swift in Sources */,
 				1EE652C2252504400015E3D4 /* MarkupContainerView.swift in Sources */,
 				022D60212519559D00001D5B /* MarkdownLinkElement.swift in Sources */,
-				D9E4B0CD252E34D300665CDC /* IsAddingImageDelegateObserver.swift in Sources */,
 				02695ECE25279EAE007D60C3 /* AddWorkspaceViewController.swift in Sources */,
 				024C5BB3252E41D8009549CE /* AddNotebookViewController.swift in Sources */,
-				D9D87541251BC4F200B842C8 /* MarkupPhotoPickerDelegate.swift in Sources */,
 				022D60192519559D00001D5B /* MarkdownColoredBackground.swift in Sources */,
 				E4FCA4942523B52F00DE88B8 /* MarkdownEditor.swift in Sources */,
 				A7BDD60A251406D900DDB6A0 /* TableViewDataSource.swift in Sources */,

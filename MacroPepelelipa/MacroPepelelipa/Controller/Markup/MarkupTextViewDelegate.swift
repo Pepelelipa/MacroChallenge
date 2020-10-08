@@ -223,6 +223,30 @@ internal class MarkupTextViewDelegate: NSObject, UITextViewDelegate {
     }
     
     /**
+     This method  sets the parser's background color to have the highlight background color.     
+     */
+    public func setTextToHighlight() {
+        markdownParser.backgroundColor = MarkdownCode.defaultHighlightColor
+    }
+    
+    /**
+     This method sets the parser's background color to have the normal background color.     
+     */
+    public func setTextToNormal() {
+        markdownParser.backgroundColor = UIColor.backgroundColor ?? .black
+    }
+    
+    /**
+     This method calls the editor's method to add background color attributes on the UITextView based on the selected range.
+     
+     - Parameters:
+        - textView: The UITextView which attributed text will receive new attributes.
+     */
+    public func setBackgroundColor(on textView: UITextView) {
+        markdownEditor.setBackgroundColor(on: textView)
+    }
+    
+    /**
      This method checks if the attributed text of a UITextView has a font trait in the selected range.
      
      - Parameters:
@@ -247,6 +271,33 @@ internal class MarkupTextViewDelegate: NSObject, UITextViewDelegate {
         }
         
         return font.fontDescriptor.symbolicTraits.contains(trait)
+    }
+    
+    public func checkBackground(on textView: UITextView) -> Bool {
+        var flag: Bool = false
+        
+        if textView.attributedText.length == 0 {
+            flag = false
+            return flag
+        }
+        
+        var location  = textView.selectedRange.location
+        
+        if location == textView.attributedText.length && location != 0 {
+            location = textView.selectedRange.location - 1
+        }
+        
+        guard let backgroundColor = textView.attributedText.attribute(.backgroundColor, at: location, effectiveRange: nil) as? UIColor else {
+            flag = false
+            return flag
+        }
+        
+        if backgroundColor == UIColor.backgroundColor {
+            flag = false
+        } else if backgroundColor == MarkdownCode.defaultHighlightColor {
+            flag = true
+        }
+        return flag
     }
     
     /**

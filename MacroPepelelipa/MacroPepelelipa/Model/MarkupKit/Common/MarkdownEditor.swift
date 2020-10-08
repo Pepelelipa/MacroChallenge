@@ -204,6 +204,35 @@ class MarkdownEditor {
     }
     
     /**
+     This method adds background color attribute on the UITextView based on the selected range.
+     
+     - Parameters:
+        - textView: The UITextView which attributed text will receive new attributes.
+     */
+    public func setBackgroundColor(on textView: UITextView) {
+        guard let attributedText = textView.attributedText else {
+            return
+        }
+        
+        let range = textView.selectedRange
+        let mutableAtrributedText = NSMutableAttributedString(attributedString: attributedText)
+        
+        guard let color = mutableAtrributedText.attribute(.backgroundColor, at: range.location, effectiveRange: nil) as? UIColor else {
+            return
+        }
+        
+        var newColor = MarkdownCode.defaultHighlightColor
+        
+        if color == newColor {
+            newColor = UIColor.backgroundColor ?? markdownParser.backgroundColor  
+            markdownParser.backgroundColor = newColor
+        }
+                
+        mutableAtrributedText.addAttribute(.backgroundColor, value: newColor, range: range)
+        textView.attributedText = mutableAtrributedText
+    }
+
+    /**
      This method clears indicators on a line on the UITextView.
      
      - Parameter textView: The UITextView which text will be checked and changed in case of any found indicators.
