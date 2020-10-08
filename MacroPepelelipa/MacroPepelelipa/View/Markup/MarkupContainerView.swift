@@ -47,13 +47,14 @@ internal class MarkupContainerView: UIView, TextEditingDelegateObserver {
         var buttons = [MarkupToggleButton]()
         var buttonColors: [UIColor] = [
             UIColor.bodyColor ?? .black,
-            UIColor.notebookColors[14],
-            UIColor.notebookColors[12]
+            UIColor.notebookColors[4],
+            UIColor.notebookColors[14]
         ]
         
         buttonColors.forEach { (color) in
             var newButton = MarkupToggleButton(frame: .zero, color: color)
             newButton.translatesAutoresizingMaskIntoConstraints = false
+            newButton.addTarget(delegate, action: #selector(delegate?.changeTextColor), for: .touchDown)
             buttons.append(newButton)
         }
         
@@ -292,12 +293,35 @@ internal class MarkupContainerView: UIView, TextEditingDelegateObserver {
      This public methos updates the selectors appearence based on the text style.
      */
     public func updateSelectors() {
-        formatSelector[0].isSelected = textView?.checkTrait(.traitItalic) ?? false
-        formatSelector[1].isSelected = textView?.checkTrait(.traitBold) ?? false
-        formatSelector[2].isSelected = textView?.checkBackground() ?? false
+        guard let textView = self.textView else {
+            return
+        }
+        
+        formatSelector[0].isSelected = textView.checkTrait(.traitItalic)
+        formatSelector[1].isSelected = textView.checkTrait(.traitBold)
+        formatSelector[2].isSelected = textView.checkBackground()
 
         formatSelector.forEach { (button) in
             button.setTintColor()
+        }
+        
+        let textcolor = textView.getTextColor()
+        
+        colorSelector.forEach { (button) in
+            button.isSelected = (textcolor == button.backgroundColor)
+        }
+    }
+    
+    /**
+     This methos updates the color selectors by comparing each one with the sender button.
+     
+     - Parameter sender: The MarkupToggleButton that was last selected.
+     */
+    public func updateColorSelectors(sender: MarkupToggleButton) {
+        colorSelector.forEach { (button) in
+            if button != sender {
+                button.isSelected = false
+            }
         }
     }
 }
