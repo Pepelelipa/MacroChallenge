@@ -37,14 +37,5 @@ internal struct TextBoxObject: TextBoxEntity {
     public var y: Float
     public var z: Float
 
-    internal private(set) var coreDataObject: TextBox {
-        didSet {
-            self.text = coreDataObject.text ?? NSAttributedString()
-            self.width = coreDataObject.width
-            self.height = coreDataObject.height
-            self.x = coreDataObject.x
-            self.y = coreDataObject.y
-            self.z = coreDataObject.z
-        }
-    }
+    internal let coreDataObject: TextBox
 }

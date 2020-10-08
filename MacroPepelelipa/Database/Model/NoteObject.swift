@@ -43,26 +43,7 @@ internal class NoteObject: NoteEntity {
 
     private var observers: [EntityObserver] = []
 
-    internal private(set) var coreDataObject: Note {
-        didSet {
-            self.title = coreDataObject.title ?? NSAttributedString()
-            self.text = coreDataObject.text ?? NSAttributedString()
-
-            textBoxes.removeAll()
-            if let textBoxes = coreDataObject.textBoxes?.allObjects as? [TextBox] {
-                textBoxes.forEach { (textBox) in
-                    self.textBoxes.append(TextBoxObject(in: self, coreDataObject: textBox))
-                }
-            }
-
-            images.removeAll()
-            if let images = coreDataObject.images?.allObjects as? [ImageBox] {
-                images.forEach { (imageBox) in
-                    self.images.append(ImageBoxObject(in: self, coreDataObject: imageBox))
-                }
-            }
-        }
-    }
+    internal let coreDataObject: Note
 
     internal init(in notebook: NotebookObject, from note: Note) {
         self.notebook = notebook
@@ -71,6 +52,17 @@ internal class NoteObject: NoteEntity {
         self.text = note.text ?? NSAttributedString()
         
         notebook.notes.append(self)
+
+        if let textBoxes = coreDataObject.textBoxes?.allObjects as? [TextBox] {
+            textBoxes.forEach { (textBox) in
+                self.textBoxes.append(TextBoxObject(in: self, coreDataObject: textBox))
+            }
+        }
+        if let images = coreDataObject.images?.allObjects as? [ImageBox] {
+            images.forEach { (imageBox) in
+                self.images.append(ImageBoxObject(in: self, coreDataObject: imageBox))
+            }
+        }
     }
 
     func addObserver(_ observer: EntityObserver) {

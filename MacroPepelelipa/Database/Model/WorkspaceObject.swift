@@ -22,22 +22,17 @@ internal class WorkspaceObject: WorkspaceEntity {
     
     private var observers: [EntityObserver] = []
 
-    internal private(set) var coreDataObject: Workspace {
-        didSet {
-            name = coreDataObject.name ?? ""
-            
-            notebooks.removeAll()
-            if let notebooks = coreDataObject.notebooks?.array as? [Notebook] {
-                notebooks.forEach { (notebook) in
-                    self.notebooks.append(NotebookObject(in: self, from: notebook))
-                }
-            }
-        }
-    }
+    internal let coreDataObject: Workspace
 
     internal init(from workspace: Workspace) {
         self.coreDataObject = workspace
         self.name = workspace.name ?? ""
+
+        if let notebooks = coreDataObject.notebooks?.array as? [Notebook] {
+            notebooks.forEach { (notebook) in
+                self.notebooks.append(NotebookObject(in: self, from: notebook))
+            }
+        }
     }
 
     func addObserver(_ observer: EntityObserver) {

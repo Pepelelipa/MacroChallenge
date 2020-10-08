@@ -45,19 +45,7 @@ internal class NotebookObject: NotebookEntity {
 
     private var observers: [EntityObserver] = []
 
-    internal private(set) var coreDataObject: Notebook {
-        didSet {
-            name = coreDataObject.name ?? ""
-            colorName = coreDataObject.colorName ?? ""
-            
-            notes.removeAll()
-            if let notes = coreDataObject.notes?.array as? [Note] {
-                notes.forEach { (note) in
-                    self.notes.append(NoteObject(in: self, from: note))
-                }
-            }
-        }
-    }
+    internal let coreDataObject: Notebook
 
     internal init(in workspace: WorkspaceObject, from notebook: Notebook) {
         self.workspace = workspace
@@ -66,6 +54,12 @@ internal class NotebookObject: NotebookEntity {
         self.colorName = notebook.colorName ?? ""
         
         workspace.notebooks.append(self)
+
+        if let notes = coreDataObject.notes?.array as? [Note] {
+            notes.forEach { (note) in
+                self.notes.append(NoteObject(in: self, from: note))
+            }
+        }
     }
 
     func addObserver(_ observer: EntityObserver) {
