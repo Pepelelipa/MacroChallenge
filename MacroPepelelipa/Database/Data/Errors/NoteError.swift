@@ -8,4 +8,5 @@
 
 public enum NoteError: Error {
     case NoteWasNull
+    case FailedToParse
 }

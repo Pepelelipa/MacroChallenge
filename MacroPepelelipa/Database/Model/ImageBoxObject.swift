@@ -9,7 +9,7 @@
 
 internal struct ImageBoxObject: ImageBoxEntity {
 
-    internal init(in note: NoteEntity, coreDataObject: ImageBox) {
+    internal init(in note: NoteObject, coreDataObject: ImageBox) {
         self.note = note
         self.imagePath = coreDataObject.imagePath ?? ""
         self.width = coreDataObject.width
@@ -19,7 +19,7 @@ internal struct ImageBoxObject: ImageBoxEntity {
         self.z = coreDataObject.z
     }
 
-    weak var note: NoteEntity?
+    private weak var note: NoteObject?
     func getNote() throws -> NoteEntity {
         if let note = note {
             return note

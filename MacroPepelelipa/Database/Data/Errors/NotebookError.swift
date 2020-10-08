@@ -8,4 +8,5 @@
 
 public enum NotebookError: Error {
     case NotebookWasNull
+    case FailedToParse
 }

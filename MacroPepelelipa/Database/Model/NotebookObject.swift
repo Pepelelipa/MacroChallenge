@@ -8,7 +8,7 @@
 
 internal class NotebookObject: NotebookEntity {
 
-    private weak var workspace: WorkspaceEntity?
+    private weak var workspace: WorkspaceObject?
     func getWorkspace() throws -> WorkspaceEntity {
         if let workspace = workspace {
             return workspace

@@ -9,7 +9,7 @@
 
 internal struct TextBoxObject: TextBoxEntity {
 
-    internal init(in note: NoteEntity, coreDataObject: TextBox) {
+    internal init(in note: NoteObject, coreDataObject: TextBox) {
         self.note = note
         self.text = coreDataObject.text ?? NSAttributedString()
         self.width = coreDataObject.width
@@ -19,7 +19,7 @@ internal struct TextBoxObject: TextBoxEntity {
         self.z = coreDataObject.z
     }
 
-    weak var note: NoteEntity?
+    private weak var note: NoteObject?
     func getNote() throws -> NoteEntity {
         if let note = note {
             return note

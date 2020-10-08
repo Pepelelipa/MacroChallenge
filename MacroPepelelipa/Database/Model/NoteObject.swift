@@ -15,7 +15,7 @@ internal class NoteObject: NoteEntity {
         }
         throw NotebookError.NotebookWasNull
     }
-    private weak var notebook: NotebookEntity?
+    private weak var notebook: NotebookObject?
 
     var title: NSAttributedString
     var text: NSAttributedString
