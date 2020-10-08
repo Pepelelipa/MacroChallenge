@@ -39,6 +39,9 @@ internal class AddNewSpaceToolBar: UIToolbar {
         self.owner.resignFirstResponder()
     }
     
+    /**
+     A private method to set up the space layout.
+     */
     private func setupToolBarSpace() {
         let flexibe = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: self, action: nil)
         let items = [flexibe, doneButton]

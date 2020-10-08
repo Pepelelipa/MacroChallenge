@@ -129,6 +129,9 @@ internal class AddWorkspaceViewController: PopupContainerViewController, AddWork
             dismissFromParent()
         }
     }
+    /**
+     A  method tthat calls btn Confirm Tap.
+     */
     func addWorkspace() {
         btnConfirmTap()
     }
