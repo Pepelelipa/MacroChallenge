@@ -28,31 +28,21 @@ internal class NotebookObject: NotebookEntity {
         didSet {
             name = coreDataObject.name ?? ""
             colorName = coreDataObject.colorName ?? ""
+            
             notes.removeAll()
             if let notes = coreDataObject.notes?.array as? [Note] {
                 notes.forEach { (note) in
-                    //TODO: NoteObject constructor from Note
+                    self.notes.append(NoteObject(in: self, from: note))
                 }
             }
         }
     }
 
-    internal init(from notebook: Notebook) {
+    internal init(in workspace: WorkspaceObject, from notebook: Notebook) {
+        self.workspace = workspace
         self.coreDataObject = notebook
         self.name = notebook.name ?? ""
         self.colorName = notebook.colorName ?? ""
-    }
-
-    internal init(name: String, workspace: WorkspaceObject, colorName: String, coreDataObject notebook: Notebook) {
-        self.name = name
-        self.workspace = workspace
-        self.colorName = colorName
-
-        notebook.name = name
-        notebook.workspace = workspace.coreDataObject
-        notebook.colorName = colorName
-        
-        self.coreDataObject = notebook
     }
 
     func addObserver(_ observer: EntityObserver) {

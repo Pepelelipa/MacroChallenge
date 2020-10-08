@@ -17,7 +17,7 @@ extension Note {
         return NSFetchRequest<Note>(entityName: "Note")
     }
 
-    @NSManaged public var body: NSAttributedString?
+    @NSManaged public var text: NSAttributedString?
     @NSManaged public var title: NSAttributedString?
     @NSManaged public var images: NSSet?
     @NSManaged public var notebook: Notebook?

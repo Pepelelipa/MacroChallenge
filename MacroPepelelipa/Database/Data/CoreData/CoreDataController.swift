@@ -50,6 +50,18 @@ internal class CoreDataController {
         return notebook
     }
 
+    //MARK: Note
+    internal func createNote(in notebook: Notebook) throws -> Note {
+        guard let note = NSEntityDescription.insertNewObject(forEntityName: "Note", into: context) as? Note else {
+            throw CoreDataError.FailedToParseObject
+        }
+        note.notebook = notebook
+
+        try saveContext()
+
+        return note
+    }
+
     //MARK: Context
     private func saveContext() throws {
         if context.hasChanges {
