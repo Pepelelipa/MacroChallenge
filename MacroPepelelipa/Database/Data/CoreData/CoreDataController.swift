@@ -36,6 +36,20 @@ internal class CoreDataController {
         return workspace
     }
 
+    //MARK: Notebook
+    internal func createNotebook(in workspace: Workspace, named name: String, colorName: String) throws -> Notebook {
+        guard let notebook = NSEntityDescription.insertNewObject(forEntityName: "Notebook", into: context) as? Notebook else {
+            throw CoreDataError.FailedToParseObject
+        }
+        notebook.workspace = workspace
+        notebook.name = name
+        notebook.colorName = colorName
+
+        try saveContext()
+
+        return notebook
+    }
+
     //MARK: Context
     private func saveContext() throws {
         if context.hasChanges {

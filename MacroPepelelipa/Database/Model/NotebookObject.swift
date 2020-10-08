@@ -8,6 +8,7 @@
 
 internal class NotebookObject: NotebookEntity {
 
+    private weak var workspace: WorkspaceEntity?
     func getWorkspace() throws -> WorkspaceEntity {
         if let workspace = workspace {
             return workspace
@@ -16,7 +17,6 @@ internal class NotebookObject: NotebookEntity {
     }
 
     var name: String
-    private weak var workspace: WorkspaceEntity?
     var colorName: String
 
     var notes: [NoteEntity] = []
@@ -24,10 +24,35 @@ internal class NotebookObject: NotebookEntity {
 
     private var observers: [EntityObserver] = []
 
-    internal init(name: String, workspace: WorkspaceEntity, colorName: String) {
+    internal private(set) var coreDataObject: Notebook {
+        didSet {
+            name = coreDataObject.name ?? ""
+            colorName = coreDataObject.colorName ?? ""
+            notes.removeAll()
+            if let notes = coreDataObject.notes?.array as? [Note] {
+                notes.forEach { (note) in
+                    //TODO: NoteObject constructor from Note
+                }
+            }
+        }
+    }
+
+    internal init(from notebook: Notebook) {
+        self.coreDataObject = notebook
+        self.name = notebook.name ?? ""
+        self.colorName = notebook.colorName ?? ""
+    }
+
+    internal init(name: String, workspace: WorkspaceObject, colorName: String, coreDataObject notebook: Notebook) {
         self.name = name
         self.workspace = workspace
         self.colorName = colorName
+
+        notebook.name = name
+        notebook.workspace = workspace.coreDataObject
+        notebook.colorName = colorName
+        
+        self.coreDataObject = notebook
     }
 
     func addObserver(_ observer: EntityObserver) {

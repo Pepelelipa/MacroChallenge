@@ -2,7 +2,7 @@
 //  Note+CoreDataProperties.swift
 //  Database
 //
-//  Created by Pedro Giuliano Farina on 07/10/20.
+//  Created by Pedro Giuliano Farina on 08/10/20.
 //  Copyright © 2020 Pedro Giuliano Farina. All rights reserved.
 //
 //
@@ -17,11 +17,11 @@ extension Note {
         return NSFetchRequest<Note>(entityName: "Note")
     }
 
-    @NSManaged public var title: NSAttributedString?
     @NSManaged public var body: NSAttributedString?
+    @NSManaged public var title: NSAttributedString?
     @NSManaged public var images: NSSet?
-    @NSManaged public var textBoxes: NSSet?
     @NSManaged public var notebook: Notebook?
+    @NSManaged public var textBoxes: NSSet?
 
 }
 
