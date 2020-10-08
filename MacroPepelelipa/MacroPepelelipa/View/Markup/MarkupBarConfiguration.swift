@@ -35,10 +35,6 @@ internal class MarkupBarConfiguration {
         fatalError("init(coder:) has not been implemented")
     }
     
-    @objc internal func openEditTextContainer() {
-        observer?.changeTextViewInput(isCustom: true)
-    }
-    
     // MARK: UIBarButtonItem
     
     /**
@@ -270,8 +266,12 @@ internal class MarkupBarConfiguration {
         observer?.addTextBox(with: frame)
     }
     
+    @objc private func openEditTextContainer() {
+        observer?.changeTextViewInput(isCustom: true)
+    }
+    
     @objc internal func photoPicker() {
-
+        observer?.presentPicker()
     }
     
 }
