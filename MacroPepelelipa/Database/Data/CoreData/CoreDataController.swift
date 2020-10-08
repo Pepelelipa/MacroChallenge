@@ -21,9 +21,29 @@ internal class CoreDataController {
     }()
     private lazy var context:NSManagedObjectContext = persistentContainer.viewContext
 
-    private var workspaces: [Workspace] = []
+    internal func fetchWorkspaces() throws -> [Workspace] {
+        return try context.fetch(Workspace.fetchRequest())
+    }
 
-    internal func fetchWorkspaces() throws {
-        workspaces = try context.fetch(Workspace.fetchRequest())
+    //MARK: Workspace
+    internal func createWorkspace(named name: String) throws -> Workspace {
+        guard let workspace = NSEntityDescription.insertNewObject(forEntityName: "Workspace", into: context) as? Workspace else {
+            throw CoreDataError.FailedToParseObject
+        }
+        workspace.name = name
+        try saveContext()
+
+        return workspace
+    }
+
+    //MARK: Context
+    private func saveContext() throws {
+        if context.hasChanges {
+            do {
+                try context.save()
+            } catch {
+                throw CoreDataError.FailedToSaveContext
+            }
+        }
     }
 }

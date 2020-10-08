@@ -6,7 +6,7 @@
 //  Copyright © 2020 Pedro Giuliano Farina. All rights reserved.
 //
 
-public protocol ObservableEntity: Entity {
+public protocol ObservableEntity: ModifiableEntity {
     func addObserver(_ observer: EntityObserver)
     func removeObserver(_ observer: EntityObserver)
 }
