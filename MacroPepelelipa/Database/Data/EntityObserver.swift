@@ -6,6 +6,6 @@
 //  Copyright © 2020 Pedro Giuliano Farina. All rights reserved.
 //
 
-public protocol EntityObserver {
+public protocol EntityObserver: class {
     func entityDidChangeTo(_ value: ObservableEntity)
 }

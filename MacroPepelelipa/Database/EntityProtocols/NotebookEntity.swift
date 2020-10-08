@@ -8,8 +8,9 @@
 
 public protocol NotebookEntity: class, ObservableEntity {
     var name: String { get }
-    var workspace: WorkspaceEntity { get }
     var colorName: String { get }
     var notes: [NoteEntity] { get }
     var indexes: [NotebookIndexEntity] { get }
+
+    func getWorkspace() throws -> WorkspaceEntity
 }

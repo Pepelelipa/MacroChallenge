@@ -8,11 +8,12 @@
 //swiftlint:disable identifier_name
 
 public protocol TextBoxEntity {
-    var note: NoteEntity { get }
     var text: NSAttributedString { get }
     var width: Float { get }
     var heigth: Float { get }
     var x: Float { get }
     var y: Float { get }
     var z: Float { get }
+
+    func getNote() throws -> NoteEntity
 }

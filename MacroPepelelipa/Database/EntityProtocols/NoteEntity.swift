@@ -7,9 +7,10 @@
 //
 
 public protocol NoteEntity: class, ObservableEntity {
-    var notebook: NotebookEntity { get }
     var title: NSAttributedString { get }
     var text: NSAttributedString { get }
     var images: [ImageBoxEntity] { get }
     var textBoxes: [TextBoxEntity] { get }
+
+    func getNotebook() throws -> NotebookEntity
 }
