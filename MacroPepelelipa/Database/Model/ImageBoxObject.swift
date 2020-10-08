@@ -11,6 +11,8 @@ internal struct ImageBoxObject: ImageBoxEntity {
 
     internal init(in note: NoteObject, coreDataObject: ImageBox) {
         self.note = note
+        self.coreDataObject = coreDataObject
+
         self.imagePath = coreDataObject.imagePath ?? ""
         self.width = coreDataObject.width
         self.height = coreDataObject.height
@@ -34,4 +36,15 @@ internal struct ImageBoxObject: ImageBoxEntity {
     var x: Float
     var y: Float
     var z: Float
+
+    internal private(set) var coreDataObject: ImageBox {
+        didSet {
+            self.imagePath = coreDataObject.imagePath ?? ""
+            self.width = coreDataObject.width
+            self.height = coreDataObject.height
+            self.x = coreDataObject.x
+            self.y = coreDataObject.y
+            self.z = coreDataObject.z
+        }
+    }
 }

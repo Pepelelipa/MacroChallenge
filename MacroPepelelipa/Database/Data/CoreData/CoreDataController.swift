@@ -36,6 +36,11 @@ internal class CoreDataController {
         return workspace
     }
 
+    internal func deleteWorkspace(_ workspace: Workspace) throws {
+        context.delete(workspace)
+        try saveContext()
+    }
+
     //MARK: Notebook
     internal func createNotebook(in workspace: Workspace, named name: String, colorName: String) throws -> Notebook {
         guard let notebook = NSEntityDescription.insertNewObject(forEntityName: "Notebook", into: context) as? Notebook else {
@@ -50,6 +55,11 @@ internal class CoreDataController {
         return notebook
     }
 
+    internal func deleteNotebook(_ notebook: Notebook) throws {
+        context.delete(notebook)
+        try saveContext()
+    }
+
     //MARK: Note
     internal func createNote(in notebook: Notebook) throws -> Note {
         guard let note = NSEntityDescription.insertNewObject(forEntityName: "Note", into: context) as? Note else {
@@ -60,6 +70,11 @@ internal class CoreDataController {
         try saveContext()
 
         return note
+    }
+
+    internal func deleteNote(_ note: Note) throws {
+        context.delete(note)
+        try saveContext()
     }
 
     //MARK: TextBox
@@ -75,6 +90,11 @@ internal class CoreDataController {
         return textBox
     }
 
+    internal func deleteTextBox(_ textBox: TextBox) throws {
+        context.delete(textBox)
+        try saveContext()
+    }
+
     //MARK: TextBox
     internal func createImageBox(in note: Note) throws -> ImageBox {
         guard let imageBox = NSEntityDescription.insertNewObject(forEntityName: "ImageBox", into: context) as? ImageBox else {
@@ -86,6 +106,11 @@ internal class CoreDataController {
         try saveContext()
 
         return imageBox
+    }
+
+    internal func deleteImageBox(_ imageBox: ImageBox) throws {
+        context.delete(imageBox)
+        try saveContext()
     }
 
     //MARK: Context

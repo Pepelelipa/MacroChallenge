@@ -16,6 +16,14 @@ public class DataManager {
         return WorkspaceObject(from: cdWorkspace)
     }
 
+    public func deleteWorkspace(_ workspace: WorkspaceEntity) throws {
+        guard let workspaceObject = workspace as? WorkspaceObject else {
+            throw WorkspaceError.FailedToParse
+        }
+
+        try coreDataController.deleteWorkspace(workspaceObject.coreDataObject)
+    }
+
     //MARK: Notebook
     public func createNotebook(in workspace: WorkspaceEntity, named name: String, colorName: String) throws -> NotebookEntity {
         guard let workspaceObject = workspace as? WorkspaceObject else {
@@ -24,6 +32,14 @@ public class DataManager {
 
         let cdNotebook = try coreDataController.createNotebook(in: workspaceObject.coreDataObject, named: name, colorName: colorName)
         return NotebookObject(in: workspaceObject, from: cdNotebook)
+    }
+
+    public func deleteNotebook(_ notebook: NotebookEntity) throws {
+        guard let notebookObject = notebook as? NotebookObject else {
+            throw NotebookError.FailedToParse
+        }
+
+        try coreDataController.deleteNotebook(notebookObject.coreDataObject)
     }
 
     //MARK: Note
@@ -36,6 +52,14 @@ public class DataManager {
         return NoteObject(in: notebookObject, from: cdNote)
     }
 
+    public func deleteNote(_ note: NoteEntity) throws {
+        guard let noteObject = note as? NoteObject else {
+            throw NoteError.FailedToParse
+        }
+
+        try coreDataController.deleteNote(noteObject.coreDataObject)
+    }
+
     //MARK: TextBox
     public func createTextBox(in note: NoteEntity) throws -> TextBoxEntity {
         guard let noteObject = note as? NoteObject else {
@@ -46,6 +70,14 @@ public class DataManager {
         return TextBoxObject(in: noteObject, coreDataObject: cdTextBox)
     }
 
+    public func deleteTextBox(_ textBox: TextBoxEntity) throws {
+        guard let textBoxObject = textBox as? TextBoxObject else {
+            throw TextBoxError.FailedToParse
+        }
+
+        try coreDataController.deleteTextBox(textBoxObject.coreDataObject)
+    }
+
     //MARK: ImageBox
     public func createImageBox(in note: NoteEntity) throws -> ImageBoxEntity {
         guard let noteObject = note as? NoteObject else {
@@ -54,6 +86,14 @@ public class DataManager {
 
         let cdImageBox = try coreDataController.createImageBox(in: noteObject.coreDataObject)
         return ImageBoxObject(in: noteObject, coreDataObject: cdImageBox)
+    }
+
+    public func deleteImageBox(_ imageBox: ImageBoxEntity) throws {
+        guard let imageBoxObject = imageBox as? ImageBoxObject else {
+            throw ImageBoxError.FailedToParse
+        }
+
+        try coreDataController.deleteImageBox(imageBoxObject.coreDataObject)
     }
 
     //MARK: Singleton Basic Properties
