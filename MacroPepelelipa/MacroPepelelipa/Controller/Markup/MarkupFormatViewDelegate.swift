@@ -72,6 +72,7 @@ class MarkupFormatViewDelegate {
         if let textView = self.textView,
             let color = sender.backgroundColor {
             sender.isSelected = textView.setTextColor(color)
+            viewController?.markupContainerView.updateColorSelectors(sender: sender)
         }
     }
     

@@ -293,11 +293,29 @@ internal class MarkupContainerView: UIView, TextEditingDelegateObserver {
      This public methos updates the selectors appearence based on the text style.
      */
     public func updateSelectors() {
-        formatSelector[0].isSelected = textView?.checkTrait(.traitItalic) ?? false
-        formatSelector[1].isSelected = textView?.checkTrait(.traitBold) ?? false
+        guard let textView = self.textView else {
+            return
+        }
+        
+        formatSelector[0].isSelected = textView.checkTrait(.traitItalic)
+        formatSelector[1].isSelected = textView.checkTrait(.traitBold)
 
         formatSelector.forEach { (button) in
             button.setTintColor()
+        }
+        
+        let textcolor = textView.getTextColor()
+        
+        colorSelector.forEach { (button) in
+            button.isSelected = (textcolor == button.backgroundColor)
+        }
+    }
+    
+    public func updateColorSelectors(sender: MarkupToggleButton) {
+        colorSelector.forEach { (button) in
+            if button != sender {
+                button.isSelected = false
+            }
         }
     }
 }

@@ -155,10 +155,16 @@ internal class MarkupTextView: UITextView {
         
         if selectedRange.length == 0 {
             delegate.setTextColor(color, textView: self)
-            return true
         } else {
             delegate.setTextColor(color, range: selectedRange, textView: self)
-            return false
         }
+        return true
+    }
+    
+    public func getTextColor() -> UIColor {
+        guard let delegate = self.delegate as? MarkupTextViewDelegate else {
+            return MarkdownParser.defaultColor
+        }
+        return delegate.getTextColor(on: self)
     }
 }

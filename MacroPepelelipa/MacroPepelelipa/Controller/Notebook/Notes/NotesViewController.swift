@@ -40,7 +40,7 @@ internal class NotesViewController: UIViewController,
         return MarkupFormatViewDelegate(viewController: self)
     }()
     
-    private lazy var markupContainerView: MarkupContainerView = {
+    public lazy var markupContainerView: MarkupContainerView = {
         let height: CGFloat = screenHeight/4
         
         let container = MarkupContainerView(frame: CGRect(x: 0, y: 0, width: screenWidth, height: height), owner: self.textView, delegate: self.formatViewDelegate, viewController: self)
