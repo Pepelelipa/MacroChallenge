@@ -56,5 +56,18 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>UIAppFonts</key>
+	<array>
+		<string>Merriweather-Regular.otf</string>
+		<string>Merriweather-Bold.otf</string>
+		<string>Merriweather-Italic.otf</string>
+		<string>Merriweather-BoldItalic.otf</string>
+		<string>OpenSans-Regular.ttf</string>
+		<string>OpenSans-Bold.ttf</string>
+		<string>OpenSans-Italic.ttf</string>
+		<string>OpenSans-BoldItalic.ttf</string>
+		<string>DancingScript-Regular.ttf</string>
+		<string>DancingScript-Bold.ttf</string>
+	</array>
 </dict>
 </plist>

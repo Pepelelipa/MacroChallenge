@@ -8,6 +8,24 @@
 
 import UIKit
 
+enum FormatSelector {
+    case italic
+    case bold
+    case highlight
+}
+
+enum ColorSelector {
+    case black
+    case green
+    case red
+}
+
+enum FontSelector {
+    case merriweather
+    case openSans
+    case dancingScript
+}
+
 internal class MarkupContainerView: UIView, TextEditingDelegateObserver {
     
     private weak var textView: MarkupTextView?
@@ -43,8 +61,8 @@ internal class MarkupContainerView: UIView, TextEditingDelegateObserver {
         return fmtLabel
     }()
     
-    private lazy var colorSelector: [MarkupToggleButton] = {
-        var buttons = [MarkupToggleButton]()
+    private lazy var colorSelector: [ColorSelector: MarkupToggleButton] = {
+        var buttons = [ColorSelector: MarkupToggleButton]()
         var buttonColors: [UIColor] = [
             UIColor.bodyColor ?? .black,
             UIColor.notebookColors[4],
@@ -55,7 +73,14 @@ internal class MarkupContainerView: UIView, TextEditingDelegateObserver {
             var newButton = MarkupToggleButton(frame: .zero, color: color)
             newButton.translatesAutoresizingMaskIntoConstraints = false
             newButton.addTarget(delegate, action: #selector(delegate?.changeTextColor), for: .touchDown)
-            buttons.append(newButton)
+            
+            if color == buttonColors[0] {
+                buttons[.black] = newButton
+            } else if color == buttonColors[1] {
+                buttons[.green] = newButton
+            } else {
+                buttons[.red] = newButton
+            }
         }
         
         return buttons
@@ -84,12 +109,18 @@ internal class MarkupContainerView: UIView, TextEditingDelegateObserver {
     
     private lazy var fontSelector: [MarkupToggleButton] = {
         var buttons = [MarkupToggleButton]()
-        var fontName = ["Merriweather", "Open Sans", "Dancin"]
+        let systemFont = UIFont.systemFont(ofSize: UIFont.labelFontSize)
+        var fonts: [UIFont: String] = [
+            UIFont.merriweather ?? systemFont: "Merriweather",
+            UIFont.openSans ?? systemFont: "OpenSans",
+            UIFont.dancingScript ?? systemFont: "Dancing"
+        ]
         
-        fontName.forEach { (fontName) in
+        for font in fonts {
             var newButton = createButton(
                 normalStateImage: nil,
-                titleLabel: fontName
+                titleLabel: font.value,
+                font: font.key
             )
             newButton.translatesAutoresizingMaskIntoConstraints = false
             newButton.addTarget(delegate, action: #selector(delegate?.placeHolderAction), for: .touchDown)
@@ -110,8 +141,9 @@ internal class MarkupContainerView: UIView, TextEditingDelegateObserver {
                 
         self.addSubview(backgroundView)
         
-        colorSelector.forEach { (selector) in
+        for (_, selector) in colorSelector {
             backgroundView.addSubview(selector)
+            
         }
         
         formatSelector.forEach { (selector) in
@@ -153,14 +185,14 @@ internal class MarkupContainerView: UIView, TextEditingDelegateObserver {
      
      - Returns: The created MarkupToggleButton.
      */
-    private func createButton(normalStateImage: UIImage?, titleLabel: String?) -> MarkupToggleButton {
+    private func createButton(normalStateImage: UIImage?, titleLabel: String?, font: UIFont? = nil) -> MarkupToggleButton {
         var button = MarkupToggleButton(normalStateImage: nil, title: nil)
         
         if normalStateImage != nil {
             let markupButton = MarkupToggleButton(normalStateImage: normalStateImage, title: nil)
             button = markupButton
         } else if titleLabel != nil {
-            let markupButton = MarkupToggleButton(normalStateImage: nil, title: titleLabel)
+            let markupButton = MarkupToggleButton(normalStateImage: nil, title: titleLabel, font: font)
             button = markupButton
         }
         return button
@@ -219,21 +251,30 @@ internal class MarkupContainerView: UIView, TextEditingDelegateObserver {
      This method sets the contraints for the color selector buttons.
      */
     private func setColorSelectorConstraints() {
+        guard let black = colorSelector[.black], let green = colorSelector[.green], let red = colorSelector[.red] else {
+            return
+        }
+        
         NSLayoutConstraint.activate([
-            colorSelector[0].topAnchor.constraint(greaterThanOrEqualTo: formatLabel.bottomAnchor, constant: 10),
-            colorSelector[0].leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor, constant: 16),
-            colorSelector[0].bottomAnchor.constraint(greaterThanOrEqualTo: fontSelector[0].topAnchor, constant: -16),
-            colorSelector[0].heightAnchor.constraint(equalTo: backgroundView.heightAnchor, multiplier: 0.15),
-            colorSelector[0].widthAnchor.constraint(equalTo: backgroundView.heightAnchor, multiplier: 0.15)
+            black.topAnchor.constraint(greaterThanOrEqualTo: formatLabel.bottomAnchor, constant: 10),
+            black.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor, constant: 16),
+            black.bottomAnchor.constraint(greaterThanOrEqualTo: fontSelector[0].topAnchor, constant: -16),
+            black.heightAnchor.constraint(equalTo: backgroundView.heightAnchor, multiplier: 0.15),
+            black.widthAnchor.constraint(equalTo: backgroundView.heightAnchor, multiplier: 0.15)
         ])
         
-        for index in 1..<colorSelector.count {
+        for (key, selector) in colorSelector where key != .black {
+            var lastSelector = black
+            if key == .red {
+                lastSelector = green
+            }
+            
             NSLayoutConstraint.activate([
-                colorSelector[index].topAnchor.constraint(equalTo: colorSelector[0].topAnchor),
-                colorSelector[index].leadingAnchor.constraint(equalTo: colorSelector[index - 1].trailingAnchor, constant: 10),
-                colorSelector[index].bottomAnchor.constraint(equalTo: colorSelector[0].bottomAnchor),
-                colorSelector[index].heightAnchor.constraint(equalTo: colorSelector[0].heightAnchor),
-                colorSelector[index].widthAnchor.constraint(equalTo: colorSelector[0].widthAnchor)
+                selector.topAnchor.constraint(equalTo: black.topAnchor),
+                selector.leadingAnchor.constraint(equalTo: lastSelector.trailingAnchor, constant: 10),
+                selector.bottomAnchor.constraint(equalTo: black.bottomAnchor),
+                selector.heightAnchor.constraint(equalTo: black.heightAnchor),
+                selector.widthAnchor.constraint(equalTo: black.widthAnchor)
             ])
         }
     }
@@ -281,7 +322,7 @@ internal class MarkupContainerView: UIView, TextEditingDelegateObserver {
     }
     
     override func didMoveToWindow() {
-        colorSelector.forEach { (selector) in
+        for (_, selector) in colorSelector {
             selector.setCornerRadius()
         }
         
@@ -307,7 +348,7 @@ internal class MarkupContainerView: UIView, TextEditingDelegateObserver {
         
         let textcolor = textView.getTextColor()
         
-        colorSelector.forEach { (button) in
+        for (_, button) in colorSelector {
             button.isSelected = (textcolor == button.backgroundColor)
         }
     }
@@ -318,7 +359,7 @@ internal class MarkupContainerView: UIView, TextEditingDelegateObserver {
      - Parameter sender: The MarkupToggleButton that was last selected.
      */
     public func updateColorSelectors(sender: MarkupToggleButton) {
-        colorSelector.forEach { (button) in
+        for (_, button) in colorSelector {
             if button != sender {
                 button.isSelected = false
             }

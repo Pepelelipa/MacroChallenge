@@ -8,6 +8,18 @@
 import UIKit
 
 extension UIFont {
+        
+    static let merriweather: UIFont? = {
+        return UIFont(name: "Merriweather", size: UIFont.labelFontSize)
+    }()
+    
+    static let openSans: UIFont? = {
+        return UIFont(name: "OpenSans", size: UIFont.labelFontSize)
+    }()
+    
+    static let dancingScript: UIFont? = {
+        return UIFont(name: "DancingScript", size: UIFont.labelFontSize)
+    }()
     
     func withStyle(style: UIFont.TextStyle, maxPointSize: CGFloat? = nil) -> UIFont {
         if let maxPointSize = maxPointSize {

@@ -21,7 +21,7 @@
 		0213BFB5251943C40085ABC3 /* IndexDelegateProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0213BFB4251943C40085ABC3 /* IndexDelegateProtocol.swift */; };
 		02207A392523A5970001FD7E /* WorkspacesCollectionViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02207A382523A5970001FD7E /* WorkspacesCollectionViewDataSource.swift */; };
 		02207A3E2523AB160001FD7E /* WorkspaceCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02207A3D2523AB160001FD7E /* WorkspaceCollectionViewCell.swift */; };
-		022D600A2519559D00001D5B /* UIFont+Traits.swift in Sources */ = {isa = PBXBuildFile; fileRef = 022D5FDC2519559D00001D5B /* UIFont+Traits.swift */; };
+		022D600A2519559D00001D5B /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 022D5FDC2519559D00001D5B /* Fonts.swift */; };
 		022D600B2519559D00001D5B /* MarkdownCode+UIKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 022D5FDF2519559D00001D5B /* MarkdownCode+UIKit.swift */; };
 		022D600C2519559D00001D5B /* MarkdownLink+UIKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 022D5FE12519559D00001D5B /* MarkdownLink+UIKit.swift */; };
 		022D600D2519559D00001D5B /* MarkdownHeader+UIKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 022D5FE32519559D00001D5B /* MarkdownHeader+UIKit.swift */; };
@@ -105,6 +105,8 @@
 		D9F4A9AE25277AC900BFDC19 /* TextBoxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9F4A9AD25277AC900BFDC19 /* TextBoxView.swift */; };
 		D9F4A9BD2527D0A600BFDC19 /* MarkupToolBarObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9F4A9BC2527D0A600BFDC19 /* MarkupToolBarObserver.swift */; };
 		E4017A8D252CEA9B00ABB87C /* ErrorAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4017A8C252CEA9B00ABB87C /* ErrorAlertController.swift */; };
+		E4026286252FAC7800BCDD93 /* DancingScript-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E4026284252FAC7800BCDD93 /* DancingScript-Bold.ttf */; };
+		E4026287252FAC7800BCDD93 /* DancingScript-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E4026285252FAC7800BCDD93 /* DancingScript-Regular.ttf */; };
 		E4277C4C2527B824002CD6B1 /* MarkupFormatViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4277C4B2527B824002CD6B1 /* MarkupFormatViewDelegate.swift */; };
 		E45C20D2251D24BD0022AD95 /* MarkdownNumeric.swift in Sources */ = {isa = PBXBuildFile; fileRef = E45C20D1251D24BD0022AD95 /* MarkdownNumeric.swift */; };
 		E4F88C8B252FA564003AD037 /* Merriweather-BoldItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = E4F88C87252FA564003AD037 /* Merriweather-BoldItalic.otf */; };
@@ -115,7 +117,6 @@
 		E4F88C96252FA597003AD037 /* OpenSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E4F88C92252FA597003AD037 /* OpenSans-Regular.ttf */; };
 		E4F88C97252FA597003AD037 /* OpenSans-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E4F88C93252FA597003AD037 /* OpenSans-Italic.ttf */; };
 		E4F88C98252FA597003AD037 /* OpenSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E4F88C94252FA597003AD037 /* OpenSans-Bold.ttf */; };
-		E4F88C9C252FA5B3003AD037 /* DancingScript-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = E4F88C9B252FA5B3003AD037 /* DancingScript-Regular.otf */; };
 		E4FCA4942523B52F00DE88B8 /* MarkdownEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4FCA4932523B52F00DE88B8 /* MarkdownEditor.swift */; };
 /* End PBXBuildFile section */
 
@@ -159,7 +160,7 @@
 		0213BFB4251943C40085ABC3 /* IndexDelegateProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndexDelegateProtocol.swift; sourceTree = "<group>"; };
 		02207A382523A5970001FD7E /* WorkspacesCollectionViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkspacesCollectionViewDataSource.swift; sourceTree = "<group>"; };
 		02207A3D2523AB160001FD7E /* WorkspaceCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkspaceCollectionViewCell.swift; sourceTree = "<group>"; };
-		022D5FDC2519559D00001D5B /* UIFont+Traits.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIFont+Traits.swift"; sourceTree = "<group>"; };
+		022D5FDC2519559D00001D5B /* Fonts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
 		022D5FDF2519559D00001D5B /* MarkdownCode+UIKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MarkdownCode+UIKit.swift"; sourceTree = "<group>"; };
 		022D5FE12519559D00001D5B /* MarkdownLink+UIKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MarkdownLink+UIKit.swift"; sourceTree = "<group>"; };
 		022D5FE32519559D00001D5B /* MarkdownHeader+UIKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MarkdownHeader+UIKit.swift"; sourceTree = "<group>"; };
@@ -244,6 +245,8 @@
 		D9F4A9AD25277AC900BFDC19 /* TextBoxView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextBoxView.swift; sourceTree = "<group>"; };
 		D9F4A9BC2527D0A600BFDC19 /* MarkupToolBarObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkupToolBarObserver.swift; sourceTree = "<group>"; };
 		E4017A8C252CEA9B00ABB87C /* ErrorAlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorAlertController.swift; sourceTree = "<group>"; };
+		E4026284252FAC7800BCDD93 /* DancingScript-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "DancingScript-Bold.ttf"; sourceTree = "<group>"; };
+		E4026285252FAC7800BCDD93 /* DancingScript-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "DancingScript-Regular.ttf"; sourceTree = "<group>"; };
 		E4277C4B2527B824002CD6B1 /* MarkupFormatViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkupFormatViewDelegate.swift; sourceTree = "<group>"; };
 		E45C20D1251D24BD0022AD95 /* MarkdownNumeric.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkdownNumeric.swift; sourceTree = "<group>"; };
 		E4F88C87252FA564003AD037 /* Merriweather-BoldItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Merriweather-BoldItalic.otf"; sourceTree = "<group>"; };
@@ -254,7 +257,6 @@
 		E4F88C92252FA597003AD037 /* OpenSans-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Regular.ttf"; sourceTree = "<group>"; };
 		E4F88C93252FA597003AD037 /* OpenSans-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Italic.ttf"; sourceTree = "<group>"; };
 		E4F88C94252FA597003AD037 /* OpenSans-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Bold.ttf"; sourceTree = "<group>"; };
-		E4F88C9B252FA5B3003AD037 /* DancingScript-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "DancingScript-Regular.otf"; sourceTree = "<group>"; };
 		E4FCA4932523B52F00DE88B8 /* MarkdownEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkdownEditor.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -329,20 +331,11 @@
 		022D5FDA2519559D00001D5B /* UIKit */ = {
 			isa = PBXGroup;
 			children = (
-				022D5FDB2519559D00001D5B /* Extensions */,
 				022D5FDD2519559D00001D5B /* Elements */,
 				022D5FE42519559D00001D5B /* Typealias+UIKit.swift */,
 				022D5FE52519559D00001D5B /* MarkdownParser+UIKit.swift */,
 			);
 			path = UIKit;
-			sourceTree = "<group>";
-		};
-		022D5FDB2519559D00001D5B /* Extensions */ = {
-			isa = PBXGroup;
-			children = (
-				022D5FDC2519559D00001D5B /* UIFont+Traits.swift */,
-			);
-			path = Extensions;
 			sourceTree = "<group>";
 		};
 		022D5FDD2519559D00001D5B /* Elements */ = {
@@ -731,6 +724,7 @@
 			isa = PBXGroup;
 			children = (
 				020FFA37252502E30095266D /* Colors.swift */,
+				022D5FDC2519559D00001D5B /* Fonts.swift */,
 				1E9EF4A725225B7A00CC623B /* Notes */,
 				022D5FD92519559D00001D5B /* MarkupKit */,
 				020E22212513F0D400A93EAB /* Strings */,
@@ -861,7 +855,8 @@
 		E4F88C9A252FA5A7003AD037 /* DancingScript */ = {
 			isa = PBXGroup;
 			children = (
-				E4F88C9B252FA5B3003AD037 /* DancingScript-Regular.otf */,
+				E4026284252FAC7800BCDD93 /* DancingScript-Bold.ttf */,
+				E4026285252FAC7800BCDD93 /* DancingScript-Regular.ttf */,
 			);
 			path = DancingScript;
 			sourceTree = "<group>";
@@ -972,10 +967,10 @@
 				020FFA2F252501D10095266D /* Media.xcassets in Resources */,
 				E4F88C96252FA597003AD037 /* OpenSans-Regular.ttf in Resources */,
 				E4F88C8E252FA564003AD037 /* Merriweather-Italic.otf in Resources */,
+				E4026286252FAC7800BCDD93 /* DancingScript-Bold.ttf in Resources */,
 				E4F88C8D252FA564003AD037 /* Merriweather-Bold.otf in Resources */,
 				E4F88C8B252FA564003AD037 /* Merriweather-BoldItalic.otf in Resources */,
 				E4F88C95252FA597003AD037 /* OpenSans-BoldItalic.ttf in Resources */,
-				E4F88C9C252FA5B3003AD037 /* DancingScript-Regular.otf in Resources */,
 				02DD0A0825114D6700B6696B /* LaunchScreen.storyboard in Resources */,
 				020FFA2C252501B20095266D /* Colors.xcassets in Resources */,
 				020E22262513F1A800A93EAB /* Localizable.strings in Resources */,
@@ -983,6 +978,7 @@
 				E4F88C98252FA597003AD037 /* OpenSans-Bold.ttf in Resources */,
 				020FFA33252502130095266D /* Assets.xcassets in Resources */,
 				E4F88C8C252FA564003AD037 /* Merriweather-Regular.otf in Resources */,
+				E4026287252FAC7800BCDD93 /* DancingScript-Regular.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1089,7 +1085,7 @@
 				022D60192519559D00001D5B /* MarkdownColoredBackground.swift in Sources */,
 				E4FCA4942523B52F00DE88B8 /* MarkdownEditor.swift in Sources */,
 				A7BDD60A251406D900DDB6A0 /* TableViewDataSource.swift in Sources */,
-				022D600A2519559D00001D5B /* UIFont+Traits.swift in Sources */,
+				022D600A2519559D00001D5B /* Fonts.swift in Sources */,
 				D9F4A9AA25277A6B00BFDC19 /* ResizeHandleView.swift in Sources */,
 				A792F03A25279E8400AB1766 /* NotebookIndexTableViewDelegate.swift in Sources */,
 				022D600E2519559D00001D5B /* Typealias+UIKit.swift in Sources */,

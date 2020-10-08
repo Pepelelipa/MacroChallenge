@@ -13,7 +13,7 @@ internal class MarkupToggleButton: UIButton {
     var baseColor: UIColor?
     var selectedColor: UIColor?
     
-    init(normalStateImage: UIImage?, title: String?, baseColor: UIColor? = UIColor.placeholderColor, selectedColor: UIColor? = UIColor.bodyColor) {
+    init(normalStateImage: UIImage?, title: String?, baseColor: UIColor? = UIColor.placeholderColor, selectedColor: UIColor? = UIColor.bodyColor, font: UIFont? = nil) {
         super.init(frame: .zero)
         self.addTarget(self, action: #selector(toogleButton), for: .touchDown)
         
@@ -25,10 +25,10 @@ internal class MarkupToggleButton: UIButton {
                 
         self.tintColor = baseColor
         
-        if let titleLabel = title {
+        if title != nil {
             self.setTitleColor(baseColor, for: .normal)
             self.setTitleColor(selectedColor, for: .selected)
-            setFont(fontName: titleLabel)
+            setFont(font)
         }
         
         self.setBackgroundImage(normalStateImage, for: .normal)
@@ -57,11 +57,11 @@ internal class MarkupToggleButton: UIButton {
         self.init(frame: frame, color: color)
     }
     
-    private func setFont(fontName: String) {
-        guard let font = UIFont(name: fontName, size: 16) else {
+    private func setFont(_ font: UIFont?) {
+        guard let titleFont = font else {
             return
         }
-        self.titleLabel?.font = font
+        self.titleLabel?.font = titleFont
     }
     
     public func setCornerRadius() {
