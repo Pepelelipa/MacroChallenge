@@ -10,6 +10,4 @@ public protocol NotebookIndexEntity {
     var index: String { get }
     var note: NoteEntity? { get }
     var isTitle: Bool { get }
-
-    func save() throws
 }

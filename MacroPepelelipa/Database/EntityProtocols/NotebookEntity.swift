@@ -6,12 +6,10 @@
 //  Copyright © 2020 Pedro Giuliano Farina. All rights reserved.
 //
 
-public protocol NotebookEntity: class {
+public protocol NotebookEntity: class, ObservableEntity {
     var name: String { get }
     var workspace: WorkspaceEntity { get }
     var colorName: String { get }
     var notes: [NoteEntity] { get }
     var indexes: [NotebookIndexEntity] { get }
-
-    func save() throws
 }

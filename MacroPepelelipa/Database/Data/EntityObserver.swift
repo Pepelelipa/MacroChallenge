@@ -7,5 +7,5 @@
 //
 
 public protocol EntityObserver {
-    func entityDidChangeTo()
+    func entityDidChangeTo(_ value: ObservableEntity)
 }
