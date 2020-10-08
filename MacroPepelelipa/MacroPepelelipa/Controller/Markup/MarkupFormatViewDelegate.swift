@@ -73,10 +73,10 @@ class MarkupFormatViewDelegate {
             if sender.isSelected {
                 textView?.setTextToHighlight()
             } else {
-                textView?.setTextToNormal()
+                 textView?.setTextToNormal()
             }
         } else {
-            textView?.addHighlight()
+            textView?.setBackgroundColor()
             sender.isSelected = false
         }
     }

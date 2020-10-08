@@ -203,7 +203,13 @@ class MarkdownEditor {
         textView.attributedText = mutableAttributedText
     }
     
-    public func addHighlight(on textView: UITextView, with selectedColor: UIColor) {
+    /**
+     This method adds background color attribute on the UITextView based on the selected range.
+     
+     - Parameters:
+        - textView: The UITextView which attributed text will receive new attributes.
+     */
+    public func setBackgroundColor(on textView: UITextView) {
         guard let attributedText = textView.attributedText else {
             return
         }
@@ -218,19 +224,12 @@ class MarkdownEditor {
         var newColor = MarkdownCode.defaultHighlightColor
         
         if color == newColor {
-            newColor = markdownParser.backgroundColor
+            newColor = UIColor.backgroundColor ?? markdownParser.backgroundColor  
+            markdownParser.backgroundColor = newColor
         }
                 
         mutableAtrributedText.addAttribute(.backgroundColor, value: newColor, range: range)
         textView.attributedText = mutableAtrributedText
-    }
-    
-    public func setTextToHighlight() {
-        markdownParser.backgroundColor = MarkdownCode.defaultHighlightColor
-    }
-    
-    public func setTextToNormal() {
-        markdownParser.backgroundColor = UIColor.backgroundColor ?? .black
     }
 
     /**

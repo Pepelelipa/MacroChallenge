@@ -222,16 +222,28 @@ internal class MarkupTextViewDelegate: NSObject, UITextViewDelegate {
         }
     }
     
+    /**
+     This method  sets the parser's background color to have the highlight background color.     
+     */
     public func setTextToHighlight() {
-        markdownEditor.setTextToHighlight()
+        markdownParser.backgroundColor = MarkdownCode.defaultHighlightColor
     }
     
+    /**
+     This method sets the parser's background color to have the normal background color.     
+     */
     public func setTextToNormal() {
-        markdownEditor.setTextToNormal()
+        markdownParser.backgroundColor = UIColor.backgroundColor ?? .black
     }
     
-    public func addHighlight(on textView: UITextView) {
-        markdownEditor.addHighlight(on: textView, with: .blue)
+    /**
+     This method calls the editor's method to add background color attributes on the UITextView based on the selected range.
+     
+     - Parameters:
+        - textView: The UITextView which attributed text will receive new attributes.
+     */
+    public func setBackgroundColor(on textView: UITextView) {
+        markdownEditor.setBackgroundColor(on: textView)
     }
     
     /**

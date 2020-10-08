@@ -133,16 +133,25 @@ internal class MarkupTextView: UITextView {
         (self.delegate as? MarkupTextViewDelegate)?.setFontAttributes(with: trait)
     }
     
+    /**
+     This method calls the delegate's method to set the background color to highlight.     
+     */
     public func setTextToHighlight() {
         (self.delegate as? MarkupTextViewDelegate)?.setTextToHighlight()
     }
     
+    /**
+     This method calls the delegate's method to set the background color to normal.     
+     */
     public func setTextToNormal() {
         (self.delegate as? MarkupTextViewDelegate)?.setTextToNormal()
     }
     
-    public func addHighlight() {
-        (self.delegate as? MarkupTextViewDelegate)?.addHighlight(on: self)
+    /**
+     This method calls the delegate's method to add background color attribute.
+     */
+    public func setBackgroundColor() {
+        (self.delegate as? MarkupTextViewDelegate)?.setBackgroundColor(on: self)
     }
     
     /**
