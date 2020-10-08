@@ -134,6 +134,27 @@ internal class MarkupTextView: UITextView {
     }
     
     /**
+     This method calls the delegate's method to set the background color to highlight.     
+     */
+    public func setTextToHighlight() {
+        (self.delegate as? MarkupTextViewDelegate)?.setTextToHighlight()
+    }
+    
+    /**
+     This method calls the delegate's method to set the background color to normal.     
+     */
+    public func setTextToNormal() {
+        (self.delegate as? MarkupTextViewDelegate)?.setTextToNormal()
+    }
+    
+    /**
+     This method calls the delegate's method to add background color attribute.
+     */
+    public func setBackgroundColor() {
+        (self.delegate as? MarkupTextViewDelegate)?.setBackgroundColor(on: self)
+    }
+    
+    /**
      This method calls the delegate's method to check if the font already has a trait in the selected range.
      
      - Parameter trait: The trait to be checked.
@@ -166,5 +187,12 @@ internal class MarkupTextView: UITextView {
             return MarkdownParser.defaultColor
         }
         return delegate.getTextColor(on: self)
+    }
+
+    public func checkBackground() -> Bool {
+        guard let delegate = self.delegate as? MarkupTextViewDelegate else {
+            return false
+        }
+        return delegate.checkBackground(on: self)
     }
 }

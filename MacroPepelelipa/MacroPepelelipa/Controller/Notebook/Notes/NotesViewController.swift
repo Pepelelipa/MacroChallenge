@@ -107,9 +107,14 @@ internal class NotesViewController: UIViewController,
         return delegate
     }()
     
+    private lazy var markupConfig: MarkupBarConfiguration = {
+        let mrkConf = MarkupBarConfiguration(owner: textView)
+        mrkConf.observer = self
+        return mrkConf
+    }()
+    
     private lazy var keyboardToolbar: MarkupToolBar = {
-        let toolBar = MarkupToolBar(frame: .zero, owner: textView)
-        toolBar.observer = self
+        let toolBar = MarkupToolBar(frame: .zero, configurations: markupConfig)
         return toolBar
     }()
     
@@ -149,7 +154,12 @@ internal class NotesViewController: UIViewController,
         view.addSubview(imageButton)
         self.view.backgroundColor = .backgroundColor
         
-        textView.inputAccessoryView = keyboardToolbar
+        if UIDevice.current.userInterfaceIdiom == .phone {
+            textView.inputAccessoryView = keyboardToolbar
+        } else if UIDevice.current.userInterfaceIdiom == .pad {
+            textView.inputAccessoryView = nil
+        }
+        
     }
     
     /**
@@ -292,11 +302,13 @@ internal class NotesViewController: UIViewController,
                         message: "The app could not present the Photo Library".localized(),
                         preferredStyle: .alert)
                         .makeErrorMessage(with: "The app could not load the native Image Picker Controller".localized())
-                    self.present(alertController, animated: true, completion: nil)
+                    DispatchQueue.main.async {
+                        self.present(alertController, animated: true, completion: nil)
+                    }
                     NSLog("Error requesting -> \(error)")
                     return
                 }
-    
+                
                 DispatchQueue.main.async {
                     guard let self = self, let image = loadedImage as? UIImage else {
                         return
