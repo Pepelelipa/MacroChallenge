@@ -47,8 +47,8 @@ internal class MarkupContainerView: UIView, TextEditingDelegateObserver {
         var buttons = [MarkupToggleButton]()
         var buttonColors: [UIColor] = [
             UIColor.bodyColor ?? .black,
-            UIColor.notebookColors[14],
-            UIColor.notebookColors[12]
+            UIColor.notebookColors[4],
+            UIColor.notebookColors[14]
         ]
         
         buttonColors.forEach { (color) in
