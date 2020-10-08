@@ -25,6 +25,7 @@ enum HeaderStyle {
 internal class MarkupBarConfiguration {    
     internal weak var observer: MarkupToolBarObserver?
     private weak var textView: MarkupTextView?
+    private weak var markupViewController: MarkupContainerViewController?
     private var listStyle: ListStyle = .bullet
     
     init(owner: MarkupTextView) {
@@ -270,7 +271,7 @@ internal class MarkupBarConfiguration {
         if UIDevice.current.userInterfaceIdiom == .phone {
             observer?.changeTextViewInput(isCustom: true)
         } else if UIDevice.current.userInterfaceIdiom == .pad {
-            // TODO: create the pop over action here.
+            observer?.openPopOver()
         }
         
     }
