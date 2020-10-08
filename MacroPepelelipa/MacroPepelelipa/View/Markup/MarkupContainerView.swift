@@ -311,6 +311,11 @@ internal class MarkupContainerView: UIView, TextEditingDelegateObserver {
         }
     }
     
+    /**
+     This methos updates the color selectors by comparing each one with the sender button.
+     
+     - Parameter sender: The MarkupToggleButton that was last selected.
+     */
     public func updateColorSelectors(sender: MarkupToggleButton) {
         colorSelector.forEach { (button) in
             if button != sender {
