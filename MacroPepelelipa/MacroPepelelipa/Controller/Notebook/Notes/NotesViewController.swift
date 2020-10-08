@@ -62,7 +62,7 @@ internal class NotesViewController: UIViewController,
         return btn
     }()
     
-    internal private(set) var isBtnBackHidden: Bool {
+    internal var isBtnBackHidden: Bool {
         get {
             return btnBack.isHidden
         }
