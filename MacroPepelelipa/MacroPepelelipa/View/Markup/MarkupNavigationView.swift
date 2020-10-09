@@ -30,8 +30,6 @@ internal class MarkupNavigationView: UIView {
         return buttons
     }()
     
-    private let stackView = UIStackView()
-    
     init(frame: CGRect, configurations: MarkupBarConfiguration) {
         self.markupBarConfiguration = configurations
         super.init(frame: frame)
@@ -40,9 +38,7 @@ internal class MarkupNavigationView: UIView {
             self.addSubview($0)
         })
         
-        self.addSubview(stackView)
-        
-        setStackView()
+        setConstraints()
         
         self.sizeToFit()
         self.tintColor = UIColor.toolsColor
@@ -53,22 +49,9 @@ internal class MarkupNavigationView: UIView {
     }
     
     /**
-     A private method to set the buttons inside of a stack view.
+     A private method to set the buttons constraints.
      */
-    private func setStackView() {
-        
-//        stackView.axis = .horizontal
-//        stackView.alignment = .fill
-//        stackView.distribution = .fillProportionally
-//        stackView.spacing = 5.0
-//
-//        stackView.addArrangedSubview(barButtonItems[3])
-//        stackView.addArrangedSubview(barButtonItems[2])
-//        stackView.addArrangedSubview(barButtonItems[0])
-//        stackView.addArrangedSubview(barButtonItems[4])
-//        stackView.addArrangedSubview(barButtonItems[1])
-        
-//        setConstraints()
+    private func setConstraints() {
         barButtonItems.forEach({
             NSLayoutConstraint.activate([
                 $0.topAnchor.constraint(equalTo: self.topAnchor),
@@ -84,15 +67,6 @@ internal class MarkupNavigationView: UIView {
             barButtonItems[4].leadingAnchor.constraint(equalTo: barButtonItems[2].trailingAnchor, constant: 10),
             barButtonItems[0].leadingAnchor.constraint(equalTo: barButtonItems[4].trailingAnchor, constant: 10),
             barButtonItems[1].leadingAnchor.constraint(equalTo: barButtonItems[0].trailingAnchor, constant: 10)
-        ])
-    }
-    
-    private func setConstraints() {
-        NSLayoutConstraint.activate([
-            stackView.topAnchor.constraint(equalTo: self.topAnchor),
-            stackView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
-            stackView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
-            stackView.trailingAnchor.constraint(equalTo: self.trailingAnchor)
         ])
     }
 }
