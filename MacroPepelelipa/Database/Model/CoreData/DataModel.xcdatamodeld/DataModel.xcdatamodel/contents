@@ -10,8 +10,8 @@
         <relationship name="note" maxCount="1" deletionRule="Nullify" destinationEntity="Note" inverseName="images" inverseEntity="Note"/>
     </entity>
     <entity name="Note" representedClassName="Note" syncable="YES">
-        <attribute name="text" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromDataTransformerName" customClassName="NSAttributedString"/>
-        <attribute name="title" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromDataTransformerName" customClassName="NSAttributedString"/>
+        <attribute name="text" optional="YES" attributeType="Transformable" valueTransformerName="" customClassName="NSAttributedString"/>
+        <attribute name="title" optional="YES" attributeType="Transformable" valueTransformerName="" customClassName="NSAttributedString"/>
         <relationship name="images" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="ImageBox" inverseName="note" inverseEntity="ImageBox"/>
         <relationship name="notebook" maxCount="1" deletionRule="Nullify" destinationEntity="Notebook" inverseName="notes" inverseEntity="Notebook"/>
         <relationship name="textBoxes" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="TextBox" inverseName="note" inverseEntity="TextBox"/>

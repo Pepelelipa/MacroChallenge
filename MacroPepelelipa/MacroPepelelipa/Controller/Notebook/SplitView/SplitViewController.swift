@@ -27,7 +27,9 @@ internal class SplitViewController: UISplitViewController, NotebookIndexDelegate
             note = lastNote
         } else {
             do {
-            note = try DataManager.shared().createNote(in: notebook)
+                note = try DataManager.shared().createNote(in: notebook)
+                note.title = NSAttributedString(string: "Lesson".localized())
+                try note.save()
             } catch {
                 fatalError("Num deu")
             }

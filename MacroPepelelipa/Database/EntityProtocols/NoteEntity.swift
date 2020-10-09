@@ -7,8 +7,8 @@
 //
 
 public protocol NoteEntity: class, ObservableEntity {
-    var title: NSAttributedString { get }
-    var text: NSAttributedString { get }
+    var title: NSAttributedString { get set }
+    var text: NSAttributedString { get set }
     var images: [ImageBoxEntity] { get }
     var textBoxes: [TextBoxEntity] { get }
 

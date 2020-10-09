@@ -1,15 +1,15 @@
 //
 //  Note+CoreDataProperties.swift
-//  Database
+//  MacroPepelelipa
 //
-//  Created by Pedro Giuliano Farina on 08/10/20.
+//  Created by Pedro Giuliano Farina on 09/10/20.
 //  Copyright © 2020 Pedro Giuliano Farina. All rights reserved.
 //
 //
-//swiftlint:disable all
 
 import Foundation
 import CoreData
+
 
 extension Note {
 
