@@ -125,7 +125,11 @@ internal class AddWorkspaceViewController: PopupContainerViewController, AddWork
     }
     @IBAction func btnConfirmTap() {
         if let text = txtName.text {
-            _ = Mockdata.createWorkspace(named: text)
+            do {
+                _ = try DataManager.shared().createWorkspace(named: text)
+            } catch {
+                fatalError("Num deu")
+            }
             dismissFromParent()
         }
     }

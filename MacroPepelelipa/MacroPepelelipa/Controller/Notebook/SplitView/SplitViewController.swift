@@ -26,14 +26,20 @@ internal class SplitViewController: UISplitViewController, NotebookIndexDelegate
         if let lastNote = notebook.notes.last {
             note = lastNote
         } else {
-            note = Database.Mockdata.createNote(in: notebook)
+            do {
+                note = try DataManager.shared().createNote(in: notebook)
+                note.title = NSAttributedString(string: "Lesson".localized())
+                try note.save()
+            } catch {
+                fatalError("Num deu")
+            }
         }
         detail = NotesViewController(note: note)
         super.init(nibName: nil, bundle: nil)
         modalPresentationStyle = .fullScreen
         viewControllers = [navController, detail]
         master.delegate = self
-        preferredDisplayMode = .oneOverSecondary
+        preferredDisplayMode = .oneBesideSecondary
     }
 
     internal required convenience init?(coder: NSCoder) {

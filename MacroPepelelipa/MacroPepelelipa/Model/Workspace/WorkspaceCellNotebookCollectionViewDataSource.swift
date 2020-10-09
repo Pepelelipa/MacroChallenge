@@ -47,9 +47,9 @@ internal class WorkspaceCellNotebookCollectionViewDataSource: NSObject, UICollec
             cell.isHidden = true
         } else if indexPath.row < workspace?.notebooks.count ?? 0,
            let colorName = workspace?.notebooks[indexPath.row].colorName {
-            cell.color = UIColor(named: colorName) ?? .random()
+            cell.color = UIColor(named: colorName) ?? .clear
         } else {
-            let randomColor = UIColor.randomNotebookColor(alpha: 0.3) ?? UIColor.random(alpha: 0.3)
+            let randomColor = UIColor.randomNotebookColor(alpha: 0.3) ?? UIColor.clear
             cell.color = randomColor
         }
         return cell
