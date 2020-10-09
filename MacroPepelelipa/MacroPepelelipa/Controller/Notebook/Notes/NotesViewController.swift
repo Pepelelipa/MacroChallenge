@@ -196,7 +196,7 @@ internal class NotesViewController: UIViewController,
         markupContainerViewController.modalPresentationStyle = .popover
         
         markupContainerViewController.popoverPresentationController?.sourceView = markupNavigationView
-        markupContainerViewController.preferredContentSize = CGSize(width: screenWidth/4, height: screenHeight/9)
+        markupContainerViewController.preferredContentSize = CGSize(width: 380, height: 110)
         
         present(markupContainerViewController, animated: true)
     }

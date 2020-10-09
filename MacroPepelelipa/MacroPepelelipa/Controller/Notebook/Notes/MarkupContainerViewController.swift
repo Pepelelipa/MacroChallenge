@@ -162,10 +162,10 @@ class MarkupContainerViewController: UIViewController {
         
         NSLayoutConstraint.activate([
             colorSelector[0].topAnchor.constraint(equalTo: view.topAnchor, constant: 36),
-            colorSelector[0].leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-            colorSelector[0].bottomAnchor.constraint(greaterThanOrEqualTo: fontSelector[0].bottomAnchor, constant: -16),
-            colorSelector[0].heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.15),
-            colorSelector[0].widthAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.15)
+            colorSelector[0].leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            colorSelector[0].bottomAnchor.constraint(greaterThanOrEqualTo: fontSelector[0].bottomAnchor, constant: -20),
+            colorSelector[0].heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.2),
+            colorSelector[0].widthAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.2)
         ])
         
         for index in 1..<colorSelector.count {
@@ -187,8 +187,8 @@ class MarkupContainerViewController: UIViewController {
             formatSelector[0].topAnchor.constraint(equalTo: view.topAnchor, constant: 36),
             formatSelector[0].trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
             formatSelector[0].bottomAnchor.constraint(greaterThanOrEqualTo: fontSelector[2].bottomAnchor, constant: -16),
-            formatSelector[0].heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.15),
-            formatSelector[0].widthAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.12)
+            formatSelector[0].heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.2),
+            formatSelector[0].widthAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.17)
         ])
         
         for index in 1..<formatSelector.count {
@@ -196,7 +196,7 @@ class MarkupContainerViewController: UIViewController {
                 formatSelector[index].topAnchor.constraint(equalTo: formatSelector[0].topAnchor),
                 formatSelector[index].trailingAnchor.constraint(equalTo: formatSelector[index - 1].leadingAnchor, constant: -16),
                 formatSelector[index].bottomAnchor.constraint(equalTo: formatSelector[0].bottomAnchor),
-                formatSelector[index].heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.15),
+                formatSelector[index].heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.2),
                 formatSelector[index].widthAnchor.constraint(equalTo: formatSelector[0].widthAnchor)
             ])
         }
