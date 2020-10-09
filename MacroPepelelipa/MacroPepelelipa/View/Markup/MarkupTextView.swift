@@ -168,6 +168,9 @@ internal class MarkupTextView: UITextView {
     
     /**
      This method calls the delegate's method to change the text color.
+     
+     - Parameter color: The new UIColor for the text.
+     - Returns: True if the text color was changed, false if not.
      */
     public func setTextColor(_ color: UIColor) -> Bool {
         guard let delegate = self.delegate as? MarkupTextViewDelegate else {
@@ -195,4 +198,36 @@ internal class MarkupTextView: UITextView {
         }
         return delegate.checkBackground(on: self)
     }
+    
+    /**
+     This method calls the delegate's method to change the text font.
+     
+     - Parameter font: The new UIFont for the text.
+     - Returns: True if the text font was changed, false if not.
+     */
+    public func setTextFont(_ font: UIFont) -> Bool {
+        guard let delegate = self.delegate as? MarkupTextViewDelegate else {
+            return false
+        }
+        
+        if selectedRange.length == 0 {
+            delegate.setFont(font, textView: self)
+        } else {
+            delegate.setFont(font, range: selectedRange, textView: self)
+        }
+        return true
+    }
+    
+    /**
+     Calls the delegate method to get the current UIFont.
+     
+     - Returns: The UIFont on the selected text on the UITextView.
+     */
+    public func getTextFont() -> UIFont {
+        guard let delegate = self.delegate as? MarkupTextViewDelegate else {
+            return MarkdownParser.defaultFont
+        }
+        return delegate.getTextFont(on: self)
+    }
+    
 }

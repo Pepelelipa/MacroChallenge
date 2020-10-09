@@ -27,13 +27,6 @@ class MarkupFormatViewDelegate {
     }
     
     /**
-     This is a placeholder action. **It must be changed when the buttons are implemented.** 
-     */
-    @objc public func placeHolderAction() {
-        
-    }
-    
-    /**
      Makes the selected or coming text italic.
      */
     @IBAction public func makeTextItalic(_ sender: MarkupToggleButton) {
@@ -89,6 +82,17 @@ class MarkupFormatViewDelegate {
         } else {
             textView?.setBackgroundColor()
             sender.isSelected = false
+        }
+    }
+    
+    /**
+     Changes the font for the selected or coming text.
+     */
+    @objc public func changeTextFont(_ sender: MarkupToggleButton) {
+        if let textView = self.textView,
+           let font = sender.titleLabel?.font {
+            sender.isSelected = textView.setTextFont(font)
+            viewController?.markupContainerView.updateFontSelectors(sender: sender)
         }
     }
 }

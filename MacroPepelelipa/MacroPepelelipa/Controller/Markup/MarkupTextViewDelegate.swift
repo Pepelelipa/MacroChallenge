@@ -273,6 +273,47 @@ internal class MarkupTextViewDelegate: NSObject, UITextViewDelegate {
         return font.fontDescriptor.symbolicTraits.contains(trait)
     }
     
+    /**
+     This method sets the parser's font or applies a new font in a given range.
+     
+     - Parameters:
+        - font: The new text font.
+        - range: An optional NSRange to set the new text color.
+        - textView: The UITextView which attributed text will receive new attributes.
+     */
+    public func setFont(_ font: UIFont, range: NSRange? = nil, textView: UITextView) {
+        if let fontRange = range {
+            markdownEditor.setTextFont(font, in: fontRange, textView)
+            textView.selectedRange = NSRange(location: fontRange.location, length: 0)
+        } else {
+            markdownParser.font = font
+        }
+    }
+    
+    /**
+     This method gets the text font for the selected range in a UITextView.
+     
+     - Parameter textView: The UITextView which text font will be checked.
+     - Returns: The UIFont of the selected range on the UITextView.
+     */
+    public func getTextFont(on textView: UITextView) -> UIFont {
+        if textView.attributedText.length == 0 {
+            return markdownParser.font
+        }
+        
+        var location = textView.selectedRange.location
+        
+        if location == textView.attributedText.length && location != 0 {
+            location = textView.selectedRange.location - 1
+        }
+        
+        guard let font = textView.attributedText.attribute(.font, at: location, effectiveRange: nil) as? UIFont else {
+            return markdownParser.font
+        }
+        
+        return font
+    }
+    
     public func checkBackground(on textView: UITextView) -> Bool {
         var flag: Bool = false
         
@@ -301,9 +342,12 @@ internal class MarkupTextViewDelegate: NSObject, UITextViewDelegate {
     }
     
     /**
-     This method sets the parser's color.
+     This method sets the parser's color or applies color in a given range.
      
-     - Parameter color: The new text color.
+     - Parameters:
+        - color: The new text color.
+        - range: An optional NSRange to set the new text color.
+        - textView: The UITextView which attributed text will receive new attributes.
      */
     public func setTextColor(_ color: UIColor, range: NSRange? = nil, textView: UITextView) {
         if let colorRange = range {
@@ -318,7 +362,6 @@ internal class MarkupTextViewDelegate: NSObject, UITextViewDelegate {
      This method gets the text color for the selected range in a UITextView.
      
      - Parameter textView: The UITextView which text color will be checked.
-     
      - Returns: The UIColor of the selected range on the UITextView.
      */
     public func getTextColor(on textView: UITextView) -> UIColor {

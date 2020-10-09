@@ -116,7 +116,7 @@ internal class MarkupContainerView: UIView, TextEditingDelegateObserver {
                 font: font.key
             )
             newButton.translatesAutoresizingMaskIntoConstraints = false
-            newButton.addTarget(delegate, action: #selector(delegate?.placeHolderAction), for: .touchDown)
+            newButton.addTarget(delegate, action: #selector(delegate?.changeTextFont), for: .touchDown)
             buttons[font.value] = newButton
         }
         
@@ -348,9 +348,13 @@ internal class MarkupContainerView: UIView, TextEditingDelegateObserver {
         }
         
         let textcolor = textView.getTextColor()
-        
         for (_, button) in colorSelector {
             button.isSelected = (textcolor == button.backgroundColor)
+        }
+        
+        let textFont = textView.getTextFont()
+        for (_, button) in fontSelector {
+            button.isSelected = (textFont == button.titleLabel?.font)
         }
     }
     
@@ -362,6 +366,18 @@ internal class MarkupContainerView: UIView, TextEditingDelegateObserver {
     public func updateColorSelectors(sender: MarkupToggleButton) {
         for (_, button) in colorSelector where button != sender {
             button.isSelected = false
+        }
+    }
+    
+    /**
+     This methos updates the font selectors by comparing each one with the sender button.
+     
+     - Parameter sender: The MarkupToggleButton that was last selected.
+     */
+    public func updateFontSelectors(sender: MarkupToggleButton) {
+        for (_, button) in fontSelector where button != sender {
+            button.isSelected = false
+            button.setTintColor()
         }
     }
 }
