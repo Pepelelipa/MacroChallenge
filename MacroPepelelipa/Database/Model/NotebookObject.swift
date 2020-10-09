@@ -57,7 +57,7 @@ internal class NotebookObject: NotebookEntity {
 
         if let notes = coreDataObject.notes?.array as? [Note] {
             notes.forEach { (note) in
-                self.notes.append(NoteObject(in: self, from: note))
+                _ = NoteObject(in: self, from: note)
             }
         }
     }

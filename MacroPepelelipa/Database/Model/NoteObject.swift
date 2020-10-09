@@ -54,12 +54,12 @@ internal class NoteObject: NoteEntity {
 
         if let textBoxes = coreDataObject.textBoxes?.allObjects as? [TextBox] {
             textBoxes.forEach { (textBox) in
-                self.textBoxes.append(TextBoxObject(in: self, coreDataObject: textBox))
+                _ = TextBoxObject(in: self, coreDataObject: textBox)
             }
         }
         if let images = coreDataObject.images?.allObjects as? [ImageBox] {
             images.forEach { (imageBox) in
-                self.images.append(ImageBoxObject(in: self, coreDataObject: imageBox))
+                _ = ImageBoxObject(in: self, coreDataObject: imageBox)
             }
         }
     }

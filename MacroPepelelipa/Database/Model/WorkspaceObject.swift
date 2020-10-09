@@ -30,7 +30,7 @@ internal class WorkspaceObject: WorkspaceEntity {
 
         if let notebooks = coreDataObject.notebooks?.array as? [Notebook] {
             notebooks.forEach { (notebook) in
-                self.notebooks.append(NotebookObject(in: self, from: notebook))
+                _ = NotebookObject(in: self, from: notebook)
             }
         }
     }
