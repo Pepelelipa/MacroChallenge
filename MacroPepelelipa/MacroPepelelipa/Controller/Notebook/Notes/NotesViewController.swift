@@ -170,6 +170,10 @@ internal class NotesViewController: UIViewController,
         
     }
     
+    @objc internal func testeBotao() {
+        openPopOver()
+    }
+    
     /**
      This method changes de main input view based on it being custom or not.
      

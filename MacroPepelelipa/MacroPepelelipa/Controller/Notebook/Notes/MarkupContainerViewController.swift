@@ -75,9 +75,7 @@ class MarkupContainerViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
         view.backgroundColor = UIColor.backgroundColor
-        
         
         colorSelector.forEach { (selector) in
             view.addSubview(selector)
@@ -96,7 +94,6 @@ class MarkupContainerViewController: UIViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        
         
         colorSelector.forEach { (selector) in
             selector.setCornerRadius()
