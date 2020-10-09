@@ -62,7 +62,6 @@ class MarkupContainerViewController: UIViewController {
                 titleLabel: fontName
             )
             newButton.translatesAutoresizingMaskIntoConstraints = false
-            newButton.addTarget(delegate, action: #selector(delegate?.placeHolderAction), for: .touchDown)
             buttons.append(newButton)
         }
         

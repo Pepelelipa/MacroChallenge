@@ -9,8 +9,12 @@
 import UIKit
 
 public extension MarkdownHeader {
-    static let defaultFont = UIFont.boldSystemFont(ofSize: UIFont.smallSystemFontSize)
-    static let firstHeaderFont = UIFont.boldSystemFont(ofSize: 22)
-    static let secondHeaderFont = UIFont.boldSystemFont(ofSize: 20)
-    static let thirdHeaderFont = UIFont.boldSystemFont(ofSize: 17)
+    
+    static let defaultFont = UIFont.openSans?.withTraits(.traitBold) ?? UIFont.boldSystemFont(ofSize: UIFont.smallSystemFontSize)
+    
+    static let firstHeaderFont = UIFont.openSans?.withSize(23).withTraits(.traitBold) ?? UIFont.boldSystemFont(ofSize: 22)
+    
+    static let secondHeaderFont = UIFont.openSans?.withSize(22).withTraits(.traitBold) ?? UIFont.boldSystemFont(ofSize: 20)
+    
+    static let thirdHeaderFont = UIFont.openSans?.withSize(18).withTraits(.traitBold) ?? UIFont.boldSystemFont(ofSize: 17)
 }
