@@ -27,41 +27,72 @@ class MarkupFormatViewDelegate {
     }
     
     /**
-     This is a placeholder action. **It must be changed when the buttons are implemented.** 
-     */
-    @objc public func placeHolderAction() {
-        
-    }
-    
-    /**
      Makes the selected or coming text italic.
      */
-    @IBAction public func makeTextItalic(_ sender: AnyObject) {
-        guard let button = sender as? MarkupToggleButton else {
-            return
-        }
-        
-        if textView?.font == textView?.font?.italic() {
-            textView?.removeItalic()
-            button.isSelected = false
+    @IBAction public func makeTextItalic(_ sender: MarkupToggleButton) {
+        if textView?.selectedRange.length == 0 {
+            if sender.isSelected {
+                textView?.setFontAttributes(with: .traitItalic)
+            } else {
+                textView?.removeFontTrait(.traitItalic)
+            }
         } else {
             textView?.addItalic()
-            button.isSelected = true
+            sender.isSelected = false
         }
-        
     }
     
     /**
      Makes the selected or coming text bold.
      */
-    @objc public func makeTextBold() {
-        
+    @IBAction public func makeTextBold(_ sender: MarkupToggleButton) {
+        if textView?.selectedRange.length == 0 {
+            if sender.isSelected {
+                textView?.setFontAttributes(with: .traitBold)
+            } else {
+                textView?.removeFontTrait(.traitBold)
+            }
+        } else {
+            textView?.addBold()
+            sender.isSelected = false
+        }
+    }
+    
+    /**
+     Changes the color for the selected or coming text.
+     */
+    @IBAction public func changeTextColor(_ sender: MarkupToggleButton) {
+        if let textView = self.textView,
+            let color = sender.backgroundColor {
+            sender.isSelected = textView.setTextColor(color)
+            viewController?.markupContainerView.updateColorSelectors(sender: sender)
+        }
     }
     
     /**
       Gives the selected of coming text highlighted.
      */
-    @objc public func highlightText() {
-        
+    @objc public func highlightText(_ sender: MarkupToggleButton) {
+        if textView?.selectedRange.length == 0 {
+            if sender.isSelected {
+                textView?.setTextToHighlight()
+            } else {
+                 textView?.setTextToNormal()
+            }
+        } else {
+            textView?.setBackgroundColor()
+            sender.isSelected = false
+        }
+    }
+    
+    /**
+     Changes the font for the selected or coming text.
+     */
+    @objc public func changeTextFont(_ sender: MarkupToggleButton) {
+        if let textView = self.textView,
+           let font = sender.titleLabel?.font {
+            sender.isSelected = textView.setTextFont(font)
+            viewController?.markupContainerView.updateFontSelectors(sender: sender)
+        }
     }
 }

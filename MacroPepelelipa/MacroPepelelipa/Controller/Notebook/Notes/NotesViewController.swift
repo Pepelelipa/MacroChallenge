@@ -36,11 +36,12 @@ internal class NotesViewController: UIViewController,
         return button
     }()
     
-    public lazy var formatViewDelegate: MarkupFormatViewDelegate? = {
+    internal private(set) lazy var formatViewDelegate: MarkupFormatViewDelegate? = {
         return MarkupFormatViewDelegate(viewController: self)
     }()
     
-    private lazy var markupContainerView: MarkupContainerView = {
+    internal private(set) lazy var markupContainerView: MarkupContainerView = {
+
         let height: CGFloat = screenHeight/4
         
         let container = MarkupContainerView(frame: CGRect(x: 0, y: 0, width: screenWidth, height: height), owner: self.textView, delegate: self.formatViewDelegate, viewController: self)
@@ -62,7 +63,7 @@ internal class NotesViewController: UIViewController,
         return btn
     }()
     
-    public var isBtnBackHidden: Bool {
+    internal var isBtnBackHidden: Bool {
         get {
             return btnBack.isHidden
         }
@@ -109,9 +110,21 @@ internal class NotesViewController: UIViewController,
         return delegate
     }()
     
+    private lazy var markupNavigationView: MarkupNavigationView = {
+       let mrkView = MarkupNavigationView(frame: CGRect(x: 600, y: 50, width: 200, height: 30), configurations: markupConfig)
+        mrkView.backgroundColor = UIColor.backgroundColor
+        
+        return mrkView
+    }()
+    
+    private lazy var markupConfig: MarkupBarConfiguration = {
+        let mrkConf = MarkupBarConfiguration(owner: textView)
+        mrkConf.observer = self
+        return mrkConf
+    }()
+    
     private lazy var keyboardToolbar: MarkupToolBar = {
-        let toolBar = MarkupToolBar(frame: .zero, owner: textView)
-        toolBar.observer = self
+        let toolBar = MarkupToolBar(frame: .zero, configurations: markupConfig)
         return toolBar
     }()
     
@@ -133,7 +146,7 @@ internal class NotesViewController: UIViewController,
         self.init(note: note)
     }
     
-    public override func viewDidLoad() {
+    override func viewDidLoad() {
         super.viewDidLoad()
         view.addSubview(btnBack)
         let dev = UIDevice.current.userInterfaceIdiom
@@ -141,6 +154,7 @@ internal class NotesViewController: UIViewController,
             btnBack.isHidden = UIDevice.current.orientation.isLandscape
         } else if dev == .pad {
             btnBack.isHidden = true
+            view.addSubview(markupNavigationView)
         }
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(didTap))
@@ -152,7 +166,12 @@ internal class NotesViewController: UIViewController,
         view.addSubview(imageButton)
         self.view.backgroundColor = .backgroundColor
         
-        textView.inputAccessoryView = keyboardToolbar
+        if UIDevice.current.userInterfaceIdiom == .phone {
+            textView.inputAccessoryView = keyboardToolbar
+        } else if UIDevice.current.userInterfaceIdiom == .pad {
+            textView.inputAccessoryView = nil
+        }
+        
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -170,7 +189,7 @@ internal class NotesViewController: UIViewController,
      
      - Parameter isCustom: A boolean indicating if the input view will be a custom view or not.
      */
-    public func changeTextViewInput(isCustom: Bool) {
+    internal func changeTextViewInput(isCustom: Bool) {
         if isCustom == true {
             textView.inputView = markupContainerView
         } else {
@@ -181,8 +200,22 @@ internal class NotesViewController: UIViewController,
         markupContainerView.isHidden.toggle()
         textView.reloadInputViews()
     }
+    
+    /**
+     This method opens the pop over when the button is pressed
+     */
+    public func openPopOver() {
+        let markupContainerViewController = MarkupContainerViewController()
+        
+        markupContainerViewController.modalPresentationStyle = .popover
+        
+        markupContainerViewController.popoverPresentationController?.sourceView = markupNavigationView
+        markupContainerViewController.preferredContentSize = CGSize(width: 380, height: 110)
+        
+        present(markupContainerViewController, animated: true)
+    }
 
-    public override func viewDidLayoutSubviews() {
+    override func viewDidLayoutSubviews() {
         NSLayoutConstraint.activate([
             imageButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -150),
             imageButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 10)
@@ -278,7 +311,6 @@ internal class NotesViewController: UIViewController,
         self.textView.addSubview(imageBox)
     }
     
-    
     /**
      Present the native Image Picker. There we instantiate a PHPickerViewController and set its delegate. Finally, there is a present from the view controller.
      */
@@ -305,11 +337,13 @@ internal class NotesViewController: UIViewController,
                         message: "The app could not present the Photo Library".localized(),
                         preferredStyle: .alert)
                         .makeErrorMessage(with: "The app could not load the native Image Picker Controller".localized())
-                    self.present(alertController, animated: true, completion: nil)
+                    DispatchQueue.main.async {
+                        self.present(alertController, animated: true, completion: nil)
+                    }
                     NSLog("Error requesting -> \(error)")
                     return
                 }
-    
+                
                 DispatchQueue.main.async {
                     guard let self = self, let image = loadedImage as? UIImage else {
                         return
