@@ -340,6 +340,14 @@ internal class MarkupTextViewDelegate: NSObject, UITextViewDelegate {
         markdownEditor.setBackgroundColor(on: textView)
     }
 
+    /**
+     This method checks if the attributed background color of a UITextView has the value of highlighted in the selected range.
+     
+     - Parameters:
+        - textView: The UITextView which attributed background will be checked.
+     
+     - Returns: A boolean indicating if the custom background was found in the selected range.
+     */
     public func checkBackground(on textView: UITextView) -> Bool {
         var flag: Bool = false
         
