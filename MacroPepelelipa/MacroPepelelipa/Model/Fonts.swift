@@ -21,14 +21,6 @@ extension UIFont {
         return UIFont(name: "Dancing Script", size: UIFont.labelFontSize + 3)
     }()
     
-    func withStyle(style: UIFont.TextStyle, maxPointSize: CGFloat? = nil) -> UIFont {
-        if let maxPointSize = maxPointSize {
-            return UIFontMetrics(forTextStyle: style).scaledFont(for: UIFont.systemFont(ofSize: UIFont.systemFontSize),
-                                                                 maximumPointSize: maxPointSize)
-        }
-        return UIFontMetrics(forTextStyle: style).scaledFont(for: UIFont.systemFont(ofSize: UIFont.systemFontSize))
-    }
-    
     func withTraits(_ traits: UIFontDescriptor.SymbolicTraits...) -> UIFont? {
         var newTraits = fontDescriptor.symbolicTraits
         for trait in traits {

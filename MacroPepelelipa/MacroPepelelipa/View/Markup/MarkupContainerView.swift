@@ -354,7 +354,7 @@ internal class MarkupContainerView: UIView, TextEditingDelegateObserver {
         
         let textFont = textView.getTextFont()
         for (_, button) in fontSelector {
-            button.isSelected = (textFont == button.titleLabel?.font)
+            button.isSelected = (textFont.familyName == button.titleLabel?.font.familyName)
         }
     }
     
