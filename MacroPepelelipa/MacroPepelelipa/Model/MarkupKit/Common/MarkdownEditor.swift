@@ -92,6 +92,61 @@ class MarkdownEditor {
     }
     
     /**
+     This private method toggles a trait on the textview's attributed text.
+     
+     - Parameters:
+        - trait: The trait to be toggled on the text.
+        - textView: The UITextView which attributed text will receive a new font.
+     */
+    private func setFontTrait(trait: UIFontDescriptor.SymbolicTraits, _ textView: UITextView) {
+        guard let attributedText = textView.attributedText else {
+            return
+        }
+        
+        let range = textView.selectedRange
+        let mutableAttributedText = NSMutableAttributedString(attributedString: attributedText)
+                
+        guard let font = mutableAttributedText.attribute(.font, at: range.location, effectiveRange: nil) as? UIFont else {
+            return
+        }
+        
+        var newFont = markdownParser.font
+        
+        if font.fontDescriptor.symbolicTraits.contains(trait) {
+            newFont = newFont.removeTrait(trait)
+        } else {
+            if trait == .traitItalic {
+                newFont = font.italic() ?? markdownParser.font
+            } else if trait == .traitBold {
+                newFont = font.bold() ?? markdownParser.font
+            }
+        }
+        
+        mutableAttributedText.addAttribute(.font, value: newFont, range: range)
+        textView.attributedText = mutableAttributedText
+    }
+    
+    /**
+     This method adds italic attributes on the UITextView based on the selected range.
+     
+     - Parameters:
+        - textView: The UITextView which attributed text will receive new attributes.
+     */
+    public func addItalic(on textView: UITextView) {
+        setFontTrait(trait: .traitItalic, textView)
+    }
+    
+    /**
+     This method adds bold attributes on the UITextView based on the selected range.
+     
+     - Parameters:
+        - textView: The UITextView which attributed text will receive new attributes.
+     */
+    public func addBold(on textView: UITextView) {
+        setFontTrait(trait: .traitBold, textView)
+    }
+
+    /**
      This method adds header attributes on the UITextView based on the selected range and the chosen style.
      
      - Parameters:
@@ -148,6 +203,35 @@ class MarkdownEditor {
         textView.attributedText = mutableAttributedText
     }
     
+    /**
+     This method adds background color attribute on the UITextView based on the selected range.
+     
+     - Parameters:
+        - textView: The UITextView which attributed text will receive new attributes.
+     */
+    public func setBackgroundColor(on textView: UITextView) {
+        guard let attributedText = textView.attributedText else {
+            return
+        }
+        
+        let range = textView.selectedRange
+        let mutableAtrributedText = NSMutableAttributedString(attributedString: attributedText)
+        
+        guard let color = mutableAtrributedText.attribute(.backgroundColor, at: range.location, effectiveRange: nil) as? UIColor else {
+            return
+        }
+        
+        var newColor = MarkdownCode.defaultHighlightColor
+        
+        if color == newColor {
+            newColor = UIColor.backgroundColor ?? markdownParser.backgroundColor  
+            markdownParser.backgroundColor = newColor
+        }
+                
+        mutableAtrributedText.addAttribute(.backgroundColor, value: newColor, range: range)
+        textView.attributedText = mutableAtrributedText
+    }
+
     /**
      This method clears indicators on a line on the UITextView.
      
@@ -290,6 +374,20 @@ class MarkdownEditor {
         }
         
         attributedText.replaceCharacters(in: NSRange(location: location, length: 1), with: "\n")
+        textView.attributedText = attributedText
+    }
+    
+    /**
+     This method sets the text color for a UITextView attributed text within a given range.
+     
+     - Parameters:
+        - color: The color for the attributed text in range.
+        - range: A NSRange indicating the range for the new color.
+        - textView: The UITextView which text will be changed.
+     */
+    public func setTextColor(_ color: UIColor, in range: NSRange, _ textView: UITextView) {
+        let attributedText = NSMutableAttributedString(attributedString: textView.attributedText)
+        attributedText.addAttribute(.foregroundColor, value: color, range: range)
         textView.attributedText = attributedText
     }
 }
