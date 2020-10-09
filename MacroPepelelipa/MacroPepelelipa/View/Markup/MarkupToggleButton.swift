@@ -38,8 +38,13 @@ internal class MarkupToggleButton: UIButton {
         super.init(frame: frame)
         self.addTarget(self, action: #selector(toogleButton), for: .touchDown)
         
-        self.backgroundColor = color
+        self.setImage(UIImage(systemName: "checkmark"), for: .selected)
+        self.tintColor = UIColor.backgroundColor
         
+        self.baseColor = self.tintColor
+        self.selectedColor = self.tintColor
+        
+        self.backgroundColor = color
         self.layer.cornerRadius = frame.height / 2
     }
     

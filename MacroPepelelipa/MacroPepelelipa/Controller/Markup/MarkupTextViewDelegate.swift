@@ -273,6 +273,14 @@ internal class MarkupTextViewDelegate: NSObject, UITextViewDelegate {
         return font.fontDescriptor.symbolicTraits.contains(trait)
     }
     
+    /**
+     This method checks if the attributed background color of a UITextView has the value of highlighted in the selected range.
+     
+     - Parameters:
+        - textView: The UITextView which attributed background will be checked.
+     
+     - Returns: A boolean indicating if the custom background was found in the selected range.
+     */
     public func checkBackground(on textView: UITextView) -> Bool {
         var flag: Bool = false
         
@@ -300,6 +308,45 @@ internal class MarkupTextViewDelegate: NSObject, UITextViewDelegate {
         return flag
     }
     
+    /**
+     This method sets the parser's color.
+     
+     - Parameter color: The new text color.
+     */
+    public func setTextColor(_ color: UIColor, range: NSRange? = nil, textView: UITextView) {
+        if let colorRange = range {
+            markdownEditor.setTextColor(color, in: colorRange, textView)
+            textView.selectedRange = NSRange(location: colorRange.location, length: 0)
+        } else {
+            markdownParser.color = color
+        }
+    }
+    
+    /**
+     This method gets the text color for the selected range in a UITextView.
+     
+     - Parameter textView: The UITextView which text color will be checked.
+     
+     - Returns: The UIColor of the selected range on the UITextView.
+     */
+    public func getTextColor(on textView: UITextView) -> UIColor {
+        if textView.attributedText.length == 0 {
+            return markdownParser.color
+        }
+        
+        var location = textView.selectedRange.location
+        
+        if location == textView.attributedText.length && location != 0 {
+            location = textView.selectedRange.location - 1
+        }
+        
+        guard let color = textView.attributedText.attribute(.foregroundColor, at: location, effectiveRange: nil) as? UIColor else {
+            return markdownParser.color
+        }
+        
+        return color
+    }
+ 
     /**
      This method clears indicators on a line on the UITextView.
      

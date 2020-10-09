@@ -36,11 +36,12 @@ internal class NotesViewController: UIViewController,
         return button
     }()
     
-    public lazy var formatViewDelegate: MarkupFormatViewDelegate? = {
+    internal private(set) lazy var formatViewDelegate: MarkupFormatViewDelegate? = {
         return MarkupFormatViewDelegate(viewController: self)
     }()
     
-    internal lazy var markupContainerView: MarkupContainerView = {
+    internal private(set) lazy var markupContainerView: MarkupContainerView = {
+
         let height: CGFloat = screenHeight/4
         
         let container = MarkupContainerView(frame: CGRect(x: 0, y: 0, width: screenWidth, height: height), owner: self.textView, delegate: self.formatViewDelegate, viewController: self)
@@ -62,7 +63,7 @@ internal class NotesViewController: UIViewController,
         return btn
     }()
     
-    public var isBtnBackHidden: Bool {
+    internal var isBtnBackHidden: Bool {
         get {
             return btnBack.isHidden
         }
@@ -142,7 +143,7 @@ internal class NotesViewController: UIViewController,
         self.init(note: note)
     }
     
-    public override func viewDidLoad() {
+    override func viewDidLoad() {
         super.viewDidLoad()
         view.addSubview(btnBack)
         let dev = UIDevice.current.userInterfaceIdiom
@@ -179,7 +180,7 @@ internal class NotesViewController: UIViewController,
      
      - Parameter isCustom: A boolean indicating if the input view will be a custom view or not.
      */
-    public func changeTextViewInput(isCustom: Bool) {
+    internal func changeTextViewInput(isCustom: Bool) {
         if isCustom == true {
             textView.inputView = markupContainerView
         } else {
@@ -205,7 +206,7 @@ internal class NotesViewController: UIViewController,
         present(markupContainerViewController, animated: true)
     }
 
-    public override func viewDidLayoutSubviews() {
+    override func viewDidLayoutSubviews() {
         NSLayoutConstraint.activate([
             imageButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -150),
             imageButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 10)
