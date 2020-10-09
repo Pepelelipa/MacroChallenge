@@ -6,6 +6,12 @@
 //  Copyright © 2020 Pedro Giuliano Farina. All rights reserved.
 //
 
+public enum ObservableCreationType {
+    case Workspace
+    case Notebook
+    case Note
+}
+
 public class DataManager {
     private let coreDataController = CoreDataController()
 
@@ -15,7 +21,29 @@ public class DataManager {
         try coreDataController.saveContext()
     }
 
+    private var observers: [(EntityObserver, ObservableCreationType)] = []
+    public func addCreationObserver(_ observer: EntityObserver, type: ObservableCreationType) {
+        observers.append((observer, type))
+    }
+    public func removeObserver(_ observer: EntityObserver) {
+        if let index = observers.firstIndex(where: {$0.0 === observer}) {
+            observers.remove(at: index)
+        }
+    }
+
+    private func notifyCreation(_ entity: ObservableEntity, type: ObservableCreationType) {
+        for observer in observers where observer.1 == type {
+            observer.0.entityWasCreated(entity)
+        }
+    }
+
     //MARK: Workspace
+
+    public func fetchWorkspaces() throws -> [WorkspaceEntity] {
+        let cdWorkspaces = try coreDataController.fetchWorkspaces()
+        return cdWorkspaces.map({WorkspaceObject(from: $0)})
+    }
+
     /**
      Creates a Workspace into the Database
      - Parameter name: The workspace's  name.
@@ -24,7 +52,12 @@ public class DataManager {
     public func createWorkspace(named name: String) throws -> WorkspaceEntity {
         let cdWorkspace = try coreDataController.createWorkspace(named: name)
 
-        return WorkspaceObject(from: cdWorkspace)
+        let workspaceObject = WorkspaceObject(from: cdWorkspace)
+        defer {
+            notifyCreation(workspaceObject, type: .Workspace)
+        }
+
+        return workspaceObject
     }
 
     /**
@@ -54,7 +87,12 @@ public class DataManager {
         }
 
         let cdNotebook = try coreDataController.createNotebook(in: workspaceObject.coreDataObject, named: name, colorName: colorName)
-        return NotebookObject(in: workspaceObject, from: cdNotebook)
+        let notebookObject = NotebookObject(in: workspaceObject, from: cdNotebook)
+        defer {
+            notifyCreation(notebookObject, type: .Notebook)
+        }
+
+        return notebookObject
     }
 
     /**
@@ -82,7 +120,12 @@ public class DataManager {
         }
 
         let cdNote = try coreDataController.createNote(in: notebookObject.coreDataObject)
-        return NoteObject(in: notebookObject, from: cdNote)
+        let noteObject = NoteObject(in: notebookObject, from: cdNote)
+        defer {
+            notifyCreation(noteObject, type: .Note)
+        }
+
+        return noteObject
     }
 
     /**

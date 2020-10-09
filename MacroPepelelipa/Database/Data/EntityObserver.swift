@@ -7,6 +7,7 @@
 //
 
 public protocol EntityObserver: class {
+    func entityWasCreated(_ value: ObservableEntity)
     func entityDidChangeTo(_ value: ObservableEntity)
     func entityWasDeleted(_ value: ObservableEntity)
 }
