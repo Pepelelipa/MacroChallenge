@@ -39,7 +39,7 @@ internal class SplitViewController: UISplitViewController, NotebookIndexDelegate
         modalPresentationStyle = .fullScreen
         viewControllers = [navController, detail]
         master.delegate = self
-        preferredDisplayMode = .oneOverSecondary
+        preferredDisplayMode = .oneBesideSecondary
     }
 
     internal required convenience init?(coder: NSCoder) {
