@@ -7,6 +7,6 @@
 //
 
 public enum NoteError: Error {
-    case NoteWasNull
-    case FailedToParse
+    case noteWasNull
+    case failedToParse
 }

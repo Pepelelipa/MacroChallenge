@@ -28,7 +28,7 @@ internal struct TextBoxObject: TextBoxEntity {
         if let note = note {
             return note
         }
-        throw NoteError.NoteWasNull
+        throw NoteError.noteWasNull
     }
     public var text: NSAttributedString
     public var width: Float

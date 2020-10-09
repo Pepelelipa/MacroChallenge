@@ -40,7 +40,7 @@ internal class WorkspaceObject: WorkspaceEntity {
     }
 
     func removeObserver(_ observer: EntityObserver) {
-        if let index = observers.firstIndex(where: {$0 === observer}) {
+        if let index = observers.firstIndex(where: { $0 === observer }) {
             observers.remove(at: index)
         }
     }
@@ -50,10 +50,10 @@ internal class WorkspaceObject: WorkspaceEntity {
     }
 
     private func notifyObservers() {
-        observers.forEach({$0.entityDidChangeTo(self)})
+        observers.forEach({ $0.entityDidChangeTo(self) })
     }
 
     deinit {
-        observers.forEach({$0.entityWasDeleted(self)})
+        observers.forEach({ $0.entityWasDeleted(self) })
     }
 }

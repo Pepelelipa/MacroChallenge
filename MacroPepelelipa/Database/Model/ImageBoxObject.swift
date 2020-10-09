@@ -28,7 +28,7 @@ internal struct ImageBoxObject: ImageBoxEntity {
         if let note = note {
             return note
         }
-        throw NoteError.NoteWasNull
+        throw NoteError.noteWasNull
     }
     var imagePath: String
     var width: Float

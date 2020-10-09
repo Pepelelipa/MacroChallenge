@@ -26,7 +26,11 @@ internal class SplitViewController: UISplitViewController, NotebookIndexDelegate
         if let lastNote = notebook.notes.last {
             note = lastNote
         } else {
-            note = Database.Mockdata.createNote(in: notebook)
+            do {
+            note = try DataManager.shared().createNote(in: notebook)
+            } catch {
+                fatalError("Num deu")
+            }
         }
         detail = NotesViewController(note: note)
         super.init(nibName: nil, bundle: nil)

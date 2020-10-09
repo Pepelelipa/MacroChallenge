@@ -22,14 +22,14 @@ internal class CoreDataController {
         return container
     }()
     ///Context of our CoreData
-    private lazy var context:NSManagedObjectContext = persistentContainer.viewContext
+    private lazy var context: NSManagedObjectContext = persistentContainer.viewContext
 
     ///Fetches all workspaces
     internal func fetchWorkspaces() throws -> [Workspace] {
         return try context.fetch(Workspace.fetchRequest())
     }
 
-    //MARK: Workspace
+    // MARK: Workspace
     /**
      Creates a Workspace into the CoreData
      - Parameter name: The workspace's  name.
@@ -37,7 +37,7 @@ internal class CoreDataController {
      */
     internal func createWorkspace(named name: String) throws -> Workspace {
         guard let workspace = NSEntityDescription.insertNewObject(forEntityName: "Workspace", into: context) as? Workspace else {
-            throw CoreDataError.FailedToParseObject
+            throw CoreDataError.failedToParseObject
         }
         workspace.name = name
         try saveContext()
@@ -55,7 +55,7 @@ internal class CoreDataController {
         try saveContext()
     }
 
-    //MARK: Notebook
+    // MARK: Notebook
     /**
      Creates a Notebook into the CoreData
      - Parameter workspace: To what workspace it belongs.
@@ -65,7 +65,7 @@ internal class CoreDataController {
      */
     internal func createNotebook(in workspace: Workspace, named name: String, colorName: String) throws -> Notebook {
         guard let notebook = NSEntityDescription.insertNewObject(forEntityName: "Notebook", into: context) as? Notebook else {
-            throw CoreDataError.FailedToParseObject
+            throw CoreDataError.failedToParseObject
         }
         notebook.workspace = workspace
         notebook.name = name
@@ -86,7 +86,7 @@ internal class CoreDataController {
         try saveContext()
     }
 
-    //MARK: Note
+    // MARK: Note
     /**
      Creates a Note into the CoreData
      - Parameter notebook: To what notebook it belongs.
@@ -94,7 +94,7 @@ internal class CoreDataController {
      */
     internal func createNote(in notebook: Notebook) throws -> Note {
         guard let note = NSEntityDescription.insertNewObject(forEntityName: "Note", into: context) as? Note else {
-            throw CoreDataError.FailedToParseObject
+            throw CoreDataError.failedToParseObject
         }
         note.notebook = notebook
 
@@ -113,7 +113,7 @@ internal class CoreDataController {
         try saveContext()
     }
 
-    //MARK: TextBox
+    // MARK: TextBox
     /**
      Creates a TextBox into the CoreData
      - Parameter note: To what note it belongs.
@@ -121,7 +121,7 @@ internal class CoreDataController {
      */
     internal func createTextBox(in note: Note) throws -> TextBox {
         guard let textBox = NSEntityDescription.insertNewObject(forEntityName: "TextBox", into: context) as? TextBox else {
-            throw CoreDataError.FailedToParseObject
+            throw CoreDataError.failedToParseObject
         }
 
         textBox.note = note
@@ -141,7 +141,7 @@ internal class CoreDataController {
         try saveContext()
     }
 
-    //MARK: ImageBox
+    // MARK: ImageBox
     /**
      Creates a ImageBox into the CoreData
      - Parameter note: To what note it belongs.
@@ -149,7 +149,7 @@ internal class CoreDataController {
      */
     internal func createImageBox(in note: Note) throws -> ImageBox {
         guard let imageBox = NSEntityDescription.insertNewObject(forEntityName: "ImageBox", into: context) as? ImageBox else {
-            throw CoreDataError.FailedToParseObject
+            throw CoreDataError.failedToParseObject
         }
 
         imageBox.note = note
@@ -169,13 +169,13 @@ internal class CoreDataController {
         try saveContext()
     }
 
-    //MARK: Context
+    // MARK: Context
     internal func saveContext() throws {
         if context.hasChanges {
             do {
                 try context.save()
             } catch {
-                throw CoreDataError.FailedToSaveContext
+                throw CoreDataError.failedToSaveContext
             }
         }
     }

@@ -201,7 +201,11 @@ internal class AddNotebookViewController: PopupContainerViewController {
             dismissFromParent()
             return
         }
-        _ = Mockdata.createNotebook(on: workspace, named: text, colorName: notebookColorName)
+        do {
+            try DataManager.shared().createNotebook(in: workspace, named: text, colorName: notebookColorName)
+        } catch {
+            fatalError("Num deu")
+        }
         dismissFromParent()
     }
 

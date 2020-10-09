@@ -6,8 +6,7 @@
 //  Copyright © 2020 Pedro Giuliano Farina. All rights reserved.
 //
 
-
 public enum WorkspaceError: Error {
-    case WorkspaceWasNull
-    case FailedToParse
+    case workspaceWasNull
+    case failedToParse
 }

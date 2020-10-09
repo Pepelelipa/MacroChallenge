@@ -7,9 +7,9 @@
 //
 
 public enum ObservableCreationType {
-    case Workspace
-    case Notebook
-    case Note
+    case workspace
+    case notebook
+    case note
 }
 
 public class DataManager {
@@ -26,7 +26,7 @@ public class DataManager {
         observers.append((observer, type))
     }
     public func removeObserver(_ observer: EntityObserver) {
-        if let index = observers.firstIndex(where: {$0.0 === observer}) {
+        if let index = observers.firstIndex(where: { $0.0 === observer }) {
             observers.remove(at: index)
         }
     }
@@ -37,11 +37,11 @@ public class DataManager {
         }
     }
 
-    //MARK: Workspace
+    // MARK: Workspace
 
     public func fetchWorkspaces() throws -> [WorkspaceEntity] {
         let cdWorkspaces = try coreDataController.fetchWorkspaces()
-        return cdWorkspaces.map({WorkspaceObject(from: $0)})
+        return cdWorkspaces.map({ WorkspaceObject(from: $0) })
     }
 
     /**
@@ -54,7 +54,7 @@ public class DataManager {
 
         let workspaceObject = WorkspaceObject(from: cdWorkspace)
         defer {
-            notifyCreation(workspaceObject, type: .Workspace)
+            notifyCreation(workspaceObject, type: .workspace)
         }
 
         return workspaceObject
@@ -67,13 +67,13 @@ public class DataManager {
      */
     public func deleteWorkspace(_ workspace: WorkspaceEntity) throws {
         guard let workspaceObject = workspace as? WorkspaceObject else {
-            throw WorkspaceError.FailedToParse
+            throw WorkspaceError.failedToParse
         }
 
         try coreDataController.deleteWorkspace(workspaceObject.coreDataObject)
     }
 
-    //MARK: Notebook
+    // MARK: Notebook
     /**
      Creates a Notebook into the Database
      - Parameter workspace: To what workspace it belongs.
@@ -83,13 +83,13 @@ public class DataManager {
      */
     public func createNotebook(in workspace: WorkspaceEntity, named name: String, colorName: String) throws -> NotebookEntity {
         guard let workspaceObject = workspace as? WorkspaceObject else {
-            throw WorkspaceError.FailedToParse
+            throw WorkspaceError.failedToParse
         }
 
         let cdNotebook = try coreDataController.createNotebook(in: workspaceObject.coreDataObject, named: name, colorName: colorName)
         let notebookObject = NotebookObject(in: workspaceObject, from: cdNotebook)
         defer {
-            notifyCreation(notebookObject, type: .Notebook)
+            notifyCreation(notebookObject, type: .notebook)
         }
 
         return notebookObject
@@ -102,13 +102,13 @@ public class DataManager {
      */
     public func deleteNotebook(_ notebook: NotebookEntity) throws {
         guard let notebookObject = notebook as? NotebookObject else {
-            throw NotebookError.FailedToParse
+            throw NotebookError.failedToParse
         }
 
         try coreDataController.deleteNotebook(notebookObject.coreDataObject)
     }
 
-    //MARK: Note
+    // MARK: Note
     /**
      Creates a Note into the Database
      - Parameter notebook: To what notebook it belongs.
@@ -116,13 +116,13 @@ public class DataManager {
      */
     public func createNote(in notebook: NotebookEntity) throws -> NoteEntity {
         guard let notebookObject = notebook as? NotebookObject else {
-            throw NotebookError.FailedToParse
+            throw NotebookError.failedToParse
         }
 
         let cdNote = try coreDataController.createNote(in: notebookObject.coreDataObject)
         let noteObject = NoteObject(in: notebookObject, from: cdNote)
         defer {
-            notifyCreation(noteObject, type: .Note)
+            notifyCreation(noteObject, type: .note)
         }
 
         return noteObject
@@ -135,13 +135,13 @@ public class DataManager {
      */
     public func deleteNote(_ note: NoteEntity) throws {
         guard let noteObject = note as? NoteObject else {
-            throw NoteError.FailedToParse
+            throw NoteError.failedToParse
         }
 
         try coreDataController.deleteNote(noteObject.coreDataObject)
     }
 
-    //MARK: TextBox
+    // MARK: TextBox
     /**
      Creates a TextBox into the Database
      - Parameter note: To what note it belongs.
@@ -149,7 +149,7 @@ public class DataManager {
      */
     public func createTextBox(in note: NoteEntity) throws -> TextBoxEntity {
         guard let noteObject = note as? NoteObject else {
-            throw NoteError.FailedToParse
+            throw NoteError.failedToParse
         }
 
         let cdTextBox = try coreDataController.createTextBox(in: noteObject.coreDataObject)
@@ -163,13 +163,13 @@ public class DataManager {
      */
     public func deleteTextBox(_ textBox: TextBoxEntity) throws {
         guard let textBoxObject = textBox as? TextBoxObject else {
-            throw TextBoxError.FailedToParse
+            throw TextBoxError.failedToParse
         }
 
         try coreDataController.deleteTextBox(textBoxObject.coreDataObject)
     }
 
-    //MARK: ImageBox
+    // MARK: ImageBox
     /**
      Creates a ImageBox into the Database
      - Parameter note: To what note it belongs.
@@ -177,7 +177,7 @@ public class DataManager {
      */
     public func createImageBox(in note: NoteEntity) throws -> ImageBoxEntity {
         guard let noteObject = note as? NoteObject else {
-            throw NoteError.FailedToParse
+            throw NoteError.failedToParse
         }
 
         let cdImageBox = try coreDataController.createImageBox(in: noteObject.coreDataObject)
@@ -191,13 +191,13 @@ public class DataManager {
      */
     public func deleteImageBox(_ imageBox: ImageBoxEntity) throws {
         guard let imageBoxObject = imageBox as? ImageBoxObject else {
-            throw ImageBoxError.FailedToParse
+            throw ImageBoxError.failedToParse
         }
 
         try coreDataController.deleteImageBox(imageBoxObject.coreDataObject)
     }
 
-    //MARK: Singleton Basic Properties
+    // MARK: Singleton Basic Properties
     private init() {
     }
     public class func shared() -> DataManager {

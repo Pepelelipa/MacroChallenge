@@ -13,7 +13,7 @@ internal class NotebookObject: NotebookEntity {
         if let workspace = workspace {
             return workspace
         }
-        throw WorkspaceError.WorkspaceWasNull
+        throw WorkspaceError.workspaceWasNull
     }
 
     public var name: String {
@@ -67,7 +67,7 @@ internal class NotebookObject: NotebookEntity {
     }
 
     func removeObserver(_ observer: EntityObserver) {
-        if let index = observers.firstIndex(where: {$0 === observer}) {
+        if let index = observers.firstIndex(where: { $0 === observer }) {
             observers.remove(at: index)
         }
     }
@@ -77,10 +77,10 @@ internal class NotebookObject: NotebookEntity {
     }
 
     private func notifyObservers() {
-        observers.forEach({$0.entityDidChangeTo(self)})
+        observers.forEach({ $0.entityDidChangeTo(self) })
     }
     
     deinit {
-        observers.forEach({$0.entityWasDeleted(self)})
+        observers.forEach({ $0.entityWasDeleted(self) })
     }
 }

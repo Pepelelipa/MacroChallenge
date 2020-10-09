@@ -7,7 +7,6 @@
 //
 
 public enum CoreDataError: Error {
-    case FailedToParseObject
-    case FailedToSaveContext
+    case failedToParseObject
+    case failedToSaveContext
 }
-

@@ -7,6 +7,6 @@
 //
 
 public enum NotebookError: Error {
-    case NotebookWasNull
-    case FailedToParse
+    case notebookWasNull
+    case failedToParse
 }

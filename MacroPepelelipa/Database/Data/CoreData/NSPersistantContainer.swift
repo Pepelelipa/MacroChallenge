@@ -11,6 +11,7 @@ import CoreData
 class NSCustomPersistentContainer: NSPersistentContainer {
 
     override open class func defaultDirectoryURL() -> URL {
+        return super.defaultDirectoryURL()
         var storeURL = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.MacroPepelelipa")
         storeURL = storeURL?.appendingPathComponent("MacroPepelelipa")
         if let url = storeURL {

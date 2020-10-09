@@ -7,5 +7,5 @@
 //
 
 public enum TextBoxError: Error {
-    case FailedToParse
+    case failedToParse
 }

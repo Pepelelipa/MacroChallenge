@@ -6,14 +6,13 @@
 //  Copyright © 2020 Pedro Giuliano Farina. All rights reserved.
 //
 
-
 internal class NoteObject: NoteEntity {
 
     func getNotebook() throws -> NotebookEntity {
         if let notebook = notebook {
             return notebook
         }
-        throw NotebookError.NotebookWasNull
+        throw NotebookError.notebookWasNull
     }
     private weak var notebook: NotebookObject?
 
@@ -70,7 +69,7 @@ internal class NoteObject: NoteEntity {
     }
 
     func removeObserver(_ observer: EntityObserver) {
-        if let index = observers.firstIndex(where: {$0 === observer}) {
+        if let index = observers.firstIndex(where: { $0 === observer }) {
             observers.remove(at: index)
         }
     }
@@ -80,10 +79,10 @@ internal class NoteObject: NoteEntity {
     }
 
     private func notifyObservers() {
-        observers.forEach({$0.entityDidChangeTo(self)})
+        observers.forEach({ $0.entityDidChangeTo(self) })
     }
 
     deinit {
-        observers.forEach({$0.entityWasDeleted(self)})
+        observers.forEach({ $0.entityWasDeleted(self) })
     }
 }

@@ -7,5 +7,5 @@
 //
 
 public enum ImageBoxError: Error {
-    case FailedToParse
+    case failedToParse
 }
