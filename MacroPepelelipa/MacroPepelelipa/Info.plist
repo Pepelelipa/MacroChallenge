@@ -4,6 +4,8 @@
 <dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
+	<key>CFBundleDisplayName</key>
+	<string>Snotes</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -20,6 +22,19 @@
 	<string>1</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>UIAppFonts</key>
+	<array>
+		<string>Merriweather-Regular.otf</string>
+		<string>Merriweather-Bold.otf</string>
+		<string>Merriweather-Italic.otf</string>
+		<string>Merriweather-BoldItalic.otf</string>
+		<string>OpenSans-Regular.ttf</string>
+		<string>OpenSans-Bold.ttf</string>
+		<string>OpenSans-Italic.ttf</string>
+		<string>OpenSans-BoldItalic.ttf</string>
+		<string>DancingScript-Regular.ttf</string>
+		<string>DancingScript-Bold.ttf</string>
+	</array>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>
@@ -55,19 +70,6 @@
 		<string>UIInterfaceOrientationPortraitUpsideDown</string>
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
-	</array>
-	<key>UIAppFonts</key>
-	<array>
-		<string>Merriweather-Regular.otf</string>
-		<string>Merriweather-Bold.otf</string>
-		<string>Merriweather-Italic.otf</string>
-		<string>Merriweather-BoldItalic.otf</string>
-		<string>OpenSans-Regular.ttf</string>
-		<string>OpenSans-Bold.ttf</string>
-		<string>OpenSans-Italic.ttf</string>
-		<string>OpenSans-BoldItalic.ttf</string>
-		<string>DancingScript-Regular.ttf</string>
-		<string>DancingScript-Bold.ttf</string>
 	</array>
 </dict>
 </plist>

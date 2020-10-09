@@ -48,7 +48,6 @@
 		022832F3252E5F9C00DDD46B /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 022832F2252E5F9C00DDD46B /* DataManager.swift */; };
 		022832F7252E603800DDD46B /* EntityObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 022832F6252E603800DDD46B /* EntityObserver.swift */; };
 		022832FB252E6C4200DDD46B /* ObservableEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 022832FA252E6C4200DDD46B /* ObservableEntity.swift */; };
-		022D600A2519559D00001D5B /* UIFont+Traits.swift in Sources */ = {isa = PBXBuildFile; fileRef = 022D5FDC2519559D00001D5B /* UIFont+Traits.swift */; };
 		022D600A2519559D00001D5B /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 022D5FDC2519559D00001D5B /* Fonts.swift */; };
 		022D600B2519559D00001D5B /* MarkdownCode+UIKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 022D5FDF2519559D00001D5B /* MarkdownCode+UIKit.swift */; };
 		022D600C2519559D00001D5B /* MarkdownLink+UIKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 022D5FE12519559D00001D5B /* MarkdownLink+UIKit.swift */; };
@@ -214,7 +213,6 @@
 		022832F2252E5F9C00DDD46B /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		022832F6252E603800DDD46B /* EntityObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntityObserver.swift; sourceTree = "<group>"; };
 		022832FA252E6C4200DDD46B /* ObservableEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservableEntity.swift; sourceTree = "<group>"; };
-		022D5FDC2519559D00001D5B /* UIFont+Traits.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIFont+Traits.swift"; sourceTree = "<group>"; };
 		022D5FDC2519559D00001D5B /* Fonts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
 		022D5FDF2519559D00001D5B /* MarkdownCode+UIKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MarkdownCode+UIKit.swift"; sourceTree = "<group>"; };
 		022D5FE12519559D00001D5B /* MarkdownLink+UIKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MarkdownLink+UIKit.swift"; sourceTree = "<group>"; };
@@ -1292,7 +1290,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = PGF.Database;
+				PRODUCT_BUNDLE_IDENTIFIER = PEPELELIPA.Database;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -1322,7 +1320,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = PGF.Database;
+				PRODUCT_BUNDLE_IDENTIFIER = PEPELELIPA.Database;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
@@ -1462,7 +1460,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = PGF.MacroPepelelipa;
+				PRODUCT_BUNDLE_IDENTIFIER = PEPELELIPA.Macro;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1481,7 +1479,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = PGF.MacroPepelelipa;
+				PRODUCT_BUNDLE_IDENTIFIER = PEPELELIPA.Macro;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
