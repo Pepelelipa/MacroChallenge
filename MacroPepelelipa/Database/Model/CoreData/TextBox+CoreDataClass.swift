@@ -11,6 +11,6 @@ import Foundation
 import CoreData
 
 @objc(TextBox)
-public class TextBox: NSManagedObject {
+internal class TextBox: NSManagedObject {
 
 }

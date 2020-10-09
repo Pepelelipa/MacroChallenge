@@ -11,3 +11,9 @@ public protocol EntityObserver: class {
     func entityDidChangeTo(_ value: ObservableEntity)
     func entityShouldDelete(_ value: ObservableEntity)
 }
+
+public extension EntityObserver {
+    func entityWasCreated(_ value: ObservableEntity) {}
+    func entityDidChangeTo(_ value: ObservableEntity) {}
+    func entityShouldDelete(_ value: ObservableEntity) {}
+}

@@ -27,6 +27,7 @@ internal class WorkspacesCollectionViewDataSource: NSObject, UICollectionViewDat
     func entityShouldDelete(_ value: ObservableEntity) {
         if let workspace = value as? WorkspaceEntity,
            let index = workspaces.firstIndex(where: { $0 === workspace }) {
+            workspace.removeObserver(self)
             workspaces.remove(at: index)
             self.collectionView?().deleteItems(at: [IndexPath(item: index, section: 0)])
         }
@@ -43,9 +44,12 @@ internal class WorkspacesCollectionViewDataSource: NSObject, UICollectionViewDat
         DataManager.shared().addCreationObserver(self, type: .workspace)
     }
     
-    private var workspaces: [WorkspaceEntity] = {
+    private lazy var workspaces: [WorkspaceEntity] = {
         do {
             let workspaces = try Database.DataManager.shared().fetchWorkspaces()
+            for workspace in workspaces {
+                workspace.addObserver(self)
+            }
             return workspaces
         } catch {
             fatalError("Failed to fetch")

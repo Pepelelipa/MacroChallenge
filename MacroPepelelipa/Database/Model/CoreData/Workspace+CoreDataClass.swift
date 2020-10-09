@@ -11,6 +11,6 @@ import Foundation
 import CoreData
 
 @objc(Workspace)
-public class Workspace: NSManagedObject {
+internal class Workspace: NSManagedObject {
 
 }

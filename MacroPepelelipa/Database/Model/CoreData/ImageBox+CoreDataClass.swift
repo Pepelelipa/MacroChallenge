@@ -11,6 +11,6 @@ import Foundation
 import CoreData
 
 @objc(ImageBox)
-public class ImageBox: NSManagedObject {
+internal class ImageBox: NSManagedObject {
 
 }
