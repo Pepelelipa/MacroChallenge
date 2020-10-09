@@ -182,13 +182,19 @@ internal class MarkupTextView: UITextView {
         return true
     }
     
+    /**
+     This method calls the delegate's method to check the text color and return it.
+     */
     public func getTextColor() -> UIColor {
         guard let delegate = self.delegate as? MarkupTextViewDelegate else {
             return MarkdownParser.defaultColor
         }
         return delegate.getTextColor(on: self)
     }
-
+    
+    /**
+     This method calls the delegate's method to check if the background attribute has the value of highlighted.
+     */
     public func checkBackground() -> Bool {
         guard let delegate = self.delegate as? MarkupTextViewDelegate else {
             return false
