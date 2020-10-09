@@ -275,7 +275,6 @@ internal class NotesViewController: UIViewController,
         self.textView.addSubview(imageBox)
     }
     
-    
     /**
      Present the native Image Picker. There we instantiate a PHPickerViewController and set its delegate. Finally, there is a present from the view controller.
      */

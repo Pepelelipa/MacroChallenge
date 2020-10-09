@@ -9,7 +9,7 @@
 import UIKit
 import Database
 
-internal class AddWorkspaceViewController: PopupContainerViewController {
+internal class AddWorkspaceViewController: PopupContainerViewController, AddWorkspaceObserver {
 
     private lazy var txtName: UITextField = {
         let txtName = UITextField()
@@ -19,9 +19,20 @@ internal class AddWorkspaceViewController: PopupContainerViewController {
         txtName.font = .preferredFont(forTextStyle: .title1)
         txtName.tintColor = .actionColor
         txtName.addTarget(self, action: #selector(textChanged(_:)), for: .editingChanged)
+        txtName.returnKeyType = UIReturnKeyType.done
+        txtName.delegate = txtNoteDelegate
 
         return txtName
+    }()   
+    
+    private lazy var txtNoteDelegate: AddNewSpaceTextFieldDelegate = {
+        let delegate = AddNewSpaceTextFieldDelegate()
+        delegate.observer = self
+        return delegate
     }()
+    
+    private lazy var keyboardToolBar = AddNewSpaceToolBar(frame: .zero, owner: txtName)
+    
     private lazy var btnConfirm: UIButton = {
         let btnConfirm = UIButton()
         btnConfirm.translatesAutoresizingMaskIntoConstraints = false
@@ -56,6 +67,7 @@ internal class AddWorkspaceViewController: PopupContainerViewController {
         let selfTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(selfTap))
         view.addGestureRecognizer(selfTapGestureRecognizer)
         txtName.becomeFirstResponder()
+        self.txtName.inputAccessoryView = keyboardToolBar
     }
 
     @IBAction func selfTap() {
@@ -116,6 +128,12 @@ internal class AddWorkspaceViewController: PopupContainerViewController {
             _ = Mockdata.createWorkspace(named: text)
             dismissFromParent()
         }
+    }
+    /**
+     A  method tthat calls btn Confirm Tap.
+     */
+    func addWorkspace() {
+        btnConfirmTap()
     }
     override func backgroundTap() {
         if txtName.isEditing {

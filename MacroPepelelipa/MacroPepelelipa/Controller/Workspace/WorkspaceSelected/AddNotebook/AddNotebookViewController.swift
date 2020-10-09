@@ -11,6 +11,8 @@ import Database
 
 internal class AddNotebookViewController: PopupContainerViewController {
     private weak var workspace: WorkspaceEntity?
+    private lazy var keyboardToolBar = AddNewSpaceToolBar(frame: .zero, owner: txtName)
+    private var txtNoteDelegate = AddNewSpaceTextFieldDelegate()
 
     init(workspace: WorkspaceEntity?, dismissHandler: (() -> Void)? = nil) {
         super.init(dismissHandler: dismissHandler)
@@ -32,6 +34,8 @@ internal class AddNotebookViewController: PopupContainerViewController {
         txtName.font = .preferredFont(forTextStyle: .title1)
         txtName.tintColor = .actionColor
         txtName.addTarget(self, action: #selector(textChanged(_:)), for: .editingChanged)
+        txtName.returnKeyType = UIReturnKeyType.done 
+        txtName.delegate = txtNoteDelegate
 
         return txtName
     }()
@@ -117,6 +121,7 @@ internal class AddNotebookViewController: PopupContainerViewController {
         let selfTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(selfTap))
         selfTapGestureRecognizer.numberOfTapsRequired = 2
         view.addGestureRecognizer(selfTapGestureRecognizer)
+        self.txtName.inputAccessoryView = keyboardToolBar
     }
 
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
