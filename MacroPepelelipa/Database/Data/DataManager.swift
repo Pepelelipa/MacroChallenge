@@ -36,6 +36,11 @@ public class DataManager {
             observer.0.entityWasCreated(entity)
         }
     }
+    private func notifyDeletion(_ entity: ObservableEntity, type: ObservableCreationType) {
+        for observer in observers where observer.1 == type {
+            observer.0.entityShouldDelete(entity)
+        }
+    }
 
     // MARK: Workspace
 
@@ -71,6 +76,7 @@ public class DataManager {
         }
 
         try coreDataController.deleteWorkspace(workspaceObject.coreDataObject)
+        notifyDeletion(workspace, type: .workspace)
     }
 
     // MARK: Notebook
@@ -106,6 +112,7 @@ public class DataManager {
         }
 
         try coreDataController.deleteNotebook(notebookObject.coreDataObject)
+        notifyDeletion(notebook, type: .notebook)
     }
 
     // MARK: Note
@@ -139,6 +146,7 @@ public class DataManager {
         }
 
         try coreDataController.deleteNote(noteObject.coreDataObject)
+        notifyDeletion(note, type: .note)
     }
 
     // MARK: TextBox

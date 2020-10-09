@@ -52,8 +52,4 @@ internal class WorkspaceObject: WorkspaceEntity {
     private func notifyObservers() {
         observers.forEach({ $0.entityDidChangeTo(self) })
     }
-
-    deinit {
-        observers.forEach({ $0.entityWasDeleted(self) })
-    }
 }

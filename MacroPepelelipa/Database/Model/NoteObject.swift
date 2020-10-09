@@ -81,8 +81,4 @@ internal class NoteObject: NoteEntity {
     private func notifyObservers() {
         observers.forEach({ $0.entityDidChangeTo(self) })
     }
-
-    deinit {
-        observers.forEach({ $0.entityWasDeleted(self) })
-    }
 }

@@ -24,7 +24,7 @@ internal class WorkspacesCollectionViewDataSource: NSObject, UICollectionViewDat
             self.collectionView?().reloadItems(at: [IndexPath(item: index, section: 0)])
         }
     }
-    func entityWasDeleted(_ value: ObservableEntity) {
+    func entityShouldDelete(_ value: ObservableEntity) {
         if let workspace = value as? WorkspaceEntity,
            let index = workspaces.firstIndex(where: { $0 === workspace }) {
             workspaces.remove(at: index)

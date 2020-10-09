@@ -202,7 +202,7 @@ internal class AddNotebookViewController: PopupContainerViewController {
             return
         }
         do {
-            try DataManager.shared().createNotebook(in: workspace, named: text, colorName: notebookColorName)
+            _ = try DataManager.shared().createNotebook(in: workspace, named: text, colorName: notebookColorName)
         } catch {
             fatalError("Num deu")
         }
