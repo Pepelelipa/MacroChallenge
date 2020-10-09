@@ -41,6 +41,7 @@ internal class NotesViewController: UIViewController,
     }()
     
     internal private(set) lazy var markupContainerView: MarkupContainerView = {
+
         let height: CGFloat = screenHeight/4
         
         let container = MarkupContainerView(frame: CGRect(x: 0, y: 0, width: screenWidth, height: height), owner: self.textView, delegate: self.formatViewDelegate, viewController: self)
@@ -107,6 +108,13 @@ internal class NotesViewController: UIViewController,
         return delegate
     }()
     
+    private lazy var markupNavigationView: MarkupNavigationView = {
+       let mrkView = MarkupNavigationView(frame: CGRect(x: 600, y: 50, width: 200, height: 30), configurations: markupConfig)
+        mrkView.backgroundColor = UIColor.backgroundColor
+        
+        return mrkView
+    }()
+    
     private lazy var markupConfig: MarkupBarConfiguration = {
         let mrkConf = MarkupBarConfiguration(owner: textView)
         mrkConf.observer = self
@@ -143,6 +151,7 @@ internal class NotesViewController: UIViewController,
             btnBack.isHidden = UIDevice.current.orientation.isLandscape
         } else if dev == .pad {
             btnBack.isHidden = true
+            view.addSubview(markupNavigationView)
         }
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(didTap))
@@ -177,6 +186,20 @@ internal class NotesViewController: UIViewController,
         keyboardToolbar.isHidden.toggle()
         markupContainerView.isHidden.toggle()
         textView.reloadInputViews()
+    }
+    
+    /**
+     This method opens the pop over when the button is pressed
+     */
+    public func openPopOver() {
+        let markupContainerViewController = MarkupContainerViewController()
+        
+        markupContainerViewController.modalPresentationStyle = .popover
+        
+        markupContainerViewController.popoverPresentationController?.sourceView = markupNavigationView
+        markupContainerViewController.preferredContentSize = CGSize(width: 380, height: 110)
+        
+        present(markupContainerViewController, animated: true)
     }
 
     override func viewDidLayoutSubviews() {

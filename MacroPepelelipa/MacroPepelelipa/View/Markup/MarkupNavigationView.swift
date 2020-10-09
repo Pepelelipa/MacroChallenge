@@ -22,6 +22,14 @@ internal class MarkupNavigationView: UIStackView {
         }
     }
     
+    public lazy var barButtonItems: [UIButton] = {
+        guard let buttons = markupBarConfiguration?.setupUIButtons() else {
+            return [UIButton]()
+        }
+        
+        return buttons
+    }()
+    
     init(frame: CGRect, configurations: MarkupBarConfiguration) {
         self.markupBarConfiguration = configurations
         super.init(frame: frame)
