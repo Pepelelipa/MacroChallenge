@@ -52,6 +52,10 @@ internal class MarkupTextViewDelegate: NSObject, UITextViewDelegate {
         
         if let range = range {
             markdownAttributesChanged?(markdownParser.parse(textView.attributedText, range: range, isBackspace: isBackspace), nil)
+            
+            if textView.selectedRange.location > range.location + 1 {
+                textView.selectedRange = NSRange(location: range.location + 1, length: 0)
+            }
         }
     }
     
@@ -115,7 +119,7 @@ internal class MarkupTextViewDelegate: NSObject, UITextViewDelegate {
      */
     public func parsePlaceholder(on textView: UITextView) {
         textView.attributedText = NSAttributedString(string: placeholder)
-        textView.font = markdownParser.font
+        textView.font = MarkdownParser.defaultFont
         isShowingPlaceholder = true
         textView.textColor = .placeholderColor
     }
@@ -205,7 +209,9 @@ internal class MarkupTextViewDelegate: NSObject, UITextViewDelegate {
         - textView: The UITextView which attributed text will receive new attributes.
      */
     public func addItalic(on textView: UITextView) {
+        let location = textView.selectedRange.location
         markdownEditor.addItalic(on: textView)
+        textView.selectedRange = NSRange(location: location, length: 0)
     }
     
     /**
@@ -215,7 +221,9 @@ internal class MarkupTextViewDelegate: NSObject, UITextViewDelegate {
         - textView: The UITextView which attributed text will receive new attributes.
      */
     public func addBold(on textView: UITextView) {
+        let location = textView.selectedRange.location
         markdownEditor.addBold(on: textView)
+        textView.selectedRange = NSRange(location: location, length: 0)
     }
     
     /**

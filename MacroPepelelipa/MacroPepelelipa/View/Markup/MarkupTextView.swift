@@ -24,6 +24,7 @@ internal class MarkupTextView: UITextView {
         self.backgroundColor = .backgroundColor
         self.textColor = .placeholderColor
         self.tintColor = .actionColor
+        self.font = MarkdownParser.defaultFont
         
         animator = UIDynamicAnimator(referenceView: self)
     }

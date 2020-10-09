@@ -9,6 +9,7 @@
 import UIKit
 
 public extension MarkdownHeader {
+    
     static let defaultFont = UIFont.openSans?.withTraits(.traitBold) ?? UIFont.boldSystemFont(ofSize: UIFont.smallSystemFontSize)
     
     static let firstHeaderFont = UIFont.openSans?.withSize(23).withTraits(.traitBold) ?? UIFont.boldSystemFont(ofSize: 22)
