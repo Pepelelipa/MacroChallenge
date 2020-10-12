@@ -25,7 +25,7 @@ internal class NotesPageViewController: UIPageViewController {
         super.init(transitionStyle: .scroll, navigationOrientation: .vertical, options: .none)
         setNotesViewControllers(for: NotesViewController(note: notes[notes.count-1]))
     }
-
+    
     internal convenience required init?(coder: NSCoder) {
         guard let notes = coder.decodeObject(forKey: "notes") as? [NoteEntity] else {
             return nil
@@ -51,6 +51,14 @@ internal class NotesPageViewController: UIPageViewController {
         }
     }
     
+    /**
+     This method sets the NotesViewController for the NotesPageViewController. To optimize, the NotesPageViewController can hold the maximum 
+     of 3 NotesViewController: the one being presented, the previous one and the next one. At least one NotesViewController will aways be setted 
+     (the presenting one) This functions is called everytime that the presenting NotesViewController is changed.
+     - Parameter notesViewController: A NotesViewController displaying a note from a notebook.
+     - Parameter fromIndex: A bool to whether the call comes from the IndexViewController or from the NotesPageViewController vertical 
+     swipe transition. A default value is setted as false.
+     */
     internal func setNotesViewControllers(for notesViewController: NotesViewController, fromIndex: Bool = false) {
         var index: Int = 0
         

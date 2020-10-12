@@ -88,6 +88,10 @@
 		1EE652C2252504400015E3D4 /* MarkupContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EE652C1252504400015E3D4 /* MarkupContainerView.swift */; };
 		1EE652C72525049E0015E3D4 /* MarkupToggleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EE652C62525049E0015E3D4 /* MarkupToggleButton.swift */; };
 		1EFA49CE252D15C500602904 /* MarkupNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EFA49CD252D15C500602904 /* MarkupNavigationView.swift */; };
+		A787E0B82530DFB000364F02 /* NotesPageViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A787E0B62530DFB000364F02 /* NotesPageViewControllerDelegate.swift */; };
+		A787E0B92530DFB000364F02 /* NotesPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A787E0B72530DFB000364F02 /* NotesPageViewController.swift */; };
+		A787E0BC2530DFBC00364F02 /* IndexObserverDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A787E0BB2530DFBC00364F02 /* IndexObserverDelegate.swift */; };
+		A787E0BF2530E01500364F02 /* NotesPageViewControllerDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = A787E0BE2530E01500364F02 /* NotesPageViewControllerDataSource.swift */; };
 		A792F03A25279E8400AB1766 /* NotebookIndexTableViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A792F03925279E8400AB1766 /* NotebookIndexTableViewDelegate.swift */; };
 		A7BDD5FB2513F5A300DDB6A0 /* SplitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7BDD5FA2513F5A300DDB6A0 /* SplitViewController.swift */; };
 		A7BDD5FF2513F83F00DDB6A0 /* IndexViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7BDD5FE2513F83F00DDB6A0 /* IndexViewController.swift */; };
@@ -221,6 +225,10 @@
 		1EE652C1252504400015E3D4 /* MarkupContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkupContainerView.swift; sourceTree = "<group>"; };
 		1EE652C62525049E0015E3D4 /* MarkupToggleButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkupToggleButton.swift; sourceTree = "<group>"; };
 		1EFA49CD252D15C500602904 /* MarkupNavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkupNavigationView.swift; sourceTree = "<group>"; };
+		A787E0B62530DFB000364F02 /* NotesPageViewControllerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotesPageViewControllerDelegate.swift; sourceTree = "<group>"; };
+		A787E0B72530DFB000364F02 /* NotesPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotesPageViewController.swift; sourceTree = "<group>"; };
+		A787E0BB2530DFBC00364F02 /* IndexObserverDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IndexObserverDelegate.swift; sourceTree = "<group>"; };
+		A787E0BE2530E01500364F02 /* NotesPageViewControllerDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotesPageViewControllerDataSource.swift; sourceTree = "<group>"; };
 		A792F03925279E8400AB1766 /* NotebookIndexTableViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotebookIndexTableViewDelegate.swift; sourceTree = "<group>"; };
 		A7BDD5FA2513F5A300DDB6A0 /* SplitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplitViewController.swift; sourceTree = "<group>"; };
 		A7BDD5FE2513F83F00DDB6A0 /* IndexViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndexViewController.swift; sourceTree = "<group>"; };
@@ -583,6 +591,7 @@
 		026C3CAE25194353001E32AE /* Notebook Index */ = {
 			isa = PBXGroup;
 			children = (
+				A787E0BB2530DFBC00364F02 /* IndexObserverDelegate.swift */,
 				0213BFB4251943C40085ABC3 /* IndexDelegateProtocol.swift */,
 				A792F03925279E8400AB1766 /* NotebookIndexTableViewDelegate.swift */,
 				A7BDD5FE2513F83F00DDB6A0 /* IndexViewController.swift */,
@@ -593,6 +602,8 @@
 		026C3CAF2519435E001E32AE /* Notes */ = {
 			isa = PBXGroup;
 			children = (
+				A787E0B72530DFB000364F02 /* NotesPageViewController.swift */,
+				A787E0B62530DFB000364F02 /* NotesPageViewControllerDelegate.swift */,
 				026C3CAB251942A7001E32AE /* NotesViewController.swift */,
 				1E9EF4AC2522609400CC623B /* MarkupTextFieldDelegate.swift */,
 			);
@@ -759,6 +770,7 @@
 				D9F4A9A025277A6000BFDC19 /* BoxView.swift */,
 				1E9EF4A825225B9B00CC623B /* TextEditingDelegateObserver.swift */,
 				D9F4A9BC2527D0A600BFDC19 /* MarkupToolBarObserver.swift */,
+				A787E0BE2530E01500364F02 /* NotesPageViewControllerDataSource.swift */,
 			);
 			path = Notes;
 			sourceTree = "<group>";
@@ -975,6 +987,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A787E0BF2530E01500364F02 /* NotesPageViewControllerDataSource.swift in Sources */,
 				D9F4A9BD2527D0A600BFDC19 /* MarkupToolBarObserver.swift in Sources */,
 				023886062523CAEC00F807E9 /* WorkspaceCellNotebookCollectionViewCell.swift in Sources */,
 				02ECA43C2512ABD100E68588 /* NotebookCollectionViewCell.swift in Sources */,
@@ -1005,6 +1018,7 @@
 				022D60132519559D00001D5B /* MarkdownEscaping.swift in Sources */,
 				022D6028251955B500001D5B /* MarkupTextViewDelegate.swift in Sources */,
 				022D60182519559D00001D5B /* MarkdownCode.swift in Sources */,
+				A787E0BC2530DFBC00364F02 /* IndexObserverDelegate.swift in Sources */,
 				D9D87544251BD39F00B842C8 /* PhotoEditingViewController.swift in Sources */,
 				02DD09FC25114D6200B6696B /* AppDelegate.swift in Sources */,
 				022D60112519559D00001D5B /* String+UTF16.swift in Sources */,
@@ -1012,6 +1026,7 @@
 				022D60162519559D00001D5B /* MarkdownItalic.swift in Sources */,
 				02A8BCEC2512A453006B685E /* NotebooksCollectionViewDataSource.swift in Sources */,
 				02DD09FE25114D6200B6696B /* SceneDelegate.swift in Sources */,
+				A787E0B92530DFB000364F02 /* NotesPageViewController.swift in Sources */,
 				1E9EF4AD2522609400CC623B /* MarkupTextFieldDelegate.swift in Sources */,
 				020E22252513F10800A93EAB /* StringExtension.swift in Sources */,
 				1EFA49CE252D15C500602904 /* MarkupNavigationView.swift in Sources */,
@@ -1035,6 +1050,7 @@
 				D9F4A9AA25277A6B00BFDC19 /* ResizeHandleView.swift in Sources */,
 				A792F03A25279E8400AB1766 /* NotebookIndexTableViewDelegate.swift in Sources */,
 				022D600E2519559D00001D5B /* Typealias+UIKit.swift in Sources */,
+				A787E0B82530DFB000364F02 /* NotesPageViewControllerDelegate.swift in Sources */,
 				D9D87538251BB26500B842C8 /* MarkupToolBar.swift in Sources */,
 				02207A3E2523AB160001FD7E /* WorkspaceCollectionViewCell.swift in Sources */,
 				022D600C2519559D00001D5B /* MarkdownLink+UIKit.swift in Sources */,

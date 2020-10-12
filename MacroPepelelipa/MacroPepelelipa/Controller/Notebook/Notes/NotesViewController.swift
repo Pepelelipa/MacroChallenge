@@ -85,27 +85,28 @@ internal class NotesViewController: UIViewController,
         return delegate
     }()
      
-    private lazy var textViewDelegate: MarkupTextViewDelegate? = {
+    private lazy var textViewDelegate: MarkupTextViewDelegate = {
         let delegate = MarkupTextViewDelegate()
         delegate.addObserver(self)
-        DispatchQueue.main.async {
-            delegate.markdownAttributesChanged = { [unowned self](attributtedString, error) in
-                if let error = error {
-                    NSLog("Error requesting -> \(error)")
-                    return
-                }
-
-                guard let attributedText = attributtedString else {
-                    NSLog("No error nor string found")
-                    return
-                }
-
-                self.textView.attributedText = attributedText
-            }
-            delegate.parsePlaceholder(on: self.textView)
-        }
         return delegate
     }()
+    
+    internal lazy var workItem = DispatchWorkItem {
+        self.textViewDelegate.markdownAttributesChanged = { [weak self] (attributtedString, error) in
+            if let error = error {
+                NSLog("Error requesting -> \(error)")
+                return
+            }
+
+            guard let attributedText = attributtedString else {
+                NSLog("No error nor string found")
+                return
+            }
+
+            self?.textView.attributedText = attributedText
+        }
+        self.textViewDelegate.parsePlaceholder(on: self.textView)
+    }
     
     private lazy var markupConfig: MarkupBarConfiguration = {
         let mrkConf = MarkupBarConfiguration(owner: textView)
@@ -125,7 +126,7 @@ internal class NotesViewController: UIViewController,
     }
     
     deinit {
-        textViewDelegate?.removeObserver(self)
+        textViewDelegate.removeObserver(self)
     }
 
     internal convenience required init?(coder: NSCoder) {
@@ -160,6 +161,14 @@ internal class NotesViewController: UIViewController,
             textView.inputAccessoryView = nil
         }
         
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        DispatchQueue.main.asyncAfter(deadline: .now(), execute: self.workItem)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        workItem.cancel()
     }
     
     /**

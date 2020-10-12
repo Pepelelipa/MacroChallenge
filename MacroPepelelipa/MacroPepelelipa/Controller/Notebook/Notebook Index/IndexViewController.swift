@@ -148,14 +148,12 @@ internal class NotebookIndexViewController: UIViewController, IndexObserverDeleg
     
     func indexDidChange(for note: NoteEntity) {
         
-        guard let notesPageViewController = splitViewController?.viewControllers.last as? NotesPageViewController else {
-            return
-        }
-        
-        if let selectedNote = notesPageViewController.notes.first(where: { $0 === note }), 
-           let currentViewController = notesPageViewController.viewControllers?.first as? NotesViewController {
-            if currentViewController.note !== selectedNote {
-                notesPageViewController.setNotesViewControllers(for: NotesViewController(note: selectedNote), fromIndex: true)
+        if let notesPageViewController = splitViewController?.viewControllers.last as? NotesPageViewController {
+            if let selectedNote = notesPageViewController.notes.first(where: { $0 === note }), 
+               let currentViewController = notesPageViewController.viewControllers?.first as? NotesViewController {
+                if currentViewController.note !== selectedNote {
+                    notesPageViewController.setNotesViewControllers(for: NotesViewController(note: selectedNote), fromIndex: true)
+                }
             }
         }
     }

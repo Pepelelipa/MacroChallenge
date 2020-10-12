@@ -17,8 +17,8 @@ internal class SplitViewController: UISplitViewController, NotebookIndexDelegate
         nav.isNavigationBarHidden = true
         return nav
     }()
-    private let detail: NotesPageViewController
-
+    internal var detail: NotesPageViewController
+    
     internal init(notebook: NotebookEntity) {
         master = NotebookIndexViewController(notebook: notebook)
         let notes: [NoteEntity]
@@ -33,7 +33,7 @@ internal class SplitViewController: UISplitViewController, NotebookIndexDelegate
         modalPresentationStyle = .fullScreen
         viewControllers = [navController, detail]
         master.delegate = self
-        preferredDisplayMode = .oneOverSecondary
+        preferredDisplayMode = .oneBesideSecondary
     }
 
     internal required convenience init?(coder: NSCoder) {
@@ -43,17 +43,17 @@ internal class SplitViewController: UISplitViewController, NotebookIndexDelegate
         self.init(notebook: notebook)
     }
 
-    func indexShouldDismiss() {
+    internal func indexShouldDismiss() {
         self.dismiss(animated: true)
     }
 
-    func indexWillAppear() {
+    internal func indexWillAppear() {
         if let notesViewController = detail.presentingViewController as? NotesViewController {
             notesViewController.isBtnBackHidden = true
         }
     }
 
-    func indexWillDisappear() {
+    internal func indexWillDisappear() {
         if let notesViewController = detail.presentingViewController as? NotesViewController {
             notesViewController.isBtnBackHidden = false
         }

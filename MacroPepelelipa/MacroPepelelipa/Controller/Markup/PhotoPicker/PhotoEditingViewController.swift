@@ -9,9 +9,9 @@
 import Foundation
 import UIKit
 
-class PhotoEditingViewController: UIViewController {
+internal class PhotoEditingViewController: UIViewController {
     
-    public var editingImage: UIImage?
+    internal var editingImage: UIImage?
     
     private lazy var editingImageView: UIImageView = {
         let imageView = UIImageView(image: editingImage)
