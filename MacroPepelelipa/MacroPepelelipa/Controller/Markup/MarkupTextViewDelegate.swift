@@ -56,7 +56,7 @@ internal class MarkupTextViewDelegate: NSObject, UITextViewDelegate {
         
         if let range = range {
             markdownAttributesChanged?(markdownParser.parse(textView.attributedText, range: range, isBackspace: isBackspace), nil)
-            if textView.selectedRange.location > range.location + 1 {
+            if textView.selectedRange.location > range.location + 1 && !MarkdownList.isList && !MarkdownNumeric.isNumeric && !MarkdownQuote.isQuote {
                 textView.selectedRange = NSRange(location: range.location + 1, length: 0)
             }
         }
@@ -71,10 +71,12 @@ internal class MarkupTextViewDelegate: NSObject, UITextViewDelegate {
         self.isBackspace = (backspace == -92)
         
         if text == "\n" {
+            if markdownParser.font.isHeaderFont() {
+                markdownParser.font = MarkdownParser.defaultFont
+            }
+            
             MarkupToolBar.headerStyle = .h1
-            observers.forEach({
-                $0.textReceivedEnter()
-            })
+            observers.forEach({ $0.textReceivedEnter() })
             if lastWrittenText == "\n" {
                 MarkdownList.isList = false
                 MarkdownNumeric.isNumeric = false
