@@ -15,19 +15,25 @@ internal class NotesViewController: UIViewController,
                                     MarkupToolBarObserver,
                                     PHPickerViewControllerDelegate {
     
-    internal var textBoxes: Set<TextBoxView> = []  
-    internal var imageBoxes: Set<ImageBoxView> = []
-
-    private let screenWidth = UIScreen.main.bounds.width
-    private let screenHeight = UIScreen.main.bounds.height
-
-    internal private(set) weak var note: NoteEntity?
-        
+    // MARK: - Variables and Constants
+    
     private var resizeHandles = [ResizeHandleView]()
     private var initialCenter = CGPoint()
     private var scale: CGFloat = 1.0
     private var currentBoxViewPosition: CGPoint = .zero
     private var libraryImage: UIImage?
+
+    private let screenWidth = UIScreen.main.bounds.width
+    private let screenHeight = UIScreen.main.bounds.height
+    
+    internal var textBoxes: Set<TextBoxView> = []  
+    internal var imageBoxes: Set<ImageBoxView> = []
+    internal private(set) weak var note: NoteEntity?
+    
+    private lazy var addNewNoteButton: UIBarButtonItem = {
+        let item = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addNewNote))
+        return item
+    }()
     
     private lazy var imageButton: UIButton = {
         let button = UIButton(frame: .zero)
@@ -36,25 +42,6 @@ internal class NotesViewController: UIViewController,
         return button
     }()
     
-    internal private(set) lazy var formatViewDelegate: MarkupFormatViewDelegate? = {
-        return MarkupFormatViewDelegate(viewController: self)
-    }()
-    
-    internal private(set) lazy var markupContainerView: MarkupContainerView = {
-
-        let height: CGFloat = screenHeight/4
-        
-        let container = MarkupContainerView(frame: CGRect(x: 0, y: 0, width: screenWidth, height: height), owner: self.textView, delegate: self.formatViewDelegate, viewController: self)
-        
-        container.autoresizingMask = []
-        container.isHidden = true
-        container.delegate = self.formatViewDelegate
-        
-        return container
-    }()
-
-    internal lazy var textView: MarkupTextView = MarkupTextView(frame: .zero, delegate: self.textViewDelegate)
-
     private lazy var textField: MarkupTextField = {
         let textField = MarkupTextField(frame: .zero, placeholder: "Your Title".localized(), paddingSpace: 4)
         textField.delegate = self.textFieldDelegate
@@ -109,6 +96,27 @@ internal class NotesViewController: UIViewController,
         return toolBar
     }()
     
+    internal private(set) lazy var textView: MarkupTextView = MarkupTextView(frame: .zero, delegate: self.textViewDelegate)
+    
+    internal private(set) lazy var formatViewDelegate: MarkupFormatViewDelegate? = {
+        return MarkupFormatViewDelegate(viewController: self)
+    }()
+    
+    internal private(set) lazy var markupContainerView: MarkupContainerView = {
+
+        let height: CGFloat = screenHeight/4
+        
+        let container = MarkupContainerView(frame: CGRect(x: 0, y: 0, width: screenWidth, height: height), owner: self.textView, delegate: self.formatViewDelegate, viewController: self)
+        
+        container.autoresizingMask = []
+        container.isHidden = true
+        container.delegate = self.formatViewDelegate
+        
+        return container
+    }()
+    
+    // MARK: - Initializers
+    
     internal init(note: NoteEntity) {
         self.note = note
         super.init(nibName: nil, bundle: nil)
@@ -127,10 +135,14 @@ internal class NotesViewController: UIViewController,
         self.init(note: note)
     }
     
+    // MARK: - Override functions
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(didTap))
+        
+        navigationItem.rightBarButtonItems = [addNewNoteButton]
         
         view.addGestureRecognizer(tap)
         view.addSubview(markupContainerView)
@@ -159,36 +171,6 @@ internal class NotesViewController: UIViewController,
         }
     }
     
-    /**
-     This method changes de main input view based on it being custom or not.
-     - Parameter isCustom: A boolean indicating if the input view will be a custom view or not.
-     */
-    internal func changeTextViewInput(isCustom: Bool) {
-        if isCustom == true {
-            textView.inputView = markupContainerView
-        } else {
-            textView.inputView = nil
-        }
-        
-        keyboardToolbar.isHidden.toggle()
-        markupContainerView.isHidden.toggle()
-        textView.reloadInputViews()
-    }
-    
-    /**
-     This method opens the pop over when the button is pressed
-     */
-    public func openPopOver() {
-        let markupContainerViewController = MarkupContainerViewController()
-        
-        markupContainerViewController.modalPresentationStyle = .popover
-        
-        markupContainerViewController.popoverPresentationController?.sourceView = markupNavigationView.barButtonItems[4]
-        markupContainerViewController.preferredContentSize = CGSize(width: 380, height: 110)
-        
-        present(markupContainerViewController, animated: true)
-    }
-
     override func viewDidLayoutSubviews() {
         NSLayoutConstraint.activate([
             imageButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -150),
@@ -209,7 +191,104 @@ internal class NotesViewController: UIViewController,
         ])
     }
     
-    func textEditingDidBegin() {
+    // MARK: - Functions
+    
+    /**
+     Create a Image Box
+     - Parameters
+        - frame: The text box frame.
+        - Image: The image displayed on Image Box.
+     */
+    private func addImageBox(with frame: CGRect, image: UIImage) {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
+        let doubleTapGesture = UITapGestureRecognizer(target: self, action: #selector(handleDoubleTap(_:)))
+        doubleTapGesture.numberOfTapsRequired = 2
+        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePan(_:)))
+        let pinchGesture = UIPinchGestureRecognizer(target: self, action: #selector(handlePinch(_:)))
+        
+        let imageBox = ImageBoxView(frame: frame, owner: textView, image: image)
+        
+        imageBox.addGestureRecognizer(tapGesture)
+        imageBox.addGestureRecognizer(doubleTapGesture)
+        imageBox.addGestureRecognizer(panGesture)
+        imageBox.addGestureRecognizer(pinchGesture)
+        self.imageBoxes.insert(imageBox)
+        self.textView.addSubview(imageBox)
+    }
+    
+    /**
+     Adds and position the resize handles in the box view
+     - Parameters
+        - boxView: The Box View who will receive the resize handle.
+     */
+    private func placeResizeHandles(boxView: BoxView) {
+        if !resizeHandles.isEmpty {
+            resizeHandles.forEach { (resizeHandle) in
+                resizeHandle.removeFromSuperview()
+            }
+            resizeHandles.removeAll()
+        }
+        ResizeHandleView.createResizeHandleView(on: boxView, handlesArray: &resizeHandles, inside: self)
+        resizeHandles[0].setNeedsDisplay()
+    }
+    
+    /**
+     Move the box view and uptade their resize handles position.
+     - Parameters
+        - boxView: The Box View who will be moved.
+        - vector: The new position of the box view.
+     */
+    private func moveBoxView(boxView: BoxView, by vector: CGPoint) {
+        boxView.center = currentBoxViewPosition + vector
+        uptadeResizeHandles()
+    }
+    
+    /**
+     Uptade the resize handle position and the border of the text box.
+     */
+    internal func uptadeResizeHandles() {
+        resizeHandles.forEach { (handle) in
+            handle.updatePosition()
+        }
+        textBoxes.forEach { (textBox) in
+            textBox.setUpBorder()
+        }
+        imageBoxes.forEach { (imageBox) in
+            imageBox.setUpBorder()
+        }
+    }
+    
+    /**
+     This method changes de main input view based on it being custom or not.
+     - Parameter isCustom: A boolean indicating if the input view will be a custom view or not.
+     */
+    internal func changeTextViewInput(isCustom: Bool) {
+        if isCustom == true {
+            textView.inputView = markupContainerView
+        } else {
+            textView.inputView = nil
+        }
+        
+        keyboardToolbar.isHidden.toggle()
+        markupContainerView.isHidden.toggle()
+        textView.reloadInputViews()
+    }
+    
+    /**
+     This method opens the pop over when the button is pressed
+     */
+    internal func openPopOver() {
+        let markupContainerViewController = MarkupContainerViewController()
+        
+        markupContainerViewController.modalPresentationStyle = .popover
+        
+        markupContainerViewController.popoverPresentationController?.sourceView = markupNavigationView.barButtonItems[4]
+        markupContainerViewController.preferredContentSize = CGSize(width: 380, height: 110)
+        
+        present(markupContainerViewController, animated: true)
+    }
+    
+    internal func textEditingDidBegin() {
         DispatchQueue.main.async {
             self.textBoxes.forEach { (textBox) in
                 textBox.state = .idle
@@ -228,7 +307,7 @@ internal class NotesViewController: UIViewController,
         }
     }
     
-    func textEditingDidEnd() {
+    internal func textEditingDidEnd() {
         DispatchQueue.main.async {
             self.imageButton.isHidden = false
         }
@@ -239,7 +318,7 @@ internal class NotesViewController: UIViewController,
      - Parameters
         - frame: The text box frame.
      */
-    func addTextBox(with frame: CGRect) {
+    internal func addTextBox(with frame: CGRect) {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
         let doubleTapGesture = UITapGestureRecognizer(target: self, action: #selector(handleDoubleTap(_:)))
         doubleTapGesture.numberOfTapsRequired = 2
@@ -257,32 +336,9 @@ internal class NotesViewController: UIViewController,
     }
     
     /**
-     Create a Image Box
-     - Parameters
-        - frame: The text box frame.
-        - Image: The image displayed on Image Box.
-     */
-    func addImageBox(with frame: CGRect, image: UIImage) {
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
-        let doubleTapGesture = UITapGestureRecognizer(target: self, action: #selector(handleDoubleTap(_:)))
-        doubleTapGesture.numberOfTapsRequired = 2
-        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePan(_:)))
-        let pinchGesture = UIPinchGestureRecognizer(target: self, action: #selector(handlePinch(_:)))
-        
-        let imageBox = ImageBoxView(frame: frame, owner: textView, image: image)
-        
-        imageBox.addGestureRecognizer(tapGesture)
-        imageBox.addGestureRecognizer(doubleTapGesture)
-        imageBox.addGestureRecognizer(panGesture)
-        imageBox.addGestureRecognizer(pinchGesture)
-        self.imageBoxes.insert(imageBox)
-        self.textView.addSubview(imageBox)
-    }
-    
-    /**
      Present the native Image Picker. There we instantiate a PHPickerViewController and set its delegate. Finally, there is a present from the view controller.
      */
-    func presentPicker() {
+    internal func presentPicker() {
         var config = PHPickerConfiguration()
         config.filter = .images
                 
@@ -293,7 +349,7 @@ internal class NotesViewController: UIViewController,
         present(picker, animated: true, completion: nil)   
     }
     
-    func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
+    internal func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
         picker.dismiss(animated: true)
         
         if let itemProvider = results.first?.itemProvider, itemProvider.canLoadObject(ofClass: UIImage.self) {
@@ -322,56 +378,17 @@ internal class NotesViewController: UIViewController,
             }
         }
     }
-    /**
-     Uptade the resize handle position and the border of the text box.
-     */
-    func uptadeResizeHandles() {
-        resizeHandles.forEach { (handle) in
-            handle.updatePosition()
-        }
-        textBoxes.forEach { (textBox) in
-            textBox.setUpBorder()
-        }
-        imageBoxes.forEach { (imageBox) in
-            imageBox.setUpBorder()
-        }
-    }
-    
-    /**
-     Adds and position the resize handles in the box view
-     - Parameters
-        - boxView: The Box View who will receive the resize handle.
-     */
-    func placeResizeHandles(boxView: BoxView) {
-        if !resizeHandles.isEmpty {
-            resizeHandles.forEach { (resizeHandle) in
-                resizeHandle.removeFromSuperview()
-            }
-            resizeHandles.removeAll()
-        }
-        ResizeHandleView.createResizeHandleView(on: boxView, handlesArray: &resizeHandles, inside: self)
-        resizeHandles[0].setNeedsDisplay()
-    }
     
     /**
      Updates the position of the resize handles.
      */
-    func updateResizeHandles() {
+    internal func updateResizeHandles() {
         resizeHandles.forEach { (resizeHandle) in
             resizeHandle.updatePosition()
         }
     }
     
-    /**
-     Move the box view and uptade their resize handles position.
-     - Parameters
-        - boxView: The Box View who will be moved.
-        - vector: The new position of the box view.
-     */
-    func moveBoxView(boxView: BoxView, by vector: CGPoint) {
-        boxView.center = currentBoxViewPosition + vector
-        uptadeResizeHandles()
-    }
+    // MARK: - IBActions functions
     
     @IBAction func didTap() {
         textField.resignFirstResponder()
@@ -431,5 +448,9 @@ internal class NotesViewController: UIViewController,
             
             scale = gestureRecognizer.scale
         }
+    }
+    
+    @IBAction private func addNewNote() {
+        // TODO: add new note
     }
 }
