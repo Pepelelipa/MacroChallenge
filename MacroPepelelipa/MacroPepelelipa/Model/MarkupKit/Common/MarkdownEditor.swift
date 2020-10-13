@@ -128,9 +128,7 @@ class MarkdownEditor {
     
     /**
      This method adds italic attributes on the UITextView based on the selected range.
-     
-     - Parameters:
-        - textView: The UITextView which attributed text will receive new attributes.
+     - Parameter textView: The UITextView which attributed text will receive new attributes.
      */
     public func addItalic(on textView: UITextView) {
         setFontTrait(trait: .traitItalic, textView)
@@ -138,9 +136,7 @@ class MarkdownEditor {
     
     /**
      This method adds bold attributes on the UITextView based on the selected range.
-     
-     - Parameters:
-        - textView: The UITextView which attributed text will receive new attributes.
+     - Parameter textView: The UITextView which attributed text will receive new attributes.
      */
     public func addBold(on textView: UITextView) {
         setFontTrait(trait: .traitBold, textView)
@@ -205,9 +201,7 @@ class MarkdownEditor {
     
     /**
      This method adds background color attribute on the UITextView based on the selected range.
-     
-     - Parameters:
-        - textView: The UITextView which attributed text will receive new attributes.
+     - Parameter textView: The UITextView which attributed text will receive new attributes.
      */
     public func setBackgroundColor(on textView: UITextView) {
         guard let attributedText = textView.attributedText else {
@@ -234,9 +228,7 @@ class MarkdownEditor {
 
     /**
      This method clears indicators on a line on the UITextView.
-     
      - Parameter textView: The UITextView which text will be checked and changed in case of any found indicators.
-     
      - Returns: True if any characters were cleared, false if none was cleared.
      */
     public func clearIndicatorCharacters(_ textView: UITextView) -> Bool {
@@ -287,7 +279,6 @@ class MarkdownEditor {
                 return true
             }
         }
-        
         return false
     }
     
@@ -297,7 +288,6 @@ class MarkdownEditor {
      - Parameters:
         - attributedString: The NSAttributedString that will be checked.
         - location: The initial location to start looking for the line
-     
      - Returns: A NSRange indicating where a line starts and ends.
      */
     private func findLineLocation(attributedString: NSAttributedString, location: Int) -> NSRange {
@@ -333,7 +323,6 @@ class MarkdownEditor {
             line.length += 1
             tempLocation += 1
         }
-    
         return line
     }
     

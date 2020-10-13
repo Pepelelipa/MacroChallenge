@@ -11,7 +11,6 @@
 import UIKit
 
 internal class MarkupTextViewDelegate: NSObject, UITextViewDelegate {
-    
     private let markdownParser: MarkdownParser
     private let markdownEditor: MarkdownEditor
     public var markdownAttributesChanged: ((NSAttributedString?, Error?) -> Void)?
@@ -20,6 +19,7 @@ internal class MarkupTextViewDelegate: NSObject, UITextViewDelegate {
     private var isBackspace: Bool = false
     private var range: NSRange?
     private var lastWrittenText: String = ""
+    private weak var formatView: MarkupFormatView?
 
     internal private(set) var observers: [TextEditingDelegateObserver] = []
 
@@ -27,6 +27,10 @@ internal class MarkupTextViewDelegate: NSObject, UITextViewDelegate {
         markdownParser = MarkdownParser(color: .bodyColor ?? .black)
         markdownEditor = MarkdownEditor(markdownParser: markdownParser)
         placeholder = "Start writing here".localized()
+    }
+    
+    public func setFotmatView(_ formatView: MarkupFormatView) {
+        self.formatView = formatView
     }
     
     // MARK: - Observer
@@ -52,7 +56,6 @@ internal class MarkupTextViewDelegate: NSObject, UITextViewDelegate {
         
         if let range = range {
             markdownAttributesChanged?(markdownParser.parse(textView.attributedText, range: range, isBackspace: isBackspace), nil)
-            
             if textView.selectedRange.location > range.location + 1 {
                 textView.selectedRange = NSRange(location: range.location + 1, length: 0)
             }
@@ -72,14 +75,12 @@ internal class MarkupTextViewDelegate: NSObject, UITextViewDelegate {
             observers.forEach({
                 $0.textReceivedEnter()
             })
-            
             if lastWrittenText == "\n" {
                 MarkdownList.isList = false
                 MarkdownNumeric.isNumeric = false
                 MarkdownQuote.isQuote = false
             }
         }
-        
         lastWrittenText = text
         self.range = range
         return true
@@ -107,14 +108,17 @@ internal class MarkupTextViewDelegate: NSObject, UITextViewDelegate {
     }
     
     func textViewDidChangeSelection(_ textView: UITextView) {
-        (textView.inputView as? MarkupContainerView)?.updateSelectors()
+        if let formatView = formatView {
+            formatView.updateSelectors()
+        } else {
+            (textView.inputView as? MarkupContainerView)?.updateSelectors()
+        }
     }
     
     // MARK: - Parser
     
     /**
      This method displays the placeholder with the correct color on an UITextView.
-     
      - Parameter textView: The UITextView on which the placeholder will be displayed.
      */
     public func parsePlaceholder(on textView: UITextView) {
@@ -128,7 +132,6 @@ internal class MarkupTextViewDelegate: NSObject, UITextViewDelegate {
     
     /**
      This method continues to add a Bullet List on the UITextView if a Bullet List was already started.
-     
      - Parameter textView: The UITextView on which will be added the Bullet List.
      */
     private func continueBulletList(on textView: UITextView) {
@@ -139,7 +142,6 @@ internal class MarkupTextViewDelegate: NSObject, UITextViewDelegate {
     
     /**
      This method continues to add a Numeric List on the UITextView if a Numeric List was already started.
-     
      - Parameter textView: The UITextView on which will be added the Numeric List.
      */
     private func continueNumericList(on textView: UITextView) {
@@ -151,7 +153,6 @@ internal class MarkupTextViewDelegate: NSObject, UITextViewDelegate {
     
     /**
      This method continues to add a Quotes on the UITextView if a Quote was already started.
-     
      - Parameter textView: The UITextView on which will be added the Quote.
      */
     private func continueQuote(on textView: UITextView) {
@@ -192,7 +193,6 @@ internal class MarkupTextViewDelegate: NSObject, UITextViewDelegate {
     
     /**
      This method clears indicators on a line on the UITextView.
-     
      - Parameter textView: The UITextView which text will be checked and changed in case of any found indicators.
      - Returns: True if any characters were cleared, false if none was cleared.
      */
@@ -204,9 +204,7 @@ internal class MarkupTextViewDelegate: NSObject, UITextViewDelegate {
     
     /**
      This method calls the editor's method to add italic attributes on the UITextView based on the selected range.
-     
-     - Parameters:
-        - textView: The UITextView which attributed text will receive new attributes.
+     - Parameter textView: The UITextView which attributed text will receive new attributes.
      */
     public func addItalic(on textView: UITextView) {
         let location = textView.selectedRange.location
@@ -216,9 +214,7 @@ internal class MarkupTextViewDelegate: NSObject, UITextViewDelegate {
     
     /**
      This method calls the editor's method to add bold attributes on the UITextView based on the selected range.
-     
-     - Parameters:
-        - textView: The UITextView which attributed text will receive new attributes.
+     - Parameter textView: The UITextView which attributed text will receive new attributes.
      */
     public func addBold(on textView: UITextView) {
         let location = textView.selectedRange.location
@@ -228,9 +224,7 @@ internal class MarkupTextViewDelegate: NSObject, UITextViewDelegate {
     
     /**
      This method sets the parser's font to be the same font, but without a specifc trait.
-     
-     - Parameters:
-        - trait: The trait that will be removed from the parser's font.
+     - Parameter trait: The trait that will be removed from the parser's font.
      */
     public func removeFontTrait(trait: UIFontDescriptor.SymbolicTraits) {
         markdownParser.font = markdownParser.font.removeTrait(trait)
@@ -238,7 +232,6 @@ internal class MarkupTextViewDelegate: NSObject, UITextViewDelegate {
 
     /**
      This method sets the parser's font to have a new trait.
-     
      - Parameter trait: The trait to be added to the font.
      */
     public func setFontAttributes(with trait: UIFontDescriptor.SymbolicTraits) {
@@ -270,13 +263,11 @@ internal class MarkupTextViewDelegate: NSObject, UITextViewDelegate {
         guard let font = textView.attributedText.attribute(.font, at: location, effectiveRange: nil) as? UIFont else {
             return false
         }
-        
         return font.fontDescriptor.symbolicTraits.contains(trait)
     }
     
     /**
      This method sets the parser's font or applies a new font in a given range.
-     
      - Parameters:
         - font: The new text font.
         - range: An optional NSRange to set the new text color.
@@ -293,7 +284,6 @@ internal class MarkupTextViewDelegate: NSObject, UITextViewDelegate {
     
     /**
      This method gets the text font for the selected range in a UITextView.
-     
      - Parameter textView: The UITextView which text font will be checked.
      - Returns: The UIFont of the selected range on the UITextView.
      */
@@ -310,7 +300,6 @@ internal class MarkupTextViewDelegate: NSObject, UITextViewDelegate {
         guard let font = textView.attributedText.attribute(.font, at: location, effectiveRange: nil) as? UIFont else {
             return markdownParser.font
         }
-        
         return font
     }
     
@@ -332,9 +321,7 @@ internal class MarkupTextViewDelegate: NSObject, UITextViewDelegate {
     
     /**
      This method calls the editor's method to add background color attributes on the UITextView based on the selected range.
-     
-     - Parameters:
-        - textView: The UITextView which attributed text will receive new attributes.
+     - Parameter textView: The UITextView which attributed text will receive new attributes.
      */
     public func setBackgroundColor(on textView: UITextView) {
         markdownEditor.setBackgroundColor(on: textView)
@@ -342,15 +329,11 @@ internal class MarkupTextViewDelegate: NSObject, UITextViewDelegate {
 
     /**
      This method checks if the attributed background color of a UITextView has the value of highlighted in the selected range.
-     
-     - Parameters:
-        - textView: The UITextView which attributed background will be checked.
-     
+     - Parameter textView: The UITextView which attributed background will be checked.
      - Returns: A boolean indicating if the custom background was found in the selected range.
      */
     public func checkBackground(on textView: UITextView) -> Bool {
         var flag: Bool = false
-        
         if textView.attributedText.length == 0 {
             flag = false
             return flag
@@ -376,7 +359,6 @@ internal class MarkupTextViewDelegate: NSObject, UITextViewDelegate {
     
     /**
      This method sets the parser's color or applies color in a given range.
-     
      - Parameters:
         - color: The new text color.
         - range: An optional NSRange to set the new text color.
@@ -393,7 +375,6 @@ internal class MarkupTextViewDelegate: NSObject, UITextViewDelegate {
     
     /**
      This method gets the text color for the selected range in a UITextView.
-     
      - Parameter textView: The UITextView which text color will be checked.
      - Returns: The UIColor of the selected range on the UITextView.
      */

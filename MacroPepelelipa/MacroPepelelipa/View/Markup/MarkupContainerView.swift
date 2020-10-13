@@ -36,12 +36,11 @@ internal class MarkupContainerView: MarkupFormatView, TextEditingDelegateObserve
         return fmtLabel
     }()
     
-    init(frame: CGRect, owner: MarkupTextView, delegate: MarkupFormatViewDelegate?, viewController: NotesViewController) {
-        super.init(frame: frame)
-        self.textView = owner
-        self.delegate = delegate
-        self.viewController = viewController
-        
+    deinit {
+        (self.textView?.delegate as? MarkupTextViewDelegate)?.removeObserver(self)
+    }
+    
+    override func addSelectors() {
         self.backgroundColor = UIColor.backgroundColor
         self.addSubview(backgroundView)
         
@@ -61,49 +60,13 @@ internal class MarkupContainerView: MarkupFormatView, TextEditingDelegateObserve
         backgroundView.addSubview(formatLabel)
         createConstraints()
         
-        (viewController.textView.delegate as? MarkupTextViewDelegate)?.addObserver(self)
-    }
-    
-    deinit {
-        (self.textView?.delegate as? MarkupTextViewDelegate)?.removeObserver(self)
-    }
-    
-    required convenience init?(coder: NSCoder) {
-        guard let frame = coder.decodeObject(forKey: "frame") as? CGRect,
-        let owner = coder.decodeObject(forKey: "owner") as? MarkupTextView,
-        let viewController = coder.decodeObject(forKey: "viewController") as? NotesViewController else {
-            return nil
-        }
-        let delegate = coder.decodeObject(forKey: "delegate") as? MarkupFormatViewDelegate
-        self.init(frame: frame, owner: owner, delegate: delegate, viewController: viewController)
-    }
-    
-    /**
-     This method creates a MarkupToggleButton with a UIImage or a title.
-     
-     - Parameters:
-        - normalStateImage: The UIImage that will be the button's background.
-        - titleLabel: The string containing the button's title.
-     
-     - Returns: The created MarkupToggleButton.
-     */
-    private func createButton(normalStateImage: UIImage?, titleLabel: String?, font: UIFont? = nil) -> MarkupToggleButton {
-        var button = MarkupToggleButton(normalStateImage: nil, title: nil)
-        
-        if normalStateImage != nil {
-            let markupButton = MarkupToggleButton(normalStateImage: normalStateImage, title: nil)
-            button = markupButton
-        } else if titleLabel != nil {
-            let markupButton = MarkupToggleButton(normalStateImage: nil, title: titleLabel, font: font)
-            button = markupButton
-        }
-        return button
+        (viewController?.textView.delegate as? MarkupTextViewDelegate)?.addObserver(self)
     }
     
     /**
      This method sets the constraints for the inner elements of the container view.
      */
-    public func createConstraints() {
+    override func createConstraints() {
         backgroundView.addSubview(dismissButton)
         backgroundView.addSubview(formatLabel)
         backgroundView.layer.zPosition = -1

@@ -13,6 +13,7 @@ class MarkupFormatViewDelegate {
     
     private weak var viewController: NotesViewController?
     private weak var textView: MarkupTextView?
+    private weak var formatView: MarkupFormatView?
     
     init(viewController: NotesViewController) {
         self.viewController = viewController
@@ -65,7 +66,7 @@ class MarkupFormatViewDelegate {
         if let textView = self.textView,
             let color = sender.backgroundColor {
             sender.isSelected = textView.setTextColor(color)
-            viewController?.markupContainerView.updateColorSelectors(sender: sender)
+            formatView?.updateColorSelectors(sender: sender)
         }
     }
     
@@ -92,7 +93,11 @@ class MarkupFormatViewDelegate {
         if let textView = self.textView,
            let font = sender.titleLabel?.font {
             sender.isSelected = textView.setTextFont(font)
-            viewController?.markupContainerView.updateFontSelectors(sender: sender)
+            formatView?.updateFontSelectors(sender: sender)
         }
+    }
+    
+    public func setFormatView(_ formatView: MarkupFormatView) {
+        self.formatView = formatView
     }
 }

@@ -11,7 +11,7 @@ import UIKit
 extension UIAlertController {
 
     /**
-     This method adds a single action to a UIAlertController that prints a log message when clicked, also setting the view's tint color to be the app's main color.
+     This method adds a single action to a UIAlertController that shows a log message when clicked, also setting the view's tint color to be the app's main color.
      
      - Parameter logMessage: A string containing the message to be displayed in the log.
      

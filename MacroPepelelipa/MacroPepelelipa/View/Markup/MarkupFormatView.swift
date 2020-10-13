@@ -97,6 +97,19 @@ internal class MarkupFormatView: UIView {
         return buttons
     }()
     
+    init(frame: CGRect, owner: MarkupTextView, delegate: MarkupFormatViewDelegate?, viewController: NotesViewController) {
+        super.init(frame: frame)
+        self.textView = owner
+        self.delegate = delegate
+        self.viewController = viewController
+        
+        addSelectors()
+    }
+    
+    private override init(frame: CGRect) {
+        super.init(frame: frame)
+    }
+    
     required convenience init?(coder: NSCoder) {
         guard let frame = coder.decodeObject(forKey: "frame") as? CGRect else {
             return nil
@@ -104,6 +117,13 @@ internal class MarkupFormatView: UIView {
         self.init(frame: frame)
     }
     
+    override func didMoveToWindow() {
+        for (_, selector) in colorSelector {
+            selector.setCornerRadius()
+        }
+        updateSelectors()
+    }
+        
     /**
      This method creates a MarkupToggleButton with a UIImage or a title.
      
@@ -126,11 +146,120 @@ internal class MarkupFormatView: UIView {
         return button
     }
     
-    override func didMoveToWindow() {
+    internal func addSelectors() {
         for (_, selector) in colorSelector {
-            selector.setCornerRadius()
+            addSubview(selector)
         }
-        updateSelectors()
+        
+        for (_, selector) in formatSelector {
+            addSubview(selector)
+        }
+        
+        for (_, selector) in fontSelector {
+            addSubview(selector)
+        }
+    }
+    
+    internal func createConstraints() {
+        if let superview = self.superview {
+            self.translatesAutoresizingMaskIntoConstraints = false
+            NSLayoutConstraint.activate([
+                self.topAnchor.constraint(equalTo: superview.topAnchor),
+                self.bottomAnchor.constraint(equalTo: superview.bottomAnchor),
+                self.leadingAnchor.constraint(equalTo: superview.leadingAnchor),
+                self.trailingAnchor.constraint(equalTo: superview.trailingAnchor)
+            ])
+        }
+        
+        setFontSelectorConstraints()
+        setColorSelectorConstraints()
+        setFormatSelectorConstraints()
+    }
+    
+    /**
+     This method sets the contraints for the font selector buttons.
+     */
+    private func setFontSelectorConstraints() {
+        guard let merriweather = fontSelector[.merriweather], let openSans = fontSelector[.openSans], let dancing = fontSelector[.dancingScript] else {
+            return
+        }
+        
+        NSLayoutConstraint.activate([
+            merriweather.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 16),
+            dancing.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -16),
+            openSans.leadingAnchor.constraint(equalTo: merriweather.trailingAnchor, constant: 6)
+        ])
+        
+        for (key, selector) in fontSelector {
+            NSLayoutConstraint.activate([
+                selector.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -16),
+                selector.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: key == .merriweather ? 0.35 : 0.25)
+            ])
+        }
+    }
+    
+    /**
+     This method sets the contraints for the color selector buttons.
+     */
+    private func setColorSelectorConstraints() {
+        guard let black = colorSelector[.black], let green = colorSelector[.green], let merriweather = fontSelector[.merriweather] else {
+            return
+        }
+        
+        NSLayoutConstraint.activate([
+            black.topAnchor.constraint(equalTo: self.topAnchor, constant: 36),
+            black.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20),
+            black.bottomAnchor.constraint(greaterThanOrEqualTo: merriweather.bottomAnchor, constant: -20),
+            black.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.2),
+            black.widthAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.2)
+        ])
+        
+        for (key, selector) in colorSelector where key != .black {
+            var lastSelector = black
+            if key == .red {
+                lastSelector = green
+            }
+            
+            NSLayoutConstraint.activate([
+                selector.topAnchor.constraint(equalTo: black.topAnchor),
+                selector.leadingAnchor.constraint(equalTo: lastSelector.trailingAnchor, constant: 10),
+                selector.bottomAnchor.constraint(equalTo: black.bottomAnchor),
+                selector.heightAnchor.constraint(equalTo: black.heightAnchor),
+                selector.widthAnchor.constraint(equalTo: black.widthAnchor)
+            ])            
+        }
+    }
+    
+    /**
+     This method sets the contraints for the format selector buttons.
+     */
+    private func setFormatSelectorConstraints() {
+        guard let italic = formatSelector[.italic], let bold = formatSelector[.bold], let dancingScript = fontSelector[.dancingScript] else {
+            return
+        }
+        
+        NSLayoutConstraint.activate([
+            italic.topAnchor.constraint(equalTo: self.topAnchor, constant: 36),
+            italic.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -16),
+            italic.bottomAnchor.constraint(greaterThanOrEqualTo: dancingScript.topAnchor, constant: -16),
+            italic.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.2),
+            italic.widthAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.17)
+        ])
+        
+        for (key, selector) in formatSelector where key != .italic {
+            var lastSelector = italic
+            if key == .highlight {
+                lastSelector = bold
+            }
+            
+            NSLayoutConstraint.activate([
+                selector.topAnchor.constraint(equalTo: italic.topAnchor),
+                selector.trailingAnchor.constraint(equalTo: lastSelector.leadingAnchor, constant: -16),
+                selector.bottomAnchor.constraint(equalTo: italic.bottomAnchor),
+                selector.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.2),
+                selector.widthAnchor.constraint(equalTo: italic.widthAnchor)
+            ])
+        }
     }
     
     /**
@@ -180,6 +309,15 @@ internal class MarkupFormatView: UIView {
         for (_, button) in fontSelector where button != sender {
             button.isSelected = false
             button.setTintColor()
+        }
+    }
+    
+    /**
+     This method sets the corner radius for the color selectors.
+     */
+    internal func setCornerRadius() {
+        for (_, selector) in colorSelector {
+            selector.setCornerRadius()
         }
     }
 
