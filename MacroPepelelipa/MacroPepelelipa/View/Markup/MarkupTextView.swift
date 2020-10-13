@@ -98,7 +98,7 @@ internal class MarkupTextView: UITextView {
      
      - Returns: A boolean indicating if the characters where cleared or not.
      */
-    public func clearIndicatorCharacters() -> Bool {
+    internal func clearIndicatorCharacters() -> Bool {
         guard let delegate = self.delegate as? MarkupTextViewDelegate else {
             return false
         }
@@ -112,7 +112,7 @@ internal class MarkupTextView: UITextView {
         - type: The type of list to be added (bullet, numeric or quote)
         - lineCleared: A boolean indicating if the line was cleared or not.
      */
-    public func addList(of type: ListStyle, _ lineCleared: Bool) {
+    internal func addList(of type: ListStyle, _ lineCleared: Bool) {
         (self.delegate as? MarkupTextViewDelegate)?.addList(on: self, type: type, lineCleared)
     }
     
@@ -121,7 +121,7 @@ internal class MarkupTextView: UITextView {
      
      - Parameter style: The header style to be added.
      */
-    public func addHeader(with style: HeaderStyle) {
+    internal func addHeader(with style: HeaderStyle) {
         (self.delegate as? MarkupTextViewDelegate)?.addHeader(on: self, with: style)
     }
     
@@ -130,21 +130,21 @@ internal class MarkupTextView: UITextView {
     /**
      This method calls the delegate's method to add italic attributes.
      */
-    public func addItalic() {
+    internal func addItalic() {
         (self.delegate as? MarkupTextViewDelegate)?.addItalic(on: self)
     }
     
     /**
      This method calls the delegate's method to add bold attributes.
      */
-    public func addBold() {
+    internal func addBold() {
         (self.delegate as? MarkupTextViewDelegate)?.addBold(on: self)
     }
     
     /**
      This method calls the delegate's method to remove format attributes.
      */
-    public func removeFontTrait(_ trait: UIFontDescriptor.SymbolicTraits) {
+    internal func removeFontTrait(_ trait: UIFontDescriptor.SymbolicTraits) {
         (self.delegate as? MarkupTextViewDelegate)?.removeFontTrait(trait: trait)
     }
     
@@ -153,7 +153,7 @@ internal class MarkupTextView: UITextView {
      
      - Parameter trait: The trait to be added to the font.
      */
-    public func setFontAttributes(with trait: UIFontDescriptor.SymbolicTraits) {
+    internal func setFontAttributes(with trait: UIFontDescriptor.SymbolicTraits) {
         (self.delegate as? MarkupTextViewDelegate)?.setFontAttributes(with: trait)
     }
     
@@ -162,7 +162,7 @@ internal class MarkupTextView: UITextView {
      
      - Parameter trait: The trait to be checked.
      */
-    public func checkTrait(_ trait: UIFontDescriptor.SymbolicTraits) -> Bool {
+    internal func checkTrait(_ trait: UIFontDescriptor.SymbolicTraits) -> Bool {
         guard let delegate = self.delegate as? MarkupTextViewDelegate else {
             return false
         }
@@ -175,7 +175,7 @@ internal class MarkupTextView: UITextView {
      - Parameter font: The new UIFont for the text.
      - Returns: True if the text font was changed, false if not.
      */
-    public func setTextFont(_ font: UIFont) -> Bool {
+    internal func setTextFont(_ font: UIFont) -> Bool {
         guard let delegate = self.delegate as? MarkupTextViewDelegate else {
             return false
         }
@@ -193,7 +193,7 @@ internal class MarkupTextView: UITextView {
      
      - Returns: The UIFont on the selected text on the UITextView.
      */
-    public func getTextFont() -> UIFont {
+    internal func getTextFont() -> UIFont {
         guard let delegate = self.delegate as? MarkupTextViewDelegate else {
             return MarkdownParser.defaultFont
         }
@@ -205,21 +205,21 @@ internal class MarkupTextView: UITextView {
     /**
      This method calls the delegate's method to set the background color to highlight.     
      */
-    public func setTextToHighlight() {
+    internal func setTextToHighlight() {
         (self.delegate as? MarkupTextViewDelegate)?.setTextToHighlight()
     }
     
     /**
      This method calls the delegate's method to set the background color to normal.     
      */
-    public func setTextToNormal() {
+    internal func setTextToNormal() {
         (self.delegate as? MarkupTextViewDelegate)?.setTextToNormal()
     }
     
     /**
      This method calls the delegate's method to add background color attribute.
      */
-    public func setBackgroundColor() {
+    internal func setBackgroundColor() {
         (self.delegate as? MarkupTextViewDelegate)?.setBackgroundColor(on: self)
     }
     
@@ -229,7 +229,7 @@ internal class MarkupTextView: UITextView {
      - Parameter color: The new UIColor for the text.
      - Returns: True if the text color was changed, false if not.
      */
-    public func setTextColor(_ color: UIColor) -> Bool {
+    internal func setTextColor(_ color: UIColor) -> Bool {
         guard let delegate = self.delegate as? MarkupTextViewDelegate else {
             return false
         }
@@ -245,7 +245,7 @@ internal class MarkupTextView: UITextView {
     /**
      This method calls the delegate's method to check the text color and return it.
      */
-    public func getTextColor() -> UIColor {
+    internal func getTextColor() -> UIColor {
         guard let delegate = self.delegate as? MarkupTextViewDelegate else {
             return MarkdownParser.defaultColor
         }
@@ -255,7 +255,7 @@ internal class MarkupTextView: UITextView {
     /**
      This method calls the delegate's method to check if the background attribute has the value of highlighted.
      */
-    public func checkBackground() -> Bool {
+    internal func checkBackground() -> Bool {
         guard let delegate = self.delegate as? MarkupTextViewDelegate else {
             return false
         }

@@ -23,7 +23,7 @@ class MarkdownEditor {
         - textView: The UITextView that will be formatted.
         - lineCleared: A boolean indicating if a line break is needed or not.
      */
-    public func addBulletList(on textView: UITextView, _ lineCleared: Bool) {
+    internal func addBulletList(on textView: UITextView, _ lineCleared: Bool) {
         let attributedText = NSMutableAttributedString(attributedString: textView.attributedText)
         
         if !MarkdownList.isList && !lineCleared {
@@ -48,7 +48,7 @@ class MarkdownEditor {
         - textView: The UITextView that will be formatted.
         - lineCleared: A boolean indicating if a line break is needed or not.
      */
-    public func addNumericList(on textView: UITextView, _ lineCleared: Bool) {
+    internal func addNumericList(on textView: UITextView, _ lineCleared: Bool) {
         let attributedText = NSMutableAttributedString(attributedString: textView.attributedText)
         
         if !MarkdownNumeric.isNumeric && !lineCleared {
@@ -73,7 +73,7 @@ class MarkdownEditor {
         - textView: The UITextView that will be formatted.
         - lineCleared: A boolean indicating if a line break is needed or not.
      */
-    public func addQuote(on textView: UITextView, _ lineCleared: Bool) {
+    internal func addQuote(on textView: UITextView, _ lineCleared: Bool) {
         let attributedText = NSMutableAttributedString(attributedString: textView.attributedText)
         
         if !MarkdownQuote.isQuote && !lineCleared {
@@ -130,7 +130,7 @@ class MarkdownEditor {
      This method adds italic attributes on the UITextView based on the selected range.
      - Parameter textView: The UITextView which attributed text will receive new attributes.
      */
-    public func addItalic(on textView: UITextView) {
+    internal func addItalic(on textView: UITextView) {
         setFontTrait(trait: .traitItalic, textView)
     }
     
@@ -138,7 +138,7 @@ class MarkdownEditor {
      This method adds bold attributes on the UITextView based on the selected range.
      - Parameter textView: The UITextView which attributed text will receive new attributes.
      */
-    public func addBold(on textView: UITextView) {
+    internal func addBold(on textView: UITextView) {
         setFontTrait(trait: .traitBold, textView)
     }
 
@@ -149,7 +149,7 @@ class MarkdownEditor {
         - textView: The UITextView which attributed text will receive new attributes.
         - style: A case of the HeaderStyle enum declaring the chosen style.
      */
-    public func addHeader(on textView: UITextView, with style: HeaderStyle) {
+    internal func addHeader(on textView: UITextView, with style: HeaderStyle) {
         guard let attributedText = textView.attributedText else {
             return
         }
@@ -203,7 +203,7 @@ class MarkdownEditor {
      This method adds background color attribute on the UITextView based on the selected range.
      - Parameter textView: The UITextView which attributed text will receive new attributes.
      */
-    public func setBackgroundColor(on textView: UITextView) {
+    internal func setBackgroundColor(on textView: UITextView) {
         guard let attributedText = textView.attributedText else {
             return
         }
@@ -231,7 +231,7 @@ class MarkdownEditor {
      - Parameter textView: The UITextView which text will be checked and changed in case of any found indicators.
      - Returns: True if any characters were cleared, false if none was cleared.
      */
-    public func clearIndicatorCharacters(_ textView: UITextView) -> Bool {
+    internal func clearIndicatorCharacters(_ textView: UITextView) -> Bool {
         guard let attributedText = textView.attributedText else {
             return false
         }
@@ -374,7 +374,7 @@ class MarkdownEditor {
         - range: A NSRange indicating the range for the new color.
         - textView: The UITextView which text will be changed.
      */
-    public func setTextColor(_ color: UIColor, in range: NSRange, _ textView: UITextView) {
+    internal func setTextColor(_ color: UIColor, in range: NSRange, _ textView: UITextView) {
         let attributedText = NSMutableAttributedString(attributedString: textView.attributedText)
         attributedText.addAttribute(.foregroundColor, value: color, range: range)
         textView.attributedText = attributedText
@@ -388,7 +388,7 @@ class MarkdownEditor {
         - range: A NSRange indicating the range for the new color.
         - textView: The UITextView which text will be changed.
      */
-    public func setTextFont(_ font: UIFont, in range: NSRange, _ textView: UITextView) {
+    internal func setTextFont(_ font: UIFont, in range: NSRange, _ textView: UITextView) {
         let attributedText = NSMutableAttributedString(attributedString: textView.attributedText)
         attributedText.addAttribute(.font, value: font, range: range)
         textView.attributedText = attributedText

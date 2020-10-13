@@ -23,14 +23,14 @@ class MarkupFormatViewDelegate {
     /**
      Dismisses the custom input view.
      */
-    @objc public func dismissContainer() {
+    @objc internal func dismissContainer() {
         viewController?.changeTextViewInput(isCustom: false)
     }
     
     /**
      Makes the selected or coming text italic.
      */
-    @IBAction public func makeTextItalic(_ sender: MarkupToggleButton) {
+    @IBAction internal func makeTextItalic(_ sender: MarkupToggleButton) {
         if textView?.selectedRange.length == 0 {
             if sender.isSelected {
                 textView?.setFontAttributes(with: .traitItalic)
@@ -46,7 +46,7 @@ class MarkupFormatViewDelegate {
     /**
      Makes the selected or coming text bold.
      */
-    @IBAction public func makeTextBold(_ sender: MarkupToggleButton) {
+    @IBAction internal func makeTextBold(_ sender: MarkupToggleButton) {
         if textView?.selectedRange.length == 0 {
             if sender.isSelected {
                 textView?.setFontAttributes(with: .traitBold)
@@ -62,7 +62,7 @@ class MarkupFormatViewDelegate {
     /**
      Changes the color for the selected or coming text.
      */
-    @IBAction public func changeTextColor(_ sender: MarkupToggleButton) {
+    @IBAction internal func changeTextColor(_ sender: MarkupToggleButton) {
         if let textView = self.textView,
             let color = sender.backgroundColor {
             sender.isSelected = textView.setTextColor(color)
@@ -73,7 +73,7 @@ class MarkupFormatViewDelegate {
     /**
       Gives the selected of coming text highlighted.
      */
-    @objc public func highlightText(_ sender: MarkupToggleButton) {
+    @objc internal func highlightText(_ sender: MarkupToggleButton) {
         if textView?.selectedRange.length == 0 {
             if sender.isSelected {
                 textView?.setTextToHighlight()
@@ -89,7 +89,7 @@ class MarkupFormatViewDelegate {
     /**
      Changes the font for the selected or coming text.
      */
-    @objc public func changeTextFont(_ sender: MarkupToggleButton) {
+    @objc internal func changeTextFont(_ sender: MarkupToggleButton) {
         if let textView = self.textView,
            let font = sender.titleLabel?.font {
             sender.isSelected = textView.setTextFont(font)
@@ -97,7 +97,7 @@ class MarkupFormatViewDelegate {
         }
     }
     
-    public func setFormatView(_ formatView: MarkupFormatView) {
+    internal func setFormatView(_ formatView: MarkupFormatView) {
         self.formatView = formatView
     }
 }

@@ -146,6 +146,9 @@ internal class MarkupFormatView: UIView {
         return button
     }
     
+    /**
+     This method adds subviews to the view.
+     */
     internal func addSelectors() {
         for (_, selector) in colorSelector {
             addSubview(selector)
@@ -160,6 +163,9 @@ internal class MarkupFormatView: UIView {
         }
     }
     
+    /**
+     This method creates the constraints for the iPad as the default device.
+     */
     internal func createConstraints() {
         if let superview = self.superview {
             self.translatesAutoresizingMaskIntoConstraints = false
