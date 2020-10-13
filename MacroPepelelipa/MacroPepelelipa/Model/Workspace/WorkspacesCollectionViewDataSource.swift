@@ -9,27 +9,52 @@
 import UIKit
 import Database
 
-internal class WorkspacesCollectionViewDataSource: NSObject, UICollectionViewDataSource {
-    
-    private weak var viewController: UIViewController?
-    
-    init(viewController: UIViewController? = nil) {
-        self.viewController = viewController
+internal class WorkspacesCollectionViewDataSource: NSObject, UICollectionViewDataSource, EntityObserver {
+
+    func entityWasCreated(_ value: ObservableEntity) {
+        if let workspace = value as? WorkspaceEntity {
+            workspace.addObserver(self)
+            workspaces.append(workspace)
+            self.collectionView?().insertItems(at: [IndexPath(item: workspaces.count - 1, section: 0)])
+        }
+    }
+    func entityDidChangeTo(_ value: ObservableEntity) {
+        if let workspace = value as? WorkspaceEntity,
+           let index = workspaces.firstIndex(where: { $0 === workspace }) {
+            self.collectionView?().reloadItems(at: [IndexPath(item: index, section: 0)])
+        }
+    }
+    func entityShouldDelete(_ value: ObservableEntity) {
+        if let workspace = value as? WorkspaceEntity,
+           let index = workspaces.firstIndex(where: { $0 === workspace }) {
+            workspace.removeObserver(self)
+            workspaces.remove(at: index)
+            self.collectionView?().deleteItems(at: [IndexPath(item: index, section: 0)])
+        }
     }
     
-    private var workspaces: [WorkspaceEntity] = [
-        Database.Mockdata.getFullWorkspace(
-            withName: "Faculdade",
-            notebooksNames: ["Compiladores", "IA", "Economia"],
-            notesTitles: ["Aula 1", "Aula 2", "Aula 3"]),
-        Database.Mockdata.getFullWorkspace(
-            withName: "Trabalho",
-            notebooksNames: ["Swift", "Design Patterns", "Prototipação", "Apresentação", "Aulas"],
-            notesTitles: ["Conceito básico", "Avançado", "Top"]),
-        Database.Mockdata.getFullWorkspace(),
-        Database.Mockdata.getFullWorkspace(),
-        Database.Mockdata.getFullWorkspace()
-    ]
+    private weak var viewController: UIViewController?
+    private let collectionView: (() -> UICollectionView)?
+    
+    init(viewController: UIViewController? = nil, collectionView: (() -> UICollectionView)?) {
+        self.viewController = viewController
+        self.collectionView = collectionView
+        super.init()
+
+        DataManager.shared().addCreationObserver(self, type: .workspace)
+    }
+    
+    private lazy var workspaces: [WorkspaceEntity] = {
+        do {
+            let workspaces = try Database.DataManager.shared().fetchWorkspaces()
+            for workspace in workspaces {
+                workspace.addObserver(self)
+            }
+            return workspaces
+        } catch {
+            fatalError("Failed to fetch")
+        }
+    }()
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return workspaces.count
     }

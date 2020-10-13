@@ -102,7 +102,9 @@ internal class NotesViewController: UIViewController,
 
                 self.textView.attributedText = attributedText
             }
-            delegate.parsePlaceholder(on: self.textView)
+            if self.textView.text == "" {
+                delegate.parsePlaceholder(on: self.textView)
+            }
         }
         return delegate
     }()
@@ -129,6 +131,7 @@ internal class NotesViewController: UIViewController,
         self.note = note
         super.init(nibName: nil, bundle: nil)
         self.textField.attributedText = note.title
+        self.textView.attributedText = note.text
     }
     
     deinit {
@@ -170,6 +173,16 @@ internal class NotesViewController: UIViewController,
         }
         
     }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        do {
+            note?.title = textField.attributedText ?? NSAttributedString(string: "Lesson".localized())
+            note?.text = textView.attributedText ?? NSAttributedString()
+            try note?.save()
+        } catch {
+            fatalError("Ops")
+        }
+    }
     
     /**
      This method changes de main input view based on it being custom or not.
@@ -199,8 +212,8 @@ internal class NotesViewController: UIViewController,
             textViewDelegate?.setFotmatView(formatView)
         }
         
-        markupContainerViewController.modalPresentationStyle = .popover        
-        markupContainerViewController.popoverPresentationController?.sourceView = markupNavigationView
+        markupContainerViewController.modalPresentationStyle = .popover
+        markupContainerViewController.popoverPresentationController?.sourceView = markupNavigationView.barButtonItems[4]
         
         present(markupContainerViewController, animated: true)
     }

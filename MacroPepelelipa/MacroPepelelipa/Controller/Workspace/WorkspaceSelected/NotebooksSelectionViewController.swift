@@ -14,7 +14,7 @@ internal class NotebooksSelectionViewController: UIViewController {
     internal init(workspace: WorkspaceEntity) {
         super.init(nibName: nil, bundle: nil)
         self.workspace = workspace
-        self.collectionDataSource = NotebooksCollectionViewDataSource(workspace: workspace, viewController: self)
+        self.collectionDataSource = NotebooksCollectionViewDataSource(workspace: workspace, viewController: self, collectionView: { self.collectionView })
     }
     internal required convenience init?(coder: NSCoder) {
         guard let workspace = coder.decodeObject(forKey: "workspace") as? WorkspaceEntity else {

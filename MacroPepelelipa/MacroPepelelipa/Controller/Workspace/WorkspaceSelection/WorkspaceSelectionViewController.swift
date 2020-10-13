@@ -44,7 +44,7 @@ internal class WorkspaceSelectionViewController: UIViewController {
 
         self.navigationController?.pushViewController(notebooksSelectionView, animated: true)
     }
-    private lazy var collectionDataSource = WorkspacesCollectionViewDataSource(viewController: self)
+    private lazy var collectionDataSource = WorkspacesCollectionViewDataSource(viewController: self, collectionView: { self.collectionView })
 
     private lazy var btnAdd: UIBarButtonItem = {
         let item = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(btnAddTap))
