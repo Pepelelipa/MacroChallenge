@@ -18,7 +18,7 @@ internal class WorkspaceSelectionViewController: UIViewController {
         collectionView.showsVerticalScrollIndicator = false
         collectionView.allowsSelection = true
         collectionView.allowsMultipleSelection = false
-
+        collectionView.contentInset = UIEdgeInsets(top: 20, left: 0, bottom: 20, right: 0)
         collectionView.delegate = collectionDelegate
         collectionView.dataSource = collectionDataSource
 
@@ -61,6 +61,7 @@ internal class WorkspaceSelectionViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .rootColor
+        navigationItem.largeTitleDisplayMode = .always
         navigationItem.rightBarButtonItem = btnAdd
         navigationItem.largeTitleDisplayMode = .always
         navigationItem.title = "Workspaces".localized()
@@ -90,7 +91,7 @@ internal class WorkspaceSelectionViewController: UIViewController {
 
     override func viewDidLayoutSubviews() {
         NSLayoutConstraint.activate([
-            collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
+            collectionView.topAnchor.constraint(equalTo: view.topAnchor),
             collectionView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
             collectionView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
             collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)

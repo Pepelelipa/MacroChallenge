@@ -53,25 +53,6 @@ internal class NotesViewController: UIViewController,
         return container
     }()
 
-    private lazy var btnBack: UIButton = {
-        let btn = UIButton(frame: .zero)
-        btn.setImage(UIImage(systemName: "chevron.left"), for: .normal)
-        btn.addTarget(self, action: #selector(btnBackTap(_:)), for: .touchUpInside)
-        btn.translatesAutoresizingMaskIntoConstraints = false
-        btn.tintColor = .actionColor
-
-        return btn
-    }()
-    
-    internal var isBtnBackHidden: Bool {
-        get {
-            return btnBack.isHidden
-        }
-        set {
-            btnBack.isHidden = newValue
-        }
-    }
-
     internal lazy var textView: MarkupTextView = MarkupTextView(frame: .zero, delegate: self.textViewDelegate)
 
     private lazy var textField: MarkupTextField = {
@@ -148,14 +129,6 @@ internal class NotesViewController: UIViewController,
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.addSubview(btnBack)
-        let dev = UIDevice.current.userInterfaceIdiom
-        if dev == .phone {
-            btnBack.isHidden = UIDevice.current.orientation.isLandscape
-        } else if dev == .pad {
-            btnBack.isHidden = true
-            view.addSubview(markupNavigationView)
-        }
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(didTap))
         
@@ -175,6 +148,8 @@ internal class NotesViewController: UIViewController,
     }
 
     override func viewWillDisappear(_ animated: Bool) {
+        navigationController?.navigationBar.prefersLargeTitles = true
+        navigationItem.largeTitleDisplayMode = .automatic
         do {
             note?.title = textField.attributedText ?? NSAttributedString(string: "Lesson".localized())
             note?.text = textView.attributedText ?? NSAttributedString()
@@ -186,7 +161,6 @@ internal class NotesViewController: UIViewController,
     
     /**
      This method changes de main input view based on it being custom or not.
-     
      - Parameter isCustom: A boolean indicating if the input view will be a custom view or not.
      */
     internal func changeTextViewInput(isCustom: Bool) {
@@ -220,11 +194,6 @@ internal class NotesViewController: UIViewController,
             imageButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -150),
             imageButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 10)
         ])
-        
-        NSLayoutConstraint.activate([
-            btnBack.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
-            btnBack.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20)
-        ])
 
         NSLayoutConstraint.activate([
             textView.topAnchor.constraint(equalTo: self.textField.bottomAnchor, constant: 10),
@@ -235,7 +204,6 @@ internal class NotesViewController: UIViewController,
 
         NSLayoutConstraint.activate([
             textField.heightAnchor.constraint(equalToConstant: 30),
-            textField.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 50 + btnBack.frame.height),
             textField.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
             textField.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor, constant: -20)
         ])
@@ -405,20 +373,6 @@ internal class NotesViewController: UIViewController,
         uptadeResizeHandles()
     }
     
-    ///Go back to the previous step(opens the notebook index) according to the device and orientation
-    @IBAction func btnBackTap(_ sender: UIButton) {
-        let dev = UIDevice.current.userInterfaceIdiom
-        if dev == .pad {
-            splitViewController?.preferredDisplayMode = .oneOverSecondary
-        } else {
-            if UIDevice.current.orientation.isLandscape {
-                splitViewController?.preferredDisplayMode = .oneOverSecondary
-            } else {
-                self.navigationController?.popViewController(animated: true)
-            }
-        }
-    }
-    
     @IBAction func didTap() {
         textField.resignFirstResponder()
         textView.resignFirstResponder()
@@ -443,22 +397,17 @@ internal class NotesViewController: UIViewController,
         guard let boxView = gestureRecognizer.view as? BoxView else {
             return
         }
-        
         if boxView.state == .editing {
-
             let translation = gestureRecognizer.translation(in: self.textView)
-            
             if gestureRecognizer.state == .began {                
                 initialCenter = boxView.center
             }
-            
             if gestureRecognizer.state != .cancelled {
                 let newCenter = CGPoint(x: initialCenter.x + translation.x, y: initialCenter.y + translation.y)
                 moveBoxView(boxView: boxView, by: newCenter)
             } else {
                 boxView.center = initialCenter
             }
-            
             if gestureRecognizer.state == .ended {
                 let exclusionPath  = UIBezierPath(rect: boxView.frame)
                 self.textView.textContainer.exclusionPaths = [exclusionPath]

@@ -32,7 +32,7 @@ internal class NotebooksSelectionViewController: UIViewController {
         collectionView.showsVerticalScrollIndicator = false
         collectionView.allowsSelection = true
         collectionView.allowsMultipleSelection = false
-
+        collectionView.contentInset = UIEdgeInsets(top: 20, left: 0, bottom: 20, right: 0)
         collectionView.delegate = collectionDelegate
         collectionView.dataSource = collectionDataSource
 
@@ -54,16 +54,10 @@ internal class NotebooksSelectionViewController: UIViewController {
             self.present(alertController, animated: true, completion: nil)
             return
         }
-        let split = SplitViewController(notebook: notebook)
-
-        #warning("Fade animation as placeholder for Books animation.")
-        let transition = CATransition()
-        transition.duration = 0.4
-        transition.type = CATransitionType.fade
-        transition.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
-        self.view.window?.layer.add(transition, forKey: kCATransition)
         
-        self.present(split, animated: false)
+        let destination = NotesViewController(note: notebook.notes[notebook.notes.count-1])
+        destination.navigationItem.largeTitleDisplayMode = .never
+        self.navigationController?.pushViewController(destination, animated: true)
     }
 
     private lazy var btnAdd: UIBarButtonItem = {
@@ -84,7 +78,6 @@ internal class NotebooksSelectionViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
         navigationItem.rightBarButtonItem = btnAdd
         navigationItem.title = workspace?.name
         view.backgroundColor = .backgroundColor
@@ -92,6 +85,8 @@ internal class NotebooksSelectionViewController: UIViewController {
     }
 
     override func viewWillAppear(_ animated: Bool) {
+        navigationItem.largeTitleDisplayMode = .always
+        self.navigationController?.navigationBar.prefersLargeTitles = true
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
             self.collectionView.collectionViewLayout.invalidateLayout()
         }
@@ -104,11 +99,11 @@ internal class NotebooksSelectionViewController: UIViewController {
 
     override func viewDidLayoutSubviews() {
         NSLayoutConstraint.activate([
-            collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
+            collectionView.topAnchor.constraint(equalTo: view.topAnchor),
             collectionView.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
             collectionView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
             collectionView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
-            collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+            collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
     }
 }
