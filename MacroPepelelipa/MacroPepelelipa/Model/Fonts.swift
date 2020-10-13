@@ -21,6 +21,12 @@ extension UIFont {
         return UIFont(name: "Dancing Script", size: UIFont.labelFontSize + 3)
     }()
     
+    /**
+     This method adds traits to a UIFont.
+     
+     - Parameter traits: The Symbolic Traits to describe the font.
+     - Returns: An optional UIFont with the described traits.
+     */
     func withTraits(_ traits: UIFontDescriptor.SymbolicTraits...) -> UIFont? {
         var newTraits = fontDescriptor.symbolicTraits
         for trait in traits {
@@ -56,6 +62,10 @@ extension UIFont {
         }
         
         return self
+    }
+    
+    func isHeaderFont() -> Bool {
+        return self == MarkdownHeader.defaultFont || self == MarkdownHeader.firstHeaderFont || self == MarkdownHeader.secondHeaderFont || self == MarkdownHeader.thirdHeaderFont
     }
     
     func bold() -> UIFont? {

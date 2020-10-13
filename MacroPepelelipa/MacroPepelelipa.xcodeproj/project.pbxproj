@@ -134,6 +134,7 @@
 		E4026286252FAC7800BCDD93 /* DancingScript-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E4026284252FAC7800BCDD93 /* DancingScript-Bold.ttf */; };
 		E4026287252FAC7800BCDD93 /* DancingScript-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E4026285252FAC7800BCDD93 /* DancingScript-Regular.ttf */; };
 		E4277C4C2527B824002CD6B1 /* MarkupFormatViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4277C4B2527B824002CD6B1 /* MarkupFormatViewDelegate.swift */; };
+		E42FC8372530EF78004E81C9 /* MarkupFormatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E42FC8362530EF78004E81C9 /* MarkupFormatView.swift */; };
 		E45C20D2251D24BD0022AD95 /* MarkdownNumeric.swift in Sources */ = {isa = PBXBuildFile; fileRef = E45C20D1251D24BD0022AD95 /* MarkdownNumeric.swift */; };
 		E4F88C8B252FA564003AD037 /* Merriweather-BoldItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = E4F88C87252FA564003AD037 /* Merriweather-BoldItalic.otf */; };
 		E4F88C8C252FA564003AD037 /* Merriweather-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = E4F88C88252FA564003AD037 /* Merriweather-Regular.otf */; };
@@ -300,6 +301,7 @@
 		E4026284252FAC7800BCDD93 /* DancingScript-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "DancingScript-Bold.ttf"; sourceTree = "<group>"; };
 		E4026285252FAC7800BCDD93 /* DancingScript-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "DancingScript-Regular.ttf"; sourceTree = "<group>"; };
 		E4277C4B2527B824002CD6B1 /* MarkupFormatViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkupFormatViewDelegate.swift; sourceTree = "<group>"; };
+		E42FC8362530EF78004E81C9 /* MarkupFormatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkupFormatView.swift; sourceTree = "<group>"; };
 		E45C20D1251D24BD0022AD95 /* MarkdownNumeric.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkdownNumeric.swift; sourceTree = "<group>"; };
 		E4F88C87252FA564003AD037 /* Merriweather-BoldItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Merriweather-BoldItalic.otf"; sourceTree = "<group>"; };
 		E4F88C88252FA564003AD037 /* Merriweather-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Merriweather-Regular.otf"; sourceTree = "<group>"; };
@@ -636,6 +638,7 @@
 				1EE652C62525049E0015E3D4 /* MarkupToggleButton.swift */,
 				1EFA49CD252D15C500602904 /* MarkupNavigationView.swift */,
 				1E6E148B252E33E700383E10 /* MarkupBarConfiguration.swift */,
+				E42FC8362530EF78004E81C9 /* MarkupFormatView.swift */,
 			);
 			path = Markup;
 			sourceTree = "<group>";
@@ -1227,6 +1230,7 @@
 				D9D87534251BAA6700B842C8 /* MarkupTextField.swift in Sources */,
 				022D600D2519559D00001D5B /* MarkdownHeader+UIKit.swift in Sources */,
 				024C5BAE252E41C7009549CE /* PopupContainerViewController.swift in Sources */,
+				E42FC8372530EF78004E81C9 /* MarkupFormatView.swift in Sources */,
 				022D601C2519559D00001D5B /* MarkdownList.swift in Sources */,
 				022D601B2519559D00001D5B /* MarkdownLink.swift in Sources */,
 				022D601E2519559D00001D5B /* MarkdownHeader.swift in Sources */,
@@ -1278,7 +1282,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = X54K5PJVGU;
+				DEVELOPMENT_TEAM = 5HW626WUP4;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -1308,7 +1312,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = X54K5PJVGU;
+				DEVELOPMENT_TEAM = 5HW626WUP4;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -1454,7 +1458,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = X54K5PJVGU;
+				DEVELOPMENT_TEAM = 5HW626WUP4;
 				INFOPLIST_FILE = MacroPepelelipa/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1473,7 +1477,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = X54K5PJVGU;
+				DEVELOPMENT_TEAM = 5HW626WUP4;
 				INFOPLIST_FILE = MacroPepelelipa/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
