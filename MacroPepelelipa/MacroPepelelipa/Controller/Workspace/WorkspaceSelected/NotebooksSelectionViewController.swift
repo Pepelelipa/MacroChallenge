@@ -55,8 +55,10 @@ internal class NotebooksSelectionViewController: UIViewController {
                     self.presentErrorAlert()
                 }
             }
-            let destination = NotesViewController(notebook: notebook, note: notebook.notes[notebook.notes.count-1])
-            self.navigationController?.pushViewController(destination, animated: true)
+            
+            self.presentDestination(for: UIDevice.current.userInterfaceIdiom, 
+                                    notebook: notebook)
+            
         } else {
             self.presentErrorAlert()
         }
@@ -122,9 +124,24 @@ internal class NotebooksSelectionViewController: UIViewController {
         self.present(alertController, animated: true, completion: nil)
     }
     
+    private func presentDestination(for device: UIUserInterfaceIdiom, notebook: NotebookEntity) {
+        
+        let notesViewController = NotesViewController(notebook: notebook, 
+                                              note: notebook.notes[notebook.notes.count-1])
+        
+        if device == .phone {
+            self.navigationController?.pushViewController(notesViewController, animated: true)
+        
+        } else {
+            let destination = TextEditingContainerViewController(centerViewController: notesViewController)
+            
+            self.navigationController?.pushViewController(destination, animated: true)
+        }
+    }
+    
     // MARK: - IBActions functions
     
-    @IBAction func btnAddTap() {
+    @IBAction private func btnAddTap() {
         btnAdd.isEnabled = false
         navigationItem.hidesBackButton = true
         AppUtility.setOrientation(.portrait, andRotateTo: .portrait)
