@@ -59,7 +59,7 @@ internal class NotebookIndexViewController: UIViewController {
     private var lblSubject: UILabel = {
         let lbl = UILabel(frame: .zero)
         lbl.textAlignment = .left
-        lbl.font = lbl.font.withSize(26)
+        lbl.font = MarkdownHeader.firstHeaderFont
         lbl.numberOfLines = 0
         lbl.translatesAutoresizingMaskIntoConstraints = false
 

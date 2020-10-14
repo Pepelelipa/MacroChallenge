@@ -87,6 +87,8 @@ internal class NotebooksSelectionViewController: UIViewController {
         
         navigationItem.rightBarButtonItem = btnAdd
         navigationItem.title = workspace?.name
+        navigationItem.backBarButtonItem?.setTitleTextAttributes([.font: MarkdownHeader.thirdHeaderFont], for: .application)
+        
         view.backgroundColor = .backgroundColor
         view.addSubview(collectionView)
         

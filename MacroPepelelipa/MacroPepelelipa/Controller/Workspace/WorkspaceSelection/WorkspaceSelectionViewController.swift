@@ -69,6 +69,15 @@ internal class WorkspaceSelectionViewController: UIViewController {
         
         let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress(gesture:)))
         self.collectionView.addGestureRecognizer(longPressGesture)
+        
+        navigationController?.navigationBar.largeTitleTextAttributes = [
+            .font: MarkdownHeader.firstHeaderFont,
+            .foregroundColor: UIColor.titleColor ?? .black
+        ]
+        navigationController?.navigationBar.titleTextAttributes = [
+            .font: MarkdownHeader.thirdHeaderFont,
+            .foregroundColor: UIColor.titleColor ?? .black
+        ]
     }
 
     override func viewWillAppear(_ animated: Bool) {
