@@ -29,7 +29,7 @@ internal class NotebookCollectionViewCell: UICollectionViewCell {
     private let lblName: UILabel = {
         let lbl = UILabel(frame: .zero)
         lbl.numberOfLines = 0
-        lbl.textColor = .black
+        lbl.textColor = UIColor.titleColor ?? .black
         lbl.font = MarkdownHeader.thirdHeaderFont
         lbl.textAlignment = .left
         lbl.translatesAutoresizingMaskIntoConstraints = false
