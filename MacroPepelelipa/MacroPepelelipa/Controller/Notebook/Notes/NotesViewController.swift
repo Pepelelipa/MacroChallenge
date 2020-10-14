@@ -133,19 +133,6 @@ internal class NotesViewController: UIViewController,
         return MarkupFormatViewDelegate(viewController: self)
     }()
     
-    internal private(set) lazy var markupContainerView: MarkupContainerView = {
-
-        let height: CGFloat = screenHeight/4
-        
-        let container = MarkupContainerView(frame: CGRect(x: 0, y: 0, width: screenWidth, height: height), owner: self.textView, delegate: self.formatViewDelegate, viewController: self)
-        
-        container.autoresizingMask = []
-        container.isHidden = true
-        container.delegate = self.formatViewDelegate
-        
-        return container
-    }()
-    
     // MARK: - Initializers
     
     internal init(notebook: NotebookEntity, note: NoteEntity) {
@@ -317,7 +304,10 @@ internal class NotesViewController: UIViewController,
      This method opens the pop over when the button is pressed
      */
     internal func openPopOver() {
-        let markupContainerViewController = MarkupContainerViewController()
+        let markupContainerViewController = MarkupContainerViewController(owner: textView, 
+                                                                          delegate: formatViewDelegate, 
+                                                                          viewController: self, 
+                                                                          size: .init(width: 380, height: 110))
         
         if let formatView = markupContainerViewController.formatView {
             formatViewDelegate?.setFormatView(formatView)
