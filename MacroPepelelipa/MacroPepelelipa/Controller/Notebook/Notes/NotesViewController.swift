@@ -13,6 +13,7 @@ import PhotosUI
 internal class NotesViewController: UIViewController, 
                                     TextEditingDelegateObserver,
                                     MarkupToolBarObserver,
+                                    IndexObserver,
                                     PHPickerViewControllerDelegate {
     
     // MARK: - Variables and Constants
@@ -28,10 +29,28 @@ internal class NotesViewController: UIViewController,
     
     internal var textBoxes: Set<TextBoxView> = []  
     internal var imageBoxes: Set<ImageBoxView> = []
-    internal private(set) weak var note: NoteEntity?
+    
+    internal weak var note: NoteEntity?
+    internal private(set) weak var notebook: NotebookEntity?
     
     private lazy var addNewNoteButton: UIBarButtonItem = {
         let item = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addNewNote))
+        return item
+    }()
+    
+    private lazy var moreActionsButton: UIBarButtonItem = {
+        let item = UIBarButtonItem(image: UIImage(systemName: "ellipsis.circle"), 
+                                   style: .plain, 
+                                   target: self, 
+                                   action: #selector(presentMoreActionsButton))
+        return item
+    }()
+    
+    private lazy var notebookIndexButton: UIBarButtonItem = {
+        let item = UIBarButtonItem(image: UIImage(systemName: "n.square"), 
+                                   style: .plain, 
+                                   target: self, 
+                                   action: #selector(presentNotebookIndex))
         return item
     }()
     
@@ -117,7 +136,8 @@ internal class NotesViewController: UIViewController,
     
     // MARK: - Initializers
     
-    internal init(note: NoteEntity) {
+    internal init(notebook: NotebookEntity, note: NoteEntity) {
+        self.notebook = notebook
         self.note = note
         super.init(nibName: nil, bundle: nil)
         self.textField.attributedText = note.title
@@ -129,10 +149,11 @@ internal class NotesViewController: UIViewController,
     }
 
     internal convenience required init?(coder: NSCoder) {
-        guard let note = coder.decodeObject(forKey: "note") as? NoteEntity else {
+        guard let note = coder.decodeObject(forKey: "note") as? NoteEntity,
+              let notebook = coder.decodeObject(forKey: "notebook") as? NotebookEntity else {
             return nil
         }
-        self.init(note: note)
+        self.init(notebook: notebook, note: note)
     }
     
     // MARK: - Override functions
@@ -142,7 +163,7 @@ internal class NotesViewController: UIViewController,
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(didTap))
         
-        navigationItem.rightBarButtonItems = [addNewNoteButton]
+        navigationItem.rightBarButtonItems = [addNewNoteButton, moreActionsButton, notebookIndexButton]
         
         view.addGestureRecognizer(tap)
         view.addSubview(markupContainerView)
@@ -157,6 +178,10 @@ internal class NotesViewController: UIViewController,
             textView.inputAccessoryView = nil
         }
         
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        navigationItem.largeTitleDisplayMode = .never
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -186,6 +211,7 @@ internal class NotesViewController: UIViewController,
 
         NSLayoutConstraint.activate([
             textField.heightAnchor.constraint(equalToConstant: 30),
+            textField.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
             textField.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
             textField.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor, constant: -20)
         ])
@@ -288,7 +314,7 @@ internal class NotesViewController: UIViewController,
         present(markupContainerViewController, animated: true)
     }
     
-    internal func textEditingDidBegin() {
+    func textEditingDidBegin() {
         DispatchQueue.main.async {
             self.textBoxes.forEach { (textBox) in
                 textBox.state = .idle
@@ -307,7 +333,7 @@ internal class NotesViewController: UIViewController,
         }
     }
     
-    internal func textEditingDidEnd() {
+    func textEditingDidEnd() {
         DispatchQueue.main.async {
             self.imageButton.isHidden = false
         }
@@ -388,6 +414,12 @@ internal class NotesViewController: UIViewController,
         }
     }
     
+    func didChangeIndex(to note: NoteEntity) {
+        self.note = note
+        self.textField.attributedText = note.title
+        self.textView.attributedText = note.text
+    }
+    
     // MARK: - IBActions functions
     
     @IBAction func didTap() {
@@ -452,5 +484,15 @@ internal class NotesViewController: UIViewController,
     
     @IBAction private func addNewNote() {
         // TODO: add new note
+    }
+    
+    @IBAction private func presentMoreActionsButton() {
+        // TODO: present more actions button
+    }
+    
+    @IBAction private func presentNotebookIndex() {
+        if let presentNotebook = self.notebook {
+            navigationController?.pushViewController(NotebookIndexViewController(notebook: presentNotebook), animated: true)
+        }
     }
 }

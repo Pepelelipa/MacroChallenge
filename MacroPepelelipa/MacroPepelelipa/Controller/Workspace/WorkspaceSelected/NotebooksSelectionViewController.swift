@@ -44,21 +44,35 @@ internal class NotebooksSelectionViewController: UIViewController {
     }()
     private var collectionDataSource: NotebooksCollectionViewDataSource?
     private lazy var collectionDelegate = NotebooksCollectionViewDelegate { [unowned self] (selectedCell) in
-        guard let notebook = selectedCell.notebook else {
-            let alertController = UIAlertController(
-                title: "Could not open this notebook".localized(),
-                message: "The app could not load this notebook".localized(),
-                preferredStyle: .alert)
-                .makeErrorMessage(with: "The notebook collection view cell did not have a notebook".localized())
-            
-            self.present(alertController, animated: true, completion: nil)
-            return
-        }
         
-        let destination = NotesViewController(note: notebook.notes[notebook.notes.count-1])
-        destination.navigationItem.largeTitleDisplayMode = .never
-        self.navigationController?.pushViewController(destination, animated: true)
+        if let notebook = selectedCell.notebook {
+            let note: NoteEntity
+            if let lastNote = notebook.notes.last {
+                note = lastNote
+            } else {
+                do {
+                    note = try DataManager.shared().createNote(in: notebook)
+                    note.title = NSAttributedString(string: "Lesson".localized())
+                    try note.save()
+                } catch {
+                    self.present(self.alertController, animated: true, completion: nil)
+                }
+            }
+            
+            let destination = NotesViewController(notebook: notebook, 
+                                                  note: notebook.notes[notebook.notes.count-1])
+            self.navigationController?.pushViewController(destination, animated: true)
+            
+        } else {
+            self.present(self.alertController, animated: true, completion: nil)
+        }
     }
+    
+    private let alertController = UIAlertController(
+        title: "Could not open this notebook".localized(),
+        message: "The app could not load this notebook".localized(),
+        preferredStyle: .alert)
+        .makeErrorMessage(with: "The notebook collection view cell did not have a notebook".localized())
 
     private lazy var btnAdd: UIBarButtonItem = {
         let item = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(btnAddTap))

@@ -31,7 +31,6 @@
 		021107AE252F8EE30009D4E1 /* CoreDataError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 021107AD252F8EE30009D4E1 /* CoreDataError.swift */; };
 		021107C5252FADC90009D4E1 /* TextBoxError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 021107C4252FADC90009D4E1 /* TextBoxError.swift */; };
 		021107C8252FADE00009D4E1 /* ImageBoxError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 021107C7252FADE00009D4E1 /* ImageBoxError.swift */; };
-		0213BFB5251943C40085ABC3 /* IndexDelegateProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0213BFB4251943C40085ABC3 /* IndexDelegateProtocol.swift */; };
 		02207A392523A5970001FD7E /* WorkspacesCollectionViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02207A382523A5970001FD7E /* WorkspacesCollectionViewDataSource.swift */; };
 		02207A3E2523AB160001FD7E /* WorkspaceCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02207A3D2523AB160001FD7E /* WorkspaceCollectionViewCell.swift */; };
 		022832D9252E547200DDD46B /* DataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 022832D7252E547200DDD46B /* DataModel.xcdatamodeld */; };
@@ -111,6 +110,7 @@
 		1EE652C2252504400015E3D4 /* MarkupContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EE652C1252504400015E3D4 /* MarkupContainerView.swift */; };
 		1EE652C72525049E0015E3D4 /* MarkupToggleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EE652C62525049E0015E3D4 /* MarkupToggleButton.swift */; };
 		1EFA49CE252D15C500602904 /* MarkupNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EFA49CD252D15C500602904 /* MarkupNavigationView.swift */; };
+		A731AA7425372F9C00624131 /* IndexObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = A731AA7325372F9C00624131 /* IndexObserver.swift */; };
 		A792F03A25279E8400AB1766 /* NotebookIndexTableViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A792F03925279E8400AB1766 /* NotebookIndexTableViewDelegate.swift */; };
 		A7BDD5FF2513F83F00DDB6A0 /* IndexViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7BDD5FE2513F83F00DDB6A0 /* IndexViewController.swift */; };
 		A7BDD60A251406D900DDB6A0 /* TableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7BDD609251406D900DDB6A0 /* TableViewDataSource.swift */; };
@@ -195,7 +195,6 @@
 		021107AD252F8EE30009D4E1 /* CoreDataError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataError.swift; sourceTree = "<group>"; };
 		021107C4252FADC90009D4E1 /* TextBoxError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextBoxError.swift; sourceTree = "<group>"; };
 		021107C7252FADE00009D4E1 /* ImageBoxError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageBoxError.swift; sourceTree = "<group>"; };
-		0213BFB4251943C40085ABC3 /* IndexDelegateProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndexDelegateProtocol.swift; sourceTree = "<group>"; };
 		02207A382523A5970001FD7E /* WorkspacesCollectionViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkspacesCollectionViewDataSource.swift; sourceTree = "<group>"; };
 		02207A3D2523AB160001FD7E /* WorkspaceCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkspaceCollectionViewCell.swift; sourceTree = "<group>"; };
 		022832D8252E547200DDD46B /* DataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DataModel.xcdatamodel; sourceTree = "<group>"; };
@@ -276,6 +275,7 @@
 		1EE652C1252504400015E3D4 /* MarkupContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkupContainerView.swift; sourceTree = "<group>"; };
 		1EE652C62525049E0015E3D4 /* MarkupToggleButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkupToggleButton.swift; sourceTree = "<group>"; };
 		1EFA49CD252D15C500602904 /* MarkupNavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkupNavigationView.swift; sourceTree = "<group>"; };
+		A731AA7325372F9C00624131 /* IndexObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = IndexObserver.swift; path = "MacroPepelelipa/Controller/Notebook/Notebook Index/IndexObserver.swift"; sourceTree = SOURCE_ROOT; };
 		A792F03925279E8400AB1766 /* NotebookIndexTableViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotebookIndexTableViewDelegate.swift; sourceTree = "<group>"; };
 		A7BDD5FE2513F83F00DDB6A0 /* IndexViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndexViewController.swift; sourceTree = "<group>"; };
 		A7BDD609251406D900DDB6A0 /* TableViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewDataSource.swift; sourceTree = "<group>"; };
@@ -677,9 +677,9 @@
 		026C3CAE25194353001E32AE /* Notebook Index */ = {
 			isa = PBXGroup;
 			children = (
-				0213BFB4251943C40085ABC3 /* IndexDelegateProtocol.swift */,
-				A792F03925279E8400AB1766 /* NotebookIndexTableViewDelegate.swift */,
 				A7BDD5FE2513F83F00DDB6A0 /* IndexViewController.swift */,
+				A792F03925279E8400AB1766 /* NotebookIndexTableViewDelegate.swift */,
+				A731AA7325372F9C00624131 /* IndexObserver.swift */,
 			);
 			path = "Notebook Index";
 			sourceTree = "<group>";
@@ -1148,7 +1148,6 @@
 				02ECA43C2512ABD100E68588 /* NotebookCollectionViewCell.swift in Sources */,
 				022D60232519559D00001D5B /* MarkdownElement.swift in Sources */,
 				02207A392523A5970001FD7E /* WorkspacesCollectionViewDataSource.swift in Sources */,
-				0213BFB5251943C40085ABC3 /* IndexDelegateProtocol.swift in Sources */,
 				D9F4A9AB25277A6B00BFDC19 /* CGRectExtension.swift in Sources */,
 				024C5BBC252E41EE009549CE /* ColorSelectionCollectionViewCell.swift in Sources */,
 				022D600B2519559D00001D5B /* MarkdownCode+UIKit.swift in Sources */,
@@ -1178,6 +1177,7 @@
 				022D601A2519559D00001D5B /* MarkdownAutomaticLink.swift in Sources */,
 				022D60162519559D00001D5B /* MarkdownItalic.swift in Sources */,
 				02A8BCEC2512A453006B685E /* NotebooksCollectionViewDataSource.swift in Sources */,
+				A731AA7425372F9C00624131 /* IndexObserver.swift in Sources */,
 				02DD09FE25114D6200B6696B /* SceneDelegate.swift in Sources */,
 				1E9EF4AD2522609400CC623B /* MarkupTextFieldDelegate.swift in Sources */,
 				020E22252513F10800A93EAB /* StringExtension.swift in Sources */,
