@@ -7,9 +7,11 @@
 */
 
 "Workspaces" = "Workspaces";
+"Workspace" = "Workspace";
 "Subject" = "Subject";
 "Lesson" = "Lesson";
 "Notebook" = "Notebook";
+"Note" = "Note";
 "Start writing here" = "Do not forget to copy what is happening in your class, while you are playing a little game...";
 "Your Title" = "Your Title";
 "Format" = "Format";
@@ -44,3 +46,10 @@
 "Error presenting Photo Library" = "Error presenting Photo Library";
 "The app could not present the Photo Library" = "The app could not present the Photo Library";
 "The app could not load the native Image Picker Controller" = "The app could not load the native Image Picker Controller";
+"Could not delete this notebook" = "Could not delete this notebook";
+"The app could not delete the notebook" = "The app could not delete the notebook";
+"An error occurred while deleting this instance on the database" = "An error occurred while deleting this instance on the database";
+"Could not delete this workspace" = "Could not delete this workspace";
+"The app could not delete the workspace" = "The app could not delete the workspace";
+"Delete" = "Delete";
+"Cancel" = "Cancel";

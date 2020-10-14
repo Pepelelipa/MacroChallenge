@@ -41,7 +41,6 @@ internal class NotesViewController: UIViewController,
     }()
     
     internal private(set) lazy var markupContainerView: MarkupContainerView = {
-
         let height: CGFloat = screenHeight/4
         
         let container = MarkupContainerView(frame: CGRect(x: 0, y: 0, width: screenWidth, height: height), owner: self.textView, delegate: self.formatViewDelegate, viewController: self)
@@ -168,6 +167,7 @@ internal class NotesViewController: UIViewController,
         
         if UIDevice.current.userInterfaceIdiom == .phone {
             textView.inputAccessoryView = keyboardToolbar
+            formatViewDelegate?.setFormatView(markupContainerView)
         } else if UIDevice.current.userInterfaceIdiom == .pad {
             textView.inputAccessoryView = nil
         }
@@ -205,12 +205,15 @@ internal class NotesViewController: UIViewController,
      This method opens the pop over when the button is pressed
      */
     public func openPopOver() {
-        let markupContainerViewController = MarkupContainerViewController()
+        let markupContainerViewController = MarkupContainerViewController(owner: textView, delegate: formatViewDelegate, viewController: self, size: CGSize(width: 380, height: 110))
+        
+        if let formatView = markupContainerViewController.formatView {
+            formatViewDelegate?.setFormatView(formatView)
+            textViewDelegate?.setFotmatView(formatView)
+        }
         
         markupContainerViewController.modalPresentationStyle = .popover
-        
         markupContainerViewController.popoverPresentationController?.sourceView = markupNavigationView.barButtonItems[4]
-        markupContainerViewController.preferredContentSize = CGSize(width: 380, height: 110)
         
         present(markupContainerViewController, animated: true)
     }
