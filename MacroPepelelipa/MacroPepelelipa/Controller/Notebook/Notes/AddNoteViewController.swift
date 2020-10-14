@@ -1,20 +1,21 @@
 //
-//  AddWorkspaceViewController.swift
+//  AddNoteViewController.swift
 //  MacroPepelelipa
 //
-//  Created by Pedro Giuliano Farina on 02/10/20.
+//  Created by Pedro Henrique Guedes Silveira on 14/10/20.
 //  Copyright © 2020 Pedro Giuliano Farina. All rights reserved.
 //
 
+import Foundation
 import UIKit
 import Database
 
-internal class AddWorkspaceViewController: PopupContainerViewController, AddWorkspaceObserver {
+internal class AddNoteViewController: PopupContainerViewController, AddNoteObserver {
 
     private lazy var txtName: UITextField = {
         let txtName = UITextField()
         txtName.translatesAutoresizingMaskIntoConstraints = false
-        txtName.placeholder = "New workspace name".localized()
+        txtName.placeholder = "New note title".localized()
         txtName.borderStyle = .none
         txtName.font = .preferredFont(forTextStyle: .title1)
         txtName.tintColor = .actionColor
@@ -27,7 +28,7 @@ internal class AddWorkspaceViewController: PopupContainerViewController, AddWork
     
     private lazy var txtNoteDelegate: AddNewSpaceTextFieldDelegate = {
         let delegate = AddNewSpaceTextFieldDelegate()
-        delegate.workspaceObserver = self
+        delegate.notesObserver = self
         return delegate
     }()
     
@@ -44,6 +45,8 @@ internal class AddWorkspaceViewController: PopupContainerViewController, AddWork
 
         return btnConfirm
     }()
+    
+    private weak var notebook: NotebookEntity?
 
     internal override func moveTo(_ viewController: UIViewController) {
         let centerYConstraint = view.centerYAnchor.constraint(equalTo: viewController.view.centerYAnchor)
@@ -57,7 +60,19 @@ internal class AddWorkspaceViewController: PopupContainerViewController, AddWork
             view.widthAnchor.constraint(lessThanOrEqualTo: viewController.view.widthAnchor, multiplier: 0.8)
         ])
     }
-
+    
+    init(notebook: NotebookEntity, dismissHandler: (() -> Void)? = nil) {
+        self.notebook = notebook
+        super.init(dismissHandler: dismissHandler)
+    }
+    
+    required convenience init?(coder: NSCoder) {
+        guard let notebook = coder.decodeObject(forKey: "notebook") as? NotebookEntity else {
+            return nil
+        }
+        self.init(notebook: notebook)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.addSubview(txtName)
@@ -126,7 +141,12 @@ internal class AddWorkspaceViewController: PopupContainerViewController, AddWork
     @IBAction func btnConfirmTap() {
         if let text = txtName.text {
             do {
-                _ = try DataManager.shared().createWorkspace(named: text)
+                guard let guardedNotebook = notebook else {
+                    return
+                }
+                let note = try DataManager.shared().createNote(in: guardedNotebook)
+                note.title = NSAttributedString(string: text)
+                try note.save()
             } catch {
                 fatalError("Num deu")
             }
@@ -136,7 +156,7 @@ internal class AddWorkspaceViewController: PopupContainerViewController, AddWork
     /**
      A  method tthat calls btn Confirm Tap.
      */
-    func addWorkspace() {
+    func addNote() {
         btnConfirmTap()
     }
     override func backgroundTap() {

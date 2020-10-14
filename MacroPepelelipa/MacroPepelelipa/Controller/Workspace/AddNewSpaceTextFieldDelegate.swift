@@ -11,10 +11,12 @@ import UIKit
 
 class AddNewSpaceTextFieldDelegate: NSObject, UITextFieldDelegate {
     
-    weak var observer: AddWorkspaceObserver?
+    weak var workspaceObserver: AddWorkspaceObserver?
+    weak var notesObserver: AddNoteObserver?
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        observer?.addWorkspace()
+        workspaceObserver?.addWorkspace()
+        notesObserver?.addNote()
         textField.resignFirstResponder()
         return true
     }
