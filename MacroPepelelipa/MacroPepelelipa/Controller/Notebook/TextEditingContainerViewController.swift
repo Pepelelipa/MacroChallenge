@@ -9,26 +9,14 @@
 import UIKit
 import Database
 
+internal enum SlideOutState {
+    case collapsed
+    case rightPanelExpanded
+}
+
 internal class TextEditingContainerViewController: UIViewController {
     
-    internal init(centerViewController: NotesViewController) {
-        self.centerViewController = centerViewController
-        super.init(nibName: nil, bundle: nil)
-    }
-    
-    internal convenience required init?(coder: NSCoder) {
-        guard let centerViewController = coder.decodeObject(forKey: "centerViewController") as? NotesViewController else {
-            return nil
-        }
-        self.init(centerViewController: centerViewController)
-    }
-    
-    enum SlideOutState {
-        case collapsed
-        case rightPanelExpanded
-    }
-    
-    // private weak var centerNavigationController: UINavigationController?
+    // MARK: - Variables and Constants
     
     private var centerViewController: NotesViewController?
     private var rightViewController: NotebookIndexViewController?
@@ -43,16 +31,32 @@ internal class TextEditingContainerViewController: UIViewController {
         return item
     }()
     
+    // MARK: - Initializers
+    
+    internal init(centerViewController: NotesViewController) {
+        self.centerViewController = centerViewController
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    internal convenience required init?(coder: NSCoder) {
+        guard let centerViewController = coder.decodeObject(forKey: "centerViewController") as? NotesViewController else {
+            return nil
+        }
+        self.init(centerViewController: centerViewController)
+    }
+    
+    // MARK: - Override functions
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .red
-        
         if let centerViewController = self.centerViewController, 
            let notebook = centerViewController.notebook {
+            
             rightViewController = NotebookIndexViewController(notebook: notebook)
             view.addSubview(centerViewController.view)
             addChild(centerViewController)
+        
         } else {
             navigationController?.popViewController(animated: true)
         }
@@ -60,48 +64,66 @@ internal class TextEditingContainerViewController: UIViewController {
         navigationItem.rightBarButtonItem = notebookIndexButton
     }
     
+    override func viewWillLayoutSubviews() {
+        
+        if currentState == .rightPanelExpanded,
+           let rightView = self.rightViewController?.view,
+           let centerView = self.centerViewController?.view {
+            
+            rightView.translatesAutoresizingMaskIntoConstraints = false
+            
+            rightView.removeConstraints([
+            ])
+            
+            rightView.removeConstraints(rightView.constraints)
+            centerPanelExpandedOffset = view.frame.width * 0.6
+            
+            centerView.frame.origin.x = -view.frame.width + centerPanelExpandedOffset
+            
+            NSLayoutConstraint.activate([
+                rightView.topAnchor.constraint(equalTo: view.topAnchor),
+                rightView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+                rightView.widthAnchor.constraint(equalToConstant: view.frame.width * 0.4),
+                rightView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+            ])
+        }
+    }
+    
+    // MARK: - Functions
+    
     func addChildSidePanelController(_ sidePanelController: NotebookIndexViewController) {
-        // view.addSubview(sidePanelController.view)
         view.insertSubview(sidePanelController.view, at: 0)
         addChild(sidePanelController)
         sidePanelController.didMove(toParent: self)
         
-        sidePanelController.view.translatesAutoresizingMaskIntoConstraints = false
-        
-        NSLayoutConstraint.activate([
-            sidePanelController.view.topAnchor.constraint(equalTo: view.topAnchor),
-            sidePanelController.view.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            sidePanelController.view.widthAnchor.constraint(equalToConstant: view.frame.width * 0.4),
-            sidePanelController.view.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-        ])
-        
+        animateRightPanel(shouldExpand: true)
     }
     
     func animateRightPanel(shouldExpand: Bool) {
         if shouldExpand {
-            currentState = .rightPanelExpanded
             animateCenterPanelXPosition(
                 targetPosition: -view.frame.width + centerPanelExpandedOffset)
         } else {
             animateCenterPanelXPosition(targetPosition: 0) { _ in
-                self.currentState = .collapsed
-                
                 self.rightViewController?.view.removeFromSuperview()
-                self.rightViewController = nil
             }
         }
+        viewDidLayoutSubviews()
     }
     
     func animateCenterPanelXPosition(targetPosition: CGFloat, completion: ((Bool) -> Void)? = nil) {
       UIView.animate(withDuration: 0.5,
                      delay: 0,
-                     usingSpringWithDamping: 0.9,
+                     usingSpringWithDamping: 1,
                      initialSpringVelocity: 0,
                      options: .curveEaseInOut, 
                      animations: {
                         self.centerViewController?.view.frame.origin.x = targetPosition
+                        
       }, completion: completion)
     }
+    
+    // MARK: - IBActions functions
     
     @IBAction private func presentNotebookIndex() {
         
@@ -109,9 +131,12 @@ internal class TextEditingContainerViewController: UIViewController {
         
         if notAlreadyExpanded,
            let notebookIndexViewController = self.rightViewController {
+            currentState = .rightPanelExpanded
             addChildSidePanelController(notebookIndexViewController)
+        } else {
+            currentState = .collapsed
+            animateRightPanel(shouldExpand: notAlreadyExpanded)
         }
-        animateRightPanel(shouldExpand: notAlreadyExpanded)
     }
     
 }
