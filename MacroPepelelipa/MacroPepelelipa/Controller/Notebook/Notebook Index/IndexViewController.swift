@@ -11,8 +11,62 @@ import Database
 
 internal class NotebookIndexViewController: UIViewController {
     
+    // MARK: - Variables and Constants
+    
     private var notebook: NotebookEntity?
     private var observer: IndexObserver?
+    private let tableViewDataSource: NotebookIndexTableViewDataSource
+    
+    private lazy var imgViewNotebook: NotebookView = {
+        let imgView = NotebookView(frame: .zero)
+        if let color = UIColor(named: self.notebook?.colorName ?? "") {
+            imgView.color = color
+        }
+        imgView.translatesAutoresizingMaskIntoConstraints = false
+        imgView.contentMode = .scaleAspectFill
+
+        return imgView
+    }()
+    
+    private var lblSubject: UILabel = {
+        let lbl = UILabel(frame: .zero)
+        lbl.textAlignment = .left
+        lbl.font = lbl.font.withSize(26)
+        lbl.numberOfLines = 0
+        lbl.translatesAutoresizingMaskIntoConstraints = false
+
+        return lbl
+    }()
+    
+    private lazy var tableView: UITableView = {
+        let tableView = UITableView(frame: .zero)
+        tableView.dataSource = tableViewDataSource
+        tableView.delegate = tableViewDelegate
+        tableView.tableFooterView = UIView()
+
+        tableView.backgroundColor = view.backgroundColor
+        tableView.separatorStyle = .none
+
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        return tableView
+    }()
+    
+    private lazy var tableViewDelegate: NotebookIndexTableViewDelegate = NotebookIndexTableViewDelegate { [unowned self] (selectedCell) in
+        if let note = selectedCell.indexNote {
+            self.observer?.didChangeIndex(to: note)
+            self.navigationController?.popViewController(animated: true)
+        } else {
+            let alertController = UIAlertController(
+                title: "Could not open this note".localized(),
+                message: "The app could not open the selected note".localized(),
+                preferredStyle: .alert)
+                .makeErrorMessage(with: "The index did not have a note".localized())
+            
+            self.present(alertController, animated: true, completion: nil)
+        }
+    }
+    
+    // MARK: - Initializers
     
     internal init(notebook: NotebookEntity) {
         self.notebook = notebook
@@ -29,52 +83,7 @@ internal class NotebookIndexViewController: UIViewController {
         self.init(notebook: notebook)
     }
     
-    private lazy var imgViewNotebook: NotebookView = {
-        let imgView = NotebookView(frame: .zero)
-        if let color = UIColor(named: self.notebook?.colorName ?? "") {
-            imgView.color = color
-        }
-        imgView.translatesAutoresizingMaskIntoConstraints = false
-        imgView.contentMode = .scaleAspectFill
-
-        return imgView
-    }()
-    private var lblSubject: UILabel = {
-        let lbl = UILabel(frame: .zero)
-        lbl.textAlignment = .left
-        lbl.font = lbl.font.withSize(26)
-        lbl.numberOfLines = 0
-        lbl.translatesAutoresizingMaskIntoConstraints = false
-
-        return lbl
-    }()
-    private let tableViewDataSource: NotebookIndexTableViewDataSource
-    private lazy var tableViewDelegate: NotebookIndexTableViewDelegate = NotebookIndexTableViewDelegate { [unowned self] (selectedCell) in
-        if let note = selectedCell.indexNote {
-            self.observer?.didChangeIndex(to: note)
-            self.navigationController?.popViewController(animated: true)
-        } else {
-            let alertController = UIAlertController(
-                title: "Could not open this note".localized(),
-                message: "The app could not open the selected note".localized(),
-                preferredStyle: .alert)
-                .makeErrorMessage(with: "The index did not have a note".localized())
-            
-            self.present(alertController, animated: true, completion: nil)
-        }
-    }
-    private lazy var tableView: UITableView = {
-        let tableView = UITableView(frame: .zero)
-        tableView.dataSource = tableViewDataSource
-        tableView.delegate = tableViewDelegate
-        tableView.tableFooterView = UIView()
-
-        tableView.backgroundColor = view.backgroundColor
-        tableView.separatorStyle = .none
-
-        tableView.translatesAutoresizingMaskIntoConstraints = false
-        return tableView
-    }()
+    // MARK: - Override functions
     
     override func viewDidLoad() {
         super.viewDidLoad()
