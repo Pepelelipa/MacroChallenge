@@ -80,7 +80,7 @@ internal class NoteObject: NoteEntity {
 
     internal func removeReferences() throws {
         if let notebook = self.notebook,
-           let index = notebook.notes.firstIndex(where: { $0 === self }){
+           let index = notebook.notes.firstIndex(where: { $0 === self }) {
             notebook.notes.remove(at: index)
         }
     }
