@@ -79,6 +79,7 @@ internal class AddNotebookViewController: PopupContainerViewController {
         btnConfirm.setBackgroundImage(UIImage(named: "btnWorkspaceBackground"), for: .normal)
         btnConfirm.layer.cornerRadius = 22
         btnConfirm.titleLabel?.font = MarkdownHeader.thirdHeaderFont
+        btnConfirm.contentEdgeInsets = UIEdgeInsets(top: 10, left: 15, bottom: 10, right: 15)
 
         return btnConfirm
     }()
