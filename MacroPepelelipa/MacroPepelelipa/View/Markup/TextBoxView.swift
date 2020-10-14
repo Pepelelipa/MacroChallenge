@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import Database
 
 internal class TextBoxView: UIView, BoxView {
     
@@ -23,6 +24,7 @@ internal class TextBoxView: UIView, BoxView {
     }
     
     internal var owner: MarkupTextView
+    internal weak var entity: TextBoxEntity?
     
     internal var internalFrame: CGRect = .zero
     
@@ -57,9 +59,16 @@ internal class TextBoxView: UIView, BoxView {
         return delegate
     }()
                 
-    internal init(frame: CGRect, owner: MarkupTextView) {  
+    internal init(textBoxEntity: TextBoxEntity, owner: MarkupTextView) {
         self.owner = owner
         self.state = .idle
+
+        let frame = CGRect(
+            x: CGFloat(textBoxEntity.x),
+            y: CGFloat(textBoxEntity.y),
+            width: CGFloat(textBoxEntity.width),
+            height: CGFloat(textBoxEntity.height))
+        self.entity = textBoxEntity
 
         super.init(frame: frame)
         
@@ -72,12 +81,12 @@ internal class TextBoxView: UIView, BoxView {
     }
     
     required convenience init?(coder: NSCoder) {
-        guard let frame = coder.decodeObject(forKey: "frame") as? CGRect,
+        guard let textBoxEntity = coder.decodeObject(forKey: "textBoxEntity") as? TextBoxEntity,
               let owner = coder.decodeObject(forKey: "owner") as? MarkupTextView else {
             return nil
         }
 
-        self.init(frame: frame, owner: owner)
+        self.init(textBoxEntity: textBoxEntity, owner: owner)
     }
     
     private func setUpTextViewConstraints() {

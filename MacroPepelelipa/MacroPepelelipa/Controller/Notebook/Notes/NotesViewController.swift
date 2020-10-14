@@ -268,21 +268,35 @@ internal class NotesViewController: UIViewController,
             self.imageButton.isHidden = false
         }
     }
+
+    ///Creates a TextBox
+    func createTextBox() {
+        do {
+            guard let note = note else {
+                fatalError("Num tem note")
+            }
+            let textBoxEntity = try DataManager.shared().createTextBox(in: note)
+            textBoxEntity.x = Float(view.frame.midX)
+            textBoxEntity.y = Float(view.frame.midY)
+            textBoxEntity.height = 150
+            textBoxEntity.width = 150
+            addTextBox(with: textBoxEntity)
+        } catch {
+            fatalError("Num deu")
+        }
+    }
     
     /**
-     Create a Text Box
-     - Parameters
-        - frame: The text box frame.
+     Adds a Text Box
      */
-    func addTextBox(with frame: CGRect) {
+    func addTextBox(with textBoxEntity: TextBoxEntity) {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
         let doubleTapGesture = UITapGestureRecognizer(target: self, action: #selector(handleDoubleTap(_:)))
         doubleTapGesture.numberOfTapsRequired = 2
         let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePan(_:)))
         let pinchGesture = UIPinchGestureRecognizer(target: self, action: #selector(handlePinch(_:)))
-        
-        let textBox = TextBoxView(frame: frame, owner: textView)
-        
+
+        let textBox = TextBoxView(textBoxEntity: textBoxEntity, owner: textView)
         textBox.addGestureRecognizer(tapGesture)
         textBox.addGestureRecognizer(doubleTapGesture)
         textBox.addGestureRecognizer(panGesture)
@@ -292,26 +306,39 @@ internal class NotesViewController: UIViewController,
     }
     
     /**
-     Create a Image Box
+     Creates a Image Box
      - Parameters
         - frame: The text box frame.
         - Image: The image displayed on Image Box.
      */
-    func addImageBox(with frame: CGRect, image: UIImage) {
+    func createImageBox(image: UIImage?) {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
         let doubleTapGesture = UITapGestureRecognizer(target: self, action: #selector(handleDoubleTap(_:)))
         doubleTapGesture.numberOfTapsRequired = 2
         let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePan(_:)))
         let pinchGesture = UIPinchGestureRecognizer(target: self, action: #selector(handlePinch(_:)))
-        
-        let imageBox = ImageBoxView(frame: frame, owner: textView, image: image)
-        
-        imageBox.addGestureRecognizer(tapGesture)
-        imageBox.addGestureRecognizer(doubleTapGesture)
-        imageBox.addGestureRecognizer(panGesture)
-        imageBox.addGestureRecognizer(pinchGesture)
-        self.imageBoxes.insert(imageBox)
-        self.textView.addSubview(imageBox)
+
+        do {
+            guard let note = note else {
+                fatalError("Num tem note")
+            }
+            
+            let imageBoxEntity = try DataManager.shared().createImageBox(in: note)
+            imageBoxEntity.x = Float(view.frame.midX)
+            imageBoxEntity.y = Float(view.frame.midY)
+            imageBoxEntity.width = 150
+            imageBoxEntity.width = 150
+            let imageBox = ImageBoxView(imageBoxEntity: imageBoxEntity, owner: textView, image: image)
+
+            imageBox.addGestureRecognizer(tapGesture)
+            imageBox.addGestureRecognizer(doubleTapGesture)
+            imageBox.addGestureRecognizer(panGesture)
+            imageBox.addGestureRecognizer(pinchGesture)
+            self.imageBoxes.insert(imageBox)
+            self.textView.addSubview(imageBox)
+        } catch let error {
+            print(error)
+        }
     }
     
     /**
@@ -333,7 +360,6 @@ internal class NotesViewController: UIViewController,
         
         if let itemProvider = results.first?.itemProvider, itemProvider.canLoadObject(ofClass: UIImage.self) {
             itemProvider.loadObject(ofClass: UIImage.self) { [weak self] (loadedImage, error) in
-                
                 if let error = error, let self = self {
                     let alertController = UIAlertController(
                         title: "Error presenting Photo Library".localized(),
@@ -348,11 +374,10 @@ internal class NotesViewController: UIViewController,
                 }
                 
                 DispatchQueue.main.async {
-                    guard let self = self, let image = loadedImage as? UIImage else {
+                    guard let image = loadedImage as? UIImage else {
                         return
                     }
-                    let frame = CGRect(x: UIScreen.main.bounds.midX, y: UIScreen.main.bounds.midY, width: 100.0, height: 100.0)
-                    self.addImageBox(with: frame, image: image)
+                    self?.createImageBox(image: image)
                 }
             }
         }

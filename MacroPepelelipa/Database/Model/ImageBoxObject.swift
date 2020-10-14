@@ -7,7 +7,7 @@
 //
 //swiftlint:disable identifier_name
 
-internal struct ImageBoxObject: ImageBoxEntity {
+internal class ImageBoxObject: ImageBoxEntity {
 
     internal init(in note: NoteObject, coreDataObject: ImageBox) {
         self.note = note
