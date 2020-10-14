@@ -7,9 +7,11 @@
 */
 
 "Workspaces" = "Coleções";
+"Workspace" = "Coleção";
 "Subject" = "Matéria";
 "Lesson" = "Aula";
 "Notebook" = "Caderno";
+"Note" = "Nota";
 "Start writing here" = "Não esquece de colocar o que tá acontecendo na sua aula, enquanto você tá jogando joguinho...";
 "Your Title" = "Vem aqui colocar o seu título!";
 "Format" = "Formatação";
@@ -44,3 +46,10 @@
 "Error presenting Photo Library" = "Erro ao apresentar a biblioteca de fotos";
 "The app could not present the Photo Library" = "O aplicativo não foi capaz de apresentar a biblioteca de fotos";
 "The app could not load the native Image Picker Controller" = "O aplicativo não foi capaz de carregar o controller de seleção de imagens nativo";
+"Could not delete this notebook" = "Não foi possível excluir este caderno";
+"The app could not delete the notebook" = "O aplicativo não conseguiu excluir o caderno";
+"An error occurred while deleting this instance on the database" = "Um erro ocorreu ao deletar esta intância na database";
+"Could not delete this workspace" = "Não foi possível excluir esta coleção";
+"The app could not delete the workspace" = "O aplicativo não conseguiu excluir a coleção";
+"Delete" = "Excluir";
+"Cancel" = "Cancelar";
