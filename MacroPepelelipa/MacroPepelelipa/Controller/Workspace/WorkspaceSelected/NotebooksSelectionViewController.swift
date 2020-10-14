@@ -10,18 +10,11 @@ import UIKit
 import Database
 
 internal class NotebooksSelectionViewController: UIViewController {
+    
+    // MARK: - Variables and Constants
+    
+    private var collectionDataSource: NotebooksCollectionViewDataSource?
     internal private(set) weak var workspace: WorkspaceEntity?
-    internal init(workspace: WorkspaceEntity) {
-        super.init(nibName: nil, bundle: nil)
-        self.workspace = workspace
-        self.collectionDataSource = NotebooksCollectionViewDataSource(workspace: workspace, viewController: self, collectionView: { self.collectionView })
-    }
-    internal required convenience init?(coder: NSCoder) {
-        guard let workspace = coder.decodeObject(forKey: "workspace") as? WorkspaceEntity else {
-            return nil
-        }
-        self.init(workspace: workspace)
-    }
 
     private lazy var collectionView: UICollectionView = {
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
@@ -42,9 +35,13 @@ internal class NotebooksSelectionViewController: UIViewController {
 
         return collectionView
     }()
-    private var collectionDataSource: NotebooksCollectionViewDataSource?
+
+    private lazy var btnAdd: UIBarButtonItem = {
+        let item = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(btnAddTap))
+        return item
+    }()
+    
     private lazy var collectionDelegate = NotebooksCollectionViewDelegate { [unowned self] (selectedCell) in
-        
         if let notebook = selectedCell.notebook {
             let note: NoteEntity
             if let lastNote = notebook.notes.last {
@@ -55,40 +52,31 @@ internal class NotebooksSelectionViewController: UIViewController {
                     note.title = NSAttributedString(string: "Lesson".localized())
                     try note.save()
                 } catch {
-                    self.present(self.alertController, animated: true, completion: nil)
+                    self.presentErrorAlert()
                 }
             }
-            
-            let destination = NotesViewController(notebook: notebook, 
-                                                  note: notebook.notes[notebook.notes.count-1])
+            let destination = NotesViewController(notebook: notebook, note: notebook.notes[notebook.notes.count-1])
             self.navigationController?.pushViewController(destination, animated: true)
-            
         } else {
-            self.present(self.alertController, animated: true, completion: nil)
+            self.presentErrorAlert()
         }
     }
     
-    private let alertController = UIAlertController(
-        title: "Could not open this notebook".localized(),
-        message: "The app could not load this notebook".localized(),
-        preferredStyle: .alert)
-        .makeErrorMessage(with: "The notebook collection view cell did not have a notebook".localized())
-
-    private lazy var btnAdd: UIBarButtonItem = {
-        let item = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(btnAddTap))
-        return item
-    }()
-    @IBAction func btnAddTap() {
-        btnAdd.isEnabled = false
-        navigationItem.hidesBackButton = true
-        AppUtility.setOrientation(.portrait, andRotateTo: .portrait)
-        let addController = AddNotebookViewController(workspace: workspace, dismissHandler: {
-            self.btnAdd.isEnabled = true
-            self.navigationItem.hidesBackButton = false
-            AppUtility.setOrientation(.all)
-        })
-        addController.moveTo(self)
+    // MARK: - Initializers
+    
+    internal init(workspace: WorkspaceEntity) {
+        super.init(nibName: nil, bundle: nil)
+        self.workspace = workspace
+        self.collectionDataSource = NotebooksCollectionViewDataSource(workspace: workspace, viewController: self, collectionView: { self.collectionView })
     }
+    internal required convenience init?(coder: NSCoder) {
+        guard let workspace = coder.decodeObject(forKey: "workspace") as? WorkspaceEntity else {
+            return nil
+        }
+        self.init(workspace: workspace)
+    }
+    
+    // MARK: - Override functions
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -119,5 +107,32 @@ internal class NotebooksSelectionViewController: UIViewController {
             collectionView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
             collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
+    }
+    
+    // MARK: - Funtions
+    
+    private func presentErrorAlert() {
+        
+         let alertController = UIAlertController(
+            title: "Could not open this notebook".localized(),
+            message: "The app could not load this notebook".localized(),
+            preferredStyle: .alert)
+            .makeErrorMessage(with: "The notebook collection view cell did not have a notebook".localized())
+        
+        self.present(alertController, animated: true, completion: nil)
+    }
+    
+    // MARK: - IBActions functions
+    
+    @IBAction func btnAddTap() {
+        btnAdd.isEnabled = false
+        navigationItem.hidesBackButton = true
+        AppUtility.setOrientation(.portrait, andRotateTo: .portrait)
+        let addController = AddNotebookViewController(workspace: workspace, dismissHandler: {
+            self.btnAdd.isEnabled = true
+            self.navigationItem.hidesBackButton = false
+            AppUtility.setOrientation(.all)
+        })
+        addController.moveTo(self)
     }
 }

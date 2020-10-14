@@ -24,7 +24,6 @@ internal class NotebookIndexViewController: UIViewController {
         }
         imgView.translatesAutoresizingMaskIntoConstraints = false
         imgView.contentMode = .scaleAspectFill
-
         return imgView
     }()
     
@@ -34,7 +33,6 @@ internal class NotebookIndexViewController: UIViewController {
         lbl.font = lbl.font.withSize(26)
         lbl.numberOfLines = 0
         lbl.translatesAutoresizingMaskIntoConstraints = false
-
         return lbl
     }()
     
@@ -43,10 +41,8 @@ internal class NotebookIndexViewController: UIViewController {
         tableView.dataSource = tableViewDataSource
         tableView.delegate = tableViewDelegate
         tableView.tableFooterView = UIView()
-
         tableView.backgroundColor = view.backgroundColor
         tableView.separatorStyle = .none
-
         tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
     }()
