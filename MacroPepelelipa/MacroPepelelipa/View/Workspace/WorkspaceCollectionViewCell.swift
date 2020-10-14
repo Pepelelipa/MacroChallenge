@@ -30,7 +30,7 @@ internal class WorkspaceCollectionViewCell: UICollectionViewCell {
         let lbl = UILabel(frame: .zero)
 
         lbl.textColor = .black
-        lbl.font = .preferredFont(forTextStyle: .headline)
+        lbl.font = MarkdownHeader.thirdHeaderFont
         lbl.textAlignment = .center
         lbl.translatesAutoresizingMaskIntoConstraints = false
 

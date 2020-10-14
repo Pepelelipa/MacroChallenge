@@ -15,6 +15,7 @@ internal class NotebookIndexTableViewCell: UITableViewCell {
     private let lessonLbl: UILabel = {
         let lbl = UILabel(frame: .zero)
         lbl.translatesAutoresizingMaskIntoConstraints = false
+        lbl.font = MarkdownHeader.secondHeaderFont
 
         return lbl
     }()

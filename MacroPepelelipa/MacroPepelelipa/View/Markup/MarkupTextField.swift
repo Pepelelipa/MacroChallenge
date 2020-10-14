@@ -19,8 +19,7 @@ internal class MarkupTextField: UITextField {
         self.textColor = .titleColor
         self.tintColor = .actionColor
         
-        let markdownFont = MarkdownParser.defaultFont.withSize(26).bold()
-        self.font = markdownFont
+        self.font = MarkdownHeader.firstHeaderFont
         
         self.translatesAutoresizingMaskIntoConstraints = false
         

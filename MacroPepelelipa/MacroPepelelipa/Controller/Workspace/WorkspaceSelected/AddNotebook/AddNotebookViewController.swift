@@ -31,7 +31,7 @@ internal class AddNotebookViewController: PopupContainerViewController {
         txtName.translatesAutoresizingMaskIntoConstraints = false
         txtName.placeholder = "New notebook name".localized()
         txtName.borderStyle = .none
-        txtName.font = .preferredFont(forTextStyle: .title1)
+        txtName.font = MarkdownHeader.thirdHeaderFont
         txtName.tintColor = .actionColor
         txtName.addTarget(self, action: #selector(textChanged(_:)), for: .editingChanged)
         txtName.returnKeyType = UIReturnKeyType.done 
@@ -78,6 +78,7 @@ internal class AddNotebookViewController: PopupContainerViewController {
         btnConfirm.tintColor = .white
         btnConfirm.setBackgroundImage(UIImage(named: "btnWorkspaceBackground"), for: .normal)
         btnConfirm.layer.cornerRadius = 22
+        btnConfirm.titleLabel?.font = MarkdownHeader.thirdHeaderFont
 
         return btnConfirm
     }()

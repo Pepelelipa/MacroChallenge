@@ -10,15 +10,39 @@ import UIKit
 extension UIFont {
         
     static let merriweather: UIFont? = {
-        return UIFont(name: "Merriweather", size: UIFont.labelFontSize)
+        let device = UIDevice.current.userInterfaceIdiom
+        switch device {
+        case .phone:
+            return UIFont(name: "Merriweather", size: 15)
+        case .pad:
+            return UIFont(name: "Merriweather", size: 20)
+        default:
+            return UIFont(name: "Merriweather", size: UIFont.labelFontSize)
+        }
     }()
     
     static let openSans: UIFont? = {
-        return UIFont(name: "OpenSans", size: UIFont.labelFontSize + 1)
+        let device = UIDevice.current.userInterfaceIdiom
+        switch device {
+        case .phone:
+            return UIFont(name: "OpenSans", size: 16)
+        case .pad:
+            return UIFont(name: "OpenSans", size: 21)
+        default:
+            return UIFont(name: "OpenSans", size: UIFont.labelFontSize + 1)
+        }
     }()
     
     static let dancingScript: UIFont? = {
-        return UIFont(name: "Dancing Script", size: UIFont.labelFontSize + 3)
+        let device = UIDevice.current.userInterfaceIdiom
+        switch device {
+        case .phone:
+            return UIFont(name: "Dancing Script", size: 18)
+        case .pad:
+            return UIFont(name: "Dancing Script", size: 23)
+        default:
+            return UIFont(name: "Dancing Script", size: UIFont.labelFontSize + 3)
+        }
     }()
     
     /**
