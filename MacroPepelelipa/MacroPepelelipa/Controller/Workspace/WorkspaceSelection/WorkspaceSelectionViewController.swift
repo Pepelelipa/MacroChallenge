@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Database
 
 internal class WorkspaceSelectionViewController: UIViewController {
     private lazy var collectionView: UICollectionView = {
@@ -65,6 +66,9 @@ internal class WorkspaceSelectionViewController: UIViewController {
         navigationItem.largeTitleDisplayMode = .always
         navigationItem.title = "Workspaces".localized()
         view.addSubview(collectionView)
+        
+        let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress(gesture:)))
+        self.collectionView.addGestureRecognizer(longPressGesture)
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -97,4 +101,28 @@ internal class WorkspaceSelectionViewController: UIViewController {
         ])
     }
     
+    @IBAction func handleLongPress(gesture: UILongPressGestureRecognizer) {
+        let point = gesture.location(in: collectionView)
+        
+        guard let indexPath = collectionView.indexPathForItem(at: point),
+              let cell = collectionView.cellForItem(at: indexPath) as? WorkspaceCollectionViewCell,
+              let workspace = cell.workspace else {
+            return
+        }
+        
+        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet).makeDeleteConfirmation(dataType: .workspace, deletionHandler: { _ in
+            do {
+                _ = try DataManager.shared().deleteWorkspace(workspace)
+            } catch {
+                let alertController = UIAlertController(
+                    title: "Could not delete this workspace".localized(),
+                    message: "The app could not delete the workspace".localized() + workspace.name,
+                    preferredStyle: .alert)
+                    .makeErrorMessage(with: "An error occurred while deleting this instance on the database".localized())
+                self.present(alertController, animated: true, completion: nil)
+            }
+        })
+        
+        self.present(alertController, animated: true, completion: nil)
+    }
 }

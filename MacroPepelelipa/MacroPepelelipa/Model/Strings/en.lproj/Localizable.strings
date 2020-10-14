@@ -49,5 +49,7 @@
 "Could not delete this notebook" = "Could not delete this notebook";
 "The app could not delete the notebook" = "The app could not delete the notebook";
 "An error occurred while deleting this instance on the database" = "An error occurred while deleting this instance on the database";
+"Could not delete this workspace" = "Could not delete this workspace";
+"The app could not delete the workspace" = "The app could not delete the workspace";
 "Delete" = "Delete";
 "Cancel" = "Cancel";
