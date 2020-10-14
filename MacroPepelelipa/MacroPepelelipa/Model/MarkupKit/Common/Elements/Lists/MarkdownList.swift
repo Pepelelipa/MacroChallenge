@@ -12,7 +12,7 @@ open class MarkdownList: MarkdownLevelElement {
     
     fileprivate static let regex = "^( {0,%@}[\\*\\+\\-])\\s+(.+)$"
     
-    public static let listFont = UIFont.systemFont(ofSize: 10)
+    public static let listFont = MarkdownParser.defaultFont
     public static var indicator: String = "●"
     public static var isList = false
     

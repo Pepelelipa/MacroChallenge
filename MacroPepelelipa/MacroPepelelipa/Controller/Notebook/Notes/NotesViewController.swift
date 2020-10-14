@@ -54,6 +54,18 @@ internal class NotesViewController: UIViewController,
         return item
     }()
     
+    internal private(set) lazy var markupContainerView: MarkupContainerView = {
+        let height: CGFloat = screenHeight/4
+        
+        let container = MarkupContainerView(frame: CGRect(x: 0, y: 0, width: screenWidth, height: height), owner: self.textView, delegate: self.formatViewDelegate, viewController: self)
+        
+        container.autoresizingMask = []
+        container.isHidden = true
+        container.delegate = self.formatViewDelegate
+        
+        return container
+    }()
+    
     private lazy var imageButton: UIButton = {
         let button = UIButton(frame: .zero)
         button.setImage(UIImage(named: "imageButton"), for: .normal)
@@ -174,6 +186,7 @@ internal class NotesViewController: UIViewController,
         
         if UIDevice.current.userInterfaceIdiom == .phone {
             textView.inputAccessoryView = keyboardToolbar
+            formatViewDelegate?.setFormatView(markupContainerView)
         } else if UIDevice.current.userInterfaceIdiom == .pad {
             textView.inputAccessoryView = nil
         }
@@ -306,10 +319,13 @@ internal class NotesViewController: UIViewController,
     internal func openPopOver() {
         let markupContainerViewController = MarkupContainerViewController()
         
-        markupContainerViewController.modalPresentationStyle = .popover
+        if let formatView = markupContainerViewController.formatView {
+            formatViewDelegate?.setFormatView(formatView)
+            textViewDelegate?.setFotmatView(formatView)
+        }
         
+        markupContainerViewController.modalPresentationStyle = .popover
         markupContainerViewController.popoverPresentationController?.sourceView = markupNavigationView.barButtonItems[4]
-        markupContainerViewController.preferredContentSize = CGSize(width: 380, height: 110)
         
         present(markupContainerViewController, animated: true)
     }
