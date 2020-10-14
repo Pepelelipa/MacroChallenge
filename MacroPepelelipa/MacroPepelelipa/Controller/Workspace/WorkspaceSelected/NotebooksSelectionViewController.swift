@@ -115,6 +115,11 @@ internal class NotebooksSelectionViewController: UIViewController {
         ])
     }
     
+    /**
+     This method handles the long press on a notebook, asking the user to delete it or not.
+     
+     - Parameter gesture: The UILongPressGestureRecognizer containing the gesture.
+     */
     @IBAction func handleLongPress(gesture: UILongPressGestureRecognizer) {
         let point = gesture.location(in: collectionView)
         

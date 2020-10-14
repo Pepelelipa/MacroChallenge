@@ -98,6 +98,11 @@ internal class NotebookIndexViewController: UIViewController {
         delegate?.indexShouldDismiss()
     }
     
+    /**
+     This method handles the press on the share button, asking the user what to do with the notebook.
+     
+     - Parameter sender: The UIButton that sends the action.
+     */
     @IBAction func shareButtonTap(_ sender: UIButton) {
         guard let notebook = self.notebook else {
             return
