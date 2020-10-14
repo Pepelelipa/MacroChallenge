@@ -76,6 +76,7 @@ public class DataManager {
         }
 
         try coreDataController.deleteWorkspace(workspaceObject.coreDataObject)
+        try workspaceObject.removeReferences()
         notifyDeletion(workspace, type: .workspace)
     }
 
@@ -112,6 +113,7 @@ public class DataManager {
         }
 
         try coreDataController.deleteNotebook(notebookObject.coreDataObject)
+        try notebookObject.removeReferences()
         notifyDeletion(notebook, type: .notebook)
     }
 
@@ -146,6 +148,7 @@ public class DataManager {
         }
 
         try coreDataController.deleteNote(noteObject.coreDataObject)
+        try noteObject.removeReferences()
         notifyDeletion(note, type: .note)
     }
 

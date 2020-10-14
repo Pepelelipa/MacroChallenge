@@ -78,6 +78,13 @@ internal class NoteObject: NoteEntity {
         try DataManager.shared().saveObjects()
     }
 
+    internal func removeReferences() throws {
+        if let notebook = self.notebook,
+           let index = notebook.notes.firstIndex(where: { $0 === self }){
+            notebook.notes.remove(at: index)
+        }
+    }
+
     private func notifyObservers() {
         observers.forEach({ $0.entityDidChangeTo(self) })
     }
