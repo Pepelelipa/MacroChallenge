@@ -48,9 +48,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func sceneDidEnterBackground(_ scene: UIScene) {
     }
     
+    /**
+    In this method, the icon of the application is changed. This happens by setting the alterate icon to a different icon in the application.
+     - Parameter iconName: The String containing the name of the icon being changed to.
+     */
     private func changeIcon(to iconName: String?) {
         guard UIApplication.shared.supportsAlternateIcons else {
-            print("Doesn't support alternate icons")
             return
         }
             
