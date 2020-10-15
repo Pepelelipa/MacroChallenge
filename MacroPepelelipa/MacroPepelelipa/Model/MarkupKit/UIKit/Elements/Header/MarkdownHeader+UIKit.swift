@@ -12,9 +12,39 @@ public extension MarkdownHeader {
     
     static let defaultFont = UIFont.openSans?.withTraits(.traitBold) ?? UIFont.boldSystemFont(ofSize: UIFont.smallSystemFontSize)
     
-    static let firstHeaderFont = UIFont.openSans?.withSize(23).withTraits(.traitBold) ?? UIFont.boldSystemFont(ofSize: 22)
+    static let firstHeaderFont: UIFont = {
+        let device = UIDevice.current.userInterfaceIdiom
+        switch device {
+        case .phone:
+            return UIFont.openSans?.withSize(26).withTraits(.traitBold) ?? UIFont.boldSystemFont(ofSize: 26)
+        case .pad:
+            return UIFont.openSans?.withSize(32).withTraits(.traitBold) ?? UIFont.boldSystemFont(ofSize: 32)
+        default:
+            return UIFont.boldSystemFont(ofSize: 26)
+        }
+    }()
     
-    static let secondHeaderFont = UIFont.openSans?.withSize(22).withTraits(.traitBold) ?? UIFont.boldSystemFont(ofSize: 20)
+    static let secondHeaderFont: UIFont = {
+        let device = UIDevice.current.userInterfaceIdiom
+        switch device {
+        case .phone:
+            return UIFont.openSans?.withSize(20).withTraits(.traitBold) ?? UIFont.boldSystemFont(ofSize: 20)
+        case .pad:
+            return UIFont.openSans?.withSize(26).withTraits(.traitBold) ?? UIFont.boldSystemFont(ofSize: 26)
+        default:
+            return UIFont.boldSystemFont(ofSize: 20)
+        }
+    }()
     
-    static let thirdHeaderFont = UIFont.openSans?.withSize(18).withTraits(.traitBold) ?? UIFont.boldSystemFont(ofSize: 17)
+    static let thirdHeaderFont: UIFont = {
+        let device = UIDevice.current.userInterfaceIdiom
+        switch device {
+        case .phone:
+            return UIFont.openSans?.withSize(18).withTraits(.traitBold) ?? UIFont.boldSystemFont(ofSize: 18)
+        case .pad:
+            return UIFont.openSans?.withSize(22).withTraits(.traitBold) ?? UIFont.boldSystemFont(ofSize: 22)
+        default:
+            return UIFont.boldSystemFont(ofSize: 18)
+        }
+    }()
 }

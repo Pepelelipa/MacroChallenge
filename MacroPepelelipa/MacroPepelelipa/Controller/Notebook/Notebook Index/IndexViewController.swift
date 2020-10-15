@@ -30,7 +30,7 @@ internal class NotebookIndexViewController: UIViewController {
     private var lblSubject: UILabel = {
         let lbl = UILabel(frame: .zero)
         lbl.textAlignment = .left
-        lbl.font = lbl.font.withSize(26)
+        lbl.font = MarkdownHeader.firstHeaderFont
         lbl.numberOfLines = 0
         lbl.translatesAutoresizingMaskIntoConstraints = false
         return lbl
@@ -61,7 +61,7 @@ internal class NotebookIndexViewController: UIViewController {
             self.present(alertController, animated: true, completion: nil)
         }
     }
-    
+
     // MARK: - Initializers
     
     internal init(notebook: NotebookEntity) {
@@ -70,6 +70,31 @@ internal class NotebookIndexViewController: UIViewController {
         tableViewDataSource = NotebookIndexTableViewDataSource(notebook: notebook)
         
         super.init(nibName: nil, bundle: nil)
+    }
+    /**
+     This method handles the press on the share button, asking the user what to do with the notebook.
+     
+     - Parameter sender: The UIButton that sends the action.
+     */
+    @IBAction func shareButtonTap(_ sender: UIButton) {
+        guard let notebook = self.notebook else {
+            return
+        }
+        
+        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet).makeDeleteConfirmation(dataType: .notebook, deletionHandler: { _ in
+            do {
+                _ = try DataManager.shared().deleteNotebook(notebook)
+            } catch {
+                let alertController = UIAlertController(
+                    title: "Could not delete this notebook".localized(),
+                    message: "The app could not delete the notebook".localized() + notebook.name,
+                    preferredStyle: .alert)
+                    .makeErrorMessage(with: "An error occurred while deleting this instance on the database".localized())
+                self.present(alertController, animated: true, completion: nil)
+            }
+        })
+        
+        self.present(alertController, animated: true, completion: nil)
     }
 
     internal convenience required init?(coder: NSCoder) {
