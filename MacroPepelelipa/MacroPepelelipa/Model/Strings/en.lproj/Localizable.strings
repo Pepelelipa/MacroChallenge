@@ -35,6 +35,7 @@
 "Could not open this note" = "Could not open this note";
 "The app could not open the selected note" = "The app could not open the selected note";
 "The index did not have a note" = "The index did not have a note";
+"Fail to retrive a notebook" = "Fail to retrive a notebook";
 "Could not load image" = "Could not load image";
 "The app could not load the selected image" = "The app could not load the selected image";
 "Error creating new notebook" = "Error creating new notebook";
@@ -46,6 +47,11 @@
 "Error presenting Photo Library" = "Error presenting Photo Library";
 "The app could not present the Photo Library" = "The app could not present the Photo Library";
 "The app could not load the native Image Picker Controller" = "The app could not load the native Image Picker Controller";
+"New note title" = "New note title";
+"Create new note" = "Create new note";
+"Error presenting Notebook Index" = "Error presenting Notebook Index";
+"The app could not present the Notebook Index" = "The app could not present the Notebook Index";
+"The app could not load the NotebookIndexViewController" = "The app could not load the NotebookIndexViewController";
 "Could not delete this notebook" = "Could not delete this notebook";
 "The app could not delete the notebook" = "The app could not delete the notebook";
 "An error occurred while deleting this instance on the database" = "An error occurred while deleting this instance on the database";

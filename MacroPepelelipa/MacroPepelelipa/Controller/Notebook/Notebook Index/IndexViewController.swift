@@ -10,42 +10,13 @@ import UIKit
 import Database
 
 internal class NotebookIndexViewController: UIViewController {
-    internal private(set) var notebook: NotebookEntity?
-    internal init(notebook: NotebookEntity) {
-        self.notebook = notebook
-        lblSubject.text = notebook.name
-        tableViewDataSource = NotebookIndexTableViewDataSource(notebook: notebook)
-        
-        super.init(nibName: nil, bundle: nil)
-    }
-
-    internal required convenience init?(coder: NSCoder) {
-        guard let notebook = coder.decodeObject(forKey: "notebook") as? NotebookEntity else {
-            return nil
-        }
-        self.init(notebook: notebook)
-    }
-
-    private lazy var btnBack: UIButton = {
-        let btn = UIButton(frame: .zero)
-        btn.setImage(UIImage(systemName: "chevron.left"), for: .normal)
-        btn.tintColor = .actionColor
-        btn.addTarget(self, action: #selector(btnBackTap(_:)), for: .touchUpInside)
-
-        btn.translatesAutoresizingMaskIntoConstraints = false
-
-        return btn
-    }()
-    private lazy var btnShare: UIButton = {
-        let btn = UIButton(frame: .zero)
-        btn.setImage(UIImage(systemName: "ellipsis.circle"), for: .normal)
-        btn.tintColor = .actionColor
-        btn.addTarget(self, action: #selector(shareButtonTap(_:)), for: .touchUpInside)
-        
-        btn.translatesAutoresizingMaskIntoConstraints = false
-        
-        return btn
-    }()
+    
+    // MARK: - Variables and Constants
+    
+    private var notebook: NotebookEntity?
+    internal weak var observer: IndexObserver?
+    private let tableViewDataSource: NotebookIndexTableViewDataSource
+    
     private lazy var imgViewNotebook: NotebookView = {
         let imgView = NotebookView(frame: .zero)
         if let color = UIColor(named: self.notebook?.colorName ?? "") {
@@ -53,51 +24,53 @@ internal class NotebookIndexViewController: UIViewController {
         }
         imgView.translatesAutoresizingMaskIntoConstraints = false
         imgView.contentMode = .scaleAspectFill
-
         return imgView
     }()
+    
     private var lblSubject: UILabel = {
         let lbl = UILabel(frame: .zero)
         lbl.textAlignment = .left
         lbl.font = MarkdownHeader.firstHeaderFont
         lbl.numberOfLines = 0
         lbl.translatesAutoresizingMaskIntoConstraints = false
-
         return lbl
     }()
-    private let tableViewDataSource: NotebookIndexTableViewDataSource
+    
+    private lazy var tableView: UITableView = {
+        let tableView = UITableView(frame: .zero)
+        tableView.dataSource = tableViewDataSource
+        tableView.delegate = tableViewDelegate
+        tableView.tableFooterView = UIView()
+        tableView.backgroundColor = view.backgroundColor
+        tableView.separatorStyle = .none
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        return tableView
+    }()
+    
     private lazy var tableViewDelegate: NotebookIndexTableViewDelegate = NotebookIndexTableViewDelegate { [unowned self] (selectedCell) in
-        guard let note = selectedCell.indexNote else {
+        if let note = selectedCell.indexNote {
+            self.observer?.didChangeIndex(to: note)
+            self.dismiss(animated: true, completion: nil)
+        } else {
             let alertController = UIAlertController(
                 title: "Could not open this note".localized(),
                 message: "The app could not open the selected note".localized(),
                 preferredStyle: .alert)
                 .makeErrorMessage(with: "The index did not have a note".localized())
             
-            self.present(alertController, animated: true, completion: nil)            
-            return
+            self.present(alertController, animated: true, completion: nil)
         }
-        
-        self.splitViewController?.showDetailViewController(NotesViewController(note: note), sender: self)
     }
-    private lazy var tableView: UITableView = {
-        let tableView = UITableView(frame: .zero)
-        tableView.dataSource = tableViewDataSource
-        tableView.delegate = tableViewDelegate
-        tableView.tableFooterView = UIView()
 
-        tableView.backgroundColor = view.backgroundColor
-        tableView.separatorStyle = .none
-
-        tableView.translatesAutoresizingMaskIntoConstraints = false
-        return tableView
-    }()
-    internal weak var delegate: NotebookIndexDelegate?
-
-    @IBAction func btnBackTap(_ sender: UIButton) {
-        delegate?.indexShouldDismiss()
-    }
+    // MARK: - Initializers
     
+    internal init(notebook: NotebookEntity) {
+        self.notebook = notebook
+        lblSubject.text = notebook.name
+        tableViewDataSource = NotebookIndexTableViewDataSource(notebook: notebook)
+        
+        super.init(nibName: nil, bundle: nil)
+    }
     /**
      This method handles the press on the share button, asking the user what to do with the notebook.
      
@@ -124,45 +97,40 @@ internal class NotebookIndexViewController: UIViewController {
         self.present(alertController, animated: true, completion: nil)
     }
 
+    internal convenience required init?(coder: NSCoder) {
+        guard let notebook = coder.decodeObject(forKey: "notebook") as? NotebookEntity else {
+            return nil
+        }
+        self.init(notebook: notebook)
+    }
+    
+    // MARK: - Override functions
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .backgroundColor
+        view.backgroundColor = .rootColor
         
-        view.addSubview(btnBack)
-        view.addSubview(btnShare)
         view.addSubview(imgViewNotebook)
         view.addSubview(lblSubject)
         view.addSubview(tableView)
     }
-
+    
     override func viewWillAppear(_ animated: Bool) {
-        delegate?.indexWillAppear()
-    }
-    override func viewWillDisappear(_ animated: Bool) {
-        delegate?.indexWillDisappear()
+        navigationItem.largeTitleDisplayMode = .never
     }
 
     override func viewWillLayoutSubviews() {
-        NSLayoutConstraint.activate([
-            btnShare.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
-            btnShare.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20)
-        ])
-        
-        NSLayoutConstraint.activate([
-            btnBack.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
-            btnBack.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20)
-        ])
 
         NSLayoutConstraint.activate([
             NSLayoutConstraint(item: imgViewNotebook, attribute: .height, relatedBy: .equal, toItem: imgViewNotebook, attribute: .width, multiplier: (1.33), constant: 0.0),
-            imgViewNotebook.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 40),
+            imgViewNotebook.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
             imgViewNotebook.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 25),
             imgViewNotebook.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.08)
         ])
 
         NSLayoutConstraint.activate([
             NSLayoutConstraint(item: lblSubject, attribute: .centerY, relatedBy: .equal, toItem: imgViewNotebook, attribute: .centerY, multiplier: 1.0, constant: 0.0),
-            lblSubject.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 40),
+            lblSubject.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
             lblSubject.leadingAnchor.constraint(equalTo: imgViewNotebook.trailingAnchor, constant: 20),
             lblSubject.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
             lblSubject.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.08)

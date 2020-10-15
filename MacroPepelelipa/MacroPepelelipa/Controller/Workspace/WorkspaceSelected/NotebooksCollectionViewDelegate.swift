@@ -14,7 +14,7 @@ internal class NotebooksCollectionViewDelegate: NSObject, UICollectionViewDelega
     init(_ didSelectCell: @escaping (NotebookCollectionViewCell) -> Void) {
         self.didSelectCell = didSelectCell
     }
-
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let isLandscape = UIDevice.current.orientation.isLandscape
         if UIDevice.current.userInterfaceIdiom == .pad {
