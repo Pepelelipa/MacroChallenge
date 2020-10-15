@@ -12,7 +12,7 @@ import UIKit
 internal class AddNewSpaceToolBar: UIToolbar {
     
     private lazy var doneButton: UIBarButtonItem = {
-        let barButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(placeHolderMethod))
+        let barButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(dismissKeyboard))
         barButton.tintColor = UIColor.actionColor
         return barButton
     }()
@@ -35,7 +35,7 @@ internal class AddNewSpaceToolBar: UIToolbar {
         self.init(frame: frame, owner: owner)
     }
     
-    @objc func placeHolderMethod() {
+    @objc func dismissKeyboard() {
         self.owner.resignFirstResponder()
     }
     

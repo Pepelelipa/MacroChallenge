@@ -503,7 +503,14 @@ internal class NotesViewController: UIViewController,
     }
     
     @IBAction private func addNewNote() {
-        // TODO: add new note
+        guard let guardedNotebook = notebook else {
+            return
+        }
+        addNewNoteButton.isEnabled = false
+        let addController = AddNoteViewController(notebook: guardedNotebook, dismissHandler: {
+            self.addNewNoteButton.isEnabled = true
+        })
+        addController.moveTo(self)
     }
     
     @IBAction private func presentMoreActions() {

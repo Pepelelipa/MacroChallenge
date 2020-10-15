@@ -15,17 +15,6 @@ internal class NotebooksSelectionViewController: UIViewController {
     
     private var collectionDataSource: NotebooksCollectionViewDataSource?
     internal private(set) weak var workspace: WorkspaceEntity?
-    internal init(workspace: WorkspaceEntity) {
-        super.init(nibName: nil, bundle: nil)
-        self.workspace = workspace
-        self.collectionDataSource = NotebooksCollectionViewDataSource(workspace: workspace, viewController: self, collectionView: { self.collectionView })
-    }
-    internal required convenience init?(coder: NSCoder) {
-        guard let workspace = coder.decodeObject(forKey: "workspace") as? WorkspaceEntity else {
-            return nil
-        }
-        self.init(workspace: workspace)
-    }
 
     private lazy var collectionView: UICollectionView = {
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
@@ -46,30 +35,6 @@ internal class NotebooksSelectionViewController: UIViewController {
         
         return collectionView
     }()
-
-    private var collectionDataSource: NotebooksCollectionViewDataSource?
-    private lazy var collectionDelegate = NotebooksCollectionViewDelegate { [unowned self] (selectedCell) in
-        guard let notebook = selectedCell.notebook else {
-            let alertController = UIAlertController(
-                title: "Could not open this notebook".localized(),
-                message: "The app could not load this notebook".localized(),
-                preferredStyle: .alert)
-                .makeErrorMessage(with: "The notebook collection view cell did not have a notebook".localized())
-            
-            self.present(alertController, animated: true, completion: nil)
-            return
-        }
-        let split = SplitViewController(notebook: notebook)
-        
-        #warning("Fade animation as placeholder for Books animation.")
-        let transition = CATransition()
-        transition.duration = 0.4
-        transition.type = CATransitionType.fade
-        transition.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
-        self.view.window?.layer.add(transition, forKey: kCATransition)
-        
-        self.present(split, animated: false)
-    }
 
     private lazy var btnAdd: UIBarButtonItem = {
         let item = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(btnAddTap))
@@ -190,6 +155,7 @@ internal class NotebooksSelectionViewController: UIViewController {
             AppUtility.setOrientation(.all)
         })
         addController.moveTo(self)
+    }
     /**
      This method handles the long press on a notebook, asking the user to delete it or not.
      
