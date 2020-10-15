@@ -167,6 +167,10 @@ internal class NotebooksSelectionViewController: UIViewController {
             }
         })
         
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            alertController.popoverPresentationController?.sourceView = cell
+            alertController.popoverPresentationController?.sourceRect = cell.frame
+        }
         self.present(alertController, animated: true, completion: nil)
     }
     

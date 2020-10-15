@@ -222,7 +222,12 @@ internal class WorkspaceSelectionViewController: UIViewController {
             }
         })
         
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            alertController.popoverPresentationController?.sourceView = cell
+            alertController.popoverPresentationController?.sourceRect = cell.frame
+        }
         self.present(alertController, animated: true, completion: nil)
+        
     }
     
     internal func switchEmptyScreenView(shouldBeHidden: Bool = false) {
