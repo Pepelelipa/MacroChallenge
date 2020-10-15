@@ -11,6 +11,7 @@ import UIKit
 internal class NotebookIndexTableViewDelegate: NSObject, UITableViewDelegate {
     
     private var didSelectCell: ((NotebookIndexTableViewCell) -> Void)?
+    
     init(_ didSelectCell: @escaping (NotebookIndexTableViewCell) -> Void) {
         self.didSelectCell = didSelectCell
     }
