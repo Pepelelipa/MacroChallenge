@@ -29,8 +29,8 @@ internal class WorkspaceCollectionViewCell: UICollectionViewCell {
     private var lblWorkspaceName: UILabel = {
         let lbl = UILabel(frame: .zero)
 
-        lbl.textColor = .black
-        lbl.font = .preferredFont(forTextStyle: .headline)
+        lbl.textColor = UIColor.titleColor ?? .black
+        lbl.font = MarkdownHeader.thirdHeaderFont
         lbl.textAlignment = .center
         lbl.translatesAutoresizingMaskIntoConstraints = false
 

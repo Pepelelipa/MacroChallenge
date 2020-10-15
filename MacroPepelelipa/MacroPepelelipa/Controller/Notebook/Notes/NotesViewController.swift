@@ -2,7 +2,8 @@
 //  NotesViewController.swift
 //  MacroPepelelipa
 //
-//  Created by Pedro Giuliano Farina on 21/09/20.
+//  Created by Pedro Giuliano Farina and 
+//             Leonardo Amorim de Oliveira on 21/09/20.
 //  Copyright © 2020 Pedro Giuliano Farina. All rights reserved.
 //
 
@@ -34,21 +35,21 @@ internal class NotesViewController: UIViewController,
     internal private(set) weak var notebook: NotebookEntity?
     
     private lazy var addNewNoteButton: UIBarButtonItem = {
-        let item = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addNewNote))
+        let item = UIBarButtonItem(ofType: .addNote, 
+                                   target: self, 
+                                   action: #selector(addNewNote))
         return item
     }()
     
     private lazy var moreActionsButton: UIBarButtonItem = {
-        let item = UIBarButtonItem(image: UIImage(systemName: "ellipsis.circle"), 
-                                   style: .plain, 
+        let item = UIBarButtonItem(ofType: .moreActions, 
                                    target: self, 
-                                   action: #selector(presentMoreActionsButton))
+                                   action: #selector(presentMoreActions))
         return item
     }()
     
     private lazy var notebookIndexButton: UIBarButtonItem = {
-        let item = UIBarButtonItem(image: UIImage(systemName: "n.square"), 
-                                   style: .plain, 
+        let item = UIBarButtonItem(ofType: .index, 
                                    target: self, 
                                    action: #selector(presentNotebookIndex))
         return item
@@ -421,9 +422,22 @@ internal class NotesViewController: UIViewController,
     }
     
     func didChangeIndex(to note: NoteEntity) {
-        self.note = note
-        self.textField.attributedText = note.title
-        self.textView.attributedText = note.text
+        
+        do {
+            let notesViewController = NotesViewController(notebook: try note.getNotebook(), note: note)
+            
+            let navigationController = self.navigationController
+            navigationController?.popViewController(animated: false)
+            navigationController?.pushViewController(notesViewController, animated: false)
+        
+        } catch {
+            let alertController = UIAlertController(
+                title: "Could not open this note".localized(),
+                message: "The app could not open the selected note".localized(),
+                preferredStyle: .alert)
+                .makeErrorMessage(with: "The app could not present the Notebook Index".localized())
+            present(alertController, animated: true, completion: nil)
+        }
     }
     
     // MARK: - IBActions functions
@@ -499,13 +513,17 @@ internal class NotesViewController: UIViewController,
         addController.moveTo(self)
     }
     
-    @IBAction private func presentMoreActionsButton() {
+    @IBAction private func presentMoreActions() {
         // TODO: present more actions button
     }
     
     @IBAction private func presentNotebookIndex() {
         if let presentNotebook = self.notebook {
-            navigationController?.pushViewController(NotebookIndexViewController(notebook: presentNotebook), animated: true)
+            
+            let notebookIndexViewController = NotebookIndexViewController(notebook: presentNotebook)
+            notebookIndexViewController.observer = self
+            
+            self.present(notebookIndexViewController, animated: true, completion: nil)
         }
     }
 }

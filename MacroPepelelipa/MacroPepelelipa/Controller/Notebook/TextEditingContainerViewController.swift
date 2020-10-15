@@ -5,11 +5,44 @@
 //  Created by Leonardo Oliveira on 14/10/20.
 //  Copyright © 2020 Pedro Giuliano Farina. All rights reserved.
 //
+//swiftlint:disable multiple_closures_with_trailing_closure
 
 import UIKit
 import Database
 
-internal class TextEditingContainerViewController: UIViewController {
+internal class TextEditingContainerViewController: UIViewController, 
+                                                   IndexObserver {
+    
+    // MARK: - Variables and Constants
+    
+    private var centerViewController: NotesViewController?
+    private weak var rightViewController: NotebookIndexViewController?
+    
+    private var movement: CGFloat?
+    internal var widthConstraint: NSLayoutConstraint?
+    
+    private lazy var addNewNoteButton: UIBarButtonItem = {
+        let item = UIBarButtonItem(ofType: .addNote, 
+                                   target: self, 
+                                   action: #selector(addNewNote))
+        return item
+    }()
+    
+    private lazy var moreActionsButton: UIBarButtonItem = {
+        let item = UIBarButtonItem(ofType: .moreActions, 
+                                   target: self, 
+                                   action: #selector(presentMoreActions))
+        return item
+    }()
+    
+    private lazy var notebookIndexButton: UIBarButtonItem = {
+        let item = UIBarButtonItem(ofType: .index, 
+                                   target: self, 
+                                   action: #selector(presentNotebookIndex))
+        return item
+    }()
+    
+    // MARK: - Initializers
     
     internal init(centerViewController: NotesViewController) {
         self.centerViewController = centerViewController
@@ -23,95 +56,147 @@ internal class TextEditingContainerViewController: UIViewController {
         self.init(centerViewController: centerViewController)
     }
     
-    enum SlideOutState {
-        case collapsed
-        case rightPanelExpanded
-    }
-    
-    // private weak var centerNavigationController: UINavigationController?
-    
-    private var centerViewController: NotesViewController?
-    private var rightViewController: NotebookIndexViewController?
-    private var currentState: SlideOutState = .collapsed
-    private lazy var centerPanelExpandedOffset: CGFloat = view.frame.width * 0.6
-    
-    private lazy var notebookIndexButton: UIBarButtonItem = {
-        let item = UIBarButtonItem(image: UIImage(systemName: "n.square"), 
-                                   style: .plain, 
-                                   target: self, 
-                                   action: #selector(presentNotebookIndex))
-        return item
-    }()
+    // MARK: - Override functions
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        view.backgroundColor = .red
-        
-        if let centerViewController = self.centerViewController, 
-           let notebook = centerViewController.notebook {
-            rightViewController = NotebookIndexViewController(notebook: notebook)
-            view.addSubview(centerViewController.view)
-            addChild(centerViewController)
+        if let centerViewController = self.centerViewController {
+            showCenterViewController(centerViewController)
         } else {
             navigationController?.popViewController(animated: true)
         }
         
-        navigationItem.rightBarButtonItem = notebookIndexButton
+        navigationItem.rightBarButtonItems = [addNewNoteButton, moreActionsButton, notebookIndexButton]
+        navigationItem.largeTitleDisplayMode = .never
+        view.backgroundColor = .rootColor
     }
     
-    func addChildSidePanelController(_ sidePanelController: NotebookIndexViewController) {
-        // view.addSubview(sidePanelController.view)
-        view.insertSubview(sidePanelController.view, at: 0)
-        addChild(sidePanelController)
-        sidePanelController.didMove(toParent: self)
-        
-        sidePanelController.view.translatesAutoresizingMaskIntoConstraints = false
-        
-        NSLayoutConstraint.activate([
-            sidePanelController.view.topAnchor.constraint(equalTo: view.topAnchor),
-            sidePanelController.view.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            sidePanelController.view.widthAnchor.constraint(equalToConstant: view.frame.width * 0.4),
-            sidePanelController.view.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-        ])
-        
-    }
+    // MARK: - Functions
     
-    func animateRightPanel(shouldExpand: Bool) {
-        if shouldExpand {
-            currentState = .rightPanelExpanded
-            animateCenterPanelXPosition(
-                targetPosition: -view.frame.width + centerPanelExpandedOffset)
-        } else {
-            animateCenterPanelXPosition(targetPosition: 0) { _ in
-                self.currentState = .collapsed
+    func didChangeIndex(to note: NoteEntity) {
+        if let rightViewController = rightViewController {
+            hideIndex(rightViewController)
+            
+            do {
+                let centerViewController = NotesViewController(notebook: try note.getNotebook(), note: note)
+                showCenterViewController(centerViewController)
                 
-                self.rightViewController?.view.removeFromSuperview()
-                self.rightViewController = nil
+            } catch {
+                let alertController = UIAlertController(
+                    title: "Could not open this note".localized(),
+                    message: "The app could not open the selected note".localized(),
+                    preferredStyle: .alert)
+                    .makeErrorMessage(with: "The app could not present the Notebook Index".localized())
+                present(alertController, animated: true, completion: nil)
             }
         }
     }
     
-    func animateCenterPanelXPosition(targetPosition: CGFloat, completion: ((Bool) -> Void)? = nil) {
-      UIView.animate(withDuration: 0.5,
-                     delay: 0,
-                     usingSpringWithDamping: 0.9,
-                     initialSpringVelocity: 0,
-                     options: .curveEaseInOut, 
-                     animations: {
-                        self.centerViewController?.view.frame.origin.x = targetPosition
-      }, completion: completion)
+    /**
+     This method instaciates NotebookIndexViewController and peform an animation to show it.
+     - Parameter notebook: The current notebook
+     */
+    private func showIndex(for notebook: NotebookEntity) {
+        let rightViewController = NotebookIndexViewController(notebook: notebook)
+        rightViewController.observer = self
+        rightViewController.willMove(toParent: self)
+        addChild(rightViewController)
+        
+        let rightView: UIView = rightViewController.view
+        rightView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(rightView)
+        rightView.frame = CGRect(x: view.frame.maxX, y: view.frame.maxY, width: 0, height: view.frame.height)
+
+        let widthConstraint = rightView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.4)
+        self.widthConstraint = widthConstraint
+
+        NSLayoutConstraint.activate([
+            widthConstraint,
+            rightView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            rightView.topAnchor.constraint(equalTo: view.topAnchor),
+            rightView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ])
+        
+        rightViewController.didMove(toParent: self)
+        self.movement = view.frame.width * 0.4
+
+        UIView.animate(withDuration: 0.5) {
+            for child in self.view.subviews {
+                child.frame.origin.x -= self.view.frame.width * 0.4
+            }
+        }
+
+        self.rightViewController = rightViewController
     }
     
+    /**
+     This method peforms an animation to hide the NotebookIndexViewController.
+     - Parameter rightViewController: the presenting NotebookIndexViewController.
+     */
+    private func hideIndex(_ rightViewController: NotebookIndexViewController) {
+        UIView.animate(withDuration: 0.5) {
+            for child in self.view.subviews {
+                child.frame.origin.x += self.movement ?? rightViewController.view.frame.width
+            }
+        } completion: { _ in
+            rightViewController.willMove(toParent: nil)
+            rightViewController.removeFromParent()
+            rightViewController.view.removeFromSuperview()
+            rightViewController.didMove(toParent: nil)
+        }
+
+        self.rightViewController = nil
+    }
+    
+    /**
+     This method removes a NotesViewController and instaciates a new one.
+     - Parameter centerViewController: The current centerViewController.
+     */
+    private func showCenterViewController(_ centerViewController: NotesViewController) {
+        
+        self.centerViewController?.willMove(toParent: nil)
+        self.centerViewController?.removeFromParent()
+        self.centerViewController?.view.removeFromSuperview()
+        self.centerViewController?.didMove(toParent: nil)
+        
+        self.centerViewController = centerViewController
+        centerViewController.willMove(toParent: self)
+        addChild(centerViewController)
+        view.addSubview(centerViewController.view)
+        centerViewController.didMove(toParent: self)
+    }
+    
+    // MARK: - IBActions functions
+    
+    @IBAction private func addNewNote() {
+        // TODO: present more actions
+    }
+    
+    @IBAction private func presentMoreActions() {
+        // TODO: present more actions
+    }
+
+    /**
+     This method checks if the notebook index is already appearing on screen or not. If it isn't appearing on screen, instaciates NotebookIndexViewController and peform an animation to show it. If it is appearing on screen, peform an animation to hide it.
+     */
     @IBAction private func presentNotebookIndex() {
         
-        let notAlreadyExpanded = (currentState != .rightPanelExpanded)
+        if let rightViewController = rightViewController {
+            hideIndex(rightViewController)
         
-        if notAlreadyExpanded,
-           let notebookIndexViewController = self.rightViewController {
-            addChildSidePanelController(notebookIndexViewController)
+        } else if let notebook = centerViewController?.notebook {
+            showIndex(for: notebook)
+        
+        } else {
+            // Present error alert
+            let alertController = UIAlertController(
+                title: "Error presenting Notebook Index".localized(),
+                message: "The app could not present the Notebook Index".localized(),
+                preferredStyle: .alert)
+                .makeErrorMessage(with: "The app could not load the NotebookIndexViewController".localized())
+            
+            present(alertController, animated: true, completion: nil)
         }
-        animateRightPanel(shouldExpand: notAlreadyExpanded)
     }
     
 }

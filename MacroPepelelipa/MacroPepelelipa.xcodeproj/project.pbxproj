@@ -112,6 +112,7 @@
 		1EFA49CE252D15C500602904 /* MarkupNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EFA49CD252D15C500602904 /* MarkupNavigationView.swift */; };
 		A731AA7425372F9C00624131 /* IndexObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = A731AA7325372F9C00624131 /* IndexObserver.swift */; };
 		A731AA7F25374A8A00624131 /* TextEditingContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A731AA7E25374A8A00624131 /* TextEditingContainerViewController.swift */; };
+		A77579EF2538C9CC00F4268C /* NotesBarButtonItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = A77579EE2538C9CC00F4268C /* NotesBarButtonItems.swift */; };
 		A792F03A25279E8400AB1766 /* NotebookIndexTableViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A792F03925279E8400AB1766 /* NotebookIndexTableViewDelegate.swift */; };
 		A7BDD5FF2513F83F00DDB6A0 /* IndexViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7BDD5FE2513F83F00DDB6A0 /* IndexViewController.swift */; };
 		A7BDD60A251406D900DDB6A0 /* TableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7BDD609251406D900DDB6A0 /* TableViewDataSource.swift */; };
@@ -132,7 +133,7 @@
 		D9F4A9AB25277A6B00BFDC19 /* CGRectExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9F4A9A725277A6A00BFDC19 /* CGRectExtension.swift */; };
 		D9F4A9AE25277AC900BFDC19 /* TextBoxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9F4A9AD25277AC900BFDC19 /* TextBoxView.swift */; };
 		D9F4A9BD2527D0A600BFDC19 /* MarkupToolBarObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9F4A9BC2527D0A600BFDC19 /* MarkupToolBarObserver.swift */; };
-		E4017A8D252CEA9B00ABB87C /* ErrorAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4017A8C252CEA9B00ABB87C /* ErrorAlertController.swift */; };
+		E4017A8D252CEA9B00ABB87C /* AlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4017A8C252CEA9B00ABB87C /* AlertController.swift */; };
 		E4026286252FAC7800BCDD93 /* DancingScript-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E4026284252FAC7800BCDD93 /* DancingScript-Bold.ttf */; };
 		E4026287252FAC7800BCDD93 /* DancingScript-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E4026285252FAC7800BCDD93 /* DancingScript-Regular.ttf */; };
 		E4277C4C2527B824002CD6B1 /* MarkupFormatViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4277C4B2527B824002CD6B1 /* MarkupFormatViewDelegate.swift */; };
@@ -281,6 +282,7 @@
 		1EFA49CD252D15C500602904 /* MarkupNavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkupNavigationView.swift; sourceTree = "<group>"; };
 		A731AA7325372F9C00624131 /* IndexObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = IndexObserver.swift; path = "MacroPepelelipa/Controller/Notebook/Notebook Index/IndexObserver.swift"; sourceTree = SOURCE_ROOT; };
 		A731AA7E25374A8A00624131 /* TextEditingContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextEditingContainerViewController.swift; sourceTree = "<group>"; };
+		A77579EE2538C9CC00F4268C /* NotesBarButtonItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesBarButtonItems.swift; sourceTree = "<group>"; };
 		A792F03925279E8400AB1766 /* NotebookIndexTableViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotebookIndexTableViewDelegate.swift; sourceTree = "<group>"; };
 		A7BDD5FE2513F83F00DDB6A0 /* IndexViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndexViewController.swift; sourceTree = "<group>"; };
 		A7BDD609251406D900DDB6A0 /* TableViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewDataSource.swift; sourceTree = "<group>"; };
@@ -301,7 +303,7 @@
 		D9F4A9A725277A6A00BFDC19 /* CGRectExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGRectExtension.swift; sourceTree = "<group>"; };
 		D9F4A9AD25277AC900BFDC19 /* TextBoxView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextBoxView.swift; sourceTree = "<group>"; };
 		D9F4A9BC2527D0A600BFDC19 /* MarkupToolBarObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkupToolBarObserver.swift; sourceTree = "<group>"; };
-		E4017A8C252CEA9B00ABB87C /* ErrorAlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorAlertController.swift; sourceTree = "<group>"; };
+		E4017A8C252CEA9B00ABB87C /* AlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertController.swift; sourceTree = "<group>"; };
 		E4026284252FAC7800BCDD93 /* DancingScript-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "DancingScript-Bold.ttf"; sourceTree = "<group>"; };
 		E4026285252FAC7800BCDD93 /* DancingScript-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "DancingScript-Regular.ttf"; sourceTree = "<group>"; };
 		E4277C4B2527B824002CD6B1 /* MarkupFormatViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkupFormatViewDelegate.swift; sourceTree = "<group>"; };
@@ -919,6 +921,8 @@
 			isa = PBXGroup;
 			children = (
 				E4017A8C252CEA9B00ABB87C /* ErrorAlertController.swift */,
+				A77579EE2538C9CC00F4268C /* NotesBarButtonItems.swift */,
+				E4017A8C252CEA9B00ABB87C /* AlertController.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1167,7 +1171,7 @@
 				022D60152519559D00001D5B /* MarkdownQuote.swift in Sources */,
 				D9F4A9AE25277AC900BFDC19 /* TextBoxView.swift in Sources */,
 				0247F78D25115BAA00405A61 /* NotebooksSelectionViewController.swift in Sources */,
-				E4017A8D252CEA9B00ABB87C /* ErrorAlertController.swift in Sources */,
+				E4017A8D252CEA9B00ABB87C /* AlertController.swift in Sources */,
 				022D601D2519559D00001D5B /* MarkdownBold.swift in Sources */,
 				A731AA7F25374A8A00624131 /* TextEditingContainerViewController.swift in Sources */,
 				D9E4B0C9252E316900665CDC /* ImageBoxView.swift in Sources */,
@@ -1204,6 +1208,7 @@
 				02E5A22C25239E36009DFFB5 /* WorkspaceSelectionViewController.swift in Sources */,
 				024C5BB8252E41E2009549CE /* ColorSelectionCollectionViewDataSource.swift in Sources */,
 				026C3CAC251942A7001E32AE /* NotesViewController.swift in Sources */,
+				A77579EF2538C9CC00F4268C /* NotesBarButtonItems.swift in Sources */,
 				1E9290C1252FA68600E8B142 /* MarkupContainerViewController.swift in Sources */,
 				1EE652C2252504400015E3D4 /* MarkupContainerView.swift in Sources */,
 				022D60212519559D00001D5B /* MarkdownLinkElement.swift in Sources */,
