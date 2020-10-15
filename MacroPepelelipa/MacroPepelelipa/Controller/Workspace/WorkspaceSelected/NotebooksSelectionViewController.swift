@@ -85,6 +85,11 @@ internal class NotebooksSelectionViewController: UIViewController {
         return view
     }()
     
+    private var compactRegularConstraints: [NSLayoutConstraint] = []
+    private var regularCompactConstraints: [NSLayoutConstraint] = []
+    private var regularConstraints: [NSLayoutConstraint] = []
+    private var sharedConstraints: [NSLayoutConstraint] = []
+    
     @IBAction func btnAddTap() {
         btnAdd.isEnabled = false
         navigationItem.hidesBackButton = true
@@ -108,6 +113,10 @@ internal class NotebooksSelectionViewController: UIViewController {
         view.addSubview(collectionView)
         view.addSubview(emptyScreenView)
         
+        setConstraints()
+        NSLayoutConstraint.activate(sharedConstraints)
+        layoutTrait(traitCollection: UIScreen.main.traitCollection)
+        
         let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress(gesture:)))
         self.collectionView.addGestureRecognizer(longPressGesture)
     }
@@ -123,21 +132,74 @@ internal class NotebooksSelectionViewController: UIViewController {
         collectionView.collectionViewLayout.invalidateLayout()
     }
     
-    override func viewDidLayoutSubviews() {
-        NSLayoutConstraint.activate([
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        layoutTrait(traitCollection: traitCollection)
+    }
+    
+    private func setConstraints() {
+        sharedConstraints.append(contentsOf: [
             collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
             collectionView.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
             collectionView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
             collectionView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
-            collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+            collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            
+            emptyScreenView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+            emptyScreenView.centerYAnchor.constraint(equalTo: self.view.centerYAnchor)
         ])
         
-        NSLayoutConstraint.activate([
-            emptyScreenView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
-            emptyScreenView.centerYAnchor.constraint(equalTo: self.view.centerYAnchor),
+        compactRegularConstraints.append(contentsOf: [
             emptyScreenView.heightAnchor.constraint(equalTo: self.view.heightAnchor, multiplier: 0.5),
             emptyScreenView.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 0.75)
         ])
+        
+        regularCompactConstraints.append(contentsOf: [
+            emptyScreenView.heightAnchor.constraint(equalTo: self.view.heightAnchor, multiplier: 0.75),
+            emptyScreenView.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 0.3)
+        ])
+        
+        regularConstraints.append(contentsOf: [
+            emptyScreenView.heightAnchor.constraint(equalTo: self.view.heightAnchor, multiplier: 0.5),
+            emptyScreenView.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 0.3)
+        ])
+    }
+    
+    private func layoutTrait(traitCollection: UITraitCollection) {
+        if !sharedConstraints[0].isActive {
+            NSLayoutConstraint.activate(sharedConstraints)
+        }
+        
+        if traitCollection.horizontalSizeClass == .compact {
+            if regularConstraints[0].isActive {
+                NSLayoutConstraint.deactivate(regularConstraints)
+            }
+            if regularCompactConstraints[0].isActive {
+                NSLayoutConstraint.deactivate(regularCompactConstraints)
+            }
+            
+            NSLayoutConstraint.activate(compactRegularConstraints)
+        } else {
+            if traitCollection.verticalSizeClass == .compact {
+                if regularConstraints[0].isActive {
+                    NSLayoutConstraint.deactivate(regularConstraints)
+                }
+                if compactRegularConstraints[0].isActive {
+                    NSLayoutConstraint.deactivate(compactRegularConstraints)
+                }
+                
+                NSLayoutConstraint.activate(regularCompactConstraints)
+            } else {
+                if regularCompactConstraints[0].isActive {
+                    NSLayoutConstraint.deactivate(regularCompactConstraints)
+                }
+                if compactRegularConstraints[0].isActive {
+                    NSLayoutConstraint.deactivate(compactRegularConstraints)
+                }
+                
+                NSLayoutConstraint.activate(regularConstraints)
+            }
+        }
     }
     
     /**

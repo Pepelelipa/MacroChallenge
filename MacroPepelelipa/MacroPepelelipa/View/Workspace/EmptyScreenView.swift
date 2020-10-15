@@ -32,6 +32,7 @@ class EmptyScreenView: UIView {
         
         let imageView = UIImageView(image: image)
         imageView.tintColor = UIColor.actionColor
+        imageView.contentMode = .scaleAspectFit
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
