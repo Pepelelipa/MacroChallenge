@@ -6,10 +6,11 @@
 //  Copyright © 2020 Pedro Giuliano Farina. All rights reserved.
 //
 
-public protocol NoteEntity: class {
-    var notebook: NotebookEntity { get }
-    var title: NSAttributedString { get }
-    var text: NSAttributedString { get }
+public protocol NoteEntity: class, ObservableEntity {
+    var title: NSAttributedString { get set }
+    var text: NSAttributedString { get set }
     var images: [ImageBoxEntity] { get }
     var textBoxes: [TextBoxEntity] { get }
+
+    func getNotebook() throws -> NotebookEntity
 }

@@ -113,7 +113,7 @@ open class MarkdownParser {
         italic = MarkdownItalic(font: font)
         code = MarkdownCode(font: font)
         strikethrough = MarkdownStrikethrough(font: font)
-        highlight = MarkdownHighlight(font: font, textHighlightColor: UIColor.black, textBackgroundColor: UIColor.yellow)
+        highlight = MarkdownHighlight(font: font, textHighlightColor: UIColor.bodyColor ?? .black, textBackgroundColor: UIColor.yellow)
         numeric = MarkdownNumeric(font: font)
         
         self.escapingElements = [codeEscaping, escaping]

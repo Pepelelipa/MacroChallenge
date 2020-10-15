@@ -31,7 +31,7 @@ internal class AddNotebookViewController: PopupContainerViewController {
         txtName.translatesAutoresizingMaskIntoConstraints = false
         txtName.placeholder = "New notebook name".localized()
         txtName.borderStyle = .none
-        txtName.font = .preferredFont(forTextStyle: .title1)
+        txtName.font = MarkdownHeader.thirdHeaderFont
         txtName.tintColor = .actionColor
         txtName.addTarget(self, action: #selector(textChanged(_:)), for: .editingChanged)
         txtName.returnKeyType = UIReturnKeyType.done 
@@ -78,6 +78,8 @@ internal class AddNotebookViewController: PopupContainerViewController {
         btnConfirm.tintColor = .white
         btnConfirm.setBackgroundImage(UIImage(named: "btnWorkspaceBackground"), for: .normal)
         btnConfirm.layer.cornerRadius = 22
+        btnConfirm.titleLabel?.font = MarkdownHeader.thirdHeaderFont
+        btnConfirm.contentEdgeInsets = UIEdgeInsets(top: 10, left: 15, bottom: 10, right: 15)
 
         return btnConfirm
     }()
@@ -206,7 +208,11 @@ internal class AddNotebookViewController: PopupContainerViewController {
             dismissFromParent()
             return
         }
-        _ = Mockdata.createNotebook(on: workspace, named: text, colorName: notebookColorName)
+        do {
+            _ = try DataManager.shared().createNotebook(in: workspace, named: text, colorName: notebookColorName)
+        } catch {
+            fatalError("Num deu")
+        }
         dismissFromParent()
     }
 

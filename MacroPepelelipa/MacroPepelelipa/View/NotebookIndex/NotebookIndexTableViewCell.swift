@@ -15,6 +15,7 @@ internal class NotebookIndexTableViewCell: UITableViewCell {
     private let lessonLbl: UILabel = {
         let lbl = UILabel(frame: .zero)
         lbl.translatesAutoresizingMaskIntoConstraints = false
+        lbl.font = MarkdownHeader.secondHeaderFont
 
         return lbl
     }()
@@ -45,7 +46,7 @@ internal class NotebookIndexTableViewCell: UITableViewCell {
     init(index: NotebookIndexEntity) {
         self.index = index
         super.init(style: .default, reuseIdentifier: nil)
-        self.backgroundColor = .backgroundColor
+        self.backgroundColor = .clear
         
         if index.isTitle == true {
             lessonLbl.font = lessonLbl.font.withSize(20)

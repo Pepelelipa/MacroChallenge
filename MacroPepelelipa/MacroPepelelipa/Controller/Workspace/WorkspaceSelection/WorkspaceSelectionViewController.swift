@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Database
 
 internal class WorkspaceSelectionViewController: UIViewController {
     private lazy var collectionView: UICollectionView = {
@@ -18,7 +19,7 @@ internal class WorkspaceSelectionViewController: UIViewController {
         collectionView.showsVerticalScrollIndicator = false
         collectionView.allowsSelection = true
         collectionView.allowsMultipleSelection = false
-
+        collectionView.contentInset = UIEdgeInsets(top: 20, left: 0, bottom: 20, right: 0)
         collectionView.delegate = collectionDelegate
         collectionView.dataSource = collectionDataSource
 
@@ -44,7 +45,7 @@ internal class WorkspaceSelectionViewController: UIViewController {
 
         self.navigationController?.pushViewController(notebooksSelectionView, animated: true)
     }
-    private lazy var collectionDataSource = WorkspacesCollectionViewDataSource(viewController: self)
+    private lazy var collectionDataSource = WorkspacesCollectionViewDataSource(viewController: self, collectionView: { self.collectionView })
 
     private lazy var btnAdd: UIBarButtonItem = {
         let item = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(btnAddTap))
@@ -65,9 +66,22 @@ internal class WorkspaceSelectionViewController: UIViewController {
         navigationItem.largeTitleDisplayMode = .always
         navigationItem.title = "Workspaces".localized()
         view.addSubview(collectionView)
+        
+        let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress(gesture:)))
+        self.collectionView.addGestureRecognizer(longPressGesture)
+        
+        navigationController?.navigationBar.largeTitleTextAttributes = [
+            .font: MarkdownHeader.firstHeaderFont,
+            .foregroundColor: UIColor.titleColor ?? .black
+        ]
+        navigationController?.navigationBar.titleTextAttributes = [
+            .font: MarkdownHeader.thirdHeaderFont,
+            .foregroundColor: UIColor.titleColor ?? .black
+        ]
     }
 
     override func viewWillAppear(_ animated: Bool) {
+        navigationItem.largeTitleDisplayMode = .always
         super.viewWillAppear(animated)
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
             self.invalidateLayout()
@@ -90,11 +104,40 @@ internal class WorkspaceSelectionViewController: UIViewController {
 
     override func viewDidLayoutSubviews() {
         NSLayoutConstraint.activate([
-            collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
+            collectionView.topAnchor.constraint(equalTo: view.topAnchor),
             collectionView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
             collectionView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
             collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
     }
     
+    /**
+     This method handles the long press on a workspace, asking the user to delete it or not.
+     
+     - Parameter gesture: The UILongPressGestureRecognizer containing the gesture.
+     */
+    @IBAction func handleLongPress(gesture: UILongPressGestureRecognizer) {
+        let point = gesture.location(in: collectionView)
+        
+        guard let indexPath = collectionView.indexPathForItem(at: point),
+              let cell = collectionView.cellForItem(at: indexPath) as? WorkspaceCollectionViewCell,
+              let workspace = cell.workspace else {
+            return
+        }
+        
+        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet).makeDeleteConfirmation(dataType: .workspace, deletionHandler: { _ in
+            do {
+                _ = try DataManager.shared().deleteWorkspace(workspace)
+            } catch {
+                let alertController = UIAlertController(
+                    title: "Could not delete this workspace".localized(),
+                    message: "The app could not delete the workspace".localized() + workspace.name,
+                    preferredStyle: .alert)
+                    .makeErrorMessage(with: "An error occurred while deleting this instance on the database".localized())
+                self.present(alertController, animated: true, completion: nil)
+            }
+        })
+        
+        self.present(alertController, animated: true, completion: nil)
+    }
 }

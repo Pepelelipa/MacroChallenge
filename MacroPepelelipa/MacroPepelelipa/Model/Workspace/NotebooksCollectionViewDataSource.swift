@@ -9,14 +9,48 @@
 import UIKit
 import Database
 
-internal class NotebooksCollectionViewDataSource: NSObject, UICollectionViewDataSource {
+internal class NotebooksCollectionViewDataSource: NSObject, UICollectionViewDataSource, EntityObserver {
+
+    func entityWasCreated(_ value: ObservableEntity) {
+        if let notebook = value as? NotebookEntity,
+           let count = workspace?.notebooks.count {
+            notebook.addObserver(self)
+            self.collectionView?().insertItems(at: [IndexPath(item: count - 1, section: 0)])
+        }
+    }
+    func entityDidChangeTo(_ value: ObservableEntity) {
+        if let notebook = value as? NotebookEntity,
+           let index = workspace?.notebooks.firstIndex(where: { $0 === notebook }) {
+            self.collectionView?().reloadItems(at: [IndexPath(item: index, section: 0)])
+        }
+    }
+    func entityShouldDelete(_ value: ObservableEntity) {
+        if let notebook = value as? NotebookEntity,
+           let index = workspace?.notebooks.firstIndex(where: { $0 === notebook }) {
+            notebook.removeObserver(self)
+            self.collectionView?().deleteItems(at: [IndexPath(item: index, section: 0)])
+        }
+    }
     
     private weak var workspace: WorkspaceEntity?
     private weak var viewController: UIViewController?
+    private let collectionView: (() -> UICollectionView)?
     
-    internal init(workspace: WorkspaceEntity, viewController: UIViewController?) {
+    internal init(workspace: WorkspaceEntity, viewController: UIViewController?, collectionView: (() -> UICollectionView)?) {
         self.workspace = workspace
         self.viewController = viewController
+        self.collectionView = collectionView
+        super.init()
+
+        DataManager.shared().addCreationObserver(self, type: .notebook)
+    }
+
+    deinit {
+        if let workspace = workspace {
+            for notebook in workspace.notebooks {
+                notebook.removeObserver(self)
+            }
+        }
     }
 
     internal func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

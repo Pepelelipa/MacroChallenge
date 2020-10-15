@@ -25,6 +25,7 @@ enum HeaderStyle {
 internal class MarkupBarConfiguration {    
     internal weak var observer: MarkupToolBarObserver?
     private weak var textView: MarkupTextView?
+    private weak var markupViewController: MarkupContainerViewController?
     private var listStyle: ListStyle = .bullet
     
     init(owner: MarkupTextView) {
@@ -267,7 +268,12 @@ internal class MarkupBarConfiguration {
     }
     
     @objc private func openEditTextContainer() {
-        observer?.changeTextViewInput(isCustom: true)
+        if UIDevice.current.userInterfaceIdiom == .phone {
+            observer?.changeTextViewInput(isCustom: true)
+        } else if UIDevice.current.userInterfaceIdiom == .pad {
+            observer?.openPopOver()
+        }
+        
     }
     
     @objc internal func photoPicker() {
