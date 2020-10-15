@@ -30,6 +30,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
 
     func sceneDidBecomeActive(_ scene: UIScene) {
+        DispatchQueue.main.asyncAfter(deadline: .now()+0.5) {
+            if self.window?.traitCollection.userInterfaceStyle == .dark {
+                self.changeIcon(to: "DarkModeIcon")
+            } else {
+                self.changeIcon(to: nil)
+            }
+        }
     }
 
     func sceneWillResignActive(_ scene: UIScene) {
@@ -39,5 +46,18 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
 
     func sceneDidEnterBackground(_ scene: UIScene) {
+    }
+    
+    private func changeIcon(to iconName: String?) {
+        guard UIApplication.shared.supportsAlternateIcons else {
+            print("Doesn't support alternate icons")
+            return
+        }
+            
+        UIApplication.shared.setAlternateIconName(iconName, completionHandler: { (error) in
+                if let error = error {
+                    print("App icon failed to change due to \(error.localizedDescription)")
+            }
+        })
     }
 }
