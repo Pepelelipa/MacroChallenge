@@ -35,21 +35,21 @@ internal class NotesViewController: UIViewController,
     internal private(set) weak var notebook: NotebookEntity?
     
     private lazy var addNewNoteButton: UIBarButtonItem = {
-        let item = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addNewNote))
+        let item = UIBarButtonItem(ofType: .addNote, 
+                                   target: self, 
+                                   action: #selector(addNewNote))
         return item
     }()
     
     private lazy var moreActionsButton: UIBarButtonItem = {
-        let item = UIBarButtonItem(image: UIImage(systemName: "ellipsis.circle"), 
-                                   style: .plain, 
+        let item = UIBarButtonItem(ofType: .moreActions, 
                                    target: self, 
-                                   action: #selector(presentMoreActionsButton))
+                                   action: #selector(presentMoreActions))
         return item
     }()
     
     private lazy var notebookIndexButton: UIBarButtonItem = {
-        let item = UIBarButtonItem(image: UIImage(systemName: "n.square"), 
-                                   style: .plain, 
+        let item = UIBarButtonItem(ofType: .index, 
                                    target: self, 
                                    action: #selector(presentNotebookIndex))
         return item
@@ -493,7 +493,7 @@ internal class NotesViewController: UIViewController,
         // TODO: add new note
     }
     
-    @IBAction private func presentMoreActionsButton() {
+    @IBAction private func presentMoreActions() {
         // TODO: present more actions button
     }
     

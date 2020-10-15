@@ -20,9 +20,22 @@ internal class TextEditingContainerViewController: UIViewController {
     private var movement: CGFloat?
     internal var widthConstraint: NSLayoutConstraint?
     
+    private lazy var addNewNoteButton: UIBarButtonItem = {
+        let item = UIBarButtonItem(ofType: .addNote, 
+                                   target: self, 
+                                   action: #selector(addNewNote))
+        return item
+    }()
+    
+    private lazy var moreActionsButton: UIBarButtonItem = {
+        let item = UIBarButtonItem(ofType: .moreActions, 
+                                   target: self, 
+                                   action: #selector(presentMoreActions))
+        return item
+    }()
+    
     private lazy var notebookIndexButton: UIBarButtonItem = {
-        let item = UIBarButtonItem(image: UIImage(systemName: "n.square"), 
-                                   style: .plain, 
+        let item = UIBarButtonItem(ofType: .index, 
                                    target: self, 
                                    action: #selector(presentNotebookIndex))
         return item
@@ -54,16 +67,23 @@ internal class TextEditingContainerViewController: UIViewController {
             navigationController?.popViewController(animated: true)
         }
         
-        navigationItem.rightBarButtonItem = notebookIndexButton
+        navigationItem.rightBarButtonItems = [addNewNoteButton, moreActionsButton, notebookIndexButton]
         navigationItem.largeTitleDisplayMode = .never
         view.backgroundColor = .rootColor
     }
     
     // MARK: - IBActions functions
+    
+    @IBAction private func addNewNote() {
+        // TODO: present more actions
+    }
+    
+    @IBAction private func presentMoreActions() {
+        // TODO: present more actions
+    }
 
     /**
-     This method checks if the notebook index is already appearing on screen or not. If it isn't appearing on screen, instaciates 
-     NotebookIndexViewController and peform an animation to show it. If it is appearing on screen, peform an animation to hide it.
+     This method checks if the notebook index is already appearing on screen or not. If it isn't appearing on screen, instaciates NotebookIndexViewController and peform an animation to show it. If it is appearing on screen, peform an animation to hide it.
      */
     @IBAction private func presentNotebookIndex() {
         
