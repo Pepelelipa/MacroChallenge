@@ -12,21 +12,21 @@ import Database
 internal class WorkspaceSelectionViewController: UIViewController {
     private lazy var collectionView: UICollectionView = {
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
-
+        
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.backgroundColor = view.backgroundColor
         collectionView.showsVerticalScrollIndicator = false
         collectionView.allowsSelection = true
         collectionView.allowsMultipleSelection = false
-
+        
         collectionView.delegate = collectionDelegate
         collectionView.dataSource = collectionDataSource
-
+        
         collectionView.register(
             WorkspaceCollectionViewCell.self,
             forCellWithReuseIdentifier: WorkspaceCollectionViewCell.cellID())
-
+        
         return collectionView
     }()
     private lazy var collectionDelegate = WorkspacesCollectionViewDelegate { [unowned self] (selectedCell) in
@@ -40,17 +40,37 @@ internal class WorkspaceSelectionViewController: UIViewController {
             self.present(alertController, animated: true, completion: nil)
             return
         }
-
+        
         let notebooksSelectionView = NotebooksSelectionViewController(workspace: workspace)
-
+        
         self.navigationController?.pushViewController(notebooksSelectionView, animated: true)
     }
     private lazy var collectionDataSource = WorkspacesCollectionViewDataSource(viewController: self, collectionView: { self.collectionView })
-
+    
     private lazy var btnAdd: UIBarButtonItem = {
         let item = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(btnAddTap))
         return item
     }()
+    
+    private lazy var emptyScreenView: EmptyScreenView = {
+        let view = EmptyScreenView(
+            frame: .zero,
+            descriptionText: "Esta é uma tela vazia",
+            imageName: "Este é o nome da imagem",
+            buttonTitle: "Clique aqui!") {
+            self.btnAddTap()
+        }
+        view.alpha = 0
+        view.isHidden = true
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
+    private var compactRegularConstraints: [NSLayoutConstraint] = []
+    private var regularCompactConstraints: [NSLayoutConstraint] = []
+    private var regularConstraints: [NSLayoutConstraint] = []
+    private var sharedConstraints: [NSLayoutConstraint] = []
+    
     @IBAction func btnAddTap() {
         btnAdd.isEnabled = false
         let addController = AddWorkspaceViewController(dismissHandler: {
@@ -58,7 +78,7 @@ internal class WorkspaceSelectionViewController: UIViewController {
         })
         addController.moveTo(self)
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .rootColor
@@ -66,6 +86,11 @@ internal class WorkspaceSelectionViewController: UIViewController {
         navigationItem.largeTitleDisplayMode = .always
         navigationItem.title = "Workspaces".localized()
         view.addSubview(collectionView)
+        view.addSubview(emptyScreenView)
+        
+        setConstraints()
+        NSLayoutConstraint.activate(sharedConstraints)
+        layoutTrait(traitCollection: UIScreen.main.traitCollection)
         
         let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress(gesture:)))
         self.collectionView.addGestureRecognizer(longPressGesture)
@@ -79,19 +104,19 @@ internal class WorkspaceSelectionViewController: UIViewController {
             .foregroundColor: UIColor.titleColor ?? .black
         ]
     }
-
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
             self.invalidateLayout()
         }
     }
-
+    
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
         invalidateLayout()
     }
-
+    
     private func invalidateLayout() {
         collectionView.collectionViewLayout.invalidateLayout()
         for visibleCell in collectionView.visibleCells {
@@ -100,14 +125,74 @@ internal class WorkspaceSelectionViewController: UIViewController {
             }
         }
     }
-
-    override func viewDidLayoutSubviews() {
-        NSLayoutConstraint.activate([
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        layoutTrait(traitCollection: traitCollection)
+    }
+    
+    private func setConstraints() {
+        sharedConstraints.append(contentsOf: [
             collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
             collectionView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
             collectionView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
-            collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+            collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            
+            emptyScreenView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+            emptyScreenView.centerYAnchor.constraint(equalTo: self.view.centerYAnchor)
         ])
+        
+        compactRegularConstraints.append(contentsOf: [
+            emptyScreenView.heightAnchor.constraint(equalTo: self.view.heightAnchor, multiplier: 0.5),
+            emptyScreenView.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 0.75)
+        ])
+        
+        regularCompactConstraints.append(contentsOf: [
+            emptyScreenView.heightAnchor.constraint(equalTo: self.view.heightAnchor, multiplier: 0.75),
+            emptyScreenView.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 0.3)
+        ])
+        
+        regularConstraints.append(contentsOf: [
+            emptyScreenView.heightAnchor.constraint(equalTo: self.view.heightAnchor, multiplier: 0.5),
+            emptyScreenView.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 0.3)
+        ])
+    }
+    
+    private func layoutTrait(traitCollection: UITraitCollection) {
+        if !sharedConstraints[0].isActive {
+            NSLayoutConstraint.activate(sharedConstraints)
+        }
+        
+        if traitCollection.horizontalSizeClass == .compact {
+            if regularConstraints[0].isActive {
+                NSLayoutConstraint.deactivate(regularConstraints)
+            }
+            if regularCompactConstraints[0].isActive {
+                NSLayoutConstraint.deactivate(regularCompactConstraints)
+            }
+            
+            NSLayoutConstraint.activate(compactRegularConstraints)
+        } else {
+            if traitCollection.verticalSizeClass == .compact {
+                if regularConstraints[0].isActive {
+                    NSLayoutConstraint.deactivate(regularConstraints)
+                }
+                if compactRegularConstraints[0].isActive {
+                    NSLayoutConstraint.deactivate(compactRegularConstraints)
+                }
+                
+                NSLayoutConstraint.activate(regularCompactConstraints)
+            } else {
+                if regularCompactConstraints[0].isActive {
+                    NSLayoutConstraint.deactivate(regularCompactConstraints)
+                }
+                if compactRegularConstraints[0].isActive {
+                    NSLayoutConstraint.deactivate(compactRegularConstraints)
+                }
+                
+                NSLayoutConstraint.activate(regularConstraints)
+            }
+        }
     }
     
     /**
@@ -138,5 +223,22 @@ internal class WorkspaceSelectionViewController: UIViewController {
         })
         
         self.present(alertController, animated: true, completion: nil)
+    }
+    
+    internal func switchEmptyScreenView(shouldBeHidden: Bool = false) {
+        var alpha: CGFloat = 0
+        
+        if emptyScreenView.isHidden && !shouldBeHidden {
+            emptyScreenView.isHidden.toggle()
+            alpha = 1.0
+        }
+        
+        UIView.animate(withDuration: 0.5, animations: {
+            self.emptyScreenView.alpha = alpha
+        }, completion: { _ in
+            if alpha == 0 {
+                self.emptyScreenView.isHidden = true
+            }
+        })
     }
 }

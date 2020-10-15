@@ -70,6 +70,21 @@ internal class NotebooksSelectionViewController: UIViewController {
         let item = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(btnAddTap))
         return item
     }()
+    
+    private lazy var emptyScreenView: EmptyScreenView = {
+        let view = EmptyScreenView(
+            frame: .zero,
+            descriptionText: "Esta é uma tela vazia",
+            imageName: "Este é o nome da imagem",
+            buttonTitle: "Clique aqui!") {
+            self.btnAddTap()
+        }
+        view.alpha = 0
+        view.isHidden = true
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
     @IBAction func btnAddTap() {
         btnAdd.isEnabled = false
         navigationItem.hidesBackButton = true
@@ -91,6 +106,7 @@ internal class NotebooksSelectionViewController: UIViewController {
         
         view.backgroundColor = .backgroundColor
         view.addSubview(collectionView)
+        view.addSubview(emptyScreenView)
         
         let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress(gesture:)))
         self.collectionView.addGestureRecognizer(longPressGesture)
@@ -114,6 +130,13 @@ internal class NotebooksSelectionViewController: UIViewController {
             collectionView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
             collectionView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
             collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+        ])
+        
+        NSLayoutConstraint.activate([
+            emptyScreenView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+            emptyScreenView.centerYAnchor.constraint(equalTo: self.view.centerYAnchor),
+            emptyScreenView.heightAnchor.constraint(equalTo: self.view.heightAnchor, multiplier: 0.5),
+            emptyScreenView.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 0.75)
         ])
     }
     
@@ -145,5 +168,22 @@ internal class NotebooksSelectionViewController: UIViewController {
         })
         
         self.present(alertController, animated: true, completion: nil)
+    }
+    
+    internal func switchEmptyScreenView(shouldBeHidden: Bool = false) {
+        var alpha: CGFloat = 0
+        
+        if emptyScreenView.isHidden && !shouldBeHidden {
+            emptyScreenView.isHidden.toggle()
+            alpha = 1.0
+        }
+        
+        UIView.animate(withDuration: 0.5, animations: {
+            self.emptyScreenView.alpha = alpha
+        }, completion: { _ in
+            if alpha == 0 {
+                self.emptyScreenView.isHidden = true
+            }
+        })
     }
 }
