@@ -10,7 +10,8 @@
 import UIKit
 import Database
 
-internal class TextEditingContainerViewController: UIViewController {
+internal class TextEditingContainerViewController: UIViewController, 
+                                                   IndexObserver {
     
     // MARK: - Variables and Constants
     
@@ -59,10 +60,8 @@ internal class TextEditingContainerViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         if let centerViewController = self.centerViewController {
-            view.addSubview(centerViewController.view)
-            addChild(centerViewController)
+            showCenterViewController(centerViewController)
         } else {
             navigationController?.popViewController(animated: true)
         }
@@ -70,6 +69,101 @@ internal class TextEditingContainerViewController: UIViewController {
         navigationItem.rightBarButtonItems = [addNewNoteButton, moreActionsButton, notebookIndexButton]
         navigationItem.largeTitleDisplayMode = .never
         view.backgroundColor = .rootColor
+    }
+    
+    // MARK: - Functions
+    
+    func didChangeIndex(to note: NoteEntity) {
+        if let rightViewController = rightViewController {
+            hideIndex(rightViewController)
+            
+            do {
+                let centerViewController = NotesViewController(notebook: try note.getNotebook(), note: note)
+                showCenterViewController(centerViewController)
+                
+            } catch {
+                let alertController = UIAlertController(
+                    title: "Could not open this note".localized(),
+                    message: "The app could not open the selected note".localized(),
+                    preferredStyle: .alert)
+                    .makeErrorMessage(with: "The app could not present the Notebook Index".localized())
+                present(alertController, animated: true, completion: nil)
+            }
+        }
+    }
+    
+    /**
+     This method instaciates NotebookIndexViewController and peform an animation to show it.
+     - Parameter notebook: The current notebook
+     */
+    private func showIndex(for notebook: NotebookEntity) {
+        let rightViewController = NotebookIndexViewController(notebook: notebook)
+        rightViewController.observer = self
+        rightViewController.willMove(toParent: self)
+        addChild(rightViewController)
+        
+        let rightView: UIView = rightViewController.view
+        rightView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(rightView)
+        rightView.frame = CGRect(x: view.frame.maxX, y: view.frame.maxY, width: 0, height: view.frame.height)
+
+        let widthConstraint = rightView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.4)
+        self.widthConstraint = widthConstraint
+
+        NSLayoutConstraint.activate([
+            widthConstraint,
+            rightView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            rightView.topAnchor.constraint(equalTo: view.topAnchor),
+            rightView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ])
+        
+        rightViewController.didMove(toParent: self)
+        self.movement = view.frame.width * 0.4
+
+        UIView.animate(withDuration: 0.5) {
+            for child in self.view.subviews {
+                child.frame.origin.x -= self.view.frame.width * 0.4
+            }
+        }
+
+        self.rightViewController = rightViewController
+    }
+    
+    /**
+     This method peforms an animation to hide the NotebookIndexViewController.
+     - Parameter rightViewController: the presenting NotebookIndexViewController.
+     */
+    private func hideIndex(_ rightViewController: NotebookIndexViewController) {
+        UIView.animate(withDuration: 0.5) {
+            for child in self.view.subviews {
+                child.frame.origin.x += self.movement ?? rightViewController.view.frame.width
+            }
+        } completion: { _ in
+            rightViewController.willMove(toParent: nil)
+            rightViewController.removeFromParent()
+            rightViewController.view.removeFromSuperview()
+            rightViewController.didMove(toParent: nil)
+        }
+
+        self.rightViewController = nil
+    }
+    
+    /**
+     This method removes a NotesViewController and instaciates a new one.
+     - Parameter centerViewController: The current centerViewController.
+     */
+    private func showCenterViewController(_ centerViewController: NotesViewController) {
+        
+        self.centerViewController?.willMove(toParent: nil)
+        self.centerViewController?.removeFromParent()
+        self.centerViewController?.view.removeFromSuperview()
+        self.centerViewController?.didMove(toParent: nil)
+        
+        self.centerViewController = centerViewController
+        centerViewController.willMove(toParent: self)
+        addChild(centerViewController)
+        view.addSubview(centerViewController.view)
+        centerViewController.didMove(toParent: self)
     }
     
     // MARK: - IBActions functions
@@ -88,51 +182,10 @@ internal class TextEditingContainerViewController: UIViewController {
     @IBAction private func presentNotebookIndex() {
         
         if let rightViewController = rightViewController {
-            // Hide index 
-            UIView.animate(withDuration: 0.5) {
-                for child in self.view.subviews {
-                    child.frame.origin.x += self.movement ?? rightViewController.view.frame.width
-                }
-            } completion: { _ in
-                rightViewController.willMove(toParent: nil)
-                rightViewController.removeFromParent()
-                rightViewController.view.removeFromSuperview()
-                rightViewController.didMove(toParent: nil)
-            }
-
-            self.rightViewController = nil
+            hideIndex(rightViewController)
         
         } else if let notebook = centerViewController?.notebook {
-            // Show index 
-            let rightViewController = NotebookIndexViewController(notebook: notebook)
-            rightViewController.willMove(toParent: self)
-            addChild(rightViewController)
-            
-            let rightView: UIView = rightViewController.view
-            rightView.translatesAutoresizingMaskIntoConstraints = false
-            view.addSubview(rightView)
-            rightView.frame = CGRect(x: view.frame.maxX, y: view.frame.maxY, width: 0, height: view.frame.height)
-
-            let widthConstraint = rightView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.4)
-            self.widthConstraint = widthConstraint
-
-            NSLayoutConstraint.activate([
-                widthConstraint,
-                rightView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-                rightView.topAnchor.constraint(equalTo: view.topAnchor),
-                rightView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-            ])
-            
-            rightViewController.didMove(toParent: self)
-            self.movement = view.frame.width * 0.4
-
-            UIView.animate(withDuration: 0.5) {
-                for child in self.view.subviews {
-                    child.frame.origin.x -= self.view.frame.width * 0.4
-                }
-            }
-
-            self.rightViewController = rightViewController
+            showIndex(for: notebook)
         
         } else {
             // Present error alert

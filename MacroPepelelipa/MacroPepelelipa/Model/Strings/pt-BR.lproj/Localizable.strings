@@ -33,6 +33,7 @@
 "Could not open this note" = "Não foi possível abrir esta nota";
 "The app could not open the selected note" = "O aplicativo não pôde abrir a nota selecionada";
 "The index did not have a note" = "O índice não tinha uma nota";
+"Fail to retrive a notebook" = "Falha ao recuperar o caderno";
 "Could not load image" = "Não foi possível carregar a imagem";
 "The app could not load the selected image" = "O aplicativo não pôde carregar a imagem selecionada";
 "Error creating new notebook" = "Não foi possível criar um novo caderno";

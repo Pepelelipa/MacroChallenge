@@ -33,6 +33,7 @@
 "Could not open this note" = "Could not open this note";
 "The app could not open the selected note" = "The app could not open the selected note";
 "The index did not have a note" = "The index did not have a note";
+"Fail to retrive a notebook" = "Fail to retrive a notebook";
 "Could not load image" = "Could not load image";
 "The app could not load the selected image" = "The app could not load the selected image";
 "Error creating new notebook" = "Error creating new notebook";

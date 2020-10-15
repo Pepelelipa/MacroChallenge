@@ -422,9 +422,22 @@ internal class NotesViewController: UIViewController,
     }
     
     func didChangeIndex(to note: NoteEntity) {
-        self.note = note
-        self.textField.attributedText = note.title
-        self.textView.attributedText = note.text
+        
+        do {
+            let notesViewController = NotesViewController(notebook: try note.getNotebook(), note: note)
+            
+            let navigationController = self.navigationController
+            navigationController?.popViewController(animated: false)
+            navigationController?.pushViewController(notesViewController, animated: false)
+        
+        } catch {
+            let alertController = UIAlertController(
+                title: "Could not open this note".localized(),
+                message: "The app could not open the selected note".localized(),
+                preferredStyle: .alert)
+                .makeErrorMessage(with: "The app could not present the Notebook Index".localized())
+            present(alertController, animated: true, completion: nil)
+        }
     }
     
     // MARK: - IBActions functions
@@ -499,7 +512,11 @@ internal class NotesViewController: UIViewController,
     
     @IBAction private func presentNotebookIndex() {
         if let presentNotebook = self.notebook {
-            navigationController?.pushViewController(NotebookIndexViewController(notebook: presentNotebook), animated: true)
+            
+            let notebookIndexViewController = NotebookIndexViewController(notebook: presentNotebook)
+            notebookIndexViewController.observer = self
+            
+            self.present(notebookIndexViewController, animated: true, completion: nil)
         }
     }
 }

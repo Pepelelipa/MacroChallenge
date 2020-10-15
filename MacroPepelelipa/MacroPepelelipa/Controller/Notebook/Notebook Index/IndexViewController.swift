@@ -14,7 +14,7 @@ internal class NotebookIndexViewController: UIViewController {
     // MARK: - Variables and Constants
     
     private var notebook: NotebookEntity?
-    private var observer: IndexObserver?
+    internal weak var observer: IndexObserver?
     private let tableViewDataSource: NotebookIndexTableViewDataSource
     
     private lazy var imgViewNotebook: NotebookView = {
@@ -50,7 +50,7 @@ internal class NotebookIndexViewController: UIViewController {
     private lazy var tableViewDelegate: NotebookIndexTableViewDelegate = NotebookIndexTableViewDelegate { [unowned self] (selectedCell) in
         if let note = selectedCell.indexNote {
             self.observer?.didChangeIndex(to: note)
-            self.navigationController?.popViewController(animated: true)
+            self.dismiss(animated: true, completion: nil)
         } else {
             let alertController = UIAlertController(
                 title: "Could not open this note".localized(),
