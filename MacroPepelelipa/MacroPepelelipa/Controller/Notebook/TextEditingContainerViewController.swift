@@ -168,7 +168,14 @@ internal class TextEditingContainerViewController: UIViewController,
     // MARK: - IBActions functions
     
     @IBAction private func addNewNote() {
-        // TODO: present more actions
+        guard let rootViewController = centerViewController, let guardedNotebook = rootViewController.notebook else {
+            return
+        }
+        addNewNoteButton.isEnabled = false
+        let addController = AddNoteViewController(notebook: guardedNotebook, dismissHandler: {
+            self.addNewNoteButton.isEnabled = true
+        })
+        addController.moveTo(self)
     }
     
     @IBAction private func presentMoreActions() {
