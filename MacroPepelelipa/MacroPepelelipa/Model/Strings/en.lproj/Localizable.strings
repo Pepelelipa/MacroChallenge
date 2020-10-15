@@ -44,3 +44,6 @@
 "Error presenting Photo Library" = "Error presenting Photo Library";
 "The app could not present the Photo Library" = "The app could not present the Photo Library";
 "The app could not load the native Image Picker Controller" = "The app could not load the native Image Picker Controller";
+"Error presenting Notebook Index" = "Error presenting Notebook Index";
+"The app could not present the Notebook Index" = "The app could not present the Notebook Index";
+"The app could not load the NotebookIndexViewController" = "The app could not load the NotebookIndexViewController";

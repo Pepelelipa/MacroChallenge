@@ -17,6 +17,9 @@ internal class TextEditingContainerViewController: UIViewController {
     private var centerViewController: NotesViewController?
     private weak var rightViewController: NotebookIndexViewController?
     
+    private var movement: CGFloat?
+    internal var widthConstraint: NSLayoutConstraint?
+    
     private lazy var notebookIndexButton: UIBarButtonItem = {
         let item = UIBarButtonItem(image: UIImage(systemName: "n.square"), 
                                    style: .plain, 
@@ -57,16 +60,15 @@ internal class TextEditingContainerViewController: UIViewController {
     }
     
     // MARK: - IBActions functions
-    var movement: CGFloat?
-    var widthConstraint: NSLayoutConstraint?
 
-    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-        widthConstraint?.isActive = true
-    }
-
+    /**
+     This method checks if the notebook index is already appearing on screen or not. If it isn't appearing on screen, instaciates 
+     NotebookIndexViewController and peform an animation to show it. If it is appearing on screen, peform an animation to hide it.
+     */
     @IBAction private func presentNotebookIndex() {
+        
         if let rightViewController = rightViewController {
-            //Hide
+            // Hide index 
             UIView.animate(withDuration: 0.5) {
                 for child in self.view.subviews {
                     child.frame.origin.x += self.movement ?? rightViewController.view.frame.width
@@ -79,14 +81,15 @@ internal class TextEditingContainerViewController: UIViewController {
             }
 
             self.rightViewController = nil
+        
         } else if let notebook = centerViewController?.notebook {
-            //Show
+            // Show index 
             let rightViewController = NotebookIndexViewController(notebook: notebook)
             rightViewController.willMove(toParent: self)
             addChild(rightViewController)
+            
             let rightView: UIView = rightViewController.view
             rightView.translatesAutoresizingMaskIntoConstraints = false
-
             view.addSubview(rightView)
             rightView.frame = CGRect(x: view.frame.maxX, y: view.frame.maxY, width: 0, height: view.frame.height)
 
@@ -99,6 +102,7 @@ internal class TextEditingContainerViewController: UIViewController {
                 rightView.topAnchor.constraint(equalTo: view.topAnchor),
                 rightView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
             ])
+            
             rightViewController.didMove(toParent: self)
             self.movement = view.frame.width * 0.4
 
@@ -109,8 +113,16 @@ internal class TextEditingContainerViewController: UIViewController {
             }
 
             self.rightViewController = rightViewController
+        
         } else {
-            fatalError("Ops")
+            // Present error alert
+            let alertController = UIAlertController(
+                title: "Error presenting Notebook Index".localized(),
+                message: "The app could not present the Notebook Index".localized(),
+                preferredStyle: .alert)
+                .makeErrorMessage(with: "The app could not load the NotebookIndexViewController".localized())
+            
+            present(alertController, animated: true, completion: nil)
         }
     }
     
