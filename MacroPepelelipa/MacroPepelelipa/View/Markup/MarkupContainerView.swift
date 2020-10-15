@@ -12,7 +12,7 @@ internal class MarkupContainerView: MarkupFormatView, TextEditingDelegateObserve
     
     private lazy var backgroundView: UIView = {
         let bckView = UIView(frame: .zero)
-        bckView.backgroundColor = .white
+        bckView.backgroundColor = UIColor.backgroundColor
         bckView.layer.cornerRadius = 15
         bckView.translatesAutoresizingMaskIntoConstraints = false
         return bckView
