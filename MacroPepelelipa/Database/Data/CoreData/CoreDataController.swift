@@ -147,11 +147,12 @@ internal class CoreDataController {
      - Parameter note: To what note it belongs.
      - Throws: Throws if fails to parse object to ImageBox or the context saving is unsuccessful.
      */
-    internal func createImageBox(in note: Note) throws -> ImageBox {
+    internal func createImageBox(in note: Note, at imagePath: String) throws -> ImageBox {
         guard let imageBox = NSEntityDescription.insertNewObject(forEntityName: "ImageBox", into: context) as? ImageBox else {
             throw CoreDataError.failedToParseObject
         }
-
+        
+        imageBox.imagePath = imagePath
         imageBox.note = note
 
         try saveContext()

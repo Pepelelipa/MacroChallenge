@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import Database
 
 internal class ImageBoxView: UIView, BoxView {
     
@@ -23,12 +24,13 @@ internal class ImageBoxView: UIView, BoxView {
     }
     
     internal var owner: MarkupTextView
+    internal weak var entity: ImageBoxEntity?
     
     internal var internalFrame: CGRect = .zero
     
     internal var boxViewBorder = CAShapeLayer()
     
-    internal var markupUIImage: UIImage
+    internal var markupUIImage: UIImage?
     
     internal lazy var markupImageView: UIImageView = {
         let imageView = UIImageView(image: markupUIImage)
@@ -36,10 +38,17 @@ internal class ImageBoxView: UIView, BoxView {
         return imageView
     }()
 
-    internal init(frame: CGRect, owner: MarkupTextView, image: UIImage) {  
+    internal init(imageBoxEntity: ImageBoxEntity, owner: MarkupTextView, image: UIImage?) {
         self.owner = owner
         self.state = .idle
         self.markupUIImage = image
+
+        let frame = CGRect(
+            x: CGFloat(imageBoxEntity.x),
+            y: CGFloat(imageBoxEntity.y),
+            width: CGFloat(imageBoxEntity.width),
+            height: CGFloat(imageBoxEntity.height))
+        self.entity = imageBoxEntity
 
         super.init(frame: frame)
         
@@ -49,6 +58,7 @@ internal class ImageBoxView: UIView, BoxView {
         setUpImageViewConstraints()
         setUpBorder()   
         self.layer.addSublayer(boxViewBorder)
+        self.state = .idle
     }
     
     required convenience init?(coder: NSCoder) {

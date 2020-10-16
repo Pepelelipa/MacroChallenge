@@ -6,6 +6,7 @@
 //  Copyright © 2020 Pedro Giuliano Farina. All rights reserved.
 //
 //
+//swiftlint:disable all
 
 import Foundation
 import CoreData
