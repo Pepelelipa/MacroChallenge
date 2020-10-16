@@ -145,11 +145,11 @@ internal class NotebooksSelectionViewController: UIViewController {
     
     private func setConstraints() {
         sharedConstraints.append(contentsOf: [
-            collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
+            collectionView.topAnchor.constraint(equalTo: view.topAnchor),
             collectionView.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
             collectionView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
             collectionView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
-            collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             
             emptyScreenView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
             emptyScreenView.centerYAnchor.constraint(equalTo: self.view.centerYAnchor)
@@ -252,14 +252,13 @@ internal class NotebooksSelectionViewController: UIViewController {
     
     private func presentDestination(for device: UIUserInterfaceIdiom, notebook: NotebookEntity) {
         
-        let notesViewController = NotesViewController(notebook: notebook, 
-                                              note: notebook.notes[notebook.notes.count-1])
+        let notesPageViewController = NotesPageViewController(notes: notebook.notes)
         
         if device == .phone {
-            self.navigationController?.pushViewController(notesViewController, animated: true)
+            self.navigationController?.pushViewController(notesPageViewController, animated: true)
         
         } else {
-            let destination = TextEditingContainerViewController(centerViewController: notesViewController)
+            let destination = TextEditingContainerViewController(centerViewController: notesPageViewController)
             
             self.navigationController?.pushViewController(destination, animated: true)
         }
@@ -278,6 +277,7 @@ internal class NotebooksSelectionViewController: UIViewController {
         })
         addController.moveTo(self)
     }
+    
     /**
      This method handles the long press on a notebook, asking the user to delete it or not.
      
