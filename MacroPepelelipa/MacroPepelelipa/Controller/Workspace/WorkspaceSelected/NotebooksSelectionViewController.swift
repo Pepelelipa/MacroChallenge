@@ -145,11 +145,11 @@ internal class NotebooksSelectionViewController: UIViewController {
     
     private func setConstraints() {
         sharedConstraints.append(contentsOf: [
-            collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
+            collectionView.topAnchor.constraint(equalTo: view.topAnchor),
             collectionView.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
             collectionView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
             collectionView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
-            collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             
             emptyScreenView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
             emptyScreenView.centerYAnchor.constraint(equalTo: self.view.centerYAnchor)
