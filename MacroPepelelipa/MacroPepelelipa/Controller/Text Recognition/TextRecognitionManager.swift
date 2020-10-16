@@ -10,6 +10,9 @@ import UIKit
 import Vision
 
 internal class TextRecognitionManager {
+    
+    // MARK: - Variables and Constants
+    
     private var currentBuffer: CVPixelBuffer?
     private var results: [VNRecognizedTextObservation]?
     private var image: CIImage?
@@ -25,7 +28,9 @@ internal class TextRecognitionManager {
         return textRecognition
     }()
     
-    func imageRequest(toImage image: UIImage) -> String {
+    // MARK: - Functions
+    
+    internal func imageRequest(toImage image: UIImage) -> String {
         if let ciImage = CIImage(image: image) {
             requestHandler = VNImageRequestHandler(ciImage: ciImage, options: [:])
             
@@ -38,7 +43,7 @@ internal class TextRecognitionManager {
         return resultTextRecognition
     }
     
-    func performOCRRequest() {
+    private func performOCRRequest() {
         do {
             try self.requestHandler?.perform([self.textRecognitionRequest])
         } catch {
@@ -46,7 +51,7 @@ internal class TextRecognitionManager {
         }
     }
     
-    func recognizeTextHandler(request: VNRequest, error: Error?) {
+    private func recognizeTextHandler(request: VNRequest, error: Error?) {
         self.results = self.textRecognitionRequest.results as? [VNRecognizedTextObservation]
         
         if let results = self.results {
