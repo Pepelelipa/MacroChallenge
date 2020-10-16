@@ -30,11 +30,16 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
 
     func sceneDidBecomeActive(_ scene: UIScene) {
+        let isDarkMode = UserDefaults.standard.bool(forKey: "isDarkMode")
+        let interfaceStyle = self.window?.traitCollection.userInterfaceStyle
+        
         DispatchQueue.main.asyncAfter(deadline: .now()+0.5) {
-            if self.window?.traitCollection.userInterfaceStyle == .dark {
+            if interfaceStyle == .dark && !isDarkMode {
                 self.changeIcon(to: "DarkModeIcon")
-            } else {
+                UserDefaults.standard.setValue(true, forKey: "isDarkMode")
+            } else if interfaceStyle == .light && isDarkMode {
                 self.changeIcon(to: nil)
+                UserDefaults.standard.setValue(false, forKey: "isDarkMode")
             }
         }
     }

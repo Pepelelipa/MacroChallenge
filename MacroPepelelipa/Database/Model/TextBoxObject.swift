@@ -7,7 +7,7 @@
 //
 //swiftlint:disable identifier_name
 
-internal struct TextBoxObject: TextBoxEntity {
+internal class TextBoxObject: TextBoxEntity {
 
     internal init(in note: NoteObject, coreDataObject: TextBox) {
         self.note = note
@@ -30,12 +30,36 @@ internal struct TextBoxObject: TextBoxEntity {
         }
         throw NoteError.noteWasNull
     }
-    public var text: NSAttributedString
-    public var width: Float
-    public var height: Float
-    public var x: Float
-    public var y: Float
-    public var z: Float
+    public var text: NSAttributedString {
+        didSet {
+            coreDataObject.text = text
+        }
+    }
+    public var width: Float {
+        didSet {
+            coreDataObject.width = width
+        }
+    }
+    public var height: Float {
+        didSet {
+            coreDataObject.height = height
+        }
+    }
+    public var x: Float {
+        didSet {
+            coreDataObject.x = x
+        }
+    }
+    public var y: Float {
+        didSet {
+            coreDataObject.y = y
+        }
+    }
+    public var z: Float {
+        didSet {
+            coreDataObject.z = z
+        }
+    }
 
     internal let coreDataObject: TextBox
 }

@@ -7,13 +7,13 @@
 //
 //swiftlint:disable identifier_name
 
-public protocol ImageBoxEntity {
-    var imagePath: String { get }
-    var width: Float { get }
-    var height: Float { get }
-    var x: Float { get }
-    var y: Float { get }
-    var z: Float { get }
+public protocol ImageBoxEntity: class {
+    var imagePath: String { get set }
+    var width: Float { get set }
+    var height: Float { get set }
+    var x: Float { get set }
+    var y: Float { get set }
+    var z: Float { get set }
 
     func getNote() throws -> NoteEntity
 }

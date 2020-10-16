@@ -7,9 +7,10 @@
 //
 
 import UIKit
+import Database
 
 internal protocol MarkupToolBarObserver: class {
-    func addTextBox(with frame: CGRect, transcription: String?)
+    func createTextBox()
     func presentPicker()
     func changeTextViewInput(isCustom: Bool)
     func openPopOver()

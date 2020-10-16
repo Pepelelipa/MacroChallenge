@@ -10,11 +10,22 @@ import UIKit
 import Database
 
 internal class NotebooksSelectionViewController: UIViewController {
+    internal private(set) weak var workspace: WorkspaceEntity?
+    internal init(workspace: WorkspaceEntity) {
+        super.init(nibName: nil, bundle: nil)
+        self.workspace = workspace
+        self.collectionDataSource = NotebooksCollectionViewDataSource(notebooks: workspace.notebooks, viewController: self, collectionView: { self.collectionView })
+    }
+    internal required convenience init?(coder: NSCoder) {
+        guard let workspace = coder.decodeObject(forKey: "workspace") as? WorkspaceEntity else {
+            return nil
+        }
+        self.init(workspace: workspace)
+    }
     
     // MARK: - Variables and Constants
     
     private var collectionDataSource: NotebooksCollectionViewDataSource?
-    internal private(set) weak var workspace: WorkspaceEntity?
 
     private lazy var collectionView: UICollectionView = {
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
@@ -81,21 +92,6 @@ internal class NotebooksSelectionViewController: UIViewController {
         } else {
             self.presentErrorAlert()
         }
-    }
-
-    
-    // MARK: - Initializers
-    
-    internal init(workspace: WorkspaceEntity) {
-        super.init(nibName: nil, bundle: nil)
-        self.workspace = workspace
-        self.collectionDataSource = NotebooksCollectionViewDataSource(workspace: workspace, viewController: self, collectionView: { self.collectionView })
-    }
-    internal required convenience init?(coder: NSCoder) {
-        guard let workspace = coder.decodeObject(forKey: "workspace") as? WorkspaceEntity else {
-            return nil
-        }
-        self.init(workspace: workspace)
     }
 
     override func viewDidLoad() {
@@ -293,16 +289,21 @@ internal class NotebooksSelectionViewController: UIViewController {
         }
         
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet).makeDeleteConfirmation(dataType: .notebook, deletionHandler: { _ in
-            do {
-                _ = try DataManager.shared().deleteNotebook(notebook)
-            } catch {
-                let alertController = UIAlertController(
-                    title: "Could not delete this notebook".localized(),
-                    message: "The app could not delete the notebook".localized() + notebook.name,
-                    preferredStyle: .alert)
-                    .makeErrorMessage(with: "An error occurred while deleting this instance on the database".localized())
-                self.present(alertController, animated: true, completion: nil)
-            }
+            let deleteAlertController = UIAlertController(title: "Delete Notebook confirmation".localized(),
+                                                          message: "Warning".localized(),
+                                                          preferredStyle: .alert).makeDeleteConfirmation(dataType: .notebook, deletionHandler: { _ in
+                                                            do {
+                                                                _ = try DataManager.shared().deleteNotebook(notebook)
+                                                            } catch {
+                                                                let alertController = UIAlertController(
+                                                                    title: "Could not delete this notebook".localized(),
+                                                                    message: "The app could not delete the notebook".localized() + notebook.name,
+                                                                    preferredStyle: .alert)
+                                                                    .makeErrorMessage(with: "An error occurred while deleting this instance on the database".localized())
+                                                                self.present(alertController, animated: true, completion: nil)
+                                                            }
+                                                          })
+            self.present(deleteAlertController, animated: true, completion: nil)
         })
         
         if UIDevice.current.userInterfaceIdiom == .pad {

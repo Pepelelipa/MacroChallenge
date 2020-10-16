@@ -32,10 +32,13 @@ internal class MarkupBarConfiguration {
         self.textView = owner
     }
     
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+    required convenience init?(coder: NSCoder) {
+        guard let owner = coder.decodeObject(forKey: "owner") as? MarkupTextView else {
+            return nil
+        }
+        self.init(owner: owner)
     }
-    
+     
     // MARK: UIBarButtonItem
     
     /**
@@ -263,8 +266,7 @@ internal class MarkupBarConfiguration {
     // MARK: General
     
     @objc internal func addTextBox() {
-        let frame = CGRect(x: UIScreen.main.bounds.midX, y: UIScreen.main.bounds.midY, width: 100.0, height: 100.0)
-        observer?.addTextBox(with: frame, transcription: nil)
+        observer?.createTextBox()
     }
     
     @objc private func openEditTextContainer() {

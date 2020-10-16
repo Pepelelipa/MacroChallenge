@@ -52,7 +52,15 @@ internal class WorkspacesCollectionViewDataSource: NSObject, UICollectionViewDat
             }
             return workspaces
         } catch {
-            fatalError("Failed to fetch")
+            let alertController = UIAlertController(
+                title: "Error fetching the workspaces".localized(),
+                message: "The database could not fetch the workspace".localized(),
+                preferredStyle: .alert)
+                .makeErrorMessage(with: "The Workspaces could not be fetched".localized())
+            if let viewController = viewController {
+                viewController.present(alertController, animated: true, completion: nil)
+            }
+            return []
         }
     }()
     
