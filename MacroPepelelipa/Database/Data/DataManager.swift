@@ -205,7 +205,7 @@ public class DataManager {
             throw ImageBoxError.failedToParse
         }
 
-        _ = FileHelper.deleteImage(fileName: imageBox.imagePath)
+        _ = try? FileHelper.deleteImage(fileName: imageBox.imagePath)
 
         try coreDataController.deleteImageBox(imageBoxObject.coreDataObject)
     }

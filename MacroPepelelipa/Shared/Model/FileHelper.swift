@@ -40,16 +40,12 @@ internal class FileHelper {
     }
 
     ///Delete image in file name
-    public static func deleteImage(fileName: String) -> Bool {
-        do {
-            let imagePath: URL = getDocumentsDirectory().appendingPathComponent(fileName)
-            if FileManager.default.fileExists(atPath: imagePath.relativePath) {
-                try FileManager.default.removeItem(at: imagePath)
-            } else {
-                return false
-            }
-        } catch {
-            fatalError("Não foi possível deletar o arquivo desejado")
+    public static func deleteImage(fileName: String) throws -> Bool {
+        let imagePath: URL = getDocumentsDirectory().appendingPathComponent(fileName)
+        if FileManager.default.fileExists(atPath: imagePath.relativePath) {
+            try FileManager.default.removeItem(at: imagePath)
+        } else {
+            return false
         }
         return true
     }
