@@ -68,7 +68,6 @@ internal class TextBoxView: UIView, BoxView {
             y: CGFloat(textBoxEntity.y),
             width: CGFloat(textBoxEntity.width),
             height: CGFloat(textBoxEntity.height))
-        owner.attributedText = textBoxEntity.text
         self.entity = textBoxEntity
 
         super.init(frame: frame)
@@ -79,6 +78,7 @@ internal class TextBoxView: UIView, BoxView {
         setUpTextViewConstraints()
         setUpBorder()   
         self.layer.addSublayer(boxViewBorder)
+        boxViewBorder.isHidden = true
     }
     
     required convenience init?(coder: NSCoder) {

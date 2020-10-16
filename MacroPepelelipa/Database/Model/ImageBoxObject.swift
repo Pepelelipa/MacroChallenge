@@ -30,12 +30,36 @@ internal class ImageBoxObject: ImageBoxEntity {
         }
         throw NoteError.noteWasNull
     }
-    var imagePath: String
-    var width: Float
-    var height: Float
-    var x: Float
-    var y: Float
-    var z: Float
+    var imagePath: String {
+        didSet {
+            coreDataObject.imagePath = imagePath
+        }
+    }
+    var width: Float {
+        didSet {
+            coreDataObject.width = width
+        }
+    }
+    var height: Float {
+        didSet {
+            coreDataObject.height = height
+        }
+    }
+    var x: Float {
+        didSet {
+            coreDataObject.x = x
+        }
+    }
+    var y: Float {
+        didSet {
+            coreDataObject.y = y
+        }
+    }
+    var z: Float {
+        didSet {
+            coreDataObject.z = z
+        }
+    }
 
     internal let coreDataObject: ImageBox
 }

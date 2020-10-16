@@ -130,8 +130,6 @@ internal class NotesViewController: UIViewController,
     internal init(note: NoteEntity) {
         self.note = note
         super.init(nibName: nil, bundle: nil)
-        self.textField.attributedText = note.title
-        self.textView.attributedText = note.text
     }
     
     deinit {
@@ -172,6 +170,8 @@ internal class NotesViewController: UIViewController,
             textView.inputAccessoryView = nil
         }
 
+        self.textField.attributedText = note?.title
+        self.textView.attributedText = note?.text
         for textBox in note?.textBoxes ?? [] {
             addTextBox(with: textBox)
         }
@@ -191,7 +191,7 @@ internal class NotesViewController: UIViewController,
             }
             note.title = textField.attributedText ?? NSAttributedString(string: "Lesson".localized())
             note.text = textView.attributedText ?? NSAttributedString()
-            for textBox in textBoxes {
+            for textBox in textBoxes where textBox.frame.origin.x != 0 && textBox.frame.origin.y != 0 {
                 if let entity = note.textBoxes.first(where: { $0 === textBox.entity }) {
                     entity.text = textBox.markupTextView.attributedText
                     entity.x = Float(textBox.frame.origin.x)
@@ -202,7 +202,7 @@ internal class NotesViewController: UIViewController,
                 }
             }
 
-            for imageBox in imageBoxes {
+            for imageBox in imageBoxes where imageBox.frame.origin.x != 0 && imageBox.frame.origin.y != 0 {
                 if let entity = note.images.first(where: { $0 === imageBox.entity }) {
                     entity.x = Float(imageBox.frame.origin.x)
                     entity.y = Float(imageBox.frame.origin.y)
@@ -310,10 +310,11 @@ internal class NotesViewController: UIViewController,
                 fatalError("Num tem note")
             }
             let textBoxEntity = try DataManager.shared().createTextBox(in: note)
-            textBoxEntity.x = Float(view.frame.midX)
-            textBoxEntity.y = Float(view.frame.minY)
-            textBoxEntity.height = 80
-            textBoxEntity.width = 150
+            textBoxEntity.x = Float(view.frame.width/2)
+            textBoxEntity.y = 10
+            textBoxEntity.height = 40
+            textBoxEntity.width = 140
+            textBoxEntity.text = NSAttributedString(string: "Text".localized())
             addTextBox(with: textBoxEntity)
         } catch {
             fatalError("Num deu")
@@ -331,6 +332,9 @@ internal class NotesViewController: UIViewController,
         let pinchGesture = UIPinchGestureRecognizer(target: self, action: #selector(handlePinch(_:)))
 
         let textBox = TextBoxView(textBoxEntity: textBoxEntity, owner: textView)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            textBox.markupTextView.attributedText = textBoxEntity.text
+        }
         textBox.addGestureRecognizer(tapGesture)
         textBox.addGestureRecognizer(doubleTapGesture)
         textBox.addGestureRecognizer(panGesture)
@@ -354,8 +358,8 @@ internal class NotesViewController: UIViewController,
 
             let path = try image.saveToFiles()
             let imageBoxEntity = try DataManager.shared().createImageBox(in: note, at: path)
-            imageBoxEntity.x = Float(view.frame.midX)
-            imageBoxEntity.y = Float(view.frame.minY)
+            imageBoxEntity.x = Float(view.frame.width/2)
+            imageBoxEntity.y = 10
             imageBoxEntity.width = 150
             imageBoxEntity.height = 150
 
