@@ -59,3 +59,6 @@
 "The app could not delete the workspace" = "O aplicativo não conseguiu excluir a coleção";
 "Delete" = "Excluir";
 "Cancel" = "Cancelar";
+"Delete Notebook confirmation" = "Tem certeza que deseja deletar o caderno?";
+"Delete Workspace confirmation" = "Tem certeza que deseja deletar a coleção?";
+"Warning" = "Não sera possível desfazer a exclusão!";
