@@ -9,9 +9,35 @@
 
 import UIKit
 import Database
+import PhotosUI
 
 internal class TextEditingContainerViewController: UIViewController, IndexObserver, MarkupToolBarObserver {
-    
+    func createTextBox(transcription: String?) {
+        if let noteController = centerViewController?.viewControllers?.first as? NotesViewController {
+            noteController.createTextBox(transcription: transcription)
+        }
+    }
+
+    func presentPicker() {
+        guard let noteController = centerViewController?.viewControllers?.first as? NotesViewController else {
+            return
+        }
+        var config = PHPickerConfiguration()
+        config.filter = .images
+
+        let picker = PHPickerViewController(configuration: config)
+
+        picker.delegate = noteController
+
+        present(picker, animated: true, completion: nil)
+    }
+
+    func changeTextViewInput(isCustom: Bool) {
+        if let noteController = centerViewController?.viewControllers?.first as? NotesViewController {
+            noteController.changeTextViewInput(isCustom: isCustom)
+        }
+    }
+
     // MARK: - Variables and Constants
     
     private var centerViewController: NotesPageViewController?
@@ -83,7 +109,7 @@ internal class TextEditingContainerViewController: UIViewController, IndexObserv
             navigationController?.popViewController(animated: true)
         }
         
-        navigationItem.rightBarButtonItems = [addNewNoteButton, moreActionsButton, notebookIndexButton]
+        navigationItem.rightBarButtonItems = [addNewNoteButton, notebookIndexButton]
         navigationItem.largeTitleDisplayMode = .never
         navigationItem.titleView = markupNavigationView
         navigationItem.titleView?.backgroundColor = .clear
