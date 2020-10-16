@@ -356,7 +356,7 @@ internal class NotesViewController: UIViewController,
                 fatalError("Num tem note")
             }
 
-            let path = try image.saveToFiles()
+            let path = try FileHelper.saveToFiles(image: image)
             let imageBoxEntity = try DataManager.shared().createImageBox(in: note, at: path)
             imageBoxEntity.x = Float(view.frame.width/2)
             imageBoxEntity.y = 10
@@ -376,16 +376,17 @@ internal class NotesViewController: UIViewController,
         let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePan(_:)))
         let pinchGesture = UIPinchGestureRecognizer(target: self, action: #selector(handlePinch(_:)))
 
-        let image = UIImage(contentsOfFile: imageBoxEntity.imagePath)
+        if let fileName = FileHelper.getFilePath(fileName: imageBoxEntity.imagePath) {
+            let image = UIImage(contentsOfFile: fileName)
+            let imageBox = ImageBoxView(imageBoxEntity: imageBoxEntity, owner: textView, image: image)
 
-        let imageBox = ImageBoxView(imageBoxEntity: imageBoxEntity, owner: textView, image: image)
-
-        imageBox.addGestureRecognizer(tapGesture)
-        imageBox.addGestureRecognizer(doubleTapGesture)
-        imageBox.addGestureRecognizer(panGesture)
-        imageBox.addGestureRecognizer(pinchGesture)
-        self.imageBoxes.insert(imageBox)
-        self.textView.addSubview(imageBox)
+            imageBox.addGestureRecognizer(tapGesture)
+            imageBox.addGestureRecognizer(doubleTapGesture)
+            imageBox.addGestureRecognizer(panGesture)
+            imageBox.addGestureRecognizer(pinchGesture)
+            self.imageBoxes.insert(imageBox)
+            self.textView.addSubview(imageBox)
+        }
     }
     
     /**

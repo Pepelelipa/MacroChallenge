@@ -205,8 +205,7 @@ public class DataManager {
             throw ImageBoxError.failedToParse
         }
 
-        let url = URL(fileURLWithPath: imageBox.imagePath)
-        try? FileManager.default.removeItem(at: url)
+        _ = FileHelper.deleteImage(fileName: imageBox.imagePath)
 
         try coreDataController.deleteImageBox(imageBoxObject.coreDataObject)
     }
