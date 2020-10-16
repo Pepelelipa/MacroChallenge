@@ -103,21 +103,6 @@
 		02E4E99525266F3900290A39 /* NotebookView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02E4E99425266F3900290A39 /* NotebookView.swift */; };
 		02E5A22C25239E36009DFFB5 /* WorkspaceSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02E5A22B25239E36009DFFB5 /* WorkspaceSelectionViewController.swift */; };
 		02ECA43C2512ABD100E68588 /* NotebookCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02ECA43B2512ABD100E68588 /* NotebookCollectionViewCell.swift */; };
-		1E67618B2538F55A00B8C6F1 /* DarkModeIcon-Small-40@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1E67617C2538F55900B8C6F1 /* DarkModeIcon-Small-40@3x.png */; };
-		1E67618C2538F55A00B8C6F1 /* DarkModeIcon-Notification.png in Resources */ = {isa = PBXBuildFile; fileRef = 1E67617D2538F55A00B8C6F1 /* DarkModeIcon-Notification.png */; };
-		1E67618D2538F55A00B8C6F1 /* DarkModeIcon-76.png in Resources */ = {isa = PBXBuildFile; fileRef = 1E67617E2538F55A00B8C6F1 /* DarkModeIcon-76.png */; };
-		1E67618E2538F55A00B8C6F1 /* DarkModeIcon-Small@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1E67617F2538F55A00B8C6F1 /* DarkModeIcon-Small@2x.png */; };
-		1E67618F2538F55A00B8C6F1 /* DarkModeIcon-60@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1E6761802538F55A00B8C6F1 /* DarkModeIcon-60@3x.png */; };
-		1E6761902538F55A00B8C6F1 /* DarkModeIcon-83.5@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1E6761812538F55A00B8C6F1 /* DarkModeIcon-83.5@2x.png */; };
-		1E6761912538F55A00B8C6F1 /* DarkModeIcon-Notification@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1E6761822538F55A00B8C6F1 /* DarkModeIcon-Notification@3x.png */; };
-		1E6761922538F55A00B8C6F1 /* DarkModeIcon-Small.png in Resources */ = {isa = PBXBuildFile; fileRef = 1E6761832538F55A00B8C6F1 /* DarkModeIcon-Small.png */; };
-		1E6761932538F55A00B8C6F1 /* DarkModeIcon-Small-40@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1E6761842538F55A00B8C6F1 /* DarkModeIcon-Small-40@2x.png */; };
-		1E6761942538F55A00B8C6F1 /* DarkModeIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 1E6761852538F55A00B8C6F1 /* DarkModeIcon.png */; };
-		1E6761952538F55A00B8C6F1 /* DarkModeIcon-60@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1E6761862538F55A00B8C6F1 /* DarkModeIcon-60@2x.png */; };
-		1E6761962538F55A00B8C6F1 /* DarkModeIcon-76@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1E6761872538F55A00B8C6F1 /* DarkModeIcon-76@2x.png */; };
-		1E6761972538F55A00B8C6F1 /* DarkModeIcon-Small-40.png in Resources */ = {isa = PBXBuildFile; fileRef = 1E6761882538F55A00B8C6F1 /* DarkModeIcon-Small-40.png */; };
-		1E6761982538F55A00B8C6F1 /* DarkModeIcon-Notification@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1E6761892538F55A00B8C6F1 /* DarkModeIcon-Notification@2x.png */; };
-		1E6761992538F55A00B8C6F1 /* DarkModeIcon-Small@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1E67618A2538F55A00B8C6F1 /* DarkModeIcon-Small@3x.png */; };
 		1E6E148C252E33E700383E10 /* MarkupBarConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E6E148B252E33E700383E10 /* MarkupBarConfiguration.swift */; };
 		1E9290C1252FA68600E8B142 /* MarkupContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E9290C0252FA68600E8B142 /* MarkupContainerViewController.swift */; };
 		1E9EF4A925225B9B00CC623B /* TextEditingDelegateObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E9EF4A825225B9B00CC623B /* TextEditingDelegateObserver.swift */; };
@@ -149,8 +134,24 @@
 		D9F4A9AE25277AC900BFDC19 /* TextBoxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9F4A9AD25277AC900BFDC19 /* TextBoxView.swift */; };
 		D9F4A9BD2527D0A600BFDC19 /* MarkupToolBarObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9F4A9BC2527D0A600BFDC19 /* MarkupToolBarObserver.swift */; };
 		E4017A8D252CEA9B00ABB87C /* AlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4017A8C252CEA9B00ABB87C /* AlertController.swift */; };
+		E40220AF253A136D009C08C4 /* DarkModeIcon-83.5@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E40220A0253A136C009C08C4 /* DarkModeIcon-83.5@2x.png */; };
+		E40220B0253A136D009C08C4 /* DarkModeIcon-76@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E40220A1253A136C009C08C4 /* DarkModeIcon-76@2x.png */; };
+		E40220B1253A136D009C08C4 /* DarkModeIcon-Small@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E40220A2253A136C009C08C4 /* DarkModeIcon-Small@2x.png */; };
+		E40220B2253A136D009C08C4 /* DarkModeIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = E40220A3253A136C009C08C4 /* DarkModeIcon.png */; };
+		E40220B3253A136D009C08C4 /* DarkModeIcon-Small@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E40220A4253A136C009C08C4 /* DarkModeIcon-Small@3x.png */; };
+		E40220B4253A136D009C08C4 /* DarkModeIcon-Small-40@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E40220A5253A136C009C08C4 /* DarkModeIcon-Small-40@2x.png */; };
+		E40220B5253A136D009C08C4 /* DarkModeIcon-76.png in Resources */ = {isa = PBXBuildFile; fileRef = E40220A6253A136C009C08C4 /* DarkModeIcon-76.png */; };
+		E40220B6253A136D009C08C4 /* DarkModeIcon-Small.png in Resources */ = {isa = PBXBuildFile; fileRef = E40220A7253A136C009C08C4 /* DarkModeIcon-Small.png */; };
+		E40220B7253A136D009C08C4 /* DarkModeIcon-Notification.png in Resources */ = {isa = PBXBuildFile; fileRef = E40220A8253A136C009C08C4 /* DarkModeIcon-Notification.png */; };
+		E40220B8253A136D009C08C4 /* DarkModeIcon-60@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E40220A9253A136C009C08C4 /* DarkModeIcon-60@2x.png */; };
+		E40220B9253A136D009C08C4 /* DarkModeIcon-Small-40@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E40220AA253A136C009C08C4 /* DarkModeIcon-Small-40@3x.png */; };
+		E40220BA253A136D009C08C4 /* DarkModeIcon-Small-40.png in Resources */ = {isa = PBXBuildFile; fileRef = E40220AB253A136C009C08C4 /* DarkModeIcon-Small-40.png */; };
+		E40220BB253A136D009C08C4 /* DarkModeIcon-60@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E40220AC253A136C009C08C4 /* DarkModeIcon-60@3x.png */; };
+		E40220BC253A136D009C08C4 /* DarkModeIcon-Notification@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E40220AD253A136C009C08C4 /* DarkModeIcon-Notification@2x.png */; };
+		E40220BD253A136D009C08C4 /* DarkModeIcon-Notification@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E40220AE253A136C009C08C4 /* DarkModeIcon-Notification@3x.png */; };
 		E4026286252FAC7800BCDD93 /* DancingScript-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E4026284252FAC7800BCDD93 /* DancingScript-Bold.ttf */; };
 		E4026287252FAC7800BCDD93 /* DancingScript-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E4026285252FAC7800BCDD93 /* DancingScript-Regular.ttf */; };
+		E41209532538C1020088AC26 /* EmptyScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E41209522538C1020088AC26 /* EmptyScreenView.swift */; };
 		E4277C4C2527B824002CD6B1 /* MarkupFormatViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4277C4B2527B824002CD6B1 /* MarkupFormatViewDelegate.swift */; };
 		E42FC8372530EF78004E81C9 /* MarkupFormatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E42FC8362530EF78004E81C9 /* MarkupFormatView.swift */; };
 		E45C20D2251D24BD0022AD95 /* MarkdownNumeric.swift in Sources */ = {isa = PBXBuildFile; fileRef = E45C20D1251D24BD0022AD95 /* MarkdownNumeric.swift */; };
@@ -288,21 +289,6 @@
 		02E4E99425266F3900290A39 /* NotebookView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotebookView.swift; sourceTree = "<group>"; };
 		02E5A22B25239E36009DFFB5 /* WorkspaceSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkspaceSelectionViewController.swift; sourceTree = "<group>"; };
 		02ECA43B2512ABD100E68588 /* NotebookCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotebookCollectionViewCell.swift; sourceTree = "<group>"; };
-		1E67617C2538F55900B8C6F1 /* DarkModeIcon-Small-40@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "DarkModeIcon-Small-40@3x.png"; sourceTree = "<group>"; };
-		1E67617D2538F55A00B8C6F1 /* DarkModeIcon-Notification.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "DarkModeIcon-Notification.png"; sourceTree = "<group>"; };
-		1E67617E2538F55A00B8C6F1 /* DarkModeIcon-76.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "DarkModeIcon-76.png"; sourceTree = "<group>"; };
-		1E67617F2538F55A00B8C6F1 /* DarkModeIcon-Small@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "DarkModeIcon-Small@2x.png"; sourceTree = "<group>"; };
-		1E6761802538F55A00B8C6F1 /* DarkModeIcon-60@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "DarkModeIcon-60@3x.png"; sourceTree = "<group>"; };
-		1E6761812538F55A00B8C6F1 /* DarkModeIcon-83.5@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "DarkModeIcon-83.5@2x.png"; sourceTree = "<group>"; };
-		1E6761822538F55A00B8C6F1 /* DarkModeIcon-Notification@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "DarkModeIcon-Notification@3x.png"; sourceTree = "<group>"; };
-		1E6761832538F55A00B8C6F1 /* DarkModeIcon-Small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "DarkModeIcon-Small.png"; sourceTree = "<group>"; };
-		1E6761842538F55A00B8C6F1 /* DarkModeIcon-Small-40@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "DarkModeIcon-Small-40@2x.png"; sourceTree = "<group>"; };
-		1E6761852538F55A00B8C6F1 /* DarkModeIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DarkModeIcon.png; sourceTree = "<group>"; };
-		1E6761862538F55A00B8C6F1 /* DarkModeIcon-60@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "DarkModeIcon-60@2x.png"; sourceTree = "<group>"; };
-		1E6761872538F55A00B8C6F1 /* DarkModeIcon-76@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "DarkModeIcon-76@2x.png"; sourceTree = "<group>"; };
-		1E6761882538F55A00B8C6F1 /* DarkModeIcon-Small-40.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "DarkModeIcon-Small-40.png"; sourceTree = "<group>"; };
-		1E6761892538F55A00B8C6F1 /* DarkModeIcon-Notification@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "DarkModeIcon-Notification@2x.png"; sourceTree = "<group>"; };
-		1E67618A2538F55A00B8C6F1 /* DarkModeIcon-Small@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "DarkModeIcon-Small@3x.png"; sourceTree = "<group>"; };
 		1E6E148B252E33E700383E10 /* MarkupBarConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkupBarConfiguration.swift; sourceTree = "<group>"; };
 		1E9290C0252FA68600E8B142 /* MarkupContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkupContainerViewController.swift; sourceTree = "<group>"; };
 		1E9EF4A825225B9B00CC623B /* TextEditingDelegateObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextEditingDelegateObserver.swift; sourceTree = "<group>"; };
@@ -334,8 +320,24 @@
 		D9F4A9AD25277AC900BFDC19 /* TextBoxView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextBoxView.swift; sourceTree = "<group>"; };
 		D9F4A9BC2527D0A600BFDC19 /* MarkupToolBarObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkupToolBarObserver.swift; sourceTree = "<group>"; };
 		E4017A8C252CEA9B00ABB87C /* AlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertController.swift; sourceTree = "<group>"; };
+		E40220A0253A136C009C08C4 /* DarkModeIcon-83.5@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "DarkModeIcon-83.5@2x.png"; sourceTree = "<group>"; };
+		E40220A1253A136C009C08C4 /* DarkModeIcon-76@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "DarkModeIcon-76@2x.png"; sourceTree = "<group>"; };
+		E40220A2253A136C009C08C4 /* DarkModeIcon-Small@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "DarkModeIcon-Small@2x.png"; sourceTree = "<group>"; };
+		E40220A3253A136C009C08C4 /* DarkModeIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DarkModeIcon.png; sourceTree = "<group>"; };
+		E40220A4253A136C009C08C4 /* DarkModeIcon-Small@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "DarkModeIcon-Small@3x.png"; sourceTree = "<group>"; };
+		E40220A5253A136C009C08C4 /* DarkModeIcon-Small-40@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "DarkModeIcon-Small-40@2x.png"; sourceTree = "<group>"; };
+		E40220A6253A136C009C08C4 /* DarkModeIcon-76.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "DarkModeIcon-76.png"; sourceTree = "<group>"; };
+		E40220A7253A136C009C08C4 /* DarkModeIcon-Small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "DarkModeIcon-Small.png"; sourceTree = "<group>"; };
+		E40220A8253A136C009C08C4 /* DarkModeIcon-Notification.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "DarkModeIcon-Notification.png"; sourceTree = "<group>"; };
+		E40220A9253A136C009C08C4 /* DarkModeIcon-60@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "DarkModeIcon-60@2x.png"; sourceTree = "<group>"; };
+		E40220AA253A136C009C08C4 /* DarkModeIcon-Small-40@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "DarkModeIcon-Small-40@3x.png"; sourceTree = "<group>"; };
+		E40220AB253A136C009C08C4 /* DarkModeIcon-Small-40.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "DarkModeIcon-Small-40.png"; sourceTree = "<group>"; };
+		E40220AC253A136C009C08C4 /* DarkModeIcon-60@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "DarkModeIcon-60@3x.png"; sourceTree = "<group>"; };
+		E40220AD253A136C009C08C4 /* DarkModeIcon-Notification@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "DarkModeIcon-Notification@2x.png"; sourceTree = "<group>"; };
+		E40220AE253A136C009C08C4 /* DarkModeIcon-Notification@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "DarkModeIcon-Notification@3x.png"; sourceTree = "<group>"; };
 		E4026284252FAC7800BCDD93 /* DancingScript-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "DancingScript-Bold.ttf"; sourceTree = "<group>"; };
 		E4026285252FAC7800BCDD93 /* DancingScript-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "DancingScript-Regular.ttf"; sourceTree = "<group>"; };
+		E41209522538C1020088AC26 /* EmptyScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyScreenView.swift; sourceTree = "<group>"; };
 		E4277C4B2527B824002CD6B1 /* MarkupFormatViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkupFormatViewDelegate.swift; sourceTree = "<group>"; };
 		E42FC8362530EF78004E81C9 /* MarkupFormatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkupFormatView.swift; sourceTree = "<group>"; };
 		E45C20D1251D24BD0022AD95 /* MarkdownNumeric.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkdownNumeric.swift; sourceTree = "<group>"; };
@@ -827,7 +829,7 @@
 		02DD09FA25114D6200B6696B /* MacroPepelelipa */ = {
 			isa = PBXGroup;
 			children = (
-				1E67617A2538F3FA00B8C6F1 /* Icon */,
+				E402209F253A135A009C08C4 /* Icon */,
 				02DD0A1125114E9D00B6696B /* Model */,
 				02DD0A1225114EA200B6696B /* Controller */,
 				02DD0A1025114E9800B6696B /* View */,
@@ -887,30 +889,9 @@
 				02207A3D2523AB160001FD7E /* WorkspaceCollectionViewCell.swift */,
 				023886052523CAEC00F807E9 /* WorkspaceCellNotebookCollectionViewCell.swift */,
 				02ECA43B2512ABD100E68588 /* NotebookCollectionViewCell.swift */,
+				E41209522538C1020088AC26 /* EmptyScreenView.swift */,
 			);
 			path = Workspace;
-			sourceTree = "<group>";
-		};
-		1E67617A2538F3FA00B8C6F1 /* Icon */ = {
-			isa = PBXGroup;
-			children = (
-				1E6761862538F55A00B8C6F1 /* DarkModeIcon-60@2x.png */,
-				1E6761802538F55A00B8C6F1 /* DarkModeIcon-60@3x.png */,
-				1E67617E2538F55A00B8C6F1 /* DarkModeIcon-76.png */,
-				1E6761872538F55A00B8C6F1 /* DarkModeIcon-76@2x.png */,
-				1E6761812538F55A00B8C6F1 /* DarkModeIcon-83.5@2x.png */,
-				1E67617D2538F55A00B8C6F1 /* DarkModeIcon-Notification.png */,
-				1E6761892538F55A00B8C6F1 /* DarkModeIcon-Notification@2x.png */,
-				1E6761822538F55A00B8C6F1 /* DarkModeIcon-Notification@3x.png */,
-				1E6761882538F55A00B8C6F1 /* DarkModeIcon-Small-40.png */,
-				1E6761842538F55A00B8C6F1 /* DarkModeIcon-Small-40@2x.png */,
-				1E67617C2538F55900B8C6F1 /* DarkModeIcon-Small-40@3x.png */,
-				1E6761832538F55A00B8C6F1 /* DarkModeIcon-Small.png */,
-				1E67617F2538F55A00B8C6F1 /* DarkModeIcon-Small@2x.png */,
-				1E67618A2538F55A00B8C6F1 /* DarkModeIcon-Small@3x.png */,
-				1E6761852538F55A00B8C6F1 /* DarkModeIcon.png */,
-			);
-			path = Icon;
 			sourceTree = "<group>";
 		};
 		1E9EF4A725225B7A00CC623B /* Notes */ = {
@@ -973,11 +954,32 @@
 		E4017A92252D09DC00ABB87C /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				E4017A8C252CEA9B00ABB87C /* ErrorAlertController.swift */,
 				A77579EE2538C9CC00F4268C /* NotesBarButtonItems.swift */,
 				E4017A8C252CEA9B00ABB87C /* AlertController.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		E402209F253A135A009C08C4 /* Icon */ = {
+			isa = PBXGroup;
+			children = (
+				E40220A9253A136C009C08C4 /* DarkModeIcon-60@2x.png */,
+				E40220AC253A136C009C08C4 /* DarkModeIcon-60@3x.png */,
+				E40220A6253A136C009C08C4 /* DarkModeIcon-76.png */,
+				E40220A1253A136C009C08C4 /* DarkModeIcon-76@2x.png */,
+				E40220A0253A136C009C08C4 /* DarkModeIcon-83.5@2x.png */,
+				E40220A8253A136C009C08C4 /* DarkModeIcon-Notification.png */,
+				E40220AD253A136C009C08C4 /* DarkModeIcon-Notification@2x.png */,
+				E40220AE253A136C009C08C4 /* DarkModeIcon-Notification@3x.png */,
+				E40220AB253A136C009C08C4 /* DarkModeIcon-Small-40.png */,
+				E40220A5253A136C009C08C4 /* DarkModeIcon-Small-40@2x.png */,
+				E40220AA253A136C009C08C4 /* DarkModeIcon-Small-40@3x.png */,
+				E40220A7253A136C009C08C4 /* DarkModeIcon-Small.png */,
+				E40220A2253A136C009C08C4 /* DarkModeIcon-Small@2x.png */,
+				E40220A4253A136C009C08C4 /* DarkModeIcon-Small@3x.png */,
+				E40220A3253A136C009C08C4 /* DarkModeIcon.png */,
+			);
+			path = Icon;
 			sourceTree = "<group>";
 		};
 		E4F88C85252FA524003AD037 /* Fonts */ = {
@@ -1124,36 +1126,36 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E40220AF253A136D009C08C4 /* DarkModeIcon-83.5@2x.png in Resources */,
 				020FFA2F252501D10095266D /* Media.xcassets in Resources */,
-				1E6761932538F55A00B8C6F1 /* DarkModeIcon-Small-40@2x.png in Resources */,
 				E4F88C96252FA597003AD037 /* OpenSans-Regular.ttf in Resources */,
-				1E67618E2538F55A00B8C6F1 /* DarkModeIcon-Small@2x.png in Resources */,
-				1E67618B2538F55A00B8C6F1 /* DarkModeIcon-Small-40@3x.png in Resources */,
+				E40220BB253A136D009C08C4 /* DarkModeIcon-60@3x.png in Resources */,
 				E4F88C8E252FA564003AD037 /* Merriweather-Italic.otf in Resources */,
-				1E6761902538F55A00B8C6F1 /* DarkModeIcon-83.5@2x.png in Resources */,
 				E4026286252FAC7800BCDD93 /* DancingScript-Bold.ttf in Resources */,
 				E4F88C8D252FA564003AD037 /* Merriweather-Bold.otf in Resources */,
 				E4F88C8B252FA564003AD037 /* Merriweather-BoldItalic.otf in Resources */,
-				1E6761962538F55A00B8C6F1 /* DarkModeIcon-76@2x.png in Resources */,
+				E40220BC253A136D009C08C4 /* DarkModeIcon-Notification@2x.png in Resources */,
 				E4F88C95252FA597003AD037 /* OpenSans-BoldItalic.ttf in Resources */,
+				E40220B1253A136D009C08C4 /* DarkModeIcon-Small@2x.png in Resources */,
+				E40220B3253A136D009C08C4 /* DarkModeIcon-Small@3x.png in Resources */,
 				02DD0A0825114D6700B6696B /* LaunchScreen.storyboard in Resources */,
+				E40220B6253A136D009C08C4 /* DarkModeIcon-Small.png in Resources */,
+				E40220B7253A136D009C08C4 /* DarkModeIcon-Notification.png in Resources */,
+				E40220B9253A136D009C08C4 /* DarkModeIcon-Small-40@3x.png in Resources */,
 				020FFA2C252501B20095266D /* Colors.xcassets in Resources */,
+				E40220B5253A136D009C08C4 /* DarkModeIcon-76.png in Resources */,
+				E40220B8253A136D009C08C4 /* DarkModeIcon-60@2x.png in Resources */,
+				E40220B4253A136D009C08C4 /* DarkModeIcon-Small-40@2x.png in Resources */,
 				020E22262513F1A800A93EAB /* Localizable.strings in Resources */,
+				E40220B0253A136D009C08C4 /* DarkModeIcon-76@2x.png in Resources */,
 				E4F88C97252FA597003AD037 /* OpenSans-Italic.ttf in Resources */,
-				1E6761972538F55A00B8C6F1 /* DarkModeIcon-Small-40.png in Resources */,
-				1E6761952538F55A00B8C6F1 /* DarkModeIcon-60@2x.png in Resources */,
-				1E6761992538F55A00B8C6F1 /* DarkModeIcon-Small@3x.png in Resources */,
 				E4F88C98252FA597003AD037 /* OpenSans-Bold.ttf in Resources */,
-				1E67618C2538F55A00B8C6F1 /* DarkModeIcon-Notification.png in Resources */,
+				E40220BD253A136D009C08C4 /* DarkModeIcon-Notification@3x.png in Resources */,
+				E40220BA253A136D009C08C4 /* DarkModeIcon-Small-40.png in Resources */,
 				020FFA33252502130095266D /* Assets.xcassets in Resources */,
-				1E67618F2538F55A00B8C6F1 /* DarkModeIcon-60@3x.png in Resources */,
+				E40220B2253A136D009C08C4 /* DarkModeIcon.png in Resources */,
 				E4F88C8C252FA564003AD037 /* Merriweather-Regular.otf in Resources */,
 				E4026287252FAC7800BCDD93 /* DancingScript-Regular.ttf in Resources */,
-				1E6761942538F55A00B8C6F1 /* DarkModeIcon.png in Resources */,
-				1E67618D2538F55A00B8C6F1 /* DarkModeIcon-76.png in Resources */,
-				1E6761912538F55A00B8C6F1 /* DarkModeIcon-Notification@3x.png in Resources */,
-				1E6761982538F55A00B8C6F1 /* DarkModeIcon-Notification@2x.png in Resources */,
-				1E6761922538F55A00B8C6F1 /* DarkModeIcon-Small.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1244,6 +1246,7 @@
 				A731AA7F25374A8A00624131 /* TextEditingContainerViewController.swift in Sources */,
 				D9E4B0C9252E316900665CDC /* ImageBoxView.swift in Sources */,
 				D96DAA09252F9F4B00552AB1 /* AddNewSpaceToolBar.swift in Sources */,
+				E41209532538C1020088AC26 /* EmptyScreenView.swift in Sources */,
 				02AC9ADA251BF35200A067D0 /* NotebooksCollectionViewDelegate.swift in Sources */,
 				024C5BB4252E41D8009549CE /* ColorSelectionCollectionViewDelegate.swift in Sources */,
 				1E9EF4A925225B9B00CC623B /* TextEditingDelegateObserver.swift in Sources */,

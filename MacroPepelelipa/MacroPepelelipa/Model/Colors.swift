@@ -44,6 +44,12 @@ public extension UIColor {
         if let index = notebookColors.firstIndex(of: color) {
             return "nb\(index)"
         }
+        
+        if let baseColor = color.value(forKey: "baseColor") as? UIColor,
+           let index = notebookColors.firstIndex(of: baseColor) {
+            return "nb\(index)"
+        }
+        
         return nil
     }
 
