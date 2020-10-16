@@ -29,6 +29,7 @@ internal class NotesViewController: UIViewController,
     
     internal var textBoxes: Set<TextBoxView> = []  
     internal var imageBoxes: Set<ImageBoxView> = []
+    internal var imgeButtonObserver: ImageButtonObserver?
     
     internal weak var note: NoteEntity?
     internal private(set) weak var notebook: NotebookEntity?
@@ -43,13 +44,6 @@ internal class NotesViewController: UIViewController,
         container.delegate = self.formatViewDelegate
         
         return container
-    }()
-    
-    private lazy var imageButton: UIButton = {
-        let button = UIButton(frame: .zero)
-        button.setImage(UIImage(named: "imageButton"), for: .normal)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        return button
     }()
     
     private lazy var textField: MarkupTextField = {
@@ -150,7 +144,6 @@ internal class NotesViewController: UIViewController,
         view.addSubview(markupContainerView)
         view.addSubview(textField)
         view.addSubview(textView)
-        view.addSubview(imageButton)
         self.view.backgroundColor = .backgroundColor
         
         if UIDevice.current.userInterfaceIdiom == .phone {
@@ -178,10 +171,6 @@ internal class NotesViewController: UIViewController,
     }
     
     override func viewDidLayoutSubviews() {
-        NSLayoutConstraint.activate([
-            imageButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -150),
-            imageButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 10)
-        ])
 
         NSLayoutConstraint.activate([
             textView.topAnchor.constraint(equalTo: self.textField.bottomAnchor, constant: 10),
@@ -310,7 +299,7 @@ internal class NotesViewController: UIViewController,
             self.imageBoxes.forEach { (imageBox) in
                 imageBox.state = .idle
             }
-            self.imageButton.isHidden = true
+            self.imgeButtonObserver?.hideImageButton()
             
             if !self.resizeHandles.isEmpty {
                 self.resizeHandles.forEach { (resizeHandle) in
@@ -322,7 +311,7 @@ internal class NotesViewController: UIViewController,
     
     func textEditingDidEnd() {
         DispatchQueue.main.async {
-            self.imageButton.isHidden = false
+            self.imgeButtonObserver?.showImageButton()
         }
     }
     

@@ -9,7 +9,9 @@
 import UIKit
 import Database
 
-internal class NotesPageViewController: UIPageViewController, IndexObserver {
+internal class NotesPageViewController: UIPageViewController, 
+                                        IndexObserver,
+                                        ImageButtonObserver {
     
     // MARK: - Variables and Constants
     
@@ -48,6 +50,13 @@ internal class NotesPageViewController: UIPageViewController, IndexObserver {
         return item
     }()
     
+    private lazy var imageButton: UIButton = {
+        let button = UIButton(frame: .zero)
+        button.setImage(UIImage(named: "imageButton"), for: .normal)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+    
     // MARK: - Initializers
     
     internal init(notes: [NoteEntity]) {
@@ -74,9 +83,19 @@ internal class NotesPageViewController: UIPageViewController, IndexObserver {
     override func viewDidLoad() {
         self.dataSource = noteDataSource
         self.delegate = noteDelegate
+        
+        view.addSubview(imageButton)
+        view.backgroundColor = .rootColor
+        
         navigationItem.largeTitleDisplayMode = .never
         navigationItem.rightBarButtonItems = [addNewNoteButton, moreActionsButton, notebookIndexButton]
-        view.backgroundColor = .rootColor
+    }
+    
+    override func viewDidLayoutSubviews() {
+        NSLayoutConstraint.activate([
+            imageButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -150),
+            imageButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 10)
+        ])
     }
     
     // MARK: - Functions
@@ -102,6 +121,7 @@ internal class NotesPageViewController: UIPageViewController, IndexObserver {
         }
         
         viewControllers.append(notesViewController)
+        notesViewController.imgeButtonObserver = self
         
         if index + 1 < notes.count {
             viewControllers.append(NotesViewController(note: notes[index+1]))
@@ -115,6 +135,14 @@ internal class NotesPageViewController: UIPageViewController, IndexObserver {
         if let viewController = viewControllers.count > 2 ? notesViewControllers[1] : viewControllerToBePresented {
             setViewControllers([viewController], direction: .forward, animated: false)
         }
+    }
+    
+    func showImageButton() {
+        self.imageButton.isHidden = false
+    }
+    
+    func hideImageButton() {
+        self.imageButton.isHidden = true
     }
     
     // MARK: - IBActions functions
