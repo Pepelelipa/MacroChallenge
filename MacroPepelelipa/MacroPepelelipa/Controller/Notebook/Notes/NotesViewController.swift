@@ -193,7 +193,12 @@ internal class NotesViewController: UIViewController,
             note?.text = textView.attributedText ?? NSAttributedString()
             try note?.save()
         } catch {
-            fatalError("Ops")
+            let alertController = UIAlertController(
+                title: "Error saving the notebook".localized(),
+                message: "The database could not save the notebook".localized(),
+                preferredStyle: .alert)
+                .makeErrorMessage(with: "The Notebook could not be saved".localized())
+            self.present(alertController, animated: true, completion: nil)
         }
     }
     
