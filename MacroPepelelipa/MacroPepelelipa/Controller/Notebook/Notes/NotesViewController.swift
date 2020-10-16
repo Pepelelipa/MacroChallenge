@@ -367,7 +367,6 @@ internal class NotesViewController: UIViewController,
         self.textView.addSubview(textBox)
     }
     
-
     ///Creates an Image Box
     func createImageBox(image: UIImage?) {
         do {
