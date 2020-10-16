@@ -83,13 +83,6 @@ internal class NotesViewController: UIViewController,
         self.textViewDelegate.parsePlaceholder(on: self.textView)
     }
     
-//    private lazy var markupNavigationView: MarkupNavigationView = {
-//       let mrkView = MarkupNavigationView(frame: CGRect(x: 600, y: 50, width: 200, height: 30), configurations: markupConfig)
-//        mrkView.backgroundColor = UIColor.backgroundColor
-//
-//        return mrkView
-//    }()
-    
     internal lazy var markupConfig: MarkupBarConfiguration = {
         let mrkConf = MarkupBarConfiguration(owner: textView)
         mrkConf.observer = self
