@@ -14,8 +14,9 @@ internal class NotebookIndexViewController: UIViewController {
     // MARK: - Variables and Constants
     
     private var notebook: NotebookEntity?
-    internal weak var observer: IndexObserver?
     private let tableViewDataSource: NotebookIndexTableViewDataSource
+    
+    internal weak var observer: IndexObserver?
     
     private lazy var imgViewNotebook: NotebookView = {
         let imgView = NotebookView(frame: .zero)
@@ -41,16 +42,18 @@ internal class NotebookIndexViewController: UIViewController {
         tableView.dataSource = tableViewDataSource
         tableView.delegate = tableViewDelegate
         tableView.tableFooterView = UIView()
-        tableView.backgroundColor = view.backgroundColor
+        tableView.backgroundColor = .clear
         tableView.separatorStyle = .none
         tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
     }()
     
-    private lazy var tableViewDelegate: NotebookIndexTableViewDelegate = NotebookIndexTableViewDelegate { [unowned self] (selectedCell) in
+    private lazy var tableViewDelegate: NotebookIndexTableViewDelegate = NotebookIndexTableViewDelegate { [unowned self] (selectedCell)  in
+        
         if let note = selectedCell.indexNote {
             self.observer?.didChangeIndex(to: note)
             self.dismiss(animated: true, completion: nil)
+            
         } else {
             let alertController = UIAlertController(
                 title: "Could not open this note".localized(),
@@ -64,44 +67,21 @@ internal class NotebookIndexViewController: UIViewController {
 
     // MARK: - Initializers
     
-    internal init(notebook: NotebookEntity) {
+    internal init(notebook: NotebookEntity, note: NoteEntity) {
         self.notebook = notebook
         lblSubject.text = notebook.name
-        tableViewDataSource = NotebookIndexTableViewDataSource(notebook: notebook)
+        tableViewDataSource = NotebookIndexTableViewDataSource(notebook: notebook, 
+                                                               note: note)
         
         super.init(nibName: nil, bundle: nil)
     }
-    /**
-     This method handles the press on the share button, asking the user what to do with the notebook.
-     
-     - Parameter sender: The UIButton that sends the action.
-     */
-    @IBAction func shareButtonTap(_ sender: UIButton) {
-        guard let notebook = self.notebook else {
-            return
-        }
-        
-        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet).makeDeleteConfirmation(dataType: .notebook, deletionHandler: { _ in
-            do {
-                _ = try DataManager.shared().deleteNotebook(notebook)
-            } catch {
-                let alertController = UIAlertController(
-                    title: "Could not delete this notebook".localized(),
-                    message: "The app could not delete the notebook".localized() + notebook.name,
-                    preferredStyle: .alert)
-                    .makeErrorMessage(with: "An error occurred while deleting this instance on the database".localized())
-                self.present(alertController, animated: true, completion: nil)
-            }
-        })
-        
-        self.present(alertController, animated: true, completion: nil)
-    }
 
     internal convenience required init?(coder: NSCoder) {
-        guard let notebook = coder.decodeObject(forKey: "notebook") as? NotebookEntity else {
+        guard let notebook = coder.decodeObject(forKey: "notebook") as? NotebookEntity,
+              let note = coder.decodeObject(forKey: "note") as? NoteEntity else {
             return nil
         }
-        self.init(notebook: notebook)
+        self.init(notebook: notebook, note: note)
     }
     
     // MARK: - Override functions
@@ -115,10 +95,6 @@ internal class NotebookIndexViewController: UIViewController {
         view.addSubview(tableView)
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        navigationItem.largeTitleDisplayMode = .never
-    }
-
     override func viewWillLayoutSubviews() {
 
         NSLayoutConstraint.activate([
@@ -142,5 +118,32 @@ internal class NotebookIndexViewController: UIViewController {
             tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
+    }
+    
+    // MARK: - IBActions functions
+    
+    /**
+     This method handles the press on the share button, asking the user what to do with the notebook.
+     - Parameter sender: The UIButton that sends the action.
+     */
+    @IBAction func shareButtonTap(_ sender: UIButton) {
+        guard let notebook = self.notebook else {
+            return
+        }
+        
+        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet).makeDeleteConfirmation(dataType: .notebook, deletionHandler: { _ in
+            do {
+                _ = try DataManager.shared().deleteNotebook(notebook)
+            } catch {
+                let alertController = UIAlertController(
+                    title: "Could not delete this notebook".localized(),
+                    message: "The app could not delete the notebook".localized() + notebook.name,
+                    preferredStyle: .alert)
+                    .makeErrorMessage(with: "An error occurred while deleting this instance on the database".localized())
+                self.present(alertController, animated: true, completion: nil)
+            }
+        })
+        
+        self.present(alertController, animated: true, completion: nil)
     }
 }

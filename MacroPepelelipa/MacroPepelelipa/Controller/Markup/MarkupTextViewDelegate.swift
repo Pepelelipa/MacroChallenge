@@ -13,7 +13,7 @@ import UIKit
 internal class MarkupTextViewDelegate: NSObject, UITextViewDelegate {
     private let markdownParser: MarkdownParser
     private let markdownEditor: MarkdownEditor
-    public var markdownAttributesChanged: ((NSAttributedString?, Error?) -> Void)?
+    internal var markdownAttributesChanged: ((NSAttributedString?, Error?) -> Void)?
     private var placeholder: String
     private var isShowingPlaceholder: Bool = false
     private var isBackspace: Bool = false
@@ -35,16 +35,16 @@ internal class MarkupTextViewDelegate: NSObject, UITextViewDelegate {
     
     // MARK: - Observer
     
-    func addObserver(_ observer: TextEditingDelegateObserver) {
+    internal func addObserver(_ observer: TextEditingDelegateObserver) {
         self.observers.append(observer)
     }
     
-    func removeObserver(_ observer: TextEditingDelegateObserver) {
+    internal func removeObserver(_ observer: TextEditingDelegateObserver) {
         if let index = self.observers.firstIndex(where: { $0 === observer }) {
             self.observers.remove(at: index)
         }
     }
-    
+
     // MARK: - UITextViewDelegate
     
     func textViewDidChange(_ textView: UITextView) {
@@ -62,7 +62,7 @@ internal class MarkupTextViewDelegate: NSObject, UITextViewDelegate {
         }
     }
     
-    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+    internal func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         guard let char = text.cString(using: String.Encoding.utf8) else {
             return false
         }
@@ -88,7 +88,7 @@ internal class MarkupTextViewDelegate: NSObject, UITextViewDelegate {
         return true
     }
     
-    func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
+    internal func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
         if isShowingPlaceholder {
             textView.attributedText = NSAttributedString(string: "")
             textView.textColor = markdownParser.color

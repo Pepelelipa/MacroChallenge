@@ -63,7 +63,16 @@ internal class WorkspacesCollectionViewDataSource: NSObject, UICollectionViewDat
             return []
         }
     }()
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        if let viewController = viewController as? WorkspaceSelectionViewController {
+            if workspaces.isEmpty {
+                viewController.switchEmptyScreenView()
+            } else {
+                viewController.switchEmptyScreenView(shouldBeHidden: true)
+            }
+        }
+        
         return workspaces.count
     }
 

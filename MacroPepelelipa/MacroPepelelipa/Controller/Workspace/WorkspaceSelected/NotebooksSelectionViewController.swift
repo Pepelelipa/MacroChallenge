@@ -41,6 +41,25 @@ internal class NotebooksSelectionViewController: UIViewController {
         return item
     }()
     
+    private lazy var emptyScreenView: EmptyScreenView = {
+        let view = EmptyScreenView(
+            frame: .zero,
+            descriptionText: "No notebook".localized(),
+            imageName: "Default-notebook",
+            buttonTitle: "Create notebook".localized()) {
+            self.btnAddTap()
+        }
+        view.alpha = 0
+        view.isHidden = true
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
+    private var compactRegularConstraints: [NSLayoutConstraint] = []
+    private var regularCompactConstraints: [NSLayoutConstraint] = []
+    private var regularConstraints: [NSLayoutConstraint] = []
+    private var sharedConstraints: [NSLayoutConstraint] = []
+
     private lazy var collectionDelegate = NotebooksCollectionViewDelegate { [unowned self] (selectedCell) in
         if let notebook = selectedCell.notebook {
             let note: NoteEntity
@@ -63,6 +82,7 @@ internal class NotebooksSelectionViewController: UIViewController {
             self.presentErrorAlert()
         }
     }
+
     
     // MARK: - Initializers
     
@@ -87,6 +107,13 @@ internal class NotebooksSelectionViewController: UIViewController {
         
         view.backgroundColor = .backgroundColor
         view.addSubview(collectionView)
+        view.addSubview(emptyScreenView)
+        
+        setConstraints()
+        NSLayoutConstraint.activate(sharedConstraints)
+        if UIDevice.current.userInterfaceIdiom != .pad {
+            layoutTrait(traitCollection: UIScreen.main.traitCollection)
+        }
         
         let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress(gesture:)))
         self.collectionView.addGestureRecognizer(longPressGesture)
@@ -106,13 +133,108 @@ internal class NotebooksSelectionViewController: UIViewController {
     }
     
     override func viewDidLayoutSubviews() {
-        NSLayoutConstraint.activate([
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            updateConstraintsForIpad()
+        }
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        layoutTrait(traitCollection: traitCollection)
+    }
+    
+    private func setConstraints() {
+        sharedConstraints.append(contentsOf: [
             collectionView.topAnchor.constraint(equalTo: view.topAnchor),
             collectionView.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
             collectionView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
             collectionView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
-            collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+            collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            
+            emptyScreenView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+            emptyScreenView.centerYAnchor.constraint(equalTo: self.view.centerYAnchor)
         ])
+        
+        compactRegularConstraints.append(contentsOf: [
+            emptyScreenView.heightAnchor.constraint(equalTo: self.view.heightAnchor, multiplier: 0.5),
+            emptyScreenView.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 0.75)
+        ])
+        
+        if UIDevice.current.userInterfaceIdiom == .phone {
+            regularCompactConstraints.append(contentsOf: [
+                emptyScreenView.heightAnchor.constraint(equalTo: self.view.heightAnchor, multiplier: 0.9),
+                emptyScreenView.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 0.4)
+            ])
+        } else {
+            regularCompactConstraints.append(contentsOf: [
+                emptyScreenView.heightAnchor.constraint(equalTo: self.view.heightAnchor, multiplier: 0.35),
+                emptyScreenView.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 0.35)
+            ])
+        }
+        
+        regularConstraints.append(contentsOf: [
+            emptyScreenView.heightAnchor.constraint(equalTo: self.view.heightAnchor, multiplier: 0.5),
+            emptyScreenView.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 0.25)
+        ])
+    }
+    
+    /**
+     This method layouts the appropriate constraits based on the current trait collection.
+     - Parameter traitCollection: The UITraitCollection that will be used as reference to layout the constraints.
+     */
+    private func layoutTrait(traitCollection: UITraitCollection) {
+        if !sharedConstraints[0].isActive {
+            NSLayoutConstraint.activate(sharedConstraints)
+        }
+        
+        if UIDevice.current.userInterfaceIdiom == .phone {
+            updateConstraintsForIphone(with: traitCollection)
+        } else {
+            updateConstraintsForIpad()
+        }
+    }
+    
+    /**
+     This method updates the view's constraints for an iPhone based on a trait collection.
+     - Parameter traitCollection: The UITraitCollection that will be used as reference to layout the constraints.
+     */
+    private func updateConstraintsForIphone(with traitCollection: UITraitCollection) {
+        var activate = [NSLayoutConstraint]()
+        var deactivate = [NSLayoutConstraint]()
+        
+        if traitCollection.horizontalSizeClass == .compact {
+            deactivate.append(contentsOf: regularConstraints[0].isActive ? regularConstraints : [])
+            deactivate.append(contentsOf: regularCompactConstraints[0].isActive ? regularCompactConstraints : [])
+            activate.append(contentsOf: compactRegularConstraints)
+        } else {
+            deactivate.append(contentsOf: regularConstraints[0].isActive ? regularConstraints : [])
+            deactivate.append(contentsOf: compactRegularConstraints[0].isActive ? compactRegularConstraints : [])
+            activate.append(contentsOf: regularCompactConstraints)
+        }
+        
+        NSLayoutConstraint.deactivate(deactivate)
+        NSLayoutConstraint.activate(activate)
+    }
+    
+    /**
+     This method updates the view's constraints for an iPad based on the device orientation.
+     */
+    private func updateConstraintsForIpad() {
+        var activate = [NSLayoutConstraint]()
+        var deactivate = [NSLayoutConstraint]()
+        
+        let orientation = UIApplication.shared.windows.first?.windowScene?.interfaceOrientation
+        
+        if orientation == .portrait || orientation == .portraitUpsideDown {
+            deactivate.append(contentsOf: regularConstraints[0].isActive ? regularConstraints : [])
+            activate.append(contentsOf: regularCompactConstraints)
+        } else {
+            deactivate.append(contentsOf: regularCompactConstraints[0].isActive ? regularCompactConstraints : [])
+            activate.append(contentsOf: regularConstraints)
+        }
+        
+        NSLayoutConstraint.deactivate(deactivate)
+        NSLayoutConstraint.activate(activate)
     }
 
     // MARK: - Funtions
@@ -130,21 +252,20 @@ internal class NotebooksSelectionViewController: UIViewController {
     
     private func presentDestination(for device: UIUserInterfaceIdiom, notebook: NotebookEntity) {
         
-        let notesViewController = NotesViewController(notebook: notebook, 
-                                              note: notebook.notes[notebook.notes.count-1])
+        let notesPageViewController = NotesPageViewController(notes: notebook.notes)
         
         if device == .phone {
-            self.navigationController?.pushViewController(notesViewController, animated: true)
+            self.navigationController?.pushViewController(notesPageViewController, animated: true)
         
         } else {
-            let destination = TextEditingContainerViewController(centerViewController: notesViewController)
+            let destination = TextEditingContainerViewController(centerViewController: notesPageViewController)
             
             self.navigationController?.pushViewController(destination, animated: true)
         }
     }
     
     // MARK: - IBActions functions
-    
+
     @IBAction private func btnAddTap() {
         btnAdd.isEnabled = false
         navigationItem.hidesBackButton = true
@@ -156,6 +277,7 @@ internal class NotebooksSelectionViewController: UIViewController {
         })
         addController.moveTo(self)
     }
+    
     /**
      This method handles the long press on a notebook, asking the user to delete it or not.
      
@@ -187,6 +309,32 @@ internal class NotebooksSelectionViewController: UIViewController {
                                                           })
             self.present(deleteAlertController, animated: true, completion: nil)
         })
+        
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            alertController.popoverPresentationController?.sourceView = cell
+            alertController.popoverPresentationController?.sourceRect = cell.frame
+        }
         self.present(alertController, animated: true, completion: nil)
+    }
+    
+    /**
+     This method displays or hides the placeholder view when called.
+     - Parameter sholdBeHidden: A boolean indicating if the view shold or not be hidden. It is false by default.
+     */
+    internal func switchEmptyScreenView(shouldBeHidden: Bool = false) {
+        var alpha: CGFloat = 0
+        
+        if emptyScreenView.isHidden && !shouldBeHidden {
+            emptyScreenView.isHidden.toggle()
+            alpha = 1.0
+        }
+        
+        UIView.animate(withDuration: 0.5, animations: {
+            self.emptyScreenView.alpha = alpha
+        }, completion: { _ in
+            if alpha == 0 {
+                self.emptyScreenView.isHidden = true
+            }
+        })
     }
 }

@@ -110,6 +110,10 @@
 		1EE652C2252504400015E3D4 /* MarkupContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EE652C1252504400015E3D4 /* MarkupContainerView.swift */; };
 		1EE652C72525049E0015E3D4 /* MarkupToggleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EE652C62525049E0015E3D4 /* MarkupToggleButton.swift */; };
 		1EFA49CE252D15C500602904 /* MarkupNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EFA49CD252D15C500602904 /* MarkupNavigationView.swift */; };
+		A71E2C1D2538EEB8000DA164 /* NotesPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71E2C1B2538EEB8000DA164 /* NotesPageViewController.swift */; };
+		A71E2C1E2538EEB8000DA164 /* NotesPageViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71E2C1C2538EEB8000DA164 /* NotesPageViewControllerDelegate.swift */; };
+		A71E2C212538EF51000DA164 /* NotesPageViewControllerDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71E2C202538EF51000DA164 /* NotesPageViewControllerDataSource.swift */; };
+		A72942E7253A13D800C788EE /* ImageButtonObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = A72942E6253A13D800C788EE /* ImageButtonObserver.swift */; };
 		A731AA7425372F9C00624131 /* IndexObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = A731AA7325372F9C00624131 /* IndexObserver.swift */; };
 		A731AA7F25374A8A00624131 /* TextEditingContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A731AA7E25374A8A00624131 /* TextEditingContainerViewController.swift */; };
 		A77579EF2538C9CC00F4268C /* NotesBarButtonItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = A77579EE2538C9CC00F4268C /* NotesBarButtonItems.swift */; };
@@ -134,8 +138,24 @@
 		D9F4A9AE25277AC900BFDC19 /* TextBoxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9F4A9AD25277AC900BFDC19 /* TextBoxView.swift */; };
 		D9F4A9BD2527D0A600BFDC19 /* MarkupToolBarObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9F4A9BC2527D0A600BFDC19 /* MarkupToolBarObserver.swift */; };
 		E4017A8D252CEA9B00ABB87C /* AlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4017A8C252CEA9B00ABB87C /* AlertController.swift */; };
+		E40220D0253A1ED7009C08C4 /* DarkModeIcon-Small.png in Resources */ = {isa = PBXBuildFile; fileRef = E40220C1253A1ED6009C08C4 /* DarkModeIcon-Small.png */; };
+		E40220D1253A1ED7009C08C4 /* DarkModeIcon-76@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E40220C2253A1ED6009C08C4 /* DarkModeIcon-76@2x.png */; };
+		E40220D2253A1ED7009C08C4 /* DarkModeIcon-60@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E40220C3253A1ED6009C08C4 /* DarkModeIcon-60@3x.png */; };
+		E40220D3253A1ED7009C08C4 /* DarkModeIcon-Notification.png in Resources */ = {isa = PBXBuildFile; fileRef = E40220C4253A1ED6009C08C4 /* DarkModeIcon-Notification.png */; };
+		E40220D4253A1ED7009C08C4 /* DarkModeIcon-Small@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E40220C5253A1ED6009C08C4 /* DarkModeIcon-Small@2x.png */; };
+		E40220D5253A1ED7009C08C4 /* DarkModeIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = E40220C6253A1ED6009C08C4 /* DarkModeIcon.png */; };
+		E40220D6253A1ED7009C08C4 /* DarkModeIcon-83.5@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E40220C7253A1ED6009C08C4 /* DarkModeIcon-83.5@2x.png */; };
+		E40220D7253A1ED7009C08C4 /* DarkModeIcon-76.png in Resources */ = {isa = PBXBuildFile; fileRef = E40220C8253A1ED6009C08C4 /* DarkModeIcon-76.png */; };
+		E40220D8253A1ED7009C08C4 /* DarkModeIcon-60@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E40220C9253A1ED6009C08C4 /* DarkModeIcon-60@2x.png */; };
+		E40220D9253A1ED7009C08C4 /* DarkModeIcon-Small-40@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E40220CA253A1ED6009C08C4 /* DarkModeIcon-Small-40@3x.png */; };
+		E40220DA253A1ED7009C08C4 /* DarkModeIcon-Notification@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E40220CB253A1ED6009C08C4 /* DarkModeIcon-Notification@2x.png */; };
+		E40220DB253A1ED7009C08C4 /* DarkModeIcon-Small-40@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E40220CC253A1ED6009C08C4 /* DarkModeIcon-Small-40@2x.png */; };
+		E40220DC253A1ED7009C08C4 /* DarkModeIcon-Small@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E40220CD253A1ED6009C08C4 /* DarkModeIcon-Small@3x.png */; };
+		E40220DD253A1ED7009C08C4 /* DarkModeIcon-Notification@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E40220CE253A1ED6009C08C4 /* DarkModeIcon-Notification@3x.png */; };
+		E40220DE253A1ED7009C08C4 /* DarkModeIcon-Small-40.png in Resources */ = {isa = PBXBuildFile; fileRef = E40220CF253A1ED7009C08C4 /* DarkModeIcon-Small-40.png */; };
 		E4026286252FAC7800BCDD93 /* DancingScript-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E4026284252FAC7800BCDD93 /* DancingScript-Bold.ttf */; };
 		E4026287252FAC7800BCDD93 /* DancingScript-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E4026285252FAC7800BCDD93 /* DancingScript-Regular.ttf */; };
+		E41209532538C1020088AC26 /* EmptyScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E41209522538C1020088AC26 /* EmptyScreenView.swift */; };
 		E4277C4C2527B824002CD6B1 /* MarkupFormatViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4277C4B2527B824002CD6B1 /* MarkupFormatViewDelegate.swift */; };
 		E42FC8372530EF78004E81C9 /* MarkupFormatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E42FC8362530EF78004E81C9 /* MarkupFormatView.swift */; };
 		E45C20D2251D24BD0022AD95 /* MarkdownNumeric.swift in Sources */ = {isa = PBXBuildFile; fileRef = E45C20D1251D24BD0022AD95 /* MarkdownNumeric.swift */; };
@@ -280,6 +300,10 @@
 		1EE652C1252504400015E3D4 /* MarkupContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkupContainerView.swift; sourceTree = "<group>"; };
 		1EE652C62525049E0015E3D4 /* MarkupToggleButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkupToggleButton.swift; sourceTree = "<group>"; };
 		1EFA49CD252D15C500602904 /* MarkupNavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkupNavigationView.swift; sourceTree = "<group>"; };
+		A71E2C1B2538EEB8000DA164 /* NotesPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotesPageViewController.swift; sourceTree = "<group>"; };
+		A71E2C1C2538EEB8000DA164 /* NotesPageViewControllerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotesPageViewControllerDelegate.swift; sourceTree = "<group>"; };
+		A71E2C202538EF51000DA164 /* NotesPageViewControllerDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NotesPageViewControllerDataSource.swift; path = MacroPepelelipa/Model/Notes/NotesPageViewControllerDataSource.swift; sourceTree = SOURCE_ROOT; };
+		A72942E6253A13D800C788EE /* ImageButtonObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageButtonObserver.swift; sourceTree = "<group>"; };
 		A731AA7325372F9C00624131 /* IndexObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = IndexObserver.swift; path = "MacroPepelelipa/Controller/Notebook/Notebook Index/IndexObserver.swift"; sourceTree = SOURCE_ROOT; };
 		A731AA7E25374A8A00624131 /* TextEditingContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextEditingContainerViewController.swift; sourceTree = "<group>"; };
 		A77579EE2538C9CC00F4268C /* NotesBarButtonItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesBarButtonItems.swift; sourceTree = "<group>"; };
@@ -304,8 +328,24 @@
 		D9F4A9AD25277AC900BFDC19 /* TextBoxView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextBoxView.swift; sourceTree = "<group>"; };
 		D9F4A9BC2527D0A600BFDC19 /* MarkupToolBarObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkupToolBarObserver.swift; sourceTree = "<group>"; };
 		E4017A8C252CEA9B00ABB87C /* AlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertController.swift; sourceTree = "<group>"; };
+		E40220C1253A1ED6009C08C4 /* DarkModeIcon-Small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "DarkModeIcon-Small.png"; sourceTree = "<group>"; };
+		E40220C2253A1ED6009C08C4 /* DarkModeIcon-76@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "DarkModeIcon-76@2x.png"; sourceTree = "<group>"; };
+		E40220C3253A1ED6009C08C4 /* DarkModeIcon-60@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "DarkModeIcon-60@3x.png"; sourceTree = "<group>"; };
+		E40220C4253A1ED6009C08C4 /* DarkModeIcon-Notification.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "DarkModeIcon-Notification.png"; sourceTree = "<group>"; };
+		E40220C5253A1ED6009C08C4 /* DarkModeIcon-Small@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "DarkModeIcon-Small@2x.png"; sourceTree = "<group>"; };
+		E40220C6253A1ED6009C08C4 /* DarkModeIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DarkModeIcon.png; sourceTree = "<group>"; };
+		E40220C7253A1ED6009C08C4 /* DarkModeIcon-83.5@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "DarkModeIcon-83.5@2x.png"; sourceTree = "<group>"; };
+		E40220C8253A1ED6009C08C4 /* DarkModeIcon-76.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "DarkModeIcon-76.png"; sourceTree = "<group>"; };
+		E40220C9253A1ED6009C08C4 /* DarkModeIcon-60@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "DarkModeIcon-60@2x.png"; sourceTree = "<group>"; };
+		E40220CA253A1ED6009C08C4 /* DarkModeIcon-Small-40@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "DarkModeIcon-Small-40@3x.png"; sourceTree = "<group>"; };
+		E40220CB253A1ED6009C08C4 /* DarkModeIcon-Notification@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "DarkModeIcon-Notification@2x.png"; sourceTree = "<group>"; };
+		E40220CC253A1ED6009C08C4 /* DarkModeIcon-Small-40@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "DarkModeIcon-Small-40@2x.png"; sourceTree = "<group>"; };
+		E40220CD253A1ED6009C08C4 /* DarkModeIcon-Small@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "DarkModeIcon-Small@3x.png"; sourceTree = "<group>"; };
+		E40220CE253A1ED6009C08C4 /* DarkModeIcon-Notification@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "DarkModeIcon-Notification@3x.png"; sourceTree = "<group>"; };
+		E40220CF253A1ED7009C08C4 /* DarkModeIcon-Small-40.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "DarkModeIcon-Small-40.png"; sourceTree = "<group>"; };
 		E4026284252FAC7800BCDD93 /* DancingScript-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "DancingScript-Bold.ttf"; sourceTree = "<group>"; };
 		E4026285252FAC7800BCDD93 /* DancingScript-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "DancingScript-Regular.ttf"; sourceTree = "<group>"; };
+		E41209522538C1020088AC26 /* EmptyScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyScreenView.swift; sourceTree = "<group>"; };
 		E4277C4B2527B824002CD6B1 /* MarkupFormatViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkupFormatViewDelegate.swift; sourceTree = "<group>"; };
 		E42FC8362530EF78004E81C9 /* MarkupFormatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkupFormatView.swift; sourceTree = "<group>"; };
 		E45C20D1251D24BD0022AD95 /* MarkdownNumeric.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkdownNumeric.swift; sourceTree = "<group>"; };
@@ -698,10 +738,13 @@
 		026C3CAF2519435E001E32AE /* Notes */ = {
 			isa = PBXGroup;
 			children = (
+				A71E2C1B2538EEB8000DA164 /* NotesPageViewController.swift */,
+				A71E2C1C2538EEB8000DA164 /* NotesPageViewControllerDelegate.swift */,
 				026C3CAB251942A7001E32AE /* NotesViewController.swift */,
 				D9F04BEB25377D5D001C6551 /* AddNoteViewController.swift */,
 				1E9EF4AC2522609400CC623B /* MarkupTextFieldDelegate.swift */,
 				1E9290C0252FA68600E8B142 /* MarkupContainerViewController.swift */,
+				A72942E6253A13D800C788EE /* ImageButtonObserver.swift */,
 			);
 			path = Notes;
 			sourceTree = "<group>";
@@ -797,6 +840,7 @@
 		02DD09FA25114D6200B6696B /* MacroPepelelipa */ = {
 			isa = PBXGroup;
 			children = (
+				E402209F253A135A009C08C4 /* Icon */,
 				02DD0A1125114E9D00B6696B /* Model */,
 				02DD0A1225114EA200B6696B /* Controller */,
 				02DD0A1025114E9800B6696B /* View */,
@@ -856,6 +900,7 @@
 				02207A3D2523AB160001FD7E /* WorkspaceCollectionViewCell.swift */,
 				023886052523CAEC00F807E9 /* WorkspaceCellNotebookCollectionViewCell.swift */,
 				02ECA43B2512ABD100E68588 /* NotebookCollectionViewCell.swift */,
+				E41209522538C1020088AC26 /* EmptyScreenView.swift */,
 			);
 			path = Workspace;
 			sourceTree = "<group>";
@@ -868,6 +913,7 @@
 				1E9EF4A825225B9B00CC623B /* TextEditingDelegateObserver.swift */,
 				D9F4A9BC2527D0A600BFDC19 /* MarkupToolBarObserver.swift */,
 				D9F04BEF25378236001C6551 /* AddNoteObserver.swift */,
+				A71E2C202538EF51000DA164 /* NotesPageViewControllerDataSource.swift */,
 			);
 			path = Notes;
 			sourceTree = "<group>";
@@ -920,11 +966,32 @@
 		E4017A92252D09DC00ABB87C /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				E4017A8C252CEA9B00ABB87C /* ErrorAlertController.swift */,
 				A77579EE2538C9CC00F4268C /* NotesBarButtonItems.swift */,
 				E4017A8C252CEA9B00ABB87C /* AlertController.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		E402209F253A135A009C08C4 /* Icon */ = {
+			isa = PBXGroup;
+			children = (
+				E40220C9253A1ED6009C08C4 /* DarkModeIcon-60@2x.png */,
+				E40220C3253A1ED6009C08C4 /* DarkModeIcon-60@3x.png */,
+				E40220C8253A1ED6009C08C4 /* DarkModeIcon-76.png */,
+				E40220C2253A1ED6009C08C4 /* DarkModeIcon-76@2x.png */,
+				E40220C7253A1ED6009C08C4 /* DarkModeIcon-83.5@2x.png */,
+				E40220C4253A1ED6009C08C4 /* DarkModeIcon-Notification.png */,
+				E40220CB253A1ED6009C08C4 /* DarkModeIcon-Notification@2x.png */,
+				E40220CE253A1ED6009C08C4 /* DarkModeIcon-Notification@3x.png */,
+				E40220CF253A1ED7009C08C4 /* DarkModeIcon-Small-40.png */,
+				E40220CC253A1ED6009C08C4 /* DarkModeIcon-Small-40@2x.png */,
+				E40220CA253A1ED6009C08C4 /* DarkModeIcon-Small-40@3x.png */,
+				E40220C1253A1ED6009C08C4 /* DarkModeIcon-Small.png */,
+				E40220C5253A1ED6009C08C4 /* DarkModeIcon-Small@2x.png */,
+				E40220CD253A1ED6009C08C4 /* DarkModeIcon-Small@3x.png */,
+				E40220C6253A1ED6009C08C4 /* DarkModeIcon.png */,
+			);
+			path = Icon;
 			sourceTree = "<group>";
 		};
 		E4F88C85252FA524003AD037 /* Fonts */ = {
@@ -1071,21 +1138,36 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E40220DA253A1ED7009C08C4 /* DarkModeIcon-Notification@2x.png in Resources */,
 				020FFA2F252501D10095266D /* Media.xcassets in Resources */,
+				E40220DD253A1ED7009C08C4 /* DarkModeIcon-Notification@3x.png in Resources */,
 				E4F88C96252FA597003AD037 /* OpenSans-Regular.ttf in Resources */,
 				E4F88C8E252FA564003AD037 /* Merriweather-Italic.otf in Resources */,
 				E4026286252FAC7800BCDD93 /* DancingScript-Bold.ttf in Resources */,
+				E40220D4253A1ED7009C08C4 /* DarkModeIcon-Small@2x.png in Resources */,
 				E4F88C8D252FA564003AD037 /* Merriweather-Bold.otf in Resources */,
+				E40220D2253A1ED7009C08C4 /* DarkModeIcon-60@3x.png in Resources */,
 				E4F88C8B252FA564003AD037 /* Merriweather-BoldItalic.otf in Resources */,
+				E40220DC253A1ED7009C08C4 /* DarkModeIcon-Small@3x.png in Resources */,
 				E4F88C95252FA597003AD037 /* OpenSans-BoldItalic.ttf in Resources */,
+				E40220D7253A1ED7009C08C4 /* DarkModeIcon-76.png in Resources */,
+				E40220DE253A1ED7009C08C4 /* DarkModeIcon-Small-40.png in Resources */,
 				02DD0A0825114D6700B6696B /* LaunchScreen.storyboard in Resources */,
 				020FFA2C252501B20095266D /* Colors.xcassets in Resources */,
+				E40220D5253A1ED7009C08C4 /* DarkModeIcon.png in Resources */,
 				020E22262513F1A800A93EAB /* Localizable.strings in Resources */,
 				E4F88C97252FA597003AD037 /* OpenSans-Italic.ttf in Resources */,
+				E40220D6253A1ED7009C08C4 /* DarkModeIcon-83.5@2x.png in Resources */,
+				E40220D1253A1ED7009C08C4 /* DarkModeIcon-76@2x.png in Resources */,
 				E4F88C98252FA597003AD037 /* OpenSans-Bold.ttf in Resources */,
+				E40220D3253A1ED7009C08C4 /* DarkModeIcon-Notification.png in Resources */,
 				020FFA33252502130095266D /* Assets.xcassets in Resources */,
 				E4F88C8C252FA564003AD037 /* Merriweather-Regular.otf in Resources */,
 				E4026287252FAC7800BCDD93 /* DancingScript-Regular.ttf in Resources */,
+				E40220D8253A1ED7009C08C4 /* DarkModeIcon-60@2x.png in Resources */,
+				E40220DB253A1ED7009C08C4 /* DarkModeIcon-Small-40@2x.png in Resources */,
+				E40220D9253A1ED7009C08C4 /* DarkModeIcon-Small-40@3x.png in Resources */,
+				E40220D0253A1ED7009C08C4 /* DarkModeIcon-Small.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1176,6 +1258,7 @@
 				A731AA7F25374A8A00624131 /* TextEditingContainerViewController.swift in Sources */,
 				D9E4B0C9252E316900665CDC /* ImageBoxView.swift in Sources */,
 				D96DAA09252F9F4B00552AB1 /* AddNewSpaceToolBar.swift in Sources */,
+				E41209532538C1020088AC26 /* EmptyScreenView.swift in Sources */,
 				02AC9ADA251BF35200A067D0 /* NotebooksCollectionViewDelegate.swift in Sources */,
 				024C5BB4252E41D8009549CE /* ColorSelectionCollectionViewDelegate.swift in Sources */,
 				1E9EF4A925225B9B00CC623B /* TextEditingDelegateObserver.swift in Sources */,
@@ -1227,11 +1310,13 @@
 				022D600C2519559D00001D5B /* MarkdownLink+UIKit.swift in Sources */,
 				A7BDD60F2514078600DDB6A0 /* NotebookIndexTableViewCell.swift in Sources */,
 				022D600F2519559D00001D5B /* MarkdownParser+UIKit.swift in Sources */,
+				A72942E7253A13D800C788EE /* ImageButtonObserver.swift in Sources */,
 				A7BDD5FF2513F83F00DDB6A0 /* IndexViewController.swift in Sources */,
 				E45C20D2251D24BD0022AD95 /* MarkdownNumeric.swift in Sources */,
 				D9BBA584252FAB28004B724F /* AddWorkspaceObserver.swift in Sources */,
 				020FFA38252502E40095266D /* Colors.swift in Sources */,
 				D9D87534251BAA6700B842C8 /* MarkupTextField.swift in Sources */,
+				A71E2C1E2538EEB8000DA164 /* NotesPageViewControllerDelegate.swift in Sources */,
 				022D600D2519559D00001D5B /* MarkdownHeader+UIKit.swift in Sources */,
 				024C5BAE252E41C7009549CE /* PopupContainerViewController.swift in Sources */,
 				E42FC8372530EF78004E81C9 /* MarkupFormatView.swift in Sources */,
@@ -1242,8 +1327,10 @@
 				022D60102519559D00001D5B /* MarkdownParser.swift in Sources */,
 				E4277C4C2527B824002CD6B1 /* MarkupFormatViewDelegate.swift in Sources */,
 				D9F04BF025378236001C6551 /* AddNoteObserver.swift in Sources */,
+				A71E2C212538EF51000DA164 /* NotesPageViewControllerDataSource.swift in Sources */,
 				D9F4A9A925277A6B00BFDC19 /* CornerEnum.swift in Sources */,
 				022D60122519559D00001D5B /* MarkdownCodeEscaping.swift in Sources */,
+				A71E2C1D2538EEB8000DA164 /* NotesPageViewController.swift in Sources */,
 				D996CEC3252FA608009D31F8 /* AddNewSpaceTextFieldDelegate.swift in Sources */,
 				023886022523CA2700F807E9 /* WorkspaceCellNotebookCollectionViewDataSource.swift in Sources */,
 			);

@@ -77,3 +77,7 @@
 "Error fetching the workspaces" = "Error fetching the workspaces";
 "The database could not fetch the workspace" = "The database could not fetch the workspace";
 "The Workspaces could not be fetched" = "The Workspaces could not be fetched";
+"No workspace" = "You don't have any workspaces. How about creating one to begin with?";
+"Create workspace" = "Create workspace";
+"No notebook" = "You don't have any notebooks in this workspace. Create a new one to begin with!";
+"Create notebook" = "Create notebook";

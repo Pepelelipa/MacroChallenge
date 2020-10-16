@@ -77,3 +77,8 @@
 "Error fetching the workspaces" = "Erro ao buscar as coleções";
 "The database could not fetch the workspace" = "A data-base não foi capaz de buscar as coleções";
 "The Workspaces could not be fetched" = "As coleções não puderam ser buscadas";
+"No workspace" = "Você não tem nenhuma coleção. Que tal criar uma para começar?";
+"Create workspace" = "Criar coleção";
+"No notebook" = "Você não tem nenhum caderno nesta coleção. Crie um para começar!";
+"Create notebook" = "Criar caderno";
+
