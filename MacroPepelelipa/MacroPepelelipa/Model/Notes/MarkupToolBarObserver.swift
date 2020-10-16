@@ -17,7 +17,7 @@ internal protocol MarkupToolBarObserver: class {
 }
 
 extension MarkupToolBarObserver {
-    func createTextBox() {
+    func createTextBox(transcription: String?) {
         
     }
     func presentPicker() {

@@ -86,6 +86,7 @@ internal class TextEditingContainerViewController: UIViewController, IndexObserv
         navigationItem.rightBarButtonItems = [addNewNoteButton, moreActionsButton, notebookIndexButton]
         navigationItem.largeTitleDisplayMode = .never
         navigationItem.titleView = markupNavigationView
+        navigationItem.titleView?.backgroundColor = .clear
         view.backgroundColor = .rootColor
     }
     
