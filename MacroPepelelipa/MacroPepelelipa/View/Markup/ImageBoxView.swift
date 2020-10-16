@@ -62,12 +62,12 @@ internal class ImageBoxView: UIView, BoxView {
     }
     
     required convenience init?(coder: NSCoder) {
-        guard let frame = coder.decodeObject(forKey: "frame") as? CGRect, 
+        guard let imageBoxEntity = coder.decodeObject(forKey: "imageBoxEntity") as? ImageBoxEntity, 
               let owner = coder.decodeObject(forKey: "owner") as? MarkupTextView, 
               let image = coder.decodeObject(forKey: "image") as? UIImage else {
             return nil
         }
-        self.init(frame: frame, owner: owner, image: image)
+        self.init(imageBoxEntity: imageBoxEntity, owner: owner, image: image)
     }
     
     private func setUpImageViewConstraints() {

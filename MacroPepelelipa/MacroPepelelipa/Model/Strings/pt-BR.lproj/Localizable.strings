@@ -84,4 +84,11 @@
 "Error retriving notebook" = "Erro ao recuperar um caderno";
 "The app could not retrieve a notebook" = "O App não foi capaz de recuperar um caderno";
 "A notebook could not be retrieved" = "Um caderno não pode ser recuperado";
+"Note do not exist" = "A nota não existe";
+"The app could not safe unwrap the view controller note" = "O app não conseguiu verificar a existencia da nota";
+"Failed to load the Note" = "Falha ao carregar a nota";
+"Failed to create a Text Box" = "Falha ao criar uma caixa de texto";
+"The app could not create a Text Box" = "O app não foi capaz de criar uma caixa de texto";
+"Failed to create a Image Box" = "Falha ao criar uma caixa com uma image";
+"The app could not create a Image Box" = "O app não foi capaz de criar uma caixa com uma image";
 
