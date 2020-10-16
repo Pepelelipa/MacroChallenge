@@ -107,6 +107,7 @@ internal class WorkspaceSelectionViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         navigationItem.largeTitleDisplayMode = .always
+        self.navigationController?.navigationBar.prefersLargeTitles = true
         super.viewWillAppear(animated)
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
             self.invalidateLayout()

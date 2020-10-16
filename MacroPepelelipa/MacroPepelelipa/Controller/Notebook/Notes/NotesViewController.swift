@@ -14,7 +14,6 @@ import PhotosUI
 internal class NotesViewController: UIViewController, 
                                     TextEditingDelegateObserver,
                                     MarkupToolBarObserver,
-                                    IndexObserver,
                                     PHPickerViewControllerDelegate {
     
     // MARK: - Variables and Constants
@@ -30,30 +29,10 @@ internal class NotesViewController: UIViewController,
     
     internal var textBoxes: Set<TextBoxView> = []  
     internal var imageBoxes: Set<ImageBoxView> = []
+    internal var imgeButtonObserver: ImageButtonObserver?
     
     internal weak var note: NoteEntity?
     internal private(set) weak var notebook: NotebookEntity?
-    
-    private lazy var addNewNoteButton: UIBarButtonItem = {
-        let item = UIBarButtonItem(ofType: .addNote, 
-                                   target: self, 
-                                   action: #selector(addNewNote))
-        return item
-    }()
-    
-    private lazy var moreActionsButton: UIBarButtonItem = {
-        let item = UIBarButtonItem(ofType: .moreActions, 
-                                   target: self, 
-                                   action: #selector(presentMoreActions))
-        return item
-    }()
-    
-    private lazy var notebookIndexButton: UIBarButtonItem = {
-        let item = UIBarButtonItem(ofType: .index, 
-                                   target: self, 
-                                   action: #selector(presentNotebookIndex))
-        return item
-    }()
     
     internal private(set) lazy var markupContainerView: MarkupContainerView = {
         let height: CGFloat = screenHeight/4
@@ -65,13 +44,6 @@ internal class NotesViewController: UIViewController,
         container.delegate = self.formatViewDelegate
         
         return container
-    }()
-    
-    private lazy var imageButton: UIButton = {
-        let button = UIButton(frame: .zero)
-        button.setImage(UIImage(named: "imageButton"), for: .normal)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        return button
     }()
     
     private lazy var textField: MarkupTextField = {
@@ -86,29 +58,30 @@ internal class NotesViewController: UIViewController,
         return delegate
     }()
      
-    private lazy var textViewDelegate: MarkupTextViewDelegate? = {
+    private lazy var textViewDelegate: MarkupTextViewDelegate = {
         let delegate = MarkupTextViewDelegate()
         delegate.addObserver(self)
-        DispatchQueue.main.async {
-            delegate.markdownAttributesChanged = { [unowned self](attributtedString, error) in
-                if let error = error {
-                    NSLog("Error requesting -> \(error)")
-                    return
-                }
-
-                guard let attributedText = attributtedString else {
-                    NSLog("No error nor string found")
-                    return
-                }
-
-                self.textView.attributedText = attributedText
-            }
-            if self.textView.text == "" {
-                delegate.parsePlaceholder(on: self.textView)
-            }
-        }
         return delegate
     }()
+    
+    internal lazy var workItem = DispatchWorkItem {
+        self.textViewDelegate.markdownAttributesChanged = { [weak self] (attributtedString, error) in
+            if let error = error {
+                NSLog("Error requesting -> \(error)")
+                return
+            }
+
+            guard let attributedText = attributtedString else {
+                NSLog("No error nor string found")
+                return
+            }
+            if self?.textView.text == "",
+               let textView = self?.textView {
+                self?.textViewDelegate.parsePlaceholder(on: textView)
+            }
+        }
+        self.textViewDelegate.parsePlaceholder(on: self.textView)
+    }
     
     private lazy var markupNavigationView: MarkupNavigationView = {
        let mrkView = MarkupNavigationView(frame: CGRect(x: 600, y: 50, width: 200, height: 30), configurations: markupConfig)
@@ -136,24 +109,28 @@ internal class NotesViewController: UIViewController,
     
     // MARK: - Initializers
     
-    internal init(notebook: NotebookEntity, note: NoteEntity) {
-        self.notebook = notebook
+    internal init(note: NoteEntity) {
         self.note = note
         super.init(nibName: nil, bundle: nil)
         self.textField.attributedText = note.title
         self.textView.attributedText = note.text
+        
+        do {
+            self.notebook = try note.getNotebook()
+        } catch {
+            fatalError("Error retriving notebook")
+        }
     }
     
     deinit {
-        textViewDelegate?.removeObserver(self)
+        textViewDelegate.removeObserver(self)
     }
 
     internal convenience required init?(coder: NSCoder) {
-        guard let note = coder.decodeObject(forKey: "note") as? NoteEntity,
-              let notebook = coder.decodeObject(forKey: "notebook") as? NotebookEntity else {
+        guard let note = coder.decodeObject(forKey: "note") as? NoteEntity else {
             return nil
         }
-        self.init(notebook: notebook, note: note)
+        self.init(note: note)
     }
     
     // MARK: - Override functions
@@ -163,13 +140,10 @@ internal class NotesViewController: UIViewController,
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(didTap))
         
-        navigationItem.rightBarButtonItems = [addNewNoteButton, moreActionsButton, notebookIndexButton]
-        
         view.addGestureRecognizer(tap)
         view.addSubview(markupContainerView)
         view.addSubview(textField)
         view.addSubview(textView)
-        view.addSubview(imageButton)
         self.view.backgroundColor = .backgroundColor
         
         if UIDevice.current.userInterfaceIdiom == .phone {
@@ -178,7 +152,6 @@ internal class NotesViewController: UIViewController,
         } else if UIDevice.current.userInterfaceIdiom == .pad {
             textView.inputAccessoryView = nil
         }
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -198,10 +171,6 @@ internal class NotesViewController: UIViewController,
     }
     
     override func viewDidLayoutSubviews() {
-        NSLayoutConstraint.activate([
-            imageButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -150),
-            imageButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 10)
-        ])
 
         NSLayoutConstraint.activate([
             textView.topAnchor.constraint(equalTo: self.textField.bottomAnchor, constant: 10),
@@ -312,7 +281,7 @@ internal class NotesViewController: UIViewController,
         
         if let formatView = markupContainerViewController.formatView {
             formatViewDelegate?.setFormatView(formatView)
-            textViewDelegate?.setFotmatView(formatView)
+            textViewDelegate.setFotmatView(formatView)
         }
         
         markupContainerViewController.modalPresentationStyle = .popover
@@ -330,7 +299,7 @@ internal class NotesViewController: UIViewController,
             self.imageBoxes.forEach { (imageBox) in
                 imageBox.state = .idle
             }
-            self.imageButton.isHidden = true
+            self.imgeButtonObserver?.hideImageButton()
             
             if !self.resizeHandles.isEmpty {
                 self.resizeHandles.forEach { (resizeHandle) in
@@ -342,7 +311,7 @@ internal class NotesViewController: UIViewController,
     
     func textEditingDidEnd() {
         DispatchQueue.main.async {
-            self.imageButton.isHidden = false
+            self.imgeButtonObserver?.showImageButton()
         }
     }
     
@@ -421,25 +390,6 @@ internal class NotesViewController: UIViewController,
         }
     }
     
-    func didChangeIndex(to note: NoteEntity) {
-        
-        do {
-            let notesViewController = NotesViewController(notebook: try note.getNotebook(), note: note)
-            
-            let navigationController = self.navigationController
-            navigationController?.popViewController(animated: false)
-            navigationController?.pushViewController(notesViewController, animated: false)
-        
-        } catch {
-            let alertController = UIAlertController(
-                title: "Could not open this note".localized(),
-                message: "The app could not open the selected note".localized(),
-                preferredStyle: .alert)
-                .makeErrorMessage(with: "The app could not present the Notebook Index".localized())
-            present(alertController, animated: true, completion: nil)
-        }
-    }
-    
     // MARK: - IBActions functions
     
     @IBAction func didTap() {
@@ -499,31 +449,6 @@ internal class NotesViewController: UIViewController,
             }
             
             scale = gestureRecognizer.scale
-        }
-    }
-    
-    @IBAction private func addNewNote() {
-        guard let guardedNotebook = notebook else {
-            return
-        }
-        addNewNoteButton.isEnabled = false
-        let addController = AddNoteViewController(notebook: guardedNotebook, dismissHandler: {
-            self.addNewNoteButton.isEnabled = true
-        })
-        addController.moveTo(self)
-    }
-    
-    @IBAction private func presentMoreActions() {
-        // TODO: present more actions button
-    }
-    
-    @IBAction private func presentNotebookIndex() {
-        if let presentNotebook = self.notebook {
-            
-            let notebookIndexViewController = NotebookIndexViewController(notebook: presentNotebook)
-            notebookIndexViewController.observer = self
-            
-            self.present(notebookIndexViewController, animated: true, completion: nil)
         }
     }
 }
