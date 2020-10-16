@@ -54,6 +54,15 @@ internal class NotebooksCollectionViewDataSource: NSObject, UICollectionViewData
     }
 
     internal func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        if let viewController = viewController as? NotebooksSelectionViewController,
+           let notebooks = workspace?.notebooks {
+            if notebooks.isEmpty {
+                viewController.switchEmptyScreenView()
+            } else {
+                viewController.switchEmptyScreenView(shouldBeHidden: true)
+            }
+        }
+        
         return workspace?.notebooks.count ?? 0
     }
 

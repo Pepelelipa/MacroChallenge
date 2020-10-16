@@ -44,6 +44,12 @@ public extension UIColor {
         if let index = notebookColors.firstIndex(of: color) {
             return "nb\(index)"
         }
+        
+        if let baseColor = color.value(forKey: "baseColor") as? UIColor,
+           let index = notebookColors.firstIndex(of: baseColor) {
+            return "nb\(index)"
+        }
+        
         return nil
     }
 
@@ -67,5 +73,8 @@ public extension UIColor {
     }()
     static var toolsColor: UIColor? = {
         UIColor(named: "Tools")
+    }()
+    static var formatColor: UIColor? = {
+        UIColor(named: "Format")
     }()
 }
