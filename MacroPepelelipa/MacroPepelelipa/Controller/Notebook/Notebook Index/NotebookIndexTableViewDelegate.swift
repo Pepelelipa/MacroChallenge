@@ -18,11 +18,10 @@ internal class NotebookIndexTableViewDelegate: NSObject, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        guard let cell = tableView.cellForRow(at: indexPath) as? NotebookIndexTableViewCell,
-              let note = cell.indexNote else {
+        guard let cell = tableView.cellForRow(at: indexPath) as? NotebookIndexTableViewCell else {
             return
         }
         
-        observer?.indexDidChange(for: note)
+        didSelectCell?(cell)
     }
 }

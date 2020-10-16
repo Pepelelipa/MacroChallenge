@@ -14,7 +14,7 @@ internal class TextEditingContainerViewController: UIViewController,
     
     // MARK: - Variables and Constants
     
-    private var centerViewController: NotesViewController?
+    private var centerViewController: NotesPageViewController?
     private weak var rightViewController: NotebookIndexViewController?
     
     private var movement: CGFloat?
@@ -43,13 +43,13 @@ internal class TextEditingContainerViewController: UIViewController,
     
     // MARK: - Initializers
     
-    internal init(centerViewController: NotesViewController) {
+    internal init(centerViewController: NotesPageViewController) {
         self.centerViewController = centerViewController
         super.init(nibName: nil, bundle: nil)
     }
     
     internal convenience required init?(coder: NSCoder) {
-        guard let centerViewController = coder.decodeObject(forKey: "centerViewController") as? NotesViewController else {
+        guard let centerViewController = coder.decodeObject(forKey: "centerViewController") as? NotesPageViewController else {
             return nil
         }
         self.init(centerViewController: centerViewController)
@@ -76,18 +76,12 @@ internal class TextEditingContainerViewController: UIViewController,
         if let rightViewController = rightViewController {
             hideIndex(rightViewController)
             
-            do {
-                let centerViewController = NotesViewController(notebook: try note.getNotebook(), note: note)
-                showCenterViewController(centerViewController)
-                
-            } catch {
-                let alertController = UIAlertController(
-                    title: "Could not open this note".localized(),
-                    message: "The app could not open the selected note".localized(),
-                    preferredStyle: .alert)
-                    .makeErrorMessage(with: "The app could not present the Notebook Index".localized())
-                present(alertController, animated: true, completion: nil)
-            }
+//            do {
+//                let centerViewController = NotesPageViewController(notes: try note.getNotebook().notes)
+//                showCenterViewController(centerViewController)
+//            } catch {
+//                fatalError("Error retriving notebook")
+//            }
         }
     }
     
@@ -151,7 +145,7 @@ internal class TextEditingContainerViewController: UIViewController,
      This method removes a NotesViewController and instaciates a new one.
      - Parameter centerViewController: The current centerViewController.
      */
-    private func showCenterViewController(_ centerViewController: NotesViewController) {
+    private func showCenterViewController(_ centerViewController: NotesPageViewController) {
         
         self.centerViewController?.willMove(toParent: nil)
         self.centerViewController?.removeFromParent()

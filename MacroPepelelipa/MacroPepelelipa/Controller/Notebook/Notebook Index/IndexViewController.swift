@@ -14,8 +14,9 @@ internal class NotebookIndexViewController: UIViewController {
     // MARK: - Variables and Constants
     
     private var notebook: NotebookEntity?
-    internal weak var observer: IndexObserver?
     private let tableViewDataSource: NotebookIndexTableViewDataSource
+    
+    internal weak var observer: IndexObserver?
     
     private lazy var imgViewNotebook: NotebookView = {
         let imgView = NotebookView(frame: .zero)
@@ -47,10 +48,12 @@ internal class NotebookIndexViewController: UIViewController {
         return tableView
     }()
     
-    private lazy var tableViewDelegate: NotebookIndexTableViewDelegate = NotebookIndexTableViewDelegate { [unowned self] (selectedCell) in
+    private lazy var tableViewDelegate: NotebookIndexTableViewDelegate = NotebookIndexTableViewDelegate { [unowned self] (selectedCell)  in
+        
         if let note = selectedCell.indexNote {
             self.observer?.didChangeIndex(to: note)
             self.dismiss(animated: true, completion: nil)
+            
         } else {
             let alertController = UIAlertController(
                 title: "Could not open this note".localized(),
@@ -70,31 +73,6 @@ internal class NotebookIndexViewController: UIViewController {
         tableViewDataSource = NotebookIndexTableViewDataSource(notebook: notebook)
         
         super.init(nibName: nil, bundle: nil)
-    }
-    /**
-     This method handles the press on the share button, asking the user what to do with the notebook.
-     
-     - Parameter sender: The UIButton that sends the action.
-     */
-    @IBAction func shareButtonTap(_ sender: UIButton) {
-        guard let notebook = self.notebook else {
-            return
-        }
-        
-        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet).makeDeleteConfirmation(dataType: .notebook, deletionHandler: { _ in
-            do {
-                _ = try DataManager.shared().deleteNotebook(notebook)
-            } catch {
-                let alertController = UIAlertController(
-                    title: "Could not delete this notebook".localized(),
-                    message: "The app could not delete the notebook".localized() + notebook.name,
-                    preferredStyle: .alert)
-                    .makeErrorMessage(with: "An error occurred while deleting this instance on the database".localized())
-                self.present(alertController, animated: true, completion: nil)
-            }
-        })
-        
-        self.present(alertController, animated: true, completion: nil)
     }
 
     internal convenience required init?(coder: NSCoder) {
@@ -144,15 +122,30 @@ internal class NotebookIndexViewController: UIViewController {
         ])
     }
     
-    func indexDidChange(for note: NoteEntity) {
-        
-        if let notesPageViewController = splitViewController?.viewControllers.last as? NotesPageViewController {
-            if let selectedNote = notesPageViewController.notes.first(where: { $0 === note }), 
-               let currentViewController = notesPageViewController.viewControllers?.first as? NotesViewController {
-                if currentViewController.note !== selectedNote {
-                    notesPageViewController.setNotesViewControllers(for: NotesViewController(note: selectedNote), fromIndex: true)
-                }
-            }
+    // MARK: - IBActions functions
+    
+    /**
+     This method handles the press on the share button, asking the user what to do with the notebook.
+     - Parameter sender: The UIButton that sends the action.
+     */
+    @IBAction func shareButtonTap(_ sender: UIButton) {
+        guard let notebook = self.notebook else {
+            return
         }
+        
+        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet).makeDeleteConfirmation(dataType: .notebook, deletionHandler: { _ in
+            do {
+                _ = try DataManager.shared().deleteNotebook(notebook)
+            } catch {
+                let alertController = UIAlertController(
+                    title: "Could not delete this notebook".localized(),
+                    message: "The app could not delete the notebook".localized() + notebook.name,
+                    preferredStyle: .alert)
+                    .makeErrorMessage(with: "An error occurred while deleting this instance on the database".localized())
+                self.present(alertController, animated: true, completion: nil)
+            }
+        })
+        
+        self.present(alertController, animated: true, completion: nil)
     }
 }

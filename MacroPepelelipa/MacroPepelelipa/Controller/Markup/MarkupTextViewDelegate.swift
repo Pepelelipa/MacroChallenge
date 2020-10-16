@@ -44,18 +44,6 @@ internal class MarkupTextViewDelegate: NSObject, UITextViewDelegate {
             self.observers.remove(at: index)
         }
     }
-    
-    /**
-     This method displays the placeholder with the correct color on an UITextView.
-     
-     - Parameter textView: The UITextView on which the placeholder will be displayed.
-     */
-    internal func parsePlaceholder(on textView: UITextView) {
-        textView.attributedText = NSAttributedString(string: placeholder)
-        textView.font = markdownParser.font
-        isShowingPlaceholder = true
-        textView.textColor = .placeholderColor
-    }
 
     // MARK: - UITextViewDelegate
     

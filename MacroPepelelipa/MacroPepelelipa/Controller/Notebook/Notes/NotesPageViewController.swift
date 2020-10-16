@@ -9,21 +9,56 @@
 import UIKit
 import Database
 
-internal class NotesPageViewController: UIPageViewController {
+internal class NotesPageViewController: UIPageViewController, IndexObserver {
+    
+    // MARK: - Variables and Constants
+    
+    private var notesViewControllers: [NotesViewController] = []
     
     internal private(set) var notes: [NoteEntity] = []
-    private var notesViewControllers: [NotesViewController] = []
+    internal private(set) var notebook: NotebookEntity?
+    
     private lazy var noteDataSource = NotesPageViewControllerDataSource(notes: notes)
+    
     private lazy var noteDelegate = NotesPageViewControllerDelegate { [unowned self] (viewController) in 
         if let notesViewController = viewController as? NotesViewController {
             self.setNotesViewControllers(for: notesViewController)
         }
     }
     
+    private lazy var addNewNoteButton: UIBarButtonItem = {
+        let item = UIBarButtonItem(ofType: .addNote, 
+                                   target: self, 
+                                   action: #selector(addNewNote))
+        return item
+    }()
+    
+    private lazy var moreActionsButton: UIBarButtonItem = {
+        let item = UIBarButtonItem(ofType: .moreActions, 
+                                   target: self, 
+                                   action: #selector(presentMoreActions))
+        return item
+    }()
+    
+    private lazy var notebookIndexButton: UIBarButtonItem = {
+        let item = UIBarButtonItem(ofType: .index, 
+                                   target: self, 
+                                   action: #selector(presentNotebookIndex))
+        return item
+    }()
+    
+    // MARK: - Initializers
+    
     internal init(notes: [NoteEntity]) {
         self.notes = notes
         super.init(transitionStyle: .scroll, navigationOrientation: .vertical, options: .none)
         setNotesViewControllers(for: NotesViewController(note: notes[notes.count-1]))
+        
+        do {
+            self.notebook = try notes[0].getNotebook()
+        } catch {
+            fatalError("Error retriving notebook")
+        }
     }
     
     internal convenience required init?(coder: NSCoder) {
@@ -32,34 +67,26 @@ internal class NotesPageViewController: UIPageViewController {
         }
         self.init(notes: notes)
     }
+    
+    // MARK: - Override functions
 
     override func viewDidLoad() {
         self.dataSource = noteDataSource
         self.delegate = noteDelegate
-        
-        if let viewController = notes.count > 2 ? notesViewControllers[1] : notesViewControllers.first {
-            setViewControllers([viewController], direction: .forward, animated: true)
-        }
-        
-        view.backgroundColor = .clear
+        navigationItem.rightBarButtonItems = [addNewNoteButton, moreActionsButton, notebookIndexButton]
+        view.backgroundColor = .rootColor
     }
     
-    private func setupPageView() {
-        
-        if let viewController = notes.count > 2 ? notesViewControllers[1] : notesViewControllers.first {
-            setViewControllers([viewController], direction: .forward, animated: true)
-        }
-    }
+    // MARK: - Functions
     
     /**
      This method sets the NotesViewController for the NotesPageViewController. To optimize, the NotesPageViewController can hold the maximum 
      of 3 NotesViewController: the one being presented, the previous one and the next one. At least one NotesViewController will aways be setted 
-     (the presenting one) This functions is called everytime that the presenting NotesViewController is changed.
+     (the presenting one). This functions is called everytime that the presenting NotesViewController is changed.
      - Parameter notesViewController: A NotesViewController displaying a note from a notebook.
-     - Parameter fromIndex: A bool to whether the call comes from the IndexViewController or from the NotesPageViewController vertical 
-     swipe transition. A default value is setted as false.
      */
-    internal func setNotesViewControllers(for notesViewController: NotesViewController, fromIndex: Bool = false) {
+    internal func setNotesViewControllers(for notesViewController: NotesViewController) {
+        
         var index: Int = 0
         
         for i in 0..<self.notes.count where notesViewController.note === notes[i] {
@@ -80,12 +107,43 @@ internal class NotesPageViewController: UIPageViewController {
         
         self.notesViewControllers = viewControllers
         
-        if !fromIndex {
-            if let viewController = viewControllers.count > 2 ? notesViewControllers[1] : notesViewControllers.first {
-                setViewControllers([viewController], direction: .forward, animated: true)
-            }
-        } else {
-            setViewControllers([notesViewController], direction: .forward, animated: true)
+        let viewControllerToBePresented = viewControllers.first == notesViewController ? notesViewControllers.first : notesViewControllers[1]
+        
+        if let viewController = viewControllers.count > 2 ? notesViewControllers[1] : viewControllerToBePresented {
+            setViewControllers([viewController], direction: .forward, animated: false)
         }
+    }
+    
+    // MARK: - IBActions functions
+    
+    @IBAction private func addNewNote() {
+        guard let guardedNotebook = notebook else {
+            return
+        }
+        addNewNoteButton.isEnabled = false
+        let addController = AddNoteViewController(notebook: guardedNotebook, dismissHandler: {
+            
+            self.setNotesViewControllers(for: NotesViewController(note: self.notes[self.notes.count-1]))
+            self.addNewNoteButton.isEnabled = true
+        })
+        addController.moveTo(self)
+    }
+    
+    @IBAction private func presentMoreActions() {
+        // TODO: present more actions button
+    }
+    
+    @IBAction private func presentNotebookIndex() {
+        if let presentNotebook = self.notebook {
+            
+            let notebookIndexViewController = NotebookIndexViewController(notebook: presentNotebook)
+            notebookIndexViewController.observer = self
+            
+            self.present(notebookIndexViewController, animated: true, completion: nil)
+        }
+    }
+    
+    func didChangeIndex(to note: NoteEntity) {
+        setNotesViewControllers(for: NotesViewController(note: note))
     }
 }
