@@ -171,14 +171,47 @@ internal class NotesViewController: UIViewController,
         } else if UIDevice.current.userInterfaceIdiom == .pad {
             textView.inputAccessoryView = nil
         }
-        
+
+        for textBox in note?.textBoxes ?? [] {
+            addTextBox(with: textBox)
+        }
+        for imageBox in note?.images ?? [] {
+            addImageBox(with: imageBox)
+        }
     }
 
     override func viewWillDisappear(_ animated: Bool) {
+        saveNote()
+    }
+
+    private func saveNote() {
         do {
-            note?.title = textField.attributedText ?? NSAttributedString(string: "Lesson".localized())
-            note?.text = textView.attributedText ?? NSAttributedString()
-            try note?.save()
+            guard let note = note else {
+                return
+            }
+            note.title = textField.attributedText ?? NSAttributedString(string: "Lesson".localized())
+            note.text = textView.attributedText ?? NSAttributedString()
+            for textBox in textBoxes {
+                if let entity = note.textBoxes.first(where: { $0 === textBox.entity }) {
+                    entity.text = textBox.markupTextView.attributedText
+                    entity.x = Float(textBox.frame.origin.x)
+                    entity.y = Float(textBox.frame.origin.y)
+                    entity.z = Float(textBox.layer.zPosition)
+                    entity.width = Float(textBox.frame.width)
+                    entity.height = Float(textBox.frame.height)
+                }
+            }
+
+            for imageBox in imageBoxes {
+                if let entity = note.images.first(where: { $0 === imageBox.entity }) {
+                    entity.x = Float(imageBox.frame.origin.x)
+                    entity.y = Float(imageBox.frame.origin.y)
+                    entity.z = Float(imageBox.layer.zPosition)
+                    entity.width = Float(imageBox.frame.width)
+                    entity.height = Float(imageBox.frame.height)
+                }
+            }
+            try note.save()
         } catch {
             fatalError("Ops")
         }
@@ -267,6 +300,7 @@ internal class NotesViewController: UIViewController,
         DispatchQueue.main.async {
             self.imageButton.isHidden = false
         }
+        saveNote()
     }
 
     ///Creates a TextBox
@@ -277,8 +311,8 @@ internal class NotesViewController: UIViewController,
             }
             let textBoxEntity = try DataManager.shared().createTextBox(in: note)
             textBoxEntity.x = Float(view.frame.midX)
-            textBoxEntity.y = Float(view.frame.midY)
-            textBoxEntity.height = 150
+            textBoxEntity.y = Float(view.frame.minY)
+            textBoxEntity.height = 80
             textBoxEntity.width = 150
             addTextBox(with: textBoxEntity)
         } catch {
@@ -321,7 +355,7 @@ internal class NotesViewController: UIViewController,
             let path = try image.saveToFiles()
             let imageBoxEntity = try DataManager.shared().createImageBox(in: note, at: path)
             imageBoxEntity.x = Float(view.frame.midX)
-            imageBoxEntity.y = Float(view.frame.midY)
+            imageBoxEntity.y = Float(view.frame.minY)
             imageBoxEntity.width = 150
             imageBoxEntity.height = 150
 
