@@ -35,6 +35,7 @@
 "Could not open this note" = "Não foi possível abrir esta nota";
 "The app could not open the selected note" = "O aplicativo não pôde abrir a nota selecionada";
 "The index did not have a note" = "O índice não tinha uma nota";
+"Fail to retrive a notebook" = "Falha ao recuperar o caderno";
 "Could not load image" = "Não foi possível carregar a imagem";
 "The app could not load the selected image" = "O aplicativo não pôde carregar a imagem selecionada";
 "Error creating new notebook" = "Não foi possível criar um novo caderno";
@@ -46,6 +47,11 @@
 "Error presenting Photo Library" = "Erro ao apresentar a biblioteca de fotos";
 "The app could not present the Photo Library" = "O aplicativo não foi capaz de apresentar a biblioteca de fotos";
 "The app could not load the native Image Picker Controller" = "O aplicativo não foi capaz de carregar o controller de seleção de imagens nativo";
+"New note title" = "Título da nota";
+"Create new note" = "Criar nova nota";
+"Error presenting Notebook Index" = "Erro ao apresentar o índice do caderno";
+"The app could not present the Notebook Index" = "O aplicativo não foi capaz de apresentar o índice do caderno";
+"The app could not load the NotebookIndexViewController" = "O aplicativo não foi capaz de carregar um NotebookIndexViewController";
 "Could not delete this notebook" = "Não foi possível excluir este caderno";
 "The app could not delete the notebook" = "O aplicativo não conseguiu excluir o caderno";
 "An error occurred while deleting this instance on the database" = "Um erro ocorreu ao deletar esta intância na database";

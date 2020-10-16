@@ -19,7 +19,7 @@ internal class WorkspaceSelectionViewController: UIViewController {
         collectionView.showsVerticalScrollIndicator = false
         collectionView.allowsSelection = true
         collectionView.allowsMultipleSelection = false
-        
+        collectionView.contentInset = UIEdgeInsets(top: 20, left: 0, bottom: 20, right: 0)
         collectionView.delegate = collectionDelegate
         collectionView.dataSource = collectionDataSource
         
@@ -106,6 +106,7 @@ internal class WorkspaceSelectionViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        navigationItem.largeTitleDisplayMode = .always
         super.viewWillAppear(animated)
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
             self.invalidateLayout()
