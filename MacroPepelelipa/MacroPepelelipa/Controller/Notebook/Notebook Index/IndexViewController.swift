@@ -42,7 +42,7 @@ internal class NotebookIndexViewController: UIViewController {
         tableView.dataSource = tableViewDataSource
         tableView.delegate = tableViewDelegate
         tableView.tableFooterView = UIView()
-        tableView.backgroundColor = view.backgroundColor
+        tableView.backgroundColor = .clear
         tableView.separatorStyle = .none
         tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
@@ -67,19 +67,21 @@ internal class NotebookIndexViewController: UIViewController {
 
     // MARK: - Initializers
     
-    internal init(notebook: NotebookEntity) {
+    internal init(notebook: NotebookEntity, note: NoteEntity) {
         self.notebook = notebook
         lblSubject.text = notebook.name
-        tableViewDataSource = NotebookIndexTableViewDataSource(notebook: notebook)
+        tableViewDataSource = NotebookIndexTableViewDataSource(notebook: notebook, 
+                                                               note: note)
         
         super.init(nibName: nil, bundle: nil)
     }
 
     internal convenience required init?(coder: NSCoder) {
-        guard let notebook = coder.decodeObject(forKey: "notebook") as? NotebookEntity else {
+        guard let notebook = coder.decodeObject(forKey: "notebook") as? NotebookEntity,
+              let note = coder.decodeObject(forKey: "note") as? NoteEntity else {
             return nil
         }
-        self.init(notebook: notebook)
+        self.init(notebook: notebook, note: note)
     }
     
     // MARK: - Override functions
@@ -93,10 +95,6 @@ internal class NotebookIndexViewController: UIViewController {
         view.addSubview(tableView)
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        navigationItem.largeTitleDisplayMode = .never
-    }
-
     override func viewWillLayoutSubviews() {
 
         NSLayoutConstraint.activate([

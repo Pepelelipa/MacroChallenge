@@ -75,13 +75,6 @@ internal class TextEditingContainerViewController: UIViewController,
     func didChangeIndex(to note: NoteEntity) {
         if let rightViewController = rightViewController {
             hideIndex(rightViewController)
-            
-//            do {
-//                let centerViewController = NotesPageViewController(notes: try note.getNotebook().notes)
-//                showCenterViewController(centerViewController)
-//            } catch {
-//                fatalError("Error retriving notebook")
-//            }
         }
     }
     
@@ -90,7 +83,13 @@ internal class TextEditingContainerViewController: UIViewController,
      - Parameter notebook: The current notebook
      */
     private func showIndex(for notebook: NotebookEntity) {
-        let rightViewController = NotebookIndexViewController(notebook: notebook)
+        
+        guard let index = centerViewController?.index,
+              let note = centerViewController?.notes[index] else {
+            return
+        }
+        
+        let rightViewController = NotebookIndexViewController(notebook: notebook, note: note)
         rightViewController.observer = self
         rightViewController.willMove(toParent: self)
         addChild(rightViewController)

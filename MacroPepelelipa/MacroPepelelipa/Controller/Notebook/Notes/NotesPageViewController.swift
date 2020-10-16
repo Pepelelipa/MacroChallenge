@@ -17,6 +17,7 @@ internal class NotesPageViewController: UIPageViewController, IndexObserver {
     
     internal private(set) var notes: [NoteEntity] = []
     internal private(set) var notebook: NotebookEntity?
+    internal private(set) var index: Int = 0
     
     private lazy var noteDataSource = NotesPageViewControllerDataSource(notes: notes)
     
@@ -73,6 +74,7 @@ internal class NotesPageViewController: UIPageViewController, IndexObserver {
     override func viewDidLoad() {
         self.dataSource = noteDataSource
         self.delegate = noteDelegate
+        navigationItem.largeTitleDisplayMode = .never
         navigationItem.rightBarButtonItems = [addNewNoteButton, moreActionsButton, notebookIndexButton]
         view.backgroundColor = .rootColor
     }
@@ -87,7 +89,7 @@ internal class NotesPageViewController: UIPageViewController, IndexObserver {
      */
     internal func setNotesViewControllers(for notesViewController: NotesViewController) {
         
-        var index: Int = 0
+        index = 0
         
         for i in 0..<self.notes.count where notesViewController.note === notes[i] {
             index = i
@@ -107,7 +109,8 @@ internal class NotesPageViewController: UIPageViewController, IndexObserver {
         
         self.notesViewControllers = viewControllers
         
-        let viewControllerToBePresented = viewControllers.first == notesViewController ? notesViewControllers.first : notesViewControllers[1]
+        let viewControllerToBePresented = viewControllers.first == notesViewController ? 
+            notesViewControllers.first : notesViewControllers[1]
         
         if let viewController = viewControllers.count > 2 ? notesViewControllers[1] : viewControllerToBePresented {
             setViewControllers([viewController], direction: .forward, animated: false)
@@ -136,7 +139,8 @@ internal class NotesPageViewController: UIPageViewController, IndexObserver {
     @IBAction private func presentNotebookIndex() {
         if let presentNotebook = self.notebook {
             
-            let notebookIndexViewController = NotebookIndexViewController(notebook: presentNotebook)
+            let notebookIndexViewController = NotebookIndexViewController(notebook: presentNotebook, 
+                                                                          note: notes[index])
             notebookIndexViewController.observer = self
             
             self.present(notebookIndexViewController, animated: true, completion: nil)
