@@ -16,7 +16,7 @@ internal class WorkspacesCollectionViewDelegate: NSObject, UICollectionViewDeleg
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let size: CGSize
-        let isLandscape = UIDevice.current.orientation.isLandscape
+        let isLandscape = UIDevice.current.orientation.isActuallyLandscape
         if UIDevice.current.userInterfaceIdiom == .pad {
             if isLandscape {
                 let width = collectionView.bounds.width/2 - 25
