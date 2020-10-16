@@ -20,13 +20,13 @@ class EmptyScreenView: UIView {
         label.text = descriptionText
         label.font = MarkdownHeader.thirdHeaderFont
         label.textAlignment = .center
+        label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
     private lazy var imageView: UIImageView = {
-        //        UIImage(named: imageName)
-        guard let image = UIImage(systemName: "ant.fill") else {
+        guard let image = UIImage(named: imageName) else {
             return UIImageView(frame: .zero)
         }
         

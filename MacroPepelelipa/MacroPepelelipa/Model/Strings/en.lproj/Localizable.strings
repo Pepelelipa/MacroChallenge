@@ -53,3 +53,7 @@
 "The app could not delete the workspace" = "The app could not delete the workspace";
 "Delete" = "Delete";
 "Cancel" = "Cancel";
+"No workspace" = "You don't have any workspaces. How about creating one to begin with?";
+"Create workspace" = "Create workspace";
+"No notebook" = "You don't have any notebooks in this workspace. Create a new one to begin with!";
+"Create notebook" = "Create notebook";

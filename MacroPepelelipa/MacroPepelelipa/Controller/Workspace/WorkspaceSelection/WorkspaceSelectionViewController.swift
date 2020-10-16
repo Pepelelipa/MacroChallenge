@@ -55,9 +55,9 @@ internal class WorkspaceSelectionViewController: UIViewController {
     private lazy var emptyScreenView: EmptyScreenView = {
         let view = EmptyScreenView(
             frame: .zero,
-            descriptionText: "Esta é uma tela vazia",
-            imageName: "Este é o nome da imagem",
-            buttonTitle: "Clique aqui!") {
+            descriptionText: "No workspace".localized(),
+            imageName: "Default-workspace",
+            buttonTitle: "Create workspace".localized()) {
             self.btnAddTap()
         }
         view.alpha = 0
@@ -126,11 +126,20 @@ internal class WorkspaceSelectionViewController: UIViewController {
         }
     }
     
+    override func viewDidLayoutSubviews() {
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            updateConstraintsForIpad()
+        }
+    }
+    
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         layoutTrait(traitCollection: traitCollection)
     }
     
+    /**
+     This private method sets the constraints for different size classes and devices.
+     */
     private func setConstraints() {
         sharedConstraints.append(contentsOf: [
             collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
@@ -147,52 +156,81 @@ internal class WorkspaceSelectionViewController: UIViewController {
             emptyScreenView.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 0.75)
         ])
         
-        regularCompactConstraints.append(contentsOf: [
-            emptyScreenView.heightAnchor.constraint(equalTo: self.view.heightAnchor, multiplier: 0.75),
-            emptyScreenView.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 0.3)
-        ])
+        if UIDevice.current.userInterfaceIdiom == .phone {
+            regularCompactConstraints.append(contentsOf: [
+                emptyScreenView.heightAnchor.constraint(equalTo: self.view.heightAnchor, multiplier: 0.9),
+                emptyScreenView.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 0.4)
+            ])
+        } else {
+            regularCompactConstraints.append(contentsOf: [
+                emptyScreenView.heightAnchor.constraint(equalTo: self.view.heightAnchor, multiplier: 0.35),
+                emptyScreenView.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 0.35)
+            ])
+        }
         
         regularConstraints.append(contentsOf: [
             emptyScreenView.heightAnchor.constraint(equalTo: self.view.heightAnchor, multiplier: 0.5),
-            emptyScreenView.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 0.3)
+            emptyScreenView.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 0.25)
         ])
     }
     
+    /**
+     This method layouts the appropriate constraits based on the current trait collection.
+     - Parameter traitCollection: The UITraitCollection that will be used as reference to layout the constraints.
+     */
     private func layoutTrait(traitCollection: UITraitCollection) {
         if !sharedConstraints[0].isActive {
             NSLayoutConstraint.activate(sharedConstraints)
         }
         
-        if traitCollection.horizontalSizeClass == .compact {
-            if regularConstraints[0].isActive {
-                NSLayoutConstraint.deactivate(regularConstraints)
-            }
-            if regularCompactConstraints[0].isActive {
-                NSLayoutConstraint.deactivate(regularCompactConstraints)
-            }
-            
-            NSLayoutConstraint.activate(compactRegularConstraints)
+        if UIDevice.current.userInterfaceIdiom == .phone {
+            updateConstraintsForIphone(with: traitCollection)
         } else {
-            if traitCollection.verticalSizeClass == .compact {
-                if regularConstraints[0].isActive {
-                    NSLayoutConstraint.deactivate(regularConstraints)
-                }
-                if compactRegularConstraints[0].isActive {
-                    NSLayoutConstraint.deactivate(compactRegularConstraints)
-                }
-                
-                NSLayoutConstraint.activate(regularCompactConstraints)
-            } else {
-                if regularCompactConstraints[0].isActive {
-                    NSLayoutConstraint.deactivate(regularCompactConstraints)
-                }
-                if compactRegularConstraints[0].isActive {
-                    NSLayoutConstraint.deactivate(compactRegularConstraints)
-                }
-                
-                NSLayoutConstraint.activate(regularConstraints)
-            }
+            updateConstraintsForIpad()
         }
+    }
+    
+    /**
+     This method updates the view's constraints for an iPhone based on a trait collection.
+     - Parameter traitCollection: The UITraitCollection that will be used as reference to layout the constraints.
+     */
+    private func updateConstraintsForIphone(with traitCollection: UITraitCollection) {
+        var activate = [NSLayoutConstraint]()
+        var deactivate = [NSLayoutConstraint]()
+        
+        if traitCollection.horizontalSizeClass == .compact {
+            deactivate.append(contentsOf: regularConstraints[0].isActive ? regularConstraints : [])
+            deactivate.append(contentsOf: regularCompactConstraints[0].isActive ? regularCompactConstraints : [])
+            activate.append(contentsOf: compactRegularConstraints)
+        } else {
+            deactivate.append(contentsOf: regularConstraints[0].isActive ? regularConstraints : [])
+            deactivate.append(contentsOf: compactRegularConstraints[0].isActive ? compactRegularConstraints : [])
+            activate.append(contentsOf: regularCompactConstraints)
+        }
+        
+        NSLayoutConstraint.deactivate(deactivate)
+        NSLayoutConstraint.activate(activate)
+    }
+    
+    /**
+     This method updates the view's constraints for an iPad based on the device orientation.
+     */
+    private func updateConstraintsForIpad() {
+        var activate = [NSLayoutConstraint]()
+        var deactivate = [NSLayoutConstraint]()
+        
+        let orientation = UIApplication.shared.windows.first?.windowScene?.interfaceOrientation
+        
+        if orientation == .portrait || orientation == .portraitUpsideDown {
+            deactivate.append(contentsOf: regularConstraints[0].isActive ? regularConstraints : [])
+            activate.append(contentsOf: regularCompactConstraints)
+        } else {
+            deactivate.append(contentsOf: regularCompactConstraints[0].isActive ? regularCompactConstraints : [])
+            activate.append(contentsOf: regularConstraints)
+        }
+        
+        NSLayoutConstraint.deactivate(deactivate)
+        NSLayoutConstraint.activate(activate)
     }
     
     /**
@@ -230,6 +268,10 @@ internal class WorkspaceSelectionViewController: UIViewController {
         
     }
     
+    /**
+     This method displays or hides the placeholder view when called.
+     - Parameter sholdBeHidden: A boolean indicating if the view shold or not be hidden. It is false by default.
+     */
     internal func switchEmptyScreenView(shouldBeHidden: Bool = false) {
         var alpha: CGFloat = 0
         
