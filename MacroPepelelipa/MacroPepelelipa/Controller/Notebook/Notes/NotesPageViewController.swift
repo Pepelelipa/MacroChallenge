@@ -54,6 +54,9 @@ internal class NotesPageViewController: UIPageViewController,
         let button = UIButton(frame: .zero)
         button.setImage(UIImage(named: "imageButton"), for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
+        
+        button.addTarget(self, action: #selector(presentPicker), for: .touchUpInside)
+        
         return button
     }()
     
@@ -145,6 +148,10 @@ internal class NotesPageViewController: UIPageViewController,
         self.imageButton.isHidden = true
     }
     
+    func didChangeIndex(to note: NoteEntity) {
+        setNotesViewControllers(for: NotesViewController(note: note))
+    }
+    
     // MARK: - IBActions functions
     
     @IBAction private func addNewNote() {
@@ -175,7 +182,11 @@ internal class NotesPageViewController: UIPageViewController,
         }
     }
     
-    func didChangeIndex(to note: NoteEntity) {
-        setNotesViewControllers(for: NotesViewController(note: note))
+    @IBAction private func presentPicker() {
+        
+        if let notesViewController = self.viewControllers?.first as? NotesViewController {
+            notesViewController.presentPicker()
+        }
     }
+    
 }
