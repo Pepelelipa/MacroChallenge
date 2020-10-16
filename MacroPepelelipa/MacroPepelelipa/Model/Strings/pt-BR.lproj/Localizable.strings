@@ -81,10 +81,10 @@
 "Create workspace" = "Criar coleção";
 "No notebook" = "Você não tem nenhum caderno nesta coleção. Crie um para começar!";
 "Create notebook" = "Criar caderno";
-"Image or text?" = "Imagem ou texto?"
-"Select whether to import the media as an image or a text transcription?" = "Selecione se deseja importar a mídia como imagem ou uma transcrição do texto?"
-"Image" = "Imagem"
-"Text" = "Texto"
+"Image or text?" = "Imagem ou texto?";
+"Import the media as an image or as a text transcription (Beta version)" = "Importar a mídia como imagem ou transcrição do texto (Versão beta)";
+"Image" = "Imagem";
+"Text" = "Texto";
 "Error retriving notebook" = "Erro ao recuperar um caderno";
 "The app could not retrieve a notebook" = "O App não foi capaz de recuperar um caderno";
 "A notebook could not be retrieved" = "Um caderno não pode ser recuperado";

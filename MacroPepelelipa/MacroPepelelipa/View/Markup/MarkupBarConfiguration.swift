@@ -266,7 +266,7 @@ internal class MarkupBarConfiguration {
     // MARK: General
     
     @objc internal func addTextBox() {
-        observer?.createTextBox()
+        observer?.createTextBox(transcription: nil)
     }
     
     @objc private func openEditTextContainer() {

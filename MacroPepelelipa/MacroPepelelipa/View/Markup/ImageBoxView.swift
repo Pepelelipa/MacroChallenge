@@ -58,7 +58,7 @@ internal class ImageBoxView: UIView, BoxView {
         setUpImageViewConstraints()
         setUpBorder()   
         self.layer.addSublayer(boxViewBorder)
-        self.state = .idle
+        boxViewBorder.isHidden = true
     }
     
     required convenience init?(coder: NSCoder) {

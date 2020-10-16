@@ -78,7 +78,7 @@ internal class NotebookObject: NotebookEntity {
 
     internal func removeReferences() throws {
         if let workspace = self.workspace,
-           let index = workspace.notebooks.firstIndex(where: {$0 === self}) {
+           let index = workspace.notebooks.firstIndex(where: { $0 === self }) {
             workspace.notebooks.remove(at: index)
         }
         for note in notes {

@@ -339,7 +339,7 @@ internal class NotesViewController: UIViewController,
     }
 
     ///Creates a TextBox
-    func createTextBox() {
+    func createTextBox(transcription: String? = nil) {
         do {
             guard let note = note else {
                 let alertController = UIAlertController(
@@ -356,7 +356,11 @@ internal class NotesViewController: UIViewController,
             textBoxEntity.y = 10
             textBoxEntity.height = 40
             textBoxEntity.width = 140
-            textBoxEntity.text = NSAttributedString(string: "Text".localized())
+            if let transcriptedText = transcription {
+                textBoxEntity.text = NSAttributedString(string: transcriptedText)
+            } else {
+                textBoxEntity.text = NSAttributedString(string: "Text".localized())
+            }
             addTextBox(with: textBoxEntity)
         } catch {
             let alertController = UIAlertController(
@@ -389,12 +393,6 @@ internal class NotesViewController: UIViewController,
         textBox.addGestureRecognizer(pinchGesture)
         self.textBoxes.insert(textBox)
         self.textView.addSubview(textBox)
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) { 
-            if transcription != nil {
-                textBox.markupTextView.text = transcription
-            }
-        }
     }
     
     ///Creates an Image Box
@@ -488,10 +486,9 @@ internal class NotesViewController: UIViewController,
                     guard let image = loadedImage as? UIImage else {
                         return
                     }
-                    let frame = CGRect(x: UIScreen.main.bounds.midX, y: UIScreen.main.bounds.midY, width: 100.0, height: 100.0)
                     
                     let alert = UIAlertController(title: "Image or text?".localized(), 
-                                                  message: "Select whether to import the media as an image or a text transcription?".localized(), 
+                                                  message: "Import the media as an image or as a text transcription (Beta version)".localized(), 
                                                   preferredStyle: .alert)
                     
                     let importImageAction = UIAlertAction(title: "Image".localized(), style: .default) { (_) in
@@ -503,14 +500,15 @@ internal class NotesViewController: UIViewController,
                         let textRecognition = TextRecognitionManager()
                         let transcription = textRecognition.imageRequest(toImage: image)
                         
-                        let frame = CGRect(x: UIScreen.main.bounds.midX, y: UIScreen.main.bounds.midY, width: 100.0, height: 100.0)
-                        self.addTextBox(with: frame, transcription: transcription)
+                        self?.createTextBox(transcription: transcription)
                     }
+                    
+                    alert.view.tintColor = .actionColor
                     
                     alert.addAction(importImageAction)
                     alert.addAction(importTextAction)
                     
-                    self.present(alert, animated: true, completion: nil)
+                    self?.present(alert, animated: true, completion: nil)
                 }
             }
         }

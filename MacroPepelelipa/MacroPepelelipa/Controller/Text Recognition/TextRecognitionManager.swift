@@ -56,7 +56,8 @@ internal class TextRecognitionManager {
         do {
             try self.requestHandler?.perform([self.textRecognitionRequest])
         } catch {
-            print(error.localizedDescription)
+            resultTextRecognition = ""
+            return
         }
     }
     
@@ -78,4 +79,3 @@ internal class TextRecognitionManager {
         }
     }
 }
-
