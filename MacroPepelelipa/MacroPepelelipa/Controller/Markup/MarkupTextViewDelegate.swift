@@ -70,6 +70,10 @@ internal class MarkupTextViewDelegate: NSObject, UITextViewDelegate {
         let backspace = strcmp(char, "\\b")
         self.isBackspace = (backspace == -92)
         
+        if range.length > 0 {
+            isBackspace = true
+        }
+        
         if text == "\n" {
             if markdownParser.font.isHeaderFont() {
                 markdownParser.font = MarkdownParser.defaultFont
