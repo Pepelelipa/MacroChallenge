@@ -289,16 +289,21 @@ internal class NotebooksSelectionViewController: UIViewController {
         }
         
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet).makeDeleteConfirmation(dataType: .notebook, deletionHandler: { _ in
-            do {
-                _ = try DataManager.shared().deleteNotebook(notebook)
-            } catch {
-                let alertController = UIAlertController(
-                    title: "Could not delete this notebook".localized(),
-                    message: "The app could not delete the notebook".localized() + notebook.name,
-                    preferredStyle: .alert)
-                    .makeErrorMessage(with: "An error occurred while deleting this instance on the database".localized())
-                self.present(alertController, animated: true, completion: nil)
-            }
+            let deleteAlertController = UIAlertController(title: "Delete Notebook confirmation".localized(),
+                                                          message: "Warning".localized(),
+                                                          preferredStyle: .alert).makeDeleteConfirmation(dataType: .notebook, deletionHandler: { _ in
+                                                            do {
+                                                                _ = try DataManager.shared().deleteNotebook(notebook)
+                                                            } catch {
+                                                                let alertController = UIAlertController(
+                                                                    title: "Could not delete this notebook".localized(),
+                                                                    message: "The app could not delete the notebook".localized() + notebook.name,
+                                                                    preferredStyle: .alert)
+                                                                    .makeErrorMessage(with: "An error occurred while deleting this instance on the database".localized())
+                                                                self.present(alertController, animated: true, completion: nil)
+                                                            }
+                                                          })
+            self.present(deleteAlertController, animated: true, completion: nil)
         })
         
         if UIDevice.current.userInterfaceIdiom == .pad {
