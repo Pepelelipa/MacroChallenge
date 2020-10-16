@@ -224,29 +224,6 @@ internal class NotesViewController: UIViewController,
     // MARK: - Functions
     
     /**
-     Create a Image Box
-     - Parameters
-        - frame: The text box frame.
-        - Image: The image displayed on Image Box.
-     */
-    private func addImageBox(with frame: CGRect, image: UIImage) {
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
-        let doubleTapGesture = UITapGestureRecognizer(target: self, action: #selector(handleDoubleTap(_:)))
-        doubleTapGesture.numberOfTapsRequired = 2
-        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePan(_:)))
-        let pinchGesture = UIPinchGestureRecognizer(target: self, action: #selector(handlePinch(_:)))
-        
-        let imageBox = ImageBoxView(frame: frame, owner: textView, image: image)
-        
-        imageBox.addGestureRecognizer(tapGesture)
-        imageBox.addGestureRecognizer(doubleTapGesture)
-        imageBox.addGestureRecognizer(panGesture)
-        imageBox.addGestureRecognizer(pinchGesture)
-        self.imageBoxes.insert(imageBox)
-        self.textView.addSubview(imageBox)
-    }
-    
-    /**
      Adds and position the resize handles in the box view
      - Parameters
         - boxView: The Box View who will receive the resize handle.
@@ -390,12 +367,8 @@ internal class NotesViewController: UIViewController,
         self.textView.addSubview(textBox)
     }
     
-    /**
-     Creates a Image Box
-     - Parameters
-        - frame: The text box frame.
-        - Image: The image displayed on Image Box.
-     */
+
+    ///Creates an Image Box
     func createImageBox(image: UIImage?) {
         do {
             guard let image = image,
@@ -416,6 +389,7 @@ internal class NotesViewController: UIViewController,
         }
     }
 
+    ///Adds an Image Box
     func addImageBox(with imageBoxEntity: ImageBoxEntity) {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
         let doubleTapGesture = UITapGestureRecognizer(target: self, action: #selector(handleDoubleTap(_:)))

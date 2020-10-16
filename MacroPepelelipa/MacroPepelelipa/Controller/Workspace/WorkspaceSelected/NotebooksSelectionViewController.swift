@@ -26,7 +26,6 @@ internal class NotebooksSelectionViewController: UIViewController {
     // MARK: - Variables and Constants
     
     private var collectionDataSource: NotebooksCollectionViewDataSource?
-    internal private(set) weak var workspace: WorkspaceEntity?
 
     private lazy var collectionView: UICollectionView = {
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
@@ -93,21 +92,6 @@ internal class NotebooksSelectionViewController: UIViewController {
         } else {
             self.presentErrorAlert()
         }
-    }
-
-    
-    // MARK: - Initializers
-    
-    internal init(workspace: WorkspaceEntity) {
-        super.init(nibName: nil, bundle: nil)
-        self.workspace = workspace
-        self.collectionDataSource = NotebooksCollectionViewDataSource(workspace: workspace, viewController: self, collectionView: { self.collectionView })
-    }
-    internal required convenience init?(coder: NSCoder) {
-        guard let workspace = coder.decodeObject(forKey: "workspace") as? WorkspaceEntity else {
-            return nil
-        }
-        self.init(workspace: workspace)
     }
 
     override func viewDidLoad() {
