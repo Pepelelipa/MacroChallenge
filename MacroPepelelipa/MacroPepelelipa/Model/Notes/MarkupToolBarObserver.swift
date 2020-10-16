@@ -17,7 +17,7 @@ internal protocol MarkupToolBarObserver: class {
 }
 
 extension MarkupToolBarObserver {
-    func addTextBox(with frame: CGRect) {
+    func createTextBox() {
         
     }
     func presentPicker() {
