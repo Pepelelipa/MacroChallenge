@@ -264,7 +264,7 @@ internal class MarkupBarConfiguration {
     
     @objc internal func addTextBox() {
         let frame = CGRect(x: UIScreen.main.bounds.midX, y: UIScreen.main.bounds.midY, width: 100.0, height: 100.0)
-        observer?.addTextBox(with: frame)
+        observer?.addTextBox(with: frame, transcription: nil)
     }
     
     @objc private func openEditTextContainer() {

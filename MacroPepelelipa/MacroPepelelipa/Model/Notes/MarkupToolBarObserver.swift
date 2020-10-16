@@ -9,7 +9,7 @@
 import UIKit
 
 internal protocol MarkupToolBarObserver: class {
-    func addTextBox(with frame: CGRect)
+    func addTextBox(with frame: CGRect, transcription: String?)
     func presentPicker()
     func changeTextViewInput(isCustom: Bool)
     func openPopOver()

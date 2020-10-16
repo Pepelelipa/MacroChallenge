@@ -320,7 +320,7 @@ internal class NotesViewController: UIViewController,
      - Parameters
         - frame: The text box frame.
      */
-    internal func addTextBox(with frame: CGRect) {
+    internal func addTextBox(with frame: CGRect, transcription: String?) {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
         let doubleTapGesture = UITapGestureRecognizer(target: self, action: #selector(handleDoubleTap(_:)))
         doubleTapGesture.numberOfTapsRequired = 2
@@ -335,6 +335,12 @@ internal class NotesViewController: UIViewController,
         textBox.addGestureRecognizer(pinchGesture)
         self.textBoxes.insert(textBox)
         self.textView.addSubview(textBox)
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) { 
+            if transcription != nil {
+                textBox.markupTextView.text = transcription
+            }
+        }
     }
     
     /**
@@ -375,7 +381,29 @@ internal class NotesViewController: UIViewController,
                         return
                     }
                     let frame = CGRect(x: UIScreen.main.bounds.midX, y: UIScreen.main.bounds.midY, width: 100.0, height: 100.0)
-                    self.addImageBox(with: frame, image: image)
+                    
+                    let alert = UIAlertController(title: "Image or transcription?", 
+                                                  message: "Select whether to import the media as an image or a text transcription?", 
+                                                  preferredStyle: .alert)
+                    
+                    let importImageAction = UIAlertAction(title: "Image", style: .default) { (_) in
+                        self.addImageBox(with: frame, image: image)
+                    }
+                    
+                    let importTextAction = UIAlertAction(title: "Text", style: .default) { (_) in
+                        
+                        let textRecognition = TextRecognitionManager()
+                        let transcription = textRecognition.imageRequest(toImage: image)
+                        
+                        let frame = CGRect(x: UIScreen.main.bounds.midX, y: UIScreen.main.bounds.midY, width: 100.0, height: 100.0)
+                        self.addTextBox(with: frame, transcription: transcription)
+                    }
+                    
+                    alert.addAction(importImageAction)
+                    alert.addAction(importTextAction)
+                    
+                    self.present(alert, animated: true, completion: nil)
+                    
                 }
             }
         }
