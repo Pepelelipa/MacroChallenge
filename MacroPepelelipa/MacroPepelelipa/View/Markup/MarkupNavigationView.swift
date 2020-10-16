@@ -42,6 +42,7 @@ internal class MarkupNavigationView: UIView {
         
         self.sizeToFit()
         self.tintColor = UIColor.toolsColor
+        self.backgroundColor = .clear
     }
     
     required convenience init?(coder: NSCoder) {

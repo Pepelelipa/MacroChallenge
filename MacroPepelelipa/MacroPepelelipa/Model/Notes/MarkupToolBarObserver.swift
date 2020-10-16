@@ -10,14 +10,14 @@ import UIKit
 import Database
 
 internal protocol MarkupToolBarObserver: class {
-    func createTextBox()
+    func createTextBox(transcription: String?)
     func presentPicker()
     func changeTextViewInput(isCustom: Bool)
     func openPopOver()
 }
 
 extension MarkupToolBarObserver {
-    func createTextBox() {
+    func createTextBox(transcription: String?) {
         
     }
     func presentPicker() {

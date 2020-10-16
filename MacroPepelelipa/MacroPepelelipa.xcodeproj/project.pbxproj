@@ -121,6 +121,7 @@
 		A731AA7F25374A8A00624131 /* TextEditingContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A731AA7E25374A8A00624131 /* TextEditingContainerViewController.swift */; };
 		A77579EF2538C9CC00F4268C /* NotesBarButtonItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = A77579EE2538C9CC00F4268C /* NotesBarButtonItems.swift */; };
 		A792F03A25279E8400AB1766 /* NotebookIndexTableViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A792F03925279E8400AB1766 /* NotebookIndexTableViewDelegate.swift */; };
+		A7BC781E253A2995006489CF /* TextRecognitionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7BC781D253A2995006489CF /* TextRecognitionManager.swift */; };
 		A7BDD5FF2513F83F00DDB6A0 /* IndexViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7BDD5FE2513F83F00DDB6A0 /* IndexViewController.swift */; };
 		A7BDD60A251406D900DDB6A0 /* TableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7BDD609251406D900DDB6A0 /* TableViewDataSource.swift */; };
 		A7BDD60F2514078600DDB6A0 /* NotebookIndexTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7BDD60E2514078600DDB6A0 /* NotebookIndexTableViewCell.swift */; };
@@ -313,6 +314,7 @@
 		A731AA7E25374A8A00624131 /* TextEditingContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextEditingContainerViewController.swift; sourceTree = "<group>"; };
 		A77579EE2538C9CC00F4268C /* NotesBarButtonItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesBarButtonItems.swift; sourceTree = "<group>"; };
 		A792F03925279E8400AB1766 /* NotebookIndexTableViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotebookIndexTableViewDelegate.swift; sourceTree = "<group>"; };
+		A7BC781D253A2995006489CF /* TextRecognitionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextRecognitionManager.swift; sourceTree = "<group>"; };
 		A7BDD5FE2513F83F00DDB6A0 /* IndexViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndexViewController.swift; sourceTree = "<group>"; };
 		A7BDD609251406D900DDB6A0 /* TableViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewDataSource.swift; sourceTree = "<group>"; };
 		A7BDD60E2514078600DDB6A0 /* NotebookIndexTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotebookIndexTableViewCell.swift; sourceTree = "<group>"; };
@@ -895,6 +897,7 @@
 				022D602B251955C000001D5B /* Markup */,
 				0247F78B25115B8900405A61 /* Workspace */,
 				A7BDD5F82513F4DC00DDB6A0 /* Notebook */,
+				A7BC781C253A2925006489CF /* Text Recognition */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -923,6 +926,14 @@
 				A71E2C202538EF51000DA164 /* NotesPageViewControllerDataSource.swift */,
 			);
 			path = Notes;
+			sourceTree = "<group>";
+		};
+		A7BC781C253A2925006489CF /* Text Recognition */ = {
+			isa = PBXGroup;
+			children = (
+				A7BC781D253A2995006489CF /* TextRecognitionManager.swift */,
+			);
+			path = "Text Recognition";
 			sourceTree = "<group>";
 		};
 		A7BDD5F82513F4DC00DDB6A0 /* Notebook */ = {
@@ -1266,6 +1277,7 @@
 				022D601D2519559D00001D5B /* MarkdownBold.swift in Sources */,
 				A731AA7F25374A8A00624131 /* TextEditingContainerViewController.swift in Sources */,
 				D9E4B0C9252E316900665CDC /* ImageBoxView.swift in Sources */,
+				A7BC781E253A2995006489CF /* TextRecognitionManager.swift in Sources */,
 				D96DAA09252F9F4B00552AB1 /* AddNewSpaceToolBar.swift in Sources */,
 				E41209532538C1020088AC26 /* EmptyScreenView.swift in Sources */,
 				02AC9ADA251BF35200A067D0 /* NotebooksCollectionViewDelegate.swift in Sources */,

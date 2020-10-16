@@ -81,6 +81,10 @@
 "Create workspace" = "Create workspace";
 "No notebook" = "You don't have any notebooks in this workspace. Create a new one to begin with!";
 "Create notebook" = "Create notebook";
+"Image or text?" = "Image or text?";
+"Import the media as an image or as a text transcription (Beta version)" = "Import the media as an image or as a text transcription (Beta version)";
+"Image" = "Image";
+"Text" = "Text";
 "Error retriving notebook" = "Error retriving notebook";
 "The app could not retrieve a notebook" = "The app could not retrieve a notebook";
 "A notebook could not be retrieved" = "A notebook could not be retrieved";
