@@ -63,3 +63,7 @@
 "Create workspace" = "Create workspace";
 "No notebook" = "You don't have any notebooks in this workspace. Create a new one to begin with!";
 "Create notebook" = "Create notebook";
+"Image or text?" = "Image or text?"
+"Select whether to import the media as an image or a text transcription?" = "Select whether to import the media as an image or a text transcription?"
+"Image" = "Image"
+"Text" = "Text"

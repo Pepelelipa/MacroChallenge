@@ -63,4 +63,7 @@
 "Create workspace" = "Criar coleção";
 "No notebook" = "Você não tem nenhum caderno nesta coleção. Crie um para começar!";
 "Create notebook" = "Criar caderno";
-
+"Image or text?" = "Imagem ou texto?"
+"Select whether to import the media as an image or a text transcription?" = "Selecione se deseja importar a mídia como imagem ou uma transcrição do texto?"
+"Image" = "Imagem"
+"Text" = "Texto"

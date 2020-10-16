@@ -382,15 +382,15 @@ internal class NotesViewController: UIViewController,
                     }
                     let frame = CGRect(x: UIScreen.main.bounds.midX, y: UIScreen.main.bounds.midY, width: 100.0, height: 100.0)
                     
-                    let alert = UIAlertController(title: "Image or transcription?", 
-                                                  message: "Select whether to import the media as an image or a text transcription?", 
+                    let alert = UIAlertController(title: "Image or text?".localized(), 
+                                                  message: "Select whether to import the media as an image or a text transcription?".localized(), 
                                                   preferredStyle: .alert)
                     
-                    let importImageAction = UIAlertAction(title: "Image", style: .default) { (_) in
+                    let importImageAction = UIAlertAction(title: "Image".localized(), style: .default) { (_) in
                         self.addImageBox(with: frame, image: image)
                     }
                     
-                    let importTextAction = UIAlertAction(title: "Text", style: .default) { (_) in
+                    let importTextAction = UIAlertAction(title: "Text".localized(), style: .default) { (_) in
                         
                         let textRecognition = TextRecognitionManager()
                         let transcription = textRecognition.imageRequest(toImage: image)
