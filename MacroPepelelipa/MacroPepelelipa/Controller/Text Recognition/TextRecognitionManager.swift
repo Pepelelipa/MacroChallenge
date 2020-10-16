@@ -30,6 +30,12 @@ internal class TextRecognitionManager {
     
     // MARK: - Functions
     
+    /**
+     With the image that the user sends, this method transforms this image into a CIImage and creates the requestHandler, calling another function, performOCRRequest().
+     If the image can't be converted into a CIImage, the text recognition request is canceled. The result of the request, our string, is then returned.
+     - Parameter image: the image that the user requested be recognized.
+     - Returns: A String with the result of the text recognition.
+     */
     internal func imageRequest(toImage image: UIImage) -> String {
         if let ciImage = CIImage(image: image) {
             requestHandler = VNImageRequestHandler(ciImage: ciImage, options: [:])
@@ -43,6 +49,9 @@ internal class TextRecognitionManager {
         return resultTextRecognition
     }
     
+    /**
+     This method executes the textRecognitionRequest. If it does not work, it will return the error with the localize description.
+     */
     private func performOCRRequest() {
         do {
             try self.requestHandler?.perform([self.textRecognitionRequest])
@@ -51,6 +60,11 @@ internal class TextRecognitionManager {
         }
     }
     
+    /**
+     This method obtains the results that the text recognition request aquires.
+     - Parameter request: the actual request being made;
+     - Parameter error: error that might happen.
+     */
     private func recognizeTextHandler(request: VNRequest, error: Error?) {
         self.results = self.textRecognitionRequest.results as? [VNRecognizedTextObservation]
         
