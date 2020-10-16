@@ -9,8 +9,7 @@
 import UIKit
 import Database
 
-internal class TextEditingContainerViewController: UIViewController, 
-                                                   IndexObserver {
+internal class TextEditingContainerViewController: UIViewController, IndexObserver, MarkupToolBarObserver {
     
     // MARK: - Variables and Constants
     
@@ -41,6 +40,24 @@ internal class TextEditingContainerViewController: UIViewController,
         return item
     }()
     
+    private lazy var notesViewController = centerViewController?.viewControllers?.first as? NotesViewController
+    
+    internal lazy var markupConfig: MarkupBarConfiguration = {
+        guard let textView = notesViewController?.textView else {
+            fatalError("Controller not found")
+        }
+        let mrkConf = MarkupBarConfiguration(owner: textView)
+        mrkConf.observer = self
+        return mrkConf
+    }()
+    
+    private lazy var markupNavigationView: MarkupNavigationView = {
+        let mrkView = MarkupNavigationView(frame: .zero, configurations: markupConfig)
+        mrkView.backgroundColor = UIColor.backgroundColor
+        
+        return mrkView
+    }()
+    
     // MARK: - Initializers
     
     internal init(centerViewController: NotesPageViewController) {
@@ -67,6 +84,7 @@ internal class TextEditingContainerViewController: UIViewController,
         
         navigationItem.rightBarButtonItems = [addNewNoteButton, moreActionsButton, notebookIndexButton]
         navigationItem.largeTitleDisplayMode = .never
+        navigationItem.titleView = markupNavigationView
         view.backgroundColor = .rootColor
     }
     
@@ -196,6 +214,38 @@ internal class TextEditingContainerViewController: UIViewController,
             
             present(alertController, animated: true, completion: nil)
         }
+    }
+    
+    /**
+     This method opens the pop over when the button is pressed
+     */
+    internal func openPopOver() {
+        guard let textView = notesViewController?.textView else {
+            return
+        }
+        
+        guard let formatViewDelegate = notesViewController?.formatViewDelegate else {
+            return
+        }
+        
+        guard let textViewDelegate = notesViewController?.textViewDelegate else {
+            return
+        }
+        
+        let markupContainerViewController = MarkupContainerViewController(owner: textView,
+                                                                          delegate: formatViewDelegate,
+                                                                          viewController: notesViewController,
+                                                                          size: .init(width: 380, height: 110))
+        
+        if let formatView = markupContainerViewController.formatView {
+            formatViewDelegate.setFormatView(formatView)
+            textViewDelegate.setFotmatView(formatView)
+        }
+        
+        markupContainerViewController.modalPresentationStyle = .popover
+        markupContainerViewController.popoverPresentationController?.sourceView = markupNavigationView.barButtonItems[4]
+        
+        present(markupContainerViewController, animated: true)
     }
     
 }

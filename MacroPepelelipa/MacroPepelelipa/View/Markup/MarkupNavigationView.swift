@@ -55,9 +55,7 @@ internal class MarkupNavigationView: UIView {
         barButtonItems.forEach({
             NSLayoutConstraint.activate([
                 $0.topAnchor.constraint(equalTo: self.topAnchor),
-                $0.bottomAnchor.constraint(equalTo: self.bottomAnchor),
-                $0.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.8),
-                $0.widthAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.9)
+                $0.bottomAnchor.constraint(equalTo: self.bottomAnchor)
             ])
         })
         
@@ -66,7 +64,8 @@ internal class MarkupNavigationView: UIView {
             barButtonItems[2].leadingAnchor.constraint(equalTo: barButtonItems[3].trailingAnchor, constant: 10),
             barButtonItems[4].leadingAnchor.constraint(equalTo: barButtonItems[2].trailingAnchor, constant: 10),
             barButtonItems[0].leadingAnchor.constraint(equalTo: barButtonItems[4].trailingAnchor, constant: 10),
-            barButtonItems[1].leadingAnchor.constraint(equalTo: barButtonItems[0].trailingAnchor, constant: 10)
+            barButtonItems[1].leadingAnchor.constraint(equalTo: barButtonItems[0].trailingAnchor, constant: 10),
+            barButtonItems[1].trailingAnchor.constraint(equalTo: self.trailingAnchor)
         ])
     }
 }
