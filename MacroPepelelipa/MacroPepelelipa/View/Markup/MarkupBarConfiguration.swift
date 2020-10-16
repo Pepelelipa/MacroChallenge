@@ -171,10 +171,6 @@ internal class MarkupBarConfiguration {
             buttonImage = UIImage(named: imageName)
         }
         
-        
-        
-        button.addTarget(self, action: #selector(toogleButton), for: .touchDown)
-        
         button.setBackgroundImage(buttonImage, for: .normal)
         button.addTarget(self, action: objcFunc, for: .touchUpInside)
         

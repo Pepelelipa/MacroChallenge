@@ -26,7 +26,7 @@ extension UIBarButtonItem {
         self.init()
         switch ofType {
         case .index:
-            self.image = UIImage(systemName: "n.square")
+            self.image = UIImage(systemName: "sidebar.right")
         case .addNote:
             self.image = UIImage(systemName: "plus")
         case .moreActions:
