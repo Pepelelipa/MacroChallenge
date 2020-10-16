@@ -58,7 +58,7 @@ internal class NotesViewController: UIViewController,
         return delegate
     }()
      
-    private lazy var textViewDelegate: MarkupTextViewDelegate = {
+    internal lazy var textViewDelegate: MarkupTextViewDelegate = {
         let delegate = MarkupTextViewDelegate()
         delegate.addObserver(self)
         return delegate
@@ -83,14 +83,7 @@ internal class NotesViewController: UIViewController,
         self.textViewDelegate.parsePlaceholder(on: self.textView)
     }
     
-    private lazy var markupNavigationView: MarkupNavigationView = {
-       let mrkView = MarkupNavigationView(frame: CGRect(x: 600, y: 50, width: 200, height: 30), configurations: markupConfig)
-        mrkView.backgroundColor = UIColor.backgroundColor
-        
-        return mrkView
-    }()
-    
-    private lazy var markupConfig: MarkupBarConfiguration = {
+    internal lazy var markupConfig: MarkupBarConfiguration = {
         let mrkConf = MarkupBarConfiguration(owner: textView)
         mrkConf.observer = self
         return mrkConf
@@ -290,26 +283,6 @@ internal class NotesViewController: UIViewController,
         keyboardToolbar.isHidden.toggle()
         markupContainerView.isHidden.toggle()
         textView.reloadInputViews()
-    }
-    
-    /**
-     This method opens the pop over when the button is pressed
-     */
-    internal func openPopOver() {
-        let markupContainerViewController = MarkupContainerViewController(owner: textView, 
-                                                                          delegate: formatViewDelegate, 
-                                                                          viewController: self, 
-                                                                          size: .init(width: 380, height: 110))
-        
-        if let formatView = markupContainerViewController.formatView {
-            formatViewDelegate?.setFormatView(formatView)
-            textViewDelegate.setFotmatView(formatView)
-        }
-        
-        markupContainerViewController.modalPresentationStyle = .popover
-        markupContainerViewController.popoverPresentationController?.sourceView = markupNavigationView.barButtonItems[4]
-        
-        present(markupContainerViewController, animated: true)
     }
     
     func textEditingDidBegin() {

@@ -15,3 +15,18 @@ internal protocol MarkupToolBarObserver: class {
     func changeTextViewInput(isCustom: Bool)
     func openPopOver()
 }
+
+extension MarkupToolBarObserver {
+    func createTextBox() {
+        
+    }
+    func presentPicker() {
+        
+    }
+    func changeTextViewInput(isCustom: Bool) {
+        
+    }
+    func openPopOver() {
+        
+    }
+}
