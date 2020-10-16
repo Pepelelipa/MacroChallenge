@@ -16,7 +16,7 @@ internal class AddWorkspaceViewController: PopupContainerViewController, AddWork
         txtName.translatesAutoresizingMaskIntoConstraints = false
         txtName.placeholder = "New workspace name".localized()
         txtName.borderStyle = .none
-        txtName.font = .preferredFont(forTextStyle: .title1)
+        txtName.font = MarkdownHeader.thirdHeaderFont
         txtName.tintColor = .actionColor
         txtName.addTarget(self, action: #selector(textChanged(_:)), for: .editingChanged)
         txtName.returnKeyType = UIReturnKeyType.done
@@ -27,7 +27,7 @@ internal class AddWorkspaceViewController: PopupContainerViewController, AddWork
     
     private lazy var txtNoteDelegate: AddNewSpaceTextFieldDelegate = {
         let delegate = AddNewSpaceTextFieldDelegate()
-        delegate.observer = self
+        delegate.workspaceObserver = self
         return delegate
     }()
     
@@ -41,6 +41,8 @@ internal class AddWorkspaceViewController: PopupContainerViewController, AddWork
         btnConfirm.tintColor = .white
         btnConfirm.setBackgroundImage(UIImage(named: "btnWorkspaceBackground"), for: .normal)
         btnConfirm.layer.cornerRadius = 22
+        btnConfirm.titleLabel?.font = MarkdownHeader.thirdHeaderFont
+        btnConfirm.contentEdgeInsets = UIEdgeInsets(top: 10, left: 15, bottom: 10, right: 15)
 
         return btnConfirm
     }()
@@ -87,9 +89,9 @@ internal class AddWorkspaceViewController: PopupContainerViewController, AddWork
             btnConfirm.bottomAnchor.constraint(lessThanOrEqualTo: view.bottomAnchor, constant: -20),
             btnConfirm.topAnchor.constraint(greaterThanOrEqualTo: txtName.bottomAnchor, constant: 30),
             btnConfirm.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            btnConfirm.leadingAnchor.constraint(greaterThanOrEqualTo: view.leadingAnchor, constant: 60),
-            btnConfirm.trailingAnchor.constraint(lessThanOrEqualTo: view.trailingAnchor, constant: -60),
-            btnConfirm.heightAnchor.constraint(equalToConstant: 45)
+            btnConfirm.heightAnchor.constraint(equalToConstant: 45),
+            btnConfirm.leadingAnchor.constraint(greaterThanOrEqualTo: view.leadingAnchor, constant: 40),
+            btnConfirm.trailingAnchor.constraint(lessThanOrEqualTo: view.trailingAnchor, constant: -40)
         ])
     }
 

@@ -11,16 +11,21 @@ import UIKit
 internal class NotebookIndexTableViewDelegate: NSObject, UITableViewDelegate {
     
     private var didSelectCell: ((NotebookIndexTableViewCell) -> Void)?
+    
     init(_ didSelectCell: @escaping (NotebookIndexTableViewCell) -> Void) {
         self.didSelectCell = didSelectCell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        guard let cell = tableView.cellForRow(at: indexPath) as? NotebookIndexTableViewCell else {
+        guard let notebookIndexCell = tableView.cellForRow(at: indexPath) as? NotebookIndexTableViewCell else {
             return
         }
         
-        didSelectCell?(cell)
+        for cell in tableView.visibleCells where cell !== notebookIndexCell {
+            cell.setSelected(false, animated: true)
+        }
+        
+        didSelectCell?(notebookIndexCell)
     }
 }

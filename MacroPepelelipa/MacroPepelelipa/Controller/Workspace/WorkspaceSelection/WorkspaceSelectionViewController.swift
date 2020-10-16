@@ -12,21 +12,21 @@ import Database
 internal class WorkspaceSelectionViewController: UIViewController {
     private lazy var collectionView: UICollectionView = {
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
-
+        
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.backgroundColor = view.backgroundColor
         collectionView.showsVerticalScrollIndicator = false
         collectionView.allowsSelection = true
         collectionView.allowsMultipleSelection = false
-
+        collectionView.contentInset = UIEdgeInsets(top: 20, left: 0, bottom: 20, right: 0)
         collectionView.delegate = collectionDelegate
         collectionView.dataSource = collectionDataSource
-
+        
         collectionView.register(
             WorkspaceCollectionViewCell.self,
             forCellWithReuseIdentifier: WorkspaceCollectionViewCell.cellID())
-
+        
         return collectionView
     }()
     private lazy var collectionDelegate = WorkspacesCollectionViewDelegate { [unowned self] (selectedCell) in
@@ -40,17 +40,37 @@ internal class WorkspaceSelectionViewController: UIViewController {
             self.present(alertController, animated: true, completion: nil)
             return
         }
-
+        
         let notebooksSelectionView = NotebooksSelectionViewController(workspace: workspace)
-
+        
         self.navigationController?.pushViewController(notebooksSelectionView, animated: true)
     }
     private lazy var collectionDataSource = WorkspacesCollectionViewDataSource(viewController: self, collectionView: { self.collectionView })
-
+    
     private lazy var btnAdd: UIBarButtonItem = {
         let item = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(btnAddTap))
         return item
     }()
+    
+    private lazy var emptyScreenView: EmptyScreenView = {
+        let view = EmptyScreenView(
+            frame: .zero,
+            descriptionText: "No workspace".localized(),
+            imageName: "Default-workspace",
+            buttonTitle: "Create workspace".localized()) {
+            self.btnAddTap()
+        }
+        view.alpha = 0
+        view.isHidden = true
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
+    private var compactRegularConstraints: [NSLayoutConstraint] = []
+    private var regularCompactConstraints: [NSLayoutConstraint] = []
+    private var regularConstraints: [NSLayoutConstraint] = []
+    private var sharedConstraints: [NSLayoutConstraint] = []
+    
     @IBAction func btnAddTap() {
         btnAdd.isEnabled = false
         let addController = AddWorkspaceViewController(dismissHandler: {
@@ -58,7 +78,7 @@ internal class WorkspaceSelectionViewController: UIViewController {
         })
         addController.moveTo(self)
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .rootColor
@@ -66,23 +86,39 @@ internal class WorkspaceSelectionViewController: UIViewController {
         navigationItem.largeTitleDisplayMode = .always
         navigationItem.title = "Workspaces".localized()
         view.addSubview(collectionView)
+        view.addSubview(emptyScreenView)
+        
+        setConstraints()
+        NSLayoutConstraint.activate(sharedConstraints)
+        layoutTrait(traitCollection: UIScreen.main.traitCollection)
         
         let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress(gesture:)))
         self.collectionView.addGestureRecognizer(longPressGesture)
+        
+        navigationController?.navigationBar.largeTitleTextAttributes = [
+            .font: MarkdownHeader.firstHeaderFont,
+            .foregroundColor: UIColor.titleColor ?? .black
+        ]
+        navigationController?.navigationBar.titleTextAttributes = [
+            .font: MarkdownHeader.thirdHeaderFont,
+            .foregroundColor: UIColor.titleColor ?? .black
+        ]
     }
-
+    
     override func viewWillAppear(_ animated: Bool) {
+        navigationItem.largeTitleDisplayMode = .always
+        self.navigationController?.navigationBar.prefersLargeTitles = true
         super.viewWillAppear(animated)
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
             self.invalidateLayout()
         }
     }
-
+    
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
         invalidateLayout()
     }
-
+    
     private func invalidateLayout() {
         collectionView.collectionViewLayout.invalidateLayout()
         for visibleCell in collectionView.visibleCells {
@@ -91,14 +127,112 @@ internal class WorkspaceSelectionViewController: UIViewController {
             }
         }
     }
-
+    
     override func viewDidLayoutSubviews() {
-        NSLayoutConstraint.activate([
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            updateConstraintsForIpad()
+        }
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        layoutTrait(traitCollection: traitCollection)
+    }
+    
+    /**
+     This private method sets the constraints for different size classes and devices.
+     */
+    private func setConstraints() {
+        sharedConstraints.append(contentsOf: [
             collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
             collectionView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
             collectionView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
-            collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+            collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            
+            emptyScreenView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+            emptyScreenView.centerYAnchor.constraint(equalTo: self.view.centerYAnchor)
         ])
+        
+        compactRegularConstraints.append(contentsOf: [
+            emptyScreenView.heightAnchor.constraint(equalTo: self.view.heightAnchor, multiplier: 0.5),
+            emptyScreenView.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 0.75)
+        ])
+        
+        if UIDevice.current.userInterfaceIdiom == .phone {
+            regularCompactConstraints.append(contentsOf: [
+                emptyScreenView.heightAnchor.constraint(equalTo: self.view.heightAnchor, multiplier: 0.9),
+                emptyScreenView.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 0.4)
+            ])
+        } else {
+            regularCompactConstraints.append(contentsOf: [
+                emptyScreenView.heightAnchor.constraint(equalTo: self.view.heightAnchor, multiplier: 0.35),
+                emptyScreenView.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 0.35)
+            ])
+        }
+        
+        regularConstraints.append(contentsOf: [
+            emptyScreenView.heightAnchor.constraint(equalTo: self.view.heightAnchor, multiplier: 0.5),
+            emptyScreenView.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 0.25)
+        ])
+    }
+    
+    /**
+     This method layouts the appropriate constraits based on the current trait collection.
+     - Parameter traitCollection: The UITraitCollection that will be used as reference to layout the constraints.
+     */
+    private func layoutTrait(traitCollection: UITraitCollection) {
+        if !sharedConstraints[0].isActive {
+            NSLayoutConstraint.activate(sharedConstraints)
+        }
+        
+        if UIDevice.current.userInterfaceIdiom == .phone {
+            updateConstraintsForIphone(with: traitCollection)
+        } else {
+            updateConstraintsForIpad()
+        }
+    }
+    
+    /**
+     This method updates the view's constraints for an iPhone based on a trait collection.
+     - Parameter traitCollection: The UITraitCollection that will be used as reference to layout the constraints.
+     */
+    private func updateConstraintsForIphone(with traitCollection: UITraitCollection) {
+        var activate = [NSLayoutConstraint]()
+        var deactivate = [NSLayoutConstraint]()
+        
+        if traitCollection.horizontalSizeClass == .compact {
+            deactivate.append(contentsOf: regularConstraints[0].isActive ? regularConstraints : [])
+            deactivate.append(contentsOf: regularCompactConstraints[0].isActive ? regularCompactConstraints : [])
+            activate.append(contentsOf: compactRegularConstraints)
+        } else {
+            deactivate.append(contentsOf: regularConstraints[0].isActive ? regularConstraints : [])
+            deactivate.append(contentsOf: compactRegularConstraints[0].isActive ? compactRegularConstraints : [])
+            activate.append(contentsOf: regularCompactConstraints)
+        }
+        
+        NSLayoutConstraint.deactivate(deactivate)
+        NSLayoutConstraint.activate(activate)
+    }
+    
+    /**
+     This method updates the view's constraints for an iPad based on the device orientation.
+     */
+    private func updateConstraintsForIpad() {
+        var activate = [NSLayoutConstraint]()
+        var deactivate = [NSLayoutConstraint]()
+        
+        let orientation = UIApplication.shared.windows.first?.windowScene?.interfaceOrientation
+        
+        if orientation == .portrait || orientation == .portraitUpsideDown {
+            deactivate.append(contentsOf: regularConstraints[0].isActive ? regularConstraints : [])
+            activate.append(contentsOf: regularCompactConstraints)
+        } else {
+            deactivate.append(contentsOf: regularCompactConstraints[0].isActive ? regularCompactConstraints : [])
+            activate.append(contentsOf: regularConstraints)
+        }
+        
+        NSLayoutConstraint.deactivate(deactivate)
+        NSLayoutConstraint.activate(activate)
     }
     
     /**
@@ -128,6 +262,32 @@ internal class WorkspaceSelectionViewController: UIViewController {
             }
         })
         
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            alertController.popoverPresentationController?.sourceView = cell
+            alertController.popoverPresentationController?.sourceRect = cell.frame
+        }
         self.present(alertController, animated: true, completion: nil)
+        
+    }
+    
+    /**
+     This method displays or hides the placeholder view when called.
+     - Parameter sholdBeHidden: A boolean indicating if the view shold or not be hidden. It is false by default.
+     */
+    internal func switchEmptyScreenView(shouldBeHidden: Bool = false) {
+        var alpha: CGFloat = 0
+        
+        if emptyScreenView.isHidden && !shouldBeHidden {
+            emptyScreenView.isHidden.toggle()
+            alpha = 1.0
+        }
+        
+        UIView.animate(withDuration: 0.5, animations: {
+            self.emptyScreenView.alpha = alpha
+        }, completion: { _ in
+            if alpha == 0 {
+                self.emptyScreenView.isHidden = true
+            }
+        })
     }
 }

@@ -11,12 +11,14 @@ import Database
 
 internal class NotebookIndexTableViewDataSource: NSObject, UITableViewDataSource {
     private weak var notebook: NotebookEntity?
+    private weak var note: NoteEntity?
     private var indexes: [NotebookIndexEntity]? {
         return notebook?.indexes
     }
 
-    internal init(notebook: NotebookEntity) {
+    internal init(notebook: NotebookEntity, note: NoteEntity) {
         self.notebook = notebook
+        self.note = note
     }
 
     internal func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -24,10 +26,20 @@ internal class NotebookIndexTableViewDataSource: NSObject, UITableViewDataSource
     }
 
     internal func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let indexes = indexes else {
+        
+        guard let indexes = self.indexes,
+              let note = self.note else {
             return UITableViewCell()
         }
+        
         let cell = NotebookIndexTableViewCell(index: indexes[indexPath.row])
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) { 
+            if indexes[indexPath.row].note === note {
+                cell.setSelected(true, animated: true)
+            }
+        }
+        
         return cell
     }
 }
