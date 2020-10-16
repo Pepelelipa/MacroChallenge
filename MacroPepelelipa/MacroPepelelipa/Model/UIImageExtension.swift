@@ -17,7 +17,7 @@ internal extension UIImage {
 
         let uniqueURL = directory.appendingPathComponent("\(UUID().uuidString).png")
         try data.write(to: uniqueURL)
-        return uniqueURL.absoluteString
+        return uniqueURL.path
     }
 }
 

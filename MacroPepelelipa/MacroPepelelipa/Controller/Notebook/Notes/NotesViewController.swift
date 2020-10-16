@@ -312,33 +312,42 @@ internal class NotesViewController: UIViewController,
         - Image: The image displayed on Image Box.
      */
     func createImageBox(image: UIImage?) {
+        do {
+            guard let image = image,
+                  let note = note else {
+                fatalError("Num tem note")
+            }
+
+            let path = try image.saveToFiles()
+            let imageBoxEntity = try DataManager.shared().createImageBox(in: note, at: path)
+            imageBoxEntity.x = Float(view.frame.midX)
+            imageBoxEntity.y = Float(view.frame.midY)
+            imageBoxEntity.width = 150
+            imageBoxEntity.height = 150
+
+            addImageBox(with: imageBoxEntity)
+        } catch let error {
+            print(error)
+        }
+    }
+
+    func addImageBox(with imageBoxEntity: ImageBoxEntity) {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
         let doubleTapGesture = UITapGestureRecognizer(target: self, action: #selector(handleDoubleTap(_:)))
         doubleTapGesture.numberOfTapsRequired = 2
         let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePan(_:)))
         let pinchGesture = UIPinchGestureRecognizer(target: self, action: #selector(handlePinch(_:)))
 
-        do {
-            guard let note = note else {
-                fatalError("Num tem note")
-            }
-            
-            let imageBoxEntity = try DataManager.shared().createImageBox(in: note)
-            imageBoxEntity.x = Float(view.frame.midX)
-            imageBoxEntity.y = Float(view.frame.midY)
-            imageBoxEntity.width = 150
-            imageBoxEntity.width = 150
-            let imageBox = ImageBoxView(imageBoxEntity: imageBoxEntity, owner: textView, image: image)
+        let image = UIImage(contentsOfFile: imageBoxEntity.imagePath)
 
-            imageBox.addGestureRecognizer(tapGesture)
-            imageBox.addGestureRecognizer(doubleTapGesture)
-            imageBox.addGestureRecognizer(panGesture)
-            imageBox.addGestureRecognizer(pinchGesture)
-            self.imageBoxes.insert(imageBox)
-            self.textView.addSubview(imageBox)
-        } catch let error {
-            print(error)
-        }
+        let imageBox = ImageBoxView(imageBoxEntity: imageBoxEntity, owner: textView, image: image)
+
+        imageBox.addGestureRecognizer(tapGesture)
+        imageBox.addGestureRecognizer(doubleTapGesture)
+        imageBox.addGestureRecognizer(panGesture)
+        imageBox.addGestureRecognizer(pinchGesture)
+        self.imageBoxes.insert(imageBox)
+        self.textView.addSubview(imageBox)
     }
     
     /**

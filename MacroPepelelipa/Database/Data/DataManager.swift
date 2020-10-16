@@ -186,12 +186,12 @@ public class DataManager {
      - Parameter note: To what note it belongs.
      - Throws: Throws if fails to parse note to NoteObject or fails to create in CoreData.
      */
-    public func createImageBox(in note: NoteEntity) throws -> ImageBoxEntity {
+    public func createImageBox(in note: NoteEntity, at imagePath: String) throws -> ImageBoxEntity {
         guard let noteObject = note as? NoteObject else {
             throw NoteError.failedToParse
         }
 
-        let cdImageBox = try coreDataController.createImageBox(in: noteObject.coreDataObject)
+        let cdImageBox = try coreDataController.createImageBox(in: noteObject.coreDataObject, at: imagePath)
         return ImageBoxObject(in: noteObject, coreDataObject: cdImageBox)
     }
 
@@ -204,6 +204,9 @@ public class DataManager {
         guard let imageBoxObject = imageBox as? ImageBoxObject else {
             throw ImageBoxError.failedToParse
         }
+
+        let url = URL(fileURLWithPath: imageBox.imagePath)
+        try? FileManager.default.removeItem(at: url)
 
         try coreDataController.deleteImageBox(imageBoxObject.coreDataObject)
     }
