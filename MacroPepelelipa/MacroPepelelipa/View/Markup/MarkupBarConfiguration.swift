@@ -171,6 +171,10 @@ internal class MarkupBarConfiguration {
             buttonImage = UIImage(named: imageName)
         }
         
+        
+        
+        button.addTarget(self, action: #selector(toogleButton), for: .touchDown)
+        
         button.setBackgroundImage(buttonImage, for: .normal)
         button.addTarget(self, action: objcFunc, for: .touchUpInside)
         
@@ -263,6 +267,20 @@ internal class MarkupBarConfiguration {
         listStyle = nextStyle
     }
     
+    /**
+    In this funcion, we toggle the color of the button when the button is selected.
+     - Parameters:
+        - sender: The UIButton.
+    */
+    @IBAction internal func toogleButton(_ sender: UIButton) {
+        sender.isSelected.toggle()
+        if sender.isSelected {
+            sender.tintColor = UIColor.actionColor
+        } else {
+            sender.tintColor = UIColor.placeholderColor
+        }
+    }
+    
     // MARK: General
     
     @objc internal func addTextBox() {
@@ -281,5 +299,4 @@ internal class MarkupBarConfiguration {
     @objc internal func photoPicker() {
         observer?.presentPicker()
     }
-    
 }
