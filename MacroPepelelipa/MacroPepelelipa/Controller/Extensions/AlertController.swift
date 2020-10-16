@@ -41,8 +41,8 @@ extension UIAlertController {
      - Returns: The customised UIAlertController.
      */
     internal func makeDeleteConfirmation(dataType: DataType, deletionHandler: ((UIAlertAction) -> Void)?) -> UIAlertController {
-        self.addAction(UIAlertAction(title: "Delete \(dataType.rawValue.localized())", style: .destructive, handler: deletionHandler))
-        self.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        self.addAction(UIAlertAction(title: "Delete".localized() + " " + dataType.rawValue.localized(), style: .destructive, handler: deletionHandler))
+        self.addAction(UIAlertAction(title: "Cancel".localized(), style: .cancel, handler: nil))
         
         self.view.tintColor = UIColor.actionColor
         

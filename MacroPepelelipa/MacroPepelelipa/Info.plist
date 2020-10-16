@@ -6,6 +6,19 @@
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>LSApplicationCategoryType</key>
 	<string></string>
+	<key>CFBundleIcons~ipad</key>
+	<dict>
+		<key>CFBundleAlternateIcons</key>
+		<dict>
+			<key>DarkModeIcon</key>
+			<dict>
+				<key>CFBundleIconFiles</key>
+				<array>
+					<string>DarkModeIcon</string>
+				</array>
+			</dict>
+		</dict>
+	</dict>
 	<key>CFBundleIcons</key>
 	<dict>
 		<key>CFBundleAlternateIcons</key>

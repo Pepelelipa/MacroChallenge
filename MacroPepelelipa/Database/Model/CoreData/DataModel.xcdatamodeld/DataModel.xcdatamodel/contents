@@ -24,7 +24,7 @@
     </entity>
     <entity name="TextBox" representedClassName="TextBox" syncable="YES">
         <attribute name="height" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
-        <attribute name="text" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromDataTransformerName" customClassName="NSAttributedString"/>
+        <attribute name="text" optional="YES" attributeType="Transformable" valueTransformerName="" customClassName="NSAttributedString"/>
         <attribute name="width" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="x" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="y" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>

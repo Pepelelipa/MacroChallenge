@@ -37,7 +37,7 @@ internal class AddNoteViewController: PopupContainerViewController, AddNoteObser
     private lazy var btnConfirm: UIButton = {
         let btnConfirm = UIButton()
         btnConfirm.translatesAutoresizingMaskIntoConstraints = false
-        btnConfirm.setTitle("Create new workspace".localized(), for: .normal)
+        btnConfirm.setTitle("Create new Note".localized(), for: .normal)
         btnConfirm.addTarget(self, action: #selector(btnConfirmTap), for: .touchUpInside)
         btnConfirm.tintColor = .white
         btnConfirm.setBackgroundImage(UIImage(named: "btnWorkspaceBackground"), for: .normal)
@@ -148,7 +148,12 @@ internal class AddNoteViewController: PopupContainerViewController, AddNoteObser
                 note.title = NSAttributedString(string: text)
                 try note.save()
             } catch {
-                fatalError("Num deu")
+                let alertController = UIAlertController(
+                    title: "Error creating a new Note".localized(),
+                    message: "The database could not create a new Note".localized(),
+                    preferredStyle: .alert)
+                    .makeErrorMessage(with: "A new Note could not be created".localized())
+                self.present(alertController, animated: true, completion: nil)
             }
             dismissFromParent()
         }

@@ -102,7 +102,7 @@ internal class AddNotebookViewController: PopupContainerViewController {
             view.widthAnchor.constraint(greaterThanOrEqualTo: view.heightAnchor, multiplier: 1.4),
             view.widthAnchor.constraint(lessThanOrEqualTo: viewController.view.widthAnchor, multiplier: 0.8)
         ]
-        if UIDevice.current.orientation.isLandscape {
+        if UIDevice.current.orientation.isActuallyLandscape {
             NSLayoutConstraint.activate(landscapeViewConstraints)
         } else {
             NSLayoutConstraint.activate(portraitViewConstraints)
@@ -127,7 +127,7 @@ internal class AddNotebookViewController: PopupContainerViewController {
     }
 
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-        if UIDevice.current.orientation.isLandscape {
+        if UIDevice.current.orientation.isActuallyLandscape {
             NSLayoutConstraint.deactivate(portraitViewConstraints)
             NSLayoutConstraint.activate(landscapeViewConstraints)
         } else {
@@ -211,7 +211,12 @@ internal class AddNotebookViewController: PopupContainerViewController {
         do {
             _ = try DataManager.shared().createNotebook(in: workspace, named: text, colorName: notebookColorName)
         } catch {
-            fatalError("Num deu")
+            let alertController = UIAlertController(
+                title: "Error creating the notebook".localized(),
+                message: "The database could not create the notebook".localized(),
+                preferredStyle: .alert)
+                .makeErrorMessage(with: "A new Notebook could not be created".localized())
+            self.present(alertController, animated: true, completion: nil)
         }
         dismissFromParent()
     }

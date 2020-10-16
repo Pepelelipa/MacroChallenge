@@ -112,13 +112,17 @@ internal class NotesViewController: UIViewController,
     internal init(note: NoteEntity) {
         self.note = note
         super.init(nibName: nil, bundle: nil)
-        self.textField.attributedText = note.title
-        self.textView.attributedText = note.text
         
         do {
             self.notebook = try note.getNotebook()
         } catch {
-            fatalError("Error retriving notebook")
+            let alertController = UIAlertController(
+                title: "Error retriving notebook".localized(),
+                message: "The app could not retrieve a notebook".localized(),
+                preferredStyle: .alert)
+                .makeErrorMessage(with: "A notebook could not be retrieved".localized())
+
+            self.present(alertController, animated: true, completion: nil)
         }
     }
     
@@ -152,21 +156,62 @@ internal class NotesViewController: UIViewController,
         } else if UIDevice.current.userInterfaceIdiom == .pad {
             textView.inputAccessoryView = nil
         }
+
+        self.textField.attributedText = note?.title
+        self.textView.attributedText = note?.text
+        for textBox in note?.textBoxes ?? [] {
+            addTextBox(with: textBox)
+        }
+        for imageBox in note?.images ?? [] {
+            addImageBox(with: imageBox)
+        }
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         navigationItem.largeTitleDisplayMode = .never
     }
 
     override func viewWillDisappear(_ animated: Bool) {
+        saveNote()
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.largeTitleDisplayMode = .automatic
+    }
+
+    private func saveNote() {
         do {
-            note?.title = textField.attributedText ?? NSAttributedString(string: "Lesson".localized())
-            note?.text = textView.attributedText ?? NSAttributedString()
-            try note?.save()
+            guard let note = note else {
+                return
+            }
+            note.title = textField.attributedText ?? NSAttributedString(string: "Lesson".localized())
+            note.text = textView.attributedText ?? NSAttributedString()
+            for textBox in textBoxes where textBox.frame.origin.x != 0 && textBox.frame.origin.y != 0 {
+                if let entity = note.textBoxes.first(where: { $0 === textBox.entity }) {
+                    entity.text = textBox.markupTextView.attributedText
+                    entity.x = Float(textBox.frame.origin.x)
+                    entity.y = Float(textBox.frame.origin.y)
+                    entity.z = Float(textBox.layer.zPosition)
+                    entity.width = Float(textBox.frame.width)
+                    entity.height = Float(textBox.frame.height)
+                }
+            }
+
+            for imageBox in imageBoxes where imageBox.frame.origin.x != 0 && imageBox.frame.origin.y != 0 {
+                if let entity = note.images.first(where: { $0 === imageBox.entity }) {
+                    entity.x = Float(imageBox.frame.origin.x)
+                    entity.y = Float(imageBox.frame.origin.y)
+                    entity.z = Float(imageBox.layer.zPosition)
+                    entity.width = Float(imageBox.frame.width)
+                    entity.height = Float(imageBox.frame.height)
+                }
+            }
+            try note.save()
         } catch {
-            fatalError("Ops")
+            let alertController = UIAlertController(
+                title: "Error saving the notebook".localized(),
+                message: "The database could not save the notebook".localized(),
+                preferredStyle: .alert)
+                .makeErrorMessage(with: "The Notebook could not be saved".localized())
+            self.present(alertController, animated: true, completion: nil)
         }
     }
     
@@ -188,29 +233,6 @@ internal class NotesViewController: UIViewController,
     }
     
     // MARK: - Functions
-    
-    /**
-     Create a Image Box
-     - Parameters
-        - frame: The text box frame.
-        - Image: The image displayed on Image Box.
-     */
-    private func addImageBox(with frame: CGRect, image: UIImage) {
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
-        let doubleTapGesture = UITapGestureRecognizer(target: self, action: #selector(handleDoubleTap(_:)))
-        doubleTapGesture.numberOfTapsRequired = 2
-        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePan(_:)))
-        let pinchGesture = UIPinchGestureRecognizer(target: self, action: #selector(handlePinch(_:)))
-        
-        let imageBox = ImageBoxView(frame: frame, owner: textView, image: image)
-        
-        imageBox.addGestureRecognizer(tapGesture)
-        imageBox.addGestureRecognizer(doubleTapGesture)
-        imageBox.addGestureRecognizer(panGesture)
-        imageBox.addGestureRecognizer(pinchGesture)
-        self.imageBoxes.insert(imageBox)
-        self.textView.addSubview(imageBox)
-    }
     
     /**
      Adds and position the resize handles in the box view
@@ -293,28 +315,115 @@ internal class NotesViewController: UIViewController,
         DispatchQueue.main.async {
             self.imgeButtonObserver?.showImageButton()
         }
+        saveNote()
+    }
+
+    ///Creates a TextBox
+    func createTextBox() {
+        do {
+            guard let note = note else {
+                let alertController = UIAlertController(
+                    title: "Note do not exist".localized(),
+                    message: "The app could not safe unwrap the view controller note".localized(),
+                    preferredStyle: .alert)
+                    .makeErrorMessage(with: "Failed to load the Note".localized())
+
+                self.present(alertController, animated: true, completion: nil)
+                return
+            }
+            let textBoxEntity = try DataManager.shared().createTextBox(in: note)
+            textBoxEntity.x = Float(view.frame.width/2)
+            textBoxEntity.y = 10
+            textBoxEntity.height = 40
+            textBoxEntity.width = 140
+            textBoxEntity.text = NSAttributedString(string: "Text".localized())
+            addTextBox(with: textBoxEntity)
+        } catch {
+            let alertController = UIAlertController(
+                title: "Failed to create a Text Box".localized(),
+                message: "The app could not create a Text Box".localized(),
+                preferredStyle: .alert)
+                .makeErrorMessage(with: "Failed to create a Text Box".localized())
+
+            self.present(alertController, animated: true, completion: nil)
+        }
     }
     
     /**
-     Create a Text Box
-     - Parameters
-        - frame: The text box frame.
+     Adds a Text Box
      */
-    internal func addTextBox(with frame: CGRect) {
+    func addTextBox(with textBoxEntity: TextBoxEntity) {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
         let doubleTapGesture = UITapGestureRecognizer(target: self, action: #selector(handleDoubleTap(_:)))
         doubleTapGesture.numberOfTapsRequired = 2
         let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePan(_:)))
         let pinchGesture = UIPinchGestureRecognizer(target: self, action: #selector(handlePinch(_:)))
-        
-        let textBox = TextBoxView(frame: frame, owner: textView)
-        
+
+        let textBox = TextBoxView(textBoxEntity: textBoxEntity, owner: textView)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            textBox.markupTextView.attributedText = textBoxEntity.text
+        }
         textBox.addGestureRecognizer(tapGesture)
         textBox.addGestureRecognizer(doubleTapGesture)
         textBox.addGestureRecognizer(panGesture)
         textBox.addGestureRecognizer(pinchGesture)
         self.textBoxes.insert(textBox)
         self.textView.addSubview(textBox)
+    }
+    
+    ///Creates an Image Box
+    func createImageBox(image: UIImage?) {
+        do {
+            guard let image = image,
+                  let note = note else {
+                let alertController = UIAlertController(
+                    title: "Note do not exist".localized(),
+                    message: "The app could not safe unwrap the view controller note".localized(),
+                    preferredStyle: .alert)
+                    .makeErrorMessage(with: "Failed to load the Note".localized())
+
+                self.present(alertController, animated: true, completion: nil)
+                return
+            }
+
+            let path = try FileHelper.saveToFiles(image: image)
+            let imageBoxEntity = try DataManager.shared().createImageBox(in: note, at: path)
+            imageBoxEntity.x = Float(view.frame.width/2)
+            imageBoxEntity.y = 10
+            imageBoxEntity.width = 150
+            imageBoxEntity.height = 150
+
+            addImageBox(with: imageBoxEntity)
+        } catch {
+            let alertController = UIAlertController(
+                title: "Failed to create a Image Box".localized(),
+                message: "The app could not create a Image Box".localized(),
+                preferredStyle: .alert)
+                .makeErrorMessage(with: "Failed to create a Image Box".localized())
+
+            self.present(alertController, animated: true, completion: nil)
+        }
+    }
+
+    ///Adds an Image Box
+    func addImageBox(with imageBoxEntity: ImageBoxEntity) {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
+        let doubleTapGesture = UITapGestureRecognizer(target: self, action: #selector(handleDoubleTap(_:)))
+        doubleTapGesture.numberOfTapsRequired = 2
+        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePan(_:)))
+        let pinchGesture = UIPinchGestureRecognizer(target: self, action: #selector(handlePinch(_:)))
+
+        if let fileName = FileHelper.getFilePath(fileName: imageBoxEntity.imagePath) {
+            let image = UIImage(contentsOfFile: fileName)
+            let imageBox = ImageBoxView(imageBoxEntity: imageBoxEntity, owner: textView, image: image)
+
+            imageBox.addGestureRecognizer(tapGesture)
+            imageBox.addGestureRecognizer(doubleTapGesture)
+            imageBox.addGestureRecognizer(panGesture)
+            imageBox.addGestureRecognizer(pinchGesture)
+            self.imageBoxes.insert(imageBox)
+            self.textView.addSubview(imageBox)
+        }
     }
     
     /**
@@ -336,7 +445,6 @@ internal class NotesViewController: UIViewController,
         
         if let itemProvider = results.first?.itemProvider, itemProvider.canLoadObject(ofClass: UIImage.self) {
             itemProvider.loadObject(ofClass: UIImage.self) { [weak self] (loadedImage, error) in
-                
                 if let error = error, let self = self {
                     let alertController = UIAlertController(
                         title: "Error presenting Photo Library".localized(),
@@ -351,11 +459,10 @@ internal class NotesViewController: UIViewController,
                 }
                 
                 DispatchQueue.main.async {
-                    guard let self = self, let image = loadedImage as? UIImage else {
+                    guard let image = loadedImage as? UIImage else {
                         return
                     }
-                    let frame = CGRect(x: UIScreen.main.bounds.midX, y: UIScreen.main.bounds.midY, width: 100.0, height: 100.0)
-                    self.addImageBox(with: frame, image: image)
+                    self?.createImageBox(image: image)
                 }
             }
         }
