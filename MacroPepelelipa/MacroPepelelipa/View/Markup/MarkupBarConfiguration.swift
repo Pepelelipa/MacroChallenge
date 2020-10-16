@@ -32,10 +32,13 @@ internal class MarkupBarConfiguration {
         self.textView = owner
     }
     
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+    required convenience init?(coder: NSCoder) {
+        guard let owner = coder.decodeObject(forKey: "owner") as? MarkupTextView else {
+            return nil
+        }
+        self.init(owner: owner)
     }
-    
+     
     // MARK: UIBarButtonItem
     
     /**

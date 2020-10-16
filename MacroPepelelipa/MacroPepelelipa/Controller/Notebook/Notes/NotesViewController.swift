@@ -116,7 +116,13 @@ internal class NotesViewController: UIViewController,
         do {
             self.notebook = try note.getNotebook()
         } catch {
-            fatalError("Error retriving notebook")
+            let alertController = UIAlertController(
+                title: "Error retriving notebook".localized(),
+                message: "The app could not retrieve a notebook".localized(),
+                preferredStyle: .alert)
+                .makeErrorMessage(with: "A notebook could not be retrieved".localized())
+
+            self.present(alertController, animated: true, completion: nil)
         }
     }
     
@@ -200,7 +206,12 @@ internal class NotesViewController: UIViewController,
             }
             try note.save()
         } catch {
-            fatalError("Ops")
+            let alertController = UIAlertController(
+                title: "Error saving the notebook".localized(),
+                message: "The database could not save the notebook".localized(),
+                preferredStyle: .alert)
+                .makeErrorMessage(with: "The Notebook could not be saved".localized())
+            self.present(alertController, animated: true, completion: nil)
         }
     }
     
@@ -331,7 +342,14 @@ internal class NotesViewController: UIViewController,
     func createTextBox() {
         do {
             guard let note = note else {
-                fatalError("Num tem note")
+                let alertController = UIAlertController(
+                    title: "Note do not exist".localized(),
+                    message: "The app could not safe unwrap the view controller note".localized(),
+                    preferredStyle: .alert)
+                    .makeErrorMessage(with: "Failed to load the Note".localized())
+
+                self.present(alertController, animated: true, completion: nil)
+                return
             }
             let textBoxEntity = try DataManager.shared().createTextBox(in: note)
             textBoxEntity.x = Float(view.frame.width/2)
@@ -341,7 +359,13 @@ internal class NotesViewController: UIViewController,
             textBoxEntity.text = NSAttributedString(string: "Text".localized())
             addTextBox(with: textBoxEntity)
         } catch {
-            fatalError("Num deu")
+            let alertController = UIAlertController(
+                title: "Failed to create a Text Box".localized(),
+                message: "The app could not create a Text Box".localized(),
+                preferredStyle: .alert)
+                .makeErrorMessage(with: "Failed to create a Text Box".localized())
+
+            self.present(alertController, animated: true, completion: nil)
         }
     }
     
@@ -372,7 +396,14 @@ internal class NotesViewController: UIViewController,
         do {
             guard let image = image,
                   let note = note else {
-                fatalError("Num tem note")
+                let alertController = UIAlertController(
+                    title: "Note do not exist".localized(),
+                    message: "The app could not safe unwrap the view controller note".localized(),
+                    preferredStyle: .alert)
+                    .makeErrorMessage(with: "Failed to load the Note".localized())
+
+                self.present(alertController, animated: true, completion: nil)
+                return
             }
 
             let path = try FileHelper.saveToFiles(image: image)
@@ -383,8 +414,14 @@ internal class NotesViewController: UIViewController,
             imageBoxEntity.height = 150
 
             addImageBox(with: imageBoxEntity)
-        } catch let error {
-            print(error)
+        } catch {
+            let alertController = UIAlertController(
+                title: "Failed to create a Image Box".localized(),
+                message: "The app could not create a Image Box".localized(),
+                preferredStyle: .alert)
+                .makeErrorMessage(with: "Failed to create a Image Box".localized())
+
+            self.present(alertController, animated: true, completion: nil)
         }
     }
 

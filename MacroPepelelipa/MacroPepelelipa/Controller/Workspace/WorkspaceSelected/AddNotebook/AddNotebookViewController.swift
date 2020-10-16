@@ -211,7 +211,12 @@ internal class AddNotebookViewController: PopupContainerViewController {
         do {
             _ = try DataManager.shared().createNotebook(in: workspace, named: text, colorName: notebookColorName)
         } catch {
-            fatalError("Num deu")
+            let alertController = UIAlertController(
+                title: "Error creating the notebook".localized(),
+                message: "The database could not create the notebook".localized(),
+                preferredStyle: .alert)
+                .makeErrorMessage(with: "A new Notebook could not be created".localized())
+            self.present(alertController, animated: true, completion: nil)
         }
         dismissFromParent()
     }
