@@ -68,4 +68,7 @@ public extension UIColor {
     static var toolsColor: UIColor? = {
         UIColor(named: "Tools")
     }()
+    static var formatColor: UIColor? = {
+        UIColor(named: "Format")
+    }()
 }
