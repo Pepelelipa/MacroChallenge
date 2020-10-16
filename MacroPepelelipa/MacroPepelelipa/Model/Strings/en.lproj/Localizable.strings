@@ -81,3 +81,6 @@
 "Create workspace" = "Create workspace";
 "No notebook" = "You don't have any notebooks in this workspace. Create a new one to begin with!";
 "Create notebook" = "Create notebook";
+"Error retriving notebook" = "Error retriving notebook";
+"The app could not retrieve a notebook" = "The app could not retrieve a notebook";
+"A notebook could not be retrieved" = "A notebook could not be retrieved";

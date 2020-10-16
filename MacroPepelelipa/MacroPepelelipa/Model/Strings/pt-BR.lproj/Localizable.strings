@@ -81,4 +81,7 @@
 "Create workspace" = "Criar coleção";
 "No notebook" = "Você não tem nenhum caderno nesta coleção. Crie um para começar!";
 "Create notebook" = "Criar caderno";
+"Error retriving notebook" = "Erro ao recuperar um caderno";
+"The app could not retrieve a notebook" = "O App não foi capaz de recuperar um caderno";
+"A notebook could not be retrieved" = "Um caderno não pode ser recuperado";
 

@@ -118,7 +118,13 @@ internal class NotesViewController: UIViewController,
         do {
             self.notebook = try note.getNotebook()
         } catch {
-            fatalError("Error retriving notebook")
+            let alertController = UIAlertController(
+                title: "Error retriving notebook".localized(),
+                message: "The app could not retrieve a notebook".localized(),
+                preferredStyle: .alert)
+                .makeErrorMessage(with: "A notebook could not be retrieved".localized())
+
+            self.present(alertController, animated: true, completion: nil)
         }
     }
     
