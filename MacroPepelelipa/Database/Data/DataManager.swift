@@ -76,6 +76,7 @@ public class DataManager {
         }
 
         try coreDataController.deleteWorkspace(workspaceObject.coreDataObject)
+        try workspaceObject.removeReferences()
         notifyDeletion(workspace, type: .workspace)
     }
 
@@ -112,6 +113,7 @@ public class DataManager {
         }
 
         try coreDataController.deleteNotebook(notebookObject.coreDataObject)
+        try notebookObject.removeReferences()
         notifyDeletion(notebook, type: .notebook)
     }
 
@@ -146,6 +148,7 @@ public class DataManager {
         }
 
         try coreDataController.deleteNote(noteObject.coreDataObject)
+        try noteObject.removeReferences()
         notifyDeletion(note, type: .note)
     }
 
@@ -183,12 +186,12 @@ public class DataManager {
      - Parameter note: To what note it belongs.
      - Throws: Throws if fails to parse note to NoteObject or fails to create in CoreData.
      */
-    public func createImageBox(in note: NoteEntity) throws -> ImageBoxEntity {
+    public func createImageBox(in note: NoteEntity, at imagePath: String) throws -> ImageBoxEntity {
         guard let noteObject = note as? NoteObject else {
             throw NoteError.failedToParse
         }
 
-        let cdImageBox = try coreDataController.createImageBox(in: noteObject.coreDataObject)
+        let cdImageBox = try coreDataController.createImageBox(in: noteObject.coreDataObject, at: imagePath)
         return ImageBoxObject(in: noteObject, coreDataObject: cdImageBox)
     }
 
@@ -201,6 +204,8 @@ public class DataManager {
         guard let imageBoxObject = imageBox as? ImageBoxObject else {
             throw ImageBoxError.failedToParse
         }
+
+        _ = try? FileHelper.deleteImage(fileName: imageBox.imagePath)
 
         try coreDataController.deleteImageBox(imageBoxObject.coreDataObject)
     }

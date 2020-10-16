@@ -48,8 +48,8 @@ internal class ResizeHandleView: UIView {
         return temp
     }()
     
-    let minimumWidht: CGFloat = 120
-    let minimumHeight: CGFloat = 120
+    let minimumWidht: CGFloat = 100
+    let minimumHeight: CGFloat = 35
 
     internal init(referenceView: BoxView, owner: NotesViewController, corner: CornerEnum) {
         self.referenceView = referenceView
