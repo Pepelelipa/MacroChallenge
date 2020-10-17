@@ -6,7 +6,6 @@
 //  Copyright © 2020 Pedro Giuliano Farina. All rights reserved.
 //
 
-import Foundation
 import UIKit
 import Database
 

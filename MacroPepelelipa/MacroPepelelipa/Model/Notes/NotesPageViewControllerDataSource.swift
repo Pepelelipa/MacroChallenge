@@ -9,7 +9,9 @@
 import UIKit
 import Database
 
-internal class NotesPageViewControllerDataSource: NSObject, UIPageViewControllerDataSource {
+internal class NotesPageViewControllerDataSource: NSObject, 
+                                                  UIPageViewControllerDataSource, 
+                                                  NotesPageViewObserver {
     
     private var notesEntities: [NoteEntity]?
     
@@ -47,6 +49,10 @@ internal class NotesPageViewControllerDataSource: NSObject, UIPageViewController
             return currentIndex
         }
         return nil
+    }
+    
+    func updateNotes(from notebook: NotebookEntity) {
+        notesEntities = notebook.notes
     }
     
  }
