@@ -10,7 +10,9 @@ import UIKit
 
 internal class MarkupTextField: UITextField {
     
-    init(frame: CGRect, placeholder: String, paddingSpace: CGFloat) {
+    // MARK: - Initializers
+    
+    internal init(frame: CGRect, placeholder: String, paddingSpace: CGFloat) {
         super.init(frame: frame)
         
         self.placeholder = placeholder
@@ -26,7 +28,7 @@ internal class MarkupTextField: UITextField {
         addPaddingSpace(space: paddingSpace)
     }
     
-    required convenience init?(coder: NSCoder) {
+    internal required convenience init?(coder: NSCoder) {
         guard let frame = coder.decodeObject(forKey: "frame") as? CGRect,
               let placeholder = coder.decodeObject(forKey: "placeholder") as? String,
               let paddingSpace = coder.decodeObject(forKey: "paddingSpace") as? CGFloat else {
@@ -35,10 +37,11 @@ internal class MarkupTextField: UITextField {
 
         self.init(frame: frame, placeholder: placeholder, paddingSpace: paddingSpace)
     }
+
+    // MARK: - Functions
     
     /**
      This method adds padding to the sides of the UITextField.
-     
      - Parameter space: A CGFloat indicating the padding space on each side.
      */
     private func addPaddingSpace(space: CGFloat) {

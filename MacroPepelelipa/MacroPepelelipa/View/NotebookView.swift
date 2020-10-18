@@ -9,6 +9,9 @@
 import UIKit
 
 internal class NotebookView: UIImageView {
+    
+    // MARK: - Variables and Constants
+    
     private let shadowView = UIImageView(image: #imageLiteral(resourceName: "BooklikeShadow"))
 
     internal var color: UIColor {
@@ -20,11 +23,10 @@ internal class NotebookView: UIImageView {
             self.tintColor = newValue
         }
     }
-
-    convenience override init(frame: CGRect) {
-        self.init(frame: frame, color: UIColor.randomNotebookColor() ?? .clear)
-    }
-    init(frame: CGRect, color: UIColor) {
+    
+    // MARK: - Initializers
+    
+    internal init(frame: CGRect, color: UIColor) {
         super.init(frame: frame)
         self.image = #imageLiteral(resourceName: "Book")
         self.color = color
@@ -37,7 +39,12 @@ internal class NotebookView: UIImageView {
 
         setupConstraints()
     }
-    required convenience init?(coder: NSCoder) {
+
+    internal convenience override init(frame: CGRect) {
+        self.init(frame: frame, color: UIColor.randomNotebookColor() ?? .clear)
+    }
+    
+    internal required convenience init?(coder: NSCoder) {
         guard let frame = coder.decodeObject(forKey: "frame") as? CGRect else {
             return nil
         }
@@ -47,6 +54,8 @@ internal class NotebookView: UIImageView {
             self.init(frame: frame)
         }
     }
+    
+    // MARK: - Functions
 
     private func setupConstraints() {
         NSLayoutConstraint.activate([

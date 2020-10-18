@@ -10,21 +10,11 @@ import UIKit
 import Database
 
 internal class WorkspaceCollectionViewCell: UICollectionViewCell {
-    internal class func cellID() -> String { "workspaceCell" }
     
-    internal private(set) weak var workspace: WorkspaceEntity? {
-        didSet {
-            self.lblWorkspaceName.text = workspace?.name
-        }
-    }
-    internal func setWorkspace(_ workspace: WorkspaceEntity, viewController: UIViewController? = nil) {
-        self.workspace = workspace
-        dataSource = .init(workspace: workspace, viewController: viewController)
-        delegate = .init(totalNotebooks: workspace.notebooks.count)
-        collectionView.dataSource = dataSource
-        collectionView.delegate = delegate
-        collectionView.reloadData()
-    }
+    // MARK: - Variables and Constants
+    
+    private var dataSource: WorkspaceCellNotebookCollectionViewDataSource?
+    private var delegate: WorkspaceCellNotebookCollectionViewDelegate?
 
     private var lblWorkspaceName: UILabel = {
         let lbl = UILabel(frame: .zero)
@@ -36,6 +26,13 @@ internal class WorkspaceCollectionViewCell: UICollectionViewCell {
 
         return lbl
     }()
+    
+    internal private(set) weak var workspace: WorkspaceEntity? {
+        didSet {
+            self.lblWorkspaceName.text = workspace?.name
+        }
+    }
+    
     private lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
@@ -57,11 +54,8 @@ internal class WorkspaceCollectionViewCell: UICollectionViewCell {
 
         return collectionView
     }()
-    private var dataSource: WorkspaceCellNotebookCollectionViewDataSource?
-    private var delegate: WorkspaceCellNotebookCollectionViewDelegate?
-    internal func invalidateLayout() {
-        collectionView.collectionViewLayout.invalidateLayout()
-    }
+    
+    // MARK: - Initializers
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -74,12 +68,16 @@ internal class WorkspaceCollectionViewCell: UICollectionViewCell {
         setupConstraints()
         layer.cornerRadius = 10
     }
-    required convenience init?(coder: NSCoder) {
+    
+    internal required convenience init?(coder: NSCoder) {
         guard let frame = coder.decodeObject(forKey: "frame") as? CGRect else {
             return nil
         }
         self.init(frame: frame)
     }
+    
+    // MARK: - Functions
+    
     private func setupConstraints() {
         NSLayoutConstraint.activate([
             lblWorkspaceName.topAnchor.constraint(equalTo: topAnchor, constant: 20),
@@ -95,5 +93,22 @@ internal class WorkspaceCollectionViewCell: UICollectionViewCell {
             collectionView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -20),
             collectionView.widthAnchor.constraint(greaterThanOrEqualTo: collectionView.heightAnchor, multiplier: 2)
         ])
+    }
+    
+    internal class func cellID() -> String { 
+        return "workspaceCell"
+    }
+    
+    internal func invalidateLayout() {
+        collectionView.collectionViewLayout.invalidateLayout()
+    }
+    
+    internal func setWorkspace(_ workspace: WorkspaceEntity, viewController: UIViewController? = nil) {
+        self.workspace = workspace
+        dataSource = .init(workspace: workspace, viewController: viewController)
+        delegate = .init(totalNotebooks: workspace.notebooks.count)
+        collectionView.dataSource = dataSource
+        collectionView.delegate = delegate
+        collectionView.reloadData()
     }
 }

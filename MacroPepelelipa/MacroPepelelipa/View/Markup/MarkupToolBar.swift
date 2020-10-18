@@ -6,16 +6,16 @@
 //  Copyright © 2020 Pedro Giuliano Farina. All rights reserved.
 //
 
-import Foundation
 import UIKit
 
 internal class MarkupToolBar: UIToolbar {
     
-    private weak var markupBarConfiguration: MarkupBarConfiguration?
+    // MARK: - Variables and Constants
     
+    private weak var markupBarConfiguration: MarkupBarConfiguration?
     private static var paragraphButton: UIBarButtonItem?
     
-    public static var headerStyle: HeaderStyle = .h1 {
+    internal static var headerStyle: HeaderStyle = .h1 {
         didSet {
             if MarkupToolBar.headerStyle == .h1 {
                 paragraphButton?.image = UIImage(named: "h1")
@@ -23,7 +23,9 @@ internal class MarkupToolBar: UIToolbar {
         }
     }
     
-    init(frame: CGRect, configurations: MarkupBarConfiguration) {
+    // MARK: - Initializers
+    
+    internal init(frame: CGRect, configurations: MarkupBarConfiguration) {
         self.markupBarConfiguration = configurations
         super.init(frame: frame)
         
@@ -33,7 +35,7 @@ internal class MarkupToolBar: UIToolbar {
         self.tintColor = UIColor.toolsColor
     }
     
-    required convenience init?(coder: NSCoder) {
+    internal required convenience init?(coder: NSCoder) {
         guard let frame = coder.decodeObject(forKey: "frame") as? CGRect,
               let configurations = coder.decodeObject(forKey: "configurations") as? MarkupBarConfiguration else {
             return nil
@@ -42,9 +44,9 @@ internal class MarkupToolBar: UIToolbar {
         self.init(frame: frame, configurations: configurations)
     }
     
-    /**
-     A private method to set up all the Buttons on the UIToolBar.
-     */
+    // MARK: - Functions
+    
+    ///A private method to set up all the Buttons on the UIToolBar.
     private func setUpButtons() {
         
         guard let barButtonItems = markupBarConfiguration?.setUpButtons() else {

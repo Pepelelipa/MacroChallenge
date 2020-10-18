@@ -9,13 +9,13 @@
 import UIKit
 import PhotosUI
 
-enum ListStyle {
+internal enum ListStyle {
     case bullet
     case numeric
     case quote
 }
 
-enum HeaderStyle {
+internal enum HeaderStyle {
     case h1
     case h2
     case h3
@@ -23,32 +23,36 @@ enum HeaderStyle {
 }
 
 internal class MarkupBarConfiguration {    
-    internal weak var observer: MarkupToolBarObserver?
+    
+    // MARK: - Variables and Constants
+    
+    private var listStyle: ListStyle = .bullet
     private weak var textView: MarkupTextView?
     private weak var markupViewController: MarkupContainerViewController?
-    private var listStyle: ListStyle = .bullet
     
-    init(owner: MarkupTextView) {
+    internal weak var observer: MarkupToolBarObserver?
+    
+    // MARK: - Initializers
+    
+    internal init(owner: MarkupTextView) {
         self.textView = owner
     }
     
-    required convenience init?(coder: NSCoder) {
+    internal required convenience init?(coder: NSCoder) {
         guard let owner = coder.decodeObject(forKey: "owner") as? MarkupTextView else {
             return nil
         }
         self.init(owner: owner)
     }
      
-    // MARK: UIBarButtonItem
+    // MARK: UIBarButtonItem functions
     
     /**
      This internal method creates a UIBarButtonItem with an image and an Objective-C function.
-     
      - Parameters:
         - systemImageName: A String containing the name of the button image.
         - systemImage: A Boolean that specifies if the button is a system image or just a normal image.
         - objcFunc: An optional Selector to be added to the button.
-     
      - Returns: An UIBarButtonItem with an image and a selector, if passed as parameter.
      */
     internal func createBarButtonItem(imageName: String, systemImage: Bool, objcFunc: Selector?) -> UIBarButtonItem {
@@ -64,7 +68,6 @@ internal class MarkupBarConfiguration {
     
     /**
      This internal creates all of the UIBarButtonItems for the tab bar.
-     
      - Returns: An array of UIBarButtonItems so that the class that will be using this function can access the buttons.
      */
     internal func setUpButtons() -> [UIBarButtonItem] {
@@ -88,10 +91,78 @@ internal class MarkupBarConfiguration {
         return barButtonItems
     }
     
+    // MARK: UIButton functions
+    
+    /**
+     This internal method creates a UIButton with an image and an Objective-C function.
+     - Parameters:
+        - imageName: A String containing the name of the button image.
+        - systemImage: A Boolean that specifies if the button is a system image or just a normal image.
+        - objcFunc: An optional Selector to be added to the button.
+     - Returns: An UIBarButtonItem with an image and a selector, if passed as parameter.
+     */
+    internal func createButton(imageName: String, systemImage: Bool, objcFunc: Selector) -> UIButton {
+        let button = UIButton(frame: .zero)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        
+        var buttonImage: UIImage?
+        if systemImage {
+            buttonImage = UIImage(systemName: imageName)
+        } else {
+            buttonImage = UIImage(named: imageName)
+        }
+        
+        button.setBackgroundImage(buttonImage, for: .normal)
+        button.addTarget(self, action: objcFunc, for: .touchUpInside)
+        
+        return button
+    }
+    
+    /**
+     This internal creates all of the UIButtons for the tab bar.
+     - Returns: An array of UIButtons so that the class that will be using this function can access the buttons.
+     */
+    internal func setupUIButtons() -> [UIButton] {
+        var buttons: [UIButton] = []
+        
+        let listButton = createButton(imageName: "list.bullet", systemImage: true, objcFunc: #selector(addListButton))
+        buttons.append(listButton)
+        
+        let paragraphButton = createButton(imageName: "h1", systemImage: false, objcFunc: #selector(addHeaderButton))
+        buttons.append(paragraphButton)
+        
+        let imageGalleryButton = createButton(imageName: "photo", systemImage: true, objcFunc: #selector(photoPicker))
+        buttons.append(imageGalleryButton)
+        
+        let textBoxButton = createButton(imageName: "textbox", systemImage: true, objcFunc: #selector(addTextBox))
+        buttons.append(textBoxButton)
+        
+        let paintbrushButton = createButton(imageName: "paintbrush", systemImage: true, objcFunc: #selector(openEditTextContainer))
+        buttons.append(paintbrushButton)
+        
+        return buttons
+    }
+    
+    // MARK: - IBActions functions
+    
+    /**
+    In this funcion, we toggle the color of the button when the button is selected.
+     - Parameter sender: The UIButton.
+    */
+    @IBAction internal func toogleButton(_ sender: UIButton) {
+        sender.isSelected.toggle()
+        if sender.isSelected {
+            sender.tintColor = UIColor.actionColor
+        } else {
+            sender.tintColor = UIColor.placeholderColor
+        }
+    }
+    
+    // MARK: Objective-C functions
+    
     /**
     In this funcion, we deal with the toolbar button for adding a list, adding it manually, when the function receives a UIBarButtonItem.
-    - Parameters:
-        - listButton: The UIBarButtonItem for the list items.
+    - Parameter listButton: The UIBarButtonItem for the list items.
     */
     @objc internal func addList(listButton: UIBarButtonItem) {
         guard let guardedTextView = textView else {
@@ -123,8 +194,7 @@ internal class MarkupBarConfiguration {
     
     /**
     In this funcion, we deal with the toolbar button for adding a header, adding it manually.
-     - Parameters:
-            - paragraphButton: The UIBarButtonItem for the items for the paragraph interaction.
+     - Parameter paragraphButton: The UIBarButtonItem for the items for the paragraph interaction.
     */
     @objc internal func addHeader(paragraphButton: UIBarButtonItem) {
         textView?.addHeader(with: MarkupToolBar.headerStyle)
@@ -148,65 +218,9 @@ internal class MarkupBarConfiguration {
         MarkupToolBar.headerStyle = nextStyle
     }
     
-    // MARK: UIButton
-    
-    /**
-     This internal method creates a UIButton with an image and an Objective-C function.
-     
-     - Parameters:
-        - imageName: A String containing the name of the button image.
-        - systemImage: A Boolean that specifies if the button is a system image or just a normal image.
-        - objcFunc: An optional Selector to be added to the button.
-     
-     - Returns: An UIBarButtonItem with an image and a selector, if passed as parameter.
-     */
-    internal func createButton(imageName: String, systemImage: Bool, objcFunc: Selector) -> UIButton {
-        let button = UIButton(frame: .zero)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        
-        var buttonImage: UIImage?
-        if systemImage {
-            buttonImage = UIImage(systemName: imageName)
-        } else {
-            buttonImage = UIImage(named: imageName)
-        }
-        
-        button.setBackgroundImage(buttonImage, for: .normal)
-        button.addTarget(self, action: objcFunc, for: .touchUpInside)
-        
-        return button
-    }
-    
-    /**
-     This internal creates all of the UIButtons for the tab bar.
-     
-     - Returns: An array of UIButtons so that the class that will be using this function can access the buttons.
-     */
-    internal func setupUIButtons() -> [UIButton] {
-        var buttons: [UIButton] = []
-        
-        let listButton = createButton(imageName: "list.bullet", systemImage: true, objcFunc: #selector(addListButton))
-        buttons.append(listButton)
-        
-        let paragraphButton = createButton(imageName: "h1", systemImage: false, objcFunc: #selector(addHeaderButton))
-        buttons.append(paragraphButton)
-        
-        let imageGalleryButton = createButton(imageName: "photo", systemImage: true, objcFunc: #selector(photoPicker))
-        buttons.append(imageGalleryButton)
-        
-        let textBoxButton = createButton(imageName: "textbox", systemImage: true, objcFunc: #selector(addTextBox))
-        buttons.append(textBoxButton)
-        
-        let paintbrushButton = createButton(imageName: "paintbrush", systemImage: true, objcFunc: #selector(openEditTextContainer))
-        buttons.append(paintbrushButton)
-        
-        return buttons
-    }
-    
     /**
     In this funcion, we deal with the toolbar button for adding a header, adding it manually.
-     - Parameters:
-            - paragraphButton: The UIButton for the items for the paragraph interaction.
+     - Parameter paragraphButton: The UIButton for the items for the paragraph interaction.
     */
     @objc internal func addHeaderButton(paragraphButton: UIButton) {
         textView?.addHeader(with: MarkupToolBar.headerStyle)
@@ -232,8 +246,7 @@ internal class MarkupBarConfiguration {
     
     /**
     In this funcion, we deal with the toolbar button for adding a list, adding it manually, when the function receives a UIButton.
-    - Parameters:
-        - listButton: The UIButton for the list items.
+    - Parameter listButton: The UIButton for the list items.
     */
     @objc internal func addListButton(listButton: UIButton) {
         guard let guardedTextView = textView else {
@@ -262,22 +275,6 @@ internal class MarkupBarConfiguration {
         
         listStyle = nextStyle
     }
-    
-    /**
-    In this funcion, we toggle the color of the button when the button is selected.
-     - Parameters:
-        - sender: The UIButton.
-    */
-    @IBAction internal func toogleButton(_ sender: UIButton) {
-        sender.isSelected.toggle()
-        if sender.isSelected {
-            sender.tintColor = UIColor.actionColor
-        } else {
-            sender.tintColor = UIColor.placeholderColor
-        }
-    }
-    
-    // MARK: General
     
     @objc internal func addTextBox() {
         observer?.createTextBox(transcription: nil)

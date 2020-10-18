@@ -10,7 +10,28 @@ import UIKit
 import Database
 
 internal class NotebookCollectionViewCell: UICollectionViewCell {
-    internal class func cellID() -> String { "notebookCell" }
+    
+    // MARK: - Variables and Constants
+    
+    private let lblName: UILabel = {
+        let lbl = UILabel(frame: .zero)
+        lbl.numberOfLines = 0
+        lbl.textColor = UIColor.titleColor ?? .black
+        lbl.font = MarkdownHeader.thirdHeaderFont
+        lbl.textAlignment = .left
+        lbl.translatesAutoresizingMaskIntoConstraints = false
+
+        return lbl
+    }()
+    
+    internal var text: String? {
+        get {
+            return lblName.text
+        }
+        set {
+            lblName.text = newValue
+        }
+    }
 
     internal private(set) weak var notebook: NotebookEntity? {
         didSet {
@@ -23,19 +44,7 @@ internal class NotebookCollectionViewCell: UICollectionViewCell {
             }
         }
     }
-    internal func setNotebook(_ notebook: NotebookEntity) {
-        self.notebook = notebook
-    }
-    private let lblName: UILabel = {
-        let lbl = UILabel(frame: .zero)
-        lbl.numberOfLines = 0
-        lbl.textColor = UIColor.titleColor ?? .black
-        lbl.font = MarkdownHeader.thirdHeaderFont
-        lbl.textAlignment = .left
-        lbl.translatesAutoresizingMaskIntoConstraints = false
-
-        return lbl
-    }()
+    
     private lazy var notebookView: NotebookView = {
         let notebook = NotebookView(frame: .zero)
         if let color = UIColor(named: self.notebook?.colorName ?? "") {
@@ -43,15 +52,8 @@ internal class NotebookCollectionViewCell: UICollectionViewCell {
         }
         return notebook
     }()
-
-    internal var text: String? {
-        get {
-            return lblName.text
-        }
-        set {
-            lblName.text = newValue
-        }
-    }
+    
+    // MARK: - Initializers
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -60,12 +62,15 @@ internal class NotebookCollectionViewCell: UICollectionViewCell {
         addSubview(lblName)
         setupConstraints()
     }
-    required convenience init?(coder: NSCoder) {
+    
+    internal required convenience init?(coder: NSCoder) {
         guard let frame = coder.decodeObject(forKey: "frame") as? CGRect else {
             return nil
         }
         self.init(frame: frame)
     }
+    
+    // MARK: - Functions
 
     private func setupConstraints() {
         NSLayoutConstraint.activate([
@@ -80,5 +85,13 @@ internal class NotebookCollectionViewCell: UICollectionViewCell {
             lblName.leadingAnchor.constraint(equalTo: notebookView.leadingAnchor),
             lblName.widthAnchor.constraint(equalTo: widthAnchor)
         ])
+    }
+    
+    internal class func cellID() -> String {
+        "notebookCell"
+    }
+    
+    internal func setNotebook(_ notebook: NotebookEntity) {
+        self.notebook = notebook
     }
 }
