@@ -22,11 +22,7 @@ internal class NotesPageViewController: UIPageViewController,
     internal private(set) var index: Int = 0
     private weak var observer: NotesPageViewObserver?
     
-    private lazy var noteDataSource: NotesPageViewControllerDataSource = {
-        let dataSource = NotesPageViewControllerDataSource(notes: notes)
-        self.observer = dataSource
-        return dataSource
-    }()
+    private lazy var noteDataSource = NotesPageViewControllerDataSource(notes: notes)
     
     private lazy var noteDelegate = NotesPageViewControllerDelegate { [unowned self] (viewController) in 
         if let notesViewController = viewController as? NotesViewController {
@@ -154,7 +150,6 @@ internal class NotesPageViewController: UIPageViewController,
     internal func updateNotes() {
         if let updatedNotebook = notebook {
             notes = updatedNotebook.notes
-            self.observer?.updateNotes(from: updatedNotebook)
             if let lastNote = notes.last {
                 setNotesViewControllers(for: NotesViewController(note: lastNote))
             }
