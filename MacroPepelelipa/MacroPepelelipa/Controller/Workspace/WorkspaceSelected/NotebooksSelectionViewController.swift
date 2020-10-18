@@ -10,22 +10,16 @@ import UIKit
 import Database
 
 internal class NotebooksSelectionViewController: UIViewController {
-    internal private(set) weak var workspace: WorkspaceEntity?
-    internal init(workspace: WorkspaceEntity) {
-        super.init(nibName: nil, bundle: nil)
-        self.workspace = workspace
-        self.collectionDataSource = NotebooksCollectionViewDataSource(notebooks: workspace.notebooks, viewController: self, collectionView: { self.collectionView })
-    }
-    internal required convenience init?(coder: NSCoder) {
-        guard let workspace = coder.decodeObject(forKey: "workspace") as? WorkspaceEntity else {
-            return nil
-        }
-        self.init(workspace: workspace)
-    }
     
     // MARK: - Variables and Constants
     
     private var collectionDataSource: NotebooksCollectionViewDataSource?
+    private var compactRegularConstraints: [NSLayoutConstraint] = []
+    private var regularCompactConstraints: [NSLayoutConstraint] = []
+    private var regularConstraints: [NSLayoutConstraint] = []
+    private var sharedConstraints: [NSLayoutConstraint] = []
+    
+    internal private(set) weak var workspace: WorkspaceEntity?
 
     private lazy var collectionView: UICollectionView = {
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
@@ -65,11 +59,6 @@ internal class NotebooksSelectionViewController: UIViewController {
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
-    
-    private var compactRegularConstraints: [NSLayoutConstraint] = []
-    private var regularCompactConstraints: [NSLayoutConstraint] = []
-    private var regularConstraints: [NSLayoutConstraint] = []
-    private var sharedConstraints: [NSLayoutConstraint] = []
 
     private lazy var collectionDelegate = NotebooksCollectionViewDelegate { [unowned self] (selectedCell) in
         if let notebook = selectedCell.notebook {
@@ -93,6 +82,23 @@ internal class NotebooksSelectionViewController: UIViewController {
             self.presentErrorAlert()
         }
     }
+    
+    // MARK: - Initializers
+    
+    internal init(workspace: WorkspaceEntity) {
+        super.init(nibName: nil, bundle: nil)
+        self.workspace = workspace
+        self.collectionDataSource = NotebooksCollectionViewDataSource(notebooks: workspace.notebooks, viewController: self, collectionView: { self.collectionView })
+    }
+    
+    internal required convenience init?(coder: NSCoder) {
+        guard let workspace = coder.decodeObject(forKey: "workspace") as? WorkspaceEntity else {
+            return nil
+        }
+        self.init(workspace: workspace)
+    }
+    
+    // MARK: - Override functions
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -138,6 +144,8 @@ internal class NotebooksSelectionViewController: UIViewController {
         super.traitCollectionDidChange(previousTraitCollection)
         layoutTrait(traitCollection: traitCollection)
     }
+    
+    // MARK: - Functions
     
     private func setConstraints() {
         sharedConstraints.append(contentsOf: [
@@ -232,8 +240,6 @@ internal class NotebooksSelectionViewController: UIViewController {
         NSLayoutConstraint.deactivate(deactivate)
         NSLayoutConstraint.activate(activate)
     }
-
-    // MARK: - Funtions
     
     private func presentErrorAlert() {
         
@@ -258,6 +264,27 @@ internal class NotebooksSelectionViewController: UIViewController {
             
             self.navigationController?.pushViewController(destination, animated: true)
         }
+    }
+    
+    /**
+     This method displays or hides the placeholder view when called.
+     - Parameter sholdBeHidden: A boolean indicating if the view shold or not be hidden. It is false by default.
+     */
+    internal func switchEmptyScreenView(shouldBeHidden: Bool = false) {
+        var alpha: CGFloat = 0
+        
+        if emptyScreenView.isHidden && !shouldBeHidden {
+            emptyScreenView.isHidden.toggle()
+            alpha = 1.0
+        }
+        
+        UIView.animate(withDuration: 0.5, animations: {
+            self.emptyScreenView.alpha = alpha
+        }, completion: { _ in
+            if alpha == 0 {
+                self.emptyScreenView.isHidden = true
+            }
+        })
     }
     
     // MARK: - IBActions functions
@@ -311,26 +338,5 @@ internal class NotebooksSelectionViewController: UIViewController {
             alertController.popoverPresentationController?.sourceRect = cell.frame
         }
         self.present(alertController, animated: true, completion: nil)
-    }
-    
-    /**
-     This method displays or hides the placeholder view when called.
-     - Parameter sholdBeHidden: A boolean indicating if the view shold or not be hidden. It is false by default.
-     */
-    internal func switchEmptyScreenView(shouldBeHidden: Bool = false) {
-        var alpha: CGFloat = 0
-        
-        if emptyScreenView.isHidden && !shouldBeHidden {
-            emptyScreenView.isHidden.toggle()
-            alpha = 1.0
-        }
-        
-        UIView.animate(withDuration: 0.5, animations: {
-            self.emptyScreenView.alpha = alpha
-        }, completion: { _ in
-            if alpha == 0 {
-                self.emptyScreenView.isHidden = true
-            }
-        })
     }
 }

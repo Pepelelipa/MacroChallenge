@@ -10,13 +10,17 @@ import UIKit
 
 internal class MarkupTextFieldDelegate: NSObject, UITextFieldDelegate {
     
+    // MARK: - Variables and Constants
+    
     internal weak var observer: TextEditingDelegateObserver?
     
-    func textFieldDidBeginEditing(_ textField: UITextField) {
+    // MARK: - UITextFieldDelegate functions
+    
+    internal func textFieldDidBeginEditing(_ textField: UITextField) {
         observer?.textEditingDidBegin()
     }
     
-    func textFieldDidEndEditing(_ textField: UITextField) {
+    internal func textFieldDidEndEditing(_ textField: UITextField) {
         observer?.textEditingDidEnd()
     }
     

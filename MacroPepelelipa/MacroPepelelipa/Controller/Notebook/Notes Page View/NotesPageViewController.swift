@@ -156,16 +156,20 @@ internal class NotesPageViewController: UIPageViewController,
         }
     }
     
-    func showImageButton() {
+    // MARK: - IndexObserver functions
+    
+    internal func didChangeIndex(to note: NoteEntity) {
+        setNotesViewControllers(for: NotesViewController(note: note))
+    }
+    
+    // MARK: - ImageButtonObserver functions
+    
+    internal func showImageButton() {
         self.imageButton.isHidden = false
     }
     
-    func hideImageButton() {
+    internal func hideImageButton() {
         self.imageButton.isHidden = true
-    }
-    
-    func didChangeIndex(to note: NoteEntity) {
-        setNotesViewControllers(for: NotesViewController(note: note))
     }
     
     // MARK: - IBActions functions
@@ -198,7 +202,6 @@ internal class NotesPageViewController: UIPageViewController,
     }
     
     @IBAction private func presentPicker() {
-        
         if let notesViewController = self.viewControllers?.first as? NotesViewController {
             notesViewController.presentPicker()
         }

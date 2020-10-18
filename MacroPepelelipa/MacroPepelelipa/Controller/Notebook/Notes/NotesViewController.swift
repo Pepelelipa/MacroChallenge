@@ -34,18 +34,6 @@ internal class NotesViewController: UIViewController,
     internal weak var note: NoteEntity?
     internal private(set) weak var notebook: NotebookEntity?
     
-    internal private(set) lazy var markupContainerView: MarkupContainerView = {
-        let height: CGFloat = screenHeight/4
-        
-        let container = MarkupContainerView(frame: CGRect(x: 0, y: 0, width: screenWidth, height: height), owner: self.textView, delegate: self.formatViewDelegate, viewController: self)
-        
-        container.autoresizingMask = []
-        container.isHidden = true
-        container.delegate = self.formatViewDelegate
-        
-        return container
-    }()
-    
     private lazy var textField: MarkupTextField = {
         let textField = MarkupTextField(frame: .zero, placeholder: "Your Title".localized(), paddingSpace: 4)
         textField.delegate = self.textFieldDelegate
@@ -56,6 +44,11 @@ internal class NotesViewController: UIViewController,
         let delegate = MarkupTextFieldDelegate()
         delegate.observer = self
         return delegate
+    }()
+    
+    private lazy var keyboardToolbar: MarkupToolBar = {
+        let toolBar = MarkupToolBar(frame: .zero, configurations: markupConfig)
+        return toolBar
     }()
      
     internal lazy var textViewDelegate: MarkupTextViewDelegate = {
@@ -88,16 +81,23 @@ internal class NotesViewController: UIViewController,
         mrkConf.observer = self
         return mrkConf
     }()
-    
-    private lazy var keyboardToolbar: MarkupToolBar = {
-        let toolBar = MarkupToolBar(frame: .zero, configurations: markupConfig)
-        return toolBar
-    }()
-    
+        
     internal private(set) lazy var textView: MarkupTextView = MarkupTextView(frame: .zero, delegate: self.textViewDelegate)
     
     internal private(set) lazy var formatViewDelegate: MarkupFormatViewDelegate? = {
         return MarkupFormatViewDelegate(viewController: self)
+    }()
+    
+    internal private(set) lazy var markupContainerView: MarkupContainerView = {
+        let height: CGFloat = screenHeight/4
+        
+        let container = MarkupContainerView(frame: CGRect(x: 0, y: 0, width: screenWidth, height: height), owner: self.textView, delegate: self.formatViewDelegate, viewController: self)
+        
+        container.autoresizingMask = []
+        container.isHidden = true
+        container.delegate = self.formatViewDelegate
+        
+        return container
     }()
     
     // MARK: - Initializers
@@ -169,44 +169,6 @@ internal class NotesViewController: UIViewController,
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.largeTitleDisplayMode = .automatic
     }
-
-    private func saveNote() {
-        do {
-            guard let note = note else {
-                return
-            }
-            note.title = textField.attributedText ?? NSAttributedString(string: "Lesson".localized())
-            note.text = textView.attributedText ?? NSAttributedString()
-            for textBox in textBoxes where textBox.frame.origin.x != 0 && textBox.frame.origin.y != 0 {
-                if let entity = note.textBoxes.first(where: { $0 === textBox.entity }) {
-                    entity.text = textBox.markupTextView.attributedText
-                    entity.x = Float(textBox.frame.origin.x)
-                    entity.y = Float(textBox.frame.origin.y)
-                    entity.z = Float(textBox.layer.zPosition)
-                    entity.width = Float(textBox.frame.width)
-                    entity.height = Float(textBox.frame.height)
-                }
-            }
-
-            for imageBox in imageBoxes where imageBox.frame.origin.x != 0 && imageBox.frame.origin.y != 0 {
-                if let entity = note.images.first(where: { $0 === imageBox.entity }) {
-                    entity.x = Float(imageBox.frame.origin.x)
-                    entity.y = Float(imageBox.frame.origin.y)
-                    entity.z = Float(imageBox.layer.zPosition)
-                    entity.width = Float(imageBox.frame.width)
-                    entity.height = Float(imageBox.frame.height)
-                }
-            }
-            try note.save()
-        } catch {
-            let alertController = UIAlertController(
-                title: "Error saving the notebook".localized(),
-                message: "The database could not save the notebook".localized(),
-                preferredStyle: .alert)
-                .makeErrorMessage(with: "The Notebook could not be saved".localized())
-            self.present(alertController, animated: true, completion: nil)
-        }
-    }
     
     override func viewDidLayoutSubviews() {
 
@@ -254,9 +216,45 @@ internal class NotesViewController: UIViewController,
         uptadeResizeHandles()
     }
     
-    /**
-     Uptade the resize handle position and the border of the text box.
-     */
+    private func saveNote() {
+        do {
+            guard let note = note else {
+                return
+            }
+            note.title = textField.attributedText ?? NSAttributedString(string: "Lesson".localized())
+            note.text = textView.attributedText ?? NSAttributedString()
+            for textBox in textBoxes where textBox.frame.origin.x != 0 && textBox.frame.origin.y != 0 {
+                if let entity = note.textBoxes.first(where: { $0 === textBox.entity }) {
+                    entity.text = textBox.markupTextView.attributedText
+                    entity.x = Float(textBox.frame.origin.x)
+                    entity.y = Float(textBox.frame.origin.y)
+                    entity.z = Float(textBox.layer.zPosition)
+                    entity.width = Float(textBox.frame.width)
+                    entity.height = Float(textBox.frame.height)
+                }
+            }
+
+            for imageBox in imageBoxes where imageBox.frame.origin.x != 0 && imageBox.frame.origin.y != 0 {
+                if let entity = note.images.first(where: { $0 === imageBox.entity }) {
+                    entity.x = Float(imageBox.frame.origin.x)
+                    entity.y = Float(imageBox.frame.origin.y)
+                    entity.z = Float(imageBox.layer.zPosition)
+                    entity.width = Float(imageBox.frame.width)
+                    entity.height = Float(imageBox.frame.height)
+                }
+            }
+            try note.save()
+        } catch {
+            let alertController = UIAlertController(
+                title: "Error saving the notebook".localized(),
+                message: "The database could not save the notebook".localized(),
+                preferredStyle: .alert)
+                .makeErrorMessage(with: "The Notebook could not be saved".localized())
+            self.present(alertController, animated: true, completion: nil)
+        }
+    }
+    
+    ///Uptade the resize handle position and the border of the text box.
     internal func uptadeResizeHandles() {
         resizeHandles.forEach { (handle) in
             handle.updatePosition()
@@ -266,83 +264,6 @@ internal class NotesViewController: UIViewController,
         }
         imageBoxes.forEach { (imageBox) in
             imageBox.setUpBorder()
-        }
-    }
-    
-    /**
-     This method changes de main input view based on it being custom or not.
-     - Parameter isCustom: A boolean indicating if the input view will be a custom view or not.
-     */
-    internal func changeTextViewInput(isCustom: Bool) {
-        if isCustom == true {
-            textView.inputView = markupContainerView
-        } else {
-            textView.inputView = nil
-        }
-        
-        keyboardToolbar.isHidden.toggle()
-        markupContainerView.isHidden.toggle()
-        textView.reloadInputViews()
-    }
-    
-    func textEditingDidBegin() {
-        DispatchQueue.main.async {
-            self.textBoxes.forEach { (textBox) in
-                textBox.state = .idle
-                textBox.markupTextView.isUserInteractionEnabled = false
-            }
-            self.imageBoxes.forEach { (imageBox) in
-                imageBox.state = .idle
-            }
-            self.imgeButtonObserver?.hideImageButton()
-            
-            if !self.resizeHandles.isEmpty {
-                self.resizeHandles.forEach { (resizeHandle) in
-                    resizeHandle.removeFromSuperview()
-                }
-            }
-        }
-    }
-    
-    func textEditingDidEnd() {
-        DispatchQueue.main.async {
-            self.imgeButtonObserver?.showImageButton()
-        }
-        saveNote()
-    }
-
-    ///Creates a TextBox
-    func createTextBox(transcription: String? = nil) {
-        do {
-            guard let note = note else {
-                let alertController = UIAlertController(
-                    title: "Note do not exist".localized(),
-                    message: "The app could not safe unwrap the view controller note".localized(),
-                    preferredStyle: .alert)
-                    .makeErrorMessage(with: "Failed to load the Note".localized())
-
-                self.present(alertController, animated: true, completion: nil)
-                return
-            }
-            let textBoxEntity = try DataManager.shared().createTextBox(in: note)
-            textBoxEntity.x = Float(view.frame.width/2)
-            textBoxEntity.y = 10
-            textBoxEntity.height = 40
-            textBoxEntity.width = 140
-            if let transcriptedText = transcription {
-                textBoxEntity.text = NSAttributedString(string: transcriptedText)
-            } else {
-                textBoxEntity.text = NSAttributedString(string: "Text".localized())
-            }
-            addTextBox(with: textBoxEntity)
-        } catch {
-            let alertController = UIAlertController(
-                title: "Failed to create a Text Box".localized(),
-                message: "The app could not create a Text Box".localized(),
-                preferredStyle: .alert)
-                .makeErrorMessage(with: "Failed to create a Text Box".localized())
-
-            self.present(alertController, animated: true, completion: nil)
         }
     }
     
@@ -424,6 +345,96 @@ internal class NotesViewController: UIViewController,
     }
     
     /**
+     Updates the position of the resize handles.
+     */
+    internal func updateResizeHandles() {
+        resizeHandles.forEach { (resizeHandle) in
+            resizeHandle.updatePosition()
+        }
+    }
+    
+    // MARK: - TextEditingDelegateObserver functions
+    
+    func textEditingDidBegin() {
+        DispatchQueue.main.async {
+            self.textBoxes.forEach { (textBox) in
+                textBox.state = .idle
+                textBox.markupTextView.isUserInteractionEnabled = false
+            }
+            self.imageBoxes.forEach { (imageBox) in
+                imageBox.state = .idle
+            }
+            self.imgeButtonObserver?.hideImageButton()
+            
+            if !self.resizeHandles.isEmpty {
+                self.resizeHandles.forEach { (resizeHandle) in
+                    resizeHandle.removeFromSuperview()
+                }
+            }
+        }
+    }
+    
+    func textEditingDidEnd() {
+        DispatchQueue.main.async {
+            self.imgeButtonObserver?.showImageButton()
+        }
+        saveNote()
+    }
+    
+    // MARK: - MarkupToolBarObserver functions
+    
+    /**
+     This method changes de main input view based on it being custom or not.
+     - Parameter isCustom: A boolean indicating if the input view will be a custom view or not.
+     */
+    internal func changeTextViewInput(isCustom: Bool) {
+        if isCustom == true {
+            textView.inputView = markupContainerView
+        } else {
+            textView.inputView = nil
+        }
+        
+        keyboardToolbar.isHidden.toggle()
+        markupContainerView.isHidden.toggle()
+        textView.reloadInputViews()
+    }
+    
+    ///Creates a TextBox
+    func createTextBox(transcription: String? = nil) {
+        do {
+            guard let note = note else {
+                let alertController = UIAlertController(
+                    title: "Note do not exist".localized(),
+                    message: "The app could not safe unwrap the view controller note".localized(),
+                    preferredStyle: .alert)
+                    .makeErrorMessage(with: "Failed to load the Note".localized())
+
+                self.present(alertController, animated: true, completion: nil)
+                return
+            }
+            let textBoxEntity = try DataManager.shared().createTextBox(in: note)
+            textBoxEntity.x = Float(view.frame.width/2)
+            textBoxEntity.y = 10
+            textBoxEntity.height = 40
+            textBoxEntity.width = 140
+            if let transcriptedText = transcription {
+                textBoxEntity.text = NSAttributedString(string: transcriptedText)
+            } else {
+                textBoxEntity.text = NSAttributedString(string: "Text".localized())
+            }
+            addTextBox(with: textBoxEntity)
+        } catch {
+            let alertController = UIAlertController(
+                title: "Failed to create a Text Box".localized(),
+                message: "The app could not create a Text Box".localized(),
+                preferredStyle: .alert)
+                .makeErrorMessage(with: "Failed to create a Text Box".localized())
+
+            self.present(alertController, animated: true, completion: nil)
+        }
+    }
+    
+    /**
      Present the native Image Picker. There we instantiate a PHPickerViewController and set its delegate. Finally, there is a present from the view controller.
      */
     internal func presentPicker() {
@@ -436,6 +447,8 @@ internal class NotesViewController: UIViewController,
 
         present(picker, animated: true, completion: nil)   
     }
+    
+    // MARK: - PHPickerViewControllerDelegate functions
     
     internal func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
         picker.dismiss(animated: true)
@@ -484,15 +497,6 @@ internal class NotesViewController: UIViewController,
                     self?.present(alert, animated: true, completion: nil)
                 }
             }
-        }
-    }
-    
-    /**
-     Updates the position of the resize handles.
-     */
-    internal func updateResizeHandles() {
-        resizeHandles.forEach { (resizeHandle) in
-            resizeHandle.updatePosition()
         }
     }
     

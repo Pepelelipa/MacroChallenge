@@ -10,13 +10,19 @@ import UIKit
 
 internal class NotebookIndexTableViewDelegate: NSObject, UITableViewDelegate {
     
+    // MARK: - Variables and Constants
+    
     private var didSelectCell: ((NotebookIndexTableViewCell) -> Void)?
     
-    init(_ didSelectCell: @escaping (NotebookIndexTableViewCell) -> Void) {
+    // MARK: - Initializers
+    
+    internal init(_ didSelectCell: @escaping (NotebookIndexTableViewCell) -> Void) {
         self.didSelectCell = didSelectCell
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    // MARK: - UITableViewDelegate functions
+    
+    internal func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         guard let notebookIndexCell = tableView.cellForRow(at: indexPath) as? NotebookIndexTableViewCell else {
             return

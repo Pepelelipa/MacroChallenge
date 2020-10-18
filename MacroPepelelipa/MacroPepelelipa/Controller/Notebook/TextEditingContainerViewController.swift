@@ -11,33 +11,10 @@ import UIKit
 import Database
 import PhotosUI
 
-internal class TextEditingContainerViewController: UIViewController, IndexObserver, MarkupToolBarObserver {
-    func createTextBox(transcription: String?) {
-        if let noteController = centerViewController?.viewControllers?.first as? NotesViewController {
-            noteController.createTextBox(transcription: transcription)
-        }
-    }
-
-    func presentPicker() {
-        guard let noteController = centerViewController?.viewControllers?.first as? NotesViewController else {
-            return
-        }
-        var config = PHPickerConfiguration()
-        config.filter = .images
-
-        let picker = PHPickerViewController(configuration: config)
-
-        picker.delegate = noteController
-
-        present(picker, animated: true, completion: nil)
-    }
-
-    func changeTextViewInput(isCustom: Bool) {
-        if let noteController = centerViewController?.viewControllers?.first as? NotesViewController {
-            noteController.changeTextViewInput(isCustom: isCustom)
-        }
-    }
-
+internal class TextEditingContainerViewController: UIViewController, 
+                                                   IndexObserver, 
+                                                   MarkupToolBarObserver {
+    
     // MARK: - Variables and Constants
     
     private var centerViewController: NotesPageViewController?
@@ -117,12 +94,6 @@ internal class TextEditingContainerViewController: UIViewController, IndexObserv
     }
     
     // MARK: - Functions
-    
-    func didChangeIndex(to note: NoteEntity) {
-        if let rightViewController = rightViewController {
-            hideIndex(rightViewController)
-        }
-    }
     
     /**
      This method instaciates NotebookIndexViewController and peform an animation to show it.
@@ -204,6 +175,68 @@ internal class TextEditingContainerViewController: UIViewController, IndexObserv
         centerViewController.didMove(toParent: self)
     }
     
+    /**
+     This method opens the pop over when the button is pressed
+     */
+    internal func openPopOver() {
+        guard let textView = notesViewController?.textView,
+              let formatViewDelegate = notesViewController?.formatViewDelegate,
+              let textViewDelegate = notesViewController?.textViewDelegate else {
+            return
+        }
+        
+        let markupContainerViewController = MarkupContainerViewController(owner: textView,
+                                                                          delegate: formatViewDelegate,
+                                                                          viewController: notesViewController,
+                                                                          size: .init(width: 380, height: 110))
+        
+        if let formatView = markupContainerViewController.formatView {
+            formatViewDelegate.setFormatView(formatView)
+            textViewDelegate.setFotmatView(formatView)
+        }
+        
+        markupContainerViewController.modalPresentationStyle = .popover
+        markupContainerViewController.popoverPresentationController?.sourceView = markupNavigationView.barButtonItems[4]
+        
+        present(markupContainerViewController, animated: true)
+    }
+    
+    // MARK: - IndexObserver functions
+    
+    internal func didChangeIndex(to note: NoteEntity) {
+        if let rightViewController = rightViewController {
+            hideIndex(rightViewController)
+        }
+    }
+    
+    // MARK: - MarkupToolBarObserver functions
+    
+    internal func createTextBox(transcription: String?) {
+        if let noteController = centerViewController?.viewControllers?.first as? NotesViewController {
+            noteController.createTextBox(transcription: transcription)
+        }
+    }
+
+    internal func presentPicker() {
+        guard let noteController = centerViewController?.viewControllers?.first as? NotesViewController else {
+            return
+        }
+        var config = PHPickerConfiguration()
+        config.filter = .images
+
+        let picker = PHPickerViewController(configuration: config)
+
+        picker.delegate = noteController
+
+        present(picker, animated: true, completion: nil)
+    }
+
+    internal func changeTextViewInput(isCustom: Bool) {
+        if let noteController = centerViewController?.viewControllers?.first as? NotesViewController {
+            noteController.changeTextViewInput(isCustom: isCustom)
+        }
+    }
+    
     // MARK: - IBActions functions
     
     @IBAction private func addNewNote() {
@@ -245,37 +278,4 @@ internal class TextEditingContainerViewController: UIViewController, IndexObserv
             present(alertController, animated: true, completion: nil)
         }
     }
-    
-    /**
-     This method opens the pop over when the button is pressed
-     */
-    internal func openPopOver() {
-        guard let textView = notesViewController?.textView else {
-            return
-        }
-        
-        guard let formatViewDelegate = notesViewController?.formatViewDelegate else {
-            return
-        }
-        
-        guard let textViewDelegate = notesViewController?.textViewDelegate else {
-            return
-        }
-        
-        let markupContainerViewController = MarkupContainerViewController(owner: textView,
-                                                                          delegate: formatViewDelegate,
-                                                                          viewController: notesViewController,
-                                                                          size: .init(width: 380, height: 110))
-        
-        if let formatView = markupContainerViewController.formatView {
-            formatViewDelegate.setFormatView(formatView)
-            textViewDelegate.setFotmatView(formatView)
-        }
-        
-        markupContainerViewController.modalPresentationStyle = .popover
-        markupContainerViewController.popoverPresentationController?.sourceView = markupNavigationView.barButtonItems[4]
-        
-        present(markupContainerViewController, animated: true)
-    }
-    
 }

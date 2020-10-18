@@ -10,6 +10,11 @@ import UIKit
 import Database
 
 internal class AddNoteViewController: PopupContainerViewController, AddNoteObserver {
+    
+    // MARK: - Variables and Constants
+    
+    private weak var notebook: NotebookEntity?
+    internal var centerYConstraint: NSLayoutConstraint?
 
     private lazy var txtName: UITextField = {
         let txtName = UITextField()
@@ -44,8 +49,6 @@ internal class AddNoteViewController: PopupContainerViewController, AddNoteObser
 
         return btnConfirm
     }()
-    
-    private weak var notebook: NotebookEntity?
 
     internal override func moveTo(_ viewController: UIViewController) {
         let centerYConstraint = view.centerYAnchor.constraint(equalTo: viewController.view.centerYAnchor)
@@ -60,17 +63,21 @@ internal class AddNoteViewController: PopupContainerViewController, AddNoteObser
         ])
     }
     
-    init(notebook: NotebookEntity, dismissHandler: (() -> Void)? = nil) {
+    // MARK: - Initializers
+    
+    internal init(notebook: NotebookEntity, dismissHandler: (() -> Void)? = nil) {
         self.notebook = notebook
         super.init(dismissHandler: dismissHandler)
     }
     
-    required convenience init?(coder: NSCoder) {
+    internal required convenience init?(coder: NSCoder) {
         guard let notebook = coder.decodeObject(forKey: "notebook") as? NotebookEntity else {
             return nil
         }
         self.init(notebook: notebook)
     }
+    
+    // MARK: - Override functions
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -83,12 +90,17 @@ internal class AddNoteViewController: PopupContainerViewController, AddNoteObser
         txtName.becomeFirstResponder()
         self.txtName.inputAccessoryView = keyboardToolBar
     }
-
-    @IBAction func selfTap() {
-        txtName.resignFirstResponder()
+    
+    override func viewWillAppear(_ animated: Bool) {
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
-
-    var centerYConstraint: NSLayoutConstraint?
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         NSLayoutConstraint.activate([
@@ -106,26 +118,30 @@ internal class AddNoteViewController: PopupContainerViewController, AddNoteObser
             btnConfirm.heightAnchor.constraint(equalToConstant: 45)
         ])
     }
-
-    override func viewWillAppear(_ animated: Bool) {
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
-    }
-    override func viewWillDisappear(_ animated: Bool) {
-        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
-    }
-
-    @objc func keyboardWillShow(notification: NSNotification) {
-        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
-            centerYConstraint?.constant = -keyboardSize.height*0.5
+    
+    override func backgroundTap() {
+        if txtName.isEditing {
+            txtName.endEditing(true)
+        } else {
+            super.backgroundTap()
         }
     }
-    @objc func keyboardWillHide(notification: NSNotification) {
-        centerYConstraint?.constant = 0
+    
+    // MARK: - AddNoteObserver functions
+    
+    /**
+     A  method tthat calls btn Confirm Tap.
+     */
+    func addNote() {
+        btnConfirmTap()
     }
+    
+    // MARK: - IBActions functions
 
-    // MARK: UIControls Events
+    @IBAction func selfTap() {
+        txtName.resignFirstResponder()
+    }
+    
     @IBAction func textChanged(_ textField: UITextField) {
         let trimmed = textField.text?.trimmingCharacters(in: .whitespaces)
         if trimmed == "" {
@@ -137,6 +153,7 @@ internal class AddNoteViewController: PopupContainerViewController, AddNoteObser
         }
         btnConfirm.isEnabled = !text.isEmpty
     }
+    
     @IBAction func btnConfirmTap() {
         if let text = txtName.text {
             do {
@@ -157,17 +174,16 @@ internal class AddNoteViewController: PopupContainerViewController, AddNoteObser
             dismissFromParent()
         }
     }
-    /**
-     A  method tthat calls btn Confirm Tap.
-     */
-    func addNote() {
-        btnConfirmTap()
-    }
-    override func backgroundTap() {
-        if txtName.isEditing {
-            txtName.endEditing(true)
-        } else {
-            super.backgroundTap()
+    
+    // MARK: - Objective-C functions
+    
+    @objc func keyboardWillShow(notification: NSNotification) {
+        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
+            centerYConstraint?.constant = -keyboardSize.height*0.5
         }
+    }
+    
+    @objc func keyboardWillHide(notification: NSNotification) {
+        centerYConstraint?.constant = 0
     }
 }

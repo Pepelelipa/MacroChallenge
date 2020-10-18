@@ -9,7 +9,14 @@
 import UIKit
 
 internal class PopupContainerViewController: UIViewController {
+    
+    // MARK: - Variables and Constants
+    
     private var dismissHandler: (() -> Void)?
+    internal var backgroundBlur: UIView?
+    
+    // MARK: - Initializers
+    
     internal init(dismissHandler: (() -> Void)? = nil) {
         self.dismissHandler = dismissHandler
         super.init(nibName: nil, bundle: nil)
@@ -17,11 +24,13 @@ internal class PopupContainerViewController: UIViewController {
         view.translatesAutoresizingMaskIntoConstraints = false
         view.layer.cornerRadius = 20
     }
+
     required convenience init?(coder: NSCoder) {
         self.init(dismissHandler: coder.decodeObject(forKey: "dismissHandler") as? () -> Void)
     }
     
-    var backgroundBlur: UIView?
+    // MARK: - Functions
+    
     internal func moveTo(_ viewController: UIViewController) {
         willMove(toParent: viewController)
         let backgroundBlur = UIView()
@@ -44,9 +53,7 @@ internal class PopupContainerViewController: UIViewController {
         let backgroundTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(backgroundTap))
         backgroundBlur.addGestureRecognizer(backgroundTapGestureRecognizer)
     }
-    @IBAction internal func backgroundTap() {
-        dismissFromParent()
-    }
+    
     internal func dismissFromParent() {
         willMove(toParent: nil)
         removeFromParent()
@@ -54,5 +61,11 @@ internal class PopupContainerViewController: UIViewController {
         view.removeFromSuperview()
         backgroundBlur?.removeFromSuperview()
         dismissHandler?()
+    }
+    
+    // MARK: - IBActions functions
+    
+    @IBAction internal func backgroundTap() {
+        dismissFromParent()
     }
 }

@@ -11,6 +11,8 @@ import UIKit
 
 internal class PhotoEditingViewController: UIViewController {
     
+    // MARK: - Variables and Constants
+    
     internal var editingImage: UIImage?
     
     private lazy var editingImageView: UIImageView = {
@@ -19,19 +21,14 @@ internal class PhotoEditingViewController: UIViewController {
         return imageView
     }()
     
+    // MARK: - Override functions
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.addSubview(editingImageView)
     }
     
     override func viewDidLayoutSubviews() {
-        setUpImageViewConstraints()
-    }
-    
-    /**
-     This method sets the constraints for the UIImageView on screen.
-     */
-    private func setUpImageViewConstraints() {
         NSLayoutConstraint.activate([
             editingImageView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
             editingImageView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor),

@@ -10,21 +10,18 @@ import UIKit
 import Database
 
 internal class AddNotebookViewController: PopupContainerViewController {
-    private weak var workspace: WorkspaceEntity?
-    private lazy var keyboardToolBar = AddNewSpaceToolBar(frame: .zero, owner: txtName)
+    
+    // MARK: - Variables and Constants
+    
     private var txtNoteDelegate = AddNewSpaceTextFieldDelegate()
-
-    init(workspace: WorkspaceEntity?, dismissHandler: (() -> Void)? = nil) {
-        super.init(dismissHandler: dismissHandler)
-        self.workspace = workspace
-    }
-
-    required convenience init?(coder: NSCoder) {
-        guard let workspace = coder.decodeObject(forKey: "workspace") as? WorkspaceEntity else {
-            return nil
-        }
-        self.init(workspace: workspace, dismissHandler: coder.decodeObject(forKey: "dismissHandler") as? () -> Void)
-    }
+    private weak var workspace: WorkspaceEntity?
+    private let notebookView = NotebookView(frame: .zero)
+    
+    internal var portraitViewConstraints: [NSLayoutConstraint] = []
+    internal var landscapeViewConstraints: [NSLayoutConstraint] = []
+    
+    private lazy var keyboardToolBar = AddNewSpaceToolBar(frame: .zero, owner: txtName)
+    private lazy var collectionViewDataSource = ColorSelectionCollectionViewDataSource(viewController: self)
 
     private lazy var txtName: UITextField = {
         let txtName = UITextField()
@@ -39,13 +36,11 @@ internal class AddNotebookViewController: PopupContainerViewController {
 
         return txtName
     }()
-
-    private let notebookView = NotebookView(frame: .zero)
-
-    private lazy var collectionViewDataSource = ColorSelectionCollectionViewDataSource(viewController: self)
+    
     private lazy var collectionViewDelegate = ColorSelectionCollectionViewDelegate {
         self.notebookView.color = $0.color ?? .clear
     }
+    
     private lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
@@ -83,9 +78,40 @@ internal class AddNotebookViewController: PopupContainerViewController {
 
         return btnConfirm
     }()
+    
+    // MARK: - Initializers
 
-    var portraitViewConstraints: [NSLayoutConstraint] = []
-    var landscapeViewConstraints: [NSLayoutConstraint] = []
+    internal init(workspace: WorkspaceEntity?, dismissHandler: (() -> Void)? = nil) {
+        super.init(dismissHandler: dismissHandler)
+        self.workspace = workspace
+    }
+
+    internal required convenience init?(coder: NSCoder) {
+        guard let workspace = coder.decodeObject(forKey: "workspace") as? WorkspaceEntity else {
+            return nil
+        }
+        self.init(workspace: workspace, dismissHandler: coder.decodeObject(forKey: "dismissHandler") as? () -> Void)
+    }
+    
+    // MARK: - Override functions
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        if let color = UIColor.randomNotebookColor() {
+            notebookView.color = color
+        }
+        view.addSubview(txtName)
+        view.addSubview(collectionView)
+        view.addSubview(notebookView)
+        view.addSubview(btnConfirm)
+        btnConfirm.isEnabled = false
+
+        let selfTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(selfTap))
+        selfTapGestureRecognizer.numberOfTapsRequired = 2
+        view.addGestureRecognizer(selfTapGestureRecognizer)
+        self.txtName.inputAccessoryView = keyboardToolBar
+    }
+    
     override func moveTo(_ viewController: UIViewController) {
         super.moveTo(viewController)
         portraitViewConstraints = [
@@ -107,23 +133,6 @@ internal class AddNotebookViewController: PopupContainerViewController {
         } else {
             NSLayoutConstraint.activate(portraitViewConstraints)
         }
-    }
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        if let color = UIColor.randomNotebookColor() {
-            notebookView.color = color
-        }
-        view.addSubview(txtName)
-        view.addSubview(collectionView)
-        view.addSubview(notebookView)
-        view.addSubview(btnConfirm)
-        btnConfirm.isEnabled = false
-
-        let selfTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(selfTap))
-        selfTapGestureRecognizer.numberOfTapsRequired = 2
-        view.addGestureRecognizer(selfTapGestureRecognizer)
-        self.txtName.inputAccessoryView = keyboardToolBar
     }
 
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -173,12 +182,23 @@ internal class AddNotebookViewController: PopupContainerViewController {
             btnConfirm.heightAnchor.constraint(equalToConstant: 45)
         ])
     }
+    
+    override func backgroundTap() {
+        if txtName.isEditing {
+            txtName.endEditing(true)
+        } else {
+            super.backgroundTap()
+        }
+    }
+    
+    // MARK: - Functions
 
     private func checkBtnEnabled() {
         btnConfirm.isEnabled = txtName.text != ""
     }
 
-    // MARK: UIControls Events
+    // MARK: - IBActions functions
+    
     @IBAction func selfTap() {
         txtName.resignFirstResponder()
     }
@@ -219,13 +239,5 @@ internal class AddNotebookViewController: PopupContainerViewController {
             self.present(alertController, animated: true, completion: nil)
         }
         dismissFromParent()
-    }
-
-    override func backgroundTap() {
-        if txtName.isEditing {
-            txtName.endEditing(true)
-        } else {
-            super.backgroundTap()
-        }
     }
 }

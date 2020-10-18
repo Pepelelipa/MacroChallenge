@@ -8,13 +8,35 @@
 
 import UIKit
 
-internal class WorkspacesCollectionViewDelegate: NSObject, UICollectionViewDelegateFlowLayout, UICollectionViewDelegate {
+internal class WorkspacesCollectionViewDelegate: NSObject,
+                                                 UICollectionViewDelegate,
+                                                 UICollectionViewDelegateFlowLayout {
+    
+    // MARK: - Variables and Constants
+    
     private var didSelectCell: ((WorkspaceCollectionViewCell) -> Void)?
-    init(_ didSelectCell: @escaping (WorkspaceCollectionViewCell) -> Void) {
+    
+    // MARK: - Initializers
+    
+    internal init(_ didSelectCell: @escaping (WorkspaceCollectionViewCell) -> Void) {
         self.didSelectCell = didSelectCell
     }
+    
+    // MARK: - UICollectionViewDelegate functions
+    
+    internal func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        defer {
+            collectionView.deselectItem(at: indexPath, animated: true)
+        }
+        guard let cell = collectionView.cellForItem(at: indexPath) as? WorkspaceCollectionViewCell else {
+            return
+        }
+        didSelectCell?(cell)
+    }
+    
+    // MARK: - UICollectionViewDelegateFlowLayout functions
 
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+    internal func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let size: CGSize
         let isLandscape = UIDevice.current.orientation.isActuallyLandscape
         if UIDevice.current.userInterfaceIdiom == .pad {
@@ -37,24 +59,14 @@ internal class WorkspacesCollectionViewDelegate: NSObject, UICollectionViewDeleg
         return size
     }
 
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+    internal func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         if UIDevice.current.userInterfaceIdiom == .pad {
             return 50
         }
         return 20
     }
 
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+    internal func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return .init(top: 0, left: 0, bottom: 0, right: 0)
-    }
-
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        defer {
-            collectionView.deselectItem(at: indexPath, animated: true)
-        }
-        guard let cell = collectionView.cellForItem(at: indexPath) as? WorkspaceCollectionViewCell else {
-            return
-        }
-        didSelectCell?(cell)
     }
 }
