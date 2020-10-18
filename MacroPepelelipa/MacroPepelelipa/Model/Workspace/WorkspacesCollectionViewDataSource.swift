@@ -9,40 +9,14 @@
 import UIKit
 import Database
 
-internal class WorkspacesCollectionViewDataSource: NSObject, UICollectionViewDataSource, EntityObserver {
-
-    func entityWasCreated(_ value: ObservableEntity) {
-        if let workspace = value as? WorkspaceEntity {
-            workspace.addObserver(self)
-            workspaces.append(workspace)
-            self.collectionView?().insertItems(at: [IndexPath(item: workspaces.count - 1, section: 0)])
-        }
-    }
-    func entityDidChangeTo(_ value: ObservableEntity) {
-        if let workspace = value as? WorkspaceEntity,
-           let index = workspaces.firstIndex(where: { $0 === workspace }) {
-            self.collectionView?().reloadItems(at: [IndexPath(item: index, section: 0)])
-        }
-    }
-    func entityShouldDelete(_ value: ObservableEntity) {
-        if let workspace = value as? WorkspaceEntity,
-           let index = workspaces.firstIndex(where: { $0 === workspace }) {
-            workspace.removeObserver(self)
-            workspaces.remove(at: index)
-            self.collectionView?().deleteItems(at: [IndexPath(item: index, section: 0)])
-        }
-    }
+internal class WorkspacesCollectionViewDataSource: NSObject, 
+                                                   UICollectionViewDataSource, 
+                                                   EntityObserver {
     
-    private weak var viewController: UIViewController?
+    // MARK: - Variables and Constants
+    
     private let collectionView: (() -> UICollectionView)?
-    
-    init(viewController: UIViewController? = nil, collectionView: (() -> UICollectionView)?) {
-        self.viewController = viewController
-        self.collectionView = collectionView
-        super.init()
-
-        DataManager.shared().addCreationObserver(self, type: .workspace)
-    }
+    private weak var viewController: UIViewController?
     
     private lazy var workspaces: [WorkspaceEntity] = {
         do {
@@ -64,7 +38,19 @@ internal class WorkspacesCollectionViewDataSource: NSObject, UICollectionViewDat
         }
     }()
     
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    // MARK: - Initializers
+    
+    internal init(viewController: UIViewController? = nil, collectionView: (() -> UICollectionView)?) {
+        self.viewController = viewController
+        self.collectionView = collectionView
+        super.init()
+
+        DataManager.shared().addCreationObserver(self, type: .workspace)
+    }
+    
+    // MARK: - UICollectionViewDataSource functions
+    
+    internal func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if let viewController = viewController as? WorkspaceSelectionViewController {
             if workspaces.isEmpty {
                 viewController.switchEmptyScreenView()
@@ -76,7 +62,7 @@ internal class WorkspacesCollectionViewDataSource: NSObject, UICollectionViewDat
         return workspaces.count
     }
 
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    internal func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(
                 withReuseIdentifier: WorkspaceCollectionViewCell.cellID(), for: indexPath)
                 as? WorkspaceCollectionViewCell else {
@@ -91,5 +77,31 @@ internal class WorkspacesCollectionViewDataSource: NSObject, UICollectionViewDat
         }
         cell.setWorkspace(workspaces[indexPath.row], viewController: viewController)
         return cell
+    }
+    
+    // MARK: - EntityObserver functions
+    
+    internal func entityWasCreated(_ value: ObservableEntity) {
+        if let workspace = value as? WorkspaceEntity {
+            workspace.addObserver(self)
+            workspaces.append(workspace)
+            self.collectionView?().insertItems(at: [IndexPath(item: workspaces.count - 1, section: 0)])
+        }
+    }
+    
+    internal func entityDidChangeTo(_ value: ObservableEntity) {
+        if let workspace = value as? WorkspaceEntity,
+           let index = workspaces.firstIndex(where: { $0 === workspace }) {
+            self.collectionView?().reloadItems(at: [IndexPath(item: index, section: 0)])
+        }
+    }
+    
+    internal func entityShouldDelete(_ value: ObservableEntity) {
+        if let workspace = value as? WorkspaceEntity,
+           let index = workspaces.firstIndex(where: { $0 === workspace }) {
+            workspace.removeObserver(self)
+            workspaces.remove(at: index)
+            self.collectionView?().deleteItems(at: [IndexPath(item: index, section: 0)])
+        }
     }
 }

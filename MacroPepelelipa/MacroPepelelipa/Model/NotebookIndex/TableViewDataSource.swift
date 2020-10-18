@@ -10,16 +10,23 @@ import UIKit
 import Database
 
 internal class NotebookIndexTableViewDataSource: NSObject, UITableViewDataSource {
+    
+    // MARK: - Variables and Constants
+    
     private weak var notebook: NotebookEntity?
     private weak var note: NoteEntity?
     private var indexes: [NotebookIndexEntity]? {
         return notebook?.indexes
     }
+    
+    // MARK: - Initializers
 
     internal init(notebook: NotebookEntity, note: NoteEntity) {
         self.notebook = notebook
         self.note = note
     }
+    
+    // MARK: - UITableViewDataSource functions
 
     internal func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return indexes?.count ?? 0

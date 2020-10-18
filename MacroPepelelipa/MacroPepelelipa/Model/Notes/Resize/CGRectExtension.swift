@@ -9,6 +9,9 @@
 import CoreGraphics
 
 internal extension CGRect {
+    
+    // MARK: - Variables and Constants
+    
     var topLeftCorner: CGPoint {
         return CGPoint(x: self.minX, y: self.minY)
     }
@@ -29,10 +32,21 @@ internal extension CGRect {
         return [topLeftCorner, topRightCorner, bottomLeftCorner, bottomRightCorner]
     }
     
+    // MARK: - Initializers
+    
+    init(topLeft: CGPoint, bottomRight: CGPoint) {
+        self.init(x: topLeft.x, y: topLeft.y, width: bottomRight.x - topLeft.x, height: bottomRight.y - topLeft.y)
+    }
+    
+    init(minX: CGFloat, minY: CGFloat, maxX: CGFloat, maxY: CGFloat) {
+        self.init(x: minX, y: minY, width: maxX - minX, height: maxY - minY)
+    }
+    
+    // MARK: - Functions
+    
     /**
      Access the CGPoint of a Resize Handle from the Corner Enum
-     - Parameters
-        - Corner: The corner of the object.  
+     - Parameter corner: The corner of the object.  
      - Returns: The CGPoint of the corner.
      */
     func getCornerPosition(_ corner: CornerEnum) -> CGPoint {
@@ -46,13 +60,5 @@ internal extension CGRect {
         case .bottomRight:
             return self.bottomRightCorner
         }
-    }
-    
-    init(topLeft: CGPoint, bottomRight: CGPoint) {
-        self.init(x: topLeft.x, y: topLeft.y, width: bottomRight.x - topLeft.x, height: bottomRight.y - topLeft.y)
-    }
-    
-    init(minX: CGFloat, minY: CGFloat, maxX: CGFloat, maxY: CGFloat) {
-        self.init(x: minX, y: minY, width: maxX - minX, height: maxY - minY)
     }
 }

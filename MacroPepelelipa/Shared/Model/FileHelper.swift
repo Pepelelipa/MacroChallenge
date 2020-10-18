@@ -9,8 +9,13 @@
 import UIKit
 
 internal class FileHelper {
+    
+    // MARK: - Initializers
+    
     private init() {
     }
+    
+    // MARK: - Functions
 
     private static func getDocumentsDirectory() -> URL {
         let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)

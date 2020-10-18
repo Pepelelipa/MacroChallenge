@@ -13,15 +13,21 @@ internal class NotesPageViewControllerDataSource: NSObject,
                                                   UIPageViewControllerDataSource, 
                                                   EntityObserver {
     
+    // MARK: - Variables and Constants
+    
     private var notesEntities: [NoteEntity]?
+    
+    // MARK: - Initializers
     
     internal init(notes: [NoteEntity]) {
         self.notesEntities = notes
         super.init()
         DataManager.shared().addCreationObserver(self, type: .note)
     }
+    
+    // MARK: - PageViewControllerDataSource functions
 
-    func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
+    internal func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
         
         if let notes = notesEntities,
            let notesViewController = viewController as? NotesViewController,
@@ -32,7 +38,7 @@ internal class NotesPageViewControllerDataSource: NSObject,
         return nil
     }
 
-    func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
+    internal func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
         
         if let notes = notesEntities,
            let notesViewController = viewController as? NotesViewController,
@@ -43,24 +49,16 @@ internal class NotesPageViewControllerDataSource: NSObject,
         return nil
     }
     
-    func indexFor(_ viewController: UIViewController?) -> Int? {
-        
-        if let notes = notesEntities,
-           let notesViewController = viewController as? NotesViewController,
-           let currentIndex = notes.firstIndex(where: { $0 === notesViewController.note }) {
-            return currentIndex
-        }
-        return nil
-    }
+    // MARK: - EntityObserver functions
     
-    func entityWasCreated(_ value: ObservableEntity) {
+    internal func entityWasCreated(_ value: ObservableEntity) {
         if let note = value as? NoteEntity {
             note.addObserver(self)
             self.notesEntities?.append(note)
         }
     }
     
-    func entityShouldDelete(_ value: ObservableEntity) {
+    internal func entityShouldDelete(_ value: ObservableEntity) {
         if let note = value as? WorkspaceEntity,
            let index = self.notesEntities?.firstIndex(where: { $0 === note }) {
             note.removeObserver(self)

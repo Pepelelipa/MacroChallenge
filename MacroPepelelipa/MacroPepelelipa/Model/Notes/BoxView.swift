@@ -9,15 +9,13 @@
 import Foundation
 import UIKit
 
-enum BoxViewState {
+internal enum BoxViewState {
     case idle
     case editing
 }
 
-/**
- The protocol that defines the view that will move within the UI Text View
- */
-protocol BoxView: UIView {
+///The protocol that defines the view that will move within the UI Text View
+internal protocol BoxView: UIView {
     var state: BoxViewState { get set }
     var internalFrame: CGRect { get set }
     var owner: MarkupTextView { get set }

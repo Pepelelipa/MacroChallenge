@@ -10,16 +10,22 @@ import UIKit
 import Database
 
 internal class WorkspaceCellNotebookCollectionViewDataSource: NSObject, UICollectionViewDataSource {
+    
+    // MARK: - Variables and Constants
 
     private weak var workspace: WorkspaceEntity?
     private weak var viewController: UIViewController?
+    
+    // MARK: - Initializers
 
-    init(workspace: WorkspaceEntity, viewController: UIViewController? = nil) {
+    internal init(workspace: WorkspaceEntity, viewController: UIViewController? = nil) {
         self.workspace = workspace
         self.viewController = viewController
     }
+    
+    // MARK: - UICollectionViewDataSource functions
 
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    internal func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
 
         if workspace?.notebooks.count ?? 0 < 5 {
             return 5
@@ -28,7 +34,7 @@ internal class WorkspaceCellNotebookCollectionViewDataSource: NSObject, UICollec
         }
     }
 
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    internal func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(
                 withReuseIdentifier: WorkspaceCellNotebookCollectionViewCell.cellID(), for: indexPath)
                 as? WorkspaceCellNotebookCollectionViewCell else {

@@ -8,10 +8,8 @@
 
 import Foundation
 
-/**
- The respective corner of the object
- */
-enum CornerEnum: CaseIterable {
+///The respective corner of the object
+internal enum CornerEnum: CaseIterable {
     case topLeft
     case topRight
     case bottomLeft

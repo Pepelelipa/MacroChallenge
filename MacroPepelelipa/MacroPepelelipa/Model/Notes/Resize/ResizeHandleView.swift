@@ -10,13 +10,16 @@ import Foundation
 import UIKit
 
 internal class ResizeHandleView: UIView {
-        
-    unowned var referenceView: BoxView
-    unowned var owner: NotesViewController
+    
+    // MARK: - Variables and Constants
     
     private var corner: CornerEnum
-    
     private let constant: CGFloat = 40
+        
+    internal unowned var referenceView: BoxView
+    internal unowned var owner: NotesViewController
+    internal let minimumWidht: CGFloat = 100
+    internal let minimumHeight: CGFloat = 35
     
     private var scale: CGFloat {
         return 100/owner.view.frame.width
@@ -48,9 +51,8 @@ internal class ResizeHandleView: UIView {
         return temp
     }()
     
-    let minimumWidht: CGFloat = 100
-    let minimumHeight: CGFloat = 35
-
+    // MARK: - Initializers
+    
     internal init(referenceView: BoxView, owner: NotesViewController, corner: CornerEnum) {
         self.referenceView = referenceView
         self.owner = owner
@@ -71,6 +73,8 @@ internal class ResizeHandleView: UIView {
         self.init(referenceView: referenceView, owner: owner, corner: corner)
     }
     
+    // MARK: - Override functions
+    
     override func draw(_ rect: CGRect) {
         let path = UIBezierPath()
         
@@ -83,42 +87,9 @@ internal class ResizeHandleView: UIView {
         path.fill()
     }
     
-    /**
-     Create a resize handle for each corner of the view
-     - Parameters
-        - View: The view that will receive the resize handle
-        - HandlesArray: Owners Array of Handle View
-        - Owner : The View Controller of the reciving view
-     */
-    static func createResizeHandleView(on view: BoxView, handlesArray: inout [ResizeHandleView], inside owner: NotesViewController) {
-        for corner in CornerEnum.allCases {
-            let resizeView = ResizeHandleView(referenceView: view, owner: owner, corner: corner)
-            resizeView.addGestureRecognizer(UIPanGestureRecognizer(target: resizeView, action: #selector(resizeView.dragHandle(_:))))
-            handlesArray.append(resizeView)
-            owner.textView.addSubview(resizeView)
-        }
-    }
+    // MARK: - Functions
     
-    /**
-     Update the Resize Handle Position
-     */
-    public func updatePosition() {
-        switch corner {
-        case .topLeft:
-            self.center = referenceView.frame.topLeftCorner
-        case .topRight:
-            self.center = referenceView.frame.topRightCorner
-        case .bottomLeft:
-            self.center = referenceView.frame.bottomLeftCorner
-        case .bottomRight:
-            self.center = referenceView.frame.bottomRightCorner
-        }
-        self.setNeedsDisplay()
-    }
-    
-    /**
-     Update the view Size and your resize handles
-     */
+    ///Update the view Size and your resize handles
     private func updateReferenceView() {
         switch corner {
         case .topLeft:
@@ -151,9 +122,39 @@ internal class ResizeHandleView: UIView {
     }
     
     /**
-     Handles the Pan Gesture of the resize handle 
+     Create a resize handle for each corner of the view
+     - Parameters:
+        - view: The view that will receive the resize handle
+        - handlesArray: Owners Array of Handle View
+        - owner : The View Controller of the reciving view
      */
+    internal static func createResizeHandleView(on view: BoxView, handlesArray: inout [ResizeHandleView], inside owner: NotesViewController) {
+        for corner in CornerEnum.allCases {
+            let resizeView = ResizeHandleView(referenceView: view, owner: owner, corner: corner)
+            resizeView.addGestureRecognizer(UIPanGestureRecognizer(target: resizeView, action: #selector(resizeView.dragHandle(_:))))
+            handlesArray.append(resizeView)
+            owner.textView.addSubview(resizeView)
+        }
+    }
     
+    ///Update the Resize Handle Position
+    internal func updatePosition() {
+        switch corner {
+        case .topLeft:
+            self.center = referenceView.frame.topLeftCorner
+        case .topRight:
+            self.center = referenceView.frame.topRightCorner
+        case .bottomLeft:
+            self.center = referenceView.frame.bottomLeftCorner
+        case .bottomRight:
+            self.center = referenceView.frame.bottomRightCorner
+        }
+        self.setNeedsDisplay()
+    }
+    
+    // MARK: - Objective-C functions
+    
+    ///Handles the Pan Gesture of the resize handle
     @objc private func dragHandle(_ sender: UIPanGestureRecognizer) {
         self.center = sender.location(in: owner.textView)
         updateReferenceView()
