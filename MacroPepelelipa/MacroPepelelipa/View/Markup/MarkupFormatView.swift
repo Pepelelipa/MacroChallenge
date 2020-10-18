@@ -8,25 +8,27 @@
 
 import UIKit
 
-enum FormatSelector {
+internal enum FormatSelector {
     case italic
     case bold
     case highlight
 }
 
-enum ColorSelector {
+internal enum ColorSelector {
     case black
     case green
     case red
 }
 
-enum FontSelector: String {
+internal enum FontSelector: String {
     case merriweather = "Merriweather"
     case openSans = "OpenSans"
     case dancingScript = "Dancing"
 }
 
 internal class MarkupFormatView: UIView {
+    
+    // MARK: - Variables and Constants
 
     internal weak var textView: MarkupTextView?
     internal weak var viewController: NotesViewController?
@@ -97,7 +99,9 @@ internal class MarkupFormatView: UIView {
         return buttons
     }()
     
-    init(frame: CGRect, owner: MarkupTextView, delegate: MarkupFormatViewDelegate?, viewController: NotesViewController) {
+    // MARK: - Initializers
+    
+    internal init(frame: CGRect, owner: MarkupTextView, delegate: MarkupFormatViewDelegate?, viewController: NotesViewController) {
         super.init(frame: frame)
         self.textView = owner
         self.delegate = delegate
@@ -110,12 +114,14 @@ internal class MarkupFormatView: UIView {
         super.init(frame: frame)
     }
     
-    required convenience init?(coder: NSCoder) {
+    internal required convenience init?(coder: NSCoder) {
         guard let frame = coder.decodeObject(forKey: "frame") as? CGRect else {
             return nil
         }
         self.init(frame: frame)
     }
+    
+    // MARK: - Override functions
     
     override func didMoveToWindow() {
         for (_, selector) in colorSelector {
@@ -123,14 +129,14 @@ internal class MarkupFormatView: UIView {
         }
         updateSelectors()
     }
+    
+    // MARK: - Functions
         
     /**
      This method creates a MarkupToggleButton with a UIImage or a title.
-     
      - Parameters:
         - normalStateImage: The UIImage that will be the button's background.
         - titleLabel: The string containing the button's title.
-     
      - Returns: The created MarkupToggleButton.
      */
     private func createButton(normalStateImage: UIImage?, titleLabel: String?, font: UIFont? = nil) -> MarkupToggleButton {
@@ -146,45 +152,7 @@ internal class MarkupFormatView: UIView {
         return button
     }
     
-    /**
-     This method adds subviews to the view.
-     */
-    internal func addSelectors() {
-        for (_, selector) in colorSelector {
-            addSubview(selector)
-        }
-        
-        for (_, selector) in formatSelector {
-            addSubview(selector)
-        }
-        
-        for (_, selector) in fontSelector {
-            addSubview(selector)
-        }
-    }
-    
-    /**
-     This method creates the constraints for the iPad as the default device.
-     */
-    internal func createConstraints() {
-        if let superview = self.superview {
-            self.translatesAutoresizingMaskIntoConstraints = false
-            NSLayoutConstraint.activate([
-                self.topAnchor.constraint(equalTo: superview.topAnchor),
-                self.bottomAnchor.constraint(equalTo: superview.bottomAnchor),
-                self.leadingAnchor.constraint(equalTo: superview.leadingAnchor),
-                self.trailingAnchor.constraint(equalTo: superview.trailingAnchor)
-            ])
-        }
-        
-        setFontSelectorConstraints()
-        setColorSelectorConstraints()
-        setFormatSelectorConstraints()
-    }
-    
-    /**
-     This method sets the contraints for the font selector buttons.
-     */
+    ///This method sets the contraints for the font selector buttons.
     private func setFontSelectorConstraints() {
         guard let merriweather = fontSelector[.merriweather], let openSans = fontSelector[.openSans], let dancing = fontSelector[.dancingScript] else {
             return
@@ -204,9 +172,7 @@ internal class MarkupFormatView: UIView {
         }
     }
     
-    /**
-     This method sets the contraints for the color selector buttons.
-     */
+    ///This method sets the contraints for the color selector buttons.
     private func setColorSelectorConstraints() {
         guard let black = colorSelector[.black], let green = colorSelector[.green], let merriweather = fontSelector[.merriweather] else {
             return
@@ -236,9 +202,7 @@ internal class MarkupFormatView: UIView {
         }
     }
     
-    /**
-     This method sets the contraints for the format selector buttons.
-     */
+    ///This method sets the contraints for the format selector buttons.
     private func setFormatSelectorConstraints() {
         guard let italic = formatSelector[.italic], let bold = formatSelector[.bold], let dancingScript = fontSelector[.dancingScript] else {
             return
@@ -268,9 +232,39 @@ internal class MarkupFormatView: UIView {
         }
     }
     
-    /**
-     This public methos updates the selectors appearence based on the text style.
-     */
+    ///This method adds subviews to the view.
+    internal func addSelectors() {
+        for (_, selector) in colorSelector {
+            addSubview(selector)
+        }
+        
+        for (_, selector) in formatSelector {
+            addSubview(selector)
+        }
+        
+        for (_, selector) in fontSelector {
+            addSubview(selector)
+        }
+    }
+    
+    ///This method creates the constraints for the iPad as the default device.
+    internal func createConstraints() {
+        if let superview = self.superview {
+            self.translatesAutoresizingMaskIntoConstraints = false
+            NSLayoutConstraint.activate([
+                self.topAnchor.constraint(equalTo: superview.topAnchor),
+                self.bottomAnchor.constraint(equalTo: superview.bottomAnchor),
+                self.leadingAnchor.constraint(equalTo: superview.leadingAnchor),
+                self.trailingAnchor.constraint(equalTo: superview.trailingAnchor)
+            ])
+        }
+        
+        setFontSelectorConstraints()
+        setColorSelectorConstraints()
+        setFormatSelectorConstraints()
+    }
+    
+    ///This method updates the selectors appearence based on the text style.
     internal func updateSelectors() {
         guard let textView = self.textView else {
             return
@@ -296,8 +290,7 @@ internal class MarkupFormatView: UIView {
     }
     
     /**
-     This methos updates the color selectors by comparing each one with the sender button.
-     
+     This method updates the color selectors by comparing each one with the sender button.
      - Parameter sender: The MarkupToggleButton that was last selected.
      */
     internal func updateColorSelectors(sender: MarkupToggleButton) {
@@ -307,8 +300,7 @@ internal class MarkupFormatView: UIView {
     }
     
     /**
-     This methos updates the font selectors by comparing each one with the sender button.
-     
+     This method updates the font selectors by comparing each one with the sender button.
      - Parameter sender: The MarkupToggleButton that was last selected.
      */
     internal func updateFontSelectors(sender: MarkupToggleButton) {
@@ -318,9 +310,7 @@ internal class MarkupFormatView: UIView {
         }
     }
     
-    /**
-     This method sets the corner radius for the color selectors.
-     */
+    ///This method sets the corner radius for the color selectors.
     internal func setCornerRadius() {
         for (_, selector) in colorSelector {
             selector.setCornerRadius()

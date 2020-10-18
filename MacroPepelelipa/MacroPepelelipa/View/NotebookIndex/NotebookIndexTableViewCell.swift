@@ -10,6 +10,9 @@ import UIKit
 import Database
 
 internal class NotebookIndexTableViewCell: UITableViewCell {
+    
+    // MARK: - Variables and Constants
+    
     private let index: NotebookIndexEntity
 
     private let lessonLbl: UILabel = {
@@ -42,8 +45,10 @@ internal class NotebookIndexTableViewCell: UITableViewCell {
     internal var indexNote: NoteEntity? {
         return index.note
     }
+    
+    // MARK: - Initializers
 
-    init(index: NotebookIndexEntity) {
+    internal init(index: NotebookIndexEntity) {
         self.index = index
         super.init(style: .default, reuseIdentifier: nil)
         self.backgroundColor = .clear
@@ -61,12 +66,14 @@ internal class NotebookIndexTableViewCell: UITableViewCell {
         setupConstraints()
     }
 
-    required convenience init?(coder: NSCoder) {
+    internal required convenience init?(coder: NSCoder) {
         guard let index = coder.decodeObject(forKey: "index") as? NotebookIndexEntity else {
             return nil
         }
         self.init(index: index)
     }
+    
+    // MARK: - Override functions
     
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
@@ -80,6 +87,8 @@ internal class NotebookIndexTableViewCell: UITableViewCell {
             lessonLbl.textColor = .titleColor
         }
     }
+    
+    // MARK: - Functions
 
     private func setupConstraints() {
         NSLayoutConstraint.activate([

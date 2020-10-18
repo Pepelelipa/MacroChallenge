@@ -1,13 +1,15 @@
 //
-//  UIFont+Traits.swift
-//  Pods
+//  Colors.swift
+//  MacroPepelelipa
 //
 //  Created by Ivan Bruel on 19/07/16.
-//
+//  Copyright © 2020 Pedro Giuliano Farina. All rights reserved.
 //
 import UIKit
 
 extension UIFont {
+    
+    // MARK: - Variables and Constants
         
     static let merriweather: UIFont? = {
         let device = UIDevice.current.userInterfaceIdiom
@@ -45,9 +47,10 @@ extension UIFont {
         }
     }()
     
+    // MARK: - Functions
+    
     /**
      This method adds traits to a UIFont.
-     
      - Parameter traits: The Symbolic Traits to describe the font.
      - Returns: An optional UIFont with the described traits.
      */
@@ -67,7 +70,6 @@ extension UIFont {
     
     /**
      This method removes a trait from a UIFont.
-     
      - Parameters:
         - font: The UIFont that will be checked to remove the trait.
         - trait: A symbolic trait describing the trait to be removed.

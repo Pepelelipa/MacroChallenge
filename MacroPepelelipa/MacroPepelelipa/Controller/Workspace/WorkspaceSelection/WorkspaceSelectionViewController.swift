@@ -10,6 +10,14 @@ import UIKit
 import Database
 
 internal class WorkspaceSelectionViewController: UIViewController {
+    
+    // MARK: - Variables and Constants
+    
+    private var compactRegularConstraints: [NSLayoutConstraint] = []
+    private var regularCompactConstraints: [NSLayoutConstraint] = []
+    private var regularConstraints: [NSLayoutConstraint] = []
+    private var sharedConstraints: [NSLayoutConstraint] = []
+    
     private lazy var collectionView: UICollectionView = {
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
         
@@ -29,6 +37,7 @@ internal class WorkspaceSelectionViewController: UIViewController {
         
         return collectionView
     }()
+    
     private lazy var collectionDelegate = WorkspacesCollectionViewDelegate { [unowned self] (selectedCell) in
         guard let workspace = selectedCell.workspace else {
             let alertController = UIAlertController(
@@ -45,6 +54,7 @@ internal class WorkspaceSelectionViewController: UIViewController {
         
         self.navigationController?.pushViewController(notebooksSelectionView, animated: true)
     }
+    
     private lazy var collectionDataSource = WorkspacesCollectionViewDataSource(viewController: self, collectionView: { self.collectionView })
     
     private lazy var btnAdd: UIBarButtonItem = {
@@ -66,18 +76,7 @@ internal class WorkspaceSelectionViewController: UIViewController {
         return view
     }()
     
-    private var compactRegularConstraints: [NSLayoutConstraint] = []
-    private var regularCompactConstraints: [NSLayoutConstraint] = []
-    private var regularConstraints: [NSLayoutConstraint] = []
-    private var sharedConstraints: [NSLayoutConstraint] = []
-    
-    @IBAction func btnAddTap() {
-        btnAdd.isEnabled = false
-        let addController = AddWorkspaceViewController(dismissHandler: {
-            self.btnAdd.isEnabled = true
-        })
-        addController.moveTo(self)
-    }
+    // MARK: - Override functions
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -119,15 +118,6 @@ internal class WorkspaceSelectionViewController: UIViewController {
         invalidateLayout()
     }
     
-    private func invalidateLayout() {
-        collectionView.collectionViewLayout.invalidateLayout()
-        for visibleCell in collectionView.visibleCells {
-            if let cell = visibleCell as? WorkspaceCollectionViewCell {
-                cell.invalidateLayout()
-            }
-        }
-    }
-    
     override func viewDidLayoutSubviews() {
         if UIDevice.current.userInterfaceIdiom == .pad {
             updateConstraintsForIpad()
@@ -137,6 +127,17 @@ internal class WorkspaceSelectionViewController: UIViewController {
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         layoutTrait(traitCollection: traitCollection)
+    }
+    
+    // MARK: - Functions
+    
+    private func invalidateLayout() {
+        collectionView.collectionViewLayout.invalidateLayout()
+        for visibleCell in collectionView.visibleCells {
+            if let cell = visibleCell as? WorkspaceCollectionViewCell {
+                cell.invalidateLayout()
+            }
+        }
     }
     
     /**
@@ -236,6 +237,37 @@ internal class WorkspaceSelectionViewController: UIViewController {
     }
     
     /**
+     This method displays or hides the placeholder view when called.
+     - Parameter sholdBeHidden: A boolean indicating if the view shold or not be hidden. It is false by default.
+     */
+    internal func switchEmptyScreenView(shouldBeHidden: Bool = false) {
+        var alpha: CGFloat = 0
+        
+        if emptyScreenView.isHidden && !shouldBeHidden {
+            emptyScreenView.isHidden.toggle()
+            alpha = 1.0
+        }
+        
+        UIView.animate(withDuration: 0.5, animations: {
+            self.emptyScreenView.alpha = alpha
+        }, completion: { _ in
+            if alpha == 0 {
+                self.emptyScreenView.isHidden = true
+            }
+        })
+    }
+    
+    // MARK: - IBActions functions
+    
+    @IBAction func btnAddTap() {
+        btnAdd.isEnabled = false
+        let addController = AddWorkspaceViewController(dismissHandler: {
+            self.btnAdd.isEnabled = true
+        })
+        addController.moveTo(self)
+    }
+    
+    /**
      This method handles the long press on a workspace, asking the user to delete it or not.
      
      - Parameter gesture: The UILongPressGestureRecognizer containing the gesture.
@@ -272,26 +304,5 @@ internal class WorkspaceSelectionViewController: UIViewController {
             alertController.popoverPresentationController?.sourceRect = cell.frame
         }
         self.present(alertController, animated: true, completion: nil)
-    }
-    
-    /**
-     This method displays or hides the placeholder view when called.
-     - Parameter sholdBeHidden: A boolean indicating if the view shold or not be hidden. It is false by default.
-     */
-    internal func switchEmptyScreenView(shouldBeHidden: Bool = false) {
-        var alpha: CGFloat = 0
-        
-        if emptyScreenView.isHidden && !shouldBeHidden {
-            emptyScreenView.isHidden.toggle()
-            alpha = 1.0
-        }
-        
-        UIView.animate(withDuration: 0.5, animations: {
-            self.emptyScreenView.alpha = alpha
-        }, completion: { _ in
-            if alpha == 0 {
-                self.emptyScreenView.isHidden = true
-            }
-        })
     }
 }

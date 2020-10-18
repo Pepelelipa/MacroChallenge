@@ -8,16 +8,36 @@
 
 import UIKit
 
-internal class ColorSelectionCollectionViewDelegate: NSObject, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+internal class ColorSelectionCollectionViewDelegate: NSObject, 
+                                                     UICollectionViewDelegate, 
+                                                     UICollectionViewDelegateFlowLayout {
+    
+    // MARK: - Variables and Constants
 
     private var selectionHandler: ((ColorSelectionCollectionViewCell) -> Void)?
-    init(selectionHandler: ((ColorSelectionCollectionViewCell) -> Void)? = nil) {
+    
+    // MARK: - Initializers
+    
+    internal init(selectionHandler: ((ColorSelectionCollectionViewCell) -> Void)? = nil) {
         self.selectionHandler = selectionHandler
     }
+    
+    // MARK: - Functions
 
     func getWidth(from frame: CGRect) -> CGFloat {
         return frame.height/4.65
     }
+    
+    // MARK: - UICollectionViewDelegate functions
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if let cell = collectionView.cellForItem(at: indexPath) as? ColorSelectionCollectionViewCell {
+            selectionHandler?(cell)
+        }
+    }
+    
+    // MARK: - UICollectionViewDelegateFlowLayout functions
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width = getWidth(from: collectionView.bounds)
         return CGSize(width: width, height: width)
@@ -33,11 +53,5 @@ internal class ColorSelectionCollectionViewDelegate: NSObject, UICollectionViewD
         let rightInset = leftInset
 
         return UIEdgeInsets(top: 0, left: leftInset, bottom: 0, right: rightInset)
-    }
-
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if let cell = collectionView.cellForItem(at: indexPath) as? ColorSelectionCollectionViewCell {
-            selectionHandler?(cell)
-        }
     }
 }

@@ -9,9 +9,11 @@
 import UIKit
 
 internal class ColorSelectionCollectionViewCell: UICollectionViewCell {
-    internal class func cellID() -> String { "colorSelectionCell" }
-
+    
+    // MARK: - Variables and Constants
+    
     private var roundView: UIView
+    
     internal var color: UIColor? {
         get {
             return roundView.backgroundColor
@@ -20,6 +22,8 @@ internal class ColorSelectionCollectionViewCell: UICollectionViewCell {
             roundView.backgroundColor = newValue
         }
     }
+    
+    // MARK: - Initializers
 
     override init(frame: CGRect) {
         roundView = UIView(frame: .zero)
@@ -44,5 +48,10 @@ internal class ColorSelectionCollectionViewCell: UICollectionViewCell {
         }
         self.init(frame: frame)
     }
-
+    
+    // MARK: - Functions
+    
+    internal class func cellID() -> String { 
+        return "colorSelectionCell" 
+    }
 }

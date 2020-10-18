@@ -12,11 +12,15 @@ import UIKit
 
 internal class MarkupTextView: UITextView {
     
-    internal var animator: UIDynamicAnimator?
+    // MARK: - Variables and Constants
+    
     private var snap: UISnapBehavior?
     private var imageView: UIImageView?
+    internal var animator: UIDynamicAnimator?
+    
+    // MARK: - Initializers
 
-    init(frame: CGRect, delegate: MarkupTextViewDelegate? = nil) {
+    internal init(frame: CGRect, delegate: MarkupTextViewDelegate? = nil) {
         super.init(frame: frame, textContainer: nil)
         
         self.delegate = delegate
@@ -29,7 +33,7 @@ internal class MarkupTextView: UITextView {
         animator = UIDynamicAnimator(referenceView: self)
     }
     
-    required convenience init?(coder: NSCoder) {
+    internal required convenience init?(coder: NSCoder) {
         guard let frame = coder.decodeObject(forKey: "frame") as? CGRect,
               let delegate = coder.decodeObject(forKey: "delegate") as? MarkupTextViewDelegate else {
             return nil
@@ -38,25 +42,7 @@ internal class MarkupTextView: UITextView {
         self.init(frame: frame, delegate: delegate)
     }
     
-    // MARK: - Touch
-    
-    /**
-     This method checks if it finds a UIImageView on the same location were the user touched the screen. If a UIImageView was found, the image is returned. If not, returns nil.
-     
-     - Parameter touch: The UITouch which location will be checked.
-     
-     - Returns: A UIImageView if an image was found on the touch location or nil if nothing was found.
-     */
-    private func checkTouch(_ touch: UITouch) -> UIImageView? {
-        for subview in subviews {
-            if let image = subview as? UIImageView {
-                if image.frame.contains(touch.location(in: self)) {
-                    return subview as? UIImageView
-                }
-            }
-        }
-        return nil
-    }
+    // MARK: - Override functions
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         for touch in touches {
@@ -91,11 +77,28 @@ internal class MarkupTextView: UITextView {
         }
     }
     
-    // MARK: - Lists and topics
+    // MARK: - Touch functions
+    
+    /**
+     This method checks if it finds a UIImageView on the same location were the user touched the screen. If a UIImageView was found, the image is returned. If not, returns nil.
+     - Parameter touch: The UITouch which location will be checked.
+     - Returns: A UIImageView if an image was found on the touch location or nil if nothing was found.
+     */
+    private func checkTouch(_ touch: UITouch) -> UIImageView? {
+        for subview in subviews {
+            if let image = subview as? UIImageView {
+                if image.frame.contains(touch.location(in: self)) {
+                    return subview as? UIImageView
+                }
+            }
+        }
+        return nil
+    }
+    
+    // MARK: - Lists and Topics functions
     
     /**
      This method calls the delegate method to clear special characters on the text.
-     
      - Returns: A boolean indicating if the characters where cleared or not.
      */
     internal func clearIndicatorCharacters() -> Bool {
@@ -107,7 +110,6 @@ internal class MarkupTextView: UITextView {
     
     /**
      Calls the delegate method to add a list on the text.
-     
      - Parameters:
         - type: The type of list to be added (bullet, numeric or quote)
         - lineCleared: A boolean indicating if the line was cleared or not.
@@ -118,39 +120,31 @@ internal class MarkupTextView: UITextView {
     
     /**
      Calls the delegate method to add a header to the text.
-     
      - Parameter style: The header style to be added.
      */
     internal func addHeader(with style: HeaderStyle) {
         (self.delegate as? MarkupTextViewDelegate)?.addHeader(on: self, with: style)
     }
     
-    // MARK: - Font
+    // MARK: - Font functions
     
-    /**
-     This method calls the delegate's method to add italic attributes.
-     */
+    ///This method calls the delegate's method to add italic attributes.
     internal func addItalic() {
         (self.delegate as? MarkupTextViewDelegate)?.addItalic(on: self)
     }
     
-    /**
-     This method calls the delegate's method to add bold attributes.
-     */
+    ///This method calls the delegate's method to add bold attributes.
     internal func addBold() {
         (self.delegate as? MarkupTextViewDelegate)?.addBold(on: self)
     }
     
-    /**
-     This method calls the delegate's method to remove format attributes.
-     */
+    ///This method calls the delegate's method to remove format attributes.
     internal func removeFontTrait(_ trait: UIFontDescriptor.SymbolicTraits) {
         (self.delegate as? MarkupTextViewDelegate)?.removeFontTrait(trait: trait)
     }
     
     /**
      This method calls the delegate's method to set the font with a trait.
-     
      - Parameter trait: The trait to be added to the font.
      */
     internal func setFontAttributes(with trait: UIFontDescriptor.SymbolicTraits) {
@@ -159,7 +153,6 @@ internal class MarkupTextView: UITextView {
     
     /**
      This method calls the delegate's method to check if the font already has a trait in the selected range.
-     
      - Parameter trait: The trait to be checked.
      */
     internal func checkTrait(_ trait: UIFontDescriptor.SymbolicTraits) -> Bool {
@@ -171,7 +164,6 @@ internal class MarkupTextView: UITextView {
     
     /**
      This method calls the delegate's method to change the text font.
-     
      - Parameter font: The new UIFont for the text.
      - Returns: True if the text font was changed, false if not.
      */
@@ -190,7 +182,6 @@ internal class MarkupTextView: UITextView {
     
     /**
      Calls the delegate method to get the current UIFont.
-     
      - Returns: The UIFont on the selected text on the UITextView.
      */
     internal func getTextFont() -> UIFont {
@@ -200,32 +191,25 @@ internal class MarkupTextView: UITextView {
         return delegate.getTextFont(on: self)
     }
     
-    // MARK: - Color
+    // MARK: - Color functions
     
-    /**
-     This method calls the delegate's method to set the background color to highlight.     
-     */
+    ///This method calls the delegate's method to set the background color to highlight.
     internal func setTextToHighlight() {
         (self.delegate as? MarkupTextViewDelegate)?.setTextToHighlight()
     }
     
-    /**
-     This method calls the delegate's method to set the background color to normal.     
-     */
+    ///This method calls the delegate's method to set the background color to normal.
     internal func setTextToNormal() {
         (self.delegate as? MarkupTextViewDelegate)?.setTextToNormal()
     }
     
-    /**
-     This method calls the delegate's method to add background color attribute.
-     */
+    ///This method calls the delegate's method to add background color attribute.
     internal func setBackgroundColor() {
         (self.delegate as? MarkupTextViewDelegate)?.setBackgroundColor(on: self)
     }
     
     /**
      This method calls the delegate's method to change the text color.
-     
      - Parameter color: The new UIColor for the text.
      - Returns: True if the text color was changed, false if not.
      */
@@ -242,9 +226,7 @@ internal class MarkupTextView: UITextView {
         return true
     }
     
-    /**
-     This method calls the delegate's method to check the text color and return it.
-     */
+    ///This method calls the delegate's method to check the text color and return it.
     internal func getTextColor() -> UIColor {
         guard let delegate = self.delegate as? MarkupTextViewDelegate else {
             return MarkdownParser.defaultColor
@@ -252,14 +234,11 @@ internal class MarkupTextView: UITextView {
         return delegate.getTextColor(on: self)
     }
     
-    /**
-     This method calls the delegate's method to check if the background attribute has the value of highlighted.
-     */
+    ///This method calls the delegate's method to check if the background attribute has the value of highlighted.
     internal func checkBackground() -> Bool {
         guard let delegate = self.delegate as? MarkupTextViewDelegate else {
             return false
         }
         return delegate.checkBackground(on: self)
     }
-    
 }

@@ -10,12 +10,12 @@ import CoreGraphics
 
 extension CGPoint {
     
-    public static func - (lhs: CGPoint, rhs: CGPoint) -> CGPoint {
+    internal static func - (lhs: CGPoint, rhs: CGPoint) -> CGPoint {
         let xPosition = lhs.x - rhs.x
         let yPosition = lhs.y - rhs.y
         return CGPoint(x: xPosition, y: yPosition)
     }
-    public static func + (lhs: CGPoint, rhs: CGPoint) -> CGPoint {
+    internal static func + (lhs: CGPoint, rhs: CGPoint) -> CGPoint {
         let xPosition = lhs.x + rhs.x
         let yPosition = lhs.y + rhs.y
         return CGPoint(x: xPosition, y: yPosition)

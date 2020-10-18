@@ -6,15 +6,18 @@
 //  Copyright © 2020 Pedro Giuliano Farina. All rights reserved.
 //
 
-import Foundation
 import UIKit
 
-class AddNewSpaceTextFieldDelegate: NSObject, UITextFieldDelegate {
+internal class AddNewSpaceTextFieldDelegate: NSObject, UITextFieldDelegate {
     
-    weak var workspaceObserver: AddWorkspaceObserver?
-    weak var notesObserver: AddNoteObserver?
+    // MARK: - Variables and Constants
     
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+    internal weak var workspaceObserver: AddWorkspaceObserver?
+    internal weak var notesObserver: AddNoteObserver?
+    
+    // MARK: - UITextFieldDelegate functions
+    
+    internal func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         workspaceObserver?.addWorkspace()
         notesObserver?.addNote()
         textField.resignFirstResponder()

@@ -6,11 +6,18 @@
 //  Copyright © 2020 Pedro Giuliano Farina. All rights reserved.
 //
 
-import Foundation
 import UIKit
 import Database
 
 internal class ImageBoxView: UIView, BoxView {
+    
+    // MARK: - Variables and Constants
+    
+    internal var owner: MarkupTextView
+    internal var internalFrame: CGRect = .zero
+    internal var boxViewBorder = CAShapeLayer()
+    internal var markupUIImage: UIImage?
+    internal weak var entity: ImageBoxEntity?
     
     internal var state: BoxViewState {
         didSet {
@@ -23,20 +30,13 @@ internal class ImageBoxView: UIView, BoxView {
         }
     }
     
-    internal var owner: MarkupTextView
-    internal weak var entity: ImageBoxEntity?
-    
-    internal var internalFrame: CGRect = .zero
-    
-    internal var boxViewBorder = CAShapeLayer()
-    
-    internal var markupUIImage: UIImage?
-    
     internal lazy var markupImageView: UIImageView = {
         let imageView = UIImageView(image: markupUIImage)
         imageView.contentMode = .scaleAspectFit
         return imageView
     }()
+    
+    // MARK: - Initializers
 
     internal init(imageBoxEntity: ImageBoxEntity, owner: MarkupTextView, image: UIImage?) {
         self.owner = owner
@@ -61,7 +61,7 @@ internal class ImageBoxView: UIView, BoxView {
         boxViewBorder.isHidden = true
     }
     
-    required convenience init?(coder: NSCoder) {
+    internal required convenience init?(coder: NSCoder) {
         guard let imageBoxEntity = coder.decodeObject(forKey: "imageBoxEntity") as? ImageBoxEntity, 
               let owner = coder.decodeObject(forKey: "owner") as? MarkupTextView, 
               let image = coder.decodeObject(forKey: "image") as? UIImage else {
@@ -69,6 +69,8 @@ internal class ImageBoxView: UIView, BoxView {
         }
         self.init(imageBoxEntity: imageBoxEntity, owner: owner, image: image)
     }
+    
+    // MARK: - Functions
     
     private func setUpImageViewConstraints() {
         NSLayoutConstraint.activate([
@@ -82,7 +84,7 @@ internal class ImageBoxView: UIView, BoxView {
     /**
      Draw the text box border.
      */
-    func setUpBorder() {
+    internal func setUpBorder() {
         boxViewBorder.strokeColor = UIColor.actionColor?.cgColor
         boxViewBorder.lineDashPattern = [2, 2]
         boxViewBorder.frame = self.bounds

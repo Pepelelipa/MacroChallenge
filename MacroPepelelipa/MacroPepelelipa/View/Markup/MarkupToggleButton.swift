@@ -10,10 +10,14 @@ import UIKit
 
 internal class MarkupToggleButton: UIButton {
     
-    var baseColor: UIColor?
-    var selectedColor: UIColor?
+    // MARK: - Variables and Constants
+
+    internal var baseColor: UIColor?
+    internal var selectedColor: UIColor?
     
-    init(normalStateImage: UIImage?, title: String?, baseColor: UIColor? = UIColor.placeholderColor, selectedColor: UIColor? = UIColor.bodyColor, font: UIFont? = nil) {
+    // MARK: - Initializers
+    
+    internal init(normalStateImage: UIImage?, title: String?, baseColor: UIColor? = UIColor.placeholderColor, selectedColor: UIColor? = UIColor.bodyColor, font: UIFont? = nil) {
         super.init(frame: .zero)
         self.addTarget(self, action: #selector(toogleButton), for: .touchDown)
         
@@ -34,7 +38,7 @@ internal class MarkupToggleButton: UIButton {
         self.setBackgroundImage(normalStateImage, for: .normal)
     }
     
-    init(frame: CGRect, color: UIColor) {
+    internal init(frame: CGRect, color: UIColor) {
         super.init(frame: frame)
         self.addTarget(self, action: #selector(toogleButton), for: .touchDown)
         
@@ -48,7 +52,7 @@ internal class MarkupToggleButton: UIButton {
         self.layer.cornerRadius = frame.height / 2
     }
     
-    required convenience init?(coder: NSCoder) {
+    internal required convenience init?(coder: NSCoder) {
         guard let frame = coder.decodeObject(forKey: "frame") as? CGRect,
         let color = coder.decodeObject(forKey: "color") as? UIColor else {
             return nil
@@ -57,6 +61,8 @@ internal class MarkupToggleButton: UIButton {
         self.init(frame: frame, color: color)
     }
     
+    // MARK: - Functions
+    
     private func setFont(_ font: UIFont?) {
         guard let titleFont = font else {
             return
@@ -64,20 +70,22 @@ internal class MarkupToggleButton: UIButton {
         self.titleLabel?.font = titleFont
     }
     
-    public func setCornerRadius() {
+    internal func setCornerRadius() {
         self.layer.cornerRadius = self.frame.height / 2
     }
     
-    @objc internal func toogleButton() {
-        self.isSelected.toggle()
-        setTintColor()
-    }
-    
-    public func setTintColor() {
+    internal func setTintColor() {
         if isSelected {
             self.tintColor = selectedColor
         } else {
             self.tintColor = baseColor
         }
+    }
+    
+    // MARK: - Objective-C functions
+    
+    @objc internal func toogleButton() {
+        self.isSelected.toggle()
+        setTintColor()
     }
 }

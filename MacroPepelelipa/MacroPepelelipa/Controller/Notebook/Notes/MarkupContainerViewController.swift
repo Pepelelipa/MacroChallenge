@@ -8,7 +8,13 @@
 
 import UIKit
 
-class MarkupContainerViewController: UIViewController {
+internal class MarkupContainerViewController: UIViewController {
+    
+    // MARK: - Variables and Constants
+    
+    private weak var viewController: NotesViewController?
+    private weak var textView: MarkupTextView?
+    private weak var delegate: MarkupFormatViewDelegate?
     
     internal private(set) lazy var formatView: MarkupFormatView? = {
         guard let textView = self.textView, let delegate = self.delegate, let viewController = self.viewController else {
@@ -18,9 +24,7 @@ class MarkupContainerViewController: UIViewController {
         return MarkupFormatView(frame: CGRect(x: 0, y: 0, width: preferredContentSize.width, height: preferredContentSize.height), owner: textView, delegate: delegate, viewController: viewController)
     }()
     
-    private weak var viewController: NotesViewController?
-    private weak var textView: MarkupTextView?
-    private weak var delegate: MarkupFormatViewDelegate?
+    // MARK: - Initializers
 
     internal init(owner: MarkupTextView? = nil, delegate: MarkupFormatViewDelegate? = nil, viewController: NotesViewController? = nil, size: CGSize) {
         super.init(nibName: nil, bundle: nil)
@@ -30,9 +34,11 @@ class MarkupContainerViewController: UIViewController {
         self.preferredContentSize = size
     }
     
-    required convenience init?(coder: NSCoder) {
+    internal required convenience init?(coder: NSCoder) {
         self.init(size: CGSize())
     }
+    
+    // MARK: - Override functions
     
     override func viewDidLoad() {
         super.viewDidLoad()

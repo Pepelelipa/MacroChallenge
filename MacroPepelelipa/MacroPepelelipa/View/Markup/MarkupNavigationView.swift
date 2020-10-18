@@ -9,12 +9,14 @@
 import UIKit
 
 internal class MarkupNavigationView: UIView {
-    private weak var markupBarConfiguration: MarkupBarConfiguration?
     
-    private static var paragraphButton: UIBarButtonItem?
+    // MARK: - Variables and Constants
+    
     private var navigationItem: UINavigationItem?
+    private weak var markupBarConfiguration: MarkupBarConfiguration?
+    private static var paragraphButton: UIBarButtonItem?
     
-    public static var headerStyle: HeaderStyle = .h1 {
+    internal static var headerStyle: HeaderStyle = .h1 {
         didSet {
             if MarkupToolBar.headerStyle == .h1 {
                 paragraphButton?.image = UIImage(named: "h1")
@@ -22,7 +24,7 @@ internal class MarkupNavigationView: UIView {
         }
     }
     
-    public lazy var barButtonItems: [UIButton] = {
+    internal lazy var barButtonItems: [UIButton] = {
         guard let buttons = markupBarConfiguration?.setupUIButtons() else {
             return [UIButton]()
         }
@@ -30,7 +32,9 @@ internal class MarkupNavigationView: UIView {
         return buttons
     }()
     
-    init(frame: CGRect, configurations: MarkupBarConfiguration) {
+    // MARK: - Initializers
+    
+    internal init(frame: CGRect, configurations: MarkupBarConfiguration) {
         self.markupBarConfiguration = configurations
         super.init(frame: frame)
         
@@ -45,7 +49,7 @@ internal class MarkupNavigationView: UIView {
         self.backgroundColor = .clear
     }
     
-    required convenience init?(coder: NSCoder) {
+    internal required convenience init?(coder: NSCoder) {
         guard let frame = coder.decodeObject(forKey: "frame") as? CGRect,
               let configuration = coder.decodeObject(forKey: "configurations") as? MarkupBarConfiguration else {
             return nil
@@ -53,9 +57,9 @@ internal class MarkupNavigationView: UIView {
         self.init(frame: frame, configurations: configuration)
     }
     
-    /**
-     A private method to set the buttons constraints.
-     */
+    // MARK: - Functions
+    
+    ///A private method to set the buttons constraints.
     private func setConstraints() {
         barButtonItems.forEach({
             NSLayoutConstraint.activate([

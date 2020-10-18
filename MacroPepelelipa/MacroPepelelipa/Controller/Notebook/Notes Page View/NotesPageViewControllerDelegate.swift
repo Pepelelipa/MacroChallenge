@@ -10,13 +10,19 @@ import UIKit
 
 internal class NotesPageViewControllerDelegate: NSObject, UIPageViewControllerDelegate {
     
+    // MARK: - Variables and Constants
+    
     private var updateviewControllers: ((UIViewController?) -> Void)?
-
-    init(_ updateviewControllers: @escaping (UIViewController?) -> Void) {
+    
+    // MARK: - Initializers
+    
+    internal init(_ updateviewControllers: @escaping (UIViewController?) -> Void) {
         self.updateviewControllers = updateviewControllers
     }
     
-    func pageViewController(_ pageViewController: UIPageViewController, willTransitionTo pendingViewControllers: [UIViewController]) {
+    // MARK: - UIPageViewControllerDelegate functions
+    
+    internal func pageViewController(_ pageViewController: UIPageViewController, willTransitionTo pendingViewControllers: [UIViewController]) {
         updateviewControllers?(pendingViewControllers.first)
     }
 }

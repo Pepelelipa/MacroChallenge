@@ -10,6 +10,10 @@ import UIKit
 import Database
 
 internal class AddWorkspaceViewController: PopupContainerViewController, AddWorkspaceObserver {
+    
+    // MARK: - Variables and Constants
+    
+    internal var centerYConstraint: NSLayoutConstraint?
 
     private lazy var txtName: UITextField = {
         let txtName = UITextField()
@@ -46,20 +50,9 @@ internal class AddWorkspaceViewController: PopupContainerViewController, AddWork
 
         return btnConfirm
     }()
-
-    internal override func moveTo(_ viewController: UIViewController) {
-        let centerYConstraint = view.centerYAnchor.constraint(equalTo: viewController.view.centerYAnchor)
-        self.centerYConstraint = centerYConstraint
-        super.moveTo(viewController)
-        NSLayoutConstraint.activate([
-            view.centerXAnchor.constraint(equalTo: viewController.view.centerXAnchor),
-            centerYConstraint,
-            view.heightAnchor.constraint(greaterThanOrEqualToConstant: 130),
-            view.heightAnchor.constraint(greaterThanOrEqualTo: viewController.view.heightAnchor, multiplier: 0.18),
-            view.widthAnchor.constraint(lessThanOrEqualTo: viewController.view.widthAnchor, multiplier: 0.8)
-        ])
-    }
-
+    
+    // MARK: - Override functions
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.addSubview(txtName)
@@ -71,12 +64,30 @@ internal class AddWorkspaceViewController: PopupContainerViewController, AddWork
         txtName.becomeFirstResponder()
         self.txtName.inputAccessoryView = keyboardToolBar
     }
-
-    @IBAction func selfTap() {
-        txtName.resignFirstResponder()
+    
+    override func viewWillAppear(_ animated: Bool) {
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
     }
 
-    var centerYConstraint: NSLayoutConstraint?
+    override func moveTo(_ viewController: UIViewController) {
+        let centerYConstraint = view.centerYAnchor.constraint(equalTo: viewController.view.centerYAnchor)
+        self.centerYConstraint = centerYConstraint
+        super.moveTo(viewController)
+        NSLayoutConstraint.activate([
+            view.centerXAnchor.constraint(equalTo: viewController.view.centerXAnchor),
+            centerYConstraint,
+            view.heightAnchor.constraint(greaterThanOrEqualToConstant: 130),
+            view.heightAnchor.constraint(greaterThanOrEqualTo: viewController.view.heightAnchor, multiplier: 0.18),
+            view.widthAnchor.constraint(lessThanOrEqualTo: viewController.view.widthAnchor, multiplier: 0.8)
+        ])
+    }
+    
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         NSLayoutConstraint.activate([
@@ -94,37 +105,28 @@ internal class AddWorkspaceViewController: PopupContainerViewController, AddWork
             btnConfirm.trailingAnchor.constraint(lessThanOrEqualTo: view.trailingAnchor, constant: -40)
         ])
     }
-
-    override func viewWillAppear(_ animated: Bool) {
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
-    }
-    override func viewWillDisappear(_ animated: Bool) {
-        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
-    }
-
-    @objc func keyboardWillShow(notification: NSNotification) {
-        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
-            centerYConstraint?.constant = -keyboardSize.height*0.5
+    
+    override func backgroundTap() {
+        if txtName.isEditing {
+            txtName.endEditing(true)
+        } else {
+            super.backgroundTap()
         }
     }
-    @objc func keyboardWillHide(notification: NSNotification) {
-        centerYConstraint?.constant = 0
+    
+    // MARK: - AddWorkspaceObserver functions
+    
+    ///A  method tthat calls btn Confirm Tap.
+    func addWorkspace() {
+        btnConfirmTap()
     }
+    
+    // MARK: - IBActions functions
 
-    // MARK: UIControls Events
-    @IBAction func textChanged(_ textField: UITextField) {
-        let trimmed = textField.text?.trimmingCharacters(in: .whitespaces)
-        if trimmed == "" {
-            textField.text = trimmed
-        }
-        guard let text = textField.text else {
-            btnConfirm.isEnabled = false
-            return
-        }
-        btnConfirm.isEnabled = !text.isEmpty
+    @IBAction func selfTap() {
+        txtName.resignFirstResponder()
     }
+    
     @IBAction func btnConfirmTap() {
         if let text = txtName.text {
             do {
@@ -140,17 +142,28 @@ internal class AddWorkspaceViewController: PopupContainerViewController, AddWork
             dismissFromParent()
         }
     }
-    /**
-     A  method tthat calls btn Confirm Tap.
-     */
-    func addWorkspace() {
-        btnConfirmTap()
-    }
-    override func backgroundTap() {
-        if txtName.isEditing {
-            txtName.endEditing(true)
-        } else {
-            super.backgroundTap()
+    
+    @IBAction func textChanged(_ textField: UITextField) {
+        let trimmed = textField.text?.trimmingCharacters(in: .whitespaces)
+        if trimmed == "" {
+            textField.text = trimmed
         }
+        guard let text = textField.text else {
+            btnConfirm.isEnabled = false
+            return
+        }
+        btnConfirm.isEnabled = !text.isEmpty
+    }
+    
+    // MARK: - Objective-C functions
+
+    @objc func keyboardWillShow(notification: NSNotification) {
+        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
+            centerYConstraint?.constant = -keyboardSize.height*0.5
+        }
+    }
+    
+    @objc func keyboardWillHide(notification: NSNotification) {
+        centerYConstraint?.constant = 0
     }
 }

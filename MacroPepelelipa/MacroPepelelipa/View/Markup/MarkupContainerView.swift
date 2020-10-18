@@ -10,6 +10,8 @@ import UIKit
 
 internal class MarkupContainerView: MarkupFormatView, TextEditingDelegateObserver {
     
+    // MARK: - Variables and Constants
+
     private lazy var backgroundView: UIView = {
         let bckView = UIView(frame: .zero)
         bckView.backgroundColor = UIColor.formatColor
@@ -36,9 +38,13 @@ internal class MarkupContainerView: MarkupFormatView, TextEditingDelegateObserve
         return fmtLabel
     }()
     
+    // MARK: - Initializers
+    
     deinit {
         (self.textView?.delegate as? MarkupTextViewDelegate)?.removeObserver(self)
     }
+    
+    // MARK: - Override functions
     
     override func addSelectors() {
         self.backgroundColor = UIColor.backgroundColor
@@ -63,9 +69,7 @@ internal class MarkupContainerView: MarkupFormatView, TextEditingDelegateObserve
         (viewController?.textView.delegate as? MarkupTextViewDelegate)?.addObserver(self)
     }
     
-    /**
-     This method sets the constraints for the inner elements of the container view.
-     */
+    ///This method sets the constraints for the inner elements of the container view.
     override func createConstraints() {
         backgroundView.addSubview(dismissButton)
         backgroundView.addSubview(formatLabel)
@@ -96,9 +100,17 @@ internal class MarkupContainerView: MarkupFormatView, TextEditingDelegateObserve
         setFormatSelectorConstraints()
     }
     
-    /**
-     This method sets the contraints for the font selector buttons.
-     */
+    override func didMoveToWindow() {
+        for (_, selector) in colorSelector {
+            selector.setCornerRadius()
+        }
+        setBackgroundShadow()
+        updateSelectors()
+    }
+    
+    // MARK: - Functions
+    
+    ///This method sets the contraints for the font selector buttons.
     private func setFontSelectorConstraints() {
         guard let merriweather = fontSelector[.merriweather], let openSans = fontSelector[.openSans], let dancing = fontSelector[.dancingScript] else {
             return
@@ -118,9 +130,7 @@ internal class MarkupContainerView: MarkupFormatView, TextEditingDelegateObserve
         }
     }
     
-    /**
-     This method sets the contraints for the color selector buttons.
-     */
+    ///This method sets the contraints for the color selector buttons.
     private func setColorSelectorConstraints() {
         guard let black = colorSelector[.black], let green = colorSelector[.green], let merriweather = fontSelector[.merriweather] else {
             return
@@ -150,9 +160,7 @@ internal class MarkupContainerView: MarkupFormatView, TextEditingDelegateObserve
         }
     }
     
-    /**
-     This method sets the contraints for the format selector buttons.
-     */
+    ///This method sets the contraints for the format selector buttons.
     private func setFormatSelectorConstraints() {
         guard let italic = formatSelector[.italic], let bold = formatSelector[.bold], let dancingScript = fontSelector[.dancingScript] else {
             return
@@ -182,9 +190,7 @@ internal class MarkupContainerView: MarkupFormatView, TextEditingDelegateObserve
         }
     }
     
-    /**
-     This method sets the shadow for the background view.
-     */
+    ///This method sets the shadow for the background view.
     private func setBackgroundShadow() {
         backgroundView.clipsToBounds = true
         backgroundView.layer.masksToBounds = false
@@ -200,13 +206,4 @@ internal class MarkupContainerView: MarkupFormatView, TextEditingDelegateObserve
         backgroundView.layer.shouldRasterize = true
         backgroundView.layer.rasterizationScale = UIScreen.main.scale
     }
-    
-    override func didMoveToWindow() {
-        for (_, selector) in colorSelector {
-            selector.setCornerRadius()
-        }
-        setBackgroundShadow()
-        updateSelectors()
-    }
-    
 }

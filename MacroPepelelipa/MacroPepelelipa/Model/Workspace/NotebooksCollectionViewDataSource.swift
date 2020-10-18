@@ -9,33 +9,17 @@
 import UIKit
 import Database
 
-internal class NotebooksCollectionViewDataSource: NSObject, UICollectionViewDataSource, EntityObserver {
-
-    func entityWasCreated(_ value: ObservableEntity) {
-        if let notebook = value as? NotebookEntity {
-            notebook.addObserver(self)
-            notebooks.append(notebook)
-            self.collectionView?().insertItems(at: [IndexPath(item: notebooks.count - 1, section: 0)])
-        }
-    }
-    func entityDidChangeTo(_ value: ObservableEntity) {
-        if let notebook = value as? NotebookEntity,
-           let index = notebooks.firstIndex(where: { $0 === notebook }) {
-            self.collectionView?().reloadItems(at: [IndexPath(item: index, section: 0)])
-        }
-    }
-    func entityShouldDelete(_ value: ObservableEntity) {
-        if let notebook = value as? NotebookEntity,
-           let index = notebooks.firstIndex(where: { $0 === notebook }) {
-            notebook.removeObserver(self)
-            notebooks.remove(at: index)
-            self.collectionView?().deleteItems(at: [IndexPath(item: index, section: 0)])
-        }
-    }
+internal class NotebooksCollectionViewDataSource: NSObject, 
+                                                  UICollectionViewDataSource, 
+                                                  EntityObserver {
+    
+    // MARK: - Variables and Constants
     
     private var notebooks: [NotebookEntity]
     private weak var viewController: UIViewController?
     private let collectionView: (() -> UICollectionView)?
+    
+    // MARK: - Initializers
     
     internal init(notebooks: [NotebookEntity], viewController: UIViewController?, collectionView: (() -> UICollectionView)?) {
         self.notebooks = notebooks
@@ -54,6 +38,8 @@ internal class NotebooksCollectionViewDataSource: NSObject, UICollectionViewData
             notebook.removeObserver(self)
         }
     }
+    
+    // MARK: - UICollectionViewDataSource functions
 
     internal func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if let viewController = viewController as? NotebooksSelectionViewController {
@@ -82,5 +68,31 @@ internal class NotebooksCollectionViewDataSource: NSObject, UICollectionViewData
         let notebook = notebooks[indexPath.row]
         cell.setNotebook(notebook)
         return cell
+    }
+    
+    // MARK: - EntityObserver functions
+    
+    internal func entityWasCreated(_ value: ObservableEntity) {
+        if let notebook = value as? NotebookEntity {
+            notebook.addObserver(self)
+            notebooks.append(notebook)
+            self.collectionView?().insertItems(at: [IndexPath(item: notebooks.count - 1, section: 0)])
+        }
+    }
+    
+    internal func entityDidChangeTo(_ value: ObservableEntity) {
+        if let notebook = value as? NotebookEntity,
+           let index = notebooks.firstIndex(where: { $0 === notebook }) {
+            self.collectionView?().reloadItems(at: [IndexPath(item: index, section: 0)])
+        }
+    }
+    
+    internal func entityShouldDelete(_ value: ObservableEntity) {
+        if let notebook = value as? NotebookEntity,
+           let index = notebooks.firstIndex(where: { $0 === notebook }) {
+            notebook.removeObserver(self)
+            notebooks.remove(at: index)
+            self.collectionView?().deleteItems(at: [IndexPath(item: index, section: 0)])
+        }
     }
 }

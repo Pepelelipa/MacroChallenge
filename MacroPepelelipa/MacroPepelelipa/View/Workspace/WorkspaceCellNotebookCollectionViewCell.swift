@@ -9,10 +9,12 @@
 import UIKit
 
 internal class WorkspaceCellNotebookCollectionViewCell: UICollectionViewCell {
-    internal class func cellID() -> String { "workspaceCellNotebookCell" }
+    
+    // MARK: - Variables and Constants
 
     private let notebookView = NotebookView(frame: .zero)
-    public var color: UIColor {
+    
+    internal var color: UIColor {
         get {
             return notebookView.color
         }
@@ -20,6 +22,8 @@ internal class WorkspaceCellNotebookCollectionViewCell: UICollectionViewCell {
             notebookView.color = newValue
         }
     }
+    
+    // MARK: - Initializers
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -27,6 +31,15 @@ internal class WorkspaceCellNotebookCollectionViewCell: UICollectionViewCell {
         setupConstraints()
     }
 
+    internal required convenience init?(coder: NSCoder) {
+        guard let frame = coder.decodeObject(forKey: "frame") as? CGRect else {
+            return nil
+        }
+        self.init(frame: frame)
+    }
+    
+    // MARK: - Functions
+    
     private func setupConstraints() {
         NSLayoutConstraint.activate([
             notebookView.centerXAnchor.constraint(equalTo: centerXAnchor),
@@ -35,11 +48,8 @@ internal class WorkspaceCellNotebookCollectionViewCell: UICollectionViewCell {
             notebookView.heightAnchor.constraint(equalTo: heightAnchor)
         ])
     }
-
-    required convenience init?(coder: NSCoder) {
-        guard let frame = coder.decodeObject(forKey: "frame") as? CGRect else {
-            return nil
-        }
-        self.init(frame: frame)
+    
+    internal class func cellID() -> String { 
+        "workspaceCellNotebookCell"
     }
 }

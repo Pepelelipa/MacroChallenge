@@ -6,11 +6,17 @@
 //  Copyright © 2020 Pedro Giuliano Farina. All rights reserved.
 //
 
-import Foundation
 import UIKit
 import Database
 
 internal class TextBoxView: UIView, BoxView {
+    
+    // MARK: - Variables and Constants
+    
+    internal var owner: MarkupTextView
+    internal var internalFrame: CGRect = .zero
+    internal var boxViewBorder = CAShapeLayer()
+    internal weak var entity: TextBoxEntity?
     
     internal var state: BoxViewState {
         didSet {
@@ -22,21 +28,6 @@ internal class TextBoxView: UIView, BoxView {
             }
         }
     }
-    
-    internal var owner: MarkupTextView
-    internal weak var entity: TextBoxEntity?
-    
-    internal var internalFrame: CGRect = .zero
-    
-    internal var boxViewBorder = CAShapeLayer()
-    
-    internal lazy var markupTextView: MarkupTextView = {
-        let textView = MarkupTextView(frame: .zero)
-        textView.delegate = markupTextViewDelegate
-        textView.translatesAutoresizingMaskIntoConstraints = false
-        textView.isUserInteractionEnabled = false
-        return textView
-    }()
     
     private lazy var markupTextViewDelegate: MarkupTextViewDelegate? = {
         let delegate = MarkupTextViewDelegate()
@@ -58,6 +49,16 @@ internal class TextBoxView: UIView, BoxView {
         }
         return delegate
     }()
+    
+    internal lazy var markupTextView: MarkupTextView = {
+        let textView = MarkupTextView(frame: .zero)
+        textView.delegate = markupTextViewDelegate
+        textView.translatesAutoresizingMaskIntoConstraints = false
+        textView.isUserInteractionEnabled = false
+        return textView
+    }()
+    
+    // MARK: - Initializers
                 
     internal init(textBoxEntity: TextBoxEntity, owner: MarkupTextView) {
         self.owner = owner
@@ -81,7 +82,7 @@ internal class TextBoxView: UIView, BoxView {
         boxViewBorder.isHidden = true
     }
     
-    required convenience init?(coder: NSCoder) {
+    internal required convenience init?(coder: NSCoder) {
         guard let textBoxEntity = coder.decodeObject(forKey: "textBoxEntity") as? TextBoxEntity,
               let owner = coder.decodeObject(forKey: "owner") as? MarkupTextView else {
             return nil
@@ -89,6 +90,8 @@ internal class TextBoxView: UIView, BoxView {
 
         self.init(textBoxEntity: textBoxEntity, owner: owner)
     }
+    
+    // MARK: - Functions
     
     private func setUpTextViewConstraints() {
         NSLayoutConstraint.activate([
@@ -102,7 +105,7 @@ internal class TextBoxView: UIView, BoxView {
     /**
      Draw the text box border.
      */
-    func setUpBorder() {
+    internal func setUpBorder() {
         boxViewBorder.strokeColor = UIColor.actionColor?.cgColor
         boxViewBorder.lineDashPattern = [2, 2]
         boxViewBorder.frame = self.bounds

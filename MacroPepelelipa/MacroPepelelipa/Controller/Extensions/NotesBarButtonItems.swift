@@ -18,8 +18,9 @@ extension UIBarButtonItem {
 
     /**
      This method adds a custom UIBarButtonItem according to the specified type.
-     - Parameter type: A BarButtonItemType containing the desired type of the curstom UIBarButtonItem.
-     - Parameter target: A AnyObject that will be the target of the curstom UIBarButtonItem.
+     - Parameters:
+        - type: A BarButtonItemType containing the desired type of the curstom UIBarButtonItem.
+        - target: A AnyObject that will be the target of the curstom UIBarButtonItem.
      - Returns: The customised UIBarButtonItem.
      */
     internal convenience init(ofType: BarButtonItemType, target: AnyObject, action: Selector) {

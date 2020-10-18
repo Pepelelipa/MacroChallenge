@@ -9,15 +9,22 @@
 import UIKit
 
 internal class ColorSelectionCollectionViewDataSource: NSObject, UICollectionViewDataSource {
+    
+    // MARK: - Variables and Constants
 
     private weak var viewController: UIViewController?
-    init(viewController: UIViewController? = nil) {
-        self.viewController = viewController
-    }
-
+    
     private var colors: [UIColor] {
         UIColor.notebookColors
     }
+    
+    // MARK: - Initializers
+    
+    init(viewController: UIViewController? = nil) {
+        self.viewController = viewController
+    }
+    
+    // MARK: - UICollectionViewDataSource functions
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return colors.count

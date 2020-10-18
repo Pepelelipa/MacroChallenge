@@ -10,6 +10,8 @@ import UIKit
 
 class EmptyScreenView: UIView {
     
+    // MARK: - Variables and Constants
+    
     private var descriptionText: String
     private var imageName: String
     private var buttonTitle: String
@@ -50,6 +52,8 @@ class EmptyScreenView: UIView {
         return button
     }()
     
+    // MARK: - Initializers
+    
     override init(frame: CGRect) {
         self.descriptionText = ""
         self.imageName = ""
@@ -71,16 +75,16 @@ class EmptyScreenView: UIView {
         setConstraints()
     }
     
-    required convenience init?(coder: NSCoder) {
+    internal required convenience init?(coder: NSCoder) {
         guard let frame = coder.decodeObject(forKey: "frame") as? CGRect else {
             return nil
         }
         self.init(frame: frame)
     }
     
-    /**
-     This private method sets the constraints for the subviews in this view.
-     */
+    // MARK: - Functions
+    
+    ///This private method sets the constraints for the subviews in this view.
     private func setConstraints() {
         descriptionLabel.setContentHuggingPriority(UILayoutPriority(rawValue: 250), for: .vertical)
         imageView.setContentHuggingPriority(UILayoutPriority(rawValue: 249), for: .vertical)
@@ -108,7 +112,9 @@ class EmptyScreenView: UIView {
         ])
     }
     
-    @objc func handleAction() {
+    // MARK: - Objective-C functions
+    
+    @objc private func handleAction() {
         action()
     }
 }

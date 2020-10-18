@@ -18,9 +18,7 @@ extension UIAlertController {
 
     /**
      This method adds a single action to a UIAlertController that shows a log message when clicked, also setting the view's tint color to be the app's main color.
-     
      - Parameter logMessage: A string containing the message to be displayed in the log.
-     
      - Returns: The customised UIAlertController.
      */
     internal func makeErrorMessage(with logMessage: String) -> UIAlertController {
@@ -36,7 +34,6 @@ extension UIAlertController {
     
     /**
      This method adds a delete and a cancel action to the alert controller, giving the delete action a handler.
-     
      - Parameter deletionHandler: The optional method that will be used as the deletion handler.
      - Returns: The customised UIAlertController.
      */
