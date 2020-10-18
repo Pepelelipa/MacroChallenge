@@ -20,6 +20,7 @@ internal class NotesPageViewController: UIPageViewController,
     internal private(set) var notes: [NoteEntity] = []
     internal private(set) var notebook: NotebookEntity?
     internal private(set) var index: Int = 0
+    private weak var observer: NotesPageViewObserver?
     
     private lazy var noteDataSource = NotesPageViewControllerDataSource(notes: notes)
     
@@ -146,6 +147,15 @@ internal class NotesPageViewController: UIPageViewController,
         }
     }
     
+    internal func updateNotes() {
+        if let updatedNotebook = notebook {
+            notes = updatedNotebook.notes
+            if let lastNote = notes.last {
+                setNotesViewControllers(for: NotesViewController(note: lastNote))
+            }
+        }
+    }
+    
     func showImageButton() {
         self.imageButton.isHidden = false
     }
@@ -166,8 +176,7 @@ internal class NotesPageViewController: UIPageViewController,
         }
         addNewNoteButton.isEnabled = false
         let addController = AddNoteViewController(notebook: guardedNotebook, dismissHandler: {
-            
-            self.setNotesViewControllers(for: NotesViewController(note: self.notes[self.notes.count-1]))
+            self.updateNotes()
             self.addNewNoteButton.isEnabled = true
         })
         addController.moveTo(self)

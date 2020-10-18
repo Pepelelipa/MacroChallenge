@@ -9,12 +9,16 @@
 import UIKit
 import Database
 
-internal class NotesPageViewControllerDataSource: NSObject, UIPageViewControllerDataSource {
+internal class NotesPageViewControllerDataSource: NSObject, 
+                                                  UIPageViewControllerDataSource, 
+                                                  EntityObserver {
     
     private var notesEntities: [NoteEntity]?
     
     internal init(notes: [NoteEntity]) {
         self.notesEntities = notes
+        super.init()
+        DataManager.shared().addCreationObserver(self, type: .note)
     }
 
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
@@ -47,6 +51,21 @@ internal class NotesPageViewControllerDataSource: NSObject, UIPageViewController
             return currentIndex
         }
         return nil
+    }
+    
+    func entityWasCreated(_ value: ObservableEntity) {
+        if let note = value as? NoteEntity {
+            note.addObserver(self)
+            self.notesEntities?.append(note)
+        }
+    }
+    
+    func entityShouldDelete(_ value: ObservableEntity) {
+        if let note = value as? WorkspaceEntity,
+           let index = self.notesEntities?.firstIndex(where: { $0 === note }) {
+            note.removeObserver(self)
+            self.notesEntities?.remove(at: index)
+        }
     }
     
  }

@@ -207,11 +207,13 @@ internal class TextEditingContainerViewController: UIViewController, IndexObserv
     // MARK: - IBActions functions
     
     @IBAction private func addNewNote() {
-        guard let rootViewController = centerViewController, let guardedNotebook = rootViewController.notebook else {
+        guard let centerViewController = centerViewController, 
+              let notebook = centerViewController.notebook else {
             return
         }
         addNewNoteButton.isEnabled = false
-        let addController = AddNoteViewController(notebook: guardedNotebook, dismissHandler: {
+        let addController = AddNoteViewController(notebook: notebook, dismissHandler: {
+            centerViewController.updateNotes()
             self.addNewNoteButton.isEnabled = true
         })
         addController.moveTo(self)
