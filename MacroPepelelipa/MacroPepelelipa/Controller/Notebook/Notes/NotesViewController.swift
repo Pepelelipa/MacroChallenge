@@ -275,7 +275,6 @@ internal class NotesViewController: UIViewController,
         let doubleTapGesture = UITapGestureRecognizer(target: self, action: #selector(handleDoubleTap(_:)))
         doubleTapGesture.numberOfTapsRequired = 2
         let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePan(_:)))
-        let pinchGesture = UIPinchGestureRecognizer(target: self, action: #selector(handlePinch(_:)))
 
         let textBox = TextBoxView(textBoxEntity: textBoxEntity, owner: textView)
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
@@ -284,7 +283,6 @@ internal class NotesViewController: UIViewController,
         textBox.addGestureRecognizer(tapGesture)
         textBox.addGestureRecognizer(doubleTapGesture)
         textBox.addGestureRecognizer(panGesture)
-        textBox.addGestureRecognizer(pinchGesture)
         self.textBoxes.insert(textBox)
         self.textView.addSubview(textBox)
     }
@@ -329,7 +327,6 @@ internal class NotesViewController: UIViewController,
         let doubleTapGesture = UITapGestureRecognizer(target: self, action: #selector(handleDoubleTap(_:)))
         doubleTapGesture.numberOfTapsRequired = 2
         let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePan(_:)))
-        let pinchGesture = UIPinchGestureRecognizer(target: self, action: #selector(handlePinch(_:)))
 
         if let fileName = FileHelper.getFilePath(fileName: imageBoxEntity.imagePath) {
             let image = UIImage(contentsOfFile: fileName)
@@ -338,7 +335,6 @@ internal class NotesViewController: UIViewController,
             imageBox.addGestureRecognizer(tapGesture)
             imageBox.addGestureRecognizer(doubleTapGesture)
             imageBox.addGestureRecognizer(panGesture)
-            imageBox.addGestureRecognizer(pinchGesture)
             self.imageBoxes.insert(imageBox)
             self.textView.addSubview(imageBox)
         }
@@ -544,21 +540,7 @@ internal class NotesViewController: UIViewController,
         }
     }
     
-    @IBAction private func handlePinch(_ gestureRecognizer: UIPinchGestureRecognizer) {
-        guard let boxView = gestureRecognizer.view as? BoxView else {
-            return
-        }
+    @IBAction private func handleLongPress(_ gestureRecognizer: UILongPressGestureRecognizer) {
         
-        if boxView.state == .editing, gestureRecognizer.state == .began || gestureRecognizer.state == .changed {
-            boxView.transform = CGAffineTransform(scaleX: scale + gestureRecognizer.scale, y: scale + gestureRecognizer.scale)
-            
-            if gestureRecognizer.scale < 0.5 {
-                gestureRecognizer.scale = 1
-            } else if gestureRecognizer.scale > 3 {
-                gestureRecognizer.scale = 3
-            }
-            
-            scale = gestureRecognizer.scale
-        }
     }
 }
