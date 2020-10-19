@@ -96,3 +96,9 @@
 "Failed to create a Image Box" = "Falha ao criar uma caixa com uma image";
 "The app could not create a Image Box" = "O app não foi capaz de criar uma caixa com uma image";
 "Create new Note" = "Criar nova nota";
+"Delete Image Box confirmation" = "Tem certeza que deseja deletar a caixa de imagem?";
+"Could not delete this Image Box" = "Não foi possível deletar a caixa de imagem";
+"The app could not delete the image box" = "O app não foi capaz de deletar a caixa de imagem";
+"Delete Text Box confirmation" = "Tem certeza que deseja deletar a caixa de texto?";
+"Could not delete this Text Box" = "Não foi possível deletar a caixa de texto";
+"The app could not delete the text box" = "O app não foi capaz de deletar a caixa de texto";
