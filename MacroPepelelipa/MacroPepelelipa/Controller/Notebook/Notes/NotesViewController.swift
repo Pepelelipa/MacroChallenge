@@ -212,6 +212,18 @@ internal class NotesViewController: UIViewController,
     }
     
     /**
+     Delete all resize handles
+     */
+    private func cleanResizeHandles() {
+        if !resizeHandles.isEmpty {
+            resizeHandles.forEach { (resizeHandle) in
+                resizeHandle.removeFromSuperview()
+            }
+            resizeHandles.removeAll()
+        }
+    }
+    
+    /**
      Move the box view and uptade their resize handles position.
      - Parameters
         - boxView: The Box View who will be moved.
@@ -279,7 +291,7 @@ internal class NotesViewController: UIViewController,
         let doubleTapGesture = UITapGestureRecognizer(target: self, action: #selector(handleDoubleTap(_:)))
         doubleTapGesture.numberOfTapsRequired = 2
         let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePan(_:)))
-        let pinchGesture = UIPinchGestureRecognizer(target: self, action: #selector(handlePinch(_:)))
+        let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPressInTextBox(_:)))
 
         let textBox = TextBoxView(textBoxEntity: textBoxEntity, owner: textView)
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
@@ -288,7 +300,7 @@ internal class NotesViewController: UIViewController,
         textBox.addGestureRecognizer(tapGesture)
         textBox.addGestureRecognizer(doubleTapGesture)
         textBox.addGestureRecognizer(panGesture)
-        textBox.addGestureRecognizer(pinchGesture)
+        textBox.addGestureRecognizer(longPressGesture)
         self.textBoxes.insert(textBox)
         self.textView.addSubview(textBox)
     }
@@ -333,7 +345,7 @@ internal class NotesViewController: UIViewController,
         let doubleTapGesture = UITapGestureRecognizer(target: self, action: #selector(handleDoubleTap(_:)))
         doubleTapGesture.numberOfTapsRequired = 2
         let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePan(_:)))
-        let pinchGesture = UIPinchGestureRecognizer(target: self, action: #selector(handlePinch(_:)))
+        let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPressInImageBox(_:)))
 
         if let fileName = FileHelper.getFilePath(fileName: imageBoxEntity.imagePath) {
             let image = UIImage(contentsOfFile: fileName)
@@ -342,7 +354,7 @@ internal class NotesViewController: UIViewController,
             imageBox.addGestureRecognizer(tapGesture)
             imageBox.addGestureRecognizer(doubleTapGesture)
             imageBox.addGestureRecognizer(panGesture)
-            imageBox.addGestureRecognizer(pinchGesture)
+            imageBox.addGestureRecognizer(longPressGesture)
             self.imageBoxes.insert(imageBox)
             self.textView.addSubview(imageBox)
         }
@@ -544,21 +556,69 @@ internal class NotesViewController: UIViewController,
         }
     }
     
-    @IBAction private func handlePinch(_ gestureRecognizer: UIPinchGestureRecognizer) {
-        guard let boxView = gestureRecognizer.view as? BoxView else {
+    @IBAction private func handleLongPressInImageBox(_ gestureRecognizer: UILongPressGestureRecognizer) {
+        
+        guard let boxView = gestureRecognizer.view as? ImageBoxView, let entity = boxView.entity else {
             return
         }
         
-        if boxView.state == .editing, gestureRecognizer.state == .began || gestureRecognizer.state == .changed {
-            boxView.transform = CGAffineTransform(scaleX: scale + gestureRecognizer.scale, y: scale + gestureRecognizer.scale)
+        if gestureRecognizer.state == .began {
             
-            if gestureRecognizer.scale < 0.5 {
-                gestureRecognizer.scale = 1
-            } else if gestureRecognizer.scale > 3 {
-                gestureRecognizer.scale = 3
-            }
+            let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet).makeDeleteConfirmation(dataType: .imageBox, deletionHandler: { _ in
+                let deleteAlertController = UIAlertController(title: "Delete Image Box confirmation".localized(),
+                                                              message: "Warning".localized(),
+                                                              preferredStyle: .alert).makeDeleteConfirmation(dataType: .imageBox, deletionHandler: { _ in
+                                                                do {
+                                                                    boxView.removeFromSuperview()
+                                                                    self.imageBoxes.remove(boxView)
+                                                                    self.cleanResizeHandles()
+                                                                    _ = try DataManager.shared().deleteImageBox(entity)
+                                                                } catch {
+                                                                    let alertController = UIAlertController(
+                                                                        title: "Could not delete this Image Box".localized(),
+                                                                        message: "The app could not delete the image box".localized(),
+                                                                        preferredStyle: .alert)
+                                                                        .makeErrorMessage(with: "An error occurred while deleting this instance on the database".localized())
+                                                                    self.present(alertController, animated: true, completion: nil)
+                                                                }
+                                                              })
+                self.present(deleteAlertController, animated: true, completion: nil)
+            })
+
+            self.present(alertController, animated: true, completion: nil)
+        }
+    }
+    
+    @IBAction private func handleLongPressInTextBox(_ gestureRecognizer: UILongPressGestureRecognizer) {
+        
+        guard let boxView = gestureRecognizer.view as? TextBoxView, let entity = boxView.entity else {
+            return
+        }
+        
+        if gestureRecognizer.state == .began {
             
-            scale = gestureRecognizer.scale
+            let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet).makeDeleteConfirmation(dataType: .textBox, deletionHandler: { _ in
+                let deleteAlertController = UIAlertController(title: "Delete Text Box confirmation".localized(),
+                                                              message: "Warning".localized(),
+                                                              preferredStyle: .alert).makeDeleteConfirmation(dataType: .textBox, deletionHandler: { _ in
+                                                                do {
+                                                                    boxView.removeFromSuperview()
+                                                                    self.textBoxes.remove(boxView)
+                                                                    self.cleanResizeHandles()
+                                                                    _ = try DataManager.shared().deleteTextBox(entity)
+                                                                } catch {
+                                                                    let alertController = UIAlertController(
+                                                                        title: "Could not delete this Text Box".localized(),
+                                                                        message: "The app could not delete the text box".localized(),
+                                                                        preferredStyle: .alert)
+                                                                        .makeErrorMessage(with: "An error occurred while deleting this instance on the database".localized())
+                                                                    self.present(alertController, animated: true, completion: nil)
+                                                                }
+                                                              })
+                self.present(deleteAlertController, animated: true, completion: nil)
+            })
+
+            self.present(alertController, animated: true, completion: nil)
         }
     }
 }
