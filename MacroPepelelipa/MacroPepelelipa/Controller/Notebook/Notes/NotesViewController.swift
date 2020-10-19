@@ -52,7 +52,23 @@ internal class NotesViewController: UIViewController,
         let toolBar = MarkupToolBar(frame: .zero, configurations: markupConfig)
         return toolBar
     }()
-     
+    
+    private lazy var constraints: [NSLayoutConstraint] = {
+        [
+            textView.topAnchor.constraint(equalTo: self.textField.bottomAnchor, constant: 10),
+            textView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
+            textView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
+            textView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+
+            textField.heightAnchor.constraint(equalToConstant: 30),
+            textField.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
+            textField.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
+            textField.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor, constant: -20)
+        ]
+    }()
+    
+    internal private(set) lazy var textView: MarkupTextView = MarkupTextView(frame: .zero, delegate: self.textViewDelegate)
+    
     internal lazy var textViewDelegate: MarkupTextViewDelegate = {
         let delegate = MarkupTextViewDelegate()
         delegate.addObserver(self)
@@ -70,6 +86,9 @@ internal class NotesViewController: UIViewController,
                 NSLog("No error nor string found")
                 return
             }
+            
+            self?.textView.attributedText = attributedText
+            
             if self?.textView.text == "",
                let textView = self?.textView {
                 self?.textViewDelegate.parsePlaceholder(on: textView)
@@ -83,8 +102,6 @@ internal class NotesViewController: UIViewController,
         mrkConf.observer = self
         return mrkConf
     }()
-        
-    internal private(set) lazy var textView: MarkupTextView = MarkupTextView(frame: .zero, delegate: self.textViewDelegate)
     
     internal private(set) lazy var formatViewDelegate: MarkupFormatViewDelegate? = {
         return MarkupFormatViewDelegate(viewController: self)
@@ -100,20 +117,6 @@ internal class NotesViewController: UIViewController,
         container.delegate = self.formatViewDelegate
         
         return container
-    }()
-
-    private lazy var constraints: [NSLayoutConstraint] = {
-        [
-            textView.topAnchor.constraint(equalTo: self.textField.bottomAnchor, constant: 10),
-            textView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
-            textView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
-            textView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-
-            textField.heightAnchor.constraint(equalToConstant: 30),
-            textField.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
-            textField.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
-            textField.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor, constant: -20)
-        ]
     }()
     
     // MARK: - Initializers
@@ -178,6 +181,7 @@ internal class NotesViewController: UIViewController,
 
     override func viewWillAppear(_ animated: Bool) {
         navigationItem.largeTitleDisplayMode = .never
+        DispatchQueue.main.asyncAfter(deadline: .now(), execute: self.workItem)
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -186,6 +190,7 @@ internal class NotesViewController: UIViewController,
         }
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.largeTitleDisplayMode = .automatic
+        workItem.cancel()
     }
     
     override func viewDidLayoutSubviews() {
@@ -284,9 +289,7 @@ internal class NotesViewController: UIViewController,
         }
     }
     
-    /**
-     Adds a Text Box
-     */
+    ///Adds a Text Box
     func addTextBox(with textBoxEntity: TextBoxEntity) {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
         let doubleTapGesture = UITapGestureRecognizer(target: self, action: #selector(handleDoubleTap(_:)))
@@ -361,9 +364,7 @@ internal class NotesViewController: UIViewController,
         }
     }
     
-    /**
-     Updates the position of the resize handles.
-     */
+    ///Updates the position of the resize handles.
     internal func updateResizeHandles() {
         resizeHandles.forEach { (resizeHandle) in
             resizeHandle.updatePosition()
@@ -451,9 +452,7 @@ internal class NotesViewController: UIViewController,
         }
     }
     
-    /**
-     Present the native Image Picker. There we instantiate a PHPickerViewController and set its delegate. Finally, there is a present from the view controller.
-     */
+    ///Present the native Image Picker. There we instantiate a PHPickerViewController and set its delegate. Finally, there is a present from the view controller.
     internal func presentPicker() {
         var config = PHPickerConfiguration()
         config.filter = .images
