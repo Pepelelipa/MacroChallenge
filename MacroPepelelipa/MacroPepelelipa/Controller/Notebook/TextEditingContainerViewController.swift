@@ -175,9 +175,7 @@ internal class TextEditingContainerViewController: UIViewController,
         centerViewController.didMove(toParent: self)
     }
     
-    /**
-     This method opens the pop over when the button is pressed
-     */
+    ///This method opens the pop over when the button is pressed
     internal func openPopOver() {
         guard let textView = notesViewController?.textView,
               let formatViewDelegate = notesViewController?.formatViewDelegate,
@@ -204,7 +202,11 @@ internal class TextEditingContainerViewController: UIViewController,
     // MARK: - IndexObserver functions
     
     internal func didChangeIndex(to note: NoteEntity) {
-        if let rightViewController = rightViewController {
+        if let rightViewController = rightViewController,
+           let centerViewController = centerViewController {
+            
+            centerViewController.setNotesViewControllers(for: NotesViewController(note: note))
+            
             hideIndex(rightViewController)
         }
     }
@@ -256,9 +258,7 @@ internal class TextEditingContainerViewController: UIViewController,
         // TODO: present more actions
     }
 
-    /**
-     This method checks if the notebook index is already appearing on screen or not. If it isn't appearing on screen, instaciates NotebookIndexViewController and peform an animation to show it. If it is appearing on screen, peform an animation to hide it.
-     */
+    ///This method checks if the notebook index is already appearing on screen or not. If it isn't appearing on screen, instaciates NotebookIndexViewController and peform an animation to show it. If it is appearing on screen, peform an animation to hide it.
     @IBAction private func presentNotebookIndex() {
         
         if let rightViewController = rightViewController {
