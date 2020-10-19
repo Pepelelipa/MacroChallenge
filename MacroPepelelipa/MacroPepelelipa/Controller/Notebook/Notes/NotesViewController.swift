@@ -561,10 +561,10 @@ internal class NotesViewController: UIViewController,
         
         if gestureRecognizer.state == .began {
             
-            let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet).makeDeleteConfirmation(dataType: .workspace, deletionHandler: { _ in
+            let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet).makeDeleteConfirmation(dataType: .imageBox, deletionHandler: { _ in
                 let deleteAlertController = UIAlertController(title: "Delete Image Box confirmation".localized(),
                                                               message: "Warning".localized(),
-                                                              preferredStyle: .alert).makeDeleteConfirmation(dataType: .workspace, deletionHandler: { _ in
+                                                              preferredStyle: .alert).makeDeleteConfirmation(dataType: .imageBox, deletionHandler: { _ in
                                                                 do {
                                                                     boxView.removeFromSuperview()
                                                                     self.imageBoxes.remove(boxView)
@@ -594,10 +594,10 @@ internal class NotesViewController: UIViewController,
         
         if gestureRecognizer.state == .began {
             
-            let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet).makeDeleteConfirmation(dataType: .workspace, deletionHandler: { _ in
+            let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet).makeDeleteConfirmation(dataType: .textBox, deletionHandler: { _ in
                 let deleteAlertController = UIAlertController(title: "Delete Text Box confirmation".localized(),
                                                               message: "Warning".localized(),
-                                                              preferredStyle: .alert).makeDeleteConfirmation(dataType: .workspace, deletionHandler: { _ in
+                                                              preferredStyle: .alert).makeDeleteConfirmation(dataType: .textBox, deletionHandler: { _ in
                                                                 do {
                                                                     boxView.removeFromSuperview()
                                                                     self.textBoxes.remove(boxView)

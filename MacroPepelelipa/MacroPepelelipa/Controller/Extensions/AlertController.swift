@@ -12,6 +12,8 @@ enum DataType: String {
     case workspace = "Workspace"
     case notebook = "Notebook"
     case note = "Note"
+    case textBox = "Text Box"
+    case imageBox = "Image Box"
 }
 
 extension UIAlertController {

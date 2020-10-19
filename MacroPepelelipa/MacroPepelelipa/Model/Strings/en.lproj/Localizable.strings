@@ -100,3 +100,5 @@
 "Delete Text Box confirmation" = "Are you sure you want to delete the Text Box?";
 "Could not delete this Text Box" = "Could not delete this Text Box";
 "The app could not delete the text box" = "The app could not delete the text box";
+"Text Box" = "Text Box";
+"Image Box" = "Image Box";
