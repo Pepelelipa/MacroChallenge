@@ -60,6 +60,13 @@ internal class NotesPageViewController: UIPageViewController,
         
         return button
     }()
+
+    private lazy var constraints: [NSLayoutConstraint] = {
+        [
+            imageButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -150),
+            imageButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 10)
+        ]
+    }()
     
     // MARK: - Initializers
     
@@ -102,10 +109,7 @@ internal class NotesPageViewController: UIPageViewController,
     }
     
     override func viewDidLayoutSubviews() {
-        NSLayoutConstraint.activate([
-            imageButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -150),
-            imageButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 10)
-        ])
+        NSLayoutConstraint.activate(constraints)
     }
     
     // MARK: - Functions

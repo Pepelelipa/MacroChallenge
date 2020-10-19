@@ -65,6 +65,26 @@ internal class NotebookIndexViewController: UIViewController {
         }
     }
 
+    private lazy var constraints: [NSLayoutConstraint] = {
+        [
+            imgViewNotebook.heightAnchor.constraint(equalTo: imgViewNotebook.widthAnchor, multiplier: 1.33),
+            imgViewNotebook.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
+            imgViewNotebook.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 25),
+            imgViewNotebook.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.08),
+
+            lblSubject.centerYAnchor.constraint(equalTo: imgViewNotebook.centerYAnchor),
+            lblSubject.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
+            lblSubject.leadingAnchor.constraint(equalTo: imgViewNotebook.trailingAnchor, constant: 20),
+            lblSubject.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
+            lblSubject.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.08),
+
+            tableView.topAnchor.constraint(equalTo: lblSubject.bottomAnchor, constant: 40),
+            tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+        ]
+    }()
+
     // MARK: - Initializers
     
     internal init(notebook: NotebookEntity, note: NoteEntity) {
@@ -96,28 +116,7 @@ internal class NotebookIndexViewController: UIViewController {
     }
     
     override func viewWillLayoutSubviews() {
-
-        NSLayoutConstraint.activate([
-            NSLayoutConstraint(item: imgViewNotebook, attribute: .height, relatedBy: .equal, toItem: imgViewNotebook, attribute: .width, multiplier: (1.33), constant: 0.0),
-            imgViewNotebook.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
-            imgViewNotebook.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 25),
-            imgViewNotebook.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.08)
-        ])
-
-        NSLayoutConstraint.activate([
-            NSLayoutConstraint(item: lblSubject, attribute: .centerY, relatedBy: .equal, toItem: imgViewNotebook, attribute: .centerY, multiplier: 1.0, constant: 0.0),
-            lblSubject.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
-            lblSubject.leadingAnchor.constraint(equalTo: imgViewNotebook.trailingAnchor, constant: 20),
-            lblSubject.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
-            lblSubject.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.08)
-        ])
-
-        NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: lblSubject.bottomAnchor, constant: 40),
-            tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
-        ])
+        NSLayoutConstraint.activate(constraints)
     }
     
     // MARK: - IBActions functions

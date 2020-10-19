@@ -50,18 +50,21 @@ internal class AddNoteViewController: PopupContainerViewController, AddNoteObser
         return btnConfirm
     }()
 
-    internal override func moveTo(_ viewController: UIViewController) {
-        let centerYConstraint = view.centerYAnchor.constraint(equalTo: viewController.view.centerYAnchor)
-        self.centerYConstraint = centerYConstraint
-        super.moveTo(viewController)
-        NSLayoutConstraint.activate([
-            view.centerXAnchor.constraint(equalTo: viewController.view.centerXAnchor),
-            centerYConstraint,
-            view.heightAnchor.constraint(greaterThanOrEqualToConstant: 130),
-            view.heightAnchor.constraint(greaterThanOrEqualTo: viewController.view.heightAnchor, multiplier: 0.18),
-            view.widthAnchor.constraint(lessThanOrEqualTo: viewController.view.widthAnchor, multiplier: 0.8)
-        ])
-    }
+    private lazy var constraints: [NSLayoutConstraint] = {
+        [
+            txtName.topAnchor.constraint(equalTo: view.topAnchor, constant: 20),
+            txtName.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 30),
+            txtName.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -30),
+            txtName.heightAnchor.constraint(equalToConstant: 40),
+
+            btnConfirm.bottomAnchor.constraint(lessThanOrEqualTo: view.bottomAnchor, constant: -20),
+            btnConfirm.topAnchor.constraint(greaterThanOrEqualTo: txtName.bottomAnchor, constant: 30),
+            btnConfirm.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            btnConfirm.leadingAnchor.constraint(greaterThanOrEqualTo: view.leadingAnchor, constant: 60),
+            btnConfirm.trailingAnchor.constraint(lessThanOrEqualTo: view.trailingAnchor, constant: -60),
+            btnConfirm.heightAnchor.constraint(equalToConstant: 45)
+        ]
+    }()
     
     // MARK: - Initializers
     
@@ -78,6 +81,19 @@ internal class AddNoteViewController: PopupContainerViewController, AddNoteObser
     }
     
     // MARK: - Override functions
+
+    internal override func moveTo(_ viewController: UIViewController) {
+        let centerYConstraint = view.centerYAnchor.constraint(equalTo: viewController.view.centerYAnchor)
+        self.centerYConstraint = centerYConstraint
+        super.moveTo(viewController)
+        NSLayoutConstraint.activate([
+            view.centerXAnchor.constraint(equalTo: viewController.view.centerXAnchor),
+            centerYConstraint,
+            view.heightAnchor.constraint(greaterThanOrEqualToConstant: 130),
+            view.heightAnchor.constraint(greaterThanOrEqualTo: viewController.view.heightAnchor, multiplier: 0.18),
+            view.widthAnchor.constraint(lessThanOrEqualTo: viewController.view.widthAnchor, multiplier: 0.8)
+        ])
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -103,20 +119,7 @@ internal class AddNoteViewController: PopupContainerViewController, AddNoteObser
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        NSLayoutConstraint.activate([
-            txtName.topAnchor.constraint(equalTo: view.topAnchor, constant: 20),
-            txtName.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 30),
-            txtName.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -30),
-            txtName.heightAnchor.constraint(equalToConstant: 40)
-        ])
-        NSLayoutConstraint.activate([
-            btnConfirm.bottomAnchor.constraint(lessThanOrEqualTo: view.bottomAnchor, constant: -20),
-            btnConfirm.topAnchor.constraint(greaterThanOrEqualTo: txtName.bottomAnchor, constant: 30),
-            btnConfirm.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            btnConfirm.leadingAnchor.constraint(greaterThanOrEqualTo: view.leadingAnchor, constant: 60),
-            btnConfirm.trailingAnchor.constraint(lessThanOrEqualTo: view.trailingAnchor, constant: -60),
-            btnConfirm.heightAnchor.constraint(equalToConstant: 45)
-        ])
+        NSLayoutConstraint.activate(constraints)
     }
     
     override func backgroundTap() {
