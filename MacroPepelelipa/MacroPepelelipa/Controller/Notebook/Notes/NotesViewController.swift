@@ -23,6 +23,7 @@ internal class NotesViewController: UIViewController,
     private var scale: CGFloat = 1.0
     private var currentBoxViewPosition: CGPoint = .zero
     private var libraryImage: UIImage?
+    private var exclusionPaths: [UIBezierPath] = []
 
     private let screenWidth = UIScreen.main.bounds.width
     private let screenHeight = UIScreen.main.bounds.height
@@ -172,6 +173,7 @@ internal class NotesViewController: UIViewController,
         for imageBox in note?.images ?? [] {
             addImageBox(with: imageBox)
         }
+        uptadeExclusionPaths()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -300,6 +302,7 @@ internal class NotesViewController: UIViewController,
         textBox.addGestureRecognizer(longPressGesture)
         self.textBoxes.insert(textBox)
         self.textView.addSubview(textBox)
+        uptadeExclusionPaths()
     }
     
     ///Creates an Image Box
@@ -354,6 +357,7 @@ internal class NotesViewController: UIViewController,
             imageBox.addGestureRecognizer(longPressGesture)
             self.imageBoxes.insert(imageBox)
             self.textView.addSubview(imageBox)
+            uptadeExclusionPaths()
         }
     }
     
@@ -413,7 +417,7 @@ internal class NotesViewController: UIViewController,
     }
     
     ///Creates a TextBox
-    func createTextBox(transcription: String? = nil) {
+    internal func createTextBox(transcription: String? = nil) {
         do {
             guard let note = note else {
                 let alertController = UIAlertController(
@@ -513,6 +517,23 @@ internal class NotesViewController: UIViewController,
         }
     }
     
+    // MARK: - Uptade exclusion path frames
+    
+    private func uptadeExclusionPaths() {
+        exclusionPaths.removeAll()
+        
+        imageBoxes.forEach { (imageBox) in
+            let path = UIBezierPath(rect: imageBox.frame)
+            exclusionPaths.append(path)
+        }
+        
+        textBoxes.forEach { (textBox) in
+            let path = UIBezierPath(rect: textBox.frame)
+            exclusionPaths.append(path)
+        }
+        self.textView.textContainer.exclusionPaths = exclusionPaths
+    }
+    
     // MARK: - IBActions functions
     
     @IBAction func didTap() {
@@ -551,8 +572,7 @@ internal class NotesViewController: UIViewController,
                 boxView.center = initialCenter
             }
             if gestureRecognizer.state == .ended {
-                let exclusionPath  = UIBezierPath(rect: boxView.frame)
-                self.textView.textContainer.exclusionPaths = [exclusionPath]
+                uptadeExclusionPaths()
             }
         }
     }
@@ -565,14 +585,15 @@ internal class NotesViewController: UIViewController,
         
         if gestureRecognizer.state == .began {
             
-            let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet).makeDeleteConfirmation(dataType: .imageBox, deletionHandler: { _ in
+            let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet).makeDeleteConfirmation(dataType: .imageBox, deletionHandler: { [weak self] _ in
                 let deleteAlertController = UIAlertController(title: "Delete Image Box confirmation".localized(),
                                                               message: "Warning".localized(),
-                                                              preferredStyle: .alert).makeDeleteConfirmation(dataType: .imageBox, deletionHandler: { _ in
+                                                              preferredStyle: .alert).makeDeleteConfirmation(dataType: .imageBox, deletionHandler: {[weak self] _ in
                                                                 do {
                                                                     boxView.removeFromSuperview()
-                                                                    self.imageBoxes.remove(boxView)
-                                                                    self.cleanResizeHandles()
+                                                                    self?.imageBoxes.remove(boxView)
+                                                                    self?.cleanResizeHandles()
+                                                                    self?.uptadeExclusionPaths()
                                                                     _ = try DataManager.shared().deleteImageBox(entity)
                                                                 } catch {
                                                                     let alertController = UIAlertController(
@@ -580,10 +601,10 @@ internal class NotesViewController: UIViewController,
                                                                         message: "The app could not delete the image box".localized(),
                                                                         preferredStyle: .alert)
                                                                         .makeErrorMessage(with: "An error occurred while deleting this instance on the database".localized())
-                                                                    self.present(alertController, animated: true, completion: nil)
+                                                                    self?.present(alertController, animated: true, completion: nil)
                                                                 }
                                                               })
-                self.present(deleteAlertController, animated: true, completion: nil)
+                self?.present(deleteAlertController, animated: true, completion: nil)
             })
 
             self.present(alertController, animated: true, completion: nil)
@@ -598,14 +619,15 @@ internal class NotesViewController: UIViewController,
         
         if gestureRecognizer.state == .began {
             
-            let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet).makeDeleteConfirmation(dataType: .textBox, deletionHandler: { _ in
+            let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet).makeDeleteConfirmation(dataType: .textBox, deletionHandler: { [weak self] _ in
                 let deleteAlertController = UIAlertController(title: "Delete Text Box confirmation".localized(),
                                                               message: "Warning".localized(),
-                                                              preferredStyle: .alert).makeDeleteConfirmation(dataType: .textBox, deletionHandler: { _ in
+                                                              preferredStyle: .alert).makeDeleteConfirmation(dataType: .textBox, deletionHandler: { [weak self] _ in
                                                                 do {
                                                                     boxView.removeFromSuperview()
-                                                                    self.textBoxes.remove(boxView)
-                                                                    self.cleanResizeHandles()
+                                                                    self?.textBoxes.remove(boxView)
+                                                                    self?.cleanResizeHandles()
+                                                                    self?.uptadeExclusionPaths()
                                                                     _ = try DataManager.shared().deleteTextBox(entity)
                                                                 } catch {
                                                                     let alertController = UIAlertController(
@@ -613,10 +635,10 @@ internal class NotesViewController: UIViewController,
                                                                         message: "The app could not delete the text box".localized(),
                                                                         preferredStyle: .alert)
                                                                         .makeErrorMessage(with: "An error occurred while deleting this instance on the database".localized())
-                                                                    self.present(alertController, animated: true, completion: nil)
+                                                                    self?.present(alertController, animated: true, completion: nil)
                                                                 }
                                                               })
-                self.present(deleteAlertController, animated: true, completion: nil)
+                self?.present(deleteAlertController, animated: true, completion: nil)
             })
 
             self.present(alertController, animated: true, completion: nil)

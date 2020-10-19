@@ -315,10 +315,10 @@ internal class NotebooksSelectionViewController: UIViewController {
             return
         }
         
-        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet).makeDeleteConfirmation(dataType: .notebook, deletionHandler: { _ in
+        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet).makeDeleteConfirmation(dataType: .notebook, deletionHandler: { [weak self] _ in
             let deleteAlertController = UIAlertController(title: "Delete Notebook confirmation".localized(),
                                                           message: "Warning".localized(),
-                                                          preferredStyle: .alert).makeDeleteConfirmation(dataType: .notebook, deletionHandler: { _ in
+                                                          preferredStyle: .alert).makeDeleteConfirmation(dataType: .notebook, deletionHandler: { [weak self] _ in
                                                             do {
                                                                 _ = try DataManager.shared().deleteNotebook(notebook)
                                                             } catch {
@@ -327,10 +327,10 @@ internal class NotebooksSelectionViewController: UIViewController {
                                                                     message: "The app could not delete the notebook".localized() + notebook.name,
                                                                     preferredStyle: .alert)
                                                                     .makeErrorMessage(with: "An error occurred while deleting this instance on the database".localized())
-                                                                self.present(alertController, animated: true, completion: nil)
+                                                                self?.present(alertController, animated: true, completion: nil)
                                                             }
                                                           })
-            self.present(deleteAlertController, animated: true, completion: nil)
+            self?.present(deleteAlertController, animated: true, completion: nil)
         })
         
         if UIDevice.current.userInterfaceIdiom == .pad {
