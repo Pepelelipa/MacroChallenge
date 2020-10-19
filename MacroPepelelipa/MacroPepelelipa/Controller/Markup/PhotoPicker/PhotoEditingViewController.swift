@@ -20,6 +20,14 @@ internal class PhotoEditingViewController: UIViewController {
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
+    private lazy var constraints: [NSLayoutConstraint] = {
+        [
+            editingImageView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
+            editingImageView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor),
+            editingImageView.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor),
+            editingImageView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor)
+        ]
+    }()
     
     // MARK: - Override functions
     
@@ -29,11 +37,6 @@ internal class PhotoEditingViewController: UIViewController {
     }
     
     override func viewDidLayoutSubviews() {
-        NSLayoutConstraint.activate([
-            editingImageView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
-            editingImageView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor),
-            editingImageView.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor),
-            editingImageView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor)
-        ])
+        NSLayoutConstraint.activate(constraints)
     }
 }
