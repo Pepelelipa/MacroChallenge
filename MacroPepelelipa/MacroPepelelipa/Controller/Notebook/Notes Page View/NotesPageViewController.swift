@@ -159,6 +159,20 @@ internal class NotesPageViewController: UIPageViewController,
             }
         }
     }
+
+    ///Tries to remove the presenting note, returns true if success, returns false if it was the only view controller being presented.
+    internal func removePresentingNote(note: NoteEntity) -> Bool {
+        if let notesIndex = self.notesViewControllers.firstIndex(where: { $0.note === note }) {
+            self.notesViewControllers.remove(at: notesIndex)
+            if self.notesViewControllers.isEmpty {
+                return false
+            } else {
+                self.updateNotes()
+                return true
+            }
+        }
+        return false
+    }
     
     // MARK: - IndexObserver functions
     
@@ -206,11 +220,7 @@ internal class NotesPageViewController: UIPageViewController,
                 do {
                     try DataManager.shared().deleteNote(note)
                     viewController.shouldSave = false
-                    if let notesIndex = self.notesViewControllers.firstIndex(of: viewController ),
-                       let otherViewController = self.notesViewControllers.first(where: { $0 !== viewController }) {
-                        self.notesViewControllers.remove(at: notesIndex)
-                        self.updateNotes()
-                    } else {
+                    if !self.removePresentingNote(note: note) {
                         self.navigationController?.popViewController(animated: true)
                     }
                 } catch {
