@@ -38,6 +38,10 @@ cyclomatic_complexity:
   warning: 10
   error: 20
   ignores_case_statements: false
+  
+type_body_lenght:
+    warning: 500
+    error: 600
 
 file_length:
   warning: 400
