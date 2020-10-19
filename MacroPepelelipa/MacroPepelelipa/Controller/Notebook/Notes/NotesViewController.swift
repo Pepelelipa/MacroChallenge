@@ -573,7 +573,7 @@ internal class NotesViewController: UIViewController,
                                                                     boxView.removeFromSuperview()
                                                                     self.imageBoxes.remove(boxView)
                                                                     self.cleanResizeHandles()
-                                                                    _ = try DataManager.shared().deleteImageBox(entity)
+                                                                    try DataManager.shared().deleteImageBox(entity)
                                                                 } catch {
                                                                     let alertController = UIAlertController(
                                                                         title: "Could not delete this Image Box".localized(),
@@ -606,7 +606,7 @@ internal class NotesViewController: UIViewController,
                                                                     boxView.removeFromSuperview()
                                                                     self.textBoxes.remove(boxView)
                                                                     self.cleanResizeHandles()
-                                                                    _ = try DataManager.shared().deleteTextBox(entity)
+                                                                    try DataManager.shared().deleteTextBox(entity)
                                                                 } catch {
                                                                     let alertController = UIAlertController(
                                                                         title: "Could not delete this Text Box".localized(),
