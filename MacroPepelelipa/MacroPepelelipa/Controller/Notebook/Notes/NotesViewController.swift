@@ -70,6 +70,9 @@ internal class NotesViewController: UIViewController,
                 NSLog("No error nor string found")
                 return
             }
+            
+            self?.textView.attributedText = attributedText
+            
             if self?.textView.text == "",
                let textView = self?.textView {
                 self?.textViewDelegate.parsePlaceholder(on: textView)
