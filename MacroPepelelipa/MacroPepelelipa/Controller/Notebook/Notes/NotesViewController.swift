@@ -99,6 +99,20 @@ internal class NotesViewController: UIViewController,
         
         return container
     }()
+
+    private lazy var constraints: [NSLayoutConstraint] = {
+        [
+            textView.topAnchor.constraint(equalTo: self.textField.bottomAnchor, constant: 10),
+            textView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
+            textView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
+            textView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+
+            textField.heightAnchor.constraint(equalToConstant: 30),
+            textField.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
+            textField.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
+            textField.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor, constant: -20)
+        ]
+    }()
     
     // MARK: - Initializers
     
@@ -171,20 +185,7 @@ internal class NotesViewController: UIViewController,
     }
     
     override func viewDidLayoutSubviews() {
-
-        NSLayoutConstraint.activate([
-            textView.topAnchor.constraint(equalTo: self.textField.bottomAnchor, constant: 10),
-            textView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
-            textView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
-            textView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
-        ])
-
-        NSLayoutConstraint.activate([
-            textField.heightAnchor.constraint(equalToConstant: 30),
-            textField.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
-            textField.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
-            textField.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor, constant: -20)
-        ])
+        NSLayoutConstraint.activate(constraints)
     }
     
     // MARK: - Functions

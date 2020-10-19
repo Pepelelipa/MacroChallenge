@@ -50,6 +50,22 @@ internal class AddWorkspaceViewController: PopupContainerViewController, AddWork
 
         return btnConfirm
     }()
+
+    private lazy var constraints: [NSLayoutConstraint] = {
+        [
+            txtName.topAnchor.constraint(equalTo: view.topAnchor, constant: 20),
+            txtName.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 30),
+            txtName.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -30),
+            txtName.heightAnchor.constraint(equalToConstant: 40),
+
+            btnConfirm.bottomAnchor.constraint(lessThanOrEqualTo: view.bottomAnchor, constant: -20),
+            btnConfirm.topAnchor.constraint(greaterThanOrEqualTo: txtName.bottomAnchor, constant: 30),
+            btnConfirm.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            btnConfirm.heightAnchor.constraint(equalToConstant: 45),
+            btnConfirm.leadingAnchor.constraint(greaterThanOrEqualTo: view.leadingAnchor, constant: 40),
+            btnConfirm.trailingAnchor.constraint(lessThanOrEqualTo: view.trailingAnchor, constant: -40)
+        ]
+    }()
     
     // MARK: - Override functions
     
@@ -90,20 +106,7 @@ internal class AddWorkspaceViewController: PopupContainerViewController, AddWork
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        NSLayoutConstraint.activate([
-            txtName.topAnchor.constraint(equalTo: view.topAnchor, constant: 20),
-            txtName.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 30),
-            txtName.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -30),
-            txtName.heightAnchor.constraint(equalToConstant: 40)
-        ])
-        NSLayoutConstraint.activate([
-            btnConfirm.bottomAnchor.constraint(lessThanOrEqualTo: view.bottomAnchor, constant: -20),
-            btnConfirm.topAnchor.constraint(greaterThanOrEqualTo: txtName.bottomAnchor, constant: 30),
-            btnConfirm.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            btnConfirm.heightAnchor.constraint(equalToConstant: 45),
-            btnConfirm.leadingAnchor.constraint(greaterThanOrEqualTo: view.leadingAnchor, constant: 40),
-            btnConfirm.trailingAnchor.constraint(lessThanOrEqualTo: view.trailingAnchor, constant: -40)
-        ])
+        NSLayoutConstraint.activate(constraints)
     }
     
     override func backgroundTap() {
