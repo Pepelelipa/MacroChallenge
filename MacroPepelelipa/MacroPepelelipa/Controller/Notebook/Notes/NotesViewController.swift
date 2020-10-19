@@ -206,6 +206,9 @@ internal class NotesViewController: UIViewController,
         resizeHandles[0].setNeedsDisplay()
     }
     
+    /**
+     Delete all resize handles
+     */
     private func cleanResizeHandles() {
         if !resizeHandles.isEmpty {
             resizeHandles.forEach { (resizeHandle) in
