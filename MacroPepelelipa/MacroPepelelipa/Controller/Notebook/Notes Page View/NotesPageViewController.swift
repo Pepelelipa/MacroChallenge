@@ -191,7 +191,8 @@ internal class NotesPageViewController: UIPageViewController,
     }
     
     @IBAction private func presentMoreActions() {
-        guard let note = (viewControllers?.first as? NotesViewController)?.note else {
+        guard let viewController = viewControllers?.first as? NotesViewController,
+            let note = viewController.note else {
             return
         }
         let alertControlller = UIAlertController(
@@ -204,6 +205,14 @@ internal class NotesPageViewController: UIPageViewController,
                 preferredStyle: .alert).makeDeleteConfirmation(dataType: .note) { _ in
                 do {
                     try DataManager.shared().deleteNote(note)
+                    viewController.shouldSave = false
+                    if let notesIndex = self.notesViewControllers.firstIndex(of: viewController ),
+                       let otherViewController = self.notesViewControllers.first(where: { $0 !== viewController }) {
+                        self.notesViewControllers.remove(at: notesIndex)
+                        self.updateNotes()
+                    } else {
+                        self.navigationController?.popViewController(animated: true)
+                    }
                 } catch {
                     let alertController = UIAlertController(
                         title: "Could not delete this note".localized(),

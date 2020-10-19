@@ -59,7 +59,7 @@ internal class NotesPageViewControllerDataSource: NSObject,
     }
     
     internal func entityShouldDelete(_ value: ObservableEntity) {
-        if let note = value as? WorkspaceEntity,
+        if let note = value as? NoteEntity,
            let index = self.notesEntities?.firstIndex(where: { $0 === note }) {
             note.removeObserver(self)
             self.notesEntities?.remove(at: index)

@@ -17,6 +17,8 @@ internal class NotesViewController: UIViewController,
                                     PHPickerViewControllerDelegate {
     
     // MARK: - Variables and Constants
+
+    internal var shouldSave: Bool = true
     
     private var resizeHandles = [ResizeHandleView]()
     private var initialCenter = CGPoint()
@@ -179,7 +181,9 @@ internal class NotesViewController: UIViewController,
     }
 
     override func viewWillDisappear(_ animated: Bool) {
-        saveNote()
+        if shouldSave {
+            saveNote()
+        }
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.largeTitleDisplayMode = .automatic
     }
