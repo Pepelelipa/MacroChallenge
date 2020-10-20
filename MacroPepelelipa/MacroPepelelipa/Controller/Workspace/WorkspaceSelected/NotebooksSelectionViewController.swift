@@ -271,12 +271,8 @@ internal class NotebooksSelectionViewController: UIViewController {
      - Parameter sholdBeHidden: A boolean indicating if the view shold or not be hidden. It is false by default.
      */
     internal func switchEmptyScreenView(shouldBeHidden: Bool = false) {
-        var alpha: CGFloat = 0
-        
-        if emptyScreenView.isHidden && !shouldBeHidden {
-            emptyScreenView.isHidden.toggle()
-            alpha = 1.0
-        }
+        let alpha: CGFloat = shouldBeHidden ? 0 : 1
+        emptyScreenView.isHidden = shouldBeHidden
         
         UIView.animate(withDuration: 0.5, animations: {
             self.emptyScreenView.alpha = alpha
