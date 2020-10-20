@@ -88,13 +88,10 @@ internal class NotesViewController: UIViewController,
             }
             
             self?.textView.attributedText = attributedText
-            
-            if self?.textView.text == "",
-               let textView = self?.textView {
-                self?.textViewDelegate.parsePlaceholder(on: textView)
-            }
         }
-        self.textViewDelegate.parsePlaceholder(on: self.textView)
+        if self.note?.text == nil || self.note?.text.string.replacingOccurrences(of: " ", with: "") == "" {
+            self.textViewDelegate.parsePlaceholder(on: self.textView)
+        }
     }
     
     internal lazy var markupConfig: MarkupBarConfiguration = {
@@ -496,9 +493,9 @@ internal class NotesViewController: UIViewController,
             textBoxEntity.height = 40
             textBoxEntity.width = 140
             if let transcriptedText = transcription {
-                textBoxEntity.text = NSAttributedString(string: transcriptedText)
+                textBoxEntity.text = transcriptedText.toNoteDefaulText()
             } else {
-                textBoxEntity.text = NSAttributedString(string: "Text".localized())
+                textBoxEntity.text = "Text".localized().toNoteDefaulText()
             }
             addTextBox(with: textBoxEntity)
         } catch {

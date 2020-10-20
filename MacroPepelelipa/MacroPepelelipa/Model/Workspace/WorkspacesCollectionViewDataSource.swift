@@ -103,5 +103,12 @@ internal class WorkspacesCollectionViewDataSource: NSObject,
             workspaces.remove(at: index)
             self.collectionView?().deleteItems(at: [IndexPath(item: index, section: 0)])
         }
+
+        guard let viewController = viewController as? WorkspaceSelectionViewController else {
+            return
+        }
+        if workspaces.isEmpty {
+            viewController.switchEmptyScreenView()
+        }
     }
 }

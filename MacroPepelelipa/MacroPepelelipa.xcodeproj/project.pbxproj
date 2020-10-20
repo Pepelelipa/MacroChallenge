@@ -76,6 +76,7 @@
 		022D60242519559D00001D5B /* MarkdownStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 022D60092519559D00001D5B /* MarkdownStyle.swift */; };
 		022D6028251955B500001D5B /* MarkupTextViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 022D6026251955B500001D5B /* MarkupTextViewDelegate.swift */; };
 		022D602D251955D300001D5B /* MarkupTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 022D602C251955D300001D5B /* MarkupTextView.swift */; };
+		022E7671253F817900AD967E /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 022E7670253F817900AD967E /* String.swift */; };
 		0230E078253A3CED009C5A76 /* UIDeviceOrientation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0230E077253A3CED009C5A76 /* UIDeviceOrientation.swift */; };
 		023886022523CA2700F807E9 /* WorkspaceCellNotebookCollectionViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 023886012523CA2700F807E9 /* WorkspaceCellNotebookCollectionViewDataSource.swift */; };
 		023886062523CAEC00F807E9 /* WorkspaceCellNotebookCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 023886052523CAEC00F807E9 /* WorkspaceCellNotebookCollectionViewCell.swift */; };
@@ -271,6 +272,7 @@
 		022D60092519559D00001D5B /* MarkdownStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarkdownStyle.swift; sourceTree = "<group>"; };
 		022D6026251955B500001D5B /* MarkupTextViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarkupTextViewDelegate.swift; sourceTree = "<group>"; };
 		022D602C251955D300001D5B /* MarkupTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarkupTextView.swift; sourceTree = "<group>"; };
+		022E7670253F817900AD967E /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		0230E077253A3CED009C5A76 /* UIDeviceOrientation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIDeviceOrientation.swift; sourceTree = "<group>"; };
 		023886012523CA2700F807E9 /* WorkspaceCellNotebookCollectionViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkspaceCellNotebookCollectionViewDataSource.swift; sourceTree = "<group>"; };
 		023886052523CAEC00F807E9 /* WorkspaceCellNotebookCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkspaceCellNotebookCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -886,6 +888,7 @@
 				0230E077253A3CED009C5A76 /* UIDeviceOrientation.swift */,
 				020FFA37252502E30095266D /* Colors.swift */,
 				022D5FDC2519559D00001D5B /* Fonts.swift */,
+				022E7670253F817900AD967E /* String.swift */,
 				1E9EF4A725225B7A00CC623B /* Notes */,
 				022D5FD92519559D00001D5B /* MarkupKit */,
 				020E22212513F0D400A93EAB /* Strings */,
@@ -1342,6 +1345,7 @@
 				022D600A2519559D00001D5B /* Fonts.swift in Sources */,
 				D9F4A9AA25277A6B00BFDC19 /* ResizeHandleView.swift in Sources */,
 				A792F03A25279E8400AB1766 /* NotebookIndexTableViewDelegate.swift in Sources */,
+				022E7671253F817900AD967E /* String.swift in Sources */,
 				022D600E2519559D00001D5B /* Typealias+UIKit.swift in Sources */,
 				0230E078253A3CED009C5A76 /* UIDeviceOrientation.swift in Sources */,
 				D9D87538251BB26500B842C8 /* MarkupToolBar.swift in Sources */,

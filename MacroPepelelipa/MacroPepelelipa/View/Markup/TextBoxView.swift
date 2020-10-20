@@ -45,7 +45,6 @@ internal class TextBoxView: UIView, BoxView {
                 
                 self.markupTextView.attributedText = attributedText
             }
-            delegate.parsePlaceholder(on: self.markupTextView)
         }
         return delegate
     }()
