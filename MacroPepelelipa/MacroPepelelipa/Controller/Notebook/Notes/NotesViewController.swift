@@ -173,7 +173,7 @@ internal class NotesViewController: UIViewController,
         for imageBox in note?.images ?? [] {
             addImageBox(with: imageBox)
         }
-        uptadeExclusionPaths()
+        updateExclusionPaths()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -302,7 +302,7 @@ internal class NotesViewController: UIViewController,
         textBox.addGestureRecognizer(longPressGesture)
         self.textBoxes.insert(textBox)
         self.textView.addSubview(textBox)
-        uptadeExclusionPaths()
+        updateExclusionPaths()
     }
     
     ///Creates an Image Box
@@ -357,7 +357,7 @@ internal class NotesViewController: UIViewController,
             imageBox.addGestureRecognizer(longPressGesture)
             self.imageBoxes.insert(imageBox)
             self.textView.addSubview(imageBox)
-            uptadeExclusionPaths()
+            updateExclusionPaths()
         }
     }
     
@@ -519,7 +519,7 @@ internal class NotesViewController: UIViewController,
     
     // MARK: - Uptade exclusion path frames
     
-    private func uptadeExclusionPaths() {
+    private func updateExclusionPaths() {
         exclusionPaths.removeAll()
         
         imageBoxes.forEach { (imageBox) in
@@ -572,7 +572,7 @@ internal class NotesViewController: UIViewController,
                 boxView.center = initialCenter
             }
             if gestureRecognizer.state == .ended {
-                uptadeExclusionPaths()
+                updateExclusionPaths()
             }
         }
     }
@@ -593,7 +593,7 @@ internal class NotesViewController: UIViewController,
                                                                     boxView.removeFromSuperview()
                                                                     self?.imageBoxes.remove(boxView)
                                                                     self?.cleanResizeHandles()
-                                                                    self?.uptadeExclusionPaths()
+                                                                    self?.updateExclusionPaths()
                                                                     _ = try DataManager.shared().deleteImageBox(entity)
                                                                 } catch {
                                                                     let alertController = UIAlertController(
@@ -627,7 +627,7 @@ internal class NotesViewController: UIViewController,
                                                                     boxView.removeFromSuperview()
                                                                     self?.textBoxes.remove(boxView)
                                                                     self?.cleanResizeHandles()
-                                                                    self?.uptadeExclusionPaths()
+                                                                    self?.updateExclusionPaths()
                                                                     _ = try DataManager.shared().deleteTextBox(entity)
                                                                 } catch {
                                                                     let alertController = UIAlertController(

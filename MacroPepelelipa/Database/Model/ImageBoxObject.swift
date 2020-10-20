@@ -62,4 +62,11 @@ internal class ImageBoxObject: ImageBoxEntity {
     }
 
     internal let coreDataObject: ImageBox
+
+    internal func removeReferences() throws {
+        if let note = self.note,
+           let index = note.images.firstIndex(where: { $0 === self }) {
+            note.images.remove(at: index)
+        }
+    }
 }
