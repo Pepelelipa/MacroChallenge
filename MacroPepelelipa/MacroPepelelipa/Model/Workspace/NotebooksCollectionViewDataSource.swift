@@ -94,5 +94,12 @@ internal class NotebooksCollectionViewDataSource: NSObject,
             notebooks.remove(at: index)
             self.collectionView?().deleteItems(at: [IndexPath(item: index, section: 0)])
         }
+
+        guard let viewController = viewController as? NotebooksSelectionViewController else {
+            return
+        }
+        if notebooks.isEmpty {
+            viewController.switchEmptyScreenView()
+        }
     }
 }
