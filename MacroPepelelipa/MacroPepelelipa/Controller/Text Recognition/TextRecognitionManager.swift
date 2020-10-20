@@ -73,7 +73,7 @@ internal class TextRecognitionManager {
             var transcript: String = ""
             for observation in results {
                 transcript.append(observation.topCandidates(1)[0].string)
-                transcript.append(" ")
+                transcript.append("\n")
             }
             resultTextRecognition = transcript
         }
