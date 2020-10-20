@@ -6,11 +6,12 @@
   Copyright © 2020 Pedro Giuliano Farina. All rights reserved.
 */
 
-"Workspaces" = "Coleções";
 "Workspace" = "Coleção";
+"Workspaces" = "Coleções";
 "Subject" = "Matéria";
 "Lesson" = "Aula";
 "Notebook" = "Caderno";
+"Notebooks" = "Cadernos";
 "Note" = "Nota";
 "Start writing here" = "Não esquece de colocar o que tá acontecendo na sua aula, enquanto você tá jogando joguinho...";
 "Your Title" = "Vem aqui colocar o seu título!";
@@ -104,3 +105,16 @@
 "The app could not delete the text box" = "O app não foi capaz de deletar a caixa de texto";
 "Text Box" = "Caixa de texto";
 "Image Box" = "Caixa de imagem";
+"Your first workspace" = "Sua primeira coleção";
+"Your first notebook" = "Seu primeiro caderno";
+"Welcome Note" = "Nota de boas vindas";
+"Onboard intro" = "Caderno Roxo é um aplicativo desenvolvido para ser simples e eficiente, focado em estudantes que querem anotar durante suas aulas.\nAprender a usar o caderno roxo é super fácil! Vamos dar uma rápida olhada de como ele funciona.";
+"Workspace text" = "Assim que você abrir o aplicativo, serão vistas as suas coleções.\n\nPara criar uma coleção, clique no botão de + no canto direito superior da tela.\nPara deletar, simplemeste clique e segure na coleção até uma notifição aparecer. Para finalizar a ação é só confirmar.";
+"Notebook text" = "Em cada coleção, você pode possuir diversos  Cadernos, que por sua vez possuem diversas notas.\n\nPara criar um novo caderno, assim como na coleção, clique no botão de + no canto direito superior.\nCaso queria deletar um caderno, simplemeste clique e segure na coleção até uma notifição aparecer. Para finalizar a ação é só confirmar.";
+"Note Taking" = "Anotando";
+"Writing" = "Escrevendo";
+"Writing text" = "Para começar sua anotação, clique em qualquer lugar da tela. Caso você já tenha familiaridade com editores de Markdown, aqui será possível utilizar atalhos familiares. Caso seja sua primeira experiência com esse tipo de editor, não precisa se preocupar. A parte da direita da barra a cima do teclado, possui botões para cada uma das edições.";
+"Floating Boxes" = "Caixas Flutuantes";
+"Floating boxes text" = "Caso você queira criar uma caixa flutuante, na sua nota, apenas clique no botão de caixa ou caixa de imagem.\nSe, por algum acaso, desejar deletar a caixa. Clique e segure nela até uma notificação aparecer, para finalizar a ação é só confirmar.";
+"Markdown" = "Markdown";
+"Markdown text" = "Caderno Roxo, foi desenvolvido para ser um aplicativo que preza pela eficiência. Desta forma, é possível utilizar atalhos do editor de Markdown enquanto faz anotações. É uma maneira rápida e poderosa de editar textos enquanto digita. Nosso editor de Markdown possuí diversas ferramentas para aprimorar seu texto, incluindo **Negrito**, *Italico* e ::Destacado::. Caso você deseje adicionar listas, basta escolher entre numérica ou de pontos usando 1. ou * respectivamente.";

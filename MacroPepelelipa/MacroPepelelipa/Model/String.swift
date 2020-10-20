@@ -11,11 +11,25 @@ import UIKit
 
 internal extension String {
     func toNoteDefaulText() -> NSAttributedString {
-        let mutableString = NSMutableAttributedString(string: self)
         if let font = UIFont.merriweather {
-        mutableString.addAttribute(.font, value: font, range: NSRange(location: 0, length: self.count))
+            return toFontWithDefaultColor(font: font)
+        } else {
+            return NSAttributedString(string: self)
         }
-        mutableString.addAttribute(.foregroundColor, value: MarkdownParser.defaultColor, range: NSRange(location: 0, length: self.count))
+    }
+    func toNoteH2Text() -> NSAttributedString {
+        return toFontWithDefaultColor(font: MarkdownHeader.secondHeaderFont)
+    }
+    func toNoteH3Text() -> NSAttributedString {
+        return toFontWithDefaultColor(font: MarkdownHeader.thirdHeaderFont)
+    }
+
+    private func toFontWithDefaultColor(font: Any) -> NSAttributedString {
+        let range = NSRange(location: 0, length: self.count)
+        let mutableString = NSMutableAttributedString(string: self)
+
+        mutableString.addAttribute(.font, value: font, range: range)
+        mutableString.addAttribute(.foregroundColor, value: MarkdownParser.defaultColor, range: range)
 
         return mutableString
     }
