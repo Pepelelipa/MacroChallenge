@@ -320,7 +320,7 @@ internal class NotebooksSelectionViewController: UIViewController {
                                                           message: "Warning".localized(),
                                                           preferredStyle: .alert).makeDeleteConfirmation(dataType: .notebook, deletionHandler: { [weak self] _ in
                                                             do {
-                                                                _ = try DataManager.shared().deleteNotebook(notebook)
+                                                                try DataManager.shared().deleteNotebook(notebook)
                                                             } catch {
                                                                 let alertController = UIAlertController(
                                                                     title: "Could not delete this notebook".localized(),

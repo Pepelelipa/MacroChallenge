@@ -286,7 +286,7 @@ internal class WorkspaceSelectionViewController: UIViewController {
                                                           message: "Warning".localized(),
                                                           preferredStyle: .alert).makeDeleteConfirmation(dataType: .workspace, deletionHandler: { [weak self] _ in
                                                             do {
-                                                                _ = try DataManager.shared().deleteWorkspace(workspace)
+                                                                try DataManager.shared().deleteWorkspace(workspace)
                                                             } catch {
                                                                 let alertController = UIAlertController(
                                                                     title: "Could not delete this workspace".localized(),
