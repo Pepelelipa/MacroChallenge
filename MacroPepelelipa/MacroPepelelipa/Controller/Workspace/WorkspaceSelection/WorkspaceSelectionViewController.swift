@@ -102,6 +102,15 @@ internal class WorkspaceSelectionViewController: UIViewController {
             .font: MarkdownHeader.thirdHeaderFont,
             .foregroundColor: UIColor.titleColor ?? .black
         ]
+
+        let time = UserDefaults.standard.integer(forKey: "numberOfTimes")
+        if time == 0 && collectionDataSource.isEmpty {
+            createOnboarding()
+        } else if time == 8 {
+            //Ask for review
+        } else {
+//            UserDefaults.standard.setValue(time + 1, forKey: "numberOfTimes")
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -130,6 +139,19 @@ internal class WorkspaceSelectionViewController: UIViewController {
     }
     
     // MARK: - Functions
+
+    private func createOnboarding() {
+        do {
+            let workspace = try DataManager.shared().createWorkspace(named: "Your first workspace".localized())
+            let notebook = try DataManager.shared().createNotebook(in: workspace, named: "Your first notebook".localized(), colorName: "nb0")
+            let note = try DataManager.shared().createNote(in: notebook)
+            note.title = NSAttributedString(string: "Welcome Note".localized())
+            note.text = NSAttributedString(string: "# Teste\n")
+            try note.save()
+        } catch {
+            fatalError("Ops")
+        }
+    }
     
     private func invalidateLayout() {
         collectionView.collectionViewLayout.invalidateLayout()

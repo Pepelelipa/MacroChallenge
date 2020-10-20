@@ -14,6 +14,10 @@ internal class WorkspacesCollectionViewDataSource: NSObject,
                                                    EntityObserver {
     
     // MARK: - Variables and Constants
+
+    internal var isEmpty: Bool {
+        return workspaces.isEmpty
+    }
     
     private let collectionView: (() -> UICollectionView)?
     private weak var viewController: UIViewController?
