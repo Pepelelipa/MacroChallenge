@@ -223,14 +223,19 @@ internal class TextEditingContainerViewController: UIViewController,
         guard let noteController = centerViewController?.viewControllers?.first as? NotesViewController else {
             return
         }
+        
+        #if !targetEnvironment(macCatalyst)
+        
         var config = PHPickerConfiguration()
         config.filter = .images
 
         let picker = PHPickerViewController(configuration: config)
 
-        picker.delegate = noteController
+        picker.delegate = noteController.photoPickerDelegate
 
         present(picker, animated: true, completion: nil)
+        
+        #endif
     }
 
     internal func changeTextViewInput(isCustom: Bool) {
