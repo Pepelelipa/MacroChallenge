@@ -178,6 +178,7 @@ public class DataManager {
         }
 
         try coreDataController.deleteTextBox(textBoxObject.coreDataObject)
+        try textBoxObject.removeReferences()
     }
 
     // MARK: ImageBox
@@ -208,6 +209,7 @@ public class DataManager {
         _ = try? FileHelper.deleteImage(fileName: imageBox.imagePath)
 
         try coreDataController.deleteImageBox(imageBoxObject.coreDataObject)
+        try imageBoxObject.removeReferences()
     }
 
     // MARK: Singleton Basic Properties

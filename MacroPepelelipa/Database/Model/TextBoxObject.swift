@@ -62,4 +62,11 @@ internal class TextBoxObject: TextBoxEntity {
     }
 
     internal let coreDataObject: TextBox
+
+    internal func removeReferences() throws {
+        if let note = self.note,
+           let index = note.textBoxes.firstIndex(where: { $0 === self }) {
+            note.textBoxes.remove(at: index)
+        }
+    }
 }
