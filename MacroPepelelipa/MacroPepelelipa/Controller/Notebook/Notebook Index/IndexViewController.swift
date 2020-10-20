@@ -132,7 +132,7 @@ internal class NotebookIndexViewController: UIViewController {
         
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet).makeDeleteConfirmation(dataType: .notebook, deletionHandler: { _ in
             do {
-                _ = try DataManager.shared().deleteNotebook(notebook)
+                try DataManager.shared().deleteNotebook(notebook)
             } catch {
                 let alertController = UIAlertController(
                     title: "Could not delete this notebook".localized(),

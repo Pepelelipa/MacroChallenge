@@ -86,7 +86,7 @@ internal class TextEditingContainerViewController: UIViewController,
             navigationController?.popViewController(animated: true)
         }
         
-        navigationItem.rightBarButtonItems = [addNewNoteButton, notebookIndexButton]
+        navigationItem.rightBarButtonItems = [addNewNoteButton, moreActionsButton, notebookIndexButton]
         navigationItem.largeTitleDisplayMode = .never
         navigationItem.titleView = markupNavigationView
         navigationItem.titleView?.backgroundColor = .clear
@@ -255,7 +255,39 @@ internal class TextEditingContainerViewController: UIViewController,
     }
     
     @IBAction private func presentMoreActions() {
-        // TODO: present more actions
+        guard let pageViewController = centerViewController,
+              let viewController = pageViewController.viewControllers?.first as? NotesViewController,
+              let note = viewController.note else {
+            return
+        }
+        let alertControlller = UIAlertController(
+            title: "Delete Note confirmation".localized(),
+            message: "Warning".localized(),
+            preferredStyle: .actionSheet).makeDeleteConfirmation(dataType: .note) { _ in
+                let deleteAlertController = UIAlertController(
+                    title: "Delete note confirmation".localized(),
+                    message: "Warning".localized(),
+                    preferredStyle: .alert).makeDeleteConfirmation(dataType: .note) { _ in
+                        do {
+                            try DataManager.shared().deleteNote(note)
+                            viewController.shouldSave = false
+                            if !pageViewController.removePresentingNote(note: note) {
+                                self.navigationController?.popViewController(animated: true)
+                            }
+                        } catch {
+                            let alertController = UIAlertController(
+                                title: "Could not delete this note".localized(),
+                                message: "The app could not delete the note".localized() + note.title.string,
+                                preferredStyle: .alert)
+                                .makeErrorMessage(with: "An error occurred while deleting this instance on the database".localized())
+                            self.present(alertController, animated: true, completion: nil)
+                        }
+                }
+                self.present(deleteAlertController, animated: true, completion: nil)
+        }
+        alertControlller.modalPresentationStyle = .popover
+        alertControlller.popoverPresentationController?.barButtonItem = moreActionsButton
+        self.present(alertControlller, animated: true, completion: nil)
     }
 
     ///This method checks if the notebook index is already appearing on screen or not. If it isn't appearing on screen, instaciates NotebookIndexViewController and peform an animation to show it. If it is appearing on screen, peform an animation to hide it.

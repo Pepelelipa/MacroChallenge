@@ -17,6 +17,8 @@ internal class NotesViewController: UIViewController,
                                     PHPickerViewControllerDelegate {
     
     // MARK: - Variables and Constants
+
+    internal var shouldSave: Bool = true
     
     private var resizeHandles = [ResizeHandleView]()
     private var initialCenter = CGPoint()
@@ -183,7 +185,9 @@ internal class NotesViewController: UIViewController,
     }
 
     override func viewWillDisappear(_ animated: Bool) {
-        saveNote()
+        if shouldSave {
+            saveNote()
+        }
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.largeTitleDisplayMode = .automatic
         workItem.cancel()
@@ -572,7 +576,7 @@ internal class NotesViewController: UIViewController,
                                                                     boxView.removeFromSuperview()
                                                                     self.imageBoxes.remove(boxView)
                                                                     self.cleanResizeHandles()
-                                                                    _ = try DataManager.shared().deleteImageBox(entity)
+                                                                    try DataManager.shared().deleteImageBox(entity)
                                                                 } catch {
                                                                     let alertController = UIAlertController(
                                                                         title: "Could not delete this Image Box".localized(),
@@ -605,7 +609,7 @@ internal class NotesViewController: UIViewController,
                                                                     boxView.removeFromSuperview()
                                                                     self.textBoxes.remove(boxView)
                                                                     self.cleanResizeHandles()
-                                                                    _ = try DataManager.shared().deleteTextBox(entity)
+                                                                    try DataManager.shared().deleteTextBox(entity)
                                                                 } catch {
                                                                     let alertController = UIAlertController(
                                                                         title: "Could not delete this Text Box".localized(),
