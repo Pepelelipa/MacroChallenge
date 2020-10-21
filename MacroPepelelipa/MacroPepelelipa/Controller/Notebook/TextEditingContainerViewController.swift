@@ -18,6 +18,7 @@ internal class TextEditingContainerViewController: UIViewController,
     // MARK: - Variables and Constants
     
     private var movement: CGFloat?
+    private var isShowingIndex: Bool = false
     private var centerViewController: NotesPageViewController?
     private weak var rightViewController: NotebookIndexViewController?
     
@@ -65,9 +66,17 @@ internal class TextEditingContainerViewController: UIViewController,
     private lazy var constraints: [NSLayoutConstraint] = {
         if let centerViewController = centerViewController {
             centerViewController.view.translatesAutoresizingMaskIntoConstraints = false
+            
+            var trailing: NSLayoutAnchor = self.view.trailingAnchor
+            
+//            if isShowingIndex,
+//               let rightViewController = self.rightViewController {
+//                trailing = rightViewController.view.leadingAnchor
+//            }
+            
             var constraints: [NSLayoutConstraint] = [
                 centerViewController.view.topAnchor.constraint(equalTo: self.view.topAnchor),
-                centerViewController.view.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
+                centerViewController.view.trailingAnchor.constraint(equalTo: trailing),
                 centerViewController.view.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
                 centerViewController.view.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
             ]
@@ -172,12 +181,11 @@ internal class TextEditingContainerViewController: UIViewController,
         self.movement = view.frame.width * 0.4
 
         UIView.animate(withDuration: 0.5) {
-            for child in self.view.subviews {
-                child.frame.origin.x -= self.view.frame.width * 0.4
-            }
+            rightView.frame.origin.x -= self.view.frame.width * 0.4
         }
 
         self.rightViewController = rightViewController
+        isShowingIndex = true
     }
     
     /**
@@ -186,9 +194,7 @@ internal class TextEditingContainerViewController: UIViewController,
      */
     private func hideIndex(_ rightViewController: NotebookIndexViewController) {
         UIView.animate(withDuration: 0.5) {
-            for child in self.view.subviews {
-                child.frame.origin.x += self.movement ?? rightViewController.view.frame.width
-            }
+            rightViewController.view.frame.origin.x += self.view.frame.width * 0.4
         } completion: { _ in
             rightViewController.willMove(toParent: nil)
             rightViewController.removeFromParent()
@@ -197,6 +203,7 @@ internal class TextEditingContainerViewController: UIViewController,
         }
 
         self.rightViewController = nil
+        isShowingIndex = false
     }
     
     /**
@@ -249,7 +256,9 @@ internal class TextEditingContainerViewController: UIViewController,
             
             centerViewController.setNotesViewControllers(for: NotesViewController(note: note))
             
-            hideIndex(rightViewController)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) { 
+                self.hideIndex(rightViewController)
+            }
         }
     }
     
