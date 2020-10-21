@@ -13,8 +13,7 @@ import PhotosUI
 
 internal class NotesViewController: UIViewController, 
                                     TextEditingDelegateObserver,
-                                    MarkupToolBarObserver,
-                                    PHPickerViewControllerDelegate {
+                                    MarkupToolBarObserver {
     
     // MARK: - Variables and Constants
 
@@ -60,6 +59,9 @@ internal class NotesViewController: UIViewController,
             textView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
             textView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
             textView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+//            textView.widthAnchor.constraint(equalToConstant: view.frame.width - 40),
+//            textView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+//            textView.heightAnchor.constraint(equalToConstant: 1000),
 
             textField.heightAnchor.constraint(equalToConstant: 30),
             textField.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
@@ -117,6 +119,12 @@ internal class NotesViewController: UIViewController,
         return container
     }()
     
+    #if !targetEnvironment(macCatalyst)
+    internal lazy var photoPickerDelegate = PhotoPickerDelegate { (results) in
+        self.addMedia(from: results)
+    }
+    #endif
+    
     // MARK: - Initializers
     
     internal init(note: NoteEntity) {
@@ -152,6 +160,8 @@ internal class NotesViewController: UIViewController,
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // view.autoresizesSubviews = false
+        
         let tap = UITapGestureRecognizer(target: self, action: #selector(didTap))
         
         view.addGestureRecognizer(tap)
@@ -181,6 +191,7 @@ internal class NotesViewController: UIViewController,
     override func viewWillAppear(_ animated: Bool) {
         navigationItem.largeTitleDisplayMode = .never
         DispatchQueue.main.asyncAfter(deadline: .now(), execute: self.workItem)
+        NSLayoutConstraint.activate(constraints)
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -192,9 +203,9 @@ internal class NotesViewController: UIViewController,
         workItem.cancel()
     }
     
-    override func viewDidLayoutSubviews() {
-        NSLayoutConstraint.activate(constraints)
-    }
+//    override func viewDidLayoutSubviews() {
+//        NSLayoutConstraint.activate(constraints)
+//    }
     
     // MARK: - Functions
     
@@ -275,6 +286,57 @@ internal class NotesViewController: UIViewController,
         }
     }
     
+    #if !targetEnvironment(macCatalyst)
+    private func addMedia(from results: [PHPickerResult]) {
+        
+        if let itemProvider = results.first?.itemProvider, itemProvider.canLoadObject(ofClass: UIImage.self) {
+            itemProvider.loadObject(ofClass: UIImage.self) { [weak self] (loadedImage, error) in
+                if let error = error, let self = self {
+                    let alertController = UIAlertController(
+                        title: "Error presenting Photo Library".localized(),
+                        message: "The app could not present the Photo Library".localized(),
+                        preferredStyle: .alert)
+                        .makeErrorMessage(with: "The app could not load the native Image Picker Controller".localized())
+                    DispatchQueue.main.async {
+                        self.present(alertController, animated: true, completion: nil)
+                    }
+                    NSLog("Error requesting -> \(error)")
+                    return
+                }
+                
+                DispatchQueue.main.async {
+                    guard let image = loadedImage as? UIImage else {
+                        return
+                    }
+                    
+                    let alert = UIAlertController(title: "Image or text?".localized(), 
+                                                  message: "Import the media as an image or as a text transcription (Beta version)".localized(), 
+                                                  preferredStyle: .alert)
+                    
+                    let importImageAction = UIAlertAction(title: "Image".localized(), style: .default) { (_) in
+                        self?.createImageBox(image: image)
+                    }
+                    
+                    let importTextAction = UIAlertAction(title: "Text".localized(), style: .default) { (_) in
+                        
+                        let textRecognition = TextRecognitionManager()
+                        let transcription = textRecognition.imageRequest(toImage: image)
+                        
+                        self?.createTextBox(transcription: transcription)
+                    }
+                    
+                    alert.view.tintColor = .actionColor
+                    
+                    alert.addAction(importImageAction)
+                    alert.addAction(importTextAction)
+                    
+                    self?.present(alert, animated: true, completion: nil)
+                }
+            }
+        }
+    }
+    #endif
+    
     ///Uptade the resize handle position and the border of the text box.
     internal func uptadeResizeHandles() {
         resizeHandles.forEach { (handle) in
@@ -289,7 +351,7 @@ internal class NotesViewController: UIViewController,
     }
     
     ///Adds a Text Box
-    func addTextBox(with textBoxEntity: TextBoxEntity) {
+    internal func addTextBox(with textBoxEntity: TextBoxEntity) {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
         let doubleTapGesture = UITapGestureRecognizer(target: self, action: #selector(handleDoubleTap(_:)))
         doubleTapGesture.numberOfTapsRequired = 2
@@ -310,7 +372,7 @@ internal class NotesViewController: UIViewController,
     }
     
     ///Creates an Image Box
-    func createImageBox(image: UIImage?) {
+    internal func createImageBox(image: UIImage?) {
         do {
             guard let image = image,
                   let note = note else {
@@ -344,7 +406,7 @@ internal class NotesViewController: UIViewController,
     }
 
     ///Adds an Image Box
-    func addImageBox(with imageBoxEntity: ImageBoxEntity) {
+    internal func addImageBox(with imageBoxEntity: ImageBoxEntity) {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
         let doubleTapGesture = UITapGestureRecognizer(target: self, action: #selector(handleDoubleTap(_:)))
         doubleTapGesture.numberOfTapsRequired = 2
@@ -455,66 +517,17 @@ internal class NotesViewController: UIViewController,
     
     ///Present the native Image Picker. There we instantiate a PHPickerViewController and set its delegate. Finally, there is a present from the view controller.
     internal func presentPicker() {
+        
+        #if !targetEnvironment(macCatalyst)
         var config = PHPickerConfiguration()
         config.filter = .images
                 
         let picker = PHPickerViewController(configuration: config)
         
-        picker.delegate = self
+        picker.delegate = photoPickerDelegate
 
-        present(picker, animated: true, completion: nil)   
-    }
-    
-    // MARK: - PHPickerViewControllerDelegate functions
-    
-    internal func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
-        picker.dismiss(animated: true)
-        
-        if let itemProvider = results.first?.itemProvider, itemProvider.canLoadObject(ofClass: UIImage.self) {
-            itemProvider.loadObject(ofClass: UIImage.self) { [weak self] (loadedImage, error) in
-                if let error = error, let self = self {
-                    let alertController = UIAlertController(
-                        title: "Error presenting Photo Library".localized(),
-                        message: "The app could not present the Photo Library".localized(),
-                        preferredStyle: .alert)
-                        .makeErrorMessage(with: "The app could not load the native Image Picker Controller".localized())
-                    DispatchQueue.main.async {
-                        self.present(alertController, animated: true, completion: nil)
-                    }
-                    NSLog("Error requesting -> \(error)")
-                    return
-                }
-                
-                DispatchQueue.main.async {
-                    guard let image = loadedImage as? UIImage else {
-                        return
-                    }
-                    
-                    let alert = UIAlertController(title: "Image or text?".localized(), 
-                                                  message: "Import the media as an image or as a text transcription (Beta version)".localized(), 
-                                                  preferredStyle: .alert)
-                    
-                    let importImageAction = UIAlertAction(title: "Image".localized(), style: .default) { (_) in
-                        self?.createImageBox(image: image)
-                    }
-                    
-                    let importTextAction = UIAlertAction(title: "Text".localized(), style: .default) { (_) in
-                        
-                        let textRecognition = TextRecognitionManager()
-                        let transcription = textRecognition.imageRequest(toImage: image)
-                        
-                        self?.createTextBox(transcription: transcription)
-                    }
-                    
-                    alert.view.tintColor = .actionColor
-                    
-                    alert.addAction(importImageAction)
-                    alert.addAction(importTextAction)
-                    
-                    self?.present(alert, animated: true, completion: nil)
-                }
-            }
-        }
+        present(picker, animated: true, completion: nil)
+        #endif
     }
     
     // MARK: - Uptade exclusion path frames
