@@ -67,16 +67,9 @@ internal class TextEditingContainerViewController: UIViewController,
         if let centerViewController = centerViewController {
             centerViewController.view.translatesAutoresizingMaskIntoConstraints = false
             
-            var trailing: NSLayoutAnchor = self.view.trailingAnchor
-            
-//            if isShowingIndex,
-//               let rightViewController = self.rightViewController {
-//                trailing = rightViewController.view.leadingAnchor
-//            }
-            
             var constraints: [NSLayoutConstraint] = [
                 centerViewController.view.topAnchor.constraint(equalTo: self.view.topAnchor),
-                centerViewController.view.trailingAnchor.constraint(equalTo: trailing),
+                centerViewController.view.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
                 centerViewController.view.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
                 centerViewController.view.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
             ]
@@ -124,24 +117,6 @@ internal class TextEditingContainerViewController: UIViewController,
     override func viewDidLayoutSubviews() {
         
         NSLayoutConstraint.activate(constraints)
-        
-//        if let rightViewController = rightViewController, 
-//           let centerViewController = centerViewController {
-//            centerViewController
-//        
-//        } else if let notebook = centerViewController?.notebook {
-//            showIndex(for: notebook)
-//        
-//        } else {
-//            // Present error alert
-//            let alertController = UIAlertController(
-//                title: "Error presenting Notebook Index".localized(),
-//                message: "The app could not present the Notebook Index".localized(),
-//                preferredStyle: .alert)
-//                .makeErrorMessage(with: "The app could not load the NotebookIndexViewController".localized())
-//            
-//            present(alertController, animated: true, completion: nil)
-//        }
     }
     
     // MARK: - Functions
