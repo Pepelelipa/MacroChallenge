@@ -8,6 +8,7 @@
 
 import UIKit
 import Database
+import StoreKit
 
 internal class WorkspaceSelectionViewController: UIViewController {
     
@@ -102,6 +103,17 @@ internal class WorkspaceSelectionViewController: UIViewController {
             .font: MarkdownHeader.thirdHeaderFont,
             .foregroundColor: UIColor.titleColor ?? .black
         ]
+
+        let time = UserDefaults.standard.integer(forKey: "numberOfTimes")
+        if time == 0 && collectionDataSource.isEmpty {
+            createOnboarding()
+        } else if time == 8 {
+            if let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
+                SKStoreReviewController.requestReview(in: scene)
+            }
+        } else {
+            UserDefaults.standard.setValue(time + 1, forKey: "numberOfTimes")
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -130,6 +142,39 @@ internal class WorkspaceSelectionViewController: UIViewController {
     }
     
     // MARK: - Functions
+
+    private func createOnboarding() {
+        do {
+            let workspace = try DataManager.shared().createWorkspace(named: "Your first workspace".localized())
+            let notebook = try DataManager.shared().createNotebook(in: workspace, named: "Your first notebook".localized(), colorName: "nb0")
+            let note = try DataManager.shared().createNote(in: notebook)
+            note.title = NSAttributedString(string: "Welcome Note".localized())
+            let parts: [NSAttributedString] = [
+                "Onboard intro".localized().toNoteDefaulText(),
+                "Workspaces".localized().toNoteH2Text(),
+                "Workspace text".localized().toNoteDefaulText(),
+                "Notebooks".localized().toNoteH2Text(),
+                "Notebook text".localized().toNoteDefaulText(),
+                "Note Taking".localized().toNoteH2Text(),
+                "Writing".localized().toNoteH3Text(),
+                "Writing text".localized().toNoteDefaulText(),
+                "Floating Boxes".localized().toNoteH3Text(),
+                "Floating boxes text".localized().toNoteDefaulText(),
+                "Markdown".localized().toNoteH3Text(),
+                "Markdown text".localized().toNoteDefaulText()
+            ]
+            let text = NSMutableAttributedString()
+            for part in parts {
+                text.append(part)
+                text.append(NSAttributedString(string: "\n"))
+                text.append(NSAttributedString(string: "\n"))
+            }
+            note.text = text
+            try note.save()
+        } catch {
+            fatalError("Trata o erro do onboarding amigos pfvr")
+        }
+    }
     
     private func invalidateLayout() {
         collectionView.collectionViewLayout.invalidateLayout()
