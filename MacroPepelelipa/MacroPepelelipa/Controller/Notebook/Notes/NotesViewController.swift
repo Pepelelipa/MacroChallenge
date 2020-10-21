@@ -59,6 +59,9 @@ internal class NotesViewController: UIViewController,
             textView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
             textView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
             textView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+//            textView.widthAnchor.constraint(equalToConstant: view.frame.width - 40),
+//            textView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+//            textView.heightAnchor.constraint(equalToConstant: 1000),
 
             textField.heightAnchor.constraint(equalToConstant: 30),
             textField.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
@@ -157,6 +160,8 @@ internal class NotesViewController: UIViewController,
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // view.autoresizesSubviews = false
+        
         let tap = UITapGestureRecognizer(target: self, action: #selector(didTap))
         
         view.addGestureRecognizer(tap)
@@ -186,6 +191,7 @@ internal class NotesViewController: UIViewController,
     override func viewWillAppear(_ animated: Bool) {
         navigationItem.largeTitleDisplayMode = .never
         DispatchQueue.main.asyncAfter(deadline: .now(), execute: self.workItem)
+        NSLayoutConstraint.activate(constraints)
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -197,9 +203,9 @@ internal class NotesViewController: UIViewController,
         workItem.cancel()
     }
     
-    override func viewDidLayoutSubviews() {
-        NSLayoutConstraint.activate(constraints)
-    }
+//    override func viewDidLayoutSubviews() {
+//        NSLayoutConstraint.activate(constraints)
+//    }
     
     // MARK: - Functions
     

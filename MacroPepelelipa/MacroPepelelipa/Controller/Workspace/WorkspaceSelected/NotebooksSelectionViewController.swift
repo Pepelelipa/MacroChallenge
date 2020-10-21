@@ -123,6 +123,8 @@ internal class NotebooksSelectionViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         navigationItem.largeTitleDisplayMode = .always
+        navigationController?.navigationBar.isTranslucent = true
+        navigationController?.navigationBar.backgroundColor = .clear
         self.navigationController?.navigationBar.prefersLargeTitles = true
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
             self.collectionView.collectionViewLayout.invalidateLayout()

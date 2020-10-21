@@ -17,10 +17,10 @@ internal class TextEditingContainerViewController: UIViewController,
     
     // MARK: - Variables and Constants
     
+    private var movement: CGFloat?
     private var centerViewController: NotesPageViewController?
     private weak var rightViewController: NotebookIndexViewController?
     
-    private var movement: CGFloat?
     internal var widthConstraint: NSLayoutConstraint?
     
     private lazy var addNewNoteButton: UIBarButtonItem = {
@@ -62,6 +62,20 @@ internal class TextEditingContainerViewController: UIViewController,
         return mrkView
     }()
     
+    private lazy var constraints: [NSLayoutConstraint] = {
+        if let centerViewController = centerViewController {
+            centerViewController.view.translatesAutoresizingMaskIntoConstraints = false
+            var constraints: [NSLayoutConstraint] = [
+                centerViewController.view.topAnchor.constraint(equalTo: self.view.topAnchor),
+                centerViewController.view.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
+                centerViewController.view.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+                centerViewController.view.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
+            ]
+            return constraints
+        }
+        return []
+    }()
+    
     // MARK: - Initializers
     
     internal init(centerViewController: NotesPageViewController) {
@@ -91,6 +105,34 @@ internal class TextEditingContainerViewController: UIViewController,
         navigationItem.titleView = markupNavigationView
         navigationItem.titleView?.backgroundColor = .clear
         view.backgroundColor = .rootColor
+        
+        #if targetEnvironment(macCatalyst)
+        navigationController?.navigationBar.isTranslucent = false
+        navigationController?.navigationBar.backgroundColor = .white
+        #endif
+    }
+    
+    override func viewDidLayoutSubviews() {
+        
+        NSLayoutConstraint.activate(constraints)
+        
+//        if let rightViewController = rightViewController, 
+//           let centerViewController = centerViewController {
+//            centerViewController
+//        
+//        } else if let notebook = centerViewController?.notebook {
+//            showIndex(for: notebook)
+//        
+//        } else {
+//            // Present error alert
+//            let alertController = UIAlertController(
+//                title: "Error presenting Notebook Index".localized(),
+//                message: "The app could not present the Notebook Index".localized(),
+//                preferredStyle: .alert)
+//                .makeErrorMessage(with: "The app could not load the NotebookIndexViewController".localized())
+//            
+//            present(alertController, animated: true, completion: nil)
+//        }
     }
     
     // MARK: - Functions
@@ -230,9 +272,7 @@ internal class TextEditingContainerViewController: UIViewController,
         config.filter = .images
 
         let picker = PHPickerViewController(configuration: config)
-
         picker.delegate = noteController.photoPickerDelegate
-
         present(picker, animated: true, completion: nil)
         
         #endif
