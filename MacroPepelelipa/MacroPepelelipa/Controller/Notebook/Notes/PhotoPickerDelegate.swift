@@ -27,7 +27,7 @@ internal class PhotoPickerDelegate: NSObject, PHPickerViewControllerDelegate {
     
     internal func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
         picker.dismiss(animated: true)
-        
+        didFinishPickingResults?(results)
     }
 }
 
