@@ -89,7 +89,8 @@ internal class NotesViewController: UIViewController,
             
             self?.textView.attributedText = attributedText
         }
-        if self.note?.text == nil || self.note?.text.string.replacingOccurrences(of: " ", with: "") == "" {
+        
+        if self.textView.textColor == .placeholderColor {
             self.textViewDelegate.parsePlaceholder(on: self.textView)
         }
     }
@@ -187,7 +188,7 @@ internal class NotesViewController: UIViewController,
 
     override func viewWillAppear(_ animated: Bool) {
         navigationItem.largeTitleDisplayMode = .never
-        DispatchQueue.main.asyncAfter(deadline: .now(), execute: self.workItem)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.01, execute: self.workItem)
         NSLayoutConstraint.activate(constraints)
     }
 
