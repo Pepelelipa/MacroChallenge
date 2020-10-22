@@ -69,7 +69,11 @@ internal class NotesViewController: UIViewController,
         ]
     }()
     
-    internal private(set) lazy var textView: MarkupTextView = MarkupTextView(frame: .zero, delegate: self.textViewDelegate)
+    internal private(set) lazy var textView: MarkupTextView = {
+        let  markupTextView = MarkupTextView(frame: .zero, delegate: self.textViewDelegate)
+        markupTextView.contentInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
+        return markupTextView
+    }()
     
     internal lazy var textViewDelegate: MarkupTextViewDelegate = {
         let delegate = MarkupTextViewDelegate()
