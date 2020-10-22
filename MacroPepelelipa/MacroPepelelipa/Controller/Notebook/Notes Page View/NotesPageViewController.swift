@@ -18,17 +18,17 @@ internal class NotesPageViewController: UIPageViewController,
     private var notesViewControllers: [NotesViewController] = []
     private weak var observer: NotesPageViewObserver?
     
-    private lazy var notesToolbar: NotesToolbar = {
-        let toolbar = NotesToolbar(frame: .zero)
-        toolbar.translatesAutoresizingMaskIntoConstraints = false
-        return toolbar
-    }()
-    
     internal private(set) var notes: [NoteEntity] = []
     internal private(set) var notebook: NotebookEntity?
     internal private(set) var index: Int = 0
     
     private lazy var noteDataSource = NotesPageViewControllerDataSource(notes: notes)
+    
+    private lazy var notesToolbar: NotesToolbar = {
+        let toolbar = NotesToolbar(frame: .zero)
+        toolbar.translatesAutoresizingMaskIntoConstraints = false
+        return toolbar
+    }()
     
     private lazy var noteDelegate = NotesPageViewControllerDelegate { [unowned self] (viewController) in 
         if let notesViewController = viewController as? NotesViewController {
@@ -99,6 +99,7 @@ internal class NotesPageViewController: UIPageViewController,
     
     // MARK: - Functions
     
+    ///This method configures que actions performed by the buttons at the notes toolbar 
     private func setupNotesToolbarActions() {
         
         notesToolbar.deleteNoteTriggered = {
@@ -126,6 +127,7 @@ internal class NotesPageViewController: UIPageViewController,
         }
     }
     
+    ///This method deletes the current note from the notebook 
     private func deleteNote() {
         guard let viewController = viewControllers?.first as? NotesViewController,
             let note = viewController.note else {
