@@ -174,7 +174,11 @@ internal class WorkspaceSelectionViewController: UIViewController {
             note.text = text
             try note.save()
         } catch {
-            fatalError("Trata o erro do onboarding amigos pfvr")
+            let alertController = UIAlertController(
+                title: "Unable to create onboarding".localized(),
+                message: "The app was unable to create an example workspace".localized(),
+                preferredStyle: .alert).makeErrorMessage(with: "Unable to create onboarding")
+            self.present(alertController, animated: true)
         }
     }
     
