@@ -109,7 +109,7 @@ internal class WorkspaceSelectionViewController: UIViewController {
             createOnboarding()
         } else if time == 8 {
             if let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
-                #if !targetEnvironment(macCatalyst)
+                #if !DEBUG && !targetEnvironment(macCatalyst)
                 SKStoreReviewController.requestReview(in: scene)
                 #endif
             }
