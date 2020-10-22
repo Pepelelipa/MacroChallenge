@@ -36,6 +36,8 @@ internal class NotesViewController: UIViewController,
     internal weak var note: NoteEntity?
     internal private(set) weak var notebook: NotebookEntity?
     
+    private lazy var textViewBottomConstraint = textView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20)
+    
     private lazy var textField: MarkupTextField = {
         let textField = MarkupTextField(frame: .zero, placeholder: "Your Title".localized(), paddingSpace: 4)
         textField.delegate = self.textFieldDelegate
@@ -52,19 +54,18 @@ internal class NotesViewController: UIViewController,
         let toolBar = MarkupToolBar(frame: .zero, configurations: markupConfig)
         return toolBar
     }()
-
-    private lazy var textViewBottomConstraint = textView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+    
     private lazy var constraints: [NSLayoutConstraint] = {
         [
-            textView.topAnchor.constraint(equalTo: self.textField.bottomAnchor, constant: 10),
-            textView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
-            textView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
-            textViewBottomConstraint,
-
-            textField.heightAnchor.constraint(equalToConstant: 30),
             textField.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
-            textField.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
-            textField.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor, constant: -20)
+            textField.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
+            textField.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
+            textField.heightAnchor.constraint(equalToConstant: 30),
+            
+            textView.topAnchor.constraint(equalTo: self.textField.bottomAnchor, constant: 20),
+            textView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            textView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            textViewBottomConstraint
         ]
     }()
     
@@ -217,10 +218,6 @@ internal class NotesViewController: UIViewController,
         navigationItem.largeTitleDisplayMode = .automatic
         workItem.cancel()
     }
-    
-//    override func viewDidLayoutSubviews() {
-//        NSLayoutConstraint.activate(constraints)
-//    }
     
     // MARK: - Functions
     

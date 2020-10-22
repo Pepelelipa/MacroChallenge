@@ -16,11 +16,17 @@ internal class NotesPageViewController: UIPageViewController,
     // MARK: - Variables and Constants
     
     private var notesViewControllers: [NotesViewController] = []
+    private weak var observer: NotesPageViewObserver?
+    
+    private lazy var notesToolbar: NotesToolbar = {
+        let toolbar = NotesToolbar(frame: CGRect(x: 100, y: 100, width: self.view.frame.width, height: 0))
+        toolbar.translatesAutoresizingMaskIntoConstraints = false
+        return toolbar
+    }()
     
     internal private(set) var notes: [NoteEntity] = []
     internal private(set) var notebook: NotebookEntity?
     internal private(set) var index: Int = 0
-    private weak var observer: NotesPageViewObserver?
     
     private lazy var noteDataSource = NotesPageViewControllerDataSource(notes: notes)
     
@@ -38,7 +44,7 @@ internal class NotesPageViewController: UIPageViewController,
     }()
     
     private lazy var moreActionsButton: UIBarButtonItem = {
-        let item = UIBarButtonItem(ofType: .moreActions, 
+        let item = UIBarButtonItem(ofType: .moreActions,
                                    target: self, 
                                    action: #selector(presentMoreActions))
         return item
@@ -50,21 +56,12 @@ internal class NotesPageViewController: UIPageViewController,
                                    action: #selector(presentNotebookIndex))
         return item
     }()
-    
-    private lazy var imageButton: UIButton = {
-        let button = UIButton(frame: .zero)
-        button.setImage(UIImage(named: "imageButton"), for: .normal)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        
-        button.addTarget(self, action: #selector(presentPicker), for: .touchUpInside)
-        
-        return button
-    }()
 
     private lazy var constraints: [NSLayoutConstraint] = {
         [
-            imageButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -150),
-            imageButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 10)
+            notesToolbar.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            notesToolbar.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            notesToolbar.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ]
     }()
     
@@ -101,7 +98,8 @@ internal class NotesPageViewController: UIPageViewController,
         self.dataSource = noteDataSource
         self.delegate = noteDelegate
         
-        view.addSubview(imageButton)
+        view.addSubview(notesToolbar)
+        
         view.backgroundColor = .rootColor
         
         navigationItem.largeTitleDisplayMode = .never
@@ -187,11 +185,11 @@ internal class NotesPageViewController: UIPageViewController,
     // MARK: - ImageButtonObserver functions
     
     internal func showImageButton() {
-        self.imageButton.isHidden = false
+        self.notesToolbar.isHidden = false
     }
     
     internal func hideImageButton() {
-        self.imageButton.isHidden = true
+        self.notesToolbar.isHidden = true
     }
     
     // MARK: - IBActions functions
