@@ -247,12 +247,22 @@ internal class MarkupTextView: UITextView {
     ///Deletes the range or the last character
     override func deleteBackward() {
         let mutableString = NSMutableAttributedString(attributedString: attributedText)
+        if mutableString.length == 0 {
+            return
+        }
 
-        let range = selectedRange.length == 0 ?
-        NSRange(location: mutableString.length - 1, length: 1) :
-        selectedRange
+        let location: Int
+        let range: NSRange
+        if selectedRange.length == 0 {
+            location = selectedRange.location
+            range = NSRange(location: selectedRange.location - 1, length: 1)
+        } else {
+            location = selectedRange.location + selectedRange.length
+            range = selectedRange
+        }
 
         mutableString.deleteCharacters(in: range)
         attributedText = mutableString
+        selectedRange.location = location - range.length
     }
 }
