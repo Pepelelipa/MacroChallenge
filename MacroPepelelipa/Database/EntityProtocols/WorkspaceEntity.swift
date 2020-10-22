@@ -9,4 +9,5 @@
 public protocol WorkspaceEntity: class, ObservableEntity {
     var name: String { get }
     var notebooks: [NotebookEntity] { get }
+    var isEnabled: Bool { get set }
 }

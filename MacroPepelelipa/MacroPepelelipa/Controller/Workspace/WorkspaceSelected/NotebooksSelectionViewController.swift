@@ -103,7 +103,11 @@ internal class NotebooksSelectionViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        navigationItem.rightBarButtonItem = btnAdd
+        if workspace?.isEnabled ?? false {
+            navigationItem.rightBarButtonItem = btnAdd
+            let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress(gesture:)))
+            self.collectionView.addGestureRecognizer(longPressGesture)
+        }
         navigationItem.title = workspace?.name
         navigationItem.backBarButtonItem?.setTitleTextAttributes([.font: MarkdownHeader.thirdHeaderFont], for: .application)
         
@@ -116,9 +120,6 @@ internal class NotebooksSelectionViewController: UIViewController {
         if UIDevice.current.userInterfaceIdiom != .pad {
             layoutTrait(traitCollection: UIScreen.main.traitCollection)
         }
-        
-        let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress(gesture:)))
-        self.collectionView.addGestureRecognizer(longPressGesture)
     }
     
     override func viewWillAppear(_ animated: Bool) {

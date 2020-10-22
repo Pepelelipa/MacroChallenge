@@ -14,6 +14,13 @@ internal class WorkspaceObject: WorkspaceEntity {
         }
     }
 
+    public var isEnabled: Bool {
+        didSet {
+            coreDataObject.isEnabled = isEnabled
+            notifyObservers()
+        }
+    }
+
     public internal(set) var notebooks: [NotebookEntity] = [] {
         didSet {
             notifyObservers()
@@ -27,6 +34,7 @@ internal class WorkspaceObject: WorkspaceEntity {
     internal init(from workspace: Workspace) {
         self.coreDataObject = workspace
         self.name = workspace.name ?? ""
+        self.isEnabled = workspace.isEnabled
 
         if let notebooks = coreDataObject.notebooks?.array as? [Notebook] {
             notebooks.forEach { (notebook) in
