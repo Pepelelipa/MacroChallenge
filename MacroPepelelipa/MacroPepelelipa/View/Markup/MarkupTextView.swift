@@ -61,6 +61,7 @@ internal class MarkupTextView: UITextView {
                 animator?.addBehavior(snap)
             }
         }
+        super.touchesMoved(touches, with: event)
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -75,6 +76,7 @@ internal class MarkupTextView: UITextView {
             }
             imageView = nil
         }
+        super.touchesEnded(touches, with: event)
     }
     
     // MARK: - Touch functions
@@ -240,5 +242,17 @@ internal class MarkupTextView: UITextView {
             return false
         }
         return delegate.checkBackground(on: self)
+    }
+
+    ///Deletes the range or the last character
+    override func deleteBackward() {
+        let mutableString = NSMutableAttributedString(attributedString: attributedText)
+
+        let range = selectedRange.length == 0 ?
+        NSRange(location: mutableString.length - 1, length: 1) :
+        selectedRange
+
+        mutableString.deleteCharacters(in: range)
+        attributedText = mutableString
     }
 }

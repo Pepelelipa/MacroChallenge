@@ -62,10 +62,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             return
         }
             
-        UIApplication.shared.setAlternateIconName(iconName, completionHandler: { (error) in
-                if let error = error {
-                    print("App icon failed to change due to \(error.localizedDescription)")
-            }
-        })
+        UIApplication.shared.setAlternateIconName(iconName)
     }
 }
