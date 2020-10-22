@@ -450,7 +450,7 @@ internal class NotesViewController: UIViewController,
     @objc func keyboardWillShow(_ notification: Notification) {
         if let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
             let height = keyboardFrame.cgRectValue.height
-            setTextViewConstant(to: -height - 30)
+            setTextViewConstant(to: -height)
         }
     }
     @objc func keyboardWillHide(_ notification: Notification) {
