@@ -52,13 +52,14 @@ internal class NotesViewController: UIViewController,
         let toolBar = MarkupToolBar(frame: .zero, configurations: markupConfig)
         return toolBar
     }()
-    
+
+    private lazy var textViewBottomConstraint = textView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
     private lazy var constraints: [NSLayoutConstraint] = {
         [
             textView.topAnchor.constraint(equalTo: self.textField.bottomAnchor, constant: 10),
             textView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
             textView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
-            textView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            textViewBottomConstraint,
 
             textField.heightAnchor.constraint(equalToConstant: 30),
             textField.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
@@ -190,6 +191,19 @@ internal class NotesViewController: UIViewController,
         navigationItem.largeTitleDisplayMode = .never
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.01, execute: self.workItem)
         NSLayoutConstraint.activate(constraints)
+
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(keyboardWillShow),
+            name: UIResponder.keyboardWillShowNotification,
+            object: nil
+        )
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(keyboardWillHide),
+            name: UIResponder.keyboardWillHideNotification,
+            object: nil
+        )
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -429,6 +443,23 @@ internal class NotesViewController: UIViewController,
     internal func updateResizeHandles() {
         resizeHandles.forEach { (resizeHandle) in
             resizeHandle.updatePosition()
+        }
+    }
+
+    ///Resizes the text view according to the keyboard
+    @objc func keyboardWillShow(_ notification: Notification) {
+        if let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
+            let height = keyboardFrame.cgRectValue.height
+            setTextViewConstant(to: -height)
+        }
+    }
+    @objc func keyboardWillHide(_ notification: Notification) {
+        setTextViewConstant(to: 0)
+    }
+    private func setTextViewConstant(to value: CGFloat) {
+        textViewBottomConstraint.constant = value
+        UIView.animate(withDuration: 0.5) {
+            self.textView.layoutIfNeeded()
         }
     }
     
