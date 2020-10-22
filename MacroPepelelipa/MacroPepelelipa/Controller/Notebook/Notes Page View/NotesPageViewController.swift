@@ -21,7 +21,6 @@ internal class NotesPageViewController: UIPageViewController,
     internal private(set) var notebook: NotebookEntity?
     internal private(set) var index: Int = 0
     private weak var observer: NotesPageViewObserver?
-//    internal weak var observerText: TextEditingDelegateObserver?
     
     private lazy var noteDataSource = NotesPageViewControllerDataSource(notes: notes)
     
