@@ -21,6 +21,7 @@ internal class MarkupTextViewDelegate: NSObject, UITextViewDelegate {
     private var isBackspace: Bool = false
     private var range: NSRange?
     private var lastWrittenText: String = ""
+    private var needsListDeletion: Bool = false
     private weak var formatView: MarkupFormatView?
     
     internal var markdownAttributesChanged: ((NSAttributedString?, Error?) -> Void)?
@@ -53,6 +54,13 @@ internal class MarkupTextViewDelegate: NSObject, UITextViewDelegate {
     // MARK: - UITextViewDelegate functions
     
     internal func textViewDidChange(_ textView: UITextView) {
+        if needsListDeletion {
+            if let clearedRange = markdownEditor.clearIndicatorCharacters(textView) {
+                range = NSRange(location: clearedRange.location, length: 0)
+            }
+            needsListDeletion = false
+        }
+        
         if textView.attributedText.string.last == "\n" && !isBackspace {
             continueBulletList(on: textView)
             continueNumericList(on: textView)
@@ -87,6 +95,10 @@ internal class MarkupTextViewDelegate: NSObject, UITextViewDelegate {
             MarkupToolBar.headerStyle = .h1
             observers.forEach({ $0.textReceivedEnter() })
             if lastWrittenText == "\n" {
+                if MarkdownList.isList || MarkdownNumeric.isNumeric || MarkdownQuote.isQuote {
+                    needsListDeletion = true
+                }
+                
                 MarkdownList.isList = false
                 MarkdownNumeric.isNumeric = false
                 MarkdownQuote.isQuote = false
@@ -206,7 +218,11 @@ internal class MarkupTextViewDelegate: NSObject, UITextViewDelegate {
      - Returns: True if any characters were cleared, false if none was cleared.
      */
     internal func clearIndicatorCharacters(_ textView: UITextView) -> Bool {
-        return markdownEditor.clearIndicatorCharacters(textView)
+        let clearedRange = markdownEditor.clearIndicatorCharacters(textView)
+        if clearedRange != nil {
+            return true
+        }
+        return false
     }
     
     // MARK: - Font functions

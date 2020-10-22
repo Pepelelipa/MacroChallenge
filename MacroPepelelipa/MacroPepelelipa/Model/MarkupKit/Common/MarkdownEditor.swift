@@ -231,18 +231,27 @@ class MarkdownEditor {
      - Parameter textView: The UITextView which text will be checked and changed in case of any found indicators.
      - Returns: True if any characters were cleared, false if none was cleared.
      */
-    internal func clearIndicatorCharacters(_ textView: UITextView) -> Bool {
+    internal func clearIndicatorCharacters(_ textView: UITextView) -> NSRange? {
         guard let attributedText = textView.attributedText else {
-            return false
+            return nil
         }
         
         let lenght = attributedText.length
+        var cursor = textView.selectedRange.location
     
         guard lenght > 0 else {
-            return false
+            return nil
         }
         
-        let lineInfo = findLineLocation(attributedString: attributedText, location: lenght - 1)
+        if cursor == lenght {
+            cursor -= 1
+        }
+        
+        if cursor != 0 {
+            cursor -= 1
+        }
+        
+        let lineInfo = findLineLocation(attributedString: attributedText, location: cursor)
         
         var lineLenght = lineInfo.length
         let location = lineInfo.location
@@ -276,10 +285,10 @@ class MarkdownEditor {
         } else {
             if indicatorFound {
                 clearLine(textView, range: NSRange(location: location, length: lineLenght))
-                return true
+                return lineInfo
             }
         }
-        return false
+        return nil
     }
     
     /**
