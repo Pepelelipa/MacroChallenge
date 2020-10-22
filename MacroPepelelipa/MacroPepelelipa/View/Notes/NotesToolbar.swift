@@ -53,6 +53,7 @@ internal class NotesToolbar: UIToolbar {
         self.tintColor = .actionColor
         self.barTintColor = .backgroundColor
         self.backgroundColor = .backgroundColor
+        self.setShadowImage(UIImage(), forToolbarPosition: .any)
         self.isTranslucent = false
     }
     
