@@ -159,8 +159,6 @@ internal class NotesViewController: UIViewController,
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // view.autoresizesSubviews = false
-        
         let tap = UITapGestureRecognizer(target: self, action: #selector(didTap))
         
         view.addGestureRecognizer(tap)
@@ -185,6 +183,11 @@ internal class NotesViewController: UIViewController,
             addImageBox(with: imageBox)
         }
         updateExclusionPaths()
+
+        if !((try? notebook?.getWorkspace().isEnabled) ?? false) {
+            textView.isEditable = false
+            textView.inputAccessoryView = nil
+        }
     }
 
     override func viewWillAppear(_ animated: Bool) {
