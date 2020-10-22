@@ -12,7 +12,7 @@ import UIKit
 
 internal class MarkupTextViewDelegate: NSObject, UITextViewDelegate {
     
-    // MARK: - IBActions functions
+    // MARK: - Attributes
     
     private let markdownParser: MarkdownParser
     private let markdownEditor: MarkdownEditor

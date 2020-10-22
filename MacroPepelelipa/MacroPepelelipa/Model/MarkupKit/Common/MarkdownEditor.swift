@@ -330,7 +330,7 @@ class MarkdownEditor {
      This method deletes the caracters from the range's location on the UITextView.
      
      - Parameters:
-        - textView: The UITextView which text will be change.
+        - textView: The UITextView which text will be changed.
         - range: The NSRange from which the characters will be deleted.
      */
     private func clearLine(_ textView: UITextView, range: NSRange) {
