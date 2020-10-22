@@ -101,8 +101,12 @@ internal class TextEditingContainerViewController: UIViewController,
         } else {
             navigationController?.popViewController(animated: true)
         }
-        
-        navigationItem.rightBarButtonItems = [addNewNoteButton, moreActionsButton, notebookIndexButton]
+
+        if (try? notesViewController?.note?.getNotebook().getWorkspace().isEnabled) ?? false {
+            navigationItem.rightBarButtonItems = [addNewNoteButton, moreActionsButton, notebookIndexButton]
+        } else {
+            navigationItem.rightBarButtonItems = [notebookIndexButton]
+        }
         navigationItem.largeTitleDisplayMode = .never
         navigationItem.titleView = markupNavigationView
         navigationItem.titleView?.backgroundColor = .clear

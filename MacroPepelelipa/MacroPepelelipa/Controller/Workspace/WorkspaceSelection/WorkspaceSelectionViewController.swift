@@ -148,6 +148,7 @@ internal class WorkspaceSelectionViewController: UIViewController {
     private func createOnboarding() {
         do {
             let workspace = try DataManager.shared().createWorkspace(named: "Your first workspace".localized())
+            workspace.isEnabled = false
             let notebook = try DataManager.shared().createNotebook(in: workspace, named: "Your first notebook".localized(), colorName: "nb0")
             let note = try DataManager.shared().createNote(in: notebook)
             note.title = NSAttributedString(string: "Welcome Note".localized())

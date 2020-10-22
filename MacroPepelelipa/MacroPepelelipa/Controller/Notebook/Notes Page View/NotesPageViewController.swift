@@ -105,7 +105,11 @@ internal class NotesPageViewController: UIPageViewController,
         view.backgroundColor = .rootColor
         
         navigationItem.largeTitleDisplayMode = .never
-        navigationItem.rightBarButtonItems = [addNewNoteButton, moreActionsButton, notebookIndexButton]
+        if (try? notes.first?.getNotebook().getWorkspace().isEnabled) ?? false {
+            navigationItem.rightBarButtonItems = [addNewNoteButton, moreActionsButton, notebookIndexButton]
+        } else {
+            navigationItem.rightBarButtonItems = [notebookIndexButton]
+        }
     }
     
     override func viewDidLayoutSubviews() {
