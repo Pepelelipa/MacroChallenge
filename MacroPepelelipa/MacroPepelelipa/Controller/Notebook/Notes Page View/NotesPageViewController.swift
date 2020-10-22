@@ -21,6 +21,7 @@ internal class NotesPageViewController: UIPageViewController,
     internal private(set) var notebook: NotebookEntity?
     internal private(set) var index: Int = 0
     private weak var observer: NotesPageViewObserver?
+//    internal weak var observerText: TextEditingDelegateObserver?
     
     private lazy var noteDataSource = NotesPageViewControllerDataSource(notes: notes)
     
@@ -48,6 +49,13 @@ internal class NotesPageViewController: UIPageViewController,
         let item = UIBarButtonItem(ofType: .index, 
                                    target: self, 
                                    action: #selector(presentNotebookIndex))
+        return item
+    }()
+    
+    private lazy var doneButton: UIBarButtonItem = {
+        let item = UIBarButtonItem(ofType: .done,
+                                   target: self,
+                                   action: #selector(closeKeyboard))
         return item
     }()
     
@@ -106,10 +114,23 @@ internal class NotesPageViewController: UIPageViewController,
         
         navigationItem.largeTitleDisplayMode = .never
         if (try? notes.first?.getNotebook().getWorkspace().isEnabled) ?? false {
-            navigationItem.rightBarButtonItems = [addNewNoteButton, moreActionsButton, notebookIndexButton]
+            navigationItem.rightBarButtonItems = [notebookIndexButton]
         } else {
             navigationItem.rightBarButtonItems = [notebookIndexButton]
         }
+        
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(keyboardWillShow),
+            name: UIResponder.keyboardWillShowNotification,
+            object: nil
+        )
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(keyboardWillHide),
+            name: UIResponder.keyboardWillHideNotification,
+            object: nil
+        )
     }
     
     override func viewDidLayoutSubviews() {
@@ -176,6 +197,16 @@ internal class NotesPageViewController: UIPageViewController,
             }
         }
         return false
+    }
+    
+    /// This method addes the done button when the keyboard shows.
+    @objc func keyboardWillShow(_ notification: Notification) {
+        navigationItem.rightBarButtonItems?.append(doneButton)
+    }
+    
+    /// This method removes the done button when the keyboard hides.
+    @objc func keyboardWillHide(_ notification: Notification) {
+        navigationItem.rightBarButtonItems = [notebookIndexButton]
     }
     
     // MARK: - IndexObserver functions
@@ -256,6 +287,11 @@ internal class NotesPageViewController: UIPageViewController,
         if let notesViewController = self.viewControllers?.first as? NotesViewController {
             notesViewController.presentPicker()
         }
+    }
+    
+    // This method is called 
+    @IBAction private func closeKeyboard() {
+        self.view.endEditing(true)
     }
     
 }
