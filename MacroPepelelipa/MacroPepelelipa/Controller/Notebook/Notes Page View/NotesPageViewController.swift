@@ -19,7 +19,7 @@ internal class NotesPageViewController: UIPageViewController,
     private weak var observer: NotesPageViewObserver?
     
     private lazy var notesToolbar: NotesToolbar = {
-        let toolbar = NotesToolbar(frame: CGRect(x: 100, y: 100, width: self.view.frame.width, height: 0))
+        let toolbar = NotesToolbar(frame: .zero)
         toolbar.translatesAutoresizingMaskIntoConstraints = false
         return toolbar
     }()
@@ -35,20 +35,6 @@ internal class NotesPageViewController: UIPageViewController,
             self.setNotesViewControllers(for: notesViewController)
         }
     }
-    
-    private lazy var addNewNoteButton: UIBarButtonItem = {
-        let item = UIBarButtonItem(ofType: .addNote, 
-                                   target: self, 
-                                   action: #selector(addNewNote))
-        return item
-    }()
-    
-    private lazy var moreActionsButton: UIBarButtonItem = {
-        let item = UIBarButtonItem(ofType: .moreActions,
-                                   target: self, 
-                                   action: #selector(presentMoreActions))
-        return item
-    }()
     
     private lazy var notebookIndexButton: UIBarButtonItem = {
         let item = UIBarButtonItem(ofType: .index, 
@@ -99,15 +85,12 @@ internal class NotesPageViewController: UIPageViewController,
         self.delegate = noteDelegate
         
         view.addSubview(notesToolbar)
-        
         view.backgroundColor = .rootColor
         
         navigationItem.largeTitleDisplayMode = .never
-        if (try? notes.first?.getNotebook().getWorkspace().isEnabled) ?? false {
-            navigationItem.rightBarButtonItems = [addNewNoteButton, moreActionsButton, notebookIndexButton]
-        } else {
-            navigationItem.rightBarButtonItems = [notebookIndexButton]
-        }
+        navigationItem.rightBarButtonItems = [notebookIndexButton]
+        
+        setupNotesToolbarActions()
     }
     
     override func viewDidLayoutSubviews() {
@@ -115,6 +98,66 @@ internal class NotesPageViewController: UIPageViewController,
     }
     
     // MARK: - Functions
+    
+    private func setupNotesToolbarActions() {
+        
+        notesToolbar.deleteNoteTriggered = {
+            self.deleteNote()
+        }
+        
+        notesToolbar.addImageTriggered = {
+            if let notesViewController = self.viewControllers?.first as? NotesViewController {
+                notesViewController.presentPicker()
+            }
+        }
+        
+        notesToolbar.shareNoteTriggered = {
+            // TODO: share file
+        }
+        
+        notesToolbar.newNoteTriggered = {
+            guard let guardedNotebook = self.notebook else {
+                return
+            }
+            let addController = AddNoteViewController(notebook: guardedNotebook, dismissHandler: {
+                self.updateNotes()
+            })
+            addController.moveTo(self)
+        }
+    }
+    
+    private func deleteNote() {
+        guard let viewController = viewControllers?.first as? NotesViewController,
+            let note = viewController.note else {
+            return
+        }
+        let alertControlller = UIAlertController(
+            title: "Delete Note confirmation".localized(),
+            message: "Warning".localized(),
+            preferredStyle: .actionSheet).makeDeleteConfirmation(dataType: .note) { _ in
+            let deleteAlertController = UIAlertController(
+                title: "Delete note confirmation".localized(),
+                message: "Warning".localized(),
+                preferredStyle: .alert).makeDeleteConfirmation(dataType: .note) { _ in
+                do {
+                    try DataManager.shared().deleteNote(note)
+                    viewController.shouldSave = false
+                    if !self.removePresentingNote(note: note) {
+                        self.navigationController?.popViewController(animated: true)
+                    }
+                } catch {
+                    let alertController = UIAlertController(
+                        title: "Could not delete this note".localized(),
+                        message: "The app could not delete the note".localized() + note.title.string,
+                        preferredStyle: .alert)
+                        .makeErrorMessage(with: "An error occurred while deleting this instance on the database".localized())
+                    self.present(alertController, animated: true, completion: nil)
+                }
+            }
+            self.present(deleteAlertController, animated: true, completion: nil)
+        }
+        self.present(alertControlller, animated: true, completion: nil)
+    }
     
     /**
      This method sets the NotesViewController for the NotesPageViewController. To optimize, the NotesPageViewController can hold the maximum 
@@ -194,51 +237,6 @@ internal class NotesPageViewController: UIPageViewController,
     
     // MARK: - IBActions functions
     
-    @IBAction private func addNewNote() {
-        guard let guardedNotebook = notebook else {
-            return
-        }
-        addNewNoteButton.isEnabled = false
-        let addController = AddNoteViewController(notebook: guardedNotebook, dismissHandler: {
-            self.updateNotes()
-            self.addNewNoteButton.isEnabled = true
-        })
-        addController.moveTo(self)
-    }
-    
-    @IBAction private func presentMoreActions() {
-        guard let viewController = viewControllers?.first as? NotesViewController,
-            let note = viewController.note else {
-            return
-        }
-        let alertControlller = UIAlertController(
-            title: "Delete Note confirmation".localized(),
-            message: "Warning".localized(),
-            preferredStyle: .actionSheet).makeDeleteConfirmation(dataType: .note) { _ in
-            let deleteAlertController = UIAlertController(
-                title: "Delete note confirmation".localized(),
-                message: "Warning".localized(),
-                preferredStyle: .alert).makeDeleteConfirmation(dataType: .note) { _ in
-                do {
-                    try DataManager.shared().deleteNote(note)
-                    viewController.shouldSave = false
-                    if !self.removePresentingNote(note: note) {
-                        self.navigationController?.popViewController(animated: true)
-                    }
-                } catch {
-                    let alertController = UIAlertController(
-                        title: "Could not delete this note".localized(),
-                        message: "The app could not delete the note".localized() + note.title.string,
-                        preferredStyle: .alert)
-                        .makeErrorMessage(with: "An error occurred while deleting this instance on the database".localized())
-                    self.present(alertController, animated: true, completion: nil)
-                }
-            }
-            self.present(deleteAlertController, animated: true, completion: nil)
-        }
-        self.present(alertControlller, animated: true, completion: nil)
-    }
-    
     @IBAction private func presentNotebookIndex() {
         if let presentNotebook = self.notebook {
             
@@ -247,12 +245,6 @@ internal class NotesPageViewController: UIPageViewController,
             notebookIndexViewController.observer = self
             
             self.present(notebookIndexViewController, animated: true, completion: nil)
-        }
-    }
-    
-    @IBAction private func presentPicker() {
-        if let notesViewController = self.viewControllers?.first as? NotesViewController {
-            notesViewController.presentPicker()
         }
     }
     
