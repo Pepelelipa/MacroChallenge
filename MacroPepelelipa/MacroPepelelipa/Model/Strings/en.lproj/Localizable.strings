@@ -103,8 +103,8 @@
 "The app could not delete the text box" = "The app could not delete the text box";
 "Text Box" = "Text Box";
 "Image Box" = "Image Box";
-"Your first workspace" = "Your first workspace";
-"Your first notebook" = "Your first notebook";
+"Your first workspace" = "Tutorials";
+"Your first notebook" = "First notebook";
 "Welcome Note" = "Welcome Note";
 "Onboard intro" = "Purple Notebook is an app designed to be efficient and clean for students who need to take notes during classes.\nIt's really easy to learn how to use Purple Notebook. Let's dive in a quick tour.";
 "Workspace text" = "As you first open the app, you see your Workspaces. This is where your notebooks will be.\n\nTo create a Workspace simply tap on add, in the top right corner of your screen.\nTo delete, simply tap and hold into the desired Workspace and confirm the action.
