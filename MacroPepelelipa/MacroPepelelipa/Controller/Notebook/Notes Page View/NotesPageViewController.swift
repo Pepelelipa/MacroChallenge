@@ -140,10 +140,15 @@ internal class NotesPageViewController: UIPageViewController,
             guard let guardedNotebook = self.notebook else {
                 return
             }
-            let addController = AddNoteViewController(notebook: guardedNotebook, dismissHandler: {
+            
+            let destination = AddNoteViewController(notebook: guardedNotebook)
+            destination.isModalInPresentation = true
+            destination.modalTransitionStyle = .crossDissolve
+            destination.modalPresentationStyle = .overFullScreen
+            
+            self.present(destination, animated: true) { 
                 self.updateNotes()
-            })
-            addController.moveTo(self)
+            }
         }
     }
     

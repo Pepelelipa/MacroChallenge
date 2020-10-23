@@ -309,10 +309,15 @@ internal class WorkspaceSelectionViewController: UIViewController {
     
     @IBAction func btnAddTap() {
         btnAdd.isEnabled = false
-        let addController = AddWorkspaceViewController(dismissHandler: {
+        
+        let destination = AddWorkspaceViewController()
+        destination.isModalInPresentation = true
+        destination.modalTransitionStyle = .crossDissolve
+        destination.modalPresentationStyle = .overFullScreen
+        
+        self.present(destination, animated: true) { 
             self.btnAdd.isEnabled = true
-        })
-        addController.moveTo(self)
+        }
     }
     
     /**

@@ -23,6 +23,12 @@ internal class ColorSelectionCollectionViewCell: UICollectionViewCell {
         }
     }
     
+    override var bounds: CGRect {
+        didSet {
+            roundView.layer.cornerRadius = bounds.height/2
+        }
+    }
+    
     // MARK: - Initializers
 
     override init(frame: CGRect) {
@@ -38,8 +44,6 @@ internal class ColorSelectionCollectionViewCell: UICollectionViewCell {
             roundView.widthAnchor.constraint(equalTo: widthAnchor),
             roundView.heightAnchor.constraint(equalTo: heightAnchor)
         ])
-
-        roundView.layer.cornerRadius = frame.height/2
     }
 
     required convenience init?(coder: NSCoder) {
