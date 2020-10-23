@@ -91,10 +91,10 @@ internal class AddNotebookViewController: PopupContainerViewController {
             notebookView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.3),
             notebookView.widthAnchor.constraint(equalTo: notebookView.heightAnchor, multiplier: 0.75),
             
-            referenceView.topAnchor.constraint(equalTo: notebookView.bottomAnchor, constant: 10),
+            referenceView.topAnchor.constraint(equalTo: notebookView.bottomAnchor, constant: 20),
             referenceView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             referenceView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-            referenceView.bottomAnchor.constraint(equalTo: btnConfirm.topAnchor, constant: -10),
+            referenceView.bottomAnchor.constraint(equalTo: btnConfirm.topAnchor, constant: -20),
 
             btnConfirm.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -20),
             btnConfirm.centerXAnchor.constraint(equalTo: view.centerXAnchor),
@@ -208,7 +208,7 @@ internal class AddNotebookViewController: PopupContainerViewController {
                 return
             }
             
-            if (rootFrame.height / rootFrame.width) > 0.22 {
+            if (rootFrame.height / rootFrame.width) > 0.28 {
                 self.collectionViewContraints = [
                     self.collectionView.centerXAnchor.constraint(equalTo: self.referenceView.centerXAnchor),
                     self.collectionView.centerYAnchor.constraint(equalTo: self.referenceView.centerYAnchor),
