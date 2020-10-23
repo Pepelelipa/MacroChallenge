@@ -36,6 +36,8 @@ internal class NotesViewController: UIViewController,
     internal weak var note: NoteEntity?
     internal private(set) weak var notebook: NotebookEntity?
     
+    private lazy var textViewBottomConstraint = textView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20)
+    
     private lazy var textField: MarkupTextField = {
         let textField = MarkupTextField(frame: .zero, placeholder: "Your Title".localized(), paddingSpace: 4)
         textField.delegate = self.textFieldDelegate
@@ -55,19 +57,23 @@ internal class NotesViewController: UIViewController,
     
     private lazy var constraints: [NSLayoutConstraint] = {
         [
-            textView.topAnchor.constraint(equalTo: self.textField.bottomAnchor, constant: 10),
-            textView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
-            textView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
-            textView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-
-            textField.heightAnchor.constraint(equalToConstant: 30),
             textField.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
-            textField.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
-            textField.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor, constant: -20)
+            textField.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
+            textField.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
+            textField.heightAnchor.constraint(equalToConstant: 30),
+            
+            textView.topAnchor.constraint(equalTo: self.textField.bottomAnchor, constant: 20),
+            textView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            textView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            textViewBottomConstraint
         ]
     }()
     
-    internal private(set) lazy var textView: MarkupTextView = MarkupTextView(frame: .zero, delegate: self.textViewDelegate)
+    internal private(set) lazy var textView: MarkupTextView = {
+        let  markupTextView = MarkupTextView(frame: .zero, delegate: self.textViewDelegate)
+        markupTextView.contentInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
+        return markupTextView
+    }()
     
     internal lazy var textViewDelegate: MarkupTextViewDelegate = {
         let delegate = MarkupTextViewDelegate()
@@ -157,9 +163,20 @@ internal class NotesViewController: UIViewController,
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        // view.autoresizesSubviews = false
-        
+
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(keyboardWillShow),
+            name: UIResponder.keyboardWillShowNotification,
+            object: nil
+        )
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(keyboardWillHide),
+            name: UIResponder.keyboardWillHideNotification,
+            object: nil
+        )
+
         let tap = UITapGestureRecognizer(target: self, action: #selector(didTap))
         
         view.addGestureRecognizer(tap)
@@ -184,6 +201,11 @@ internal class NotesViewController: UIViewController,
             addImageBox(with: imageBox)
         }
         updateExclusionPaths()
+
+        if !((try? notebook?.getWorkspace().isEnabled) ?? false) {
+            textView.isEditable = false
+            textView.inputAccessoryView = nil
+        }
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -200,10 +222,6 @@ internal class NotesViewController: UIViewController,
         navigationItem.largeTitleDisplayMode = .automatic
         workItem.cancel()
     }
-    
-//    override func viewDidLayoutSubviews() {
-//        NSLayoutConstraint.activate(constraints)
-//    }
     
     // MARK: - Functions
     
@@ -429,6 +447,23 @@ internal class NotesViewController: UIViewController,
     internal func updateResizeHandles() {
         resizeHandles.forEach { (resizeHandle) in
             resizeHandle.updatePosition()
+        }
+    }
+
+    ///Resizes the text view according to the keyboard
+    @objc func keyboardWillShow(_ notification: Notification) {
+        if let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
+            let height = keyboardFrame.cgRectValue.height
+            setTextViewConstant(to: -height)
+        }
+    }
+    @objc func keyboardWillHide(_ notification: Notification) {
+        setTextViewConstant(to: 0)
+    }
+    private func setTextViewConstant(to value: CGFloat) {
+        textViewBottomConstraint.constant = value
+        UIView.animate(withDuration: 0.5) {
+            self.textView.layoutIfNeeded()
         }
     }
     

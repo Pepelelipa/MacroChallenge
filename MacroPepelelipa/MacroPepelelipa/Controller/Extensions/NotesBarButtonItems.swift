@@ -12,6 +12,7 @@ internal enum BarButtonItemType {
     case index
     case addNote
     case moreActions
+    case done
 }
 
 extension UIBarButtonItem {
@@ -27,11 +28,13 @@ extension UIBarButtonItem {
         self.init()
         switch ofType {
         case .index:
-            self.image = UIImage(systemName: "sidebar.right")
+            self.image = UIImage(systemName: "filemenu.and.selection")
         case .addNote:
             self.image = UIImage(systemName: "plus")
         case .moreActions:
             self.image = UIImage(systemName: "ellipsis.circle")
+        case .done:
+            self.title = "Done".localized()
         }
         
         self.style = .plain

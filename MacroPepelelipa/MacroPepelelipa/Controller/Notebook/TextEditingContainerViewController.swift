@@ -24,24 +24,18 @@ internal class TextEditingContainerViewController: UIViewController,
     
     internal var widthConstraint: NSLayoutConstraint?
     
-    private lazy var addNewNoteButton: UIBarButtonItem = {
-        let item = UIBarButtonItem(ofType: .addNote, 
-                                   target: self, 
-                                   action: #selector(addNewNote))
-        return item
-    }()
-    
-    private lazy var moreActionsButton: UIBarButtonItem = {
-        let item = UIBarButtonItem(ofType: .moreActions, 
-                                   target: self, 
-                                   action: #selector(presentMoreActions))
-        return item
-    }()
-    
     private lazy var notebookIndexButton: UIBarButtonItem = {
         let item = UIBarButtonItem(ofType: .index, 
                                    target: self, 
                                    action: #selector(presentNotebookIndex))
+        return item
+    }()
+    
+    private lazy var doneButton: UIBarButtonItem = {
+        let item = UIBarButtonItem(ofType: .done,
+                                   target: self,
+                                   action: #selector(closeKeyboard))
+        
         return item
     }()
     
@@ -101,8 +95,12 @@ internal class TextEditingContainerViewController: UIViewController,
         } else {
             navigationController?.popViewController(animated: true)
         }
-        
-        navigationItem.rightBarButtonItems = [addNewNoteButton, moreActionsButton, notebookIndexButton]
+
+        if (try? notesViewController?.note?.getNotebook().getWorkspace().isEnabled) ?? false {
+            navigationItem.rightBarButtonItems = [notebookIndexButton]
+        } else {
+            navigationItem.rightBarButtonItems = [notebookIndexButton]
+        }
         navigationItem.largeTitleDisplayMode = .never
         navigationItem.titleView = markupNavigationView
         navigationItem.titleView?.backgroundColor = .clear
@@ -112,6 +110,19 @@ internal class TextEditingContainerViewController: UIViewController,
         navigationController?.navigationBar.isTranslucent = false
         navigationController?.navigationBar.backgroundColor = .white
         #endif
+        
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(keyboardWillShow),
+            name: UIResponder.keyboardWillShowNotification,
+            object: nil
+        )
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(keyboardWillHide),
+            name: UIResponder.keyboardWillHideNotification,
+            object: nil
+        )
     }
     
     override func viewDidLayoutSubviews() {
@@ -223,6 +234,16 @@ internal class TextEditingContainerViewController: UIViewController,
         present(markupContainerViewController, animated: true)
     }
     
+    /// This method addes the done button when the keyboard shows.
+    @objc func keyboardWillShow(_ notification: Notification) {
+        navigationItem.rightBarButtonItems?.append(doneButton)
+    }
+    
+    /// This method removes the done button when the keyboard hides.
+    @objc func keyboardWillHide(_ notification: Notification) {
+        navigationItem.rightBarButtonItems = [notebookIndexButton]
+    }
+    
     // MARK: - IndexObserver functions
     
     internal func didChangeIndex(to note: NoteEntity) {
@@ -270,19 +291,6 @@ internal class TextEditingContainerViewController: UIViewController,
     
     // MARK: - IBActions functions
     
-    @IBAction private func addNewNote() {
-        guard let centerViewController = centerViewController, 
-              let notebook = centerViewController.notebook else {
-            return
-        }
-        addNewNoteButton.isEnabled = false
-        let addController = AddNoteViewController(notebook: notebook, dismissHandler: {
-            centerViewController.updateNotes()
-            self.addNewNoteButton.isEnabled = true
-        })
-        addController.moveTo(self)
-    }
-    
     @IBAction private func presentMoreActions() {
         guard let pageViewController = centerViewController,
               let viewController = pageViewController.viewControllers?.first as? NotesViewController,
@@ -315,7 +323,6 @@ internal class TextEditingContainerViewController: UIViewController,
                 self.present(deleteAlertController, animated: true, completion: nil)
         }
         alertControlller.modalPresentationStyle = .popover
-        alertControlller.popoverPresentationController?.barButtonItem = moreActionsButton
         self.present(alertControlller, animated: true, completion: nil)
     }
 
@@ -338,5 +345,10 @@ internal class TextEditingContainerViewController: UIViewController,
             
             present(alertController, animated: true, completion: nil)
         }
+    }
+    
+    // This method is called when the UIBarButton for the done button is pressed and it closes the keyboard
+    @IBAction private func closeKeyboard() {
+        self.view.endEditing(true)
     }
 }

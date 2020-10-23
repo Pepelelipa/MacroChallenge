@@ -109,7 +109,7 @@ internal class WorkspaceSelectionViewController: UIViewController {
             createOnboarding()
         } else if time == 8 {
             if let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
-                #if !targetEnvironment(macCatalyst)
+                #if !DEBUG && !targetEnvironment(macCatalyst)
                 SKStoreReviewController.requestReview(in: scene)
                 #endif
             }
@@ -148,6 +148,7 @@ internal class WorkspaceSelectionViewController: UIViewController {
     private func createOnboarding() {
         do {
             let workspace = try DataManager.shared().createWorkspace(named: "Your first workspace".localized())
+            workspace.isEnabled = false
             let notebook = try DataManager.shared().createNotebook(in: workspace, named: "Your first notebook".localized(), colorName: "nb0")
             let note = try DataManager.shared().createNote(in: notebook)
             note.title = NSAttributedString(string: "Welcome Note".localized())
@@ -174,7 +175,11 @@ internal class WorkspaceSelectionViewController: UIViewController {
             note.text = text
             try note.save()
         } catch {
-            fatalError("Trata o erro do onboarding amigos pfvr")
+            let alertController = UIAlertController(
+                title: "Unable to create onboarding".localized(),
+                message: "The app was unable to create an example workspace".localized(),
+                preferredStyle: .alert).makeErrorMessage(with: "Unable to create onboarding")
+            self.present(alertController, animated: true)
         }
     }
     

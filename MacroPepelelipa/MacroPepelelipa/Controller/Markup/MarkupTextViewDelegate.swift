@@ -54,12 +54,7 @@ internal class MarkupTextViewDelegate: NSObject, UITextViewDelegate {
     // MARK: - UITextViewDelegate functions
     
     internal func textViewDidChange(_ textView: UITextView) {
-        if needsListDeletion {
-            if let clearedRange = markdownEditor.clearIndicatorCharacters(textView) {
-                range = NSRange(location: clearedRange.location, length: 0)
-            }
-            needsListDeletion = false
-        }
+        checkDeletionNeeded(textView)
         
         if textView.attributedText.string.last == "\n" && !isBackspace {
             continueBulletList(on: textView)
@@ -229,6 +224,18 @@ internal class MarkupTextViewDelegate: NSObject, UITextViewDelegate {
             return true
         }
         return false
+    }
+    
+    /**
+     This method checks if a list needs to be deleted and clears the indicator if so.
+     */
+    internal func checkDeletionNeeded(_ textView: UITextView) {
+        if needsListDeletion {
+            if let clearedRange = markdownEditor.clearIndicatorCharacters(textView) {
+                range = NSRange(location: clearedRange.location, length: 0)
+            }
+            needsListDeletion = false
+        }
     }
     
     // MARK: - Font functions
