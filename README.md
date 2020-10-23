@@ -26,8 +26,8 @@ Our goal is to best assist all students with the technology we got in our hands.
 **Made for students, by students.**
 
 
-[Icon]: https://github.com/Pepelelipa/MacroChallenge/blob/dev/MacroPepelelipa/MacroPepelelipa/Assets.xcassets/AppIcon.appiconset/icon_256x256.png "Icon"
+[Icon]: https://github.com/Pepelelipa/MacroChallenge/blob/dev/MacroPepelelipa/MacroPepelelipa/Assets.xcassets/AppIcon.appiconset/icon_32x32%402x.png "Icon"
 [here.]: https://miro.com/app/board/o9J_kny0VDI=/ "Miro's Documentation"
-[Color and Relation Guide]: https://github.com/Pepelelipa/MacroChallenge/blob/dev/Color_and_Relation_Guide.jpg "Color and Relation Diagram"
-[Database Class Diagram]: https://github.com/Pepelelipa/MacroChallenge/blob/dev/Database_Diagram.jpg "Database Class Diagram"
-[App Diagram]: https://github.com/Pepelelipa/MacroChallenge/blob/dev/App_Diagram.jpg "App Diagram"
+[Color and Relation Guide]: https://github.com/Pepelelipa/MacroChallenge/blob/feat/Update-Read-Me/Color_and_Relation_Guide.jpg "Color and Relation Diagram"
+[Database Class Diagram]: https://github.com/Pepelelipa/MacroChallenge/blob/feat/Update-Read-Me/Database_Diagram.jpg "Database Class Diagram"
+[App Diagram]: https://github.com/Pepelelipa/MacroChallenge/blob/feat/Update-Read-Me/App_Diagram.jpg "App Diagram"
