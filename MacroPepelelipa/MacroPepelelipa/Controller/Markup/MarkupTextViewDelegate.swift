@@ -85,12 +85,6 @@ internal class MarkupTextViewDelegate: NSObject, UITextViewDelegate {
         
         if range.length > 0 {
             isBackspace = true
-            needsListDeletion = markdownEditor.shouldDeleteIndicatorCharacters(textView)
-            if needsListDeletion {
-                MarkdownList.isList = false
-                MarkdownNumeric.isNumeric = false
-                MarkdownQuote.isQuote = false
-            }
         }
         
         if text == "\n" {
