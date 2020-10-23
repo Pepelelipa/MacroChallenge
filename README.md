@@ -1,7 +1,9 @@
 # Macro Challenge
 Our final challenge whilst part of Apple Developer Academy | Mackenzie.
 
-## ![Purple Notebook's Icon][Icon] Purple Notebook
+
+![Purple Notebook's Icon][Icon]
+## Purple Notebook
 An application designed to be as efficient and clean as possible for students who need to take **notes** during classes without loosing **focus**.
 
 Inspired by all the top current note takin apps, we decided to take it to the next level. Organised, intuitive, clean and with just what you need to make the most out of your classes. 
@@ -30,7 +32,7 @@ Our goal is to best assist all students with the technology we got in our hands.
 **Made for students, by students.**
 
 
-[Icon]: https://github.com/Pepelelipa/MacroChallenge/blob/dev/MacroPepelelipa/MacroPepelelipa/Assets.xcassets/AppIcon.appiconset/icon_32x32.png "Icon"
+[Icon]: https://github.com/Pepelelipa/MacroChallenge/blob/dev/MacroPepelelipa/MacroPepelelipa/Assets.xcassets/AppIcon.appiconset/icon_32x32%402x.png "Icon"
 [here.]: https://miro.com/app/board/o9J_kny0VDI=/ "Miro's Documentation"
 [Color and Relation Guide]: https://github.com/Pepelelipa/MacroChallenge/blob/feat/Update-Read-Me/Color_and_Relation_Guide.jpg "Color and Relation Diagram"
 [Database Diagram]: https://github.com/Pepelelipa/MacroChallenge/blob/feat/Update-Read-Me/Database_Diagram.jpg "Database Class Diagram"
