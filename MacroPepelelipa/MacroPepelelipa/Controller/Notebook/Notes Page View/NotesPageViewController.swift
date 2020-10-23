@@ -42,6 +42,13 @@ internal class NotesPageViewController: UIPageViewController,
                                    action: #selector(presentNotebookIndex))
         return item
     }()
+    
+    private lazy var doneButton: UIBarButtonItem = {
+        let item = UIBarButtonItem(ofType: .done,
+                                   target: self,
+                                   action: #selector(closeKeyboard))
+        return item
+    }()
 
     private lazy var constraints: [NSLayoutConstraint] = {
         [
@@ -91,6 +98,19 @@ internal class NotesPageViewController: UIPageViewController,
         navigationItem.rightBarButtonItems = [notebookIndexButton]
         
         setupNotesToolbarActions()
+        
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(keyboardWillShow),
+            name: UIResponder.keyboardWillShowNotification,
+            object: nil
+        )
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(keyboardWillHide),
+            name: UIResponder.keyboardWillHideNotification,
+            object: nil
+        )
     }
     
     override func viewDidLayoutSubviews() {
@@ -221,6 +241,16 @@ internal class NotesPageViewController: UIPageViewController,
         return false
     }
     
+    /// This method addes the done button when the keyboard shows.
+    @objc func keyboardWillShow(_ notification: Notification) {
+        navigationItem.rightBarButtonItems?.append(doneButton)
+    }
+    
+    /// This method removes the done button when the keyboard hides.
+    @objc func keyboardWillHide(_ notification: Notification) {
+        navigationItem.rightBarButtonItems = [notebookIndexButton]
+    }
+    
     // MARK: - IndexObserver functions
     
     internal func didChangeIndex(to note: NoteEntity) {
@@ -248,6 +278,11 @@ internal class NotesPageViewController: UIPageViewController,
             
             self.present(notebookIndexViewController, animated: true, completion: nil)
         }
+    }
+    
+    // This method is called 
+    @IBAction private func closeKeyboard() {
+        self.view.endEditing(true)
     }
     
 }
