@@ -292,12 +292,18 @@ internal class NotebooksSelectionViewController: UIViewController {
         btnAdd.isEnabled = false
         navigationItem.hidesBackButton = true
         AppUtility.setOrientation(.portrait, andRotateTo: .portrait)
-        let addController = AddNotebookViewController(workspace: workspace, dismissHandler: {
+        
+        let destination = AddNotebookViewController(workspace: workspace)
+        
+        destination.isModalInPresentation = true
+        destination.modalTransitionStyle = .crossDissolve
+        destination.modalPresentationStyle = .overFullScreen
+        
+        present(destination, animated: true) { 
             self.btnAdd.isEnabled = true
             self.navigationItem.hidesBackButton = false
             AppUtility.setOrientation(.all)
-        })
-        addController.moveTo(self)
+        }
     }
     
     /**
