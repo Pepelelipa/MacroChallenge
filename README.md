@@ -25,8 +25,9 @@ Since it’s a big project and we decided to make the best out of it, we would'v
 ![App Diagram][App Diagram]
 
 ## Goal
-Our goal is to best assist all students with the technology we got in our hands. 
-**Made for students, by students.**
+Our goal is to best assist all students with the technology we got in our hands.
+
+**Made by students, for students.**
 
 
 [Icon]: https://github.com/Pepelelipa/MacroChallenge/blob/dev/MacroPepelelipa/MacroPepelelipa/Assets.xcassets/AppIcon.appiconset/icon_32x32%402x.png "Icon"
