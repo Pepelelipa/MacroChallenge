@@ -11,7 +11,6 @@
 import Foundation
 import CoreData
 
-
 extension Workspace {
 
     @nonobjc public class func fetchRequest() -> NSFetchRequest<Workspace> {
