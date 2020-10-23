@@ -89,7 +89,7 @@ internal class AddNotebookViewController: UIViewController {
     private lazy var ratio: CGFloat = {
         if UIDevice.current.userInterfaceIdiom == .pad {
             if UIDevice.current.orientation.isActuallyLandscape {
-                return UIScreen.main.bounds.width / 1.5
+                return UIScreen.main.bounds.width / 2.5
             } else {
                 return UIScreen.main.bounds.width / 2
             }
@@ -165,32 +165,11 @@ internal class AddNotebookViewController: UIViewController {
         
         btnConfirm.isEnabled = false
         
-        // setCollectionViewConstraints()
-        
         let selfTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(selfTap))
         selfTapGestureRecognizer.numberOfTapsRequired = 2
         view.addGestureRecognizer(selfTapGestureRecognizer)
         self.txtName.inputAccessoryView = keyboardToolBar
     }
-    
-//    override func moveTo(_ viewController: UIViewController) {
-//        super.moveTo(viewController)
-//        portraitViewConstraints = [
-//            view.centerXAnchor.constraint(equalTo: viewController.view.centerXAnchor),
-//            view.centerYAnchor.constraint(equalTo: viewController.view.centerYAnchor),
-//            view.widthAnchor.constraint(equalToConstant: ratio)
-//        ]
-//        landscapeViewConstraints = [
-//            view.centerXAnchor.constraint(equalTo: viewController.view.centerXAnchor),
-//            view.centerYAnchor.constraint(equalTo: viewController.view.centerYAnchor),
-//            view.widthAnchor.constraint(equalToConstant: ratio)
-//        ]
-//        if UIDevice.current.orientation.isActuallyLandscape {
-//            NSLayoutConstraint.activate(landscapeViewConstraints)
-//        } else {
-//            NSLayoutConstraint.activate(portraitViewConstraints)
-//        }
-//    }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
@@ -198,6 +177,14 @@ internal class AddNotebookViewController: UIViewController {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
             self.collectionView.collectionViewLayout.invalidateLayout()
         }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        AppUtility.setOrientation(.portrait, andRotateTo: .portrait)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        AppUtility.setOrientation(.all)
     }
     
     // MARK: - Functions
@@ -209,7 +196,15 @@ internal class AddNotebookViewController: UIViewController {
     // MARK: - IBActions functions
     
     @IBAction func selfTap() {
-        txtName.resignFirstResponder()
+        if txtName.isEditing {
+            txtName.resignFirstResponder()
+        } else {
+            self.dismiss(animated: true) { 
+                if self.txtName.isEditing {
+                    self.txtName.endEditing(true)
+                }
+            }
+        }
     }
 
     @IBAction func textChanged(_ textField: UITextField) {
