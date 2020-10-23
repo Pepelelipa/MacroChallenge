@@ -45,8 +45,6 @@ internal class AddNotebookViewController: PopupContainerViewController {
     private lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
-//        layout.minimumLineSpacing = 10
-//        layout.minimumInteritemSpacing = 10
 
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.contentMode = .center

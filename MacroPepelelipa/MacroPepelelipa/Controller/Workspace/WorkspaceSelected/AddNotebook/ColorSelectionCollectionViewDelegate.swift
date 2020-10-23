@@ -15,8 +15,6 @@ internal class ColorSelectionCollectionViewDelegate: NSObject,
     // MARK: - Variables and Constants
 
     private var selectionHandler: ((ColorSelectionCollectionViewCell) -> Void)?
-    private let numberOfColumns = 8
-    private let numberOfLines = 3
     
     // MARK: - Initializers
     
