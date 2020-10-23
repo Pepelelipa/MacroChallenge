@@ -1,8 +1,5 @@
-# Macro Challenge
-Our final challenge whilst part of Apple Developer Academy | Mackenzie.
-
-
 ![Purple Notebook's Icon][Icon]
+
 ## Purple Notebook
 An application designed to be as efficient and clean as possible for students who need to take **notes** during classes without loosing **focus**.
 
