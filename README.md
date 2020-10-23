@@ -1,7 +1,7 @@
 # Macro Challenge
 Our final challenge whilst part of Apple Developer Academy | Mackenzie.
 
-## Purple Notebook ![Purple Notebook's Icon][Icon] 
+## Purple Notebook ![Purple Notebook's Icon][Icon]
 An application designed to be as efficient and clean as possible for students who need to take **notes** during classes without loosing **focus**.
 
 Inspired by all the top current note takin apps, we decided to take it to the next level. Organised, intuitive, clean and with just what you need to make the most out of your classes. 
@@ -18,11 +18,11 @@ We wanted to make sure our user wouldn't have to rewrite things. Importing Apple
 ## Code Maintanability
 Since it’s a big project and we decided to make the best out of it, we would've gone crazy thinking about the code maintenance of it all. That's why we also documented most of our code when necessary and created a Class Diagram of everything we've done so far not to get lost which can be found always updated [here.]
 
-[Color and Relation Guide][Color and Relation Guide]
+![Color and Relation Guide][Color and Relation Guide]
 
-[Database Framework Class Diagram][Database Class Diagram]
+![Database Framework Class Diagram][Database Class Diagram]
 
-[App Diagram][App Diagram]
+![App Diagram][App Diagram]
 
 ## Goal
 Our goal is to best assist all students with the technology we got in our hands. 
