@@ -218,6 +218,14 @@ internal class AddNotebookViewController: PopupContainerViewController {
                     self.collectionView.heightAnchor.constraint(equalTo: self.collectionView.widthAnchor, multiplier: 0.338235)
                 ]
                 self.viewDidLayoutSubviews()
+            } else if device == .pad {
+                self.collectionViewContraints = [
+                    self.collectionView.centerXAnchor.constraint(equalTo: self.referenceView.centerXAnchor),
+                    self.collectionView.centerYAnchor.constraint(equalTo: self.referenceView.centerYAnchor),
+                    self.collectionView.widthAnchor.constraint(equalTo: self.referenceView.widthAnchor, multiplier: 0.8),
+                    self.collectionView.heightAnchor.constraint(equalTo: self.collectionView.widthAnchor, multiplier: 0.338235)
+                ]
+                self.viewDidLayoutSubviews()
             } else {
                 self.collectionViewContraints = [
                     self.collectionView.centerXAnchor.constraint(equalTo: self.referenceView.centerXAnchor),
@@ -226,7 +234,7 @@ internal class AddNotebookViewController: PopupContainerViewController {
                     self.collectionView.heightAnchor.constraint(equalTo: self.collectionView.widthAnchor, multiplier: 0.338235)
                 ]
                 self.viewDidLayoutSubviews()
-            }       
+            }
         }
     }
 
