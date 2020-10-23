@@ -15,6 +15,8 @@ internal class ColorSelectionCollectionViewDelegate: NSObject,
     // MARK: - Variables and Constants
 
     private var selectionHandler: ((ColorSelectionCollectionViewCell) -> Void)?
+    private let numberOfColumns = 8
+    private let numberOfLines = 3
     
     // MARK: - Initializers
     
@@ -24,8 +26,14 @@ internal class ColorSelectionCollectionViewDelegate: NSObject,
     
     // MARK: - Functions
 
-    func getWidth(from frame: CGRect) -> CGFloat {
-        return frame.height/4.65
+    func getSize(from frame: CGRect) -> CGFloat {
+        let frameOccupiedByCell = frame.width * 0.0735
+        return frameOccupiedByCell
+    }
+    
+    func getInsets(from frame: CGRect) -> CGFloat {
+        let frameOccupiedByInset = frame.width * 0.058
+        return frameOccupiedByInset
     }
     
     // MARK: - UICollectionViewDelegate functions
@@ -39,19 +47,25 @@ internal class ColorSelectionCollectionViewDelegate: NSObject,
     // MARK: - UICollectionViewDelegateFlowLayout functions
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let width = getWidth(from: collectionView.bounds)
-        return CGSize(width: width, height: width)
+        let width = getSize(from: collectionView.bounds)
+        let height = getSize(from: collectionView.bounds)
+        return CGSize(width: width, height: height)
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        let count = CGFloat(UIColor.notebookColors.count)/3
+        return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+    }
+        
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        
+        return getInsets(from: collectionView.bounds)
+    }
 
-        let totalCellWidth = getWidth(from: collectionView.frame) * count
-        let totalSpacingWidth = 10 * (count - 1)
-
-        let leftInset = (collectionView.frame.width - CGFloat(totalCellWidth + totalSpacingWidth)) / 2
-        let rightInset = leftInset
-
-        return UIEdgeInsets(top: 0, left: leftInset, bottom: 0, right: rightInset)
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return getInsets(from: collectionView.bounds)
     }
 }

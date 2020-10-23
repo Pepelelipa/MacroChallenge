@@ -16,6 +16,7 @@ internal class AddNotebookViewController: PopupContainerViewController {
     private var txtNoteDelegate = AddNewSpaceTextFieldDelegate()
     private weak var workspace: WorkspaceEntity?
     private let notebookView = NotebookView(frame: .zero)
+    private var referenceView = UIView(frame: .zero)
     
     private var portraitViewConstraints: [NSLayoutConstraint] = []
     private var landscapeViewConstraints: [NSLayoutConstraint] = []
@@ -44,8 +45,8 @@ internal class AddNotebookViewController: PopupContainerViewController {
     private lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
-        layout.minimumLineSpacing = 10
-        layout.minimumInteritemSpacing = 10
+//        layout.minimumLineSpacing = 10
+//        layout.minimumInteritemSpacing = 10
 
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.contentMode = .center
@@ -79,26 +80,23 @@ internal class AddNotebookViewController: PopupContainerViewController {
 
         return btnConfirm
     }()
-
+    
     private lazy var constraints: [NSLayoutConstraint] = {
         [
             txtName.topAnchor.constraint(equalTo: view.topAnchor, constant: 20),
-            txtName.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 30),
-            txtName.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -30),
+            txtName.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            txtName.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
             txtName.heightAnchor.constraint(equalToConstant: 45),
-            txtName.centerXAnchor.constraint(equalTo: view.centerXAnchor),
 
             notebookView.topAnchor.constraint(equalTo: txtName.bottomAnchor, constant: 30),
             notebookView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             notebookView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.3),
             notebookView.widthAnchor.constraint(equalTo: notebookView.heightAnchor, multiplier: 0.75),
-
-            collectionView.topAnchor.constraint(equalTo: notebookView.bottomAnchor, constant: 30),
-            collectionView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.3),
-            collectionView.widthAnchor.constraint(equalTo: collectionView.heightAnchor, multiplier: 2.4),
-            collectionView.leadingAnchor.constraint(greaterThanOrEqualTo: view.leadingAnchor, constant: 20),
-            collectionView.trailingAnchor.constraint(lessThanOrEqualTo: view.trailingAnchor, constant: -20),
-            collectionView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            
+            referenceView.topAnchor.constraint(equalTo: notebookView.bottomAnchor, constant: 10),
+            referenceView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            referenceView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            referenceView.bottomAnchor.constraint(equalTo: btnConfirm.topAnchor, constant: -10),
 
             btnConfirm.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -20),
             btnConfirm.centerXAnchor.constraint(equalTo: view.centerXAnchor),
@@ -107,6 +105,8 @@ internal class AddNotebookViewController: PopupContainerViewController {
             btnConfirm.heightAnchor.constraint(equalToConstant: 45)
         ]
     }()
+    
+    private lazy var collectionViewContraints: [NSLayoutConstraint] = []
     
     // MARK: - Initializers
 
@@ -129,12 +129,18 @@ internal class AddNotebookViewController: PopupContainerViewController {
         if let color = UIColor.randomNotebookColor() {
             notebookView.color = color
         }
+        
+        referenceView.translatesAutoresizingMaskIntoConstraints = false
+        
+        view.addSubview(referenceView)
         view.addSubview(txtName)
-        view.addSubview(collectionView)
+        referenceView.addSubview(collectionView)
         view.addSubview(notebookView)
         view.addSubview(btnConfirm)
         btnConfirm.isEnabled = false
-
+        
+        setCollectionViewConstraints()
+        
         let selfTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(selfTap))
         selfTapGestureRecognizer.numberOfTapsRequired = 2
         view.addGestureRecognizer(selfTapGestureRecognizer)
@@ -146,8 +152,8 @@ internal class AddNotebookViewController: PopupContainerViewController {
         portraitViewConstraints = [
             view.centerXAnchor.constraint(equalTo: viewController.view.centerXAnchor),
             view.centerYAnchor.constraint(equalTo: viewController.view.centerYAnchor),
-            view.heightAnchor.constraint(equalTo: viewController.view.heightAnchor, multiplier: 0.6),
-            view.widthAnchor.constraint(greaterThanOrEqualTo: view.heightAnchor, multiplier: 0.7),
+            view.heightAnchor.constraint(equalTo: viewController.view.heightAnchor, multiplier: 0.526),
+            view.widthAnchor.constraint(greaterThanOrEqualTo: view.heightAnchor, multiplier: 0.89),
             view.widthAnchor.constraint(lessThanOrEqualTo: viewController.view.widthAnchor, multiplier: 0.95)
         ]
         landscapeViewConstraints = [
@@ -172,7 +178,7 @@ internal class AddNotebookViewController: PopupContainerViewController {
             NSLayoutConstraint.deactivate(landscapeViewConstraints)
             NSLayoutConstraint.activate(portraitViewConstraints)
         }
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
             self.collectionView.collectionViewLayout.invalidateLayout()
         }
     }
@@ -180,6 +186,7 @@ internal class AddNotebookViewController: PopupContainerViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         NSLayoutConstraint.activate(constraints)
+        NSLayoutConstraint.activate(collectionViewContraints)
     }
     
     override func backgroundTap() {
@@ -194,6 +201,33 @@ internal class AddNotebookViewController: PopupContainerViewController {
 
     private func checkBtnEnabled() {
         btnConfirm.isEnabled = txtName.text != ""
+    }
+    
+    private func setCollectionViewConstraints() {
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) { [unowned self] in
+            guard let rootFrame = self.collectionView.superview?.bounds else {
+                return
+            }
+            
+            if (rootFrame.height / rootFrame.width) > 0.22 {
+                self.collectionViewContraints = [
+                    self.collectionView.centerXAnchor.constraint(equalTo: self.referenceView.centerXAnchor),
+                    self.collectionView.centerYAnchor.constraint(equalTo: self.referenceView.centerYAnchor),
+                    self.collectionView.widthAnchor.constraint(equalTo: self.referenceView.widthAnchor),
+                    self.collectionView.heightAnchor.constraint(equalTo: self.collectionView.widthAnchor, multiplier: 0.338235)
+                ]
+                self.viewDidLayoutSubviews()
+            } else {
+                self.collectionViewContraints = [
+                    self.collectionView.centerXAnchor.constraint(equalTo: self.referenceView.centerXAnchor),
+                    self.collectionView.centerYAnchor.constraint(equalTo: self.referenceView.centerYAnchor),
+                    self.collectionView.widthAnchor.constraint(equalTo: self.referenceView.widthAnchor, multiplier: 0.638),
+                    self.collectionView.heightAnchor.constraint(equalTo: self.collectionView.widthAnchor, multiplier: 0.338235)
+                ]
+                self.viewDidLayoutSubviews()
+            }       
+        }
     }
 
     // MARK: - IBActions functions
