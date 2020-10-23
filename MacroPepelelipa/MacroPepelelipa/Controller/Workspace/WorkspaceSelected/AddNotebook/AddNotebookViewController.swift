@@ -208,7 +208,9 @@ internal class AddNotebookViewController: PopupContainerViewController {
                 return
             }
             
-            if (rootFrame.height / rootFrame.width) > 0.28 {
+            let device = UIDevice.current.userInterfaceIdiom
+            
+            if (rootFrame.height / rootFrame.width) > 0.22, device == .phone {
                 self.collectionViewContraints = [
                     self.collectionView.centerXAnchor.constraint(equalTo: self.referenceView.centerXAnchor),
                     self.collectionView.centerYAnchor.constraint(equalTo: self.referenceView.centerYAnchor),
