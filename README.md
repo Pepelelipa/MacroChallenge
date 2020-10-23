@@ -11,7 +11,7 @@ We wanted to make sure our user wouldn't have to rewrite things. Importing Apple
 
 ## Data Persistence
 We split our functionalities so that the data storage is in a separate framework which not only makes it excellent to use when dealing with future extensions and a macOS version, it also makes it simpler to whomever needs access to it. 
-Right now it relies on **CoreData** technology to store all your data locallly in the device, and is also being prepared to go online using **CloudKit**, to ensure **cross-device information.** 
+Right now it relies on **CoreData** technology to store all your data locallly in the device, and is also being prepared to go online using **CloudKit**, to ensure **cross-device information.**
 
 ## Code Maintanability
 Since it’s a big project and we decided to make the best out of it, we would've gone crazy thinking about the code maintenance of it all. That's why we also documented most of our code when necessary and created a **diagram** of everything we've done so far not to get lost which can be found always updated [here.]
