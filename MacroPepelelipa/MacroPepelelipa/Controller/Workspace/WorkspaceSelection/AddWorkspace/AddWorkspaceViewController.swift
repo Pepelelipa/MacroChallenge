@@ -15,7 +15,7 @@ internal class AddWorkspaceViewController: UIViewController, AddWorkspaceObserve
     
     internal var centerYConstraint: NSLayoutConstraint?
     
-    private lazy var popupView: UIView =  {
+    private lazy var popupView: UIView = {
         let view = UIView()
         view.backgroundColor = .backgroundColor
         view.translatesAutoresizingMaskIntoConstraints = false

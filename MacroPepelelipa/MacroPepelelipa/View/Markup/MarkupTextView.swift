@@ -264,5 +264,7 @@ internal class MarkupTextView: UITextView {
         mutableString.deleteCharacters(in: range)
         attributedText = mutableString
         selectedRange.location = location - range.length
+        
+        (delegate as? MarkupTextViewDelegate)?.checkDeletionNeeded(self)
     }
 }

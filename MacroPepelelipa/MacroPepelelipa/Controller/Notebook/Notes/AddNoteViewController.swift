@@ -16,7 +16,7 @@ internal class AddNoteViewController: UIViewController, AddNoteObserver {
     private weak var notebook: NotebookEntity?
     internal var centerYConstraint: NSLayoutConstraint?
     
-    private lazy var popupView: UIView =  {
+    private lazy var popupView: UIView = {
         let view = UIView()
         view.backgroundColor = .backgroundColor
         view.translatesAutoresizingMaskIntoConstraints = false
