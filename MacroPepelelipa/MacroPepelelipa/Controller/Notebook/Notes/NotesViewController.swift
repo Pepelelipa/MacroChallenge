@@ -241,9 +241,7 @@ internal class NotesViewController: UIViewController,
         resizeHandles[0].setNeedsDisplay()
     }
     
-    /**
-     Delete all resize handles
-     */
+    ////Delete all resize handles
     private func cleanResizeHandles() {
         if !resizeHandles.isEmpty {
             resizeHandles.forEach { (resizeHandle) in
@@ -281,7 +279,7 @@ internal class NotesViewController: UIViewController,
                     entity.height = Float(textBox.frame.height)
                 }
             }
-
+            
             for imageBox in imageBoxes where imageBox.frame.origin.x != 0 && imageBox.frame.origin.y != 0 {
                 if let entity = note.images.first(where: { $0 === imageBox.entity }) {
                     entity.x = Float(imageBox.frame.origin.x)

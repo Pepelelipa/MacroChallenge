@@ -32,7 +32,7 @@ internal class AddNotebookViewController: UIViewController {
         view.layer.cornerRadius = 20
         return view
     }()
-
+    
     private lazy var txtName: UITextField = {
         let txtName = UITextField()
         txtName.translatesAutoresizingMaskIntoConstraints = false
@@ -253,4 +253,3 @@ internal class AddNotebookViewController: UIViewController {
         }
     }
 }
-

@@ -137,18 +137,19 @@ internal class NotesPageViewController: UIPageViewController,
         }
         
         notesToolbar.newNoteTriggered = {
-            guard let guardedNotebook = self.notebook else {
+            guard let notebook = self.notebook else {
                 return
             }
             
-            let destination = AddNoteViewController(notebook: guardedNotebook)
+            let destination = AddNoteViewController(notebook: notebook) { 
+                self.updateNotes()
+            }
+            
             destination.isModalInPresentation = true
             destination.modalTransitionStyle = .crossDissolve
             destination.modalPresentationStyle = .overFullScreen
             
-            self.present(destination, animated: true) { 
-                self.updateNotes()
-            }
+            self.present(destination, animated: true)
         }
     }
     
