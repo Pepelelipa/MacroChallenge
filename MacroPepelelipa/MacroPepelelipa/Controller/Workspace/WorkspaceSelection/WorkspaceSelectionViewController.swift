@@ -63,7 +63,7 @@ internal class WorkspaceSelectionViewController: UIViewController {
         if !self.collectionView.isEditing {
             let notebooksSelectionView = NotebooksSelectionViewController(workspace: workspace)
             self.navigationController?.pushViewController(notebooksSelectionView, animated: true)
-        } else {
+        } else if workspace.isEnabled {
             let workspaceEditingController = AddWorkspaceViewController()
 
             workspaceEditingController.isModalInPresentation = true

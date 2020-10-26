@@ -17,7 +17,9 @@ internal class WorkspaceCollectionViewCell: UICollectionViewCell, EditableCollec
             if isEditing {
                 NSLayoutConstraint.deactivate(collectionViewConstraints)
                 collectionView.removeFromSuperview()
-                disclosureIndicator.isHidden = false
+                if workspace?.isEnabled ?? false {
+                    disclosureIndicator.isHidden = false
+                }
                 minusIndicator.isHidden = false
                 lblLeadingConstraint.constant = 60
             } else {
