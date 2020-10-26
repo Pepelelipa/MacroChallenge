@@ -123,6 +123,7 @@
 		A731AA7425372F9C00624131 /* IndexObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = A731AA7325372F9C00624131 /* IndexObserver.swift */; };
 		A731AA7F25374A8A00624131 /* TextEditingContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A731AA7E25374A8A00624131 /* TextEditingContainerViewController.swift */; };
 		A73C94BA253F84E8004EFA4F /* PhotoPickerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A73C94B9253F84E8004EFA4F /* PhotoPickerDelegate.swift */; };
+		A74D472425474A220038D388 /* GestureDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A74D472325474A210038D388 /* GestureDelegate.swift */; };
 		A77579EF2538C9CC00F4268C /* NotesBarButtonItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = A77579EE2538C9CC00F4268C /* NotesBarButtonItems.swift */; };
 		A792F03A25279E8400AB1766 /* NotebookIndexTableViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A792F03925279E8400AB1766 /* NotebookIndexTableViewDelegate.swift */; };
 		A7BC781E253A2995006489CF /* TextRecognitionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7BC781D253A2995006489CF /* TextRecognitionManager.swift */; };
@@ -324,6 +325,7 @@
 		A731AA7E25374A8A00624131 /* TextEditingContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextEditingContainerViewController.swift; sourceTree = "<group>"; };
 		A73C94B6253F7E4C004EFA4F /* MacroPepelelipa.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MacroPepelelipa.entitlements; sourceTree = "<group>"; };
 		A73C94B9253F84E8004EFA4F /* PhotoPickerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoPickerDelegate.swift; sourceTree = "<group>"; };
+		A74D472325474A210038D388 /* GestureDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GestureDelegate.swift; sourceTree = "<group>"; };
 		A77579EE2538C9CC00F4268C /* NotesBarButtonItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesBarButtonItems.swift; sourceTree = "<group>"; };
 		A792F03925279E8400AB1766 /* NotebookIndexTableViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotebookIndexTableViewDelegate.swift; sourceTree = "<group>"; };
 		A7BC781D253A2995006489CF /* TextRecognitionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextRecognitionManager.swift; sourceTree = "<group>"; };
@@ -911,6 +913,7 @@
 			children = (
 				02AD78F125475C5800C87D2B /* EditableCollectionView.swift */,
 				02AD78F525475C7300C87D2B /* EditableCollectionViewCell.swift */,
+				A74D472325474A210038D388 /* GestureDelegate.swift */,
 				E4017A92252D09DC00ABB87C /* Extensions */,
 				022D602B251955C000001D5B /* Markup */,
 				0247F78B25115B8900405A61 /* Workspace */,
@@ -1354,6 +1357,7 @@
 				02E5A22C25239E36009DFFB5 /* WorkspaceSelectionViewController.swift in Sources */,
 				024C5BB8252E41E2009549CE /* ColorSelectionCollectionViewDataSource.swift in Sources */,
 				026C3CAC251942A7001E32AE /* NotesViewController.swift in Sources */,
+				A74D472425474A220038D388 /* GestureDelegate.swift in Sources */,
 				A77579EF2538C9CC00F4268C /* NotesBarButtonItems.swift in Sources */,
 				1E9290C1252FA68600E8B142 /* MarkupContainerViewController.swift in Sources */,
 				1EE652C2252504400015E3D4 /* MarkupContainerView.swift in Sources */,

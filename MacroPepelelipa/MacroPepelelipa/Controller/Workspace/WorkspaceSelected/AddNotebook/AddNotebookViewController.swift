@@ -23,6 +23,7 @@ internal class AddNotebookViewController: UIViewController {
     
     private lazy var keyboardToolBar = AddNewSpaceToolBar(frame: .zero, owner: txtName)
     private lazy var collectionViewDataSource = ColorSelectionCollectionViewDataSource(viewController: self)
+    private lazy var gestureDelegate: GestureDelegate = GestureDelegate(popup: popupView, textField: txtName)
     
     private lazy var popupView: UIView = {
         let view = UIView()
@@ -100,7 +101,6 @@ internal class AddNotebookViewController: UIViewController {
     
     private lazy var constraints: [NSLayoutConstraint] = {
         [
-            
             popupView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
             popupView.centerYAnchor.constraint(equalTo: self.view.centerYAnchor),
             popupView.widthAnchor.constraint(equalToConstant: ratio),
@@ -160,14 +160,12 @@ internal class AddNotebookViewController: UIViewController {
         popupView.addSubview(notebookView)
         popupView.addSubview(btnConfirm)
         
-        let backgroundTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(backgroundTap))
-        self.view.addGestureRecognizer(backgroundTapGestureRecognizer)
-        
         btnConfirm.isEnabled = false
         
         let selfTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(selfTap))
-        selfTapGestureRecognizer.numberOfTapsRequired = 2
+        selfTapGestureRecognizer.delegate = gestureDelegate
         view.addGestureRecognizer(selfTapGestureRecognizer)
+        
         self.txtName.inputAccessoryView = keyboardToolBar
     }
     
@@ -254,12 +252,5 @@ internal class AddNotebookViewController: UIViewController {
             }
         }
     }
-    
-    @IBAction internal func backgroundTap() {
-        self.dismiss(animated: true) { 
-            if self.txtName.isEditing {
-                self.txtName.endEditing(true)
-            }
-        }
-    }
 }
+

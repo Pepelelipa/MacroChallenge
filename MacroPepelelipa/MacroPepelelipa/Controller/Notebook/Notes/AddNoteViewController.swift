@@ -16,6 +16,8 @@ internal class AddNoteViewController: UIViewController, AddNoteObserver {
     private weak var notebook: NotebookEntity?
     internal var centerYConstraint: NSLayoutConstraint?
     
+    private lazy var gestureDelegate: GestureDelegate = GestureDelegate(popup: popupView, textField: txtName)
+    
     private lazy var popupView: UIView = {
         let view = UIView()
         view.backgroundColor = .backgroundColor
@@ -107,6 +109,7 @@ internal class AddNoteViewController: UIViewController, AddNoteObserver {
         btnConfirm.isEnabled = false
 
         let selfTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(selfTap))
+        selfTapGestureRecognizer.delegate = gestureDelegate
         view.addGestureRecognizer(selfTapGestureRecognizer)
         
         txtName.becomeFirstResponder()
