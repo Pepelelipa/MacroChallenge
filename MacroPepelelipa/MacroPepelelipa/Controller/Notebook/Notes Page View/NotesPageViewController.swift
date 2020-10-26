@@ -248,7 +248,7 @@ internal class NotesPageViewController: UIPageViewController,
     
     /// This method addes the done button when the keyboard shows.
     @objc func keyboardWillShow(_ notification: Notification) {
-        if navigationItem.rightBarButtonItems?.firstIndex(of: doneButton) != nil {
+        if navigationItem.rightBarButtonItems?.firstIndex(of: doneButton) == nil {
             navigationItem.rightBarButtonItems?.append(doneButton)
         }
     }
