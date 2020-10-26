@@ -23,9 +23,7 @@ internal class AddNotebookViewController: UIViewController {
     
     private lazy var keyboardToolBar = AddNewSpaceToolBar(frame: .zero, owner: txtName)
     private lazy var collectionViewDataSource = ColorSelectionCollectionViewDataSource(viewController: self)
-    
-    private lazy var gestureDelegate: GestureDelegate = GestureDelegate(popup: popupView, 
-                                                                        textField: txtName)
+    private lazy var gestureDelegate: GestureDelegate = GestureDelegate(popup: popupView, textField: txtName)
     
     private lazy var popupView: UIView = {
         let view = UIView()
