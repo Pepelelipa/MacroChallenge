@@ -9,9 +9,30 @@
 import UIKit
 import Database
 
-internal class WorkspaceCollectionViewCell: EditableCollectionViewCell {
-    
+internal class WorkspaceCollectionViewCell: UICollectionViewCell, EditableCollectionViewCell {
     // MARK: - Variables and Constants
+
+    internal var isEditing: Bool = false {
+        didSet {
+            if isEditing {
+                NSLayoutConstraint.deactivate(collectionViewConstraints)
+                collectionView.removeFromSuperview()
+                disclosureIndicator.isHidden = false
+                minusIndicator.isHidden = false
+                lblLeadingConstraint.constant = 60
+            } else {
+                addSubview(collectionView)
+                NSLayoutConstraint.activate(collectionViewConstraints)
+                minusIndicator.isHidden = true
+                disclosureIndicator.isHidden = true
+                lblLeadingConstraint.constant = 20
+            }
+
+            UIView.animate(withDuration: 0.3) {
+                self.layoutIfNeeded()
+            }
+        }
+    }
     
     private var dataSource: WorkspaceCellNotebookCollectionViewDataSource?
     private var delegate: WorkspaceCellNotebookCollectionViewDelegate?
@@ -44,12 +65,6 @@ internal class WorkspaceCollectionViewCell: EditableCollectionViewCell {
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
-    
-    internal private(set) weak var workspace: WorkspaceEntity? {
-        didSet {
-            self.lblWorkspaceName.text = workspace?.name
-        }
-    }
     
     private lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -85,6 +100,12 @@ internal class WorkspaceCollectionViewCell: EditableCollectionViewCell {
             collectionView.widthAnchor.constraint(greaterThanOrEqualTo: collectionView.heightAnchor, multiplier: 2)
         ]
     }()
+
+    internal private(set) weak var workspace: WorkspaceEntity? {
+        didSet {
+            self.lblWorkspaceName.text = workspace?.name
+        }
+    }
     
     // MARK: - Initializers
 
@@ -100,26 +121,6 @@ internal class WorkspaceCollectionViewCell: EditableCollectionViewCell {
             forCellWithReuseIdentifier: WorkspaceCellNotebookCollectionViewCell.cellID())
         setupConstraints()
         layer.cornerRadius = 10
-
-        didChangeEditing = { [weak self] (isEditing) in
-            if isEditing {
-                NSLayoutConstraint.deactivate(self?.collectionViewConstraints ?? [])
-                self?.collectionView.removeFromSuperview()
-                self?.disclosureIndicator.isHidden = false
-                self?.minusIndicator.isHidden = false
-                self?.lblLeadingConstraint.constant = 60
-            } else {
-                self?.addSubview(self?.collectionView ?? UIView())
-                NSLayoutConstraint.activate(self?.collectionViewConstraints ?? [])
-                self?.minusIndicator.isHidden = true
-                self?.disclosureIndicator.isHidden = true
-                self?.lblLeadingConstraint.constant = 20
-            }
-
-            UIView.animate(withDuration: 0.3) {
-                self?.layoutIfNeeded()
-            }
-        }
     }
     
     internal required convenience init?(coder: NSCoder) {

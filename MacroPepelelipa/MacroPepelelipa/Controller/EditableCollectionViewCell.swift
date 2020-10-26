@@ -8,12 +8,6 @@
 
 import UIKit
 
-internal class EditableCollectionViewCell: UICollectionViewCell {
-    internal var didChangeEditing: ((Bool) -> Void)?
-
-    internal var isEditing: Bool = false {
-        didSet {
-            didChangeEditing?(isEditing)
-        }
-    }
+internal protocol EditableCollectionViewCell: UICollectionViewCell {
+    var isEditing: Bool { get set }
 }
