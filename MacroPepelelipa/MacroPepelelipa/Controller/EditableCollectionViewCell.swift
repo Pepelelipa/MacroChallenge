@@ -7,7 +7,9 @@
 //
 
 import UIKit
+import Database
 
 internal protocol EditableCollectionViewCell: UICollectionViewCell {
     var isEditing: Bool { get set }
+    var entityShouldBeDeleted: ((ObservableEntity) -> Void)? { get set }
 }

@@ -36,6 +36,14 @@ internal class WorkspaceSelectionViewController: UIViewController {
         collectionView.register(
             WorkspaceCollectionViewCell.self,
             forCellWithReuseIdentifier: WorkspaceCollectionViewCell.cellID())
+
+        collectionView.entityShouldBeDeleted = { (workspace) in
+            if let workspace = workspace as? WorkspaceEntity,
+               let cells = collectionView.visibleCells as? [WorkspaceCollectionViewCell],
+               let cell = cells.first(where: { $0.workspace === workspace }) {
+                self.deleteCell(cell: cell)
+            }
+        }
         
         return collectionView
     }()
@@ -350,11 +358,18 @@ internal class WorkspaceSelectionViewController: UIViewController {
         let point = gesture.location(in: collectionView)
         
         guard let indexPath = collectionView.indexPathForItem(at: point),
-              let cell = collectionView.cellForItem(at: indexPath) as? WorkspaceCollectionViewCell,
-              let workspace = cell.workspace else {
+              let cell = collectionView.cellForItem(at: indexPath) as? WorkspaceCollectionViewCell else {
             return
         }
-        
+
+        deleteCell(cell: cell)
+    }
+
+    private func deleteCell(cell: WorkspaceCollectionViewCell) {
+        guard let workspace = cell.workspace else {
+            return
+        }
+
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet).makeDeleteConfirmation(dataType: .workspace, deletionHandler: { [weak self] _ in
             let deleteAlertController = UIAlertController(title: "Delete Workspace confirmation".localized(),
                                                           message: "Warning".localized(),

@@ -33,17 +33,22 @@ internal class WorkspaceCollectionViewCell: UICollectionViewCell, EditableCollec
             }
         }
     }
+
+    internal var entityShouldBeDeleted: ((ObservableEntity) -> Void)?
     
     private var dataSource: WorkspaceCellNotebookCollectionViewDataSource?
     private var delegate: WorkspaceCellNotebookCollectionViewDelegate?
 
-    private var minusIndicator: UIImageView = {
-        let imageView = UIImageView(image: UIImage(systemName: "minus.circle.fill"))
-        imageView.tintColor = UIColor.notebookColors[15]
-        imageView.isHidden = true
+    private lazy var minusIndicator: UIButton = {
+        let button = UIButton()
+        button.setBackgroundImage(UIImage(systemName: "minus.circle.fill"), for: .normal)
+        button.tintColor = UIColor.notebookColors[15]
+        button.isHidden = true
 
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        return imageView
+        button.addTarget(self, action: #selector(deleteTap), for: .touchUpInside)
+
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
     }()
 
     private var lblWorkspaceName: UILabel = {
@@ -169,5 +174,11 @@ internal class WorkspaceCollectionViewCell: UICollectionViewCell, EditableCollec
         collectionView.dataSource = dataSource
         collectionView.delegate = delegate
         collectionView.reloadData()
+    }
+
+    @objc internal func deleteTap() {
+        if let workspace = workspace {
+            entityShouldBeDeleted?(workspace)
+        }
     }
 }

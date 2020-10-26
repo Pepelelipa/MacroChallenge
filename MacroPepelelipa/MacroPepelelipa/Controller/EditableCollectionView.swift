@@ -7,8 +7,11 @@
 //
 
 import UIKit
+import Database
 
 internal class EditableCollectionView: UICollectionView {
+    internal var entityShouldBeDeleted: ((ObservableEntity) -> Void)?
+
     internal func setEditing(_ editing: Bool) {
         for cell in visibleCells {
             if let editableCell = cell as? EditableCollectionViewCell {
