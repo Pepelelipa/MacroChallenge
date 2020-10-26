@@ -80,6 +80,7 @@ internal class WorkspacesCollectionViewDataSource: NSObject,
             return UICollectionViewCell()
         }
         cell.setWorkspace(workspaces[indexPath.row], viewController: viewController)
+        cell.isEditing = collectionView.isEditing
         return cell
     }
     

@@ -9,12 +9,22 @@
 import UIKit
 import Database
 
-internal class WorkspaceCollectionViewCell: UICollectionViewCell {
+internal class WorkspaceCollectionViewCell: EditableCollectionViewCell {
     
     // MARK: - Variables and Constants
     
     private var dataSource: WorkspaceCellNotebookCollectionViewDataSource?
     private var delegate: WorkspaceCellNotebookCollectionViewDelegate?
+
+    private var minusIndicator: UIImageView = {
+        let image = UIImage(systemName: "minus.circle.fill") ?? UIImage()
+        let imageView = UIImageView(image: image)
+        imageView.tintColor = UIColor.notebookColors[15]
+        imageView.isHidden = true
+
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        return imageView
+    }()
 
     private var lblWorkspaceName: UILabel = {
         let lbl = UILabel(frame: .zero)
@@ -54,12 +64,26 @@ internal class WorkspaceCollectionViewCell: UICollectionViewCell {
 
         return collectionView
     }()
+
+    private lazy var lblLeadingConstraint: NSLayoutConstraint = lblWorkspaceName.leadingAnchor.constraint(
+        equalTo: leadingAnchor, constant: 20)
+
+    private lazy var collectionViewConstraints: [NSLayoutConstraint] = {
+        [
+            collectionView.topAnchor.constraint(equalTo: lblWorkspaceName.bottomAnchor, constant: 20),
+            collectionView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -20),
+            collectionView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
+            collectionView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
+            collectionView.widthAnchor.constraint(greaterThanOrEqualTo: collectionView.heightAnchor, multiplier: 2)
+        ]
+    }()
     
     // MARK: - Initializers
 
     override init(frame: CGRect) {
         super.init(frame: frame)
         backgroundColor = .backgroundColor
+        addSubview(minusIndicator)
         addSubview(lblWorkspaceName)
         addSubview(collectionView)
         collectionView.register(
@@ -67,6 +91,25 @@ internal class WorkspaceCollectionViewCell: UICollectionViewCell {
             forCellWithReuseIdentifier: WorkspaceCellNotebookCollectionViewCell.cellID())
         setupConstraints()
         layer.cornerRadius = 10
+
+        didChangeEditing = { [weak self] (isEditing) in
+            if isEditing {
+                NSLayoutConstraint.deactivate(self?.collectionViewConstraints ?? [])
+                self?.collectionView.removeFromSuperview()
+                self?.minusIndicator.isHidden = false
+                self?.lblLeadingConstraint.constant = 60
+            } else {
+                self?.addSubview(self?.collectionView ?? UIView())
+                NSLayoutConstraint.activate(self?.collectionViewConstraints ?? [])
+                self?.minusIndicator.isHidden = true
+                self?.collectionView.isHidden = false
+                self?.lblLeadingConstraint.constant = 20
+            }
+
+            UIView.animate(withDuration: 0.3) {
+                self?.layoutIfNeeded()
+            }
+        }
     }
     
     internal required convenience init?(coder: NSCoder) {
@@ -77,22 +120,21 @@ internal class WorkspaceCollectionViewCell: UICollectionViewCell {
     }
     
     // MARK: - Functions
-    
+
     private func setupConstraints() {
         NSLayoutConstraint.activate([
             lblWorkspaceName.topAnchor.constraint(equalTo: topAnchor, constant: 20),
-            lblWorkspaceName.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
+            lblLeadingConstraint,
             lblWorkspaceName.trailingAnchor.constraint(lessThanOrEqualTo: trailingAnchor, constant: -20),
-            lblWorkspaceName.heightAnchor.constraint(equalToConstant: 30)
+            lblWorkspaceName.heightAnchor.constraint(equalToConstant: 30),
+
+            minusIndicator.centerYAnchor.constraint(equalTo: centerYAnchor),
+            minusIndicator.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
+            minusIndicator.heightAnchor.constraint(equalToConstant: 20),
+            minusIndicator.widthAnchor.constraint(equalTo: minusIndicator.heightAnchor, multiplier: 1)
         ])
 
-        NSLayoutConstraint.activate([
-            collectionView.topAnchor.constraint(equalTo: lblWorkspaceName.bottomAnchor, constant: 20),
-            collectionView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
-            collectionView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
-            collectionView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -20),
-            collectionView.widthAnchor.constraint(greaterThanOrEqualTo: collectionView.heightAnchor, multiplier: 2)
-        ])
+        NSLayoutConstraint.activate(collectionViewConstraints)
     }
     
     internal class func cellID() -> String { 

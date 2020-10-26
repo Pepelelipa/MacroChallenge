@@ -19,10 +19,10 @@ internal class WorkspaceSelectionViewController: UIViewController {
     private var regularConstraints: [NSLayoutConstraint] = []
     private var sharedConstraints: [NSLayoutConstraint] = []
     
-    private lazy var collectionView: UICollectionView = {
+    private lazy var collectionView: EditableCollectionView = {
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
         
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        let collectionView = EditableCollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.backgroundColor = view.backgroundColor
         collectionView.showsVerticalScrollIndicator = false
@@ -199,9 +199,7 @@ internal class WorkspaceSelectionViewController: UIViewController {
     
     override func setEditing(_ editing: Bool, animated: Bool) {
         super.setEditing(editing, animated: animated)
-        collectionView.isEditing = editing
-        collectionView.reloadItems(at: collectionView.indexPathsForVisibleItems)
-        invalidateLayout()
+        collectionView.setEditing(editing)
     }
 
     /**
