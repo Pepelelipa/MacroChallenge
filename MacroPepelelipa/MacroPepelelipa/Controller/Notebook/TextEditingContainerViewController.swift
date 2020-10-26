@@ -236,12 +236,16 @@ internal class TextEditingContainerViewController: UIViewController,
     
     /// This method addes the done button when the keyboard shows.
     @objc func keyboardWillShow(_ notification: Notification) {
-        navigationItem.rightBarButtonItems?.append(doneButton)
+        if navigationItem.rightBarButtonItems?.firstIndex(of: doneButton) == nil {
+            navigationItem.rightBarButtonItems?.append(doneButton)
+        }
     }
     
     /// This method removes the done button when the keyboard hides.
     @objc func keyboardWillHide(_ notification: Notification) {
-        navigationItem.rightBarButtonItems = [notebookIndexButton]
+        if let index = navigationItem.rightBarButtonItems?.firstIndex(of: doneButton) {
+            navigationItem.rightBarButtonItems?.remove(at: index)
+        }
     }
     
     // MARK: - IndexObserver functions
