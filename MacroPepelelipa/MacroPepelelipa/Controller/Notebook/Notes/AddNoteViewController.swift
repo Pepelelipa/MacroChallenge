@@ -125,6 +125,7 @@ internal class AddNoteViewController: UIViewController, AddNoteObserver {
     }
     
     override func viewWillDisappear(_ animated: Bool) {
+        self.dismissHandler?()
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
     }
@@ -186,8 +187,6 @@ internal class AddNoteViewController: UIViewController, AddNoteObserver {
                     .makeErrorMessage(with: "A new Note could not be created".localized())
                 self.present(alertController, animated: true, completion: nil)
             }
-            
-            self.dismissHandler?()
             
             self.dismiss(animated: true) { 
                 if self.txtName.isEditing {
