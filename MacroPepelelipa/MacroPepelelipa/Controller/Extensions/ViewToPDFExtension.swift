@@ -7,25 +7,38 @@
 //
 
 import UIKit
+import Database
+import PDFKit
 
-extension UIView {
-    public func toPDF() -> NSData? {
-        let pdfData = NSMutableData()
-        let pdfMetadata = [
-            kCGPDFContextCreator: "$(PRODUCT_NAME)",
-            kCGPDFContextTitle: "Notebook".localized()
+public extension NoteEntity {
+    func createDocument() -> Data {
+      // 1
+      let pdfMetaData = [
+        kCGPDFContextCreator: "Flyer Builder",
+        kCGPDFContextAuthor: "raywenderlich.com"
+      ]
+      let format = UIGraphicsPDFRendererFormat()
+      format.documentInfo = pdfMetaData as [String: Any]
+
+      // 2
+      let pageWidth = 8.5 * 72.0
+      let pageHeight = 11 * 72.0
+      let pageRect = CGRect(x: 0, y: 0, width: pageWidth, height: pageHeight)
+
+      // 3
+      let renderer = UIGraphicsPDFRenderer(bounds: pageRect, format: format)
+      // 4
+      let data = renderer.pdfData { (context) in
+        // 5
+        context.beginPage()
+        // 6
+        let attributes = [
+          NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 72)
         ]
-        
-        UIGraphicsBeginPDFContextToData(pdfData, self.bounds, pdfMetadata)
-        UIGraphicsBeginPDFPage()
+        let text = "I'm a PDF!"
+        text.draw(at: CGPoint(x: 0, y: 0), withAttributes: attributes)
+      }
 
-        guard let pdfContext = UIGraphicsGetCurrentContext() else {
-            return nil
-        }
-        
-        self.layer.render(in: pdfContext)
-        UIGraphicsEndPDFContext()
-
-        return pdfData
+      return data
     }
 }
