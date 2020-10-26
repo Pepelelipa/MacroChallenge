@@ -12,7 +12,9 @@ import Database
 internal class AddWorkspaceViewController: UIViewController, AddWorkspaceObserver {
     
     // MARK: - Variables and Constants
-    
+
+    internal weak var workspace: WorkspaceEntity?
+
     internal var centerYConstraint: NSLayoutConstraint?
     
     private lazy var popupView: UIView = {
@@ -99,16 +101,16 @@ internal class AddWorkspaceViewController: UIViewController, AddWorkspaceObserve
         
         txtName.becomeFirstResponder()
         self.txtName.inputAccessoryView = keyboardToolBar
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
+
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
+    override func viewWillAppear(_ animated: Bool) {
+        if let workspace = workspace {
+            txtName.text = workspace.name
+            btnConfirm.setTitle("Save workspace".localized(), for: .normal)
+        }
     }
     
     override func viewDidLayoutSubviews() {
@@ -140,7 +142,12 @@ internal class AddWorkspaceViewController: UIViewController, AddWorkspaceObserve
     @IBAction func btnConfirmTap() {
         if let text = txtName.text {
             do {
-                _ = try DataManager.shared().createWorkspace(named: text)
+                if let workspace = workspace {
+                    workspace.name = text
+                    try workspace.save()
+                } else {
+                    _ = try DataManager.shared().createWorkspace(named: text)
+                }
             } catch {
                 let alertController = UIAlertController(
                     title: "Error creating the workspace".localized(),

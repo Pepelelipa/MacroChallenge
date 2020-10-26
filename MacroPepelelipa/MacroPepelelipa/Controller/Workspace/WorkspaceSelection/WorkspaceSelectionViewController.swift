@@ -27,6 +27,7 @@ internal class WorkspaceSelectionViewController: UIViewController {
         collectionView.backgroundColor = view.backgroundColor
         collectionView.showsVerticalScrollIndicator = false
         collectionView.allowsSelection = true
+        collectionView.allowsSelectionDuringEditing = true
         collectionView.allowsMultipleSelection = false
         collectionView.contentInset = UIEdgeInsets(top: 20, left: 0, bottom: 20, right: 0)
         collectionView.delegate = collectionDelegate
@@ -50,10 +51,20 @@ internal class WorkspaceSelectionViewController: UIViewController {
             self.present(alertController, animated: true, completion: nil)
             return
         }
-        
-        let notebooksSelectionView = NotebooksSelectionViewController(workspace: workspace)
-        
-        self.navigationController?.pushViewController(notebooksSelectionView, animated: true)
+
+        if !self.collectionView.isEditing {
+            let notebooksSelectionView = NotebooksSelectionViewController(workspace: workspace)
+            self.navigationController?.pushViewController(notebooksSelectionView, animated: true)
+        } else {
+            let workspaceEditingController = AddWorkspaceViewController()
+
+            workspaceEditingController.isModalInPresentation = true
+            workspaceEditingController.modalTransitionStyle = .crossDissolve
+            workspaceEditingController.modalPresentationStyle = .overFullScreen
+
+            workspaceEditingController.workspace = workspace
+            self.present(workspaceEditingController, animated: true)
+        }
     }
     
     private lazy var collectionDataSource = WorkspacesCollectionViewDataSource(viewController: self, collectionView: { self.collectionView })
