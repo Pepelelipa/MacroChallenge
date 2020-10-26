@@ -17,8 +17,7 @@ internal class WorkspaceCollectionViewCell: EditableCollectionViewCell {
     private var delegate: WorkspaceCellNotebookCollectionViewDelegate?
 
     private var minusIndicator: UIImageView = {
-        let image = UIImage(systemName: "minus.circle.fill") ?? UIImage()
-        let imageView = UIImageView(image: image)
+        let imageView = UIImageView(image: UIImage(systemName: "minus.circle.fill"))
         imageView.tintColor = UIColor.notebookColors[15]
         imageView.isHidden = true
 
@@ -35,6 +34,15 @@ internal class WorkspaceCollectionViewCell: EditableCollectionViewCell {
         lbl.translatesAutoresizingMaskIntoConstraints = false
 
         return lbl
+    }()
+
+    private var disclosureIndicator: UIImageView = {
+        let imageView = UIImageView(image: UIImage(systemName: "chevron.right"))
+        imageView.tintColor = .actionColor
+        imageView.isHidden = true
+
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        return imageView
     }()
     
     internal private(set) weak var workspace: WorkspaceEntity? {
@@ -85,6 +93,7 @@ internal class WorkspaceCollectionViewCell: EditableCollectionViewCell {
         backgroundColor = .backgroundColor
         addSubview(minusIndicator)
         addSubview(lblWorkspaceName)
+        addSubview(disclosureIndicator)
         addSubview(collectionView)
         collectionView.register(
             WorkspaceCellNotebookCollectionViewCell.self,
@@ -96,13 +105,14 @@ internal class WorkspaceCollectionViewCell: EditableCollectionViewCell {
             if isEditing {
                 NSLayoutConstraint.deactivate(self?.collectionViewConstraints ?? [])
                 self?.collectionView.removeFromSuperview()
+                self?.disclosureIndicator.isHidden = false
                 self?.minusIndicator.isHidden = false
                 self?.lblLeadingConstraint.constant = 60
             } else {
                 self?.addSubview(self?.collectionView ?? UIView())
                 NSLayoutConstraint.activate(self?.collectionViewConstraints ?? [])
                 self?.minusIndicator.isHidden = true
-                self?.collectionView.isHidden = false
+                self?.disclosureIndicator.isHidden = true
                 self?.lblLeadingConstraint.constant = 20
             }
 
@@ -131,7 +141,13 @@ internal class WorkspaceCollectionViewCell: EditableCollectionViewCell {
             minusIndicator.centerYAnchor.constraint(equalTo: centerYAnchor),
             minusIndicator.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
             minusIndicator.heightAnchor.constraint(equalToConstant: 20),
-            minusIndicator.widthAnchor.constraint(equalTo: minusIndicator.heightAnchor, multiplier: 1)
+            minusIndicator.widthAnchor.constraint(equalTo: minusIndicator.heightAnchor, multiplier: 1),
+
+            disclosureIndicator.centerYAnchor.constraint(equalTo: centerYAnchor),
+            disclosureIndicator.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
+            disclosureIndicator.heightAnchor.constraint(equalToConstant: 30),
+            disclosureIndicator.widthAnchor.constraint(equalTo: disclosureIndicator.heightAnchor, multiplier: 0.6)
+
         ])
 
         NSLayoutConstraint.activate(collectionViewConstraints)
