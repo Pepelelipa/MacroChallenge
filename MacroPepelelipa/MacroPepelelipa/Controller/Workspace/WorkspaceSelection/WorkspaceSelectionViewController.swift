@@ -57,7 +57,7 @@ internal class WorkspaceSelectionViewController: UIViewController {
     }
     
     private lazy var collectionDataSource = WorkspacesCollectionViewDataSource(viewController: self, collectionView: { self.collectionView })
-    
+
     private lazy var btnAdd: UIBarButtonItem = {
         let item = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(btnAddTap))
         return item
@@ -107,6 +107,7 @@ internal class WorkspaceSelectionViewController: UIViewController {
         let time = UserDefaults.standard.integer(forKey: "numberOfTimes")
         if time == 0 && collectionDataSource.isEmpty {
             createOnboarding()
+            UserDefaults.standard.setValue(time + 1, forKey: "numberOfTimes")
         } else if time == 8 {
             if let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
                 #if !DEBUG && !targetEnvironment(macCatalyst)
@@ -115,6 +116,10 @@ internal class WorkspaceSelectionViewController: UIViewController {
             }
         } else {
             UserDefaults.standard.setValue(time + 1, forKey: "numberOfTimes")
+        }
+
+        if !collectionDataSource.isEmpty {
+            navigationItem.leftBarButtonItem = editButtonItem
         }
     }
     
@@ -192,6 +197,13 @@ internal class WorkspaceSelectionViewController: UIViewController {
         }
     }
     
+    override func setEditing(_ editing: Bool, animated: Bool) {
+        super.setEditing(editing, animated: animated)
+        collectionView.isEditing = editing
+        collectionView.reloadItems(at: collectionView.indexPathsForVisibleItems)
+        invalidateLayout()
+    }
+
     /**
      This private method sets the constraints for different size classes and devices.
      */
