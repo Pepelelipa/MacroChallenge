@@ -87,7 +87,7 @@ internal class NotebooksSelectionViewController: UIViewController {
 
                 self.presentDestination(for: UIDevice.current.userInterfaceIdiom, notebook: notebook)
             } else {
-                self.editNotebook(notebook: notebook)
+                self.editNotebook(notebook)
             }
         } else {
             self.presentErrorAlert()
@@ -342,7 +342,7 @@ internal class NotebooksSelectionViewController: UIViewController {
         deleteCell(cell: cell)
     }
 
-    private func editNotebook(notebook: NotebookEntity) {
+    private func editNotebook(_ notebook: NotebookEntity) {
         let notebookEditingController = AddNotebookViewController(workspace: workspace)
 
         notebookEditingController.isModalInPresentation = true
@@ -375,6 +375,14 @@ internal class NotebooksSelectionViewController: UIViewController {
                                                           })
             self?.present(deleteAlertController, animated: true, completion: nil)
         })
+
+        if workspace?.isEnabled ?? false {
+            let editAction = UIAlertAction(title: "Edit".localized(), style: .default, handler: { _ in
+                self.setEditing(true, animated: true)
+                self.editNotebook(notebook)
+            })
+            alertController.addAction(editAction)
+        }
 
         if UIDevice.current.userInterfaceIdiom == .pad {
             alertController.popoverPresentationController?.sourceView = cell
