@@ -31,6 +31,7 @@
 		021107AE252F8EE30009D4E1 /* CoreDataError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 021107AD252F8EE30009D4E1 /* CoreDataError.swift */; };
 		021107C5252FADC90009D4E1 /* TextBoxError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 021107C4252FADC90009D4E1 /* TextBoxError.swift */; };
 		021107C8252FADE00009D4E1 /* ImageBoxError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 021107C7252FADE00009D4E1 /* ImageBoxError.swift */; };
+		021A96422548BDA800BA26A0 /* NSAttributedString Transformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 021A96412548BDA800BA26A0 /* NSAttributedString Transformer.swift */; };
 		02207A392523A5970001FD7E /* WorkspacesCollectionViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02207A382523A5970001FD7E /* WorkspacesCollectionViewDataSource.swift */; };
 		02207A3E2523AB160001FD7E /* WorkspaceCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02207A3D2523AB160001FD7E /* WorkspaceCollectionViewCell.swift */; };
 		022832D9252E547200DDD46B /* DataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 022832D7252E547200DDD46B /* DataModel.xcdatamodeld */; };
@@ -231,6 +232,7 @@
 		021107AD252F8EE30009D4E1 /* CoreDataError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataError.swift; sourceTree = "<group>"; };
 		021107C4252FADC90009D4E1 /* TextBoxError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextBoxError.swift; sourceTree = "<group>"; };
 		021107C7252FADE00009D4E1 /* ImageBoxError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageBoxError.swift; sourceTree = "<group>"; };
+		021A96412548BDA800BA26A0 /* NSAttributedString Transformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSAttributedString Transformer.swift"; sourceTree = "<group>"; };
 		02207A382523A5970001FD7E /* WorkspacesCollectionViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkspacesCollectionViewDataSource.swift; sourceTree = "<group>"; };
 		02207A3D2523AB160001FD7E /* WorkspaceCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkspaceCollectionViewCell.swift; sourceTree = "<group>"; };
 		022832D8252E547200DDD46B /* DataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DataModel.xcdatamodel; sourceTree = "<group>"; };
@@ -478,6 +480,7 @@
 				022832E4252E5CE900DDD46B /* Notebook+CoreDataClass.swift */,
 				022832E5252E5CE900DDD46B /* Notebook+CoreDataProperties.swift */,
 				022832D7252E547200DDD46B /* DataModel.xcdatamodeld */,
+				021A96412548BDA800BA26A0 /* NSAttributedString Transformer.swift */,
 			);
 			path = CoreData;
 			sourceTree = "<group>";
@@ -1285,6 +1288,7 @@
 				02110797252F89530009D4E1 /* NotebookError.swift in Sources */,
 				02A75297252E5316006D37B5 /* CoreDataController.swift in Sources */,
 				022832E9252E5CE900DDD46B /* TextBox+CoreDataProperties.swift in Sources */,
+				021A96422548BDA800BA26A0 /* NSAttributedString Transformer.swift in Sources */,
 				021107C8252FADE00009D4E1 /* ImageBoxError.swift in Sources */,
 				021107AE252F8EE30009D4E1 /* CoreDataError.swift in Sources */,
 				0282EB71253A2E9E009CB4AC /* FileHelper.swift in Sources */,
