@@ -37,6 +37,14 @@ internal class NotebooksSelectionViewController: UIViewController {
         collectionView.register(
             NotebookCollectionViewCell.self,
             forCellWithReuseIdentifier: NotebookCollectionViewCell.cellID())
+
+        collectionView.entityShouldBeDeleted = { (notebook) in
+            if let notebook = notebook as? NotebookEntity,
+               let cells = collectionView.visibleCells as? [NotebookCollectionViewCell],
+               let cell = cells.first(where: { $0.notebook === notebook }) {
+                self.deleteCell(cell: cell)
+            }
+        }
         
         return collectionView
     }()
@@ -97,7 +105,7 @@ internal class NotebooksSelectionViewController: UIViewController {
         }
         self.init(workspace: workspace)
     }
-    
+
     // MARK: - Override functions
 
     override func viewDidLoad() {
@@ -325,11 +333,17 @@ internal class NotebooksSelectionViewController: UIViewController {
         let point = gesture.location(in: collectionView)
         
         guard let indexPath = collectionView.indexPathForItem(at: point),
-              let cell = collectionView.cellForItem(at: indexPath) as? NotebookCollectionViewCell,
-              let notebook = cell.notebook else {
+              let cell = collectionView.cellForItem(at: indexPath) as? NotebookCollectionViewCell else {
             return
         }
-        
+        deleteCell(cell: cell)
+    }
+
+    private func deleteCell(cell: NotebookCollectionViewCell) {
+        guard let notebook = cell.notebook else {
+            return
+        }
+
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet).makeDeleteConfirmation(dataType: .notebook, deletionHandler: { [weak self] _ in
             let deleteAlertController = UIAlertController(title: "Delete Notebook confirmation".localized(),
                                                           message: "Warning".localized(),
@@ -347,7 +361,7 @@ internal class NotebooksSelectionViewController: UIViewController {
                                                           })
             self?.present(deleteAlertController, animated: true, completion: nil)
         })
-        
+
         if UIDevice.current.userInterfaceIdiom == .pad {
             alertController.popoverPresentationController?.sourceView = cell
             alertController.popoverPresentationController?.sourceRect = cell.frame
