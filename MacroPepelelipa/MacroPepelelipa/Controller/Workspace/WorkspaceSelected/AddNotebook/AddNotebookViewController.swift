@@ -176,7 +176,7 @@ internal class AddNotebookViewController: UIViewController {
         if let notebook = notebook {
             txtName.text = notebook.name
             notebookView.color = UIColor(named: notebook.colorName) ?? .red
-            btnConfirm.setTitle("Save notebook".localized(), for: .normal)
+            btnConfirm.setTitle("Save Notebook".localized(), for: .normal)
             checkBtnEnabled()
         }
     }

@@ -377,7 +377,7 @@ internal class NotebooksSelectionViewController: UIViewController {
         })
 
         if workspace?.isEnabled ?? false {
-            let editAction = UIAlertAction(title: "Edit".localized(), style: .default, handler: { _ in
+            let editAction = UIAlertAction(title: "Edit Notebook".localized(), style: .default, handler: { _ in
                 self.setEditing(true, animated: true)
                 self.editNotebook(notebook)
             })

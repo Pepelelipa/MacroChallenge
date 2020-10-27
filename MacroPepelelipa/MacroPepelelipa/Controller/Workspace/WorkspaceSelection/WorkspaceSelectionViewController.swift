@@ -393,7 +393,7 @@ internal class WorkspaceSelectionViewController: UIViewController {
         })
 
         if workspace.isEnabled {
-            let editAction = UIAlertAction(title: "Edit".localized(), style: .default, handler: { _ in
+            let editAction = UIAlertAction(title: "Edit Workspace".localized(), style: .default, handler: { _ in
                 self.setEditing(true, animated: true)
                 self.editWorkspace(workspace)
             })

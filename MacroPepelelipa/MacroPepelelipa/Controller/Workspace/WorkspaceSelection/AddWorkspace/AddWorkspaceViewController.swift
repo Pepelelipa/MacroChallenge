@@ -112,7 +112,7 @@ internal class AddWorkspaceViewController: UIViewController, AddWorkspaceObserve
     override func viewWillAppear(_ animated: Bool) {
         if let workspace = workspace {
             txtName.text = workspace.name
-            btnConfirm.setTitle("Save workspace".localized(), for: .normal)
+            btnConfirm.setTitle("Save Workspace".localized(), for: .normal)
         }
     }
     
