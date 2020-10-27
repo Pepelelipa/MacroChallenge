@@ -148,7 +148,6 @@ internal class WorkspaceCollectionViewCell: UICollectionViewCell, EditableCollec
     private func setupConstraints() {
         NSLayoutConstraint.activate([
             lblWorkspaceName.trailingAnchor.constraint(lessThanOrEqualTo: trailingAnchor, constant: -20),
-            lblWorkspaceName.heightAnchor.constraint(equalToConstant: 30),
 
             minusIndicator.centerYAnchor.constraint(equalTo: centerYAnchor),
             minusIndicator.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
