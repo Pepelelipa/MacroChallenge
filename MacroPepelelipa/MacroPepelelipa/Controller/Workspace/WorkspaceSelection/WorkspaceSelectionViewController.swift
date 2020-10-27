@@ -88,8 +88,7 @@ internal class WorkspaceSelectionViewController: UIViewController {
         view.translatesAutoresizingMaskIntoConstraints = false
         
         if UIDevice.current.userInterfaceIdiom == .phone {
-            let orientation = UIApplication.shared.windows.first?.windowScene?.interfaceOrientation
-            view.isLandscape = orientation == UIInterfaceOrientation.landscapeLeft || orientation == UIInterfaceOrientation.landscapeRight
+            view.isLandscape = UIDevice.current.orientation.isActuallyLandscape
         }
         
         return view
@@ -166,8 +165,7 @@ internal class WorkspaceSelectionViewController: UIViewController {
         layoutTrait(traitCollection: traitCollection)
         
         if UIDevice.current.userInterfaceIdiom == .phone {
-            let orientation = UIApplication.shared.windows.first?.windowScene?.interfaceOrientation
-            emptyScreenView.isLandscape = orientation == UIInterfaceOrientation.landscapeLeft || orientation == UIInterfaceOrientation.landscapeRight
+            emptyScreenView.isLandscape = UIDevice.current.orientation.isActuallyLandscape
         }
     }
 
