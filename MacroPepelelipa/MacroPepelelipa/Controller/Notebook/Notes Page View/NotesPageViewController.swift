@@ -134,7 +134,7 @@ internal class NotesPageViewController: UIPageViewController,
         
         notesToolbar.shareNoteTriggered = { sender in
 //            let objectsToShare: [Any] = [pageView.toPDF() as Any]
-            let objectsToShare: [Any] = [notebook]
+//            let objectsToShare: [Any] = [notebook]
             let activityVC = UIActivityViewController(activityItems: objectsToShare, applicationActivities: nil)
 
             activityVC.popoverPresentationController?.barButtonItem = sender
