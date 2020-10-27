@@ -61,6 +61,7 @@ class EmptyScreenView: UIView {
         stack.addArrangedSubview(descriptionLabel)
         stack.addArrangedSubview(imageView)
         stack.addArrangedSubview(backgoundButtonView)
+        stack.spacing = 1
         
         stack.translatesAutoresizingMaskIntoConstraints = false
         
@@ -75,6 +76,7 @@ class EmptyScreenView: UIView {
         label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
         label.setContentHuggingPriority(UILayoutPriority(rawValue: 250), for: .vertical)
+        label.adjustsFontSizeToFitWidth = true
         return label
     }()
     
@@ -147,7 +149,7 @@ class EmptyScreenView: UIView {
             stackView.centerYAnchor.constraint(equalTo: centerYAnchor),
             
             imageView.widthAnchor.constraint(equalTo: widthAnchor),
-            imageView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.55),
+            imageView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.6),
             
             button.centerXAnchor.constraint(equalTo: backgoundButtonView.centerXAnchor),
             button.centerYAnchor.constraint(equalTo: backgoundButtonView.centerYAnchor),
@@ -160,8 +162,8 @@ class EmptyScreenView: UIView {
         ])
         
         portraitConstraints = [
-            descriptionLabel.widthAnchor.constraint(equalTo: widthAnchor),
-            descriptionLabel.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.35),
+//            descriptionLabel.widthAnchor.constraint(equalTo: widthAnchor),
+//            descriptionLabel.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.3),
             
             backgoundButtonView.widthAnchor.constraint(equalTo: widthAnchor),
             backgoundButtonView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.1)
