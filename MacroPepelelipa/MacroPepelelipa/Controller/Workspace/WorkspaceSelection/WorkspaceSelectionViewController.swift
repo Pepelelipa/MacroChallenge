@@ -74,6 +74,10 @@ internal class WorkspaceSelectionViewController: UIViewController {
         view.alpha = 0
         view.isHidden = true
         view.translatesAutoresizingMaskIntoConstraints = false
+        
+        let orientation = UIApplication.shared.windows.first?.windowScene?.interfaceOrientation
+        view.isLandscape = orientation == UIInterfaceOrientation.landscapeLeft || orientation == UIInterfaceOrientation.landscapeRight
+        
         return view
     }()
     
@@ -141,6 +145,9 @@ internal class WorkspaceSelectionViewController: UIViewController {
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         layoutTrait(traitCollection: traitCollection)
+        
+        let orientation = UIApplication.shared.windows.first?.windowScene?.interfaceOrientation
+        emptyScreenView.isLandscape = orientation == UIInterfaceOrientation.landscapeLeft || orientation == UIInterfaceOrientation.landscapeRight
     }
     
     // MARK: - Functions
@@ -213,8 +220,8 @@ internal class WorkspaceSelectionViewController: UIViewController {
         
         if UIDevice.current.userInterfaceIdiom == .phone {
             regularCompactConstraints.append(contentsOf: [
-                emptyScreenView.heightAnchor.constraint(equalTo: self.view.heightAnchor, multiplier: 0.9),
-                emptyScreenView.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 0.4)
+                emptyScreenView.heightAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.heightAnchor),
+                emptyScreenView.widthAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.widthAnchor, multiplier: 0.5)
             ])
         } else {
             regularCompactConstraints.append(contentsOf: [
