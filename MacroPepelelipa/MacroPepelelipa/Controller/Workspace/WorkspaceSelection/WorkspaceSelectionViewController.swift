@@ -75,8 +75,10 @@ internal class WorkspaceSelectionViewController: UIViewController {
         view.isHidden = true
         view.translatesAutoresizingMaskIntoConstraints = false
         
-        let orientation = UIApplication.shared.windows.first?.windowScene?.interfaceOrientation
-        view.isLandscape = orientation == UIInterfaceOrientation.landscapeLeft || orientation == UIInterfaceOrientation.landscapeRight
+        if UIDevice.current.userInterfaceIdiom == .phone {
+            let orientation = UIApplication.shared.windows.first?.windowScene?.interfaceOrientation
+            view.isLandscape = orientation == UIInterfaceOrientation.landscapeLeft || orientation == UIInterfaceOrientation.landscapeRight
+        }
         
         return view
     }()
@@ -146,8 +148,10 @@ internal class WorkspaceSelectionViewController: UIViewController {
         super.traitCollectionDidChange(previousTraitCollection)
         layoutTrait(traitCollection: traitCollection)
         
-        let orientation = UIApplication.shared.windows.first?.windowScene?.interfaceOrientation
-        emptyScreenView.isLandscape = orientation == UIInterfaceOrientation.landscapeLeft || orientation == UIInterfaceOrientation.landscapeRight
+        if UIDevice.current.userInterfaceIdiom == .phone {
+            let orientation = UIApplication.shared.windows.first?.windowScene?.interfaceOrientation
+            emptyScreenView.isLandscape = orientation == UIInterfaceOrientation.landscapeLeft || orientation == UIInterfaceOrientation.landscapeRight
+        }
     }
     
     // MARK: - Functions
