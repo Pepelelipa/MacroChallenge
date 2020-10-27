@@ -55,7 +55,7 @@ internal class WorkspaceCellNotebookCollectionViewDataSource: NSObject, UICollec
            let colorName = workspace?.notebooks[indexPath.row].colorName {
             cell.color = UIColor(named: colorName) ?? .clear
         } else {
-            let randomColor = UIColor.randomNotebookColor(alpha: 0.3) ?? UIColor.clear
+            let randomColor = UIColor.gray.withAlphaComponent(0.15)
             cell.color = randomColor
         }
         return cell
