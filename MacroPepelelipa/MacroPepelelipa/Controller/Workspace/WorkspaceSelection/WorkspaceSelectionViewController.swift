@@ -159,6 +159,11 @@ internal class WorkspaceSelectionViewController: UIViewController {
         super.traitCollectionDidChange(previousTraitCollection)
         layoutTrait(traitCollection: traitCollection)
     }
+
+    override func setEditing(_ editing: Bool, animated: Bool) {
+        super.setEditing(editing, animated: animated)
+        collectionView.setEditing(editing)
+    }
     
     // MARK: - Functions
 
@@ -207,11 +212,6 @@ internal class WorkspaceSelectionViewController: UIViewController {
                 cell.invalidateLayout()
             }
         }
-    }
-    
-    override func setEditing(_ editing: Bool, animated: Bool) {
-        super.setEditing(editing, animated: animated)
-        collectionView.setEditing(editing)
     }
 
     /**

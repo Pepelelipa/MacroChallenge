@@ -21,10 +21,10 @@ internal class NotebooksSelectionViewController: UIViewController {
     
     internal private(set) weak var workspace: WorkspaceEntity?
 
-    private lazy var collectionView: UICollectionView = {
+    private lazy var collectionView: EditableCollectionView = {
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
         
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        let collectionView = EditableCollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.backgroundColor = view.backgroundColor
         collectionView.showsVerticalScrollIndicator = false
@@ -120,6 +120,11 @@ internal class NotebooksSelectionViewController: UIViewController {
         if UIDevice.current.userInterfaceIdiom != .pad {
             layoutTrait(traitCollection: UIScreen.main.traitCollection)
         }
+
+        if !(collectionDataSource?.isEmpty() ?? true) && (workspace?.isEnabled ?? false) {
+            navigationItem.leftItemsSupplementBackButton = true
+            navigationItem.leftBarButtonItem = self.editButtonItem
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -146,6 +151,11 @@ internal class NotebooksSelectionViewController: UIViewController {
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         layoutTrait(traitCollection: traitCollection)
+    }
+
+    override func setEditing(_ editing: Bool, animated: Bool) {
+        super.setEditing(editing, animated: animated)
+        collectionView.setEditing(editing)
     }
     
     // MARK: - Functions

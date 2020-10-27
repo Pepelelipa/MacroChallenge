@@ -38,6 +38,12 @@ internal class NotebooksCollectionViewDataSource: NSObject,
             notebook.removeObserver(self)
         }
     }
+
+    // MARK: Functions
+
+    internal func isEmpty() -> Bool {
+        return notebooks.isEmpty
+    }
     
     // MARK: - UICollectionViewDataSource functions
 

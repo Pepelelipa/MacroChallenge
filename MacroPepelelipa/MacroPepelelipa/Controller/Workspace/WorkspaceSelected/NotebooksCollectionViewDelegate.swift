@@ -38,23 +38,31 @@ internal class NotebooksCollectionViewDelegate: NSObject,
     
     internal func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let isLandscape = UIDevice.current.orientation.isActuallyLandscape
+        let width: CGFloat
+        let height: CGFloat
+
         if UIDevice.current.userInterfaceIdiom == .pad {
             if isLandscape {
-                let width = collectionView.bounds.width/5
-                return CGSize(width: width, height: width * 1.68)
+                width = collectionView.bounds.width/5
+                height = width * 1.68
             } else {
-                let width = collectionView.bounds.width/4
-                return CGSize(width: width, height: width * 1.67)
+                width = collectionView.bounds.width/4
+                height = width * 1.67
             }
         } else {
-            if isLandscape {
-                let width = collectionView.bounds.width/5.2
-                return CGSize(width: width, height: width * 1.74)
+            if collectionView.isEditing {
+                width = collectionView.bounds.width
+                height = 70
+            } else if isLandscape {
+                width = collectionView.bounds.width/5.2
+                height = width * 1.74
             } else {
-                let width = collectionView.bounds.width/2.3
-                return CGSize(width: width, height: width * 1.72)
+                width = collectionView.bounds.width/2.3
+                height = width * 1.72
             }
         }
+
+        return CGSize(width: width, height: collectionView.isEditing ? 70 : height)
     }
 
     internal func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
