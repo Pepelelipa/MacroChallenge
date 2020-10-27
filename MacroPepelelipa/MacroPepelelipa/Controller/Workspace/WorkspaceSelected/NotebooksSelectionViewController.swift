@@ -66,6 +66,11 @@ internal class NotebooksSelectionViewController: UIViewController {
         view.alpha = 0
         view.isHidden = true
         view.translatesAutoresizingMaskIntoConstraints = false
+        
+        if UIDevice.current.userInterfaceIdiom == .phone {
+            view.isLandscape = UIDevice.current.orientation.isActuallyLandscape
+        }
+        
         return view
     }()
 
@@ -162,6 +167,10 @@ internal class NotebooksSelectionViewController: UIViewController {
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         layoutTrait(traitCollection: traitCollection)
+        
+        if UIDevice.current.userInterfaceIdiom == .phone {
+            emptyScreenView.isLandscape = UIDevice.current.orientation.isActuallyLandscape
+        }
     }
 
     override func setEditing(_ editing: Bool, animated: Bool) {
@@ -190,8 +199,8 @@ internal class NotebooksSelectionViewController: UIViewController {
         
         if UIDevice.current.userInterfaceIdiom == .phone {
             regularCompactConstraints.append(contentsOf: [
-                emptyScreenView.heightAnchor.constraint(equalTo: self.view.heightAnchor, multiplier: 0.9),
-                emptyScreenView.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 0.4)
+                emptyScreenView.heightAnchor.constraint(equalTo: self.view.heightAnchor),
+                emptyScreenView.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 0.5)
             ])
         } else {
             regularCompactConstraints.append(contentsOf: [
