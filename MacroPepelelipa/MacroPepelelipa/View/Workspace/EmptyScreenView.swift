@@ -16,7 +16,58 @@ class EmptyScreenView: UIView {
     private var imageName: String
     private var buttonTitle: String
     private var action: () -> Void
+    
+    private var portraitConstraints = [NSLayoutConstraint]()
+    private var landscapeConstraints = [NSLayoutConstraint]()
 
+    override var isHidden: Bool {
+        didSet {
+            backgoundButtonView.layer.cornerRadius = backgoundButtonView.frame.height / 2
+        }
+    }
+
+    internal var isLandscape: Bool = false {
+        didSet {
+            imageView.isHidden = isLandscape
+            
+            if isLandscape {
+                NSLayoutConstraint.deactivate(portraitConstraints)
+                NSLayoutConstraint.activate(landscapeConstraints)
+            } else {
+                NSLayoutConstraint.deactivate(landscapeConstraints)
+                NSLayoutConstraint.activate(portraitConstraints)
+            }
+        }
+    }
+    
+    override var bounds: CGRect {
+        didSet {
+            var multiplier: CGFloat = 0.1
+            if isLandscape {
+                multiplier = 0.15
+            }
+            
+            backgoundButtonView.layer.cornerRadius = (bounds.height * multiplier) / 2
+        }
+    }
+    
+    private lazy var stackView: UIStackView = {
+        let stack = UIStackView(frame: .zero)
+        
+        stack.axis = .vertical
+        stack.alignment = .fill
+        stack.distribution = .fill
+        
+        stack.addArrangedSubview(descriptionLabel)
+        stack.addArrangedSubview(imageView)
+        stack.addArrangedSubview(backgoundButtonView)
+        stack.spacing = 1
+        
+        stack.translatesAutoresizingMaskIntoConstraints = false
+        
+        return stack
+    }()
+    
     private lazy var descriptionLabel: UILabel = {
         let label = UILabel(frame: .zero)
         label.text = descriptionText
@@ -24,6 +75,8 @@ class EmptyScreenView: UIView {
         label.textAlignment = .center
         label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.setContentHuggingPriority(UILayoutPriority(rawValue: 250), for: .vertical)
+        label.adjustsFontSizeToFitWidth = true
         return label
     }()
     
@@ -36,15 +89,21 @@ class EmptyScreenView: UIView {
         imageView.tintColor = UIColor.actionColor
         imageView.contentMode = .scaleAspectFit
         imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.setContentHuggingPriority(UILayoutPriority(rawValue: 249), for: .vertical)
+        imageView.setContentCompressionResistancePriority(UILayoutPriority(rawValue: 749), for: .vertical)
         return imageView
+    }()
+    
+    private lazy var backgoundButtonView: UIView = {
+        let view = UIView(frame: .zero)
+        view.backgroundColor = UIColor.actionColor
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
     }()
     
     private lazy var button: UIButton = {
         let button = UIButton(frame: .zero)
         button.tintColor = UIColor.backgroundColor
-        button.setBackgroundImage(UIImage(named: "btnWorkspaceBackground"), for: .normal)
-        button.layer.cornerRadius = 22
-        button.contentEdgeInsets = UIEdgeInsets(top: 10, left: 15, bottom: 10, right: 15)
         button.setTitle(buttonTitle, for: .normal)
         button.titleLabel?.font = MarkdownHeader.thirdHeaderFont
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -69,8 +128,7 @@ class EmptyScreenView: UIView {
         self.buttonTitle = buttonTitle
         
         super.init(frame: frame)
-        self.addSubview(descriptionLabel)
-        self.addSubview(imageView)
+        self.addSubview(stackView)
         self.addSubview(button)
         setConstraints()
     }
@@ -86,30 +144,41 @@ class EmptyScreenView: UIView {
     
     ///This private method sets the constraints for the subviews in this view.
     private func setConstraints() {
-        descriptionLabel.setContentHuggingPriority(UILayoutPriority(rawValue: 250), for: .vertical)
-        imageView.setContentHuggingPriority(UILayoutPriority(rawValue: 249), for: .vertical)
-        
         NSLayoutConstraint.activate([
-            descriptionLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-            descriptionLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 20),
-            descriptionLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20),
-            descriptionLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -20)
+            stackView.centerXAnchor.constraint(equalTo: centerXAnchor),
+            stackView.centerYAnchor.constraint(equalTo: centerYAnchor),
+            
+            imageView.widthAnchor.constraint(equalTo: widthAnchor),
+            imageView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.6),
+            
+            button.centerXAnchor.constraint(equalTo: backgoundButtonView.centerXAnchor),
+            button.centerYAnchor.constraint(equalTo: backgoundButtonView.centerYAnchor),
+            button.widthAnchor.constraint(equalTo: backgoundButtonView.widthAnchor),
+            button.heightAnchor.constraint(equalTo: backgoundButtonView.heightAnchor),
+            
+            descriptionLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
+            imageView.centerXAnchor.constraint(equalTo: centerXAnchor),
+            backgoundButtonView.centerXAnchor.constraint(equalTo: centerXAnchor)
         ])
         
-        NSLayoutConstraint.activate([
-            imageView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-            imageView.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: 20),
-            imageView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20),
-            imageView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -20)
-        ])
+        portraitConstraints = [
+            backgoundButtonView.widthAnchor.constraint(equalTo: widthAnchor),
+            backgoundButtonView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.1)
+        ]
         
-        NSLayoutConstraint.activate([
-            button.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-            button.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 20),
-            button.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20),
-            button.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -20),
-            button.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -20)
-        ])
+        landscapeConstraints = [
+            descriptionLabel.widthAnchor.constraint(equalTo: widthAnchor),
+            descriptionLabel.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.45),
+            
+            backgoundButtonView.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.5),
+            backgoundButtonView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.15)
+        ]
+        
+        if isLandscape {
+            NSLayoutConstraint.activate(landscapeConstraints)
+        } else {
+            NSLayoutConstraint.activate(portraitConstraints)
+        }
     }
     
     // MARK: - Objective-C functions
