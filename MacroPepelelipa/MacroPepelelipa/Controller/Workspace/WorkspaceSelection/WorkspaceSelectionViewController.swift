@@ -64,14 +64,7 @@ internal class WorkspaceSelectionViewController: UIViewController {
             let notebooksSelectionView = NotebooksSelectionViewController(workspace: workspace)
             self.navigationController?.pushViewController(notebooksSelectionView, animated: true)
         } else if workspace.isEnabled {
-            let workspaceEditingController = AddWorkspaceViewController()
-
-            workspaceEditingController.isModalInPresentation = true
-            workspaceEditingController.modalTransitionStyle = .crossDissolve
-            workspaceEditingController.modalPresentationStyle = .overFullScreen
-
-            workspaceEditingController.workspace = workspace
-            self.present(workspaceEditingController, animated: true)
+            self.editWorkspace(workspace)
         }
     }
     
@@ -257,6 +250,17 @@ internal class WorkspaceSelectionViewController: UIViewController {
             emptyScreenView.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 0.25)
         ])
     }
+
+    private func editWorkspace(_ workspace: WorkspaceEntity) {
+        let workspaceEditingController = AddWorkspaceViewController()
+
+        workspaceEditingController.isModalInPresentation = true
+        workspaceEditingController.modalTransitionStyle = .crossDissolve
+        workspaceEditingController.modalPresentationStyle = .overFullScreen
+
+        workspaceEditingController.workspace = workspace
+        self.present(workspaceEditingController, animated: true)
+    }
     
     /**
      This method layouts the appropriate constraits based on the current trait collection.
@@ -387,6 +391,14 @@ internal class WorkspaceSelectionViewController: UIViewController {
                                                           })
             self?.present(deleteAlertController, animated: true, completion: nil)
         })
+
+        if workspace.isEnabled {
+            let editAction = UIAlertAction(title: "Edit".localized(), style: .default, handler: { _ in
+                self.setEditing(true, animated: true)
+                self.editWorkspace(workspace)
+            })
+            alertController.addAction(editAction)
+        }
 
         if UIDevice.current.userInterfaceIdiom == .pad {
             alertController.popoverPresentationController?.sourceView = cell
