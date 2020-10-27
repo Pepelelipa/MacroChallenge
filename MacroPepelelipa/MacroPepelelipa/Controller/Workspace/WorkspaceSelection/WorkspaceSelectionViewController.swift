@@ -19,14 +19,15 @@ internal class WorkspaceSelectionViewController: UIViewController {
     private var regularConstraints: [NSLayoutConstraint] = []
     private var sharedConstraints: [NSLayoutConstraint] = []
     
-    private lazy var collectionView: UICollectionView = {
+    private lazy var collectionView: EditableCollectionView = {
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
         
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        let collectionView = EditableCollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.backgroundColor = view.backgroundColor
         collectionView.showsVerticalScrollIndicator = false
         collectionView.allowsSelection = true
+        collectionView.allowsSelectionDuringEditing = true
         collectionView.allowsMultipleSelection = false
         collectionView.contentInset = UIEdgeInsets(top: 20, left: 0, bottom: 20, right: 0)
         collectionView.delegate = collectionDelegate
@@ -35,6 +36,14 @@ internal class WorkspaceSelectionViewController: UIViewController {
         collectionView.register(
             WorkspaceCollectionViewCell.self,
             forCellWithReuseIdentifier: WorkspaceCollectionViewCell.cellID())
+
+        collectionView.entityShouldBeDeleted = { (workspace) in
+            if let workspace = workspace as? WorkspaceEntity,
+               let cells = collectionView.visibleCells as? [WorkspaceCollectionViewCell],
+               let cell = cells.first(where: { $0.workspace === workspace }) {
+                self.deleteCell(cell: cell)
+            }
+        }
         
         return collectionView
     }()
@@ -50,14 +59,17 @@ internal class WorkspaceSelectionViewController: UIViewController {
             self.present(alertController, animated: true, completion: nil)
             return
         }
-        
-        let notebooksSelectionView = NotebooksSelectionViewController(workspace: workspace)
-        
-        self.navigationController?.pushViewController(notebooksSelectionView, animated: true)
+
+        if !self.collectionView.isEditing {
+            let notebooksSelectionView = NotebooksSelectionViewController(workspace: workspace)
+            self.navigationController?.pushViewController(notebooksSelectionView, animated: true)
+        } else if workspace.isEnabled {
+            self.editWorkspace(workspace)
+        }
     }
     
     private lazy var collectionDataSource = WorkspacesCollectionViewDataSource(viewController: self, collectionView: { self.collectionView })
-    
+
     private lazy var btnAdd: UIBarButtonItem = {
         let item = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(btnAddTap))
         return item
@@ -107,6 +119,7 @@ internal class WorkspaceSelectionViewController: UIViewController {
         let time = UserDefaults.standard.integer(forKey: "numberOfTimes")
         if time == 0 && collectionDataSource.isEmpty {
             createOnboarding()
+            UserDefaults.standard.setValue(time + 1, forKey: "numberOfTimes")
         } else if time == 8 {
             if let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
                 #if !DEBUG && !targetEnvironment(macCatalyst)
@@ -115,6 +128,10 @@ internal class WorkspaceSelectionViewController: UIViewController {
             }
         } else {
             UserDefaults.standard.setValue(time + 1, forKey: "numberOfTimes")
+        }
+
+        if !collectionDataSource.isEmpty {
+            navigationItem.leftBarButtonItem = editButtonItem
         }
     }
     
@@ -141,6 +158,11 @@ internal class WorkspaceSelectionViewController: UIViewController {
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         layoutTrait(traitCollection: traitCollection)
+    }
+
+    override func setEditing(_ editing: Bool, animated: Bool) {
+        super.setEditing(editing, animated: animated)
+        collectionView.setEditing(editing)
     }
     
     // MARK: - Functions
@@ -191,7 +213,7 @@ internal class WorkspaceSelectionViewController: UIViewController {
             }
         }
     }
-    
+
     /**
      This private method sets the constraints for different size classes and devices.
      */
@@ -227,6 +249,17 @@ internal class WorkspaceSelectionViewController: UIViewController {
             emptyScreenView.heightAnchor.constraint(equalTo: self.view.heightAnchor, multiplier: 0.5),
             emptyScreenView.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 0.25)
         ])
+    }
+
+    private func editWorkspace(_ workspace: WorkspaceEntity) {
+        let workspaceEditingController = AddWorkspaceViewController()
+
+        workspaceEditingController.isModalInPresentation = true
+        workspaceEditingController.modalTransitionStyle = .crossDissolve
+        workspaceEditingController.modalPresentationStyle = .overFullScreen
+
+        workspaceEditingController.workspace = workspace
+        self.present(workspaceEditingController, animated: true)
     }
     
     /**
@@ -329,11 +362,18 @@ internal class WorkspaceSelectionViewController: UIViewController {
         let point = gesture.location(in: collectionView)
         
         guard let indexPath = collectionView.indexPathForItem(at: point),
-              let cell = collectionView.cellForItem(at: indexPath) as? WorkspaceCollectionViewCell,
-              let workspace = cell.workspace else {
+              let cell = collectionView.cellForItem(at: indexPath) as? WorkspaceCollectionViewCell else {
             return
         }
-        
+
+        deleteCell(cell: cell)
+    }
+
+    private func deleteCell(cell: WorkspaceCollectionViewCell) {
+        guard let workspace = cell.workspace else {
+            return
+        }
+
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet).makeDeleteConfirmation(dataType: .workspace, deletionHandler: { [weak self] _ in
             let deleteAlertController = UIAlertController(title: "Delete Workspace confirmation".localized(),
                                                           message: "Warning".localized(),
@@ -351,6 +391,14 @@ internal class WorkspaceSelectionViewController: UIViewController {
                                                           })
             self?.present(deleteAlertController, animated: true, completion: nil)
         })
+
+        if workspace.isEnabled {
+            let editAction = UIAlertAction(title: "Edit Workspace".localized(), style: .default, handler: { _ in
+                self.setEditing(true, animated: true)
+                self.editWorkspace(workspace)
+            })
+            alertController.addAction(editAction)
+        }
 
         if UIDevice.current.userInterfaceIdiom == .pad {
             alertController.popoverPresentationController?.sourceView = cell

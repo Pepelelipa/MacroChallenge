@@ -118,3 +118,7 @@
 "Floating boxes text" = "Caso você queira criar uma caixa flutuante, na sua nota, apenas clique no botão de caixa ou caixa de imagem.\nSe, por algum acaso, desejar deletar a caixa. Clique e segure nela até uma notificação aparecer, para finalizar a ação é só confirmar.";
 "Markdown" = "Markdown";
 "Markdown text" = "Caderno Roxo, foi desenvolvido para ser um aplicativo que preza pela eficiência. Desta forma, é possível utilizar atalhos do editor de Markdown enquanto faz anotações. É uma maneira rápida e poderosa de editar textos enquanto digita. Nosso editor de Markdown possuí diversas ferramentas para aprimorar seu texto, incluindo **Negrito**, *Italico* e ::Destacado::. Caso você deseje adicionar listas, basta escolher entre numérica ou de pontos usando 1. ou * respectivamente.";
+"Save Workspace" = "Salvar coleção";
+"Save Notebook" = "Salvar Caderno";
+"Edit Workspace" = "Editar Coleção";
+"Edit Notebook" = "Editar Caderno";
