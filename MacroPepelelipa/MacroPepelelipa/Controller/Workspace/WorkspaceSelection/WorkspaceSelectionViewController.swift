@@ -10,14 +10,22 @@ import UIKit
 import Database
 import StoreKit
 
-internal class WorkspaceSelectionViewController: UIViewController {
-    
+internal class WorkspaceSelectionViewController: UIViewController, UISearchResultsUpdating {
+
     // MARK: - Variables and Constants
+    
+    internal weak var filterWorkspaceObserver: FilterWorkspaceObserver?
     
     private var compactRegularConstraints: [NSLayoutConstraint] = []
     private var regularCompactConstraints: [NSLayoutConstraint] = []
     private var regularConstraints: [NSLayoutConstraint] = []
     private var sharedConstraints: [NSLayoutConstraint] = []
+    
+    private var isSearchBarEmpty: Bool {
+        return searchController.searchBar.text?.isEmpty ?? true
+    }
+    
+    private lazy var searchController: CustomUISearchController = CustomUISearchController(owner: self, placeHolder: "Search Workspaces")
     
     private lazy var collectionView: UICollectionView = {
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
@@ -87,6 +95,7 @@ internal class WorkspaceSelectionViewController: UIViewController {
         navigationItem.title = "Workspaces".localized()
         view.addSubview(collectionView)
         view.addSubview(emptyScreenView)
+        navigationItem.searchController = searchController
         
         setConstraints()
         NSLayoutConstraint.activate(sharedConstraints)
@@ -116,6 +125,8 @@ internal class WorkspaceSelectionViewController: UIViewController {
         } else {
             UserDefaults.standard.setValue(time + 1, forKey: "numberOfTimes")
         }
+        
+        self.definesPresentationContext = true
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -141,6 +152,19 @@ internal class WorkspaceSelectionViewController: UIViewController {
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         layoutTrait(traitCollection: traitCollection)
+    }
+    
+    // MARK: - UISearchResultsUpdating Functions
+    
+    func updateSearchResults(for searchController: UISearchController) {
+        let searchBar = searchController.searchBar
+        if let text = searchBar.text {
+            filterWorkspaceObserver?.filterWorkspace(text)
+        }
+        let value = searchController.isActive && !isSearchBarEmpty
+        searchController.showsSearchResultsController = true
+        filterWorkspaceObserver?.isFiltering(value)
+        collectionView.reloadData()
     }
     
     // MARK: - Functions

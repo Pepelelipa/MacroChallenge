@@ -253,4 +253,3 @@ internal class AddNotebookViewController: UIViewController {
         }
     }
 }
-

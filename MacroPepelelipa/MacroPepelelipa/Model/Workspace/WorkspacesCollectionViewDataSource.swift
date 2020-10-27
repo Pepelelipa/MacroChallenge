@@ -11,7 +11,8 @@ import Database
 
 internal class WorkspacesCollectionViewDataSource: NSObject, 
                                                    UICollectionViewDataSource, 
-                                                   EntityObserver {
+                                                   EntityObserver,
+                                                   FilterWorkspaceObserver {
     
     // MARK: - Variables and Constants
 
@@ -19,10 +20,12 @@ internal class WorkspacesCollectionViewDataSource: NSObject,
         return workspaces.isEmpty
     }
     
+    private var filteredWorkspaces = [WorkspaceEntity]()
+    private var isFiltering: Bool = false
     private let collectionView: (() -> UICollectionView)?
     private weak var viewController: UIViewController?
     
-    private lazy var workspaces: [WorkspaceEntity] = {
+    internal lazy var workspaces: [WorkspaceEntity] = {
         do {
             let workspaces = try Database.DataManager.shared().fetchWorkspaces()
             for workspace in workspaces {
@@ -48,7 +51,7 @@ internal class WorkspacesCollectionViewDataSource: NSObject,
         self.viewController = viewController
         self.collectionView = collectionView
         super.init()
-
+        setFilterWorkspaceObserver()
         DataManager.shared().addCreationObserver(self, type: .workspace)
     }
     
@@ -63,7 +66,11 @@ internal class WorkspacesCollectionViewDataSource: NSObject,
             }
         }
         
-        return workspaces.count
+        if isFiltering {
+            return filteredWorkspaces.count
+        } else {
+            return workspaces.count
+        }
     }
 
     internal func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -79,7 +86,11 @@ internal class WorkspacesCollectionViewDataSource: NSObject,
             viewController?.present(alertController, animated: true, completion: nil)
             return UICollectionViewCell()
         }
-        cell.setWorkspace(workspaces[indexPath.row], viewController: viewController)
+        if isFiltering {
+            cell.setWorkspace(filteredWorkspaces[indexPath.row], viewController: viewController)
+        } else {
+            cell.setWorkspace(workspaces[indexPath.row], viewController: viewController)
+        } 
         return cell
     }
     
@@ -115,4 +126,26 @@ internal class WorkspacesCollectionViewDataSource: NSObject,
             viewController.switchEmptyScreenView()
         }
     }
+    
+    // MARK: - Internal functions
+    
+    internal func setFilterWorkspaceObserver() {
+        if let workspaceSelectionController = viewController as? WorkspaceSelectionViewController {
+            workspaceSelectionController.filterWorkspaceObserver = self
+        }
+    }
+    
+    // MARK: - FilterWorkspaceObserver functions
+    
+    func filterWorkspace(_ searchText: String) {
+        
+        filteredWorkspaces = workspaces.filter({ (workspace) -> Bool in
+            return workspace.name.lowercased().contains(searchText.lowercased())
+        })
+    }
+    
+    func isFiltering(_ value: Bool) {
+        isFiltering = value
+    }
+    
 }
