@@ -162,9 +162,6 @@ class EmptyScreenView: UIView {
         ])
         
         portraitConstraints = [
-//            descriptionLabel.widthAnchor.constraint(equalTo: widthAnchor),
-//            descriptionLabel.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.3),
-            
             backgoundButtonView.widthAnchor.constraint(equalTo: widthAnchor),
             backgoundButtonView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.1)
         ]
