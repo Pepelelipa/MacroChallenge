@@ -42,7 +42,10 @@ internal class NotebooksCollectionViewDelegate: NSObject,
         let height: CGFloat
 
         if UIDevice.current.userInterfaceIdiom == .pad {
-            if isLandscape {
+            if collectionView.isEditing {
+                width = collectionView.bounds.width/2.1
+                height = 90
+            } else if isLandscape {
                 width = collectionView.bounds.width/5
                 height = width * 1.68
             } else {
@@ -62,7 +65,7 @@ internal class NotebooksCollectionViewDelegate: NSObject,
             }
         }
 
-        return CGSize(width: width, height: collectionView.isEditing ? 70 : height)
+        return CGSize(width: width, height: height)
     }
 
     internal func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {

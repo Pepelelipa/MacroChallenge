@@ -17,10 +17,8 @@ internal class NotebookCollectionViewCell: UICollectionViewCell, EditableCollect
         didSet {
             if isEditing {
                 layer.cornerRadius = 13
-                backgroundColor = UIColor(named: notebook?.colorName ?? "")
-                lblName.tintColor = .backgroundColor
+                backgroundColor = .rootColor
                 NSLayoutConstraint.deactivate(notEditingConstraints)
-                notebookView.removeFromSuperview()
                 NSLayoutConstraint.activate(editingConstraints)
                 if (try? notebook?.getWorkspace().isEnabled) ?? false {
                     disclosureIndicator.isHidden = false
@@ -29,9 +27,7 @@ internal class NotebookCollectionViewCell: UICollectionViewCell, EditableCollect
             } else {
                 layer.cornerRadius = 0
                 backgroundColor = .backgroundColor
-                lblName.tintColor = .titleColor
                 NSLayoutConstraint.deactivate(editingConstraints)
-                addSubview(notebookView)
                 NSLayoutConstraint.activate(notEditingConstraints)
                 minusIndicator.isHidden = true
                 disclosureIndicator.isHidden = true
@@ -90,8 +86,13 @@ internal class NotebookCollectionViewCell: UICollectionViewCell, EditableCollect
 
     private lazy var editingConstraints: [NSLayoutConstraint] = {
         [
+            notebookView.centerYAnchor.constraint(equalTo: centerYAnchor),
+            notebookView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 60),
+            notebookView.widthAnchor.constraint(equalToConstant: 30),
+            notebookView.heightAnchor.constraint(equalToConstant: 40),
             lblName.centerYAnchor.constraint(equalTo: centerYAnchor),
-            lblName.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 60)
+            lblName.leadingAnchor.constraint(equalTo: notebookView.trailingAnchor, constant: 15),
+            lblName.trailingAnchor.constraint(equalTo: disclosureIndicator.leadingAnchor, constant: -5)
         ]
     }()
     private lazy var notEditingConstraints: [NSLayoutConstraint] = {
@@ -101,7 +102,8 @@ internal class NotebookCollectionViewCell: UICollectionViewCell, EditableCollect
             notebookView.widthAnchor.constraint(equalTo: widthAnchor),
             notebookView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.8),
             lblName.centerYAnchor.constraint(equalTo: notebookView.bottomAnchor, constant: 20),
-            lblName.leadingAnchor.constraint(equalTo: notebookView.leadingAnchor)
+            lblName.leadingAnchor.constraint(equalTo: notebookView.leadingAnchor),
+            lblName.trailingAnchor.constraint(equalTo: trailingAnchor)
         ]
     }()
 
@@ -141,8 +143,6 @@ internal class NotebookCollectionViewCell: UICollectionViewCell, EditableCollect
     private func setupConstraints() {
         NSLayoutConstraint.activate(notEditingConstraints)
         NSLayoutConstraint.activate([
-            lblName.widthAnchor.constraint(equalTo: widthAnchor),
-
             minusIndicator.centerYAnchor.constraint(equalTo: centerYAnchor),
             minusIndicator.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
             minusIndicator.heightAnchor.constraint(equalToConstant: 20),

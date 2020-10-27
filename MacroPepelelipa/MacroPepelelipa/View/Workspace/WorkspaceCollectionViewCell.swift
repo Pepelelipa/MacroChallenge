@@ -15,19 +15,19 @@ internal class WorkspaceCollectionViewCell: UICollectionViewCell, EditableCollec
     internal var isEditing: Bool = false {
         didSet {
             if isEditing {
-                NSLayoutConstraint.deactivate(collectionViewConstraints)
+                NSLayoutConstraint.deactivate(notEditingConstraints)
                 collectionView.removeFromSuperview()
+                NSLayoutConstraint.activate(editingConstraints)
                 if workspace?.isEnabled ?? false {
                     disclosureIndicator.isHidden = false
                 }
                 minusIndicator.isHidden = false
-                lblLeadingConstraint.constant = 60
             } else {
+                NSLayoutConstraint.deactivate(editingConstraints)
                 addSubview(collectionView)
-                NSLayoutConstraint.activate(collectionViewConstraints)
+                NSLayoutConstraint.activate(notEditingConstraints)
                 minusIndicator.isHidden = true
                 disclosureIndicator.isHidden = true
-                lblLeadingConstraint.constant = 20
             }
 
             UIView.animate(withDuration: 0.3) {
@@ -95,11 +95,17 @@ internal class WorkspaceCollectionViewCell: UICollectionViewCell, EditableCollec
         return collectionView
     }()
 
-    private lazy var lblLeadingConstraint: NSLayoutConstraint = lblWorkspaceName.leadingAnchor.constraint(
-        equalTo: leadingAnchor, constant: 20)
-
-    private lazy var collectionViewConstraints: [NSLayoutConstraint] = {
+    private lazy var editingConstraints: [NSLayoutConstraint] = {
         [
+            lblWorkspaceName.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 60),
+            lblWorkspaceName.centerYAnchor.constraint(equalTo: centerYAnchor)
+        ]
+    }()
+
+    private lazy var notEditingConstraints: [NSLayoutConstraint] = {
+        [
+            lblWorkspaceName.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
+            lblWorkspaceName.topAnchor.constraint(equalTo: topAnchor, constant: 20),
             collectionView.topAnchor.constraint(equalTo: lblWorkspaceName.bottomAnchor, constant: 20),
             collectionView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -20),
             collectionView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
@@ -141,8 +147,6 @@ internal class WorkspaceCollectionViewCell: UICollectionViewCell, EditableCollec
 
     private func setupConstraints() {
         NSLayoutConstraint.activate([
-            lblWorkspaceName.topAnchor.constraint(equalTo: topAnchor, constant: 20),
-            lblLeadingConstraint,
             lblWorkspaceName.trailingAnchor.constraint(lessThanOrEqualTo: trailingAnchor, constant: -20),
             lblWorkspaceName.heightAnchor.constraint(equalToConstant: 30),
 
@@ -158,7 +162,7 @@ internal class WorkspaceCollectionViewCell: UICollectionViewCell, EditableCollec
 
         ])
 
-        NSLayoutConstraint.activate(collectionViewConstraints)
+        NSLayoutConstraint.activate(notEditingConstraints)
     }
     
     internal class func cellID() -> String { 
