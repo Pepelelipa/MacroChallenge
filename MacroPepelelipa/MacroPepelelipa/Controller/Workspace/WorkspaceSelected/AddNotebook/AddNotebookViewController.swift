@@ -12,6 +12,8 @@ import Database
 internal class AddNotebookViewController: UIViewController {
     
     // MARK: - Variables and Constants
+
+    internal weak var notebook: NotebookEntity?
     
     private var txtNoteDelegate = AddNewSpaceTextFieldDelegate()
     private weak var workspace: WorkspaceEntity?
@@ -23,6 +25,7 @@ internal class AddNotebookViewController: UIViewController {
     
     private lazy var keyboardToolBar = AddNewSpaceToolBar(frame: .zero, owner: txtName)
     private lazy var collectionViewDataSource = ColorSelectionCollectionViewDataSource(viewController: self)
+    private lazy var gestureDelegate: GestureDelegate = GestureDelegate(popup: popupView, textField: txtName)
     
     private lazy var popupView: UIView = {
         let view = UIView()
@@ -31,7 +34,7 @@ internal class AddNotebookViewController: UIViewController {
         view.layer.cornerRadius = 20
         return view
     }()
-
+    
     private lazy var txtName: UITextField = {
         let txtName = UITextField()
         txtName.translatesAutoresizingMaskIntoConstraints = false
@@ -100,7 +103,6 @@ internal class AddNotebookViewController: UIViewController {
     
     private lazy var constraints: [NSLayoutConstraint] = {
         [
-            
             popupView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
             popupView.centerYAnchor.constraint(equalTo: self.view.centerYAnchor),
             popupView.widthAnchor.constraint(equalToConstant: ratio),
@@ -160,31 +162,35 @@ internal class AddNotebookViewController: UIViewController {
         popupView.addSubview(notebookView)
         popupView.addSubview(btnConfirm)
         
-        let backgroundTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(backgroundTap))
-        self.view.addGestureRecognizer(backgroundTapGestureRecognizer)
-        
         btnConfirm.isEnabled = false
         
         let selfTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(selfTap))
-        selfTapGestureRecognizer.numberOfTapsRequired = 2
+        selfTapGestureRecognizer.delegate = gestureDelegate
         view.addGestureRecognizer(selfTapGestureRecognizer)
+        
         self.txtName.inputAccessoryView = keyboardToolBar
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        AppUtility.setOrientation(.portrait, andRotateTo: .portrait)
+        if let notebook = notebook {
+            txtName.text = notebook.name
+            notebookView.color = UIColor(named: notebook.colorName) ?? .red
+            btnConfirm.setTitle("Save Notebook".localized(), for: .normal)
+            checkBtnEnabled()
+        }
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        AppUtility.setOrientation(.all)
+    }
+
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         NSLayoutConstraint.activate(constraints)
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
             self.collectionView.collectionViewLayout.invalidateLayout()
         }
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        AppUtility.setOrientation(.portrait, andRotateTo: .portrait)
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        AppUtility.setOrientation(.all)
     }
     
     // MARK: - Functions
@@ -238,7 +244,13 @@ internal class AddNotebookViewController: UIViewController {
             return
         }
         do {
-            _ = try DataManager.shared().createNotebook(in: workspace, named: text, colorName: notebookColorName)
+            if let notebook = notebook {
+                notebook.name = text
+                notebook.colorName = notebookColorName
+                try notebook.save()
+            } else {
+                _ = try DataManager.shared().createNotebook(in: workspace, named: text, colorName: notebookColorName)
+            }
         } catch {
             let alertController = UIAlertController(
                 title: "Error creating the notebook".localized(),
@@ -248,14 +260,6 @@ internal class AddNotebookViewController: UIViewController {
             self.present(alertController, animated: true, completion: nil)
         }
         
-        self.dismiss(animated: true) { 
-            if self.txtName.isEditing {
-                self.txtName.endEditing(true)
-            }
-        }
-    }
-    
-    @IBAction internal func backgroundTap() {
         self.dismiss(animated: true) { 
             if self.txtName.isEditing {
                 self.txtName.endEditing(true)
