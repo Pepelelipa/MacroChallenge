@@ -29,6 +29,7 @@ internal class NotebooksSelectionViewController: UIViewController {
         collectionView.backgroundColor = view.backgroundColor
         collectionView.showsVerticalScrollIndicator = false
         collectionView.allowsSelection = true
+        collectionView.allowsSelectionDuringEditing = true
         collectionView.allowsMultipleSelection = false
         collectionView.contentInset = UIEdgeInsets(top: 20, left: 0, bottom: 20, right: 0)
         collectionView.delegate = collectionDelegate
@@ -70,22 +71,24 @@ internal class NotebooksSelectionViewController: UIViewController {
 
     private lazy var collectionDelegate = NotebooksCollectionViewDelegate { [unowned self] (selectedCell) in
         if let notebook = selectedCell.notebook {
-            let note: NoteEntity
-            if let lastNote = notebook.notes.last {
-                note = lastNote
-            } else {
-                do {
-                    note = try DataManager.shared().createNote(in: notebook)
-                    note.title = NSAttributedString(string: "Lesson".localized())
-                    try note.save()
-                } catch {
-                    self.presentErrorAlert()
+            if !self.collectionView.isEditing {
+                let note: NoteEntity
+                if let lastNote = notebook.notes.last {
+                    note = lastNote
+                } else {
+                    do {
+                        note = try DataManager.shared().createNote(in: notebook)
+                        note.title = NSAttributedString(string: "Lesson".localized())
+                        try note.save()
+                    } catch {
+                        self.presentErrorAlert()
+                    }
                 }
+
+                self.presentDestination(for: UIDevice.current.userInterfaceIdiom, notebook: notebook)
+            } else {
+                self.editNotebook(notebook: notebook)
             }
-            
-            self.presentDestination(for: UIDevice.current.userInterfaceIdiom, 
-                                    notebook: notebook)
-            
         } else {
             self.presentErrorAlert()
         }
@@ -337,6 +340,17 @@ internal class NotebooksSelectionViewController: UIViewController {
             return
         }
         deleteCell(cell: cell)
+    }
+
+    private func editNotebook(notebook: NotebookEntity) {
+        let notebookEditingController = AddNotebookViewController(workspace: workspace)
+
+        notebookEditingController.isModalInPresentation = true
+        notebookEditingController.modalTransitionStyle = .crossDissolve
+        notebookEditingController.modalPresentationStyle = .overFullScreen
+
+        notebookEditingController.notebook = notebook
+        self.present(notebookEditingController, animated: true)
     }
 
     private func deleteCell(cell: NotebookCollectionViewCell) {

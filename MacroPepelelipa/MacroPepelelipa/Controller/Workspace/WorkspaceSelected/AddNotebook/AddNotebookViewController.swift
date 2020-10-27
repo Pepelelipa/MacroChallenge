@@ -12,6 +12,8 @@ import Database
 internal class AddNotebookViewController: UIViewController {
     
     // MARK: - Variables and Constants
+
+    internal weak var notebook: NotebookEntity?
     
     private var txtNoteDelegate = AddNewSpaceTextFieldDelegate()
     private weak var workspace: WorkspaceEntity?
@@ -169,20 +171,26 @@ internal class AddNotebookViewController: UIViewController {
         self.txtName.inputAccessoryView = keyboardToolBar
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        AppUtility.setOrientation(.portrait, andRotateTo: .portrait)
+        if let notebook = notebook {
+            txtName.text = notebook.name
+            notebookView.color = UIColor(named: notebook.colorName) ?? .red
+            btnConfirm.setTitle("Save notebook".localized(), for: .normal)
+            checkBtnEnabled()
+        }
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        AppUtility.setOrientation(.all)
+    }
+
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         NSLayoutConstraint.activate(constraints)
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
             self.collectionView.collectionViewLayout.invalidateLayout()
         }
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        AppUtility.setOrientation(.portrait, andRotateTo: .portrait)
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        AppUtility.setOrientation(.all)
     }
     
     // MARK: - Functions
@@ -236,7 +244,13 @@ internal class AddNotebookViewController: UIViewController {
             return
         }
         do {
-            _ = try DataManager.shared().createNotebook(in: workspace, named: text, colorName: notebookColorName)
+            if let notebook = notebook {
+                notebook.name = text
+                notebook.colorName = notebookColorName
+                try notebook.save()
+            } else {
+                _ = try DataManager.shared().createNotebook(in: workspace, named: text, colorName: notebookColorName)
+            }
         } catch {
             let alertController = UIAlertController(
                 title: "Error creating the notebook".localized(),
@@ -253,4 +267,3 @@ internal class AddNotebookViewController: UIViewController {
         }
     }
 }
-
