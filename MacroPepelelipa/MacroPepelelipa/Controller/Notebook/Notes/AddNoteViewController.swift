@@ -16,7 +16,7 @@ internal class AddNoteViewController: UIViewController, AddNoteObserver {
     private var dismissHandler: (() -> Void)?
     private weak var notebook: NotebookEntity?
     
-    internal var centerYConstraint: NSLayoutConstraint?
+    private lazy var popupViewCenterYConstraint = popupView.centerYAnchor.constraint(equalTo: view.centerYAnchor)
     
     private lazy var gestureDelegate: GestureDelegate = GestureDelegate(popup: popupView, textField: txtName)
     
@@ -65,7 +65,7 @@ internal class AddNoteViewController: UIViewController, AddNoteObserver {
     private lazy var constraints: [NSLayoutConstraint] = {
         [
             popupView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            popupView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            popupViewCenterYConstraint,
             popupView.heightAnchor.constraint(greaterThanOrEqualToConstant: 130),
             popupView.heightAnchor.constraint(greaterThanOrEqualTo: view.heightAnchor, multiplier: 0.18),
             popupView.widthAnchor.constraint(lessThanOrEqualTo: view.widthAnchor, multiplier: 0.8),
@@ -200,11 +200,11 @@ internal class AddNoteViewController: UIViewController, AddNoteObserver {
     
     @objc func keyboardWillShow(notification: NSNotification) {
         if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
-            centerYConstraint?.constant = -keyboardSize.height*0.5
+            popupViewCenterYConstraint.constant = -keyboardSize.height*0.5
         }
     }
     
     @objc func keyboardWillHide(notification: NSNotification) {
-        centerYConstraint?.constant = 0
+        popupViewCenterYConstraint.constant = 0
     }
 }
