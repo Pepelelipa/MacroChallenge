@@ -29,25 +29,7 @@ internal class TextBoxView: UIView, BoxView {
         }
     }
     
-    private lazy var markupTextViewDelegate: MarkupTextViewDelegate? = {
-        let delegate = MarkupTextViewDelegate()
-        DispatchQueue.main.async {
-            delegate.markdownAttributesChanged = { [unowned self](attributtedString, error) in
-                if let error = error {
-                    NSLog("Error requesting -> \(error)")
-                    return
-                }
-                
-                guard let attributedText = attributtedString else {
-                    NSLog("No error nor string found")
-                    return
-                }
-                
-                self.markupTextView.attributedText = attributedText
-            }
-        }
-        return delegate
-    }()
+    private var markupTextViewDelegate: MarkupTextViewDelegate = MarkupTextViewDelegate()
     
     internal lazy var markupTextView: MarkupTextView = {
         let textView = MarkupTextView(frame: .zero)

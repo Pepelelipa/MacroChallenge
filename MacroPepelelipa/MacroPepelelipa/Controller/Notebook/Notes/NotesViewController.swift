@@ -82,20 +82,6 @@ internal class NotesViewController: UIViewController,
     }()
     
     internal lazy var workItem = DispatchWorkItem {
-        self.textViewDelegate.markdownAttributesChanged = { [weak self] (attributtedString, error) in
-            if let error = error {
-                NSLog("Error requesting -> \(error)")
-                return
-            }
-
-            guard let attributedText = attributtedString else {
-                NSLog("No error nor string found")
-                return
-            }
-            
-            self?.textView.attributedText = attributedText
-        }
-        
         if self.textView.textColor == .placeholderColor {
             self.textViewDelegate.parsePlaceholder(on: self.textView)
         }

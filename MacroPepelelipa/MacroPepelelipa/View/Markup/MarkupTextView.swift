@@ -253,10 +253,7 @@ internal class MarkupTextView: UITextView {
         mutableString.deleteCharacters(in: selectedRange)
 
         if location == 0 {
-            newString = NSAttributedString(string: text, attributes:
-                                            [.font: UIFont.merriweather ?? UIFont.systemFont(ofSize: 12),
-                                             .foregroundColor: UIColor.bodyColor ?? .black,
-                                             .backgroundColor: UIColor.clear])
+            newString = text.toNoteDefaulText()
         } else {
             newString = NSAttributedString(string: text, attributes: attributedText.attributes(at: location - 1, effectiveRange: nil))
         }
