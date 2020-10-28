@@ -137,7 +137,6 @@ internal class NotesPageViewController: UIPageViewController,
                 return
             }
             let objectsToShare: [Any] = [userNotebook.createFullDocument()]
-//            let objectsToShare: [Any] = [self.notes[0].createDocument()]
             let activityVC = UIActivityViewController(activityItems: objectsToShare, applicationActivities: nil)
 
             activityVC.popoverPresentationController?.barButtonItem = sender
