@@ -276,7 +276,7 @@ internal class MarkupTextView: UITextView {
         let range: NSRange
         if selectedRange.length == 0 {
             location = selectedRange.location
-            range = NSRange(location: selectedRange.location - 1, length: 1)
+            range = NSRange(location: max(0, selectedRange.location - 1), length: min(mutableString.length, 1))
         } else {
             location = selectedRange.location + selectedRange.length
             range = selectedRange
