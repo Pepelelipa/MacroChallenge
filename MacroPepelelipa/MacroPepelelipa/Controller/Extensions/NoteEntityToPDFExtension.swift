@@ -49,7 +49,7 @@ public extension NoteEntity {
         let titleStringSize = attributedTitle.size()
         
         let titleStringRect = CGRect(
-            x: (pageRect.width - titleStringSize.width) / 2.0,
+            x: 36,
             y: 36,
             width: titleStringSize.width,
             height: titleStringSize.height
@@ -68,13 +68,12 @@ public extension NoteEntity {
         let attributedText = text
         
         let textRect = CGRect(
-            x: 10,
+            x: 36,
             y: textTop,
             width: pageRect.width - 20,
             height: pageRect.height - textTop - pageRect.height / 5.0
         )
         attributedText.draw(in: textRect)
     }
-    
     
 }
