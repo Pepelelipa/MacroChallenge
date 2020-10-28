@@ -11,7 +11,11 @@ import Database
 import PDFKit
 
 public extension NoteEntity {
-    func createDocument() -> Data {
+    /**
+     In this method, we create the PDF document that will be exported, with its correct parameters.
+     - Returns: The Data that was constructed for the PDF.
+     */
+    internal func createDocument() -> Data {
         let pdfMetaData = [
             kCGPDFContextCreator: "Purple Notebook".localized(),
             kCGPDFContextAuthor: "PEPELELIPA.Macro",
@@ -34,7 +38,11 @@ public extension NoteEntity {
         return data
     }
     
-    func addTitle(pageRect: CGRect) -> CGFloat {
+    /**
+     In this method, we position the title so that it's in the correct position inside of our PDF document.
+     - Returns: the CGFloat for where the title will be positioned in the document.
+     */
+    internal func addTitle(pageRect: CGRect) -> CGFloat {
         
         let attributedTitle = title
         
@@ -52,7 +60,11 @@ public extension NoteEntity {
         return titleStringRect.origin.y + titleStringRect.size.height
     }
     
-    func addBodyText(pageRect: CGRect, textTop: CGFloat) {
+    /**
+     In this method, we position the text so that it's in the correct position inside of our PDF document.
+     - Returns: the CGFloat for where the text will be positioned in the document.
+     */
+    internal func addBodyText(pageRect: CGRect, textTop: CGFloat) {
         let attributedText = text
         
         let textRect = CGRect(
