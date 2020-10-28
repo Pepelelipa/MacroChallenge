@@ -1,8 +1,8 @@
 //
 //  TextBox+CoreDataProperties.swift
-//  Database
+//  MacroPepelelipa
 //
-//  Created by Pedro Giuliano Farina on 27/10/20.
+//  Created by Pedro Giuliano Farina on 28/10/20.
 //  Copyright © 2020 Pedro Giuliano Farina. All rights reserved.
 //
 //
@@ -19,7 +19,7 @@ extension TextBox {
     }
 
     @NSManaged public var height: Float
-    @NSManaged public var text: NSAttributedString?
+    @NSManaged public var text: Data?
     @NSManaged public var width: Float
     @NSManaged public var x: Float
     @NSManaged public var y: Float

@@ -1,8 +1,8 @@
 //
 //  Note+CoreDataProperties.swift
-//  Database
+//  MacroPepelelipa
 //
-//  Created by Pedro Giuliano Farina on 27/10/20.
+//  Created by Pedro Giuliano Farina on 28/10/20.
 //  Copyright © 2020 Pedro Giuliano Farina. All rights reserved.
 //
 //
@@ -18,8 +18,8 @@ extension Note {
         return NSFetchRequest<Note>(entityName: "Note")
     }
 
-    @NSManaged public var text: NSAttributedString?
-    @NSManaged public var title: NSAttributedString?
+    @NSManaged public var text: Data?
+    @NSManaged public var title: Data?
     @NSManaged public var images: NSSet?
     @NSManaged public var notebook: Notebook?
     @NSManaged public var textBoxes: NSSet?
