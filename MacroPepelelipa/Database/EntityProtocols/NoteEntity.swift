@@ -14,5 +14,4 @@ public protocol NoteEntity: class, ObservableEntity {
 
     func getNotebook() throws -> NotebookEntity
     
-    
 }
