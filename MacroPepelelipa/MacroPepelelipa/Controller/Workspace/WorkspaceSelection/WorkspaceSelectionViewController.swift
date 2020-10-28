@@ -20,12 +20,13 @@ internal class WorkspaceSelectionViewController: UIViewController, UISearchResul
     private var regularCompactConstraints: [NSLayoutConstraint] = []
     private var regularConstraints: [NSLayoutConstraint] = []
     private var sharedConstraints: [NSLayoutConstraint] = []
+    private lazy var searchResultController = SearchResultViewController(owner: self)
     
     private var isSearchBarEmpty: Bool {
         return searchController.searchBar.text?.isEmpty ?? true
     }
     
-    private lazy var searchController: CustomUISearchController = CustomUISearchController(owner: self, placeHolder: "Search Workspaces")
+    private lazy var searchController: CustomUISearchController = CustomUISearchController(searchResultsController: searchResultController, owner: self, placeHolder: "Search Workspaces")
     
     private lazy var collectionView: UICollectionView = {
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
@@ -164,7 +165,7 @@ internal class WorkspaceSelectionViewController: UIViewController, UISearchResul
         let value = searchController.isActive && !isSearchBarEmpty
         searchController.showsSearchResultsController = true
         filterWorkspaceObserver?.isFiltering(value)
-        collectionView.reloadData()
+        searchResultController.collectionView.reloadData()
     }
     
     // MARK: - Functions

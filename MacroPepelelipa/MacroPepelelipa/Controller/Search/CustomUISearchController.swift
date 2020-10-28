@@ -11,8 +11,8 @@ import UIKit
 
 internal class CustomUISearchController: UISearchController {
     
-    internal init(owner: UISearchResultsUpdating, placeHolder: String) {
-        super.init(searchResultsController: nil)
+    internal init(searchResultsController: UIViewController, owner: UISearchResultsUpdating, placeHolder: String) {
+        super.init(searchResultsController: searchResultsController)
         
         self.searchResultsUpdater = owner
         self.searchBar.sizeToFit()
