@@ -9,12 +9,24 @@
 import UIKit
 import Database
 
-internal class AddNoteViewController: PopupContainerViewController, AddNoteObserver {
+internal class AddNoteViewController: UIViewController, AddNoteObserver {
     
     // MARK: - Variables and Constants
     
+    private var dismissHandler: (() -> Void)?
     private weak var notebook: NotebookEntity?
+    
     internal var centerYConstraint: NSLayoutConstraint?
+    
+    private lazy var gestureDelegate: GestureDelegate = GestureDelegate(popup: popupView, textField: txtName)
+    
+    private lazy var popupView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .backgroundColor
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.layer.cornerRadius = 20
+        return view
+    }()
 
     private lazy var txtName: UITextField = {
         let txtName = UITextField()
@@ -52,16 +64,22 @@ internal class AddNoteViewController: PopupContainerViewController, AddNoteObser
 
     private lazy var constraints: [NSLayoutConstraint] = {
         [
-            txtName.topAnchor.constraint(equalTo: view.topAnchor, constant: 20),
-            txtName.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 30),
-            txtName.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -30),
+            popupView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            popupView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            popupView.heightAnchor.constraint(greaterThanOrEqualToConstant: 130),
+            popupView.heightAnchor.constraint(greaterThanOrEqualTo: view.heightAnchor, multiplier: 0.18),
+            popupView.widthAnchor.constraint(lessThanOrEqualTo: view.widthAnchor, multiplier: 0.8),
+            
+            txtName.topAnchor.constraint(equalTo: popupView.topAnchor, constant: 20),
+            txtName.leadingAnchor.constraint(equalTo: popupView.leadingAnchor, constant: 30),
+            txtName.trailingAnchor.constraint(equalTo: popupView.trailingAnchor, constant: -30),
             txtName.heightAnchor.constraint(equalToConstant: 40),
 
-            btnConfirm.bottomAnchor.constraint(lessThanOrEqualTo: view.bottomAnchor, constant: -20),
+            btnConfirm.bottomAnchor.constraint(lessThanOrEqualTo: popupView.bottomAnchor, constant: -20),
             btnConfirm.topAnchor.constraint(greaterThanOrEqualTo: txtName.bottomAnchor, constant: 30),
-            btnConfirm.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            btnConfirm.leadingAnchor.constraint(greaterThanOrEqualTo: view.leadingAnchor, constant: 60),
-            btnConfirm.trailingAnchor.constraint(lessThanOrEqualTo: view.trailingAnchor, constant: -60),
+            btnConfirm.centerXAnchor.constraint(equalTo: popupView.centerXAnchor),
+            btnConfirm.leadingAnchor.constraint(greaterThanOrEqualTo: popupView.leadingAnchor, constant: 60),
+            btnConfirm.trailingAnchor.constraint(lessThanOrEqualTo: popupView.trailingAnchor, constant: -60),
             btnConfirm.heightAnchor.constraint(equalToConstant: 45)
         ]
     }()
@@ -70,39 +88,33 @@ internal class AddNoteViewController: PopupContainerViewController, AddNoteObser
     
     internal init(notebook: NotebookEntity, dismissHandler: (() -> Void)? = nil) {
         self.notebook = notebook
-        super.init(dismissHandler: dismissHandler)
+        self.dismissHandler = dismissHandler
+        super.init(nibName: nil, bundle: nil)
     }
     
     internal required convenience init?(coder: NSCoder) {
         guard let notebook = coder.decodeObject(forKey: "notebook") as? NotebookEntity else {
             return nil
         }
-        self.init(notebook: notebook)
+        self.init(notebook: notebook, dismissHandler: nil)
     }
     
     // MARK: - Override functions
-
-    internal override func moveTo(_ viewController: UIViewController) {
-        let centerYConstraint = view.centerYAnchor.constraint(equalTo: viewController.view.centerYAnchor)
-        self.centerYConstraint = centerYConstraint
-        super.moveTo(viewController)
-        NSLayoutConstraint.activate([
-            view.centerXAnchor.constraint(equalTo: viewController.view.centerXAnchor),
-            centerYConstraint,
-            view.heightAnchor.constraint(greaterThanOrEqualToConstant: 130),
-            view.heightAnchor.constraint(greaterThanOrEqualTo: viewController.view.heightAnchor, multiplier: 0.18),
-            view.widthAnchor.constraint(lessThanOrEqualTo: viewController.view.widthAnchor, multiplier: 0.8)
-        ])
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.addSubview(txtName)
-        view.addSubview(btnConfirm)
+        
+        view.backgroundColor = UIColor(red: 0.1, green: 0.1, blue: 0.1, alpha: 0.5)
+        
+        view.addSubview(popupView)
+        popupView.addSubview(txtName)
+        popupView.addSubview(btnConfirm)
         btnConfirm.isEnabled = false
 
         let selfTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(selfTap))
+        selfTapGestureRecognizer.delegate = gestureDelegate
         view.addGestureRecognizer(selfTapGestureRecognizer)
+        
         txtName.becomeFirstResponder()
         self.txtName.inputAccessoryView = keyboardToolBar
     }
@@ -113,6 +125,7 @@ internal class AddNoteViewController: PopupContainerViewController, AddNoteObser
     }
     
     override func viewWillDisappear(_ animated: Bool) {
+        self.dismissHandler?()
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
     }
@@ -120,14 +133,6 @@ internal class AddNoteViewController: PopupContainerViewController, AddNoteObser
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         NSLayoutConstraint.activate(constraints)
-    }
-    
-    override func backgroundTap() {
-        if txtName.isEditing {
-            txtName.endEditing(true)
-        } else {
-            super.backgroundTap()
-        }
     }
     
     // MARK: - AddNoteObserver functions
@@ -142,7 +147,15 @@ internal class AddNoteViewController: PopupContainerViewController, AddNoteObser
     // MARK: - IBActions functions
 
     @IBAction func selfTap() {
-        txtName.resignFirstResponder()
+        if txtName.isEditing {
+            txtName.resignFirstResponder()
+        } else {
+            self.dismiss(animated: true) { 
+                if self.txtName.isEditing {
+                    self.txtName.endEditing(true)
+                }
+            }
+        }
     }
     
     @IBAction func textChanged(_ textField: UITextField) {
@@ -174,7 +187,12 @@ internal class AddNoteViewController: PopupContainerViewController, AddNoteObser
                     .makeErrorMessage(with: "A new Note could not be created".localized())
                 self.present(alertController, animated: true, completion: nil)
             }
-            dismissFromParent()
+            
+            self.dismiss(animated: true) { 
+                if self.txtName.isEditing {
+                    self.txtName.endEditing(true)
+                }
+            }
         }
     }
     

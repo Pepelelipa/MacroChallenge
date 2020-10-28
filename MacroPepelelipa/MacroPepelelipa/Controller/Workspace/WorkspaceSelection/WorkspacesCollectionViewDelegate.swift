@@ -37,26 +37,33 @@ internal class WorkspacesCollectionViewDelegate: NSObject,
     // MARK: - UICollectionViewDelegateFlowLayout functions
 
     internal func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let size: CGSize
+        let width: CGFloat
+        let height: CGFloat
         let isLandscape = UIDevice.current.orientation.isActuallyLandscape
         if UIDevice.current.userInterfaceIdiom == .pad {
-            if isLandscape {
-                let width = collectionView.bounds.width/2 - 25
-                size = CGSize(width: width, height: width/1.6)
+            if collectionView.isEditing {
+                width = collectionView.bounds.width/2.1
+                height = 90
+            } else if isLandscape {
+                width = collectionView.bounds.width/2 - 25
+                height = width/1.6
             } else {
-                let width = collectionView.bounds.width/2.1
-                size = CGSize(width: width, height: width/1.5)
+                width = collectionView.bounds.width/2.1
+                height = width/1.5
             }
         } else {
-            if isLandscape {
-                let width = collectionView.bounds.width/2.1
-                size = CGSize(width: width, height: width/1.45)
+            if collectionView.isEditing {
+                width = collectionView.bounds.width
+                height = 70
+            } else if isLandscape {
+                width = collectionView.bounds.width/2.1
+                height = width/1.45
             } else {
-                let width = collectionView.bounds.width
-                size = CGSize(width: width, height: width/1.45)
+                width = collectionView.bounds.width
+                height = width/1.45
             }
         }
-        return size
+        return CGSize(width: width, height: height)
     }
 
     internal func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {

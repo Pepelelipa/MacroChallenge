@@ -7,8 +7,8 @@
 //
 
 public protocol NotebookEntity: class, ObservableEntity {
-    var name: String { get }
-    var colorName: String { get }
+    var name: String { get set }
+    var colorName: String { get set }
     var notes: [NoteEntity] { get }
     var indexes: [NotebookIndexEntity] { get }
 

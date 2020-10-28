@@ -9,20 +9,32 @@
 import UIKit
 import Database
 
-internal class AddNotebookViewController: PopupContainerViewController {
+internal class AddNotebookViewController: UIViewController {
     
     // MARK: - Variables and Constants
+
+    internal weak var notebook: NotebookEntity?
     
     private var txtNoteDelegate = AddNewSpaceTextFieldDelegate()
     private weak var workspace: WorkspaceEntity?
     private let notebookView = NotebookView(frame: .zero)
+    private var referenceView = UIView(frame: .zero)
     
     private var portraitViewConstraints: [NSLayoutConstraint] = []
     private var landscapeViewConstraints: [NSLayoutConstraint] = []
     
     private lazy var keyboardToolBar = AddNewSpaceToolBar(frame: .zero, owner: txtName)
     private lazy var collectionViewDataSource = ColorSelectionCollectionViewDataSource(viewController: self)
-
+    private lazy var gestureDelegate: GestureDelegate = GestureDelegate(popup: popupView, textField: txtName)
+    
+    private lazy var popupView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .backgroundColor
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.layer.cornerRadius = 20
+        return view
+    }()
+    
     private lazy var txtName: UITextField = {
         let txtName = UITextField()
         txtName.translatesAutoresizingMaskIntoConstraints = false
@@ -44,8 +56,6 @@ internal class AddNotebookViewController: PopupContainerViewController {
     private lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
-        layout.minimumLineSpacing = 10
-        layout.minimumInteritemSpacing = 10
 
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.contentMode = .center
@@ -76,117 +86,110 @@ internal class AddNotebookViewController: PopupContainerViewController {
         btnConfirm.layer.cornerRadius = 22
         btnConfirm.titleLabel?.font = MarkdownHeader.thirdHeaderFont
         btnConfirm.contentEdgeInsets = UIEdgeInsets(top: 10, left: 15, bottom: 10, right: 15)
-
         return btnConfirm
     }()
-
+    
+    private lazy var ratio: CGFloat = {
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            if UIDevice.current.orientation.isActuallyLandscape {
+                return UIScreen.main.bounds.width / 2.5
+            } else {
+                return UIScreen.main.bounds.width / 2
+            }
+        } else {
+            return UIScreen.main.bounds.width - 40
+        }
+    }()
+    
     private lazy var constraints: [NSLayoutConstraint] = {
         [
-            txtName.topAnchor.constraint(equalTo: view.topAnchor, constant: 20),
-            txtName.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 30),
-            txtName.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -30),
+            popupView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+            popupView.centerYAnchor.constraint(equalTo: self.view.centerYAnchor),
+            popupView.widthAnchor.constraint(equalToConstant: ratio),
+            
+            txtName.topAnchor.constraint(equalTo: popupView.topAnchor, constant: 20),
+            txtName.leadingAnchor.constraint(equalTo: popupView.leadingAnchor, constant: 20),
+            txtName.trailingAnchor.constraint(equalTo: popupView.trailingAnchor, constant: -20),
             txtName.heightAnchor.constraint(equalToConstant: 45),
-            txtName.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-
+            
             notebookView.topAnchor.constraint(equalTo: txtName.bottomAnchor, constant: 30),
-            notebookView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            notebookView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.3),
+            notebookView.centerXAnchor.constraint(equalTo: popupView.centerXAnchor),
+            notebookView.heightAnchor.constraint(equalTo: popupView.heightAnchor, multiplier: 0.3),
             notebookView.widthAnchor.constraint(equalTo: notebookView.heightAnchor, multiplier: 0.75),
+            
+            collectionView.centerXAnchor.constraint(equalTo: popupView.centerXAnchor),
+            collectionView.topAnchor.constraint(equalTo: notebookView.bottomAnchor, constant: 40),
+            collectionView.bottomAnchor.constraint(equalTo: btnConfirm.topAnchor, constant: -40),
+            collectionView.widthAnchor.constraint(equalTo: popupView.widthAnchor, constant: -40),
+            collectionView.heightAnchor.constraint(equalTo: collectionView.widthAnchor, multiplier: 0.3382352941),
 
-            collectionView.topAnchor.constraint(equalTo: notebookView.bottomAnchor, constant: 30),
-            collectionView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.3),
-            collectionView.widthAnchor.constraint(equalTo: collectionView.heightAnchor, multiplier: 2.4),
-            collectionView.leadingAnchor.constraint(greaterThanOrEqualTo: view.leadingAnchor, constant: 20),
-            collectionView.trailingAnchor.constraint(lessThanOrEqualTo: view.trailingAnchor, constant: -20),
-            collectionView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-
-            btnConfirm.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -20),
-            btnConfirm.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            btnConfirm.leadingAnchor.constraint(greaterThanOrEqualTo: view.leadingAnchor, constant: 60),
-            btnConfirm.trailingAnchor.constraint(lessThanOrEqualTo: view.trailingAnchor, constant: -60),
+            btnConfirm.bottomAnchor.constraint(equalTo: popupView.bottomAnchor, constant: -20),
+            btnConfirm.centerXAnchor.constraint(equalTo: popupView.centerXAnchor),
+            btnConfirm.leadingAnchor.constraint(greaterThanOrEqualTo: popupView.leadingAnchor, constant: 60),
+            btnConfirm.trailingAnchor.constraint(lessThanOrEqualTo: popupView.trailingAnchor, constant: -60),
             btnConfirm.heightAnchor.constraint(equalToConstant: 45)
         ]
     }()
     
     // MARK: - Initializers
-
-    internal init(workspace: WorkspaceEntity?, dismissHandler: (() -> Void)? = nil) {
-        super.init(dismissHandler: dismissHandler)
+    
+    internal init(workspace: WorkspaceEntity?) {
         self.workspace = workspace
+        super.init(nibName: nil, bundle: nil)
     }
-
+    
     internal required convenience init?(coder: NSCoder) {
         guard let workspace = coder.decodeObject(forKey: "workspace") as? WorkspaceEntity else {
             return nil
         }
-        self.init(workspace: workspace, dismissHandler: coder.decodeObject(forKey: "dismissHandler") as? () -> Void)
+        self.init(workspace: workspace)
     }
     
     // MARK: - Override functions
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         if let color = UIColor.randomNotebookColor() {
             notebookView.color = color
         }
-        view.addSubview(txtName)
-        view.addSubview(collectionView)
-        view.addSubview(notebookView)
-        view.addSubview(btnConfirm)
+        
+        view.backgroundColor = UIColor(red: 0.1, green: 0.1, blue: 0.1, alpha: 0.5)
+        
+        view.addSubview(popupView)
+        popupView.addSubview(txtName)
+        popupView.addSubview(collectionView)
+        popupView.addSubview(notebookView)
+        popupView.addSubview(btnConfirm)
+        
         btnConfirm.isEnabled = false
-
+        
         let selfTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(selfTap))
-        selfTapGestureRecognizer.numberOfTapsRequired = 2
+        selfTapGestureRecognizer.delegate = gestureDelegate
         view.addGestureRecognizer(selfTapGestureRecognizer)
+        
         self.txtName.inputAccessoryView = keyboardToolBar
     }
     
-    override func moveTo(_ viewController: UIViewController) {
-        super.moveTo(viewController)
-        portraitViewConstraints = [
-            view.centerXAnchor.constraint(equalTo: viewController.view.centerXAnchor),
-            view.centerYAnchor.constraint(equalTo: viewController.view.centerYAnchor),
-            view.heightAnchor.constraint(equalTo: viewController.view.heightAnchor, multiplier: 0.6),
-            view.widthAnchor.constraint(greaterThanOrEqualTo: view.heightAnchor, multiplier: 0.7),
-            view.widthAnchor.constraint(lessThanOrEqualTo: viewController.view.widthAnchor, multiplier: 0.95)
-        ]
-        landscapeViewConstraints = [
-            view.centerXAnchor.constraint(equalTo: viewController.view.centerXAnchor),
-            view.centerYAnchor.constraint(equalTo: viewController.view.centerYAnchor),
-            view.heightAnchor.constraint(equalTo: viewController.view.heightAnchor, multiplier: 0.7),
-            view.widthAnchor.constraint(greaterThanOrEqualTo: view.heightAnchor, multiplier: 1.4),
-            view.widthAnchor.constraint(lessThanOrEqualTo: viewController.view.widthAnchor, multiplier: 0.8)
-        ]
-        if UIDevice.current.orientation.isActuallyLandscape {
-            NSLayoutConstraint.activate(landscapeViewConstraints)
-        } else {
-            NSLayoutConstraint.activate(portraitViewConstraints)
+    override func viewWillAppear(_ animated: Bool) {
+        AppUtility.setOrientation(.portrait, andRotateTo: .portrait)
+        if let notebook = notebook {
+            txtName.text = notebook.name
+            notebookView.color = UIColor(named: notebook.colorName) ?? .red
+            btnConfirm.setTitle("Save Notebook".localized(), for: .normal)
+            checkBtnEnabled()
         }
     }
-
-    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-        if UIDevice.current.orientation.isActuallyLandscape {
-            NSLayoutConstraint.deactivate(portraitViewConstraints)
-            NSLayoutConstraint.activate(landscapeViewConstraints)
-        } else {
-            NSLayoutConstraint.deactivate(landscapeViewConstraints)
-            NSLayoutConstraint.activate(portraitViewConstraints)
-        }
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-            self.collectionView.collectionViewLayout.invalidateLayout()
-        }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        AppUtility.setOrientation(.all)
     }
 
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         NSLayoutConstraint.activate(constraints)
-    }
-    
-    override func backgroundTap() {
-        if txtName.isEditing {
-            txtName.endEditing(true)
-        } else {
-            super.backgroundTap()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
+            self.collectionView.collectionViewLayout.invalidateLayout()
         }
     }
     
@@ -199,7 +202,15 @@ internal class AddNotebookViewController: PopupContainerViewController {
     // MARK: - IBActions functions
     
     @IBAction func selfTap() {
-        txtName.resignFirstResponder()
+        if txtName.isEditing {
+            txtName.resignFirstResponder()
+        } else {
+            self.dismiss(animated: true) { 
+                if self.txtName.isEditing {
+                    self.txtName.endEditing(true)
+                }
+            }
+        }
     }
 
     @IBAction func textChanged(_ textField: UITextField) {
@@ -224,11 +235,22 @@ internal class AddNotebookViewController: PopupContainerViewController {
                 .makeErrorMessage(with: "Not possible to retrieve a workspace or notebook name in notebook creation".localized())
 
             present(alertController, animated: true, completion: nil)
-            dismissFromParent()
+            
+            self.dismiss(animated: true) { 
+                if self.txtName.isEditing {
+                    self.txtName.endEditing(true)
+                }
+            }
             return
         }
         do {
-            _ = try DataManager.shared().createNotebook(in: workspace, named: text, colorName: notebookColorName)
+            if let notebook = notebook {
+                notebook.name = text
+                notebook.colorName = notebookColorName
+                try notebook.save()
+            } else {
+                _ = try DataManager.shared().createNotebook(in: workspace, named: text, colorName: notebookColorName)
+            }
         } catch {
             let alertController = UIAlertController(
                 title: "Error creating the notebook".localized(),
@@ -237,6 +259,11 @@ internal class AddNotebookViewController: PopupContainerViewController {
                 .makeErrorMessage(with: "A new Notebook could not be created".localized())
             self.present(alertController, animated: true, completion: nil)
         }
-        dismissFromParent()
+        
+        self.dismiss(animated: true) { 
+            if self.txtName.isEditing {
+                self.txtName.endEditing(true)
+            }
+        }
     }
 }

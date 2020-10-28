@@ -9,11 +9,23 @@
 import UIKit
 import Database
 
-internal class AddWorkspaceViewController: PopupContainerViewController, AddWorkspaceObserver {
+internal class AddWorkspaceViewController: UIViewController, AddWorkspaceObserver {
     
     // MARK: - Variables and Constants
-    
+
+    internal weak var workspace: WorkspaceEntity?
+
     internal var centerYConstraint: NSLayoutConstraint?
+    
+    private lazy var gestureDelegate: GestureDelegate = GestureDelegate(popup: popupView, textField: txtName)
+    
+    private lazy var popupView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .backgroundColor
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.layer.cornerRadius = 20
+        return view
+    }()
 
     private lazy var txtName: UITextField = {
         let txtName = UITextField()
@@ -54,17 +66,23 @@ internal class AddWorkspaceViewController: PopupContainerViewController, AddWork
 
     private lazy var constraints: [NSLayoutConstraint] = {
         [
-            txtName.topAnchor.constraint(equalTo: view.topAnchor, constant: 20),
-            txtName.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 30),
-            txtName.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -30),
+            popupView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            popupView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            popupView.heightAnchor.constraint(greaterThanOrEqualToConstant: 130),
+            popupView.heightAnchor.constraint(greaterThanOrEqualTo: view.heightAnchor, multiplier: 0.18),
+            popupView.widthAnchor.constraint(lessThanOrEqualTo: view.widthAnchor, multiplier: 0.8),
+            
+            txtName.topAnchor.constraint(equalTo: popupView.topAnchor, constant: 20),
+            txtName.leadingAnchor.constraint(equalTo: popupView.leadingAnchor, constant: 30),
+            txtName.trailingAnchor.constraint(equalTo: popupView.trailingAnchor, constant: -30),
             txtName.heightAnchor.constraint(equalToConstant: 40),
 
-            btnConfirm.bottomAnchor.constraint(lessThanOrEqualTo: view.bottomAnchor, constant: -20),
+            btnConfirm.bottomAnchor.constraint(lessThanOrEqualTo: popupView.bottomAnchor, constant: -20),
             btnConfirm.topAnchor.constraint(greaterThanOrEqualTo: txtName.bottomAnchor, constant: 30),
-            btnConfirm.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            btnConfirm.centerXAnchor.constraint(equalTo: popupView.centerXAnchor),
             btnConfirm.heightAnchor.constraint(equalToConstant: 45),
-            btnConfirm.leadingAnchor.constraint(greaterThanOrEqualTo: view.leadingAnchor, constant: 40),
-            btnConfirm.trailingAnchor.constraint(lessThanOrEqualTo: view.trailingAnchor, constant: -40)
+            btnConfirm.leadingAnchor.constraint(greaterThanOrEqualTo: popupView.leadingAnchor, constant: 40),
+            btnConfirm.trailingAnchor.constraint(lessThanOrEqualTo: popupView.trailingAnchor, constant: -40)
         ]
     }()
     
@@ -72,50 +90,35 @@ internal class AddWorkspaceViewController: PopupContainerViewController, AddWork
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.addSubview(txtName)
-        view.addSubview(btnConfirm)
+        
+        view.backgroundColor = UIColor(red: 0.1, green: 0.1, blue: 0.1, alpha: 0.5)
+        
+        view.addSubview(popupView)
+        popupView.addSubview(txtName)
+        popupView.addSubview(btnConfirm)
         btnConfirm.isEnabled = false
 
         let selfTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(selfTap))
+        selfTapGestureRecognizer.delegate = gestureDelegate
         view.addGestureRecognizer(selfTapGestureRecognizer)
+        
         txtName.becomeFirstResponder()
         self.txtName.inputAccessoryView = keyboardToolBar
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
+
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
-    }
-
-    override func moveTo(_ viewController: UIViewController) {
-        let centerYConstraint = view.centerYAnchor.constraint(equalTo: viewController.view.centerYAnchor)
-        self.centerYConstraint = centerYConstraint
-        super.moveTo(viewController)
-        NSLayoutConstraint.activate([
-            view.centerXAnchor.constraint(equalTo: viewController.view.centerXAnchor),
-            centerYConstraint,
-            view.heightAnchor.constraint(greaterThanOrEqualToConstant: 130),
-            view.heightAnchor.constraint(greaterThanOrEqualTo: viewController.view.heightAnchor, multiplier: 0.18),
-            view.widthAnchor.constraint(lessThanOrEqualTo: viewController.view.widthAnchor, multiplier: 0.8)
-        ])
+    override func viewWillAppear(_ animated: Bool) {
+        if let workspace = workspace {
+            txtName.text = workspace.name
+            btnConfirm.setTitle("Save Workspace".localized(), for: .normal)
+        }
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         NSLayoutConstraint.activate(constraints)
-    }
-    
-    override func backgroundTap() {
-        if txtName.isEditing {
-            txtName.endEditing(true)
-        } else {
-            super.backgroundTap()
-        }
     }
     
     // MARK: - AddWorkspaceObserver functions
@@ -128,13 +131,26 @@ internal class AddWorkspaceViewController: PopupContainerViewController, AddWork
     // MARK: - IBActions functions
 
     @IBAction func selfTap() {
-        txtName.resignFirstResponder()
+        if txtName.isEditing {
+            txtName.resignFirstResponder()
+        } else {
+            self.dismiss(animated: true) { 
+                if self.txtName.isEditing {
+                    self.txtName.endEditing(true)
+                }
+            }
+        }
     }
     
     @IBAction func btnConfirmTap() {
         if let text = txtName.text {
             do {
-                _ = try DataManager.shared().createWorkspace(named: text)
+                if let workspace = workspace {
+                    workspace.name = text
+                    try workspace.save()
+                } else {
+                    _ = try DataManager.shared().createWorkspace(named: text)
+                }
             } catch {
                 let alertController = UIAlertController(
                     title: "Error creating the workspace".localized(),
@@ -143,7 +159,12 @@ internal class AddWorkspaceViewController: PopupContainerViewController, AddWork
                     .makeErrorMessage(with: "A new Workspace could not be created".localized())
                 self.present(alertController, animated: true, completion: nil)
             }
-            dismissFromParent()
+            
+            self.dismiss(animated: true) { 
+                if self.txtName.isEditing {
+                    self.txtName.endEditing(true)
+                } 
+            }
         }
     }
     

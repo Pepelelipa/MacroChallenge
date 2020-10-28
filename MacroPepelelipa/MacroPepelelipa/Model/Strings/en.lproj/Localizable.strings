@@ -118,3 +118,6 @@
 "Markdown" = "Markdown";
 "Markdown text" = "As an app designed to be efficient, Purple Notebook allows you to use markdown to take notes during classes. It's a quick and powerful way to edit text while typing. Our Markdown Editor has a lot of tools to improve your text, including **Bold**, *Italic* and ::Highlight::.  If you wanna add lists, simply choose between numeric and bullet using 1. or * respectively.";
 
+"Save workspace" = "Save workspace";
+"Save notebook" = "Save notebook";
+"Edit" = "Edit";

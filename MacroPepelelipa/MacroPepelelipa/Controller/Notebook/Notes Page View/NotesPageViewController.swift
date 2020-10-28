@@ -142,13 +142,19 @@ internal class NotesPageViewController: UIPageViewController,
         }
         
         notesToolbar.newNoteTriggered = {
-            guard let guardedNotebook = self.notebook else {
+            guard let notebook = self.notebook else {
                 return
             }
-            let addController = AddNoteViewController(notebook: guardedNotebook, dismissHandler: {
+            
+            let destination = AddNoteViewController(notebook: notebook) { 
                 self.updateNotes()
-            })
-            addController.moveTo(self)
+            }
+            
+            destination.isModalInPresentation = true
+            destination.modalTransitionStyle = .crossDissolve
+            destination.modalPresentationStyle = .overFullScreen
+            
+            self.present(destination, animated: true)
         }
     }
     
@@ -248,7 +254,7 @@ internal class NotesPageViewController: UIPageViewController,
     
     /// This method addes the done button when the keyboard shows.
     @objc func keyboardWillShow(_ notification: Notification) {
-        if navigationItem.rightBarButtonItems?.firstIndex(of: doneButton) != nil {
+        if navigationItem.rightBarButtonItems?.firstIndex(of: doneButton) == nil {
             navigationItem.rightBarButtonItems?.append(doneButton)
         }
     }
