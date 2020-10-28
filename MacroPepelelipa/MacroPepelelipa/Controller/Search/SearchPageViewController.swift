@@ -38,7 +38,6 @@ class SearchResultViewController: UIViewController {
         return collectionView
     }()
     
-    //TODO
     private lazy var collectionDelegate = WorkspacesCollectionViewDelegate { [unowned self] (selectedCell) in
         guard let workspace = selectedCell.workspace else {
             let alertController = UIAlertController(
@@ -56,7 +55,6 @@ class SearchResultViewController: UIViewController {
         self.navigationController?.pushViewController(notebooksSelectionView, animated: true)
     }
     
-    //TODO
     private lazy var collectionDataSource = WorkspacesCollectionViewDataSource(viewController: self, collectionView: { self.collectionView })
         
     // MARK: - Override functions

@@ -10,7 +10,13 @@ import UIKit
 import Database
 import StoreKit
 
-class SearchResultViewController: UIViewController {
+internal enum SearchResultEnum {
+    case all
+    case notebook
+    case workshop
+}
+
+internal class SearchResultViewController: UIViewController {
 
     // MARK: - Variables and Constants
     
@@ -42,15 +48,11 @@ class SearchResultViewController: UIViewController {
         return collectionView
     }()
     
+    private lazy var textViewBottomConstraint = collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+    
     private lazy var collectionDelegate = SearchResultCollectionViewDelegate { [unowned self] (selectedCell) in
         guard let workspace = selectedCell.workspace else {
-            let alertController = UIAlertController(
-                title: "Could not open this workspace".localized(),
-                message: "The app could not load this workspace".localized(),
-                preferredStyle: .alert)
-                .makeErrorMessage(with: "The workspace cell did not have a workspace".localized())
-            
-            self.present(alertController, animated: true, completion: nil)
+            self.presentErrorAlert(of: .workshop)
             return
         }
         
@@ -68,13 +70,13 @@ class SearchResultViewController: UIViewController {
                     note.title = NSAttributedString(string: "Lesson".localized())
                     try note.save()
                 } catch {
-                    self.presentErrorAlert()
+                    self.presentErrorAlert(of: .notebook)
                 }
             }
             self.presentDestination(for: UIDevice.current.userInterfaceIdiom, 
                                     notebook: notebook)
         } else {
-            self.presentErrorAlert()
+            self.presentErrorAlert(of: .notebook)
         }
     }
     
@@ -112,7 +114,21 @@ class SearchResultViewController: UIViewController {
             .font: MarkdownHeader.thirdHeaderFont,
             .foregroundColor: UIColor.titleColor ?? .black
         ]
+        
         self.definesPresentationContext = true
+        
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(keyboardWillShow),
+            name: UIResponder.keyboardWillShowNotification,
+            object: nil
+        )
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(keyboardWillHide),
+            name: UIResponder.keyboardWillHideNotification,
+            object: nil
+        )
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -145,14 +161,34 @@ class SearchResultViewController: UIViewController {
         collectionView.reloadData()
     }
     
+    // MARK: - Objc Functions
+    
+    @objc func keyboardWillShow(_ notification: Notification) {
+        if let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
+            let height = keyboardFrame.cgRectValue.height
+            setTextViewConstant(to: -height)
+        }
+    }
+    
+    @objc func keyboardWillHide(_ notification: Notification) {
+        setTextViewConstant(to: 0)
+    }
+    
     // MARK: - Functions
     
     private func invalidateLayout() {
         collectionView.collectionViewLayout.invalidateLayout()
         for visibleCell in collectionView.visibleCells {
-            if let cell = visibleCell as? WorkspaceCollectionViewCell {
-                cell.invalidateLayout()
+            if let workspaceCell = visibleCell as? WorkspaceCollectionViewCell {
+                workspaceCell.invalidateLayout()
             }
+        }
+    }
+    
+    private func setTextViewConstant(to value: CGFloat) {
+        textViewBottomConstraint.constant = value
+        UIView.animate(withDuration: 0.5) {
+            self.collectionView.layoutIfNeeded()
         }
     }
     
@@ -161,10 +197,10 @@ class SearchResultViewController: UIViewController {
      */
     private func setConstraints() {
         sharedConstraints.append(contentsOf: [
-            collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
+            collectionView.topAnchor.constraint(equalTo: view.topAnchor),
             collectionView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
             collectionView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
-            collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+            textViewBottomConstraint
         ])
     }
     
@@ -192,14 +228,27 @@ class SearchResultViewController: UIViewController {
         }
     }
     
-    private func presentErrorAlert() {
+    private func presentErrorAlert(of type: SearchResultEnum) {
         
-         let alertController = UIAlertController(
-            title: "Could not open this notebook".localized(),
-            message: "The app could not load this notebook".localized(),
-            preferredStyle: .alert)
-            .makeErrorMessage(with: "The notebook collection view cell did not have a notebook".localized())
-        
-        self.present(alertController, animated: true, completion: nil)
+        switch type {
+        case .notebook:
+            let alertController = UIAlertController(
+               title: "Could not open this notebook".localized(),
+               message: "The app could not load this notebook".localized(),
+               preferredStyle: .alert)
+               .makeErrorMessage(with: "The notebook collection view cell did not have a notebook".localized())
+           
+           self.present(alertController, animated: true, completion: nil)
+        case .workshop:
+            let alertController = UIAlertController(
+                title: "Could not open this workspace".localized(),
+                message: "The app could not load this workspace".localized(),
+                preferredStyle: .alert)
+                .makeErrorMessage(with: "The workspace cell did not have a workspace".localized())
+            
+            self.present(alertController, animated: true, completion: nil)
+        default:
+            return
+        }
     }
 }

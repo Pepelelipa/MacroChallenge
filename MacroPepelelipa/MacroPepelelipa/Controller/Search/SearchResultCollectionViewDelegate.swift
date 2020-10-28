@@ -22,7 +22,7 @@ internal class SearchResultCollectionViewDelegate: NSObject,
     
     // MARK: - Initializers
     
-    internal init(_ didSelectWorkspaceCell: @escaping (WorkspaceCollectionViewCell) -> Void,_ didSelectNotebookCell: @escaping (NotebookCollectionViewCell) -> Void) {
+    internal init(_ didSelectWorkspaceCell: @escaping (WorkspaceCollectionViewCell) -> Void, _ didSelectNotebookCell: @escaping (NotebookCollectionViewCell) -> Void) {
         self.didSelectWorkspaceCell = didSelectWorkspaceCell
         self.didSelectNotebookCell = didSelectNotebookCell
     }

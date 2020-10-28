@@ -23,7 +23,9 @@ internal class SearchResultCollectionViewDataSource: NSObject,
     private var filteredWorkspaces = [WorkspaceEntity]()
     private var filteredNotebooks = [NotebookEntity]()
     private var isFiltering: Bool = false
+    
     private let collectionView: (() -> UICollectionView)?
+    
     private weak var viewController: UIViewController?
     
     private lazy var workspaces: [WorkspaceEntity] = {
@@ -99,7 +101,7 @@ internal class SearchResultCollectionViewDataSource: NSObject,
                 viewController?.present(alertController, animated: true, completion: nil)
                 return UICollectionViewCell()
             }
-            
+                        
             if isFiltering {
                 workspaceCell.setWorkspace(filteredWorkspaces[indexPath.row], viewController: viewController)
                 return workspaceCell
@@ -121,6 +123,8 @@ internal class SearchResultCollectionViewDataSource: NSObject,
                 viewController?.present(alertController, animated: true, completion: nil)    
                 return UICollectionViewCell()
             }
+            
+            notebookCell.backgroundColor = .clear
             
             if isFiltering {
                 notebookCell.setNotebook(filteredNotebooks[indexPath.row])

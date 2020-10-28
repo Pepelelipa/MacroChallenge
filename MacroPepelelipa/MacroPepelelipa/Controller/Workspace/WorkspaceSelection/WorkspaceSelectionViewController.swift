@@ -26,7 +26,7 @@ internal class WorkspaceSelectionViewController: UIViewController, UISearchResul
         return searchController.searchBar.text?.isEmpty ?? true
     }
     
-    private lazy var searchController: CustomUISearchController = CustomUISearchController(searchResultsController: searchResultController, owner: self, placeHolder: "Search Workspaces")
+    private lazy var searchController: CustomUISearchController = CustomUISearchController(searchResultsController: searchResultController, owner: self, placeHolder: "Search".localized())
     
     private lazy var collectionView: UICollectionView = {
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
@@ -222,7 +222,7 @@ internal class WorkspaceSelectionViewController: UIViewController, UISearchResul
      */
     private func setConstraints() {
         sharedConstraints.append(contentsOf: [
-            collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
+            collectionView.topAnchor.constraint(equalTo: view.topAnchor),
             collectionView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
             collectionView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
             collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),

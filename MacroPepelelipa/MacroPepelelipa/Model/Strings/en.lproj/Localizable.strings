@@ -117,4 +117,4 @@
 "Floating boxes text" = "If you want to create a floating box on your note, simply tap the Text Box or Image Box button.\nIf you'd like to delete it, long press it and confirm the action. Give it a try :)";
 "Markdown" = "Markdown";
 "Markdown text" = "As an app designed to be efficient, Purple Notebook allows you to use markdown to take notes during classes. It's a quick and powerful way to edit text while typing. Our Markdown Editor has a lot of tools to improve your text, including **Bold**, *Italic* and ::Highlight::.  If you wanna add lists, simply choose between numeric and bullet using 1. or * respectively.";
-
+"Search" = "Search";
