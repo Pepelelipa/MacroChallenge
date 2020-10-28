@@ -16,8 +16,6 @@ internal class NotesViewController: UIViewController,
                                     MarkupToolBarObserver {
     
     // MARK: - Variables and Constants
-
-    internal var shouldSave: Bool = true
     
     private var resizeHandles = [ResizeHandleView]()
     private var initialCenter = CGPoint()
@@ -29,6 +27,7 @@ internal class NotesViewController: UIViewController,
     private let screenWidth = UIScreen.main.bounds.width
     private let screenHeight = UIScreen.main.bounds.height
     
+    internal var shouldSave: Bool = true
     internal var textBoxes: Set<TextBoxView> = []  
     internal var imageBoxes: Set<ImageBoxView> = []
     internal var imgeButtonObserver: ImageButtonObserver?
