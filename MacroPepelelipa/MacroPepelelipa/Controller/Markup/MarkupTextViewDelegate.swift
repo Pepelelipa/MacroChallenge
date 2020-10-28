@@ -64,9 +64,6 @@ internal class MarkupTextViewDelegate: NSObject, UITextViewDelegate {
         
         if let range = range {
             markdownAttributesChanged?(markdownParser.parse(textView.attributedText, range: range, isBackspace: isBackspace), nil)
-            if textView.selectedRange.location > range.location + 1 && !MarkdownList.isList && !MarkdownNumeric.isNumeric && !MarkdownQuote.isQuote {
-                textView.selectedRange = NSRange(location: range.location + 1, length: 0)
-            }
         }
     }
     
@@ -78,8 +75,7 @@ internal class MarkupTextViewDelegate: NSObject, UITextViewDelegate {
         let backspace = strcmp(char, "\\b")
         self.isBackspace = (backspace == -92)
         
-        if range.length > 0 {
-            isBackspace = true
+        if range.length > 0 && isBackspace {
             needsListDeletion = markdownEditor.shouldDeleteIndicatorCharacters(textView)
             if needsListDeletion {
                 MarkdownList.isList = false
@@ -106,7 +102,7 @@ internal class MarkupTextViewDelegate: NSObject, UITextViewDelegate {
             }
         }
         lastWrittenText = text
-        self.range = range
+        self.range = NSRange(location: range.location, length: text.count - 1)
         return true
     }
     

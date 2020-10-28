@@ -244,6 +244,30 @@ internal class MarkupTextView: UITextView {
         return delegate.checkBackground(on: self)
     }
 
+    override func insertText(_ text: String) {
+        let mutableString = NSMutableAttributedString(attributedString: attributedText)
+
+        let newString: NSAttributedString
+        let location = selectedRange.location
+
+        mutableString.deleteCharacters(in: selectedRange)
+
+        if location == 0 {
+            newString = NSAttributedString(string: text, attributes:
+                                            [.font: UIFont.merriweather ?? UIFont.systemFont(ofSize: 12),
+                                             .foregroundColor: UIColor.bodyColor ?? .black,
+                                             .backgroundColor: UIColor.clear])
+        } else {
+            newString = NSAttributedString(string: text, attributes: attributedText.attributes(at: location - 1, effectiveRange: nil))
+        }
+        mutableString.insert(newString, at: location)
+
+        self.attributedText = mutableString
+        
+        selectedRange.location = location + text.count
+        delegate?.textViewDidChange?(self)
+    }
+
     ///Deletes the range or the last character
     override func deleteBackward() {
         let mutableString = NSMutableAttributedString(attributedString: attributedText)
