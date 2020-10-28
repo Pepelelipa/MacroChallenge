@@ -132,8 +132,15 @@ internal class NotesPageViewController: UIPageViewController,
             }
         }
         
-        notesToolbar.shareNoteTriggered = {
-            // TODO: share file
+        notesToolbar.shareNoteTriggered = { sender in
+            guard let userNotebook = self.notebook else {
+                return
+            }
+            let objectsToShare: [Any] = [userNotebook.createFullDocument()]
+            let activityVC = UIActivityViewController(activityItems: objectsToShare, applicationActivities: nil)
+
+            activityVC.popoverPresentationController?.barButtonItem = sender
+            self.present(activityVC, animated: true, completion: nil)
         }
         
         notesToolbar.newNoteTriggered = {
