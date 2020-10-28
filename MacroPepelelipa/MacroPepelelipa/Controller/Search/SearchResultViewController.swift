@@ -28,6 +28,8 @@ internal class SearchResultViewController: UIViewController {
     internal lazy var collectionView: UICollectionView = {
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
         
+        layout.headerReferenceSize = CGSize(width: self.view.frame.width, height: 40)
+        
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.backgroundColor = view.backgroundColor
@@ -44,6 +46,10 @@ internal class SearchResultViewController: UIViewController {
         collectionView.register(
             NotebookCollectionViewCell.self,
             forCellWithReuseIdentifier: NotebookCollectionViewCell.cellID())
+        collectionView.register(
+            SearchResultCollectionReusableView.self, 
+            forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, 
+            withReuseIdentifier: SearchResultCollectionReusableView.cellID())
         
         return collectionView
     }()

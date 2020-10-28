@@ -142,6 +142,29 @@ internal class SearchResultCollectionViewDataSource: NSObject,
         return 2
     }
     
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        switch kind {
+        case UICollectionView.elementKindSectionHeader:
+            guard let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind,
+                                                                                   withReuseIdentifier: SearchResultCollectionReusableView.cellID(), 
+                                                                                   for: indexPath) as? SearchResultCollectionReusableView else {
+                return UICollectionReusableView()
+            }
+            
+            switch indexPath.section {
+            case 0:
+                headerView.text = "Workspaces".localized()
+            case 1:
+                headerView.text = "Notebooks".localized()
+            default:
+                headerView.text = ""
+            }
+            return headerView
+        default:
+            assert(false, "Invalid element type")
+        }
+    }
+    
     // MARK: - Internal functions
     
     internal func setFilterWorkspaceObserver() {

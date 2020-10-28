@@ -135,6 +135,7 @@
 		D994223D2548950600ABCDDE /* FilterWorkspaceObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = D994223C2548950600ABCDDE /* FilterWorkspaceObserver.swift */; };
 		D996CEC3252FA608009D31F8 /* AddNewSpaceTextFieldDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D996CEC2252FA608009D31F8 /* AddNewSpaceTextFieldDelegate.swift */; };
 		D9A85BF72548C34900BD1B6A /* SearchResultCollectionViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A85BF62548C34900BD1B6A /* SearchResultCollectionViewDataSource.swift */; };
+		D9A85BFB2549F8CB00BD1B6A /* SearchResultCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A85BFA2549F8CB00BD1B6A /* SearchResultCollectionReusableView.swift */; };
 		D9BBA584252FAB28004B724F /* AddWorkspaceObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BBA583252FAB28004B724F /* AddWorkspaceObserver.swift */; };
 		D9C7271E2548B2C900DAB005 /* SearchResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9C7271D2548B2C900DAB005 /* SearchResultViewController.swift */; };
 		D9C727212548B8C700DAB005 /* SearchResultCollectionViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9C727202548B8C700DAB005 /* SearchResultCollectionViewDelegate.swift */; };
@@ -340,6 +341,7 @@
 		D994223C2548950600ABCDDE /* FilterWorkspaceObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterWorkspaceObserver.swift; sourceTree = "<group>"; };
 		D996CEC2252FA608009D31F8 /* AddNewSpaceTextFieldDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddNewSpaceTextFieldDelegate.swift; sourceTree = "<group>"; };
 		D9A85BF62548C34900BD1B6A /* SearchResultCollectionViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultCollectionViewDataSource.swift; sourceTree = "<group>"; };
+		D9A85BFA2549F8CB00BD1B6A /* SearchResultCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultCollectionReusableView.swift; sourceTree = "<group>"; };
 		D9BBA583252FAB28004B724F /* AddWorkspaceObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddWorkspaceObserver.swift; sourceTree = "<group>"; };
 		D9C7271D2548B2C900DAB005 /* SearchResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultViewController.swift; sourceTree = "<group>"; };
 		D9C727202548B8C700DAB005 /* SearchResultCollectionViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultCollectionViewDelegate.swift; sourceTree = "<group>"; };
@@ -887,6 +889,7 @@
 		02DD0A1025114E9800B6696B /* View */ = {
 			isa = PBXGroup;
 			children = (
+				D9A85BF92549F89500BD1B6A /* Search */,
 				02E4E99425266F3900290A39 /* NotebookView.swift */,
 				022D602F251955D700001D5B /* Markup */,
 				02ECA43A2512ABA600E68588 /* Workspace */,
@@ -1023,6 +1026,14 @@
 			isa = PBXGroup;
 			children = (
 				D9A85BF62548C34900BD1B6A /* SearchResultCollectionViewDataSource.swift */,
+			);
+			path = Search;
+			sourceTree = "<group>";
+		};
+		D9A85BF92549F89500BD1B6A /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				D9A85BFA2549F8CB00BD1B6A /* SearchResultCollectionReusableView.swift */,
 			);
 			path = Search;
 			sourceTree = "<group>";
@@ -1337,6 +1348,7 @@
 				D9F4A9AB25277A6B00BFDC19 /* CGRectExtension.swift in Sources */,
 				024C5BBC252E41EE009549CE /* ColorSelectionCollectionViewCell.swift in Sources */,
 				022D600B2519559D00001D5B /* MarkdownCode+UIKit.swift in Sources */,
+				D9A85BFB2549F8CB00BD1B6A /* SearchResultCollectionReusableView.swift in Sources */,
 				1E6E148C252E33E700383E10 /* MarkupBarConfiguration.swift in Sources */,
 				D9A85BF72548C34900BD1B6A /* SearchResultCollectionViewDataSource.swift in Sources */,
 				022D60152519559D00001D5B /* MarkdownQuote.swift in Sources */,
