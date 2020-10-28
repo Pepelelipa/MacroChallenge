@@ -133,10 +133,11 @@ internal class NotesPageViewController: UIPageViewController,
         }
         
         notesToolbar.shareNoteTriggered = { sender in
-//            guard let userNotebook = self.notebook else {
-//                return
-//            }
-            let objectsToShare: [Any] = [self.notes[0].createDocument()]
+            guard let userNotebook = self.notebook else {
+                return
+            }
+            let objectsToShare: [Any] = [userNotebook.createFullDocument()]
+//            let objectsToShare: [Any] = [self.notes[0].createDocument()]
             let activityVC = UIActivityViewController(activityItems: objectsToShare, applicationActivities: nil)
 
             activityVC.popoverPresentationController?.barButtonItem = sender

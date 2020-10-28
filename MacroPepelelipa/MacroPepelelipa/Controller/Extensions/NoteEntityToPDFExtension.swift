@@ -1,5 +1,5 @@
 //
-//  ViewToPDFExtension.swift
+//  NoteEntityToPDFExtension.swift
 //  MacroPepelelipa
 //
 //  Created by Paula Leite on 23/10/20.
