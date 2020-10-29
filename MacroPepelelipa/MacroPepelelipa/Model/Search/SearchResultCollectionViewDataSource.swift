@@ -12,7 +12,7 @@ import Database
 
 internal class SearchResultCollectionViewDataSource: NSObject, 
                                                    UICollectionViewDataSource,
-                                                   FilterObserver {
+                                                   SearchBarObserver {
     
     // MARK: - Variables and Constants
 

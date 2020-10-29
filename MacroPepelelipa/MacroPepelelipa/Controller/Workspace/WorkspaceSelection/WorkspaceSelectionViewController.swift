@@ -16,7 +16,7 @@ internal class WorkspaceSelectionViewController: UIViewController,
 
     // MARK: - Variables and Constants
     
-    internal weak var filterObserver: FilterObserver?
+    internal weak var filterObserver: SearchBarObserver?
     
     private var compactRegularConstraints: [NSLayoutConstraint] = []
     private var regularCompactConstraints: [NSLayoutConstraint] = []
