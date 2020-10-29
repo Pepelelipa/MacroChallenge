@@ -18,13 +18,13 @@ internal class NoteObject: NoteEntity {
 
     public var title: NSAttributedString {
         didSet {
-            coreDataObject.title = title
+            coreDataObject.title = title.toData()
             notifyObservers()
         }
     }
     var text: NSAttributedString {
         didSet {
-            coreDataObject.text = text
+            coreDataObject.text = text.toData()
             notifyObservers()
         }
     }
@@ -47,8 +47,8 @@ internal class NoteObject: NoteEntity {
     internal init(in notebook: NotebookObject, from note: Note) {
         self.notebook = notebook
         self.coreDataObject = note
-        self.title = note.title ?? NSAttributedString()
-        self.text = note.text ?? NSAttributedString()
+        self.title = note.title?.toAttributedString() ?? NSAttributedString()
+        self.text = note.text?.toAttributedString() ?? NSAttributedString()
         
         notebook.notes.append(self)
 

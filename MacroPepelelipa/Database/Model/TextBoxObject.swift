@@ -13,7 +13,7 @@ internal class TextBoxObject: TextBoxEntity {
         self.note = note
         self.coreDataObject = coreDataObject
 
-        self.text = coreDataObject.text ?? NSAttributedString()
+        self.text = coreDataObject.text?.toAttributedString() ?? NSAttributedString()
         self.width = coreDataObject.width
         self.height = coreDataObject.height
         self.x = coreDataObject.x
@@ -32,7 +32,7 @@ internal class TextBoxObject: TextBoxEntity {
     }
     public var text: NSAttributedString {
         didSet {
-            coreDataObject.text = text
+            coreDataObject.text = text.toData()
         }
     }
     public var width: Float {

@@ -9,9 +9,9 @@
         <attribute name="z" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
         <relationship name="note" maxCount="1" deletionRule="Nullify" destinationEntity="Note" inverseName="images" inverseEntity="Note"/>
     </entity>
-    <entity name="Note" representedClassName="Note" syncable="YES">
-        <attribute name="text" optional="YES" attributeType="Transformable" valueTransformerName="NSAttributedStringTransformer" customClassName="NSAttributedString"/>
-        <attribute name="title" optional="YES" attributeType="Transformable" valueTransformerName="NSAttributedStringTransformer" customClassName="NSAttributedString"/>
+    <entity name="Note" representedClassName=".Note" syncable="YES">
+        <attribute name="text" optional="YES" attributeType="Binary" valueTransformerName="NSAttributedStringTransformer" customClassName="NSData"/>
+        <attribute name="title" optional="YES" attributeType="Binary" valueTransformerName="NSAttributedStringTransformer" customClassName="NSData"/>
         <relationship name="images" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="ImageBox" inverseName="note" inverseEntity="ImageBox"/>
         <relationship name="notebook" maxCount="1" deletionRule="Nullify" destinationEntity="Notebook" inverseName="notes" inverseEntity="Notebook"/>
         <relationship name="textBoxes" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="TextBox" inverseName="note" inverseEntity="TextBox"/>
@@ -24,7 +24,7 @@
     </entity>
     <entity name="TextBox" representedClassName="TextBox" syncable="YES">
         <attribute name="height" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
-        <attribute name="text" optional="YES" attributeType="Transformable" valueTransformerName="NSAttributedStringTransformer" customClassName="NSAttributedString"/>
+        <attribute name="text" optional="YES" attributeType="Binary" valueTransformerName="NSAttributedStringTransformer" customClassName="NSAttributedString"/>
         <attribute name="width" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="x" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="y" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
