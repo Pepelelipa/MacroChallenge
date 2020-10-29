@@ -22,7 +22,7 @@ internal class WorkspacesCollectionViewDataSource: NSObject,
     private let collectionView: (() -> UICollectionView)?
     private weak var viewController: UIViewController?
     
-    private lazy var workspaces: [WorkspaceEntity] = {
+    internal lazy var workspaces: [WorkspaceEntity] = {
         do {
             let workspaces = try Database.DataManager.shared().fetchWorkspaces()
             for workspace in workspaces {
@@ -48,7 +48,6 @@ internal class WorkspacesCollectionViewDataSource: NSObject,
         self.viewController = viewController
         self.collectionView = collectionView
         super.init()
-
         DataManager.shared().addCreationObserver(self, type: .workspace)
     }
     
@@ -62,7 +61,6 @@ internal class WorkspacesCollectionViewDataSource: NSObject,
                 viewController.switchEmptyScreenView(shouldBeHidden: true)
             }
         }
-        
         return workspaces.count
     }
 
@@ -79,13 +77,13 @@ internal class WorkspacesCollectionViewDataSource: NSObject,
             viewController?.present(alertController, animated: true, completion: nil)
             return UICollectionViewCell()
         }
+        
         cell.setWorkspace(workspaces[indexPath.row], viewController: viewController)
         cell.isEditing = collectionView.isEditing
 
         if let editableCollection = collectionView as? EditableCollectionView {
             cell.entityShouldBeDeleted = editableCollection.entityShouldBeDeleted
         }
-
         return cell
     }
     
