@@ -13,7 +13,8 @@ internal class MarkupToolBar: UIToolbar {
     // MARK: - Variables and Constants
     
     private weak var markupBarConfiguration: MarkupBarConfiguration?
-    private static var paragraphButton: UIBarButtonItem?
+    private static weak var paragraphButton: UIBarButtonItem?
+    private static weak var listButton: UIBarButtonItem?
     
     internal static var headerStyle: HeaderStyle = .h1 {
         didSet {
@@ -22,6 +23,7 @@ internal class MarkupToolBar: UIToolbar {
             }
         }
     }
+    internal static var resetListStyle: (() -> Void)?
     
     // MARK: - Initializers
     
@@ -67,6 +69,10 @@ internal class MarkupToolBar: UIToolbar {
         self.items?.append(flexible)
         
         MarkupToolBar.paragraphButton = barButtonItems[1]
+        MarkupToolBar.resetListStyle = { [weak self] in
+            barButtonItems[0].image = UIImage(systemName: "list.bullet")
+            self?.markupBarConfiguration?.resetList()
+        }
         
         if let paragraphBtn = MarkupToolBar.paragraphButton {
             self.items?.append(paragraphBtn)

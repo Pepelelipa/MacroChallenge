@@ -119,3 +119,7 @@
 "Markdown" = "Markdown";
 "Markdown text" = "Caderno Roxo, foi desenvolvido para ser um aplicativo que preza pela eficiência. Desta forma, é possível utilizar atalhos do editor de Markdown enquanto faz anotações. É uma maneira rápida e poderosa de editar textos enquanto digita. Nosso editor de Markdown possuí diversas ferramentas para aprimorar seu texto, incluindo **Negrito**, *Italico* e ::Destacado::. Caso você deseje adicionar listas, basta escolher entre numérica ou de pontos usando 1. ou * respectivamente.";
 "Search" = "Buscar";
+"Save Workspace" = "Salvar coleção";
+"Save Notebook" = "Salvar Caderno";
+"Edit Workspace" = "Editar Coleção";
+"Edit Notebook" = "Editar Caderno";

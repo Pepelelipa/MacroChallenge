@@ -21,14 +21,15 @@ internal class NotebooksSelectionViewController: UIViewController {
     
     internal private(set) weak var workspace: WorkspaceEntity?
 
-    private lazy var collectionView: UICollectionView = {
+    private lazy var collectionView: EditableCollectionView = {
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
         
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        let collectionView = EditableCollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.backgroundColor = view.backgroundColor
         collectionView.showsVerticalScrollIndicator = false
         collectionView.allowsSelection = true
+        collectionView.allowsSelectionDuringEditing = true
         collectionView.allowsMultipleSelection = false
         collectionView.contentInset = UIEdgeInsets(top: 20, left: 0, bottom: 20, right: 0)
         collectionView.delegate = collectionDelegate
@@ -37,6 +38,14 @@ internal class NotebooksSelectionViewController: UIViewController {
         collectionView.register(
             NotebookCollectionViewCell.self,
             forCellWithReuseIdentifier: NotebookCollectionViewCell.cellID())
+
+        collectionView.entityShouldBeDeleted = { (notebook) in
+            if let notebook = notebook as? NotebookEntity,
+               let cells = collectionView.visibleCells as? [NotebookCollectionViewCell],
+               let cell = cells.first(where: { $0.notebook === notebook }) {
+                self.deleteCell(cell: cell)
+            }
+        }
         
         return collectionView
     }()
@@ -57,27 +66,34 @@ internal class NotebooksSelectionViewController: UIViewController {
         view.alpha = 0
         view.isHidden = true
         view.translatesAutoresizingMaskIntoConstraints = false
+        
+        if UIDevice.current.userInterfaceIdiom == .phone {
+            view.isLandscape = UIDevice.current.orientation.isActuallyLandscape
+        }
+        
         return view
     }()
 
     private lazy var collectionDelegate = NotebooksCollectionViewDelegate { [unowned self] (selectedCell) in
         if let notebook = selectedCell.notebook {
-            let note: NoteEntity
-            if let lastNote = notebook.notes.last {
-                note = lastNote
-            } else {
-                do {
-                    note = try DataManager.shared().createNote(in: notebook)
-                    note.title = NSAttributedString(string: "Lesson".localized())
-                    try note.save()
-                } catch {
-                    self.presentErrorAlert()
+            if !self.collectionView.isEditing {
+                let note: NoteEntity
+                if let lastNote = notebook.notes.last {
+                    note = lastNote
+                } else {
+                    do {
+                        note = try DataManager.shared().createNote(in: notebook)
+                        note.title = NSAttributedString(string: "Lesson".localized())
+                        try note.save()
+                    } catch {
+                        self.presentErrorAlert()
+                    }
                 }
+
+                self.presentDestination(for: UIDevice.current.userInterfaceIdiom, notebook: notebook)
+            } else {
+                self.editNotebook(notebook)
             }
-            
-            self.presentDestination(for: UIDevice.current.userInterfaceIdiom, 
-                                    notebook: notebook)
-            
         } else {
             self.presentErrorAlert()
         }
@@ -97,7 +113,7 @@ internal class NotebooksSelectionViewController: UIViewController {
         }
         self.init(workspace: workspace)
     }
-    
+
     // MARK: - Override functions
 
     override func viewDidLoad() {
@@ -119,6 +135,11 @@ internal class NotebooksSelectionViewController: UIViewController {
         NSLayoutConstraint.activate(sharedConstraints)
         if UIDevice.current.userInterfaceIdiom != .pad {
             layoutTrait(traitCollection: UIScreen.main.traitCollection)
+        }
+
+        if !(collectionDataSource?.isEmpty() ?? true) && (workspace?.isEnabled ?? false) {
+            navigationItem.leftItemsSupplementBackButton = true
+            navigationItem.leftBarButtonItem = self.editButtonItem
         }
     }
     
@@ -146,6 +167,15 @@ internal class NotebooksSelectionViewController: UIViewController {
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         layoutTrait(traitCollection: traitCollection)
+        
+        if UIDevice.current.userInterfaceIdiom == .phone {
+            emptyScreenView.isLandscape = UIDevice.current.orientation.isActuallyLandscape
+        }
+    }
+
+    override func setEditing(_ editing: Bool, animated: Bool) {
+        super.setEditing(editing, animated: animated)
+        collectionView.setEditing(editing)
     }
     
     // MARK: - Functions
@@ -169,8 +199,8 @@ internal class NotebooksSelectionViewController: UIViewController {
         
         if UIDevice.current.userInterfaceIdiom == .phone {
             regularCompactConstraints.append(contentsOf: [
-                emptyScreenView.heightAnchor.constraint(equalTo: self.view.heightAnchor, multiplier: 0.9),
-                emptyScreenView.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 0.4)
+                emptyScreenView.heightAnchor.constraint(equalTo: self.view.heightAnchor),
+                emptyScreenView.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 0.5)
             ])
         } else {
             regularCompactConstraints.append(contentsOf: [
@@ -315,11 +345,28 @@ internal class NotebooksSelectionViewController: UIViewController {
         let point = gesture.location(in: collectionView)
         
         guard let indexPath = collectionView.indexPathForItem(at: point),
-              let cell = collectionView.cellForItem(at: indexPath) as? NotebookCollectionViewCell,
-              let notebook = cell.notebook else {
+              let cell = collectionView.cellForItem(at: indexPath) as? NotebookCollectionViewCell else {
             return
         }
-        
+        deleteCell(cell: cell)
+    }
+
+    private func editNotebook(_ notebook: NotebookEntity) {
+        let notebookEditingController = AddNotebookViewController(workspace: workspace)
+
+        notebookEditingController.isModalInPresentation = true
+        notebookEditingController.modalTransitionStyle = .crossDissolve
+        notebookEditingController.modalPresentationStyle = .overFullScreen
+
+        notebookEditingController.notebook = notebook
+        self.present(notebookEditingController, animated: true)
+    }
+
+    private func deleteCell(cell: NotebookCollectionViewCell) {
+        guard let notebook = cell.notebook else {
+            return
+        }
+
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet).makeDeleteConfirmation(dataType: .notebook, deletionHandler: { [weak self] _ in
             let deleteAlertController = UIAlertController(title: "Delete Notebook confirmation".localized(),
                                                           message: "Warning".localized(),
@@ -337,7 +384,15 @@ internal class NotebooksSelectionViewController: UIViewController {
                                                           })
             self?.present(deleteAlertController, animated: true, completion: nil)
         })
-        
+
+        if workspace?.isEnabled ?? false {
+            let editAction = UIAlertAction(title: "Edit Notebook".localized(), style: .default, handler: { _ in
+                self.setEditing(true, animated: true)
+                self.editNotebook(notebook)
+            })
+            alertController.addAction(editAction)
+        }
+
         if UIDevice.current.userInterfaceIdiom == .pad {
             alertController.popoverPresentationController?.sourceView = cell
             alertController.popoverPresentationController?.sourceRect = cell.frame

@@ -9,7 +9,7 @@
 import UIKit
 
 public extension MarkdownCode {
-    static let defaultHighlightColor = UIColor.yellow
+  static let defaultHighlightColor = #colorLiteral(red: 0.9921568627, green: 0.8745098039, blue: 0.4941176471, alpha: 0.8)
   static let defaultBackgroundColor = UIColor(red: 0.85, green: 0.85, blue: 0.85, alpha: 1.0)
   static let defaultFont = UIFont(name: "Menlo-Regular", size: 16)
 }

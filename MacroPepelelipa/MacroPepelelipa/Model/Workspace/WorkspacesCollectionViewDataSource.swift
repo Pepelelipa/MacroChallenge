@@ -79,7 +79,11 @@ internal class WorkspacesCollectionViewDataSource: NSObject,
         }
         
         cell.setWorkspace(workspaces[indexPath.row], viewController: viewController)
-        
+        cell.isEditing = collectionView.isEditing
+
+        if let editableCollection = collectionView as? EditableCollectionView {
+            cell.entityShouldBeDeleted = editableCollection.entityShouldBeDeleted
+        }
         return cell
     }
     

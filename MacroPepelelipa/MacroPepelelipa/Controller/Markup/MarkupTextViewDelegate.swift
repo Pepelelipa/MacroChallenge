@@ -23,8 +23,7 @@ internal class MarkupTextViewDelegate: NSObject, UITextViewDelegate {
     private var lastWrittenText: String = ""
     private var needsListDeletion: Bool = false
     private weak var formatView: MarkupFormatView?
-    
-    internal var markdownAttributesChanged: ((NSAttributedString?, Error?) -> Void)?
+
     internal private(set) var observers: [TextEditingDelegateObserver] = []
     
     // MARK: - Initializers
@@ -63,10 +62,9 @@ internal class MarkupTextViewDelegate: NSObject, UITextViewDelegate {
         }
         
         if let range = range {
-            markdownAttributesChanged?(markdownParser.parse(textView.attributedText, range: range, isBackspace: isBackspace), nil)
-            if textView.selectedRange.location > range.location + 1 && !MarkdownList.isList && !MarkdownNumeric.isNumeric && !MarkdownQuote.isQuote {
-                textView.selectedRange = NSRange(location: range.location + 1, length: 0)
-            }
+            let location = textView.selectedRange.location
+            textView.attributedText = markdownParser.parse(textView.attributedText, range: range, isBackspace: isBackspace)
+            textView.selectedRange.location = location
         }
     }
     
@@ -78,8 +76,7 @@ internal class MarkupTextViewDelegate: NSObject, UITextViewDelegate {
         let backspace = strcmp(char, "\\b")
         self.isBackspace = (backspace == -92)
         
-        if range.length > 0 {
-            isBackspace = true
+        if range.length > 0 && isBackspace {
             needsListDeletion = markdownEditor.shouldDeleteIndicatorCharacters(textView)
             if needsListDeletion {
                 MarkdownList.isList = false
@@ -92,7 +89,7 @@ internal class MarkupTextViewDelegate: NSObject, UITextViewDelegate {
             if markdownParser.font.isHeaderFont() {
                 markdownParser.font = MarkdownParser.defaultFont
             }
-            
+            MarkupToolBar.resetListStyle?()
             MarkupToolBar.headerStyle = .h1
             observers.forEach({ $0.textReceivedEnter() })
             if lastWrittenText == "\n" {
@@ -106,7 +103,7 @@ internal class MarkupTextViewDelegate: NSObject, UITextViewDelegate {
             }
         }
         lastWrittenText = text
-        self.range = range
+        self.range = NSRange(location: range.location, length: text.count - 1)
         return true
     }
     

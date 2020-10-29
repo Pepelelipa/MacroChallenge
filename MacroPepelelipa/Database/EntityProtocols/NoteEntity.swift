@@ -13,4 +13,5 @@ public protocol NoteEntity: class, ObservableEntity {
     var textBoxes: [TextBoxEntity] { get }
 
     func getNotebook() throws -> NotebookEntity
+    
 }

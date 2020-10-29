@@ -132,23 +132,31 @@ internal class NotesPageViewController: UIPageViewController,
             }
         }
         
-        notesToolbar.shareNoteTriggered = {
-            // TODO: share file
+        notesToolbar.shareNoteTriggered = { sender in
+            guard let userNotebook = self.notebook else {
+                return
+            }
+            let objectsToShare: [Any] = [userNotebook.createFullDocument()]
+            let activityVC = UIActivityViewController(activityItems: objectsToShare, applicationActivities: nil)
+
+            activityVC.popoverPresentationController?.barButtonItem = sender
+            self.present(activityVC, animated: true, completion: nil)
         }
         
         notesToolbar.newNoteTriggered = {
-            guard let guardedNotebook = self.notebook else {
+            guard let notebook = self.notebook else {
                 return
             }
             
-            let destination = AddNoteViewController(notebook: guardedNotebook)
+            let destination = AddNoteViewController(notebook: notebook) { 
+                self.updateNotes()
+            }
+            
             destination.isModalInPresentation = true
             destination.modalTransitionStyle = .crossDissolve
             destination.modalPresentationStyle = .overFullScreen
             
-            self.present(destination, animated: true) { 
-                self.updateNotes()
-            }
+            self.present(destination, animated: true)
         }
     }
     
@@ -246,20 +254,6 @@ internal class NotesPageViewController: UIPageViewController,
         return false
     }
     
-    /// This method addes the done button when the keyboard shows.
-    @objc func keyboardWillShow(_ notification: Notification) {
-        if navigationItem.rightBarButtonItems?.firstIndex(of: doneButton) == nil {
-            navigationItem.rightBarButtonItems?.append(doneButton)
-        }
-    }
-    
-    /// This method removes the done button when the keyboard hides.
-    @objc func keyboardWillHide(_ notification: Notification) {
-        if let index = navigationItem.rightBarButtonItems?.firstIndex(of: doneButton) {
-            navigationItem.rightBarButtonItems?.remove(at: index)
-        }
-    }
-    
     // MARK: - IndexObserver functions
     
     internal func didChangeIndex(to note: NoteEntity) {
@@ -284,7 +278,6 @@ internal class NotesPageViewController: UIPageViewController,
             let notebookIndexViewController = NotebookIndexViewController(notebook: presentNotebook, 
                                                                           note: notes[index])
             notebookIndexViewController.observer = self
-            
             self.present(notebookIndexViewController, animated: true, completion: nil)
         }
     }
@@ -292,6 +285,22 @@ internal class NotesPageViewController: UIPageViewController,
     // This method is called 
     @IBAction private func closeKeyboard() {
         self.view.endEditing(true)
+    }
+    
+    // MARK: - Objective-C functions
+    
+    /// This method addes the done button when the keyboard shows.
+    @objc func keyboardWillShow(_ notification: Notification) {
+        if navigationItem.rightBarButtonItems?.firstIndex(of: doneButton) == nil {
+            navigationItem.rightBarButtonItems?.append(doneButton)
+        }
+    }
+    
+    /// This method removes the done button when the keyboard hides.
+    @objc func keyboardWillHide(_ notification: Notification) {
+        if let index = navigationItem.rightBarButtonItems?.firstIndex(of: doneButton) {
+            navigationItem.rightBarButtonItems?.remove(at: index)
+        }
     }
     
 }

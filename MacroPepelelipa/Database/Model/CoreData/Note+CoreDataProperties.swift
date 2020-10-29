@@ -2,7 +2,7 @@
 //  Note+CoreDataProperties.swift
 //  MacroPepelelipa
 //
-//  Created by Pedro Giuliano Farina on 09/10/20.
+//  Created by Pedro Giuliano Farina on 28/10/20.
 //  Copyright © 2020 Pedro Giuliano Farina. All rights reserved.
 //
 //
@@ -11,14 +11,15 @@
 import Foundation
 import CoreData
 
+
 extension Note {
 
     @nonobjc public class func fetchRequest() -> NSFetchRequest<Note> {
         return NSFetchRequest<Note>(entityName: "Note")
     }
 
-    @NSManaged public var text: NSAttributedString?
-    @NSManaged public var title: NSAttributedString?
+    @NSManaged public var text: Data?
+    @NSManaged public var title: Data?
     @NSManaged public var images: NSSet?
     @NSManaged public var notebook: Notebook?
     @NSManaged public var textBoxes: NSSet?
@@ -59,6 +60,6 @@ extension Note {
 
 }
 
-extension Note: Identifiable {
+extension Note : Identifiable {
 
 }

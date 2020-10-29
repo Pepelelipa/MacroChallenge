@@ -16,8 +16,6 @@ internal class NotesViewController: UIViewController,
                                     MarkupToolBarObserver {
     
     // MARK: - Variables and Constants
-
-    internal var shouldSave: Bool = true
     
     private var resizeHandles = [ResizeHandleView]()
     private var initialCenter = CGPoint()
@@ -29,6 +27,7 @@ internal class NotesViewController: UIViewController,
     private let screenWidth = UIScreen.main.bounds.width
     private let screenHeight = UIScreen.main.bounds.height
     
+    internal var shouldSave: Bool = true
     internal var textBoxes: Set<TextBoxView> = []  
     internal var imageBoxes: Set<ImageBoxView> = []
     internal var imgeButtonObserver: ImageButtonObserver?
@@ -82,20 +81,6 @@ internal class NotesViewController: UIViewController,
     }()
     
     internal lazy var workItem = DispatchWorkItem {
-        self.textViewDelegate.markdownAttributesChanged = { [weak self] (attributtedString, error) in
-            if let error = error {
-                NSLog("Error requesting -> \(error)")
-                return
-            }
-
-            guard let attributedText = attributtedString else {
-                NSLog("No error nor string found")
-                return
-            }
-            
-            self?.textView.attributedText = attributedText
-        }
-        
         if self.textView.textColor == .placeholderColor {
             self.textViewDelegate.parsePlaceholder(on: self.textView)
         }
@@ -241,9 +226,7 @@ internal class NotesViewController: UIViewController,
         resizeHandles[0].setNeedsDisplay()
     }
     
-    /**
-     Delete all resize handles
-     */
+    ////Delete all resize handles
     private func cleanResizeHandles() {
         if !resizeHandles.isEmpty {
             resizeHandles.forEach { (resizeHandle) in
@@ -281,7 +264,7 @@ internal class NotesViewController: UIViewController,
                     entity.height = Float(textBox.frame.height)
                 }
             }
-
+            
             for imageBox in imageBoxes where imageBox.frame.origin.x != 0 && imageBox.frame.origin.y != 0 {
                 if let entity = note.images.first(where: { $0 === imageBox.entity }) {
                     entity.x = Float(imageBox.frame.origin.x)

@@ -142,14 +142,14 @@ internal class MarkupBarConfiguration {
         
         return buttons
     }
-    
-    // MARK: - IBActions functions
+
+    // MARK: Action functions
     
     /**
     In this funcion, we toggle the color of the button when the button is selected.
      - Parameter sender: The UIButton.
     */
-    @IBAction internal func toogleButton(_ sender: UIButton) {
+    @objc internal func toogleButton(_ sender: UIButton) {
         sender.isSelected.toggle()
         if sender.isSelected {
             sender.tintColor = UIColor.actionColor
@@ -157,8 +157,10 @@ internal class MarkupBarConfiguration {
             sender.tintColor = UIColor.placeholderColor
         }
     }
-    
-    // MARK: Objective-C functions
+
+    internal func resetList() {
+        listStyle = .bullet
+    }
     
     /**
     In this funcion, we deal with the toolbar button for adding a list, adding it manually, when the function receives a UIBarButtonItem.
@@ -170,7 +172,7 @@ internal class MarkupBarConfiguration {
         }
             
         let lineCleared = guardedTextView.clearIndicatorCharacters()
-        var nextStyle: ListStyle = .bullet
+        let nextStyle: ListStyle
         
         guardedTextView.addList(of: listStyle, lineCleared)
         

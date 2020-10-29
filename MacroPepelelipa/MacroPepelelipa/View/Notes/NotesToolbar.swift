@@ -14,7 +14,7 @@ internal class NotesToolbar: UIToolbar {
     
     internal var deleteNoteTriggered: (() -> Void)?
     internal var addImageTriggered: (() -> Void)?
-    internal var shareNoteTriggered: (() -> Void)?
+    internal var shareNoteTriggered: ((UIBarButtonItem) -> Void)?
     internal var newNoteTriggered: (() -> Void)?
     
     private lazy var deleteNoteButton: UIBarButtonItem = {
@@ -86,8 +86,8 @@ internal class NotesToolbar: UIToolbar {
         addImageTriggered?()
     }
     
-    @IBAction private func shareNote() {
-        shareNoteTriggered?()
+    @IBAction private func shareNote(_ sender: UIBarButtonItem) {
+        shareNoteTriggered?(sender)
     }
     
     @IBAction private func newNote() {

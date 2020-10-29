@@ -13,7 +13,9 @@ internal class AddWorkspaceViewController: UIViewController, AddWorkspaceObserve
     
     // MARK: - Variables and Constants
     
-    internal var centerYConstraint: NSLayoutConstraint?
+    internal weak var workspace: WorkspaceEntity?
+    
+    private lazy var popupViewCenterYConstraint = popupView.centerYAnchor.constraint(equalTo: view.centerYAnchor)
     
     private lazy var gestureDelegate: GestureDelegate = GestureDelegate(popup: popupView, textField: txtName)
     
@@ -65,7 +67,7 @@ internal class AddWorkspaceViewController: UIViewController, AddWorkspaceObserve
     private lazy var constraints: [NSLayoutConstraint] = {
         [
             popupView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            popupView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            popupViewCenterYConstraint,
             popupView.heightAnchor.constraint(greaterThanOrEqualToConstant: 130),
             popupView.heightAnchor.constraint(greaterThanOrEqualTo: view.heightAnchor, multiplier: 0.18),
             popupView.widthAnchor.constraint(lessThanOrEqualTo: view.widthAnchor, multiplier: 0.8),
@@ -102,16 +104,16 @@ internal class AddWorkspaceViewController: UIViewController, AddWorkspaceObserve
         
         txtName.becomeFirstResponder()
         self.txtName.inputAccessoryView = keyboardToolBar
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
+
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
+    override func viewWillAppear(_ animated: Bool) {
+        if let workspace = workspace {
+            txtName.text = workspace.name
+            btnConfirm.setTitle("Save Workspace".localized(), for: .normal)
+        }
     }
     
     override func viewDidLayoutSubviews() {
@@ -143,7 +145,12 @@ internal class AddWorkspaceViewController: UIViewController, AddWorkspaceObserve
     @IBAction func btnConfirmTap() {
         if let text = txtName.text {
             do {
-                _ = try DataManager.shared().createWorkspace(named: text)
+                if let workspace = workspace {
+                    workspace.name = text
+                    try workspace.save()
+                } else {
+                    _ = try DataManager.shared().createWorkspace(named: text)
+                }
             } catch {
                 let alertController = UIAlertController(
                     title: "Error creating the workspace".localized(),
@@ -177,11 +184,11 @@ internal class AddWorkspaceViewController: UIViewController, AddWorkspaceObserve
 
     @objc func keyboardWillShow(notification: NSNotification) {
         if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
-            centerYConstraint?.constant = -keyboardSize.height*0.5
+            popupViewCenterYConstraint.constant = -keyboardSize.height*0.5
         }
     }
     
     @objc func keyboardWillHide(notification: NSNotification) {
-        centerYConstraint?.constant = 0
+        popupViewCenterYConstraint.constant = 0
     }
 }
