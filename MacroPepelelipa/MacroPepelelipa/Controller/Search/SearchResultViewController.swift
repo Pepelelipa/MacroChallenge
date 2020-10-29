@@ -87,9 +87,13 @@ internal class SearchResultViewController: UIViewController {
         super.init(nibName: nil, bundle: nil)
     }
     
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+    internal required convenience init?(coder: NSCoder) {
+        guard let owner = coder.decodeObject(forKey: "owner") as? UIViewController else {
+            return nil
+        }
+        self.init(owner: owner)
     }
+   
     // MARK: - Override functions
     
     override func viewDidLoad() {

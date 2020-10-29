@@ -21,7 +21,12 @@ internal class CustomUISearchController: UISearchController {
         self.searchBar.scopeButtonTitles = SearchResultEnum.allCases.map { $0.rawValue }
     }
     
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+    internal required convenience  init?(coder: NSCoder) {
+        guard let searchResultsController = coder.decodeObject(forKey: "searchResultsController") as? UIViewController,
+              let owner = coder.decodeObject(forKey: "owner") as? UISearchResultsUpdating,
+              let placeHolder = coder.decodeObject(forKey: "placeHolder") as? String else {
+            return nil
+        }
+        self.init(searchResultsController: searchResultsController, owner: owner, placeHolder: placeHolder)
     }
 }

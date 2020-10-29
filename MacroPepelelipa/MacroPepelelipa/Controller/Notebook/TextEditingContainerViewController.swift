@@ -79,7 +79,7 @@ internal class TextEditingContainerViewController: UIViewController,
         super.init(nibName: nil, bundle: nil)
     }
     
-    internal convenience required init?(coder: NSCoder) {
+    internal required convenience init?(coder: NSCoder) {
         guard let centerViewController = coder.decodeObject(forKey: "centerViewController") as? NotesPageViewController else {
             return nil
         }

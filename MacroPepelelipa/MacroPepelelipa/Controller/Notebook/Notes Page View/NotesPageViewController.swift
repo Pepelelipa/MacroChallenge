@@ -78,7 +78,7 @@ internal class NotesPageViewController: UIPageViewController,
         }
     }
     
-    internal convenience required init?(coder: NSCoder) {
+    internal required convenience init?(coder: NSCoder) {
         guard let notes = coder.decodeObject(forKey: "notes") as? [NoteEntity] else {
             return nil
         }

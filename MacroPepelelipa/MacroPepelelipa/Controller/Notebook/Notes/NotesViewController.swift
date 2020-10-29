@@ -152,7 +152,7 @@ internal class NotesViewController: UIViewController,
         textViewDelegate.removeObserver(self)
     }
 
-    internal convenience required init?(coder: NSCoder) {
+    internal required convenience init?(coder: NSCoder) {
         guard let note = coder.decodeObject(forKey: "note") as? NoteEntity else {
             return nil
         }
