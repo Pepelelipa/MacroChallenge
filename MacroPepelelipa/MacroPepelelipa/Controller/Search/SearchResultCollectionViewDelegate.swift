@@ -15,16 +15,14 @@ internal class SearchResultCollectionViewDelegate: NSObject,
     
     // MARK: - Variables and Constants
     
-    private var didSelectWorkspaceCell: ((WorkspaceCollectionViewCell) -> Void)?
-    private var didSelectNotebookCell: ((NotebookCollectionViewCell) -> Void)?
+    private var didSelectCell: ((UICollectionViewCell) -> Void)?
     internal var numberOfFilteredWorkspaces: Int?
     internal var numberOfFilteredNotebooks: Int?
     
     // MARK: - Initializers
     
-    internal init(_ didSelectWorkspaceCell: @escaping (WorkspaceCollectionViewCell) -> Void, _ didSelectNotebookCell: @escaping (NotebookCollectionViewCell) -> Void) {
-        self.didSelectWorkspaceCell = didSelectWorkspaceCell
-        self.didSelectNotebookCell = didSelectNotebookCell
+    internal init(_ didSelectCell: @escaping (UICollectionViewCell) -> Void) {
+        self.didSelectCell = didSelectCell
     }
     
     // MARK: - UICollectionViewDelegate functions
@@ -33,13 +31,8 @@ internal class SearchResultCollectionViewDelegate: NSObject,
         defer {
             collectionView.deselectItem(at: indexPath, animated: true)
         }
-        
-        if let workspaceCell = collectionView.cellForItem(at: indexPath) as? WorkspaceCollectionViewCell {
-            didSelectWorkspaceCell?(workspaceCell)
-        }
-        
-        if let notebookCell = collectionView.cellForItem(at: indexPath) as? NotebookCollectionViewCell {
-            didSelectNotebookCell?(notebookCell)
+        if let cell = collectionView.cellForItem(at: indexPath) {
+            didSelectCell?(cell)
         }
     }
     

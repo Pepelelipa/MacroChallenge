@@ -48,32 +48,33 @@ internal class SearchResultViewController: UIViewController {
     private lazy var textViewBottomConstraint = collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
     
     private lazy var collectionDelegate = SearchResultCollectionViewDelegate { [unowned self] (selectedCell) in
-        guard let workspace = selectedCell.workspace else {
-            self.presentErrorAlert(of: .workspaces)
-            return
-        }
-        
-        let notebooksSelectionView = NotebooksSelectionViewController(workspace: workspace)
-        self.ownerViewController?.navigationController?.pushViewController(notebooksSelectionView, animated: true)
-        
-    } _: { (selectedCell) in
-        if let notebook = selectedCell.notebook {
-            let note: NoteEntity
-            if let lastNote = notebook.notes.last {
-                note = lastNote
-            } else {
-                do {
-                    note = try DataManager.shared().createNote(in: notebook)
-                    note.title = NSAttributedString(string: "Lesson".localized())
-                    try note.save()
-                } catch {
-                    self.presentErrorAlert(of: .notebook)
-                }
+        if let workspaceCell = selectedCell as? WorkspaceCollectionViewCell {
+            guard let workspace = workspaceCell.workspace else {
+                self.presentErrorAlert(of: .workspaces)
+                return
             }
-            self.presentDestination(for: UIDevice.current.userInterfaceIdiom, 
-                                    notebook: notebook)
-        } else {
-            self.presentErrorAlert(of: .notebook)
+
+            let notebooksSelectionView = NotebooksSelectionViewController(workspace: workspace)
+            self.ownerViewController?.navigationController?.pushViewController(notebooksSelectionView, animated: true)
+        } else if let notebookCell = selectedCell as? NotebookCollectionViewCell {
+            if let notebook = notebookCell.notebook {
+                let note: NoteEntity
+                if let lastNote = notebook.notes.last {
+                    note = lastNote
+                } else {
+                    do {
+                        note = try DataManager.shared().createNote(in: notebook)
+                        note.title = NSAttributedString(string: "Lesson".localized())
+                        try note.save()
+                    } catch {
+                        self.presentErrorAlert(of: .notebook)
+                    }
+                }
+                self.presentDestination(for: UIDevice.current.userInterfaceIdiom,
+                                        notebook: notebook)
+            } else {
+                self.presentErrorAlert(of: .notebook)
+            }
         }
     }
     
