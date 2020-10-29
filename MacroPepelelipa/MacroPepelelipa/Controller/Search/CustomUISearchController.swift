@@ -18,7 +18,7 @@ internal class CustomUISearchController: UISearchController {
         self.searchBar.sizeToFit()
         self.obscuresBackgroundDuringPresentation = false
         self.searchBar.placeholder = placeHolder
-
+        self.searchBar.scopeButtonTitles = SearchResultEnum.allCases.map { $0.rawValue }
     }
     
     required init?(coder: NSCoder) {

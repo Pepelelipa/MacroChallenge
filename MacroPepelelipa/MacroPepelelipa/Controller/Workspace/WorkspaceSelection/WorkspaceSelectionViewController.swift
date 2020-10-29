@@ -10,24 +10,30 @@ import UIKit
 import Database
 import StoreKit
 
-internal class WorkspaceSelectionViewController: UIViewController, UISearchResultsUpdating {
+internal class WorkspaceSelectionViewController: UIViewController, 
+                                                 UISearchResultsUpdating,
+                                                 UISearchBarDelegate {
 
     // MARK: - Variables and Constants
     
-    internal weak var filterWorkspaceObserver: FilterWorkspaceObserver?
+    internal weak var filterObserver: FilterObserver?
     
     private var compactRegularConstraints: [NSLayoutConstraint] = []
     private var regularCompactConstraints: [NSLayoutConstraint] = []
     private var regularConstraints: [NSLayoutConstraint] = []
     private var sharedConstraints: [NSLayoutConstraint] = []
+    private var filterCategory: SearchResultEnum = .all
     private lazy var searchResultController = SearchResultViewController(owner: self)
     
     private var isSearchBarEmpty: Bool {
         return searchController.searchBar.text?.isEmpty ?? true
     }
     
-    private lazy var searchController: CustomUISearchController = CustomUISearchController(searchResultsController: searchResultController, owner: self, placeHolder: "Search".localized())
-    
+    private lazy var searchController: CustomUISearchController = {
+        let searchController = CustomUISearchController(searchResultsController: searchResultController, owner: self, placeHolder: "Search".localized())
+        searchController.searchBar.delegate = self
+        return searchController
+    }()
     private lazy var collectionView: UICollectionView = {
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
         
@@ -160,12 +166,28 @@ internal class WorkspaceSelectionViewController: UIViewController, UISearchResul
     func updateSearchResults(for searchController: UISearchController) {
         let searchBar = searchController.searchBar
         if let text = searchBar.text {
-            filterWorkspaceObserver?.filterWorkspace(text)
+            filterObserver?.filterObjects(text, filterCategory: filterCategory)
         }
         let value = searchController.isActive && !isSearchBarEmpty
         searchController.showsSearchResultsController = true
-        filterWorkspaceObserver?.isFiltering(value)
+        filterObserver?.isFiltering(value)
         searchResultController.collectionView.reloadData()
+    }
+    
+    // MARK: - UISearchBarDelegate Functions
+    
+    func searchBar(_ searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
+        
+        guard let scopeButtonTitles = searchBar.scopeButtonTitles else {
+            return
+        }
+        self.filterCategory = SearchResultEnum(rawValue: scopeButtonTitles[selectedScope]) ?? .all
+        
+        let searchBar = searchController.searchBar
+        if let text = searchBar.text {
+            filterObserver?.filterObjects(text, filterCategory: filterCategory)
+            self.collectionView.reloadData()
+        }
     }
     
     // MARK: - Functions

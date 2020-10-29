@@ -8,20 +8,11 @@
 
 import UIKit
 import Database
-import StoreKit
-
-internal enum SearchResultEnum {
-    case all
-    case notebook
-    case workshop
-}
 
 internal class SearchResultViewController: UIViewController {
 
     // MARK: - Variables and Constants
     
-    internal weak var filterWorkspaceObserver: FilterWorkspaceObserver?
-
     private var sharedConstraints: [NSLayoutConstraint] = []
     private weak var ownerViewController: UIViewController?
     
@@ -58,7 +49,7 @@ internal class SearchResultViewController: UIViewController {
     
     private lazy var collectionDelegate = SearchResultCollectionViewDelegate { [unowned self] (selectedCell) in
         guard let workspace = selectedCell.workspace else {
-            self.presentErrorAlert(of: .workshop)
+            self.presentErrorAlert(of: .workspaces)
             return
         }
         
@@ -156,17 +147,6 @@ internal class SearchResultViewController: UIViewController {
         layoutTrait(traitCollection: traitCollection)
     }
     
-    // MARK: - UISearchResultsUpdating Functions
-    
-    func updateSearchResults(for searchController: UISearchController) {
-        let searchBar = searchController.searchBar
-        if let text = searchBar.text {
-            filterWorkspaceObserver?.filterWorkspace(text)
-        }
-        searchController.showsSearchResultsController = true
-        collectionView.reloadData()
-    }
-    
     // MARK: - Objc Functions
     
     @objc func keyboardWillShow(_ notification: Notification) {
@@ -245,7 +225,7 @@ internal class SearchResultViewController: UIViewController {
                .makeErrorMessage(with: "The notebook collection view cell did not have a notebook".localized())
            
            self.present(alertController, animated: true, completion: nil)
-        case .workshop:
+        case .workspaces:
             let alertController = UIAlertController(
                 title: "Could not open this workspace".localized(),
                 message: "The app could not load this workspace".localized(),

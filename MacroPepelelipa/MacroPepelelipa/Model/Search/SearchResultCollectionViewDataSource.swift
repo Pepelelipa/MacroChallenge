@@ -12,7 +12,7 @@ import Database
 
 internal class SearchResultCollectionViewDataSource: NSObject, 
                                                    UICollectionViewDataSource,
-                                                   FilterWorkspaceObserver {
+                                                   FilterObserver {
     
     // MARK: - Variables and Constants
 
@@ -23,6 +23,8 @@ internal class SearchResultCollectionViewDataSource: NSObject,
     private var filteredWorkspaces = [WorkspaceEntity]()
     private var filteredNotebooks = [NotebookEntity]()
     private var isFiltering: Bool = false
+    private var isFilteringWorkspaces: Bool = true
+    private var isFilteringNotebooks: Bool = true
     
     private let collectionView: (() -> UICollectionView)?
     
@@ -71,14 +73,18 @@ internal class SearchResultCollectionViewDataSource: NSObject,
         case 0:
             if isFiltering {
                 return filteredWorkspaces.count
-            } else {
+            } else if isFilteringWorkspaces {
                 return workspaces.count
+            } else {
+                return 0
             }
         case 1:
             if isFiltering {
                 return filteredNotebooks.count
-            } else {
+            } else if isFilteringNotebooks {
                 return notebooks.count
+            } else {
+                return 0
             }
         default:
             return 0
@@ -153,9 +159,17 @@ internal class SearchResultCollectionViewDataSource: NSObject,
             
             switch indexPath.section {
             case 0:
-                headerView.text = "Workspaces".localized()
+                if !isFiltering && !workspaces.isEmpty && isFilteringWorkspaces || isFiltering && !filteredWorkspaces.isEmpty {
+                    headerView.text = "Workspaces".localized()
+                } else {
+                    headerView.text = ""
+                }
             case 1:
-                headerView.text = "Notebooks".localized()
+                if !isFiltering && !notebooks.isEmpty && isFilteringNotebooks || isFiltering && !filteredNotebooks.isEmpty {
+                    headerView.text = "Notebooks".localized()
+                } else {
+                    headerView.text = ""
+                }
             default:
                 headerView.text = ""
             }
@@ -169,20 +183,43 @@ internal class SearchResultCollectionViewDataSource: NSObject,
     
     internal func setFilterWorkspaceObserver() {
         if let workspaceSelectionController = viewController as? WorkspaceSelectionViewController {
-            workspaceSelectionController.filterWorkspaceObserver = self
+            workspaceSelectionController.filterObserver = self
         }
     }
    
-    // MARK: - FilterWorkspaceObserver functions
+    // MARK: - FilterObserver functions
     
-    func filterWorkspace(_ searchText: String) {
+    func filterObjects(_ searchText: String, filterCategory: SearchResultEnum?) {
         
-        filteredWorkspaces = workspaces.filter({ (workspace) -> Bool in
-            return workspace.name.lowercased().contains(searchText.lowercased())
-        })
-        filteredNotebooks = notebooks.filter({ (notebook) -> Bool in
-            return notebook.name.lowercased().contains(searchText.lowercased())
-        })
+        guard let categoryFlag = filterCategory else {
+            return
+        }
+        
+        switch categoryFlag {
+        case .all:
+            filteredWorkspaces = workspaces.filter({ (workspace) -> Bool in
+                return workspace.name.lowercased().contains(searchText.lowercased())
+            })
+            filteredNotebooks = notebooks.filter({ (notebook) -> Bool in
+                return notebook.name.lowercased().contains(searchText.lowercased())
+            })
+            self.isFilteringNotebooks = true
+            self.isFilteringWorkspaces = true
+        case .workspaces:
+            filteredWorkspaces = workspaces.filter({ (workspace) -> Bool in
+                return workspace.name.lowercased().contains(searchText.lowercased())
+            })
+            filteredNotebooks = []
+            self.isFilteringNotebooks = false
+            self.isFilteringWorkspaces = true
+        case .notebook: 
+            filteredNotebooks = notebooks.filter({ (notebook) -> Bool in
+                return notebook.name.lowercased().contains(searchText.lowercased())
+            })
+            filteredWorkspaces = []
+            self.isFilteringNotebooks = true
+            self.isFilteringWorkspaces = false
+        }
     }
     
     func isFiltering(_ value: Bool) {

@@ -9,7 +9,7 @@
 import Foundation
 import Database
 
-internal protocol FilterWorkspaceObserver: class {
-    func filterWorkspace(_ searchText: String)
+internal protocol FilterObserver: class {
+    func filterObjects(_ searchText: String, filterCategory: SearchResultEnum?)
     func isFiltering(_ value: Bool)
 }
