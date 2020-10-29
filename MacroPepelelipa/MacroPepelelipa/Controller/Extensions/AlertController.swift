@@ -47,4 +47,23 @@ extension UIAlertController {
         
         return self
     }
+    
+    /**
+    An action sheet alert with title messages is created.
+     - Parameter viewController: the UIViewController that will be used.
+     - Parameter title: the title in the alert.
+     - Parameter message: the message in the alert.
+     - Parameter action: which action will be taken.
+     */
+    internal func createMultipleActionsAlert(on viewController: UIViewController, title: String, message: String, action: [UIAlertAction]) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .actionSheet)
+        
+        for i in 0 ..< actions.count {
+            alert.addAction(actions[i])
+        }
+        
+        let dismissAction = UIAlertAction(title: "Cancelar", style: .cancel, handler: nil)
+        alert.addAction(dismissAction)
+        viewController.present(alert, animated: true, completion: nil)
+    }
 }

@@ -282,7 +282,22 @@ internal class TextEditingContainerViewController: UIViewController,
 
         let picker = PHPickerViewController(configuration: config)
         picker.delegate = noteController.photoPickerDelegate
-        present(picker, animated: true, completion: nil)
+        
+        let photoLibraryAction = UIAlertAction(title: "Choose from Library", style: .default) { (action) in
+            self.present(picker, animated: true, completion: nil)
+        }
+        
+        let cameraAction = UIAlertAction(title: "Take a Photo", style: .default) { (action) in
+            noteController.showImagePickerController(sourceType: .camera)
+        }
+        
+        let alertController = UIAlertController(
+            title: "Error presenting notebook creation".localized(),
+            message: "The app could not present a color".localized(),
+            preferredStyle: .alert)
+            .makeErrorMessage(with: "A color cell could not be loaded in the creation of a notebook".localized())
+
+        alertController.createMultipleActionsAlert(on: self, title: "Choose your image", message: "Tip: you can transcript text from an image.", action: [photoLibraryAction, cameraAction])
         
         #endif
     }

@@ -112,6 +112,8 @@ internal class NotesViewController: UIViewController,
     internal lazy var photoPickerDelegate = PhotoPickerDelegate { (results) in
         self.addMedia(from: results)
     }
+    
+    internal var imagePickerDelegate = ImagePickerDelegate()
     #endif
     
     // MARK: - Initializers
@@ -286,6 +288,16 @@ internal class NotesViewController: UIViewController,
     }
     
     #if !targetEnvironment(macCatalyst)
+    internal func showImagePickerController(sourceType: UIImagePickerController.SourceType) {
+        let imagePickerController = UIImagePickerController()
+        imagePickerController.delegate = imagePickerDelegate as? UIImagePickerControllerDelegate & UINavigationControllerDelegate
+        imagePickerController.allowsEditing = true
+        imagePickerController.sourceType = sourceType
+        
+        present(imagePickerController, animated: true, completion: nil)
+        
+    }
+    
     private func addMedia(from results: [PHPickerResult]) {
         
         if let itemProvider = results.first?.itemProvider, itemProvider.canLoadObject(ofClass: UIImage.self) {
