@@ -124,15 +124,58 @@
 
 // MARK: - Accessibility
 
-"Edit workspaces hint" = "Activate button to edit your workspaces";
-"Edit workspaces label" = "Edit: enables editing mode for all of your workspaces";
 "Editing enabled" = "Editing enabled";
 "Editing disabled" = "Editing disabled";
+
+"Long press hint" = "Double tap and hold for more options";
+
+"Edit workspaces hint" = "Activate button to edit your workspaces";
+"Edit workspaces label" = "Edit: enables editing mode for all of your workspaces";
 
 "Add workspace hint" = "Activate button to add a new workspace";
 "Add workspace label" = "Add a new workspace";
 
-"Delete workspace hint" = "Activate button to delete the workspace";
-"Delete workspace label" = "Delete workspace";
+"Delete workspace hint" = "Activate button to delete the %@ workspace";
+"Delete workspace label" = "Delete %@ workspace";
 
-"Edit workspace name hint" = "Activate to edit this workspace's name";
+"Edit workspace name hint" = "Double tap edit this workspace's name";
+
+"Add notebook hint" = "Activate button to add a new notebook";
+"Add notebook label" = "Add a new notebook";
+
+"color notebook" = "%@ notebook";
+
+"Edit notebooks hint" = "Activate button to edit the notebooks in this workspace";
+"Edit notebooks label" = "Edit: enables editing mode for all notebooks in this workspace";
+
+"Delete notebook hint" = "Activate button to delete the %@ notebook";
+"Delete notebook label" = "Delete %@ notebook";
+
+"Edit notebook name hint" = "Double tap edit this notebook's information";
+
+// MARK: - Colors
+
+"nb0" = "Aero Blue";
+"nb1" = "Blue Jeans";
+"nb2" = "Cornflower Blue";
+"nb3" = "Verdigris";
+"nb4" = "Seaweed";
+"nb5" = "Queen Blue";
+"nb6" = "Forest Green";
+"nb7" = "Middle Green";
+"nb8" = "Fern Green";
+"nb9" = "Gold";
+"nb10" = "Marigold";
+"nb11" = "Yellow orange";
+"nb12" = "Congo pink";
+"nb13" = "Mandarin";
+"nb14" = "Fuzzy";
+"nb15" = "Red RYB";
+"nb16" = "Blood red";
+"nb17" = "International Red";
+"nb18" = "Violet";
+"nb19" = "Fuchsia";
+"nb20" = "Liberty Blue";
+"nb21" = "Cadet blue";
+"nb22" = "Shadow blue";
+"nb23" = "Dark liver";

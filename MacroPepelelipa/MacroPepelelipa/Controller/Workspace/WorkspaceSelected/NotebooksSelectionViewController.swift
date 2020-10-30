@@ -52,6 +52,9 @@ internal class NotebooksSelectionViewController: UIViewController {
 
     private lazy var btnAdd: UIBarButtonItem = {
         let item = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(btnAddTap))
+        item.isAccessibilityElement = true
+        item.accessibilityHint = "Add notebook hint".localized()
+        item.accessibilityLabel = "Add notebook label".localized()
         return item
     }()
     
@@ -140,6 +143,9 @@ internal class NotebooksSelectionViewController: UIViewController {
         if !(collectionDataSource?.isEmpty() ?? true) && (workspace?.isEnabled ?? false) {
             navigationItem.leftItemsSupplementBackButton = true
             navigationItem.leftBarButtonItem = self.editButtonItem
+            navigationItem.leftBarButtonItem?.accessibilityHint = "Edit notebooks hint".localized()
+            navigationItem.leftBarButtonItem?.accessibilityLabel = "Edit notebooks label".localized()
+            navigationItem.leftBarButtonItem?.accessibilityValue = "Editing disabled".localized()
         }
     }
     
@@ -176,6 +182,12 @@ internal class NotebooksSelectionViewController: UIViewController {
     override func setEditing(_ editing: Bool, animated: Bool) {
         super.setEditing(editing, animated: animated)
         collectionView.setEditing(editing)
+        
+        if editing {
+            navigationItem.leftBarButtonItem?.accessibilityValue = "Editing enabled".localized()
+        } else {
+            navigationItem.leftBarButtonItem?.accessibilityValue = "Editing disabled".localized()
+        }
     }
     
     // MARK: - Functions

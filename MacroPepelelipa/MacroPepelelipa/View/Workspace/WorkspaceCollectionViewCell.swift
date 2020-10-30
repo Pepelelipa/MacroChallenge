@@ -22,12 +22,14 @@ internal class WorkspaceCollectionViewCell: UICollectionViewCell, EditableCollec
                     disclosureIndicator.isHidden = false
                 }
                 minusIndicator.isHidden = false
+                lblWorkspaceName.accessibilityHint = "Edit workspace name hint".localized()
             } else {
                 NSLayoutConstraint.deactivate(editingConstraints)
                 addSubview(collectionView)
                 NSLayoutConstraint.activate(notEditingConstraints)
                 minusIndicator.isHidden = true
                 disclosureIndicator.isHidden = true
+                lblWorkspaceName.accessibilityHint = "Long press hint".localized()
             }
 
             UIView.animate(withDuration: 0.3) {
@@ -61,7 +63,7 @@ internal class WorkspaceCollectionViewCell: UICollectionViewCell, EditableCollec
         lbl.textAlignment = .center
         lbl.translatesAutoresizingMaskIntoConstraints = false
         
-        lbl.accessibilityHint = "Edit workspace name hint".localized()
+        lbl.accessibilityHint = "Long press hint".localized()
 
         return lbl
     }()
@@ -124,10 +126,8 @@ internal class WorkspaceCollectionViewCell: UICollectionViewCell, EditableCollec
             self.lblWorkspaceName.text = workspace?.name
             
             if let name = workspace?.name {
-                self.minusIndicator.accessibilityHint = "Delete workspace hint".localized() + name
-                self.minusIndicator.accessibilityLabel = "Delete workspace label".localized() + name
-                
-                self.lblWorkspaceName.accessibilityLabel = "Workspace".localized() + name
+                self.minusIndicator.accessibilityHint = String(format: "Delete workspace hint".localized(), name)
+                self.minusIndicator.accessibilityLabel = String(format: "Delete workspace label".localized(), name)
             }
         }
     }

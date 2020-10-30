@@ -126,15 +126,58 @@
 
 // MARK: - Accessibility
 
-"Edit workspaces hint" = "Ative o botão para editar suas coleções";
-"Edit workspaces label" = "Editar: habilita o modo de edição para todas as suas coleções";
 "Editing enabled" = "Edição habilitada";
 "Editing disabled" = "Edição desabilitada";
+
+"Long press hint" = "Toque duas vezes e segure para mais opções";
+
+"Edit workspaces hint" = "Ative o botão para editar suas coleções";
+"Edit workspaces label" = "Editar: habilita o modo de edição para todas as suas coleções";
 
 "Add workspace hint" = "Ative o botão para adicionar uma nova coleção";
 "Add workspace label" = "Adicionar uma nova coleção";
 
-"Delete workspace hint" = "Ative o botão para excluir a coleção";
-"Delete workspace label" = "Excluir a coleção";
+"Delete workspace hint" = "Ative o botão para excluir a coleção %@";
+"Delete workspace label" = "Excluir a coleção %@";
 
-"Edit workspace name hint" = "Ative para editar o nome desta coleção";
+"Edit workspace name hint" = "Toque duas vezes para editar o nome desta coleção";
+
+"Add notebook hint" = "Ative o botão para adicionar um novo caderno";
+"Add notebook label" = "Adicionar um novo caderno";
+
+"color notebook" = "Caderno %@";
+
+"Edit notebooks hint" = "Ative o botão para editar os cadernos nesta coleção";
+"Edit notebooks label" = "Editar: habilita o modo de edição para todos os cadernos nesta coleção";
+
+"Delete notebook hint" = "Ative o botão para excluir o caderno %@";
+"Delete notebook label" = "Excluir o caderno %@";
+
+"Edit notebook name hint" = "Toque duas vezes para editar as informações deste caderno";
+
+// MARK: - Colors
+
+"nb0" = "Aero Blue";
+"nb1" = "Blue Jeans";
+"nb2" = "Cornflower Blue";
+"nb3" = "Verdigris";
+"nb4" = "Seaweed";
+"nb5" = "Queen Blue";
+"nb6" = "Forest Green";
+"nb7" = "Middle Green";
+"nb8" = "Fern Green";
+"nb9" = "Gold";
+"nb10" = "Marigold";
+"nb11" = "Yellow orange";
+"nb12" = "Congo pink";
+"nb13" = "Mandarin";
+"nb14" = "Fuzzy";
+"nb15" = "Red RYB";
+"nb16" = "Blood red";
+"nb17" = "International Red";
+"nb18" = "Violet";
+"nb19" = "Fuchsia";
+"nb20" = "Liberty Blue";
+"nb21" = "Cadet blue";
+"nb22" = "Shadow blue";
+"nb23" = "Dark liver";

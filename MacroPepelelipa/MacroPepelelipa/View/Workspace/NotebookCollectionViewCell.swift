@@ -23,6 +23,7 @@ internal class NotebookCollectionViewCell: UICollectionViewCell, EditableCollect
                 if (try? notebook?.getWorkspace().isEnabled) ?? false {
                     disclosureIndicator.isHidden = false
                     minusIndicator.isHidden = false
+                    lblName.accessibilityHint = "Edit notebook name hint".localized()
                 }
             } else {
                 layer.cornerRadius = 0
@@ -31,6 +32,7 @@ internal class NotebookCollectionViewCell: UICollectionViewCell, EditableCollect
                 NSLayoutConstraint.activate(notEditingConstraints)
                 minusIndicator.isHidden = true
                 disclosureIndicator.isHidden = true
+                lblName.accessibilityHint = "Long press hint".localized()
             }
         }
     }
@@ -51,6 +53,12 @@ internal class NotebookCollectionViewCell: UICollectionViewCell, EditableCollect
                 if let colorName = self.notebook?.colorName,
                    let color = UIColor(named: colorName) {
                     self.notebookView.color = color
+                    self.lblName.accessibilityValue = String(format: "color notebook".localized(), colorName.localized())
+                }
+                
+                if let name = self.notebook?.name {
+                    self.minusIndicator.accessibilityHint = String(format: "Delete notebook hint".localized(), name)
+                    self.minusIndicator.accessibilityLabel = String(format: "Delete notebook label".localized(), name)
                 }
             }
         }
@@ -63,6 +71,8 @@ internal class NotebookCollectionViewCell: UICollectionViewCell, EditableCollect
         lbl.font = MarkdownHeader.thirdHeaderFont
         lbl.textAlignment = .left
         lbl.translatesAutoresizingMaskIntoConstraints = false
+        
+        lbl.accessibilityHint = "Long press hint".localized()
 
         return lbl
     }()
@@ -72,6 +82,8 @@ internal class NotebookCollectionViewCell: UICollectionViewCell, EditableCollect
         imageView.tintColor = .actionColor
         imageView.isHidden = true
 
+        imageView.isAccessibilityElement = false
+        
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
