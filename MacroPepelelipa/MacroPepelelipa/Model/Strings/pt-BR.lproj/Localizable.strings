@@ -122,3 +122,19 @@
 "Save Notebook" = "Salvar Caderno";
 "Edit Workspace" = "Editar Coleção";
 "Edit Notebook" = "Editar Caderno";
+"Edit" = "Editar";
+
+// MARK: - Accessibility
+
+"Edit workspaces hint" = "Ative o botão para editar suas coleções";
+"Edit workspaces label" = "Editar: habilita o modo de edição para todas as suas coleções";
+"Editing enabled" = "Edição habilitada";
+"Editing disabled" = "Edição desabilitada";
+
+"Add workspace hint" = "Ative o botão para adicionar uma nova coleção";
+"Add workspace label" = "Adicionar uma nova coleção";
+
+"Delete workspace hint" = "Ative o botão para excluir a coleção";
+"Delete workspace label" = "Excluir a coleção";
+
+"Edit workspace name hint" = "Ative para editar o nome desta coleção";

@@ -121,3 +121,18 @@
 "Save workspace" = "Save workspace";
 "Save notebook" = "Save notebook";
 "Edit" = "Edit";
+
+// MARK: - Accessibility
+
+"Edit workspaces hint" = "Activate button to edit your workspaces";
+"Edit workspaces label" = "Edit: enables editing mode for all of your workspaces";
+"Editing enabled" = "Editing enabled";
+"Editing disabled" = "Editing disabled";
+
+"Add workspace hint" = "Activate button to add a new workspace";
+"Add workspace label" = "Add a new workspace";
+
+"Delete workspace hint" = "Activate button to delete the workspace";
+"Delete workspace label" = "Delete workspace";
+
+"Edit workspace name hint" = "Activate to edit this workspace's name";

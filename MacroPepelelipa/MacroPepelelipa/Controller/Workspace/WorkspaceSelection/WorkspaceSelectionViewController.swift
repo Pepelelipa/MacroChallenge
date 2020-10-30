@@ -72,6 +72,9 @@ internal class WorkspaceSelectionViewController: UIViewController {
 
     private lazy var btnAdd: UIBarButtonItem = {
         let item = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(btnAddTap))
+        item.isAccessibilityElement = true
+        item.accessibilityHint = "Add workspace hint".localized()
+        item.accessibilityLabel = "Add workspace label".localized()
         return item
     }()
     
@@ -137,6 +140,9 @@ internal class WorkspaceSelectionViewController: UIViewController {
 
         if !collectionDataSource.isEmpty {
             navigationItem.leftBarButtonItem = editButtonItem
+            navigationItem.leftBarButtonItem?.accessibilityHint = "Edit workspaces hint".localized()
+            navigationItem.leftBarButtonItem?.accessibilityLabel = "Edit workspaces label".localized()
+            navigationItem.leftBarButtonItem?.accessibilityValue = "Editing disabled".localized()
         }
     }
     
@@ -172,6 +178,12 @@ internal class WorkspaceSelectionViewController: UIViewController {
     override func setEditing(_ editing: Bool, animated: Bool) {
         super.setEditing(editing, animated: animated)
         collectionView.setEditing(editing)
+        
+        if editing {
+            navigationItem.leftBarButtonItem?.accessibilityValue = "Editing enabled".localized()
+        } else {
+            navigationItem.leftBarButtonItem?.accessibilityValue = "Editing disabled".localized()
+        }
     }
     
     // MARK: - Functions
