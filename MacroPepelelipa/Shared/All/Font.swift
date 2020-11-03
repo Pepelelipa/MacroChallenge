@@ -8,7 +8,7 @@
 
 import UIKit
 
-internal enum FontStyle: Int {
+public enum FontStyle: Int {
     case h1 = 1
     case h2 = 2
     case h3 = 3
