@@ -25,7 +25,7 @@ internal class MarkdownContainerView: MarkdownFormatView, TextEditingDelegateObs
         button.tintColor = UIColor.placeholderColor
         button.setBackgroundImage(UIImage(systemName: "xmark.circle"), for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.addTarget(delegate, action: #selector(delegate?.dismissContainer), for: .touchDown)
+//        button.addTarget(delegate, action: #selector(delegate?.dismissContainer), for: .touchDown)
         return button
     }()
     
@@ -41,7 +41,8 @@ internal class MarkdownContainerView: MarkdownFormatView, TextEditingDelegateObs
     // MARK: - Initializers
     
     deinit {
-        (self.textView?.delegate as? MarkupTextViewDelegate)?.removeObserver(self)
+        #warning("needs delegate")
+//        (self.textView?.delegate as? MarkupTextViewDelegate)?.removeObserver(self)
     }
     
     // MARK: - Override functions
@@ -65,8 +66,9 @@ internal class MarkdownContainerView: MarkdownFormatView, TextEditingDelegateObs
         backgroundView.addSubview(dismissButton)
         backgroundView.addSubview(formatLabel)
         createConstraints()
-        
-        (viewController?.textView.delegate as? MarkupTextViewDelegate)?.addObserver(self)
+
+        #warning("needs delegate")
+//        (viewController?.textView.delegate as? MarkupTextViewDelegate)?.addObserver(self)
     }
     
     ///This method sets the constraints for the inner elements of the container view.

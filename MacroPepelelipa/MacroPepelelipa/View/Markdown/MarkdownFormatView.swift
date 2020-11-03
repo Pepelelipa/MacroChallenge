@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MarkdownText
 
 internal enum FormatSelector {
     case italic
@@ -30,9 +31,8 @@ internal class MarkdownFormatView: UIView {
     
     // MARK: - Variables and Constants
 
-    internal weak var textView: MarkupTextView?
+    internal weak var textView: MarkdownTextView?
     internal weak var viewController: NotesViewController?
-    internal weak var delegate: MarkupFormatViewDelegate?
     
     internal private(set) lazy var colorSelector: [ColorSelector: MarkdownToggleButton] = {
         var buttons = [ColorSelector: MarkdownToggleButton]()
@@ -41,7 +41,7 @@ internal class MarkdownFormatView: UIView {
         buttonColors.forEach { (color) in
             var newButton = MarkdownToggleButton(frame: .zero, color: color)
             newButton.translatesAutoresizingMaskIntoConstraints = false
-            newButton.addTarget(delegate, action: #selector(delegate?.changeTextColor), for: .touchDown)
+//            newButton.addTarget(delegate, action: #selector(delegate?.changeTextColor), for: .touchDown)
             
             if color == buttonColors[0] {
                 buttons[.black] = newButton
@@ -67,11 +67,11 @@ internal class MarkdownFormatView: UIView {
             newButton.translatesAutoresizingMaskIntoConstraints = false
             
             if key == .italic {
-                newButton.addTarget(delegate, action: #selector(delegate?.makeTextItalic), for: .touchDown)
+//                newButton.addTarget(delegate, action: #selector(delegate?.makeTextItalic), for: .touchDown)
             } else if key == .bold {
-                newButton.addTarget(delegate, action: #selector(delegate?.makeTextBold), for: .touchDown)
+//                newButton.addTarget(delegate, action: #selector(delegate?.makeTextBold), for: .touchDown)
             } else {
-                newButton.addTarget(delegate, action: #selector(delegate?.highlightText), for: .touchUpInside)
+//                newButton.addTarget(delegate, action: #selector(delegate?.highlightText), for: .touchUpInside)
             }
             
             buttons[key] = newButton
@@ -92,7 +92,7 @@ internal class MarkdownFormatView: UIView {
                 font: font.key
             )
             newButton.translatesAutoresizingMaskIntoConstraints = false
-            newButton.addTarget(delegate, action: #selector(delegate?.changeTextFont), for: .touchDown)
+//            newButton.addTarget(delegate, action: #selector(delegate?.changeTextFont), for: .touchDown)
             buttons[font.value] = newButton
         }
         
@@ -101,10 +101,9 @@ internal class MarkdownFormatView: UIView {
     
     // MARK: - Initializers
     
-    internal init(frame: CGRect, owner: MarkupTextView, delegate: MarkupFormatViewDelegate?, viewController: NotesViewController) {
+    internal init(frame: CGRect, owner: MarkdownTextView, viewController: NotesViewController) {
         super.init(frame: frame)
         self.textView = owner
-        self.delegate = delegate
         self.viewController = viewController
         
         addSelectors()
@@ -270,23 +269,23 @@ internal class MarkdownFormatView: UIView {
             return
         }
         
-        formatSelector[.italic]?.isSelected = textView.checkTrait(.traitItalic)
-        formatSelector[.bold]?.isSelected = textView.checkTrait(.traitBold)
-        formatSelector[.highlight]?.isSelected = textView.checkBackground()
+//        formatSelector[.italic]?.isSelected = textView.checkTrait(.traitItalic)
+//        formatSelector[.bold]?.isSelected = textView.checkTrait(.traitBold)
+//        formatSelector[.highlight]?.isSelected = textView.checkBackground()
 
         for (_, button) in formatSelector {
             button.setTintColor()
         }
         
-        let textcolor = textView.getTextColor()
-        for (_, button) in colorSelector {
-            button.isSelected = (textcolor == button.backgroundColor)
-        }
-        
-        let textFont = textView.getTextFont()
-        for (_, button) in fontSelector {
-            button.isSelected = (textFont.familyName == button.titleLabel?.font.familyName)
-        }
+//        let textcolor = textView.getTextColor()
+//        for (_, button) in colorSelector {
+//            button.isSelected = (textcolor == button.backgroundColor)
+//        }
+//        
+//        let textFont = textView.getTextFont()
+//        for (_, button) in fontSelector {
+//            button.isSelected = (textFont.familyName == button.titleLabel?.font.familyName)
+//        }
     }
     
     /**

@@ -16,14 +16,6 @@ internal class MarkdownNavigationView: UIView {
     private weak var markupBarConfiguration: MarkdownBarConfiguration?
     private static var paragraphButton: UIBarButtonItem?
     
-    internal static var headerStyle: HeaderStyle = .h1 {
-        didSet {
-            if MarkdownToolBar.headerStyle == .h1 {
-                paragraphButton?.image = UIImage(named: "h1")
-            }
-        }
-    }
-    
     internal lazy var barButtonItems: [UIButton] = {
         guard let buttons = markupBarConfiguration?.setupUIButtons() else {
             return [UIButton]()

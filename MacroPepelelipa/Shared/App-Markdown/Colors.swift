@@ -8,7 +8,7 @@
 
 import UIKit
 
-public extension UIColor {
+internal extension UIColor {
     #if DEBUG
     ///Generates a random UIColor
     static func random(alpha: CGFloat = 1) -> UIColor {

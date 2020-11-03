@@ -8,12 +8,13 @@
 
 import UIKit
 import Database
+import MarkdownText
 
 internal class TextBoxView: UIView, BoxView {
     
     // MARK: - Variables and Constants
     
-    internal var owner: MarkupTextView
+    internal var owner: MarkdownTextView
     internal var internalFrame: CGRect = .zero
     internal var boxViewBorder = CAShapeLayer()
     internal weak var entity: TextBoxEntity?
@@ -29,11 +30,8 @@ internal class TextBoxView: UIView, BoxView {
         }
     }
     
-    private var markupTextViewDelegate: MarkupTextViewDelegate = MarkupTextViewDelegate()
-    
-    internal lazy var markupTextView: MarkupTextView = {
-        let textView = MarkupTextView(frame: .zero)
-        textView.delegate = markupTextViewDelegate
+    internal lazy var markupTextView: MarkdownTextView = {
+        let textView = MarkdownTextView(frame: .zero)
         textView.translatesAutoresizingMaskIntoConstraints = false
         textView.isUserInteractionEnabled = false
         return textView
@@ -41,7 +39,7 @@ internal class TextBoxView: UIView, BoxView {
     
     // MARK: - Initializers
                 
-    internal init(textBoxEntity: TextBoxEntity, owner: MarkupTextView) {
+    internal init(textBoxEntity: TextBoxEntity, owner: MarkdownTextView) {
         self.owner = owner
         self.state = .idle
 
@@ -65,7 +63,7 @@ internal class TextBoxView: UIView, BoxView {
     
     internal required convenience init?(coder: NSCoder) {
         guard let textBoxEntity = coder.decodeObject(forKey: "textBoxEntity") as? TextBoxEntity,
-              let owner = coder.decodeObject(forKey: "owner") as? MarkupTextView else {
+              let owner = coder.decodeObject(forKey: "owner") as? MarkdownTextView else {
             return nil
         }
 

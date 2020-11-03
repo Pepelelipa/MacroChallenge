@@ -10,6 +10,7 @@
 import UIKit
 import Database
 import PhotosUI
+import MarkdownText
 
 internal class NotesViewController: UIViewController, 
                                     TextEditingDelegateObserver,
@@ -68,23 +69,11 @@ internal class NotesViewController: UIViewController,
         ]
     }()
     
-    internal private(set) lazy var textView: MarkupTextView = {
-        let  markupTextView = MarkupTextView(frame: .zero, delegate: self.textViewDelegate)
+    internal private(set) lazy var textView: MarkdownTextView = {
+        let  markupTextView = MarkdownTextView(frame: .zero)
         markupTextView.contentInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
         return markupTextView
     }()
-    
-    internal lazy var textViewDelegate: MarkupTextViewDelegate = {
-        let delegate = MarkupTextViewDelegate()
-        delegate.addObserver(self)
-        return delegate
-    }()
-    
-    internal lazy var workItem = DispatchWorkItem {
-        if self.textView.textColor == .placeholderColor {
-            self.textViewDelegate.parsePlaceholder(on: self.textView)
-        }
-    }
     
     internal lazy var markupConfig: MarkdownBarConfiguration = {
         let mrkConf = MarkdownBarConfiguration(owner: textView)
@@ -92,18 +81,13 @@ internal class NotesViewController: UIViewController,
         return mrkConf
     }()
     
-    internal private(set) lazy var formatViewDelegate: MarkupFormatViewDelegate? = {
-        return MarkupFormatViewDelegate(viewController: self)
-    }()
-    
     internal private(set) lazy var markupContainerView: MarkdownContainerView = {
         let height: CGFloat = screenHeight/4
         
-        let container = MarkdownContainerView(frame: CGRect(x: 0, y: 0, width: screenWidth, height: height), owner: self.textView, delegate: self.formatViewDelegate, viewController: self)
+        let container = MarkdownContainerView(frame: CGRect(x: 0, y: 0, width: screenWidth, height: height), owner: self.textView, viewController: self)
         
         container.autoresizingMask = []
         container.isHidden = true
-        container.delegate = self.formatViewDelegate
         
         return container
     }()
@@ -134,7 +118,7 @@ internal class NotesViewController: UIViewController,
     }
     
     deinit {
-        textViewDelegate.removeObserver(self)
+//        textViewDelegate.removeObserver(self)
     }
 
     internal required convenience init?(coder: NSCoder) {
@@ -172,7 +156,6 @@ internal class NotesViewController: UIViewController,
         
         if UIDevice.current.userInterfaceIdiom == .phone {
             textView.inputAccessoryView = keyboardToolbar
-            formatViewDelegate?.setFormatView(markupContainerView)
         } else if UIDevice.current.userInterfaceIdiom == .pad {
             textView.inputAccessoryView = nil
         }
@@ -195,7 +178,7 @@ internal class NotesViewController: UIViewController,
 
     override func viewWillAppear(_ animated: Bool) {
         navigationItem.largeTitleDisplayMode = .never
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.01, execute: self.workItem)
+        textView.placeholder = ""
         NSLayoutConstraint.activate(constraints)
     }
 
@@ -205,7 +188,6 @@ internal class NotesViewController: UIViewController,
         }
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.largeTitleDisplayMode = .automatic
-        workItem.cancel()
     }
     
     // MARK: - Functions
@@ -515,9 +497,9 @@ internal class NotesViewController: UIViewController,
             textBoxEntity.height = 40
             textBoxEntity.width = 140
             if let transcriptedText = transcription {
-                textBoxEntity.text = transcriptedText.toNoteDefaulText()
+                textBoxEntity.text = transcriptedText.toStyle(.paragraph)
             } else {
-                textBoxEntity.text = "Text".localized().toNoteDefaulText()
+                textBoxEntity.text = "Text".localized().toStyle(.paragraph)
             }
             addTextBox(with: textBoxEntity)
         } catch {

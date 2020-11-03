@@ -11,18 +11,12 @@ import UIKit
 
 internal extension NSAttributedString {
     static func defaultAttributesForStyle(_ style: FontStyle) -> [NSAttributedString.Key : Any] {
-        return [.font: UIFont.defaultFont.toStyle(style), .foregroundColor: UIColor.bodyColor ?? UIColor.black ]
+        return [.font: Fonts.defaultTextFont.toStyle(style), .foregroundColor: UIColor.bodyColor ?? UIColor.black ]
     }
 
     func removeAttribute(_ attributte: (NSAttributedString.Key), in range: NSRange) -> NSAttributedString {
         let mutableString = NSMutableAttributedString(attributedString: self)
         mutableString.removeAttribute(attributte, range: range)
-        return mutableString
-    }
-
-    func withExtraAttribute(_ attribute: (NSAttributedString.Key, Any), in range: NSRange) -> NSAttributedString {
-        let mutableString = NSMutableAttributedString(attributedString: self)
-        mutableString.addAttribute(attribute.0, value: attribute.1, range: range)
         return mutableString
     }
 
@@ -32,11 +26,6 @@ internal extension NSAttributedString {
 
     func hasKern(at location: Int) -> Bool {
         return getAttributeForKey(.kern, at: location) != nil
-    }
-
-    func withForegroundColor(_ color: UIColor, in range: NSRange? = nil) -> NSAttributedString {
-        let newRange = range ?? NSRange(location: 0, length: length)
-        return self.withExtraAttribute((.foregroundColor, color), in: newRange)
     }
 
     ///Returns a sample of the string backward from the location

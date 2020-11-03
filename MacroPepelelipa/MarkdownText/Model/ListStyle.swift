@@ -47,7 +47,7 @@ public enum ListStyle {
     public func getAttributedString(occurrence: Int) -> NSAttributedString {
         let attributedString: NSAttributedString
 
-        let font = UIFont.defaultFont.bold() ?? UIFont.defaultFont
+        let font = Fonts.defaultTextFont.bold() ?? Fonts.defaultTextFont
         let kern = 6
 
         if self == .numeric {

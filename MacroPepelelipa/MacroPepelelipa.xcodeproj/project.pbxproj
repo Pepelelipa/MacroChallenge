@@ -53,7 +53,6 @@
 		023989CD2551E68F009BFC32 /* MarkdownText.h in Headers */ = {isa = PBXBuildFile; fileRef = 023989CB2551E68F009BFC32 /* MarkdownText.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		023989D02551E68F009BFC32 /* MarkdownText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 023989C92551E68F009BFC32 /* MarkdownText.framework */; };
 		023989D12551E68F009BFC32 /* MarkdownText.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 023989C92551E68F009BFC32 /* MarkdownText.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		023989F12551E776009BFC32 /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C21B33254B55BB0061CCBA /* Font.swift */; };
 		023989F82551E888009BFC32 /* MarkdownParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 023989F72551E888009BFC32 /* MarkdownParser.swift */; };
 		023989FC2551E8C1009BFC32 /* MarkdownElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 023989FB2551E8C1009BFC32 /* MarkdownElement.swift */; };
 		02398A012551E8FD009BFC32 /* BoldElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02398A002551E8FD009BFC32 /* BoldElement.swift */; };
@@ -66,9 +65,16 @@
 		02398A1F2551E9C8009BFC32 /* ListStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02398A1E2551E9C8009BFC32 /* ListStyle.swift */; };
 		02398A232551EA1E009BFC32 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 020FFA37252502E30095266D /* Colors.swift */; };
 		02398A2A2551EAB8009BFC32 /* NSAttributedString Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02398A292551EAB8009BFC32 /* NSAttributedString Extension.swift */; };
-		02398A302551EAED009BFC32 /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02398A2F2551EAED009BFC32 /* StringExtension.swift */; };
 		02398A342551EB88009BFC32 /* MarkdownTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02398A332551EB88009BFC32 /* MarkdownTextView.swift */; };
 		02398A382551EB9C009BFC32 /* MarkdownTextViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02398A372551EB9C009BFC32 /* MarkdownTextViewDelegate.swift */; };
+		02398A442551F495009BFC32 /* String Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02398A432551F495009BFC32 /* String Extensions.swift */; };
+		02398A502551F4D7009BFC32 /* String Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02398A432551F495009BFC32 /* String Extensions.swift */; };
+		02398A562551F515009BFC32 /* AttributedString Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02398A552551F515009BFC32 /* AttributedString Extension.swift */; };
+		02398A592551F522009BFC32 /* AttributedString Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02398A552551F515009BFC32 /* AttributedString Extension.swift */; };
+		02398A792551F775009BFC32 /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02398A782551F775009BFC32 /* Fonts.swift */; };
+		02398A7F2551F7E4009BFC32 /* Traits Font Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02398A7E2551F7E4009BFC32 /* Traits Font Extension.swift */; };
+		02398A842551F7FA009BFC32 /* Traits Font Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02398A7E2551F7E4009BFC32 /* Traits Font Extension.swift */; };
+		02398A882551F878009BFC32 /* Font Style Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02398A872551F878009BFC32 /* Font Style Extension.swift */; };
 		02458EDC2525094C00466BFF /* WorkspaceCellNotebookCollectionViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02458EDB2525094C00466BFF /* WorkspaceCellNotebookCollectionViewDelegate.swift */; };
 		0247F78D25115BAA00405A61 /* NotebooksSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0247F78C25115BAA00405A61 /* NotebooksSelectionViewController.swift */; };
 		024C5BB3252E41D8009549CE /* AddNotebookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 024C5BB1252E41D8009549CE /* AddNotebookViewController.swift */; };
@@ -93,7 +99,6 @@
 		02AD78F225475C5800C87D2B /* EditableCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02AD78F125475C5800C87D2B /* EditableCollectionView.swift */; };
 		02AD78F625475C7300C87D2B /* EditableCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02AD78F525475C7300C87D2B /* EditableCollectionViewCell.swift */; };
 		02C21B34254B55BB0061CCBA /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C21B33254B55BB0061CCBA /* Font.swift */; };
-		02C21B35254B55BB0061CCBA /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C21B33254B55BB0061CCBA /* Font.swift */; };
 		02CD7CA12523B48900A140A3 /* WorkspacesCollectionViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02CD7CA02523B48900A140A3 /* WorkspacesCollectionViewDelegate.swift */; };
 		02DD09FC25114D6200B6696B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02DD09FB25114D6200B6696B /* AppDelegate.swift */; };
 		02DD09FE25114D6200B6696B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02DD09FD25114D6200B6696B /* SceneDelegate.swift */; };
@@ -270,9 +275,13 @@
 		02398A1A2551E9AF009BFC32 /* NumericListElement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumericListElement.swift; sourceTree = "<group>"; };
 		02398A1E2551E9C8009BFC32 /* ListStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListStyle.swift; sourceTree = "<group>"; };
 		02398A292551EAB8009BFC32 /* NSAttributedString Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSAttributedString Extension.swift"; sourceTree = "<group>"; };
-		02398A2F2551EAED009BFC32 /* StringExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
 		02398A332551EB88009BFC32 /* MarkdownTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkdownTextView.swift; sourceTree = "<group>"; };
 		02398A372551EB9C009BFC32 /* MarkdownTextViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkdownTextViewDelegate.swift; sourceTree = "<group>"; };
+		02398A432551F495009BFC32 /* String Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String Extensions.swift"; sourceTree = "<group>"; };
+		02398A552551F515009BFC32 /* AttributedString Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AttributedString Extension.swift"; sourceTree = "<group>"; };
+		02398A782551F775009BFC32 /* Fonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
+		02398A7E2551F7E4009BFC32 /* Traits Font Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Traits Font Extension.swift"; sourceTree = "<group>"; };
+		02398A872551F878009BFC32 /* Font Style Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Font Style Extension.swift"; sourceTree = "<group>"; };
 		02458EDB2525094C00466BFF /* WorkspaceCellNotebookCollectionViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkspaceCellNotebookCollectionViewDelegate.swift; sourceTree = "<group>"; };
 		0247F78C25115BAA00405A61 /* NotebooksSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotebooksSelectionViewController.swift; sourceTree = "<group>"; };
 		024C5BB1252E41D8009549CE /* AddNotebookViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddNotebookViewController.swift; sourceTree = "<group>"; };
@@ -523,10 +532,11 @@
 		023989DB2551E6C3009BFC32 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				02398A782551F775009BFC32 /* Fonts.swift */,
+				02398A872551F878009BFC32 /* Font Style Extension.swift */,
 				023989F62551E878009BFC32 /* Parser */,
 				02398A1E2551E9C8009BFC32 /* ListStyle.swift */,
 				02398A292551EAB8009BFC32 /* NSAttributedString Extension.swift */,
-				02398A2F2551EAED009BFC32 /* StringExtension.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -592,6 +602,9 @@
 			isa = PBXGroup;
 			children = (
 				020FFA37252502E30095266D /* Colors.swift */,
+				02398A432551F495009BFC32 /* String Extensions.swift */,
+				02398A552551F515009BFC32 /* AttributedString Extension.swift */,
+				02398A7E2551F7E4009BFC32 /* Traits Font Extension.swift */,
 			);
 			path = "App-Markdown";
 			sourceTree = "<group>";
@@ -767,13 +780,13 @@
 		02DD0A1025114E9800B6696B /* View */ = {
 			isa = PBXGroup;
 			children = (
+				E4F88C85252FA524003AD037 /* Fonts */,
 				D97EE7B9254B558B00A68B06 /* Search */,
 				02E4E99425266F3900290A39 /* NotebookView.swift */,
 				022D602F251955D700001D5B /* Markdown */,
 				02ECA43A2512ABA600E68588 /* Workspace */,
 				A7BDD60D2514073E00DDB6A0 /* NotebookIndex */,
 				A7C057C325420EEC0023A370 /* Notes */,
-				E4F88C85252FA524003AD037 /* Fonts */,
 				020FFA2E252501D10095266D /* Media.xcassets */,
 				020FFA2B252501B20095266D /* Colors.xcassets */,
 			);
@@ -1213,21 +1226,24 @@
 			buildActionMask = 2147483647;
 			files = (
 				02398A342551EB88009BFC32 /* MarkdownTextView.swift in Sources */,
-				023989F12551E776009BFC32 /* Font.swift in Sources */,
 				02398A232551EA1E009BFC32 /* Colors.swift in Sources */,
 				02398A132551E97C009BFC32 /* HeaderElement.swift in Sources */,
 				02398A1B2551E9AF009BFC32 /* NumericListElement.swift in Sources */,
+				02398A562551F515009BFC32 /* AttributedString Extension.swift in Sources */,
 				02398A172551E994009BFC32 /* BulletListElement.swift in Sources */,
 				02398A2A2551EAB8009BFC32 /* NSAttributedString Extension.swift in Sources */,
+				02398A792551F775009BFC32 /* Fonts.swift in Sources */,
+				02398A7F2551F7E4009BFC32 /* Traits Font Extension.swift in Sources */,
 				02398A382551EB9C009BFC32 /* MarkdownTextViewDelegate.swift in Sources */,
 				02398A0F2551E95B009BFC32 /* HighlightElement.swift in Sources */,
 				023989FC2551E8C1009BFC32 /* MarkdownElement.swift in Sources */,
-				02398A302551EAED009BFC32 /* StringExtension.swift in Sources */,
 				02398A072551E92E009BFC32 /* ItalicElement.swift in Sources */,
+				02398A882551F878009BFC32 /* Font Style Extension.swift in Sources */,
 				02398A0B2551E94E009BFC32 /* UnderlineElement.swift in Sources */,
 				02398A1F2551E9C8009BFC32 /* ListStyle.swift in Sources */,
 				023989F82551E888009BFC32 /* MarkdownParser.swift in Sources */,
 				02398A012551E8FD009BFC32 /* BoldElement.swift in Sources */,
+				02398A442551F495009BFC32 /* String Extensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1254,7 +1270,6 @@
 				0207772C251D191B00D97B5A /* NotebookEntity.swift in Sources */,
 				026D4C7E251D1A8E00CBED5A /* StringExtension.swift in Sources */,
 				022832EA252E5CE900DDD46B /* ImageBox+CoreDataClass.swift in Sources */,
-				02C21B35254B55BB0061CCBA /* Font.swift in Sources */,
 				02077729251D191600D97B5A /* WorkspaceEntity.swift in Sources */,
 				022832EF252E5CE900DDD46B /* Notebook+CoreDataProperties.swift in Sources */,
 				0211079A252F89BB0009D4E1 /* NotebookIndexObject.swift in Sources */,
@@ -1287,6 +1302,7 @@
 				02ECA43C2512ABD100E68588 /* NotebookCollectionViewCell.swift in Sources */,
 				A7C057C525420F260023A370 /* NotesToolbar.swift in Sources */,
 				02207A392523A5970001FD7E /* WorkspacesCollectionViewDataSource.swift in Sources */,
+				02398A502551F4D7009BFC32 /* String Extensions.swift in Sources */,
 				D9F4A9AB25277A6B00BFDC19 /* CGRectExtension.swift in Sources */,
 				024C5BBC252E41EE009549CE /* ColorSelectionCollectionViewCell.swift in Sources */,
 				1E6E148C252E33E700383E10 /* MarkdownBarConfiguration.swift in Sources */,
@@ -1310,6 +1326,7 @@
 				D97EE7C2254B565600A68B06 /* SearchBarObserver.swift in Sources */,
 				A7FD9B13253BACF500235D20 /* NotesPageViewObserver.swift in Sources */,
 				D9D87544251BD39F00B842C8 /* PhotoEditingViewController.swift in Sources */,
+				02398A592551F522009BFC32 /* AttributedString Extension.swift in Sources */,
 				02DD09FC25114D6200B6696B /* AppDelegate.swift in Sources */,
 				02A8BCEC2512A453006B685E /* NotebooksCollectionViewDataSource.swift in Sources */,
 				A731AA7425372F9C00624131 /* IndexObserver.swift in Sources */,
@@ -1317,6 +1334,7 @@
 				1E9EF4AD2522609400CC623B /* MarkupTextFieldDelegate.swift in Sources */,
 				020E22252513F10800A93EAB /* StringExtension.swift in Sources */,
 				1EFA49CE252D15C500602904 /* MarkdownNavigationView.swift in Sources */,
+				02398A842551F7FA009BFC32 /* Traits Font Extension.swift in Sources */,
 				D97EE7B6254B557A00A68B06 /* SearchResultEnum.swift in Sources */,
 				1EE652C72525049E0015E3D4 /* MarkdownToggleButton.swift in Sources */,
 				02E4E99525266F3900290A39 /* NotebookView.swift in Sources */,

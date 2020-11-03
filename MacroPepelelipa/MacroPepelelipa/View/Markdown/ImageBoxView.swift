@@ -8,12 +8,13 @@
 
 import UIKit
 import Database
+import MarkdownText
 
 internal class ImageBoxView: UIView, BoxView {
     
     // MARK: - Variables and Constants
     
-    internal var owner: MarkupTextView
+    internal var owner: MarkdownTextView
     internal var internalFrame: CGRect = .zero
     internal var boxViewBorder = CAShapeLayer()
     internal var markupUIImage: UIImage?
@@ -38,7 +39,7 @@ internal class ImageBoxView: UIView, BoxView {
     
     // MARK: - Initializers
 
-    internal init(imageBoxEntity: ImageBoxEntity, owner: MarkupTextView, image: UIImage?) {
+    internal init(imageBoxEntity: ImageBoxEntity, owner: MarkdownTextView, image: UIImage?) {
         self.owner = owner
         self.state = .idle
         self.markupUIImage = image
@@ -63,7 +64,7 @@ internal class ImageBoxView: UIView, BoxView {
     
     internal required convenience init?(coder: NSCoder) {
         guard let imageBoxEntity = coder.decodeObject(forKey: "imageBoxEntity") as? ImageBoxEntity, 
-              let owner = coder.decodeObject(forKey: "owner") as? MarkupTextView, 
+              let owner = coder.decodeObject(forKey: "owner") as? MarkdownTextView, 
               let image = coder.decodeObject(forKey: "image") as? UIImage else {
             return nil
         }

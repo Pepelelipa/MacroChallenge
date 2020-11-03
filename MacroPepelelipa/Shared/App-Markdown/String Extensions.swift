@@ -1,5 +1,5 @@
 //
-//  StringExtension.swift
+//  Strign.swift
 //  MarkdownText
 //
 //  Created by Pedro Giuliano Farina on 03/11/20.
@@ -8,14 +8,15 @@
 
 import Foundation
 import UIKit
+import MarkdownText
 
 internal extension String {
-    func toStyle(font: UIFont = .defaultFont, _ style: FontStyle) -> NSAttributedString {
+    func toStyle(font: UIFont = Fonts.defaultTextFont, _ style: FontStyle) -> NSAttributedString {
         toFontWithDefaultColor(font: font.toStyle(style))
     }
 
     func toPlaceholder() -> NSAttributedString {
-        let mutable = toFontWithDefaultColor(font: UIFont.defaultFont)
+        let mutable = toFontWithDefaultColor(font: Fonts.defaultTextFont)
         return mutable.withForegroundColor(.placeholderColor ?? .placeholderText)
     }
 

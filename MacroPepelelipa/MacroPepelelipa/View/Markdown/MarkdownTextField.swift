@@ -21,7 +21,7 @@ internal class MarkdownTextField: UITextField {
         self.textColor = .titleColor
         self.tintColor = .actionColor
         
-        self.font = MarkdownHeader.firstHeaderFont
+        self.font = UIFont.defaultHeader.toStyle(.h1)
         
         self.translatesAutoresizingMaskIntoConstraints = false
         

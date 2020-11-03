@@ -212,26 +212,27 @@ internal class TextEditingContainerViewController: UIViewController,
     
     ///This method opens the pop over when the button is pressed
     internal func openPopOver() {
-        guard let textView = notesViewController?.textView,
-              let formatViewDelegate = notesViewController?.formatViewDelegate,
-              let textViewDelegate = notesViewController?.textViewDelegate else {
-            return
-        }
-        
-        let markupContainerViewController = MarkupContainerViewController(owner: textView,
-                                                                          delegate: formatViewDelegate,
-                                                                          viewController: notesViewController,
-                                                                          size: .init(width: 380, height: 110))
-        
-        if let formatView = markupContainerViewController.formatView {
-            formatViewDelegate.setFormatView(formatView)
-            textViewDelegate.setFotmatView(formatView)
-        }
-        
-        markupContainerViewController.modalPresentationStyle = .popover
-        markupContainerViewController.popoverPresentationController?.sourceView = markupNavigationView.barButtonItems[4]
-        
-        present(markupContainerViewController, animated: true)
+        #warning("excuse me wtf")
+//        guard let textView = notesViewController?.textView,
+//              let formatViewDelegate = notesViewController?.formatViewDelegate,
+//              let textViewDelegate = notesViewController?.textViewDelegate else {
+//            return
+//        }
+//        
+//        let markupContainerViewController = MarkupContainerViewController(owner: textView,
+//                                                                          delegate: formatViewDelegate,
+//                                                                          viewController: notesViewController,
+//                                                                          size: .init(width: 380, height: 110))
+//        
+//        if let formatView = markupContainerViewController.formatView {
+//            formatViewDelegate.setFormatView(formatView)
+//            textViewDelegate.setFotmatView(formatView)
+//        }
+//        
+//        markupContainerViewController.modalPresentationStyle = .popover
+//        markupContainerViewController.popoverPresentationController?.sourceView = markupNavigationView.barButtonItems[4]
+//        
+//        present(markupContainerViewController, animated: true)
     }
     
     /// This method addes the done button when the keyboard shows.

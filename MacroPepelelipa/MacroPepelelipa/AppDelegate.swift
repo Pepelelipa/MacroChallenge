@@ -7,11 +7,22 @@
 //
 
 import UIKit
+import MarkdownText
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        if let openSans = UIFont.openSans {
+            Fonts.availableFonts.append(openSans)
+        }
+        if let merriweather = UIFont.merriweather {
+            Fonts.availableFonts.append(merriweather)
+            Fonts.defaultTextFont = merriweather
+        }
+        if let dancingScript = UIFont.dancingScript {
+            Fonts.availableFonts.append(dancingScript)
+        }
         return true
     }
 

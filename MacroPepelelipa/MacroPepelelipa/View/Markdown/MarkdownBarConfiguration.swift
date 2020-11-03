@@ -8,38 +8,24 @@
 
 import UIKit
 import PhotosUI
-
-internal enum ListStyle {
-    case bullet
-    case numeric
-    case quote
-}
-
-internal enum HeaderStyle {
-    case h1
-    case h2
-    case h3
-    case paragraph
-}
+import MarkdownText
 
 internal class MarkdownBarConfiguration {    
     
     // MARK: - Variables and Constants
-    
-    private var listStyle: ListStyle = .bullet
-    private weak var textView: MarkupTextView?
+
+    private weak var textView: MarkdownTextView?
     private weak var markupViewController: MarkupContainerViewController?
     
     internal weak var observer: MarkupToolBarObserver?
     
     // MARK: - Initializers
-    
-    internal init(owner: MarkupTextView) {
+    internal init(owner: MarkdownTextView) {
         self.textView = owner
     }
     
     internal required convenience init?(coder: NSCoder) {
-        guard let owner = coder.decodeObject(forKey: "owner") as? MarkupTextView else {
+        guard let owner = coder.decodeObject(forKey: "owner") as? MarkdownTextView else {
             return nil
         }
         self.init(owner: owner)
@@ -157,41 +143,29 @@ internal class MarkdownBarConfiguration {
             sender.tintColor = UIColor.placeholderColor
         }
     }
-
-    internal func resetList() {
-        listStyle = .bullet
-    }
     
     /**
     In this funcion, we deal with the toolbar button for adding a list, adding it manually, when the function receives a UIBarButtonItem.
     - Parameter listButton: The UIBarButtonItem for the list items.
     */
     @objc internal func addList(listButton: UIBarButtonItem) {
-        guard let guardedTextView = textView else {
-            return
-        }
-            
-        let lineCleared = guardedTextView.clearIndicatorCharacters()
-        let nextStyle: ListStyle
-        
-        guardedTextView.addList(of: listStyle, lineCleared)
-        
-        switch listStyle {
-        case .bullet:
-            listButton.image = UIImage(systemName: "list.number")
-            MarkdownQuote.isQuote = false
-            nextStyle = .numeric
-        case .numeric:
-            listButton.image = UIImage(systemName: "text.quote")
-            MarkdownList.isList = false
-            nextStyle = .quote
-        case .quote:
-            listButton.image = UIImage(systemName: "list.bullet")
-            MarkdownNumeric.isNumeric = false
-            nextStyle = .bullet
-        }
-        
-        listStyle = nextStyle
+        // TODO: AddList
+        textView?.addList(.bullet)
+
+//        switch listStyle {
+//        case .bullet:
+//            listButton.image = UIImage(systemName: "list.number")
+//            MarkdownQuote.isQuote = false
+//            nextStyle = .numeric
+//        case .numeric:
+//            listButton.image = UIImage(systemName: "text.quote")
+//            MarkdownList.isList = false
+//            nextStyle = .quote
+//        case .quote:
+//            listButton.image = UIImage(systemName: "list.bullet")
+//            MarkdownNumeric.isNumeric = false
+//            nextStyle = .bullet
+//        }
     }
     
     /**
@@ -199,25 +173,26 @@ internal class MarkdownBarConfiguration {
      - Parameter paragraphButton: The UIBarButtonItem for the items for the paragraph interaction.
     */
     @objc internal func addHeader(paragraphButton: UIBarButtonItem) {
-        textView?.addHeader(with: MarkdownToolBar.headerStyle)
-        var nextStyle: HeaderStyle = MarkdownToolBar.headerStyle
-                
-        switch MarkdownToolBar.headerStyle {
-        case .h1:
-            paragraphButton.image = UIImage(named: "h2")
-            nextStyle = .h2
-        case .h2:
-            paragraphButton.image = UIImage(named: "h3")
-            nextStyle = .h3
-        case .h3:
-            paragraphButton.image = UIImage(systemName: "paragraph")
-            nextStyle = .paragraph
-        case .paragraph:
-            paragraphButton.image = UIImage(named: "h1")
-            nextStyle = .h1
-        }
-            
-        MarkdownToolBar.headerStyle = nextStyle
+        // TODO: AddHeaderFont
+        textView?.setFont(to: UIFont.defaultFont.toStyle(.h1))
+
+
+//        switch MarkdownToolBar.headerStyle {
+//        case .h1:
+//            paragraphButton.image = UIImage(named: "h2")
+//            nextStyle = .h2
+//        case .h2:
+//            paragraphButton.image = UIImage(named: "h3")
+//            nextStyle = .h3
+//        case .h3:
+//            paragraphButton.image = UIImage(systemName: "paragraph")
+//            nextStyle = .paragraph
+//        case .paragraph:
+//            paragraphButton.image = UIImage(named: "h1")
+//            nextStyle = .h1
+//        }
+//
+//        MarkdownToolBar.headerStyle = nextStyle
     }
     
     /**
@@ -225,25 +200,27 @@ internal class MarkdownBarConfiguration {
      - Parameter paragraphButton: The UIButton for the items for the paragraph interaction.
     */
     @objc internal func addHeaderButton(paragraphButton: UIButton) {
-        textView?.addHeader(with: MarkdownToolBar.headerStyle)
-        var nextStyle: HeaderStyle = MarkdownToolBar.headerStyle
-                
-        switch MarkdownToolBar.headerStyle {
-        case .h1:
-            paragraphButton.setBackgroundImage(UIImage(named: "h2"), for: .normal)
-            nextStyle = .h2
-        case .h2:
-            paragraphButton.setBackgroundImage(UIImage(named: "h3"), for: .normal)
-            nextStyle = .h3
-        case .h3:
-            paragraphButton.setBackgroundImage(UIImage(systemName: "paragraph"), for: .normal)
-            nextStyle = .paragraph
-        case .paragraph:
-            paragraphButton.setBackgroundImage(UIImage(named: "h1"), for: .normal)
-            nextStyle = .h1
-        }
-            
-        MarkdownToolBar.headerStyle = nextStyle
+
+        textView?.setFont(to: UIFont.defaultFont.toStyle(.h1))
+//        textView?.addHeader(with: MarkdownToolBar.headerStyle)
+//        var nextStyle: HeaderStyle = MarkdownToolBar.headerStyle
+//
+//        switch MarkdownToolBar.headerStyle {
+//        case .h1:
+//            paragraphButton.setBackgroundImage(UIImage(named: "h2"), for: .normal)
+//            nextStyle = .h2
+//        case .h2:
+//            paragraphButton.setBackgroundImage(UIImage(named: "h3"), for: .normal)
+//            nextStyle = .h3
+//        case .h3:
+//            paragraphButton.setBackgroundImage(UIImage(systemName: "paragraph"), for: .normal)
+//            nextStyle = .paragraph
+//        case .paragraph:
+//            paragraphButton.setBackgroundImage(UIImage(named: "h1"), for: .normal)
+//            nextStyle = .h1
+//        }
+//
+//        MarkdownToolBar.headerStyle = nextStyle
     }
     
     /**
@@ -251,31 +228,25 @@ internal class MarkdownBarConfiguration {
     - Parameter listButton: The UIButton for the list items.
     */
     @objc internal func addListButton(listButton: UIButton) {
-        guard let guardedTextView = textView else {
-            return
-        }
-            
-        let lineCleared = guardedTextView.clearIndicatorCharacters()
-        var nextStyle: ListStyle = .bullet
+        // TODO: AddList
+        textView?.addList(.bullet)
         
-        guardedTextView.addList(of: listStyle, lineCleared)
-        
-        switch listStyle {
-        case .bullet:
-            listButton.setBackgroundImage(UIImage(systemName: "list.number"), for: .normal)
-            MarkdownQuote.isQuote = false
-            nextStyle = .numeric
-        case .numeric:
-            listButton.setBackgroundImage(UIImage(systemName: "text.quote"), for: .normal)
-            MarkdownList.isList = false
-            nextStyle = .quote
-        case .quote:
-            listButton.setBackgroundImage(UIImage(systemName: "list.bullet"), for: .normal)
-            MarkdownNumeric.isNumeric = false
-            nextStyle = .bullet
-        }
-        
-        listStyle = nextStyle
+//        switch listStyle {
+//        case .bullet:
+//            listButton.setBackgroundImage(UIImage(systemName: "list.number"), for: .normal)
+//            MarkdownQuote.isQuote = false
+//            nextStyle = .numeric
+//        case .numeric:
+//            listButton.setBackgroundImage(UIImage(systemName: "text.quote"), for: .normal)
+//            MarkdownList.isList = false
+//            nextStyle = .quote
+//        case .quote:
+//            listButton.setBackgroundImage(UIImage(systemName: "list.bullet"), for: .normal)
+//            MarkdownNumeric.isNumeric = false
+//            nextStyle = .bullet
+//        }
+//        
+//        listStyle = nextStyle
     }
     
     @objc internal func addTextBox() {

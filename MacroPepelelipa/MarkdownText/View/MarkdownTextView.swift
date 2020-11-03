@@ -26,8 +26,8 @@ public class MarkdownTextView: UITextView {
             if let font = activeAttributes[.font] as? UIFont {
                 return font
             } else {
-                activeAttributes[.font] = UIFont.defaultFont
-                return UIFont.defaultFont
+                activeAttributes[.font] = Fonts.defaultTextFont
+                return Fonts.defaultTextFont
             }
         }
         set {
@@ -173,6 +173,7 @@ public class MarkdownTextView: UITextView {
         color = .bodyColor ?? .black
         isHighlighted = false
         isUnderlined = false
+        activeFont = Fonts.defaultTextFont
 
         animator = UIDynamicAnimator(referenceView: self)
     }
@@ -328,7 +329,7 @@ public class MarkdownTextView: UITextView {
      - Parameters:
      - type: The type of list to be added (bullet, numeric or quote)
      */
-    internal func addList(_ type: ListStyle, at location: Int? = nil) {
+    public func addList(_ type: ListStyle, at location: Int? = nil) {
         //Checkin not placeholder
         if textColor == .placeholderColor {
             return
