@@ -41,17 +41,17 @@ internal class TextEditingContainerViewController: UIViewController,
     
     private lazy var notesViewController = centerViewController?.viewControllers?.first as? NotesViewController
     
-    internal lazy var markupConfig: MarkupBarConfiguration = {
+    internal lazy var markupConfig: MarkdownBarConfiguration = {
         guard let textView = notesViewController?.textView else {
             fatalError("Controller not found")
         }
-        let mrkConf = MarkupBarConfiguration(owner: textView)
+        let mrkConf = MarkdownBarConfiguration(owner: textView)
         mrkConf.observer = self
         return mrkConf
     }()
     
-    private lazy var markupNavigationView: MarkupNavigationView = {
-        let mrkView = MarkupNavigationView(frame: .zero, configurations: markupConfig)
+    private lazy var markupNavigationView: MarkdownNavigationView = {
+        let mrkView = MarkdownNavigationView(frame: .zero, configurations: markupConfig)
         mrkView.backgroundColor = UIColor.backgroundColor
         
         return mrkView

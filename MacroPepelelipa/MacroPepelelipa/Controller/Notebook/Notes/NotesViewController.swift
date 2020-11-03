@@ -37,8 +37,8 @@ internal class NotesViewController: UIViewController,
     
     private lazy var textViewBottomConstraint = textView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20)
     
-    private lazy var textField: MarkupTextField = {
-        let textField = MarkupTextField(frame: .zero, placeholder: "Your Title".localized(), paddingSpace: 4)
+    private lazy var textField: MarkdownTextField = {
+        let textField = MarkdownTextField(frame: .zero, placeholder: "Your Title".localized(), paddingSpace: 4)
         textField.delegate = self.textFieldDelegate
         return textField
     }()
@@ -49,8 +49,8 @@ internal class NotesViewController: UIViewController,
         return delegate
     }()
     
-    private lazy var keyboardToolbar: MarkupToolBar = {
-        let toolBar = MarkupToolBar(frame: .zero, configurations: markupConfig)
+    private lazy var keyboardToolbar: MarkdownToolBar = {
+        let toolBar = MarkdownToolBar(frame: .zero, configurations: markupConfig)
         return toolBar
     }()
     
@@ -86,8 +86,8 @@ internal class NotesViewController: UIViewController,
         }
     }
     
-    internal lazy var markupConfig: MarkupBarConfiguration = {
-        let mrkConf = MarkupBarConfiguration(owner: textView)
+    internal lazy var markupConfig: MarkdownBarConfiguration = {
+        let mrkConf = MarkdownBarConfiguration(owner: textView)
         mrkConf.observer = self
         return mrkConf
     }()
@@ -96,10 +96,10 @@ internal class NotesViewController: UIViewController,
         return MarkupFormatViewDelegate(viewController: self)
     }()
     
-    internal private(set) lazy var markupContainerView: MarkupContainerView = {
+    internal private(set) lazy var markupContainerView: MarkdownContainerView = {
         let height: CGFloat = screenHeight/4
         
-        let container = MarkupContainerView(frame: CGRect(x: 0, y: 0, width: screenWidth, height: height), owner: self.textView, delegate: self.formatViewDelegate, viewController: self)
+        let container = MarkdownContainerView(frame: CGRect(x: 0, y: 0, width: screenWidth, height: height), owner: self.textView, delegate: self.formatViewDelegate, viewController: self)
         
         container.autoresizingMask = []
         container.isHidden = true

@@ -22,7 +22,7 @@ internal enum HeaderStyle {
     case paragraph
 }
 
-internal class MarkupBarConfiguration {    
+internal class MarkdownBarConfiguration {    
     
     // MARK: - Variables and Constants
     
@@ -199,10 +199,10 @@ internal class MarkupBarConfiguration {
      - Parameter paragraphButton: The UIBarButtonItem for the items for the paragraph interaction.
     */
     @objc internal func addHeader(paragraphButton: UIBarButtonItem) {
-        textView?.addHeader(with: MarkupToolBar.headerStyle)
-        var nextStyle: HeaderStyle = MarkupToolBar.headerStyle
+        textView?.addHeader(with: MarkdownToolBar.headerStyle)
+        var nextStyle: HeaderStyle = MarkdownToolBar.headerStyle
                 
-        switch MarkupToolBar.headerStyle {
+        switch MarkdownToolBar.headerStyle {
         case .h1:
             paragraphButton.image = UIImage(named: "h2")
             nextStyle = .h2
@@ -217,7 +217,7 @@ internal class MarkupBarConfiguration {
             nextStyle = .h1
         }
             
-        MarkupToolBar.headerStyle = nextStyle
+        MarkdownToolBar.headerStyle = nextStyle
     }
     
     /**
@@ -225,10 +225,10 @@ internal class MarkupBarConfiguration {
      - Parameter paragraphButton: The UIButton for the items for the paragraph interaction.
     */
     @objc internal func addHeaderButton(paragraphButton: UIButton) {
-        textView?.addHeader(with: MarkupToolBar.headerStyle)
-        var nextStyle: HeaderStyle = MarkupToolBar.headerStyle
+        textView?.addHeader(with: MarkdownToolBar.headerStyle)
+        var nextStyle: HeaderStyle = MarkdownToolBar.headerStyle
                 
-        switch MarkupToolBar.headerStyle {
+        switch MarkdownToolBar.headerStyle {
         case .h1:
             paragraphButton.setBackgroundImage(UIImage(named: "h2"), for: .normal)
             nextStyle = .h2
@@ -243,7 +243,7 @@ internal class MarkupBarConfiguration {
             nextStyle = .h1
         }
             
-        MarkupToolBar.headerStyle = nextStyle
+        MarkdownToolBar.headerStyle = nextStyle
     }
     
     /**

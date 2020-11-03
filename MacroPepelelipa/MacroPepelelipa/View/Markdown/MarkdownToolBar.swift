@@ -8,17 +8,17 @@
 
 import UIKit
 
-internal class MarkupToolBar: UIToolbar {
+internal class MarkdownToolBar: UIToolbar {
     
     // MARK: - Variables and Constants
     
-    private weak var markupBarConfiguration: MarkupBarConfiguration?
+    private weak var markupBarConfiguration: MarkdownBarConfiguration?
     private static weak var paragraphButton: UIBarButtonItem?
     private static weak var listButton: UIBarButtonItem?
     
     internal static var headerStyle: HeaderStyle = .h1 {
         didSet {
-            if MarkupToolBar.headerStyle == .h1 {
+            if MarkdownToolBar.headerStyle == .h1 {
                 paragraphButton?.image = UIImage(named: "h1")
             }
         }
@@ -27,7 +27,7 @@ internal class MarkupToolBar: UIToolbar {
     
     // MARK: - Initializers
     
-    internal init(frame: CGRect, configurations: MarkupBarConfiguration) {
+    internal init(frame: CGRect, configurations: MarkdownBarConfiguration) {
         self.markupBarConfiguration = configurations
         super.init(frame: frame)
         
@@ -39,7 +39,7 @@ internal class MarkupToolBar: UIToolbar {
     
     internal required convenience init?(coder: NSCoder) {
         guard let frame = coder.decodeObject(forKey: "frame") as? CGRect,
-              let configurations = coder.decodeObject(forKey: "configurations") as? MarkupBarConfiguration else {
+              let configurations = coder.decodeObject(forKey: "configurations") as? MarkdownBarConfiguration else {
             return nil
         }
 
@@ -68,13 +68,13 @@ internal class MarkupToolBar: UIToolbar {
         self.items?.append(barButtonItems[0])
         self.items?.append(flexible)
         
-        MarkupToolBar.paragraphButton = barButtonItems[1]
-        MarkupToolBar.resetListStyle = { [weak self] in
+        MarkdownToolBar.paragraphButton = barButtonItems[1]
+        MarkdownToolBar.resetListStyle = { [weak self] in
             barButtonItems[0].image = UIImage(systemName: "list.bullet")
             self?.markupBarConfiguration?.resetList()
         }
         
-        if let paragraphBtn = MarkupToolBar.paragraphButton {
+        if let paragraphBtn = MarkdownToolBar.paragraphButton {
             self.items?.append(paragraphBtn)
             self.items?.append(flexible)
         }

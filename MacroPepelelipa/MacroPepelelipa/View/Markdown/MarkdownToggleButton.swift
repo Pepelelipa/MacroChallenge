@@ -8,7 +8,7 @@
 
 import UIKit
 
-internal class MarkupToggleButton: UIButton {
+internal class MarkdownToggleButton: UIButton {
     
     // MARK: - Variables and Constants
 

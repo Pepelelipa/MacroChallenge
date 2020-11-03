@@ -8,7 +8,7 @@
 
 import UIKit
 
-internal class MarkupTextField: UITextField {
+internal class MarkdownTextField: UITextField {
     
     // MARK: - Initializers
     

@@ -8,7 +8,7 @@
 
 import UIKit
 
-internal class MarkupContainerView: MarkupFormatView, TextEditingDelegateObserver {
+internal class MarkdownContainerView: MarkdownFormatView, TextEditingDelegateObserver {
     
     // MARK: - Variables and Constants
 

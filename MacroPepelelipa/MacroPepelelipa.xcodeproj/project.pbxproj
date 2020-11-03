@@ -48,34 +48,6 @@
 		022832F7252E603800DDD46B /* EntityObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 022832F6252E603800DDD46B /* EntityObserver.swift */; };
 		022832FB252E6C4200DDD46B /* ObservableEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 022832FA252E6C4200DDD46B /* ObservableEntity.swift */; };
 		022D600A2519559D00001D5B /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 022D5FDC2519559D00001D5B /* Fonts.swift */; };
-		022D600B2519559D00001D5B /* MarkdownCode+UIKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 022D5FDF2519559D00001D5B /* MarkdownCode+UIKit.swift */; };
-		022D600C2519559D00001D5B /* MarkdownLink+UIKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 022D5FE12519559D00001D5B /* MarkdownLink+UIKit.swift */; };
-		022D600D2519559D00001D5B /* MarkdownHeader+UIKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 022D5FE32519559D00001D5B /* MarkdownHeader+UIKit.swift */; };
-		022D600E2519559D00001D5B /* Typealias+UIKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 022D5FE42519559D00001D5B /* Typealias+UIKit.swift */; };
-		022D600F2519559D00001D5B /* MarkdownParser+UIKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 022D5FE52519559D00001D5B /* MarkdownParser+UIKit.swift */; };
-		022D60102519559D00001D5B /* MarkdownParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 022D5FE72519559D00001D5B /* MarkdownParser.swift */; };
-		022D60112519559D00001D5B /* String+UTF16.swift in Sources */ = {isa = PBXBuildFile; fileRef = 022D5FE92519559D00001D5B /* String+UTF16.swift */; };
-		022D60122519559D00001D5B /* MarkdownCodeEscaping.swift in Sources */ = {isa = PBXBuildFile; fileRef = 022D5FEC2519559D00001D5B /* MarkdownCodeEscaping.swift */; };
-		022D60132519559D00001D5B /* MarkdownEscaping.swift in Sources */ = {isa = PBXBuildFile; fileRef = 022D5FED2519559D00001D5B /* MarkdownEscaping.swift */; };
-		022D60142519559D00001D5B /* MarkdownUnescaping.swift in Sources */ = {isa = PBXBuildFile; fileRef = 022D5FEE2519559D00001D5B /* MarkdownUnescaping.swift */; };
-		022D60152519559D00001D5B /* MarkdownQuote.swift in Sources */ = {isa = PBXBuildFile; fileRef = 022D5FF02519559D00001D5B /* MarkdownQuote.swift */; };
-		022D60162519559D00001D5B /* MarkdownItalic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 022D5FF22519559D00001D5B /* MarkdownItalic.swift */; };
-		022D60172519559D00001D5B /* MarkdownHighlight.swift in Sources */ = {isa = PBXBuildFile; fileRef = 022D5FF52519559D00001D5B /* MarkdownHighlight.swift */; };
-		022D60182519559D00001D5B /* MarkdownCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 022D5FF72519559D00001D5B /* MarkdownCode.swift */; };
-		022D60192519559D00001D5B /* MarkdownColoredBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = 022D5FF82519559D00001D5B /* MarkdownColoredBackground.swift */; };
-		022D601A2519559D00001D5B /* MarkdownAutomaticLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 022D5FFA2519559D00001D5B /* MarkdownAutomaticLink.swift */; };
-		022D601B2519559D00001D5B /* MarkdownLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 022D5FFB2519559D00001D5B /* MarkdownLink.swift */; };
-		022D601C2519559D00001D5B /* MarkdownList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 022D5FFD2519559D00001D5B /* MarkdownList.swift */; };
-		022D601D2519559D00001D5B /* MarkdownBold.swift in Sources */ = {isa = PBXBuildFile; fileRef = 022D5FFF2519559D00001D5B /* MarkdownBold.swift */; };
-		022D601E2519559D00001D5B /* MarkdownHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 022D60012519559D00001D5B /* MarkdownHeader.swift */; };
-		022D601F2519559D00001D5B /* MarkdownStrikethrough.swift in Sources */ = {isa = PBXBuildFile; fileRef = 022D60032519559D00001D5B /* MarkdownStrikethrough.swift */; };
-		022D60202519559D00001D5B /* MarkdownCommonElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 022D60052519559D00001D5B /* MarkdownCommonElement.swift */; };
-		022D60212519559D00001D5B /* MarkdownLinkElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 022D60062519559D00001D5B /* MarkdownLinkElement.swift */; };
-		022D60222519559D00001D5B /* MarkdownLevelElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 022D60072519559D00001D5B /* MarkdownLevelElement.swift */; };
-		022D60232519559D00001D5B /* MarkdownElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 022D60082519559D00001D5B /* MarkdownElement.swift */; };
-		022D60242519559D00001D5B /* MarkdownStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 022D60092519559D00001D5B /* MarkdownStyle.swift */; };
-		022D6028251955B500001D5B /* MarkupTextViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 022D6026251955B500001D5B /* MarkupTextViewDelegate.swift */; };
-		022D602D251955D300001D5B /* MarkupTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 022D602C251955D300001D5B /* MarkupTextView.swift */; };
 		022E7671253F817900AD967E /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 022E7670253F817900AD967E /* String.swift */; };
 		0230E078253A3CED009C5A76 /* UIDeviceOrientation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0230E077253A3CED009C5A76 /* UIDeviceOrientation.swift */; };
 		023886022523CA2700F807E9 /* WorkspaceCellNotebookCollectionViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 023886012523CA2700F807E9 /* WorkspaceCellNotebookCollectionViewDataSource.swift */; };
@@ -114,13 +86,13 @@
 		02ECA43C2512ABD100E68588 /* NotebookCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02ECA43B2512ABD100E68588 /* NotebookCollectionViewCell.swift */; };
 		1E1D9CD22549EB2D00E2D7A7 /* NotebookEntityToPDFExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E1D9CD12549EB2D00E2D7A7 /* NotebookEntityToPDFExtension.swift */; };
 		1E47C56C254377BE00535DDD /* NoteEntityToPDFExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E47C56B254377BE00535DDD /* NoteEntityToPDFExtension.swift */; };
-		1E6E148C252E33E700383E10 /* MarkupBarConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E6E148B252E33E700383E10 /* MarkupBarConfiguration.swift */; };
+		1E6E148C252E33E700383E10 /* MarkdownBarConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E6E148B252E33E700383E10 /* MarkdownBarConfiguration.swift */; };
 		1E9290C1252FA68600E8B142 /* MarkupContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E9290C0252FA68600E8B142 /* MarkupContainerViewController.swift */; };
 		1E9EF4A925225B9B00CC623B /* TextEditingDelegateObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E9EF4A825225B9B00CC623B /* TextEditingDelegateObserver.swift */; };
 		1E9EF4AD2522609400CC623B /* MarkupTextFieldDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E9EF4AC2522609400CC623B /* MarkupTextFieldDelegate.swift */; };
-		1EE652C2252504400015E3D4 /* MarkupContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EE652C1252504400015E3D4 /* MarkupContainerView.swift */; };
-		1EE652C72525049E0015E3D4 /* MarkupToggleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EE652C62525049E0015E3D4 /* MarkupToggleButton.swift */; };
-		1EFA49CE252D15C500602904 /* MarkupNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EFA49CD252D15C500602904 /* MarkupNavigationView.swift */; };
+		1EE652C2252504400015E3D4 /* MarkdownContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EE652C1252504400015E3D4 /* MarkdownContainerView.swift */; };
+		1EE652C72525049E0015E3D4 /* MarkdownToggleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EE652C62525049E0015E3D4 /* MarkdownToggleButton.swift */; };
+		1EFA49CE252D15C500602904 /* MarkdownNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EFA49CD252D15C500602904 /* MarkdownNavigationView.swift */; };
 		A71E2C1D2538EEB8000DA164 /* NotesPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71E2C1B2538EEB8000DA164 /* NotesPageViewController.swift */; };
 		A71E2C1E2538EEB8000DA164 /* NotesPageViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71E2C1C2538EEB8000DA164 /* NotesPageViewControllerDelegate.swift */; };
 		A71E2C212538EF51000DA164 /* NotesPageViewControllerDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71E2C202538EF51000DA164 /* NotesPageViewControllerDataSource.swift */; };
@@ -147,8 +119,8 @@
 		D97EE7C2254B565600A68B06 /* SearchBarObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = D97EE7C1254B565600A68B06 /* SearchBarObserver.swift */; };
 		D996CEC3252FA608009D31F8 /* AddNewSpaceTextFieldDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D996CEC2252FA608009D31F8 /* AddNewSpaceTextFieldDelegate.swift */; };
 		D9BBA584252FAB28004B724F /* AddWorkspaceObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BBA583252FAB28004B724F /* AddWorkspaceObserver.swift */; };
-		D9D87534251BAA6700B842C8 /* MarkupTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D87533251BAA6700B842C8 /* MarkupTextField.swift */; };
-		D9D87538251BB26500B842C8 /* MarkupToolBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D87537251BB26500B842C8 /* MarkupToolBar.swift */; };
+		D9D87534251BAA6700B842C8 /* MarkdownTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D87533251BAA6700B842C8 /* MarkdownTextField.swift */; };
+		D9D87538251BB26500B842C8 /* MarkdownToolBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D87537251BB26500B842C8 /* MarkdownToolBar.swift */; };
 		D9D87544251BD39F00B842C8 /* PhotoEditingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D87543251BD39F00B842C8 /* PhotoEditingViewController.swift */; };
 		D9E4B0C9252E316900665CDC /* ImageBoxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9E4B0C8252E316900665CDC /* ImageBoxView.swift */; };
 		D9F04BEC25377D5E001C6551 /* AddNoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9F04BEB25377D5D001C6551 /* AddNoteViewController.swift */; };
@@ -179,9 +151,7 @@
 		E4026286252FAC7800BCDD93 /* DancingScript-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E4026284252FAC7800BCDD93 /* DancingScript-Bold.ttf */; };
 		E4026287252FAC7800BCDD93 /* DancingScript-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E4026285252FAC7800BCDD93 /* DancingScript-Regular.ttf */; };
 		E41209532538C1020088AC26 /* EmptyScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E41209522538C1020088AC26 /* EmptyScreenView.swift */; };
-		E4277C4C2527B824002CD6B1 /* MarkupFormatViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4277C4B2527B824002CD6B1 /* MarkupFormatViewDelegate.swift */; };
-		E42FC8372530EF78004E81C9 /* MarkupFormatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E42FC8362530EF78004E81C9 /* MarkupFormatView.swift */; };
-		E45C20D2251D24BD0022AD95 /* MarkdownNumeric.swift in Sources */ = {isa = PBXBuildFile; fileRef = E45C20D1251D24BD0022AD95 /* MarkdownNumeric.swift */; };
+		E42FC8372530EF78004E81C9 /* MarkdownFormatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E42FC8362530EF78004E81C9 /* MarkdownFormatView.swift */; };
 		E4F88C8B252FA564003AD037 /* Merriweather-BoldItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = E4F88C87252FA564003AD037 /* Merriweather-BoldItalic.otf */; };
 		E4F88C8C252FA564003AD037 /* Merriweather-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = E4F88C88252FA564003AD037 /* Merriweather-Regular.otf */; };
 		E4F88C8D252FA564003AD037 /* Merriweather-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = E4F88C89252FA564003AD037 /* Merriweather-Bold.otf */; };
@@ -190,7 +160,6 @@
 		E4F88C96252FA597003AD037 /* OpenSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E4F88C92252FA597003AD037 /* OpenSans-Regular.ttf */; };
 		E4F88C97252FA597003AD037 /* OpenSans-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E4F88C93252FA597003AD037 /* OpenSans-Italic.ttf */; };
 		E4F88C98252FA597003AD037 /* OpenSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E4F88C94252FA597003AD037 /* OpenSans-Bold.ttf */; };
-		E4FCA4942523B52F00DE88B8 /* MarkdownEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4FCA4932523B52F00DE88B8 /* MarkdownEditor.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -260,34 +229,6 @@
 		022832F6252E603800DDD46B /* EntityObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntityObserver.swift; sourceTree = "<group>"; };
 		022832FA252E6C4200DDD46B /* ObservableEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservableEntity.swift; sourceTree = "<group>"; };
 		022D5FDC2519559D00001D5B /* Fonts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
-		022D5FDF2519559D00001D5B /* MarkdownCode+UIKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MarkdownCode+UIKit.swift"; sourceTree = "<group>"; };
-		022D5FE12519559D00001D5B /* MarkdownLink+UIKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MarkdownLink+UIKit.swift"; sourceTree = "<group>"; };
-		022D5FE32519559D00001D5B /* MarkdownHeader+UIKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MarkdownHeader+UIKit.swift"; sourceTree = "<group>"; };
-		022D5FE42519559D00001D5B /* Typealias+UIKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Typealias+UIKit.swift"; sourceTree = "<group>"; };
-		022D5FE52519559D00001D5B /* MarkdownParser+UIKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MarkdownParser+UIKit.swift"; sourceTree = "<group>"; };
-		022D5FE72519559D00001D5B /* MarkdownParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarkdownParser.swift; sourceTree = "<group>"; };
-		022D5FE92519559D00001D5B /* String+UTF16.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+UTF16.swift"; sourceTree = "<group>"; };
-		022D5FEC2519559D00001D5B /* MarkdownCodeEscaping.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarkdownCodeEscaping.swift; sourceTree = "<group>"; };
-		022D5FED2519559D00001D5B /* MarkdownEscaping.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarkdownEscaping.swift; sourceTree = "<group>"; };
-		022D5FEE2519559D00001D5B /* MarkdownUnescaping.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarkdownUnescaping.swift; sourceTree = "<group>"; };
-		022D5FF02519559D00001D5B /* MarkdownQuote.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarkdownQuote.swift; sourceTree = "<group>"; };
-		022D5FF22519559D00001D5B /* MarkdownItalic.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarkdownItalic.swift; sourceTree = "<group>"; };
-		022D5FF52519559D00001D5B /* MarkdownHighlight.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarkdownHighlight.swift; sourceTree = "<group>"; };
-		022D5FF72519559D00001D5B /* MarkdownCode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarkdownCode.swift; sourceTree = "<group>"; };
-		022D5FF82519559D00001D5B /* MarkdownColoredBackground.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarkdownColoredBackground.swift; sourceTree = "<group>"; };
-		022D5FFA2519559D00001D5B /* MarkdownAutomaticLink.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarkdownAutomaticLink.swift; sourceTree = "<group>"; };
-		022D5FFB2519559D00001D5B /* MarkdownLink.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarkdownLink.swift; sourceTree = "<group>"; };
-		022D5FFD2519559D00001D5B /* MarkdownList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarkdownList.swift; sourceTree = "<group>"; };
-		022D5FFF2519559D00001D5B /* MarkdownBold.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarkdownBold.swift; sourceTree = "<group>"; };
-		022D60012519559D00001D5B /* MarkdownHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarkdownHeader.swift; sourceTree = "<group>"; };
-		022D60032519559D00001D5B /* MarkdownStrikethrough.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarkdownStrikethrough.swift; sourceTree = "<group>"; };
-		022D60052519559D00001D5B /* MarkdownCommonElement.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarkdownCommonElement.swift; sourceTree = "<group>"; };
-		022D60062519559D00001D5B /* MarkdownLinkElement.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarkdownLinkElement.swift; sourceTree = "<group>"; };
-		022D60072519559D00001D5B /* MarkdownLevelElement.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarkdownLevelElement.swift; sourceTree = "<group>"; };
-		022D60082519559D00001D5B /* MarkdownElement.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarkdownElement.swift; sourceTree = "<group>"; };
-		022D60092519559D00001D5B /* MarkdownStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarkdownStyle.swift; sourceTree = "<group>"; };
-		022D6026251955B500001D5B /* MarkupTextViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarkupTextViewDelegate.swift; sourceTree = "<group>"; };
-		022D602C251955D300001D5B /* MarkupTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarkupTextView.swift; sourceTree = "<group>"; };
 		022E7670253F817900AD967E /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		0230E077253A3CED009C5A76 /* UIDeviceOrientation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIDeviceOrientation.swift; sourceTree = "<group>"; };
 		023886012523CA2700F807E9 /* WorkspaceCellNotebookCollectionViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkspaceCellNotebookCollectionViewDataSource.swift; sourceTree = "<group>"; };
@@ -326,13 +267,13 @@
 		02ECA43B2512ABD100E68588 /* NotebookCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotebookCollectionViewCell.swift; sourceTree = "<group>"; };
 		1E1D9CD12549EB2D00E2D7A7 /* NotebookEntityToPDFExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotebookEntityToPDFExtension.swift; sourceTree = "<group>"; };
 		1E47C56B254377BE00535DDD /* NoteEntityToPDFExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteEntityToPDFExtension.swift; sourceTree = "<group>"; };
-		1E6E148B252E33E700383E10 /* MarkupBarConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkupBarConfiguration.swift; sourceTree = "<group>"; };
+		1E6E148B252E33E700383E10 /* MarkdownBarConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkdownBarConfiguration.swift; sourceTree = "<group>"; };
 		1E9290C0252FA68600E8B142 /* MarkupContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkupContainerViewController.swift; sourceTree = "<group>"; };
 		1E9EF4A825225B9B00CC623B /* TextEditingDelegateObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextEditingDelegateObserver.swift; sourceTree = "<group>"; };
 		1E9EF4AC2522609400CC623B /* MarkupTextFieldDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkupTextFieldDelegate.swift; sourceTree = "<group>"; };
-		1EE652C1252504400015E3D4 /* MarkupContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkupContainerView.swift; sourceTree = "<group>"; };
-		1EE652C62525049E0015E3D4 /* MarkupToggleButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkupToggleButton.swift; sourceTree = "<group>"; };
-		1EFA49CD252D15C500602904 /* MarkupNavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkupNavigationView.swift; sourceTree = "<group>"; };
+		1EE652C1252504400015E3D4 /* MarkdownContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkdownContainerView.swift; sourceTree = "<group>"; };
+		1EE652C62525049E0015E3D4 /* MarkdownToggleButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkdownToggleButton.swift; sourceTree = "<group>"; };
+		1EFA49CD252D15C500602904 /* MarkdownNavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkdownNavigationView.swift; sourceTree = "<group>"; };
 		A71E2C1B2538EEB8000DA164 /* NotesPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotesPageViewController.swift; sourceTree = "<group>"; };
 		A71E2C1C2538EEB8000DA164 /* NotesPageViewControllerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotesPageViewControllerDelegate.swift; sourceTree = "<group>"; };
 		A71E2C202538EF51000DA164 /* NotesPageViewControllerDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NotesPageViewControllerDataSource.swift; path = MacroPepelelipa/Model/Notes/NotesPageViewControllerDataSource.swift; sourceTree = SOURCE_ROOT; };
@@ -360,8 +301,8 @@
 		D97EE7C1254B565600A68B06 /* SearchBarObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarObserver.swift; sourceTree = "<group>"; };
 		D996CEC2252FA608009D31F8 /* AddNewSpaceTextFieldDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddNewSpaceTextFieldDelegate.swift; sourceTree = "<group>"; };
 		D9BBA583252FAB28004B724F /* AddWorkspaceObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddWorkspaceObserver.swift; sourceTree = "<group>"; };
-		D9D87533251BAA6700B842C8 /* MarkupTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkupTextField.swift; sourceTree = "<group>"; };
-		D9D87537251BB26500B842C8 /* MarkupToolBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkupToolBar.swift; sourceTree = "<group>"; };
+		D9D87533251BAA6700B842C8 /* MarkdownTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkdownTextField.swift; sourceTree = "<group>"; };
+		D9D87537251BB26500B842C8 /* MarkdownToolBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkdownToolBar.swift; sourceTree = "<group>"; };
 		D9D87543251BD39F00B842C8 /* PhotoEditingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoEditingViewController.swift; sourceTree = "<group>"; };
 		D9E4B0C8252E316900665CDC /* ImageBoxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageBoxView.swift; sourceTree = "<group>"; };
 		D9F04BEB25377D5D001C6551 /* AddNoteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNoteViewController.swift; sourceTree = "<group>"; };
@@ -392,9 +333,7 @@
 		E4026284252FAC7800BCDD93 /* DancingScript-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "DancingScript-Bold.ttf"; sourceTree = "<group>"; };
 		E4026285252FAC7800BCDD93 /* DancingScript-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "DancingScript-Regular.ttf"; sourceTree = "<group>"; };
 		E41209522538C1020088AC26 /* EmptyScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyScreenView.swift; sourceTree = "<group>"; };
-		E4277C4B2527B824002CD6B1 /* MarkupFormatViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkupFormatViewDelegate.swift; sourceTree = "<group>"; };
-		E42FC8362530EF78004E81C9 /* MarkupFormatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkupFormatView.swift; sourceTree = "<group>"; };
-		E45C20D1251D24BD0022AD95 /* MarkdownNumeric.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkdownNumeric.swift; sourceTree = "<group>"; };
+		E42FC8362530EF78004E81C9 /* MarkdownFormatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkdownFormatView.swift; sourceTree = "<group>"; };
 		E4F88C87252FA564003AD037 /* Merriweather-BoldItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Merriweather-BoldItalic.otf"; sourceTree = "<group>"; };
 		E4F88C88252FA564003AD037 /* Merriweather-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Merriweather-Regular.otf"; sourceTree = "<group>"; };
 		E4F88C89252FA564003AD037 /* Merriweather-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Merriweather-Bold.otf"; sourceTree = "<group>"; };
@@ -403,7 +342,6 @@
 		E4F88C92252FA597003AD037 /* OpenSans-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Regular.ttf"; sourceTree = "<group>"; };
 		E4F88C93252FA597003AD037 /* OpenSans-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Italic.ttf"; sourceTree = "<group>"; };
 		E4F88C94252FA597003AD037 /* OpenSans-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Bold.ttf"; sourceTree = "<group>"; };
-		E4FCA4932523B52F00DE88B8 /* MarkdownEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkdownEditor.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -506,226 +444,20 @@
 			path = CoreData;
 			sourceTree = "<group>";
 		};
-		022D5FD92519559D00001D5B /* MarkupKit */ = {
-			isa = PBXGroup;
-			children = (
-				022D5FDA2519559D00001D5B /* UIKit */,
-				022D5FE62519559D00001D5B /* Common */,
-			);
-			path = MarkupKit;
-			sourceTree = "<group>";
-		};
-		022D5FDA2519559D00001D5B /* UIKit */ = {
-			isa = PBXGroup;
-			children = (
-				022D5FDD2519559D00001D5B /* Elements */,
-				022D5FE42519559D00001D5B /* Typealias+UIKit.swift */,
-				022D5FE52519559D00001D5B /* MarkdownParser+UIKit.swift */,
-			);
-			path = UIKit;
-			sourceTree = "<group>";
-		};
-		022D5FDD2519559D00001D5B /* Elements */ = {
-			isa = PBXGroup;
-			children = (
-				022D5FDE2519559D00001D5B /* Code */,
-				022D5FE02519559D00001D5B /* Link */,
-				022D5FE22519559D00001D5B /* Header */,
-			);
-			path = Elements;
-			sourceTree = "<group>";
-		};
-		022D5FDE2519559D00001D5B /* Code */ = {
-			isa = PBXGroup;
-			children = (
-				022D5FDF2519559D00001D5B /* MarkdownCode+UIKit.swift */,
-			);
-			path = Code;
-			sourceTree = "<group>";
-		};
-		022D5FE02519559D00001D5B /* Link */ = {
-			isa = PBXGroup;
-			children = (
-				022D5FE12519559D00001D5B /* MarkdownLink+UIKit.swift */,
-			);
-			path = Link;
-			sourceTree = "<group>";
-		};
-		022D5FE22519559D00001D5B /* Header */ = {
-			isa = PBXGroup;
-			children = (
-				022D5FE32519559D00001D5B /* MarkdownHeader+UIKit.swift */,
-			);
-			path = Header;
-			sourceTree = "<group>";
-		};
-		022D5FE62519559D00001D5B /* Common */ = {
-			isa = PBXGroup;
-			children = (
-				E4FCA4932523B52F00DE88B8 /* MarkdownEditor.swift */,
-				022D5FE72519559D00001D5B /* MarkdownParser.swift */,
-				022D5FE82519559D00001D5B /* Extensions */,
-				022D5FEA2519559D00001D5B /* Elements */,
-				022D60042519559D00001D5B /* Protocols */,
-			);
-			path = Common;
-			sourceTree = "<group>";
-		};
-		022D5FE82519559D00001D5B /* Extensions */ = {
-			isa = PBXGroup;
-			children = (
-				022D5FE92519559D00001D5B /* String+UTF16.swift */,
-			);
-			path = Extensions;
-			sourceTree = "<group>";
-		};
-		022D5FEA2519559D00001D5B /* Elements */ = {
-			isa = PBXGroup;
-			children = (
-				022D5FEB2519559D00001D5B /* Escaping */,
-				022D5FEF2519559D00001D5B /* Quote */,
-				022D5FF12519559D00001D5B /* Italic */,
-				022D5FF32519559D00001D5B /* ColoredBackground */,
-				022D5FF92519559D00001D5B /* Link */,
-				022D5FFC2519559D00001D5B /* Lists */,
-				022D5FFE2519559D00001D5B /* Bold */,
-				022D60002519559D00001D5B /* Header */,
-				022D60022519559D00001D5B /* Strikethrough */,
-			);
-			path = Elements;
-			sourceTree = "<group>";
-		};
-		022D5FEB2519559D00001D5B /* Escaping */ = {
-			isa = PBXGroup;
-			children = (
-				022D5FEC2519559D00001D5B /* MarkdownCodeEscaping.swift */,
-				022D5FED2519559D00001D5B /* MarkdownEscaping.swift */,
-				022D5FEE2519559D00001D5B /* MarkdownUnescaping.swift */,
-			);
-			path = Escaping;
-			sourceTree = "<group>";
-		};
-		022D5FEF2519559D00001D5B /* Quote */ = {
-			isa = PBXGroup;
-			children = (
-				022D5FF02519559D00001D5B /* MarkdownQuote.swift */,
-			);
-			path = Quote;
-			sourceTree = "<group>";
-		};
-		022D5FF12519559D00001D5B /* Italic */ = {
-			isa = PBXGroup;
-			children = (
-				022D5FF22519559D00001D5B /* MarkdownItalic.swift */,
-			);
-			path = Italic;
-			sourceTree = "<group>";
-		};
-		022D5FF32519559D00001D5B /* ColoredBackground */ = {
-			isa = PBXGroup;
-			children = (
-				022D5FF42519559D00001D5B /* Highlight */,
-				022D5FF62519559D00001D5B /* Code */,
-				022D5FF82519559D00001D5B /* MarkdownColoredBackground.swift */,
-			);
-			path = ColoredBackground;
-			sourceTree = "<group>";
-		};
-		022D5FF42519559D00001D5B /* Highlight */ = {
-			isa = PBXGroup;
-			children = (
-				022D5FF52519559D00001D5B /* MarkdownHighlight.swift */,
-			);
-			path = Highlight;
-			sourceTree = "<group>";
-		};
-		022D5FF62519559D00001D5B /* Code */ = {
-			isa = PBXGroup;
-			children = (
-				022D5FF72519559D00001D5B /* MarkdownCode.swift */,
-			);
-			path = Code;
-			sourceTree = "<group>";
-		};
-		022D5FF92519559D00001D5B /* Link */ = {
-			isa = PBXGroup;
-			children = (
-				022D5FFA2519559D00001D5B /* MarkdownAutomaticLink.swift */,
-				022D5FFB2519559D00001D5B /* MarkdownLink.swift */,
-			);
-			path = Link;
-			sourceTree = "<group>";
-		};
-		022D5FFC2519559D00001D5B /* Lists */ = {
-			isa = PBXGroup;
-			children = (
-				022D5FFD2519559D00001D5B /* MarkdownList.swift */,
-				E45C20D1251D24BD0022AD95 /* MarkdownNumeric.swift */,
-			);
-			path = Lists;
-			sourceTree = "<group>";
-		};
-		022D5FFE2519559D00001D5B /* Bold */ = {
-			isa = PBXGroup;
-			children = (
-				022D5FFF2519559D00001D5B /* MarkdownBold.swift */,
-			);
-			path = Bold;
-			sourceTree = "<group>";
-		};
-		022D60002519559D00001D5B /* Header */ = {
-			isa = PBXGroup;
-			children = (
-				022D60012519559D00001D5B /* MarkdownHeader.swift */,
-			);
-			path = Header;
-			sourceTree = "<group>";
-		};
-		022D60022519559D00001D5B /* Strikethrough */ = {
-			isa = PBXGroup;
-			children = (
-				022D60032519559D00001D5B /* MarkdownStrikethrough.swift */,
-			);
-			path = Strikethrough;
-			sourceTree = "<group>";
-		};
-		022D60042519559D00001D5B /* Protocols */ = {
-			isa = PBXGroup;
-			children = (
-				022D60052519559D00001D5B /* MarkdownCommonElement.swift */,
-				022D60062519559D00001D5B /* MarkdownLinkElement.swift */,
-				022D60072519559D00001D5B /* MarkdownLevelElement.swift */,
-				022D60082519559D00001D5B /* MarkdownElement.swift */,
-				022D60092519559D00001D5B /* MarkdownStyle.swift */,
-			);
-			path = Protocols;
-			sourceTree = "<group>";
-		};
-		022D602B251955C000001D5B /* Markup */ = {
-			isa = PBXGroup;
-			children = (
-				D9D8753A251BC3D300B842C8 /* PhotoPicker */,
-				022D6026251955B500001D5B /* MarkupTextViewDelegate.swift */,
-				E4277C4B2527B824002CD6B1 /* MarkupFormatViewDelegate.swift */,
-			);
-			path = Markup;
-			sourceTree = "<group>";
-		};
-		022D602F251955D700001D5B /* Markup */ = {
+		022D602F251955D700001D5B /* Markdown */ = {
 			isa = PBXGroup;
 			children = (
 				D9E4B0C8252E316900665CDC /* ImageBoxView.swift */,
 				D9F4A9AD25277AC900BFDC19 /* TextBoxView.swift */,
-				022D602C251955D300001D5B /* MarkupTextView.swift */,
-				D9D87533251BAA6700B842C8 /* MarkupTextField.swift */,
-				D9D87537251BB26500B842C8 /* MarkupToolBar.swift */,
-				1EE652C1252504400015E3D4 /* MarkupContainerView.swift */,
-				1EE652C62525049E0015E3D4 /* MarkupToggleButton.swift */,
-				1EFA49CD252D15C500602904 /* MarkupNavigationView.swift */,
-				1E6E148B252E33E700383E10 /* MarkupBarConfiguration.swift */,
-				E42FC8362530EF78004E81C9 /* MarkupFormatView.swift */,
+				D9D87533251BAA6700B842C8 /* MarkdownTextField.swift */,
+				D9D87537251BB26500B842C8 /* MarkdownToolBar.swift */,
+				1EE652C1252504400015E3D4 /* MarkdownContainerView.swift */,
+				1EE652C62525049E0015E3D4 /* MarkdownToggleButton.swift */,
+				1EFA49CD252D15C500602904 /* MarkdownNavigationView.swift */,
+				1E6E148B252E33E700383E10 /* MarkdownBarConfiguration.swift */,
+				E42FC8362530EF78004E81C9 /* MarkdownFormatView.swift */,
 			);
-			path = Markup;
+			path = Markdown;
 			sourceTree = "<group>";
 		};
 		0247F78B25115B8900405A61 /* Workspace */ = {
@@ -907,7 +639,7 @@
 			children = (
 				D97EE7B9254B558B00A68B06 /* Search */,
 				02E4E99425266F3900290A39 /* NotebookView.swift */,
-				022D602F251955D700001D5B /* Markup */,
+				022D602F251955D700001D5B /* Markdown */,
 				02ECA43A2512ABA600E68588 /* Workspace */,
 				A7BDD60D2514073E00DDB6A0 /* NotebookIndex */,
 				A7C057C325420EEC0023A370 /* Notes */,
@@ -927,7 +659,6 @@
 				022D5FDC2519559D00001D5B /* Fonts.swift */,
 				022E7670253F817900AD967E /* String.swift */,
 				1E9EF4A725225B7A00CC623B /* Notes */,
-				022D5FD92519559D00001D5B /* MarkupKit */,
 				020E22212513F0D400A93EAB /* Strings */,
 				0221BCF425115E150055A2E5 /* Workspace */,
 				A7BDD6082514066700DDB6A0 /* NotebookIndex */,
@@ -943,7 +674,7 @@
 				02AD78F525475C7300C87D2B /* EditableCollectionViewCell.swift */,
 				A74D472325474A210038D388 /* GestureDelegate.swift */,
 				E4017A92252D09DC00ABB87C /* Extensions */,
-				022D602B251955C000001D5B /* Markup */,
+				D9D8753A251BC3D300B842C8 /* PhotoPicker */,
 				0247F78B25115B8900405A61 /* Workspace */,
 				A7BDD5F82513F4DC00DDB6A0 /* Notebook */,
 				A7BC781C253A2925006489CF /* Text Recognition */,
@@ -1366,18 +1097,14 @@
 				023886062523CAEC00F807E9 /* WorkspaceCellNotebookCollectionViewCell.swift in Sources */,
 				02ECA43C2512ABD100E68588 /* NotebookCollectionViewCell.swift in Sources */,
 				A7C057C525420F260023A370 /* NotesToolbar.swift in Sources */,
-				022D60232519559D00001D5B /* MarkdownElement.swift in Sources */,
 				02207A392523A5970001FD7E /* WorkspacesCollectionViewDataSource.swift in Sources */,
 				D9F4A9AB25277A6B00BFDC19 /* CGRectExtension.swift in Sources */,
 				024C5BBC252E41EE009549CE /* ColorSelectionCollectionViewCell.swift in Sources */,
-				022D600B2519559D00001D5B /* MarkdownCode+UIKit.swift in Sources */,
-				1E6E148C252E33E700383E10 /* MarkupBarConfiguration.swift in Sources */,
-				022D60152519559D00001D5B /* MarkdownQuote.swift in Sources */,
+				1E6E148C252E33E700383E10 /* MarkdownBarConfiguration.swift in Sources */,
 				D9F4A9AE25277AC900BFDC19 /* TextBoxView.swift in Sources */,
 				02AD78F625475C7300C87D2B /* EditableCollectionViewCell.swift in Sources */,
 				0247F78D25115BAA00405A61 /* NotebooksSelectionViewController.swift in Sources */,
 				E4017A8D252CEA9B00ABB87C /* AlertController.swift in Sources */,
-				022D601D2519559D00001D5B /* MarkdownBold.swift in Sources */,
 				A731AA7F25374A8A00624131 /* TextEditingContainerViewController.swift in Sources */,
 				D9E4B0C9252E316900665CDC /* ImageBoxView.swift in Sources */,
 				02C21B34254B55BB0061CCBA /* Font.swift in Sources */,
@@ -1390,47 +1117,31 @@
 				024C5BB4252E41D8009549CE /* ColorSelectionCollectionViewDelegate.swift in Sources */,
 				02AD78F225475C5800C87D2B /* EditableCollectionView.swift in Sources */,
 				1E9EF4A925225B9B00CC623B /* TextEditingDelegateObserver.swift in Sources */,
-				022D60172519559D00001D5B /* MarkdownHighlight.swift in Sources */,
-				022D602D251955D300001D5B /* MarkupTextView.swift in Sources */,
-				022D60142519559D00001D5B /* MarkdownUnescaping.swift in Sources */,
-				022D601F2519559D00001D5B /* MarkdownStrikethrough.swift in Sources */,
 				02CD7CA12523B48900A140A3 /* WorkspacesCollectionViewDelegate.swift in Sources */,
 				D97EE7C2254B565600A68B06 /* SearchBarObserver.swift in Sources */,
-				022D60202519559D00001D5B /* MarkdownCommonElement.swift in Sources */,
-				022D60132519559D00001D5B /* MarkdownEscaping.swift in Sources */,
-				022D6028251955B500001D5B /* MarkupTextViewDelegate.swift in Sources */,
 				A7FD9B13253BACF500235D20 /* NotesPageViewObserver.swift in Sources */,
-				022D60182519559D00001D5B /* MarkdownCode.swift in Sources */,
 				D9D87544251BD39F00B842C8 /* PhotoEditingViewController.swift in Sources */,
 				02DD09FC25114D6200B6696B /* AppDelegate.swift in Sources */,
-				022D60112519559D00001D5B /* String+UTF16.swift in Sources */,
-				022D601A2519559D00001D5B /* MarkdownAutomaticLink.swift in Sources */,
-				022D60162519559D00001D5B /* MarkdownItalic.swift in Sources */,
 				02A8BCEC2512A453006B685E /* NotebooksCollectionViewDataSource.swift in Sources */,
 				A731AA7425372F9C00624131 /* IndexObserver.swift in Sources */,
 				02DD09FE25114D6200B6696B /* SceneDelegate.swift in Sources */,
 				1E9EF4AD2522609400CC623B /* MarkupTextFieldDelegate.swift in Sources */,
 				020E22252513F10800A93EAB /* StringExtension.swift in Sources */,
-				1EFA49CE252D15C500602904 /* MarkupNavigationView.swift in Sources */,
-				022D60222519559D00001D5B /* MarkdownLevelElement.swift in Sources */,
+				1EFA49CE252D15C500602904 /* MarkdownNavigationView.swift in Sources */,
 				D97EE7B6254B557A00A68B06 /* SearchResultEnum.swift in Sources */,
-				1EE652C72525049E0015E3D4 /* MarkupToggleButton.swift in Sources */,
+				1EE652C72525049E0015E3D4 /* MarkdownToggleButton.swift in Sources */,
 				02E4E99525266F3900290A39 /* NotebookView.swift in Sources */,
 				D9F4A9A825277A6B00BFDC19 /* CGPointExtension.swift in Sources */,
 				D9F4A9A125277A6000BFDC19 /* BoxView.swift in Sources */,
-				022D60242519559D00001D5B /* MarkdownStyle.swift in Sources */,
 				02E5A22C25239E36009DFFB5 /* WorkspaceSelectionViewController.swift in Sources */,
 				024C5BB8252E41E2009549CE /* ColorSelectionCollectionViewDataSource.swift in Sources */,
 				026C3CAC251942A7001E32AE /* NotesViewController.swift in Sources */,
 				A74D472425474A220038D388 /* GestureDelegate.swift in Sources */,
 				A77579EF2538C9CC00F4268C /* NotesBarButtonItems.swift in Sources */,
 				1E9290C1252FA68600E8B142 /* MarkupContainerViewController.swift in Sources */,
-				1EE652C2252504400015E3D4 /* MarkupContainerView.swift in Sources */,
-				022D60212519559D00001D5B /* MarkdownLinkElement.swift in Sources */,
+				1EE652C2252504400015E3D4 /* MarkdownContainerView.swift in Sources */,
 				02695ECE25279EAE007D60C3 /* AddWorkspaceViewController.swift in Sources */,
 				024C5BB3252E41D8009549CE /* AddNotebookViewController.swift in Sources */,
-				022D60192519559D00001D5B /* MarkdownColoredBackground.swift in Sources */,
-				E4FCA4942523B52F00DE88B8 /* MarkdownEditor.swift in Sources */,
 				D97EE7AE254B554F00A68B06 /* CustomUISearchController.swift in Sources */,
 				A73C94BA253F84E8004EFA4F /* PhotoPickerDelegate.swift in Sources */,
 				A7BDD60A251406D900DDB6A0 /* TableViewDataSource.swift in Sources */,
@@ -1439,36 +1150,25 @@
 				A792F03A25279E8400AB1766 /* NotebookIndexTableViewDelegate.swift in Sources */,
 				022E7671253F817900AD967E /* String.swift in Sources */,
 				1E1D9CD22549EB2D00E2D7A7 /* NotebookEntityToPDFExtension.swift in Sources */,
-				022D600E2519559D00001D5B /* Typealias+UIKit.swift in Sources */,
 				0230E078253A3CED009C5A76 /* UIDeviceOrientation.swift in Sources */,
-				D9D87538251BB26500B842C8 /* MarkupToolBar.swift in Sources */,
+				D9D87538251BB26500B842C8 /* MarkdownToolBar.swift in Sources */,
 				02207A3E2523AB160001FD7E /* WorkspaceCollectionViewCell.swift in Sources */,
 				D9F04BEC25377D5E001C6551 /* AddNoteViewController.swift in Sources */,
 				D97EE7B7254B557A00A68B06 /* SearchResultCollectionViewDataSource.swift in Sources */,
-				022D600C2519559D00001D5B /* MarkdownLink+UIKit.swift in Sources */,
 				A7BDD60F2514078600DDB6A0 /* NotebookIndexTableViewCell.swift in Sources */,
-				022D600F2519559D00001D5B /* MarkdownParser+UIKit.swift in Sources */,
 				A72942E7253A13D800C788EE /* ImageButtonObserver.swift in Sources */,
 				A7BDD5FF2513F83F00DDB6A0 /* IndexViewController.swift in Sources */,
-				E45C20D2251D24BD0022AD95 /* MarkdownNumeric.swift in Sources */,
 				D9BBA584252FAB28004B724F /* AddWorkspaceObserver.swift in Sources */,
 				020FFA38252502E40095266D /* Colors.swift in Sources */,
 				D97EE7AD254B554F00A68B06 /* SearchResultCollectionViewDelegate.swift in Sources */,
-				D9D87534251BAA6700B842C8 /* MarkupTextField.swift in Sources */,
+				D9D87534251BAA6700B842C8 /* MarkdownTextField.swift in Sources */,
 				A71E2C1E2538EEB8000DA164 /* NotesPageViewControllerDelegate.swift in Sources */,
-				022D600D2519559D00001D5B /* MarkdownHeader+UIKit.swift in Sources */,
-				E42FC8372530EF78004E81C9 /* MarkupFormatView.swift in Sources */,
-				022D601C2519559D00001D5B /* MarkdownList.swift in Sources */,
-				022D601B2519559D00001D5B /* MarkdownLink.swift in Sources */,
-				022D601E2519559D00001D5B /* MarkdownHeader.swift in Sources */,
+				E42FC8372530EF78004E81C9 /* MarkdownFormatView.swift in Sources */,
 				02458EDC2525094C00466BFF /* WorkspaceCellNotebookCollectionViewDelegate.swift in Sources */,
-				022D60102519559D00001D5B /* MarkdownParser.swift in Sources */,
-				E4277C4C2527B824002CD6B1 /* MarkupFormatViewDelegate.swift in Sources */,
 				1E47C56C254377BE00535DDD /* NoteEntityToPDFExtension.swift in Sources */,
 				D9F04BF025378236001C6551 /* AddNoteObserver.swift in Sources */,
 				A71E2C212538EF51000DA164 /* NotesPageViewControllerDataSource.swift in Sources */,
 				D9F4A9A925277A6B00BFDC19 /* CornerEnum.swift in Sources */,
-				022D60122519559D00001D5B /* MarkdownCodeEscaping.swift in Sources */,
 				A71E2C1D2538EEB8000DA164 /* NotesPageViewController.swift in Sources */,
 				D996CEC3252FA608009D31F8 /* AddNewSpaceTextFieldDelegate.swift in Sources */,
 				023886022523CA2700F807E9 /* WorkspaceCellNotebookCollectionViewDataSource.swift in Sources */,

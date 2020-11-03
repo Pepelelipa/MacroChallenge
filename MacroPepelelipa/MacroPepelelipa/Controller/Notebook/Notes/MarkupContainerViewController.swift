@@ -16,12 +16,12 @@ internal class MarkupContainerViewController: UIViewController {
     private weak var textView: MarkupTextView?
     private weak var delegate: MarkupFormatViewDelegate?
     
-    internal private(set) lazy var formatView: MarkupFormatView? = {
+    internal private(set) lazy var formatView: MarkdownFormatView? = {
         guard let textView = self.textView, let delegate = self.delegate, let viewController = self.viewController else {
             return nil
         }
         
-        return MarkupFormatView(frame: CGRect(x: 0, y: 0, width: preferredContentSize.width, height: preferredContentSize.height), owner: textView, delegate: delegate, viewController: viewController)
+        return MarkdownFormatView(frame: CGRect(x: 0, y: 0, width: preferredContentSize.width, height: preferredContentSize.height), owner: textView, delegate: delegate, viewController: viewController)
     }()
     
     // MARK: - Initializers

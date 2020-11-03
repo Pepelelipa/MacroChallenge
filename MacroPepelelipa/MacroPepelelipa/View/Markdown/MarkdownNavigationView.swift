@@ -8,17 +8,17 @@
 
 import UIKit
 
-internal class MarkupNavigationView: UIView {
+internal class MarkdownNavigationView: UIView {
     
     // MARK: - Variables and Constants
     
     private var navigationItem: UINavigationItem?
-    private weak var markupBarConfiguration: MarkupBarConfiguration?
+    private weak var markupBarConfiguration: MarkdownBarConfiguration?
     private static var paragraphButton: UIBarButtonItem?
     
     internal static var headerStyle: HeaderStyle = .h1 {
         didSet {
-            if MarkupToolBar.headerStyle == .h1 {
+            if MarkdownToolBar.headerStyle == .h1 {
                 paragraphButton?.image = UIImage(named: "h1")
             }
         }
@@ -34,7 +34,7 @@ internal class MarkupNavigationView: UIView {
     
     // MARK: - Initializers
     
-    internal init(frame: CGRect, configurations: MarkupBarConfiguration) {
+    internal init(frame: CGRect, configurations: MarkdownBarConfiguration) {
         self.markupBarConfiguration = configurations
         super.init(frame: frame)
         
@@ -51,7 +51,7 @@ internal class MarkupNavigationView: UIView {
     
     internal required convenience init?(coder: NSCoder) {
         guard let frame = coder.decodeObject(forKey: "frame") as? CGRect,
-              let configuration = coder.decodeObject(forKey: "configurations") as? MarkupBarConfiguration else {
+              let configuration = coder.decodeObject(forKey: "configurations") as? MarkdownBarConfiguration else {
             return nil
         }
         self.init(frame: frame, configurations: configuration)

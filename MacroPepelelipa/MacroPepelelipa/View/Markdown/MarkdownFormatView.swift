@@ -26,7 +26,7 @@ internal enum FontSelector: String {
     case dancingScript = "Dancing"
 }
 
-internal class MarkupFormatView: UIView {
+internal class MarkdownFormatView: UIView {
     
     // MARK: - Variables and Constants
 
@@ -34,12 +34,12 @@ internal class MarkupFormatView: UIView {
     internal weak var viewController: NotesViewController?
     internal weak var delegate: MarkupFormatViewDelegate?
     
-    internal private(set) lazy var colorSelector: [ColorSelector: MarkupToggleButton] = {
-        var buttons = [ColorSelector: MarkupToggleButton]()
+    internal private(set) lazy var colorSelector: [ColorSelector: MarkdownToggleButton] = {
+        var buttons = [ColorSelector: MarkdownToggleButton]()
         var buttonColors: [UIColor] = [UIColor.bodyColor ?? .black, UIColor.notebookColors[4], UIColor.notebookColors[14]]
         
         buttonColors.forEach { (color) in
-            var newButton = MarkupToggleButton(frame: .zero, color: color)
+            var newButton = MarkdownToggleButton(frame: .zero, color: color)
             newButton.translatesAutoresizingMaskIntoConstraints = false
             newButton.addTarget(delegate, action: #selector(delegate?.changeTextColor), for: .touchDown)
             
@@ -55,8 +55,8 @@ internal class MarkupFormatView: UIView {
         return buttons
     }()
     
-    internal private(set) lazy var formatSelector: [FormatSelector: MarkupToggleButton] = {
-        var buttons = [FormatSelector: MarkupToggleButton]()
+    internal private(set) lazy var formatSelector: [FormatSelector: MarkdownToggleButton] = {
+        var buttons = [FormatSelector: MarkdownToggleButton]()
         var imageNames: [FormatSelector: String] = [.italic: "italic", .bold: "bold", .highlight: "pencil.tip"]
         
         for (key, imageName) in imageNames {
@@ -80,8 +80,8 @@ internal class MarkupFormatView: UIView {
         return buttons
     }()
     
-    internal private(set) lazy var fontSelector: [FontSelector: MarkupToggleButton] = {
-        var buttons = [FontSelector: MarkupToggleButton]()
+    internal private(set) lazy var fontSelector: [FontSelector: MarkdownToggleButton] = {
+        var buttons = [FontSelector: MarkdownToggleButton]()
         let systemFont = UIFont.systemFont(ofSize: UIFont.labelFontSize)
         var fonts: [UIFont: FontSelector] = [UIFont.merriweather ?? systemFont: .merriweather, UIFont.openSans ?? systemFont: .openSans, UIFont.dancingScript ?? systemFont: .dancingScript]
         
@@ -139,14 +139,14 @@ internal class MarkupFormatView: UIView {
         - titleLabel: The string containing the button's title.
      - Returns: The created MarkupToggleButton.
      */
-    private func createButton(normalStateImage: UIImage?, titleLabel: String?, font: UIFont? = nil) -> MarkupToggleButton {
-        var button = MarkupToggleButton(normalStateImage: nil, title: nil)
+    private func createButton(normalStateImage: UIImage?, titleLabel: String?, font: UIFont? = nil) -> MarkdownToggleButton {
+        var button = MarkdownToggleButton(normalStateImage: nil, title: nil)
         
         if normalStateImage != nil {
-            let markupButton = MarkupToggleButton(normalStateImage: normalStateImage, title: nil)
+            let markupButton = MarkdownToggleButton(normalStateImage: normalStateImage, title: nil)
             button = markupButton
         } else if titleLabel != nil {
-            let markupButton = MarkupToggleButton(normalStateImage: nil, title: titleLabel, font: font)
+            let markupButton = MarkdownToggleButton(normalStateImage: nil, title: titleLabel, font: font)
             button = markupButton
         }
         return button
@@ -293,7 +293,7 @@ internal class MarkupFormatView: UIView {
      This method updates the color selectors by comparing each one with the sender button.
      - Parameter sender: The MarkupToggleButton that was last selected.
      */
-    internal func updateColorSelectors(sender: MarkupToggleButton) {
+    internal func updateColorSelectors(sender: MarkdownToggleButton) {
         for (_, button) in colorSelector where button != sender {
             button.isSelected = false
         }
@@ -303,7 +303,7 @@ internal class MarkupFormatView: UIView {
      This method updates the font selectors by comparing each one with the sender button.
      - Parameter sender: The MarkupToggleButton that was last selected.
      */
-    internal func updateFontSelectors(sender: MarkupToggleButton) {
+    internal func updateFontSelectors(sender: MarkdownToggleButton) {
         for (_, button) in fontSelector where button != sender {
             button.isSelected = false
             button.setTintColor()
