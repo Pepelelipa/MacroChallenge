@@ -172,6 +172,10 @@
 "New note label" = "Write a new note";
 "New note hint" = "Double tap to add a new note at the end of this notebook";
 
+"Index hint" = "Double tap to go to the note %@";
+
+"Selected" = "Selected";
+
 // MARK: - Colors
 
 "nb0" = "Aero Blue";

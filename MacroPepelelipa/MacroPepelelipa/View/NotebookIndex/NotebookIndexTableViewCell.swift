@@ -39,6 +39,10 @@ internal class NotebookIndexTableViewCell: UITableViewCell {
         }
         set {
             lessonLbl.text = newValue
+            
+            if let value = newValue {
+                self.accessibilityHint = String(format: "Index hint".localized(), value)
+            }
         }
     }
     

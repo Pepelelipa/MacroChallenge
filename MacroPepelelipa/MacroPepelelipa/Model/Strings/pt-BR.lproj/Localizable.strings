@@ -174,6 +174,11 @@
 "New note label" = "Escrever nova nota";
 "New note hint" = "Toque duas vezes para adicionar uma nova nota no final deste caderno";
 
+"Index hint" = "Toque duas vezes para ir para a nota %@";
+
+"Selected" = "Selecionada";
+
+
 // MARK: - Colors
 
 "nb0" = "Azul Aero";
