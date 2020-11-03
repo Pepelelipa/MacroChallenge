@@ -7,6 +7,14 @@
 //
 
 internal class WorkspaceObject: WorkspaceEntity {
+
+    func getID() throws -> UUID {
+        if let id = coreDataObject.id {
+            return id
+        }
+        throw ObservableError.idWasNull
+    }
+
     public var name: String {
         didSet {
             coreDataObject.name = name
@@ -35,7 +43,7 @@ internal class WorkspaceObject: WorkspaceEntity {
         self.coreDataObject = workspace
         self.name = workspace.name ?? ""
         self.isEnabled = workspace.isEnabled
-
+        
         if let notebooks = coreDataObject.notebooks?.array as? [Notebook] {
             notebooks.forEach { (notebook) in
                 _ = NotebookObject(in: self, from: notebook)
