@@ -8,6 +8,13 @@
 
 internal class NoteObject: NoteEntity {
 
+    func getID() throws -> UUID {
+        if let id = coreDataObject.id {
+            return id
+        }
+        throw ObservableError.idWasNull
+    }
+
     func getNotebook() throws -> NotebookEntity {
         if let notebook = notebook {
             return notebook
