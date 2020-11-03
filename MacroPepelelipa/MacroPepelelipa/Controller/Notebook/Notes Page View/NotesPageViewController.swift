@@ -176,6 +176,7 @@ internal class NotesPageViewController: UIPageViewController,
                 preferredStyle: .alert).makeDeleteConfirmation(dataType: .note) { _ in
                 do {
                     try DataManager.shared().deleteNote(note)
+                    SpotlightController.deleteSearchableNote(note: note, identifier: "Teste")
                     viewController.shouldSave = false
                     if !self.removePresentingNote(note: note) {
                         self.navigationController?.popViewController(animated: true)

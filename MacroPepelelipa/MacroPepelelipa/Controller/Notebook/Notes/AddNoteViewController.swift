@@ -178,6 +178,7 @@ internal class AddNoteViewController: UIViewController, AddNoteObserver {
                 }
                 let note = try DataManager.shared().createNote(in: guardedNotebook)
                 note.title = NSAttributedString(string: text)
+                SpotlightController.createSearchableNote(note: note, identifier: "Teste")
                 try note.save()
             } catch {
                 let alertController = UIAlertController(

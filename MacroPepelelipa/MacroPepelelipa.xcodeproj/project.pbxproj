@@ -144,6 +144,7 @@
 		D97EE7B7254B557A00A68B06 /* SearchResultCollectionViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D97EE7B5254B557A00A68B06 /* SearchResultCollectionViewDataSource.swift */; };
 		D97EE7BB254B558B00A68B06 /* SearchResultCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D97EE7BA254B558B00A68B06 /* SearchResultCollectionReusableView.swift */; };
 		D97EE7C2254B565600A68B06 /* SearchBarObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = D97EE7C1254B565600A68B06 /* SearchBarObserver.swift */; };
+		D97EE7D2254CAE4400A68B06 /* SpotlightController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D97EE7D1254CAE4400A68B06 /* SpotlightController.swift */; };
 		D996CEC3252FA608009D31F8 /* AddNewSpaceTextFieldDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D996CEC2252FA608009D31F8 /* AddNewSpaceTextFieldDelegate.swift */; };
 		D9BBA584252FAB28004B724F /* AddWorkspaceObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BBA583252FAB28004B724F /* AddWorkspaceObserver.swift */; };
 		D9D87534251BAA6700B842C8 /* MarkupTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D87533251BAA6700B842C8 /* MarkupTextField.swift */; };
@@ -357,6 +358,7 @@
 		D97EE7B5254B557A00A68B06 /* SearchResultCollectionViewDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchResultCollectionViewDataSource.swift; sourceTree = "<group>"; };
 		D97EE7BA254B558B00A68B06 /* SearchResultCollectionReusableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchResultCollectionReusableView.swift; sourceTree = "<group>"; };
 		D97EE7C1254B565600A68B06 /* SearchBarObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarObserver.swift; sourceTree = "<group>"; };
+		D97EE7D1254CAE4400A68B06 /* SpotlightController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotlightController.swift; sourceTree = "<group>"; };
 		D996CEC2252FA608009D31F8 /* AddNewSpaceTextFieldDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddNewSpaceTextFieldDelegate.swift; sourceTree = "<group>"; };
 		D9BBA583252FAB28004B724F /* AddWorkspaceObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddWorkspaceObserver.swift; sourceTree = "<group>"; };
 		D9D87533251BAA6700B842C8 /* MarkupTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkupTextField.swift; sourceTree = "<group>"; };
@@ -937,6 +939,7 @@
 		02DD0A1225114EA200B6696B /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				D97EE7D0254CAE0C00A68B06 /* Spotlight */,
 				D97EE7A5254B554F00A68B06 /* Search */,
 				02AD78F125475C5800C87D2B /* EditableCollectionView.swift */,
 				02AD78F525475C7300C87D2B /* EditableCollectionViewCell.swift */,
@@ -1055,6 +1058,14 @@
 				D97EE7BA254B558B00A68B06 /* SearchResultCollectionReusableView.swift */,
 			);
 			path = Search;
+			sourceTree = "<group>";
+		};
+		D97EE7D0254CAE0C00A68B06 /* Spotlight */ = {
+			isa = PBXGroup;
+			children = (
+				D97EE7D1254CAE4400A68B06 /* SpotlightController.swift */,
+			);
+			path = Spotlight;
 			sourceTree = "<group>";
 		};
 		D9D8753A251BC3D300B842C8 /* PhotoPicker */ = {
@@ -1393,6 +1404,7 @@
 				022D60142519559D00001D5B /* MarkdownUnescaping.swift in Sources */,
 				022D601F2519559D00001D5B /* MarkdownStrikethrough.swift in Sources */,
 				02CD7CA12523B48900A140A3 /* WorkspacesCollectionViewDelegate.swift in Sources */,
+				D97EE7D2254CAE4400A68B06 /* SpotlightController.swift in Sources */,
 				D97EE7C2254B565600A68B06 /* SearchBarObserver.swift in Sources */,
 				022D60202519559D00001D5B /* MarkdownCommonElement.swift in Sources */,
 				022D60132519559D00001D5B /* MarkdownEscaping.swift in Sources */,

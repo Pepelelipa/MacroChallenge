@@ -7,9 +7,11 @@
 //
 
 import UIKit
+import CoreSpotlight
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
+    var window: UIWindow?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         return true
@@ -25,6 +27,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, supportedInterfaceOrientationsFor window: UIWindow?) -> UIInterfaceOrientationMask {
         return self.orientationLock
     }
+    
+    //TODO
+//    func application(_ application: UIApplication, 
+//                     continue userActivity: NSUserActivity, 
+//                     restorationHandler: @escaping ([UIUserActivityRestoring]?) -> Void) -> Bool {
+//        if userActivity.activityType == CSSearchableItemActionType {
+//                if let uniqueIdentifier = userActivity.userInfo?[CSSearchableItemActivityIdentifier] as? String {
+//                    if let navigationController = window?.rootViewController as? UINavigationController {
+//                        if let viewController = navigationController.topViewController as? NotesViewController {
+//                            print("OI")
+//                        }
+//                    }
+//                }
+//            }
+//
+//            return true
+//    }
 }
 
 struct AppUtility {
