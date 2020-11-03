@@ -40,6 +40,8 @@ internal class NotesViewController: UIViewController,
     private lazy var textField: MarkupTextField = {
         let textField = MarkupTextField(frame: .zero, placeholder: "Your Title".localized(), paddingSpace: 4)
         textField.delegate = self.textFieldDelegate
+        textField.accessibilityLabel = "Note title".localized()
+        textField.accessibilityHint = "Note title hint".localized()
         return textField
     }()
     
@@ -71,6 +73,7 @@ internal class NotesViewController: UIViewController,
     internal private(set) lazy var textView: MarkupTextView = {
         let  markupTextView = MarkupTextView(frame: .zero, delegate: self.textViewDelegate)
         markupTextView.contentInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
+        markupTextView.accessibilityLabel = "Note".localized()
         return markupTextView
     }()
     

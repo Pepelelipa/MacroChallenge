@@ -155,6 +155,25 @@
 
 "Edit notebook name hint" = "Toque duas vezes para editar as informações deste caderno";
 
+"Note title" = "Título da nota";
+"Note title hint" = "Insira o título da nota neste campo de texto";
+
+"Index" = "Sumário";
+"Index button label" = "Sumário do caderno %@";
+"Index button hint" = "Toque duas vezes para ir para o sumário deste caderno";
+
+"Delete note label" = "Apagar nota";
+"Delete note hint" = "Toque duas vezes para apagar a nota";
+
+"Add image label" = "Adicionar imagem";
+"Add image hint" = "Toque duas vezes para adicionar uma imagem à nota";
+
+"Share note label" = "Compartilhar nota";
+"Share note hint" = "Toque duas vezes para compartilhar esta nota";
+
+"New note label" = "Escrever nova nota";
+"New note hint" = "Toque duas vezes para adicionar uma nova nota no final deste caderno";
+
 // MARK: - Colors
 
 "nb0" = "Azul Aero";

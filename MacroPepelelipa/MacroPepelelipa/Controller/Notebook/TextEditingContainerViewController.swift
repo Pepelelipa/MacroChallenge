@@ -28,6 +28,10 @@ internal class TextEditingContainerViewController: UIViewController,
         let item = UIBarButtonItem(ofType: .index, 
                                    target: self, 
                                    action: #selector(presentNotebookIndex))
+        
+        item.accessibilityLabel = "Index button label".localized()
+        item.accessibilityHint = "Index button hint".localized()
+        
         return item
     }()
     
