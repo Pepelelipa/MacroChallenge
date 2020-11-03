@@ -47,7 +47,6 @@
 		022832F3252E5F9C00DDD46B /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 022832F2252E5F9C00DDD46B /* DataManager.swift */; };
 		022832F7252E603800DDD46B /* EntityObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 022832F6252E603800DDD46B /* EntityObserver.swift */; };
 		022832FB252E6C4200DDD46B /* ObservableEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 022832FA252E6C4200DDD46B /* ObservableEntity.swift */; };
-		022D600A2519559D00001D5B /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 022D5FDC2519559D00001D5B /* Fonts.swift */; };
 		022E7671253F817900AD967E /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 022E7670253F817900AD967E /* String.swift */; };
 		0230E078253A3CED009C5A76 /* UIDeviceOrientation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0230E077253A3CED009C5A76 /* UIDeviceOrientation.swift */; };
 		023886022523CA2700F807E9 /* WorkspaceCellNotebookCollectionViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 023886012523CA2700F807E9 /* WorkspaceCellNotebookCollectionViewDataSource.swift */; };
@@ -55,6 +54,7 @@
 		023989CD2551E68F009BFC32 /* MarkdownText.h in Headers */ = {isa = PBXBuildFile; fileRef = 023989CB2551E68F009BFC32 /* MarkdownText.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		023989D02551E68F009BFC32 /* MarkdownText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 023989C92551E68F009BFC32 /* MarkdownText.framework */; };
 		023989D12551E68F009BFC32 /* MarkdownText.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 023989C92551E68F009BFC32 /* MarkdownText.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		023989F12551E776009BFC32 /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C21B33254B55BB0061CCBA /* Font.swift */; };
 		02458EDC2525094C00466BFF /* WorkspaceCellNotebookCollectionViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02458EDB2525094C00466BFF /* WorkspaceCellNotebookCollectionViewDelegate.swift */; };
 		0247F78D25115BAA00405A61 /* NotebooksSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0247F78C25115BAA00405A61 /* NotebooksSelectionViewController.swift */; };
 		024C5BB3252E41D8009549CE /* AddNotebookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 024C5BB1252E41D8009549CE /* AddNotebookViewController.swift */; };
@@ -239,7 +239,6 @@
 		022832F2252E5F9C00DDD46B /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		022832F6252E603800DDD46B /* EntityObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntityObserver.swift; sourceTree = "<group>"; };
 		022832FA252E6C4200DDD46B /* ObservableEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservableEntity.swift; sourceTree = "<group>"; };
-		022D5FDC2519559D00001D5B /* Fonts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
 		022E7670253F817900AD967E /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		0230E077253A3CED009C5A76 /* UIDeviceOrientation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIDeviceOrientation.swift; sourceTree = "<group>"; };
 		023886012523CA2700F807E9 /* WorkspaceCellNotebookCollectionViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkspaceCellNotebookCollectionViewDataSource.swift; sourceTree = "<group>"; };
@@ -524,6 +523,14 @@
 			path = "App-Database";
 			sourceTree = "<group>";
 		};
+		023989EE2551E756009BFC32 /* All */ = {
+			isa = PBXGroup;
+			children = (
+				02C21B33254B55BB0061CCBA /* Font.swift */,
+			);
+			path = All;
+			sourceTree = "<group>";
+		};
 		0247F78B25115B8900405A61 /* Workspace */ = {
 			isa = PBXGroup;
 			children = (
@@ -593,18 +600,10 @@
 		026D4C7C251D1A6E00CBED5A /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				023989EE2551E756009BFC32 /* All */,
 				023989E72551E726009BFC32 /* App-Database */,
-				026D4C7D251D1A8000CBED5A /* Model */,
 			);
 			path = Shared;
-			sourceTree = "<group>";
-		};
-		026D4C7D251D1A8000CBED5A /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				02C21B33254B55BB0061CCBA /* Font.swift */,
-			);
-			path = Model;
 			sourceTree = "<group>";
 		};
 		0292F5EA252508C300AFB495 /* WorkspaceSelection */ = {
@@ -721,7 +720,6 @@
 				D97EE7B3254B557A00A68B06 /* Search */,
 				0230E077253A3CED009C5A76 /* UIDeviceOrientation.swift */,
 				020FFA37252502E30095266D /* Colors.swift */,
-				022D5FDC2519559D00001D5B /* Fonts.swift */,
 				022E7670253F817900AD967E /* String.swift */,
 				1E9EF4A725225B7A00CC623B /* Notes */,
 				020E22212513F0D400A93EAB /* Strings */,
@@ -1150,6 +1148,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				023989F12551E776009BFC32 /* Font.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1256,7 +1255,6 @@
 				D97EE7AE254B554F00A68B06 /* CustomUISearchController.swift in Sources */,
 				A73C94BA253F84E8004EFA4F /* PhotoPickerDelegate.swift in Sources */,
 				A7BDD60A251406D900DDB6A0 /* TableViewDataSource.swift in Sources */,
-				022D600A2519559D00001D5B /* Fonts.swift in Sources */,
 				D9F4A9AA25277A6B00BFDC19 /* ResizeHandleView.swift in Sources */,
 				A792F03A25279E8400AB1766 /* NotebookIndexTableViewDelegate.swift in Sources */,
 				022E7671253F817900AD967E /* String.swift in Sources */,
