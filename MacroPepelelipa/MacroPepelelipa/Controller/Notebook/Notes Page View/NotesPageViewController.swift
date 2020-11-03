@@ -43,6 +43,13 @@ internal class NotesPageViewController: UIPageViewController,
         return item
     }()
     
+    private lazy var presentTipButton: UIBarButtonItem = {
+        let item = UIBarButtonItem(ofType: .index, 
+                                   target: self, 
+                                   action: #selector(presentTip))
+        return item
+    }()
+    
     private lazy var doneButton: UIBarButtonItem = {
         let item = UIBarButtonItem(ofType: .done,
                                    target: self,
@@ -95,7 +102,7 @@ internal class NotesPageViewController: UIPageViewController,
         view.backgroundColor = .rootColor
         
         navigationItem.largeTitleDisplayMode = .never
-        navigationItem.rightBarButtonItems = [notebookIndexButton]
+        navigationItem.rightBarButtonItems = [notebookIndexButton, presentTipButton]
         
         setupNotesToolbarActions()
         
@@ -279,6 +286,13 @@ internal class NotesPageViewController: UIPageViewController,
                                                                           note: notes[index])
             notebookIndexViewController.observer = self
             self.present(notebookIndexViewController, animated: true, completion: nil)
+        }
+    }
+    
+    @IBAction private func presentTip() {
+        if let _ = self.notebook {
+            let tipViewController = TipViewController()
+            self.present(tipViewController, animated: true, completion: nil)
         }
     }
     
