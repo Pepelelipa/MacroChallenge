@@ -19,7 +19,6 @@ internal class CoreDataController {
                 fatalError("Unresolved error \(error), \(error.userInfo)")
             }
         })
-        NSAttributedStringTransformer.register()
         return container
     }()
     ///Context of our CoreData

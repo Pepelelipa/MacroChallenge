@@ -548,7 +548,7 @@ internal class NotesViewController: UIViewController,
     
     // MARK: - Uptade exclusion path frames
     
-    private func updateExclusionPaths() {
+    internal func updateExclusionPaths() {
         exclusionPaths.removeAll()
         
         imageBoxes.forEach { (imageBox) in
