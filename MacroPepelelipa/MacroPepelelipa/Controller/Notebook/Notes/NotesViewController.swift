@@ -303,7 +303,6 @@ internal class NotesViewController: UIViewController,
     /// This method adds a image box or a transcripted text from selected image in a text box to the current note
     private func addMedia(from image: UIImage) {
         DispatchQueue.main.async {
-            
             let alert = UIAlertController(title: "Image or text?".localized(), 
                                           message: "Import the media as an image or as a text transcription (Beta version)".localized(), 
                                           preferredStyle: .alert)
@@ -317,7 +316,7 @@ internal class NotesViewController: UIViewController,
                 let textRecognition = TextRecognitionManager()
                 let transcription = textRecognition.imageRequest(toImage: image)
                 
-                self.createTextBox(transcription: transcription)
+                self.textView.insertText("\n\"\(transcription)\"\n")
             }
             
             alert.view.tintColor = .actionColor
