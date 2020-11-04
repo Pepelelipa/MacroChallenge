@@ -553,17 +553,17 @@ internal class NotesViewController: UIViewController,
         let picker = PHPickerViewController(configuration: config)
         picker.delegate = photoPickerDelegate
         
-        let photoLibraryAction = UIAlertAction(title: "Fotos e Vídeos", style: .default) { (action) in
+        let photoLibraryAction = UIAlertAction(title: "Photos".localized(), style: .default) { (_) in
             self.present(picker, animated: true, completion: nil)
         }
         
-        let cameraAction = UIAlertAction(title: "Câmera", style: .default) { (action) in
+        let cameraAction = UIAlertAction(title: "Camera".localized(), style: .default) { (_) in
             self.showImagePickerController(sourceType: .camera)
         }
         
         let alertController = UIAlertController()
 
-        alertController.createMultipleActionsAlert(on: self, title: "Choose your image", message: "Tip: you can transcript text from an image.", actions: [photoLibraryAction, cameraAction])
+        alertController.createMultipleActionsAlert(on: self, title: "Choose your image".localized(), message: "Tip for transcripting text".localized(), actions: [photoLibraryAction, cameraAction])
         
         #endif
     }

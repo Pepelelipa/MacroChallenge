@@ -62,8 +62,9 @@ extension UIAlertController {
             alert.addAction(actions[i])
         }
         
-        let dismissAction = UIAlertAction(title: "Cancelar", style: .cancel, handler: nil)
+        let dismissAction = UIAlertAction(title: "Cancel".localized(), style: .cancel, handler: nil)
         alert.addAction(dismissAction)
+        alert.view.tintColor = UIColor.actionColor
         viewController.present(alert, animated: true, completion: nil)
     }
 }
