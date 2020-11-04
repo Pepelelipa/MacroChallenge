@@ -231,6 +231,7 @@ internal class NotesPageViewController: UIPageViewController,
         }
     }
     
+    ///This method updates the current notes being displayed by the page view
     internal func updateNotes() {
         if let updatedNotebook = notebook {
             notes = updatedNotebook.notes
@@ -272,6 +273,7 @@ internal class NotesPageViewController: UIPageViewController,
     
     // MARK: - IBActions functions
     
+    /// This method presets the current notebook index
     @IBAction private func presentNotebookIndex() {
         if let presentNotebook = self.notebook {
             
@@ -282,7 +284,7 @@ internal class NotesPageViewController: UIPageViewController,
         }
     }
     
-    // This method is called 
+    /// This method stops editing the view
     @IBAction private func closeKeyboard() {
         self.view.endEditing(true)
     }
