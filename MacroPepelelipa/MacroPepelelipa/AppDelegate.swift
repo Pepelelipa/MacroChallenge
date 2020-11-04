@@ -28,22 +28,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return self.orientationLock
     }
     
+    
     //TODO
-//    func application(_ application: UIApplication, 
-//                     continue userActivity: NSUserActivity, 
-//                     restorationHandler: @escaping ([UIUserActivityRestoring]?) -> Void) -> Bool {
-//        if userActivity.activityType == CSSearchableItemActionType {
-//                if let uniqueIdentifier = userActivity.userInfo?[CSSearchableItemActivityIdentifier] as? String {
-//                    if let navigationController = window?.rootViewController as? UINavigationController {
-//                        if let viewController = navigationController.topViewController as? NotesViewController {
-//                            print("OI")
-//                        }
-//                    }
-//                }
-//            }
-//
-//            return true
-//    }
+    func application(_ application: UIApplication, continue userActivity: NSUserActivity, restorationHandler: @escaping ([UIUserActivityRestoring]?) -> Void) -> Bool {
+        
+        if userActivity.activityType == CSSearchableItemActionType {
+            guard let confirmedUserInfo = userActivity.userInfo,
+                let uniqueIdentifier = confirmedUserInfo[CSSearchableItemActivityIdentifier] as? String else {
+                    return false
+            }
+            return true
+        } else {
+            return false
+        }
+    }
 }
 
 struct AppUtility {

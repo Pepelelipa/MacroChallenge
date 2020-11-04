@@ -28,6 +28,23 @@ internal class CoreDataController {
     internal func fetchWorkspaces() throws -> [Workspace] {
         return try context.fetch(Workspace.fetchRequest())
     }
+    
+    //TODO
+    
+    internal func fetchWorkspace(title: String) throws -> Workspace? {
+        let workspaceFetchRequest = NSFetchRequest<Workspace>(entityName: "Workspace")
+        workspaceFetchRequest.predicate = NSPredicate(format: "name == %@", title)
+        return try context.fetch(workspaceFetchRequest).first
+    }
+    
+    internal func fetchNote(identifier: String) throws -> Note? {
+        let noteFetchRequest = NSFetchRequest<Note>(entityName: "Note")
+        noteFetchRequest.predicate = NSPredicate(format: "title == %@", identifier)
+        guard let note = try context.fetch(noteFetchRequest).first else {
+            return nil
+        }
+        return note
+    }
 
     // MARK: Workspace
     /**
