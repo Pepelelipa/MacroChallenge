@@ -25,7 +25,7 @@ internal class MarkdownContainerView: MarkdownFormatView, TextEditingDelegateObs
         button.tintColor = UIColor.placeholderColor
         button.setBackgroundImage(UIImage(systemName: "xmark.circle"), for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
-//        button.addTarget(delegate, action: #selector(delegate?.dismissContainer), for: .touchDown)
+//        button.addTargedelegate, action: #selector(delegate?.dismissContainer), for: .touchDown)
         return button
     }()
     

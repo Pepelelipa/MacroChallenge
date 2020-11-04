@@ -452,4 +452,28 @@ public class MarkdownTextView: UITextView {
             }
         }
     }
+    
+    // MARK: - UIResponderStandardEditActions
+    
+    public override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
+        let superCanPerformBold = super.canPerformAction(#selector(UIResponderStandardEditActions.toggleBoldface(_:)), withSender: sender)
+        
+        if action == Selector(("_showTextStyleOptions:")) && !superCanPerformBold {
+            return true
+        }
+        
+        return super.canPerformAction(action, withSender: sender)
+    }
+    
+    public override func toggleBoldface(_ sender: Any?) {
+        self.setBold(!self.isBold)
+    }
+    
+    public override func toggleItalics(_ sender: Any?) {
+        self.setItalic(!self.isItalic)
+    }
+    
+    public override func toggleUnderline(_ sender: Any?) {
+        self.setUnderlined(!self.isUnderlined)
+    }
 }
