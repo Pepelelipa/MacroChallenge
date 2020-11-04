@@ -176,16 +176,23 @@ internal class MarkupContainerView: MarkupFormatView, TextEditingDelegateObserve
         
         for (key, selector) in formatSelector where key != .italic {
             var lastSelector = italic
+            
             if key == .highlight {
                 lastSelector = bold
+                NSLayoutConstraint.activate([
+                    selector.widthAnchor.constraint(equalTo: backgroundView.heightAnchor, multiplier: 0.15)
+                ])
+            } else {
+                NSLayoutConstraint.activate([
+                    selector.widthAnchor.constraint(equalTo: italic.widthAnchor)
+                ])
             }
             
             NSLayoutConstraint.activate([
                 selector.topAnchor.constraint(equalTo: italic.topAnchor),
                 selector.trailingAnchor.constraint(equalTo: lastSelector.leadingAnchor, constant: -16),
                 selector.bottomAnchor.constraint(equalTo: italic.bottomAnchor),
-                selector.heightAnchor.constraint(equalTo: backgroundView.heightAnchor, multiplier: 0.15),
-                selector.widthAnchor.constraint(equalTo: italic.widthAnchor)
+                selector.heightAnchor.constraint(equalTo: backgroundView.heightAnchor, multiplier: 0.15)
             ])
         }
     }
