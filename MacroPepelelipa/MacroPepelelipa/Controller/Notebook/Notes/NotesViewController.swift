@@ -275,6 +275,7 @@ internal class NotesViewController: UIViewController,
                 }
             }
             try note.save()
+            SpotlightController.editSearchableNote(note: note)
         } catch {
             let alertController = UIAlertController(
                 title: "Error saving the notebook".localized(),
