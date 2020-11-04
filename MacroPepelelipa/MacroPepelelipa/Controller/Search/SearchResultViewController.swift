@@ -64,8 +64,6 @@ internal class SearchResultViewController: UIViewController {
                 } else {
                     do {
                         note = try DataManager.shared().createNote(in: notebook)
-                        note.title = NSAttributedString(string: "Lesson".localized())
-                        try note.save()
                     } catch {
                         self.presentErrorAlert(of: .notebook)
                     }
