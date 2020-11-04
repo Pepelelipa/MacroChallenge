@@ -31,7 +31,6 @@
 		021107AE252F8EE30009D4E1 /* CoreDataError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 021107AD252F8EE30009D4E1 /* CoreDataError.swift */; };
 		021107C5252FADC90009D4E1 /* TextBoxError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 021107C4252FADC90009D4E1 /* TextBoxError.swift */; };
 		021107C8252FADE00009D4E1 /* ImageBoxError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 021107C7252FADE00009D4E1 /* ImageBoxError.swift */; };
-		021A96422548BDA800BA26A0 /* NSAttributedString Transformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 021A96412548BDA800BA26A0 /* NSAttributedString Transformer.swift */; };
 		02207A392523A5970001FD7E /* WorkspacesCollectionViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02207A382523A5970001FD7E /* WorkspacesCollectionViewDataSource.swift */; };
 		02207A3E2523AB160001FD7E /* WorkspaceCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02207A3D2523AB160001FD7E /* WorkspaceCollectionViewCell.swift */; };
 		022832D9252E547200DDD46B /* DataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 022832D7252E547200DDD46B /* DataModel.xcdatamodeld */; };
@@ -81,6 +80,7 @@
 		0230E078253A3CED009C5A76 /* UIDeviceOrientation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0230E077253A3CED009C5A76 /* UIDeviceOrientation.swift */; };
 		023886022523CA2700F807E9 /* WorkspaceCellNotebookCollectionViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 023886012523CA2700F807E9 /* WorkspaceCellNotebookCollectionViewDataSource.swift */; };
 		023886062523CAEC00F807E9 /* WorkspaceCellNotebookCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 023886052523CAEC00F807E9 /* WorkspaceCellNotebookCollectionViewCell.swift */; };
+		02398A962551FE8E009BFC32 /* ObservableError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02398A952551FE8E009BFC32 /* ObservableError.swift */; };
 		02458EDC2525094C00466BFF /* WorkspaceCellNotebookCollectionViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02458EDB2525094C00466BFF /* WorkspaceCellNotebookCollectionViewDelegate.swift */; };
 		0247F78D25115BAA00405A61 /* NotebooksSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0247F78C25115BAA00405A61 /* NotebooksSelectionViewController.swift */; };
 		024C5BB3252E41D8009549CE /* AddNotebookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 024C5BB1252E41D8009549CE /* AddNotebookViewController.swift */; };
@@ -104,6 +104,8 @@
 		02AC9ADA251BF35200A067D0 /* NotebooksCollectionViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02AC9AD9251BF35200A067D0 /* NotebooksCollectionViewDelegate.swift */; };
 		02AD78F225475C5800C87D2B /* EditableCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02AD78F125475C5800C87D2B /* EditableCollectionView.swift */; };
 		02AD78F625475C7300C87D2B /* EditableCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02AD78F525475C7300C87D2B /* EditableCollectionViewCell.swift */; };
+		02C21B34254B55BB0061CCBA /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C21B33254B55BB0061CCBA /* Font.swift */; };
+		02C21B35254B55BB0061CCBA /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C21B33254B55BB0061CCBA /* Font.swift */; };
 		02CD7CA12523B48900A140A3 /* WorkspacesCollectionViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02CD7CA02523B48900A140A3 /* WorkspacesCollectionViewDelegate.swift */; };
 		02DD09FC25114D6200B6696B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02DD09FB25114D6200B6696B /* AppDelegate.swift */; };
 		02DD09FE25114D6200B6696B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02DD09FD25114D6200B6696B /* SceneDelegate.swift */; };
@@ -137,6 +139,13 @@
 		A7C057C525420F260023A370 /* NotesToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7C057C425420F260023A370 /* NotesToolbar.swift */; };
 		A7FD9B13253BACF500235D20 /* NotesPageViewObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7FD9B12253BACF500235D20 /* NotesPageViewObserver.swift */; };
 		D96DAA09252F9F4B00552AB1 /* AddNewSpaceToolBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = D96DAA08252F9F4B00552AB1 /* AddNewSpaceToolBar.swift */; };
+		D97EE7AC254B554F00A68B06 /* SearchResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D97EE7A7254B554F00A68B06 /* SearchResultViewController.swift */; };
+		D97EE7AD254B554F00A68B06 /* SearchResultCollectionViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D97EE7A8254B554F00A68B06 /* SearchResultCollectionViewDelegate.swift */; };
+		D97EE7AE254B554F00A68B06 /* CustomUISearchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D97EE7A9254B554F00A68B06 /* CustomUISearchController.swift */; };
+		D97EE7B6254B557A00A68B06 /* SearchResultEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = D97EE7B4254B557A00A68B06 /* SearchResultEnum.swift */; };
+		D97EE7B7254B557A00A68B06 /* SearchResultCollectionViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D97EE7B5254B557A00A68B06 /* SearchResultCollectionViewDataSource.swift */; };
+		D97EE7BB254B558B00A68B06 /* SearchResultCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D97EE7BA254B558B00A68B06 /* SearchResultCollectionReusableView.swift */; };
+		D97EE7C2254B565600A68B06 /* SearchBarObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = D97EE7C1254B565600A68B06 /* SearchBarObserver.swift */; };
 		D996CEC3252FA608009D31F8 /* AddNewSpaceTextFieldDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D996CEC2252FA608009D31F8 /* AddNewSpaceTextFieldDelegate.swift */; };
 		D9BBA584252FAB28004B724F /* AddWorkspaceObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BBA583252FAB28004B724F /* AddWorkspaceObserver.swift */; };
 		D9D87534251BAA6700B842C8 /* MarkupTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D87533251BAA6700B842C8 /* MarkupTextField.swift */; };
@@ -235,7 +244,6 @@
 		021107AD252F8EE30009D4E1 /* CoreDataError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataError.swift; sourceTree = "<group>"; };
 		021107C4252FADC90009D4E1 /* TextBoxError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextBoxError.swift; sourceTree = "<group>"; };
 		021107C7252FADE00009D4E1 /* ImageBoxError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageBoxError.swift; sourceTree = "<group>"; };
-		021A96412548BDA800BA26A0 /* NSAttributedString Transformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSAttributedString Transformer.swift"; sourceTree = "<group>"; };
 		02207A382523A5970001FD7E /* WorkspacesCollectionViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkspacesCollectionViewDataSource.swift; sourceTree = "<group>"; };
 		02207A3D2523AB160001FD7E /* WorkspaceCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkspaceCollectionViewCell.swift; sourceTree = "<group>"; };
 		022832D8252E547200DDD46B /* DataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DataModel.xcdatamodel; sourceTree = "<group>"; };
@@ -285,6 +293,7 @@
 		0230E077253A3CED009C5A76 /* UIDeviceOrientation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIDeviceOrientation.swift; sourceTree = "<group>"; };
 		023886012523CA2700F807E9 /* WorkspaceCellNotebookCollectionViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkspaceCellNotebookCollectionViewDataSource.swift; sourceTree = "<group>"; };
 		023886052523CAEC00F807E9 /* WorkspaceCellNotebookCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkspaceCellNotebookCollectionViewCell.swift; sourceTree = "<group>"; };
+		02398A952551FE8E009BFC32 /* ObservableError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservableError.swift; sourceTree = "<group>"; };
 		02458EDB2525094C00466BFF /* WorkspaceCellNotebookCollectionViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkspaceCellNotebookCollectionViewDelegate.swift; sourceTree = "<group>"; };
 		0247F78C25115BAA00405A61 /* NotebooksSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotebooksSelectionViewController.swift; sourceTree = "<group>"; };
 		024C5BB1252E41D8009549CE /* AddNotebookViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddNotebookViewController.swift; sourceTree = "<group>"; };
@@ -307,6 +316,7 @@
 		02AC9AD9251BF35200A067D0 /* NotebooksCollectionViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotebooksCollectionViewDelegate.swift; sourceTree = "<group>"; };
 		02AD78F125475C5800C87D2B /* EditableCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditableCollectionView.swift; sourceTree = "<group>"; };
 		02AD78F525475C7300C87D2B /* EditableCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditableCollectionViewCell.swift; sourceTree = "<group>"; };
+		02C21B33254B55BB0061CCBA /* Font.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Font.swift; sourceTree = "<group>"; };
 		02CD7CA02523B48900A140A3 /* WorkspacesCollectionViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkspacesCollectionViewDelegate.swift; sourceTree = "<group>"; };
 		02DD09F825114D6200B6696B /* MacroPepelelipa.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MacroPepelelipa.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		02DD09FB25114D6200B6696B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -343,6 +353,13 @@
 		A7C057C425420F260023A370 /* NotesToolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesToolbar.swift; sourceTree = "<group>"; };
 		A7FD9B12253BACF500235D20 /* NotesPageViewObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesPageViewObserver.swift; sourceTree = "<group>"; };
 		D96DAA08252F9F4B00552AB1 /* AddNewSpaceToolBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewSpaceToolBar.swift; sourceTree = "<group>"; };
+		D97EE7A7254B554F00A68B06 /* SearchResultViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchResultViewController.swift; sourceTree = "<group>"; };
+		D97EE7A8254B554F00A68B06 /* SearchResultCollectionViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchResultCollectionViewDelegate.swift; sourceTree = "<group>"; };
+		D97EE7A9254B554F00A68B06 /* CustomUISearchController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomUISearchController.swift; sourceTree = "<group>"; };
+		D97EE7B4254B557A00A68B06 /* SearchResultEnum.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchResultEnum.swift; sourceTree = "<group>"; };
+		D97EE7B5254B557A00A68B06 /* SearchResultCollectionViewDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchResultCollectionViewDataSource.swift; sourceTree = "<group>"; };
+		D97EE7BA254B558B00A68B06 /* SearchResultCollectionReusableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchResultCollectionReusableView.swift; sourceTree = "<group>"; };
+		D97EE7C1254B565600A68B06 /* SearchBarObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarObserver.swift; sourceTree = "<group>"; };
 		D996CEC2252FA608009D31F8 /* AddNewSpaceTextFieldDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddNewSpaceTextFieldDelegate.swift; sourceTree = "<group>"; };
 		D9BBA583252FAB28004B724F /* AddWorkspaceObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddWorkspaceObserver.swift; sourceTree = "<group>"; };
 		D9D87533251BAA6700B842C8 /* MarkupTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkupTextField.swift; sourceTree = "<group>"; };
@@ -442,6 +459,7 @@
 				021107AD252F8EE30009D4E1 /* CoreDataError.swift */,
 				021107C4252FADC90009D4E1 /* TextBoxError.swift */,
 				021107C7252FADE00009D4E1 /* ImageBoxError.swift */,
+				02398A952551FE8E009BFC32 /* ObservableError.swift */,
 			);
 			path = Errors;
 			sourceTree = "<group>";
@@ -487,7 +505,6 @@
 				022832E4252E5CE900DDD46B /* Notebook+CoreDataClass.swift */,
 				022832E5252E5CE900DDD46B /* Notebook+CoreDataProperties.swift */,
 				022832D7252E547200DDD46B /* DataModel.xcdatamodeld */,
-				021A96412548BDA800BA26A0 /* NSAttributedString Transformer.swift */,
 			);
 			path = CoreData;
 			sourceTree = "<group>";
@@ -793,6 +810,7 @@
 			children = (
 				025C015525379C6D009923B2 /* FileHelper.swift */,
 				020E22242513F10800A93EAB /* StringExtension.swift */,
+				02C21B33254B55BB0061CCBA /* Font.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -890,6 +908,7 @@
 		02DD0A1025114E9800B6696B /* View */ = {
 			isa = PBXGroup;
 			children = (
+				D97EE7B9254B558B00A68B06 /* Search */,
 				02E4E99425266F3900290A39 /* NotebookView.swift */,
 				022D602F251955D700001D5B /* Markup */,
 				02ECA43A2512ABA600E68588 /* Workspace */,
@@ -905,6 +924,7 @@
 		02DD0A1125114E9D00B6696B /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				D97EE7B3254B557A00A68B06 /* Search */,
 				0230E077253A3CED009C5A76 /* UIDeviceOrientation.swift */,
 				020FFA37252502E30095266D /* Colors.swift */,
 				022D5FDC2519559D00001D5B /* Fonts.swift */,
@@ -921,6 +941,7 @@
 		02DD0A1225114EA200B6696B /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				D97EE7A5254B554F00A68B06 /* Search */,
 				02AD78F125475C5800C87D2B /* EditableCollectionView.swift */,
 				02AD78F525475C7300C87D2B /* EditableCollectionViewCell.swift */,
 				A74D472325474A210038D388 /* GestureDelegate.swift */,
@@ -1010,6 +1031,34 @@
 				A7FD9B12253BACF500235D20 /* NotesPageViewObserver.swift */,
 			);
 			path = "Notes Page View";
+			sourceTree = "<group>";
+		};
+		D97EE7A5254B554F00A68B06 /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				D97EE7A7254B554F00A68B06 /* SearchResultViewController.swift */,
+				D97EE7A8254B554F00A68B06 /* SearchResultCollectionViewDelegate.swift */,
+				D97EE7A9254B554F00A68B06 /* CustomUISearchController.swift */,
+			);
+			path = Search;
+			sourceTree = "<group>";
+		};
+		D97EE7B3254B557A00A68B06 /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				D97EE7B4254B557A00A68B06 /* SearchResultEnum.swift */,
+				D97EE7B5254B557A00A68B06 /* SearchResultCollectionViewDataSource.swift */,
+				D97EE7C1254B565600A68B06 /* SearchBarObserver.swift */,
+			);
+			path = Search;
+			sourceTree = "<group>";
+		};
+		D97EE7B9254B558B00A68B06 /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				D97EE7BA254B558B00A68B06 /* SearchResultCollectionReusableView.swift */,
+			);
+			path = Search;
 			sourceTree = "<group>";
 		};
 		D9D8753A251BC3D300B842C8 /* PhotoPicker */ = {
@@ -1288,6 +1337,7 @@
 				0207772C251D191B00D97B5A /* NotebookEntity.swift in Sources */,
 				026D4C7E251D1A8E00CBED5A /* StringExtension.swift in Sources */,
 				022832EA252E5CE900DDD46B /* ImageBox+CoreDataClass.swift in Sources */,
+				02C21B35254B55BB0061CCBA /* Font.swift in Sources */,
 				02077729251D191600D97B5A /* WorkspaceEntity.swift in Sources */,
 				022832EF252E5CE900DDD46B /* Notebook+CoreDataProperties.swift in Sources */,
 				0211079A252F89BB0009D4E1 /* NotebookIndexObject.swift in Sources */,
@@ -1297,7 +1347,6 @@
 				02110797252F89530009D4E1 /* NotebookError.swift in Sources */,
 				02A75297252E5316006D37B5 /* CoreDataController.swift in Sources */,
 				022832E9252E5CE900DDD46B /* TextBox+CoreDataProperties.swift in Sources */,
-				021A96422548BDA800BA26A0 /* NSAttributedString Transformer.swift in Sources */,
 				021107C8252FADE00009D4E1 /* ImageBoxError.swift in Sources */,
 				021107AE252F8EE30009D4E1 /* CoreDataError.swift in Sources */,
 				0282EB71253A2E9E009CB4AC /* FileHelper.swift in Sources */,
@@ -1308,6 +1357,7 @@
 				022832E6252E5CE900DDD46B /* Note+CoreDataClass.swift in Sources */,
 				022832F3252E5F9C00DDD46B /* DataManager.swift in Sources */,
 				0207772F251D192000D97B5A /* NoteEntity.swift in Sources */,
+				02398A962551FE8E009BFC32 /* ObservableError.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1334,10 +1384,13 @@
 				022D601D2519559D00001D5B /* MarkdownBold.swift in Sources */,
 				A731AA7F25374A8A00624131 /* TextEditingContainerViewController.swift in Sources */,
 				D9E4B0C9252E316900665CDC /* ImageBoxView.swift in Sources */,
+				02C21B34254B55BB0061CCBA /* Font.swift in Sources */,
 				A7BC781E253A2995006489CF /* TextRecognitionManager.swift in Sources */,
 				D96DAA09252F9F4B00552AB1 /* AddNewSpaceToolBar.swift in Sources */,
 				E41209532538C1020088AC26 /* EmptyScreenView.swift in Sources */,
+				D97EE7AC254B554F00A68B06 /* SearchResultViewController.swift in Sources */,
 				02AC9ADA251BF35200A067D0 /* NotebooksCollectionViewDelegate.swift in Sources */,
+				D97EE7BB254B558B00A68B06 /* SearchResultCollectionReusableView.swift in Sources */,
 				024C5BB4252E41D8009549CE /* ColorSelectionCollectionViewDelegate.swift in Sources */,
 				02AD78F225475C5800C87D2B /* EditableCollectionView.swift in Sources */,
 				1E9EF4A925225B9B00CC623B /* TextEditingDelegateObserver.swift in Sources */,
@@ -1346,6 +1399,7 @@
 				022D60142519559D00001D5B /* MarkdownUnescaping.swift in Sources */,
 				022D601F2519559D00001D5B /* MarkdownStrikethrough.swift in Sources */,
 				02CD7CA12523B48900A140A3 /* WorkspacesCollectionViewDelegate.swift in Sources */,
+				D97EE7C2254B565600A68B06 /* SearchBarObserver.swift in Sources */,
 				022D60202519559D00001D5B /* MarkdownCommonElement.swift in Sources */,
 				022D60132519559D00001D5B /* MarkdownEscaping.swift in Sources */,
 				022D6028251955B500001D5B /* MarkupTextViewDelegate.swift in Sources */,
@@ -1363,6 +1417,7 @@
 				020E22252513F10800A93EAB /* StringExtension.swift in Sources */,
 				1EFA49CE252D15C500602904 /* MarkupNavigationView.swift in Sources */,
 				022D60222519559D00001D5B /* MarkdownLevelElement.swift in Sources */,
+				D97EE7B6254B557A00A68B06 /* SearchResultEnum.swift in Sources */,
 				1EE652C72525049E0015E3D4 /* MarkupToggleButton.swift in Sources */,
 				02E4E99525266F3900290A39 /* NotebookView.swift in Sources */,
 				D9F4A9A825277A6B00BFDC19 /* CGPointExtension.swift in Sources */,
@@ -1380,6 +1435,7 @@
 				024C5BB3252E41D8009549CE /* AddNotebookViewController.swift in Sources */,
 				022D60192519559D00001D5B /* MarkdownColoredBackground.swift in Sources */,
 				E4FCA4942523B52F00DE88B8 /* MarkdownEditor.swift in Sources */,
+				D97EE7AE254B554F00A68B06 /* CustomUISearchController.swift in Sources */,
 				A73C94BA253F84E8004EFA4F /* PhotoPickerDelegate.swift in Sources */,
 				A7BDD60A251406D900DDB6A0 /* TableViewDataSource.swift in Sources */,
 				022D600A2519559D00001D5B /* Fonts.swift in Sources */,
@@ -1392,6 +1448,7 @@
 				D9D87538251BB26500B842C8 /* MarkupToolBar.swift in Sources */,
 				02207A3E2523AB160001FD7E /* WorkspaceCollectionViewCell.swift in Sources */,
 				D9F04BEC25377D5E001C6551 /* AddNoteViewController.swift in Sources */,
+				D97EE7B7254B557A00A68B06 /* SearchResultCollectionViewDataSource.swift in Sources */,
 				022D600C2519559D00001D5B /* MarkdownLink+UIKit.swift in Sources */,
 				A7BDD60F2514078600DDB6A0 /* NotebookIndexTableViewCell.swift in Sources */,
 				022D600F2519559D00001D5B /* MarkdownParser+UIKit.swift in Sources */,
@@ -1400,6 +1457,7 @@
 				E45C20D2251D24BD0022AD95 /* MarkdownNumeric.swift in Sources */,
 				D9BBA584252FAB28004B724F /* AddWorkspaceObserver.swift in Sources */,
 				020FFA38252502E40095266D /* Colors.swift in Sources */,
+				D97EE7AD254B554F00A68B06 /* SearchResultCollectionViewDelegate.swift in Sources */,
 				D9D87534251BAA6700B842C8 /* MarkupTextField.swift in Sources */,
 				A71E2C1E2538EEB8000DA164 /* NotesPageViewControllerDelegate.swift in Sources */,
 				022D600D2519559D00001D5B /* MarkdownHeader+UIKit.swift in Sources */,
@@ -1670,7 +1728,7 @@
 				CODE_SIGN_ENTITLEMENTS = MacroPepelelipa/MacroPepelelipa.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 4;
-				DEVELOPMENT_TEAM = X54K5PJVGU;
+				DEVELOPMENT_TEAM = Q9Y63W6Q4X;
 				INFOPLIST_FILE = MacroPepelelipa/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

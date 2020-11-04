@@ -65,7 +65,7 @@ internal class NotesPageViewController: UIPageViewController,
     
     internal init(notes: [NoteEntity]) {
         self.notes = notes
-        super.init(transitionStyle: .scroll, navigationOrientation: .vertical, options: .none)
+        super.init(transitionStyle: .scroll, navigationOrientation: .horizontal, options: .none)
         setNotesViewControllers(for: NotesViewController(note: notes[notes.count-1]))
         
         do {
@@ -87,7 +87,7 @@ internal class NotesPageViewController: UIPageViewController,
         }
     }
     
-    internal convenience required init?(coder: NSCoder) {
+    internal required convenience init?(coder: NSCoder) {
         guard let notes = coder.decodeObject(forKey: "notes") as? [NoteEntity] else {
             return nil
         }
@@ -240,6 +240,7 @@ internal class NotesPageViewController: UIPageViewController,
         }
     }
     
+    ///This method updates the current notes being displayed by the page view
     internal func updateNotes() {
         if let updatedNotebook = notebook {
             notes = updatedNotebook.notes
@@ -281,6 +282,7 @@ internal class NotesPageViewController: UIPageViewController,
     
     // MARK: - IBActions functions
     
+    /// This method presets the current notebook index
     @IBAction private func presentNotebookIndex() {
         if let presentNotebook = self.notebook {
             
@@ -291,7 +293,7 @@ internal class NotesPageViewController: UIPageViewController,
         }
     }
     
-    // This method is called 
+    /// This method stops editing the view
     @IBAction private func closeKeyboard() {
         self.view.endEditing(true)
     }

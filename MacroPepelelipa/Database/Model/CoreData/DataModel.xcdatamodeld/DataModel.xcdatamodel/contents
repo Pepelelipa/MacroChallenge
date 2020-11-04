@@ -10,6 +10,7 @@
         <relationship name="note" maxCount="1" deletionRule="Nullify" destinationEntity="Note" inverseName="images" inverseEntity="Note"/>
     </entity>
     <entity name="Note" representedClassName=".Note" syncable="YES">
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="text" optional="YES" attributeType="Binary" valueTransformerName="NSAttributedStringTransformer" customClassName="NSData"/>
         <attribute name="title" optional="YES" attributeType="Binary" valueTransformerName="NSAttributedStringTransformer" customClassName="NSData"/>
         <relationship name="images" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="ImageBox" inverseName="note" inverseEntity="ImageBox"/>
@@ -18,6 +19,7 @@
     </entity>
     <entity name="Notebook" representedClassName="Notebook" syncable="YES">
         <attribute name="colorName" attributeType="String" defaultValueString="nb0"/>
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="name" attributeType="String"/>
         <relationship name="notes" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="Note" inverseName="notebook" inverseEntity="Note"/>
         <relationship name="workspace" maxCount="1" deletionRule="Nullify" destinationEntity="Workspace" inverseName="notebooks" inverseEntity="Workspace"/>
@@ -32,15 +34,16 @@
         <relationship name="note" maxCount="1" deletionRule="Nullify" destinationEntity="Note" inverseName="textBoxes" inverseEntity="Note"/>
     </entity>
     <entity name="Workspace" representedClassName="Workspace" syncable="YES">
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="isEnabled" optional="YES" attributeType="Boolean" defaultValueString="YES" usesScalarValueType="YES"/>
         <attribute name="name" optional="YES" attributeType="String"/>
         <relationship name="notebooks" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="Notebook" inverseName="workspace" inverseEntity="Notebook"/>
     </entity>
     <elements>
         <element name="ImageBox" positionX="0" positionY="45" width="128" height="148"/>
-        <element name="Note" positionX="-18" positionY="27" width="128" height="118"/>
-        <element name="Notebook" positionX="-54" positionY="-9" width="128" height="103"/>
+        <element name="Note" positionX="-18" positionY="27" width="128" height="133"/>
+        <element name="Notebook" positionX="-54" positionY="-9" width="128" height="118"/>
         <element name="TextBox" positionX="18" positionY="63" width="128" height="148"/>
-        <element name="Workspace" positionX="-63" positionY="-18" width="128" height="88"/>
+        <element name="Workspace" positionX="-63" positionY="-18" width="128" height="103"/>
     </elements>
 </model>

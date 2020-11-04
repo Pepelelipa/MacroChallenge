@@ -6,7 +6,16 @@
 //  Copyright © 2020 Pedro Giuliano Farina. All rights reserved.
 //
 
+import UIKit
+
 internal class NotebookObject: NotebookEntity {
+
+    func getID() throws -> UUID {
+        if let id = coreDataObject.id {
+            return id
+        }
+        throw ObservableError.idWasNull
+    }
 
     private weak var workspace: WorkspaceObject?
     public func getWorkspace() throws -> WorkspaceEntity {
@@ -38,7 +47,12 @@ internal class NotebookObject: NotebookEntity {
         var indexes: [NotebookIndexObject] = []
         for note in notes {
             indexes.append(NotebookIndexObject(index: note.title.string, note: note, isTitle: true))
-            //TODO: get the H1 texts from note
+            note.text.enumerateAttribute(.font, in: NSRange(location: 0, length: note.text.length), options: .longestEffectiveRangeNotRequired) { (font, range, _) in
+                if font as? UIFont == UIFont.firstHeaderFont {
+                    let text = note.text.attributedSubstring(from: range).string
+                    indexes.append(NotebookIndexObject(index: text, note: note, isTitle: false))
+                }
+            }
         }
         return indexes
     }

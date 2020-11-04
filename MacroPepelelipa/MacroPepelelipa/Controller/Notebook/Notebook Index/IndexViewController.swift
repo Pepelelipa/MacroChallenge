@@ -100,7 +100,7 @@ internal class NotebookIndexViewController: UIViewController {
         super.init(nibName: nil, bundle: nil)
     }
 
-    internal convenience required init?(coder: NSCoder) {
+    internal required convenience init?(coder: NSCoder) {
         guard let notebook = coder.decodeObject(forKey: "notebook") as? NotebookEntity,
               let note = coder.decodeObject(forKey: "note") as? NoteEntity else {
             return nil
