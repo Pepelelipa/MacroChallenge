@@ -95,8 +95,28 @@ internal class NotesViewController: UIViewController,
     }()
     
     #if !targetEnvironment(macCatalyst)
-    internal lazy var photoPickerDelegate = PhotoPickerDelegate { (results) in
-        self.addMedia(from: results)
+    internal lazy var photoPickerDelegate = PhotoPickerDelegate { (image, error) in
+        if let error = error {
+            let alertController = UIAlertController(
+                title: "Error presenting Photo Library".localized(),
+                message: "The app could not present the Photo Library".localized(),
+                preferredStyle: .alert)
+                .makeErrorMessage(with: "The app could not load the native Image Picker Controller".localized())
+            DispatchQueue.main.async {
+                self.present(alertController, animated: true, completion: nil)
+            }
+            NSLog("Error requesting -> \(error)")
+            return
+        }
+        if let image = image {
+            self.addMedia(from: image)
+        }
+    }
+    
+    internal lazy var imagePickerDelegate = ImagePickerDelegate { (image) in
+        if let image = image {
+            self.addMedia(from: image)
+        }
     }
     #endif
     
@@ -270,52 +290,42 @@ internal class NotesViewController: UIViewController,
     }
     
     #if !targetEnvironment(macCatalyst)
-    private func addMedia(from results: [PHPickerResult]) {
+    /// This method presents the image picker for accessing the camera
+    internal func showImagePickerController(sourceType: UIImagePickerController.SourceType) {
+        let imagePickerController = UIImagePickerController()
+        imagePickerController.delegate = imagePickerDelegate
+        imagePickerController.allowsEditing = true
+        imagePickerController.sourceType = sourceType
         
-        if let itemProvider = results.first?.itemProvider, itemProvider.canLoadObject(ofClass: UIImage.self) {
-            itemProvider.loadObject(ofClass: UIImage.self) { [weak self] (loadedImage, error) in
-                if let error = error, let self = self {
-                    let alertController = UIAlertController(
-                        title: "Error presenting Photo Library".localized(),
-                        message: "The app could not present the Photo Library".localized(),
-                        preferredStyle: .alert)
-                        .makeErrorMessage(with: "The app could not load the native Image Picker Controller".localized())
-                    DispatchQueue.main.async {
-                        self.present(alertController, animated: true, completion: nil)
-                    }
-                    NSLog("Error requesting -> \(error)")
-                    return
-                }
-                
-                DispatchQueue.main.async {
-                    guard let image = loadedImage as? UIImage else {
-                        return
-                    }
-                    
-                    let alert = UIAlertController(title: "Image or text?".localized(), 
-                                                  message: "Import the media as an image or as a text transcription (Beta version)".localized(), 
-                                                  preferredStyle: .alert)
-                    
-                    let importImageAction = UIAlertAction(title: "Image".localized(), style: .default) { (_) in
-                        self?.createImageBox(image: image)
-                    }
-                    
-                    let importTextAction = UIAlertAction(title: "Text".localized(), style: .default) { (_) in
-                        
-                        let textRecognition = TextRecognitionManager()
-                        let transcription = textRecognition.imageRequest(toImage: image)
-                        
-                        self?.createTextBox(transcription: transcription)
-                    }
-                    
-                    alert.view.tintColor = .actionColor
-                    
-                    alert.addAction(importImageAction)
-                    alert.addAction(importTextAction)
-                    
-                    self?.present(alert, animated: true, completion: nil)
-                }
+        present(imagePickerController, animated: true, completion: nil)
+    }
+    
+    /// This method adds a image box or a transcripted text from selected image in a text box to the current note
+    private func addMedia(from image: UIImage) {
+        DispatchQueue.main.async {
+            
+            let alert = UIAlertController(title: "Image or text?".localized(), 
+                                          message: "Import the media as an image or as a text transcription (Beta version)".localized(), 
+                                          preferredStyle: .alert)
+            
+            let importImageAction = UIAlertAction(title: "Image".localized(), style: .default) { (_) in
+                self.createImageBox(image: image)
             }
+            
+            let importTextAction = UIAlertAction(title: "Text".localized(), style: .default) { (_) in
+                
+                let textRecognition = TextRecognitionManager()
+                let transcription = textRecognition.imageRequest(toImage: image)
+                
+                self.createTextBox(transcription: transcription)
+            }
+            
+            alert.view.tintColor = .actionColor
+            
+            alert.addAction(importImageAction)
+            alert.addAction(importTextAction)
+            
+            self.present(alert, animated: true, completion: nil)
         }
     }
     #endif
@@ -521,12 +531,22 @@ internal class NotesViewController: UIViewController,
         #if !targetEnvironment(macCatalyst)
         var config = PHPickerConfiguration()
         config.filter = .images
-                
-        let picker = PHPickerViewController(configuration: config)
-        
-        picker.delegate = photoPickerDelegate
 
-        present(picker, animated: true, completion: nil)
+        let picker = PHPickerViewController(configuration: config)
+        picker.delegate = photoPickerDelegate
+        
+        let photoLibraryAction = UIAlertAction(title: "Library".localized(), style: .default) { (_) in
+            self.present(picker, animated: true, completion: nil)
+        }
+        
+        let cameraAction = UIAlertAction(title: "Camera".localized(), style: .default) { (_) in
+            self.showImagePickerController(sourceType: .camera)
+        }
+        
+        let alertController = UIAlertController()
+
+        alertController.createMultipleActionsAlert(on: self, title: "Choose your image".localized(), message: "Tip for transcripting text".localized(), actions: [photoLibraryAction, cameraAction])
+        
         #endif
     }
     
