@@ -9,6 +9,7 @@
 import CoreSpotlight
 import MobileCoreServices
 import Database
+import Dispatch
 
 internal struct SpotlightController {
     

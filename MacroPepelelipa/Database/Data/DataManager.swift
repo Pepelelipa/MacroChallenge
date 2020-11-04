@@ -49,14 +49,21 @@ public class DataManager {
         return cdWorkspaces.map({ WorkspaceObject(from: $0) })
     }
     
-    //TODO
-    public func fetchWorkspace(title: String) throws -> WorkspaceEntity? {
-        guard let cdWorkspace = try coreDataController.fetchWorkspace(title: title) else {
+    public func fetchWorkspace(identifier: String) throws -> WorkspaceEntity? {
+        guard let cdWorkspace = try coreDataController.fetchWorkspace(identifier: identifier) else {
             return nil
         }
-        
         return WorkspaceObject(from: cdWorkspace)
     } 
+    
+    public func fetchNotebook(identifier: String) throws -> NotebookEntity? {
+        guard let cdNotebook = try coreDataController.fetchNotebook(identifier: identifier), let cdWorkspace = cdNotebook.workspace else {
+            return nil
+        }
+        let workspace = WorkspaceObject(from: cdWorkspace)
+        
+        return NotebookObject(in: workspace, from: cdNotebook)
+    }
     
     public func fetchNote(identifier: String) throws -> NoteEntity? {
         

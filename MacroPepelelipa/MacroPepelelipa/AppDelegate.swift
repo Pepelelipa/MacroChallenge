@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreSpotlight
+import Database
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -28,7 +29,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return self.orientationLock
     }
     
-    
     //TODO
     func application(_ application: UIApplication, continue userActivity: NSUserActivity, restorationHandler: @escaping ([UIUserActivityRestoring]?) -> Void) -> Bool {
         
@@ -36,6 +36,38 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             guard let confirmedUserInfo = userActivity.userInfo,
                 let uniqueIdentifier = confirmedUserInfo[CSSearchableItemActivityIdentifier] as? String else {
                     return false
+            }
+            
+            do {
+                
+                let workspace = try DataManager.shared().fetchWorkspace(identifier: uniqueIdentifier)
+                if let guardedWorkspace = workspace {
+
+                    pushToWorkspace(workspace: guardedWorkspace)
+                    return true
+                }
+                let notebook = try DataManager.shared().fetchNotebook(identifier: uniqueIdentifier)
+                if let guardedNotebook = notebook {
+                    
+                    do {
+                        let notebookWorkspace = try guardedNotebook.getWorkspace()
+                        pushToNotebook(workspace: notebookWorkspace, notebook: guardedNotebook)
+                        return true
+                    }                  
+                }
+                let note = try DataManager.shared().fetchNote(identifier: uniqueIdentifier)
+                if let guardedNote = note {
+                    
+                    do {
+                        let noteNotebook = try guardedNote.getNotebook()
+                        let noteWorkspace = try noteNotebook.getWorkspace()
+                        pushToNote(workspace: noteWorkspace, notebook: noteNotebook, note: guardedNote)
+                        return true
+                    }
+                }
+            } catch {
+                return false
+                fatalError()
             }
             return true
         } else {
