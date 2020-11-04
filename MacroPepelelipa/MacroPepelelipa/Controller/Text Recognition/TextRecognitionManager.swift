@@ -13,9 +13,7 @@ internal class TextRecognitionManager {
     
     // MARK: - Variables and Constants
     
-    private var currentBuffer: CVPixelBuffer?
     private var results: [VNRecognizedTextObservation]?
-    private var image: CIImage?
     private var requestHandler: VNImageRequestHandler?
     private var resultTextRecognition = String()
     
@@ -39,7 +37,6 @@ internal class TextRecognitionManager {
     internal func imageRequest(toImage image: UIImage) -> String {
         if let ciImage = CIImage(image: image) {
             requestHandler = VNImageRequestHandler(ciImage: ciImage, options: [:])
-            
             performOCRRequest()
         } else {
             textRecognitionRequest.cancel()
@@ -49,9 +46,7 @@ internal class TextRecognitionManager {
         return resultTextRecognition
     }
     
-    /**
-     This method executes the textRecognitionRequest. If it does not work, it will return the error with the localize description.
-     */
+    ///This method executes the textRecognitionRequest. If it does not work, it will return the error with the localize description.
     private func performOCRRequest() {
         do {
             try self.requestHandler?.perform([self.textRecognitionRequest])
