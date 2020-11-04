@@ -25,7 +25,7 @@ internal class MarkdownContainerView: MarkdownFormatView, TextEditingDelegateObs
         button.tintColor = UIColor.placeholderColor
         button.setBackgroundImage(UIImage(systemName: "xmark.circle"), for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.addTarget(self, action: #selector(dismiss()), for: .touchUpInside)
+        button.addTarget(self, action: #selector(dismiss), for: .touchUpInside)
         return button
     }()
     
@@ -109,7 +109,7 @@ internal class MarkdownContainerView: MarkdownFormatView, TextEditingDelegateObs
     
     // MARK: - Functions
 
-    @objc dismiss() {
+    @objc func dismiss() {
         viewController?.changeTextViewInput(isCustom: false)
     }
     
