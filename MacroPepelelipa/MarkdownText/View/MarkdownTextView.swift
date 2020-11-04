@@ -112,7 +112,7 @@ public class MarkdownTextView: UITextView {
         set {
             let value: UIColor
             if newValue {
-                value = .highlightColor
+                value = .highlightColor ?? .systemYellow
             } else {
                 value = .clear
             }

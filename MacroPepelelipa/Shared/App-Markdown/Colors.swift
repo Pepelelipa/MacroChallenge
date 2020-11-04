@@ -77,5 +77,7 @@ internal extension UIColor {
     static var formatColor: UIColor? = {
         UIColor(named: "Format")
     }()
-    static let highlightColor = #colorLiteral(red: 0.9921568627, green: 0.8745098039, blue: 0.4941176471, alpha: 0.8)
+    static let highlightColor: UIColor? = {
+        UIColor(named: "Highlight")
+    }()
 }

@@ -102,6 +102,8 @@
 		02AD78F625475C7300C87D2B /* EditableCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02AD78F525475C7300C87D2B /* EditableCollectionViewCell.swift */; };
 		02C21B34254B55BB0061CCBA /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C21B33254B55BB0061CCBA /* Font.swift */; };
 		02CD7CA12523B48900A140A3 /* WorkspacesCollectionViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02CD7CA02523B48900A140A3 /* WorkspacesCollectionViewDelegate.swift */; };
+		02DC77D62553321700F0B4E4 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 02DC77D52553321700F0B4E4 /* Colors.xcassets */; };
+		02DC77DB2553328000F0B4E4 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 02DC77D52553321700F0B4E4 /* Colors.xcassets */; };
 		02DD09FC25114D6200B6696B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02DD09FB25114D6200B6696B /* AppDelegate.swift */; };
 		02DD09FE25114D6200B6696B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02DD09FD25114D6200B6696B /* SceneDelegate.swift */; };
 		02DD0A0825114D6700B6696B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 02DD0A0625114D6700B6696B /* LaunchScreen.storyboard */; };
@@ -311,6 +313,7 @@
 		02AD78F525475C7300C87D2B /* EditableCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditableCollectionViewCell.swift; sourceTree = "<group>"; };
 		02C21B33254B55BB0061CCBA /* Font.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Font.swift; sourceTree = "<group>"; };
 		02CD7CA02523B48900A140A3 /* WorkspacesCollectionViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkspacesCollectionViewDelegate.swift; sourceTree = "<group>"; };
+		02DC77D52553321700F0B4E4 /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		02DD09F825114D6200B6696B /* MacroPepelelipa.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MacroPepelelipa.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		02DD09FB25114D6200B6696B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		02DD09FD25114D6200B6696B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -608,6 +611,7 @@
 		02398A222551E9E5009BFC32 /* App-Markdown */ = {
 			isa = PBXGroup;
 			children = (
+				02DC77D52553321700F0B4E4 /* Colors.xcassets */,
 				020FFA37252502E30095266D /* Colors.swift */,
 				02398A552551F515009BFC32 /* AttributedString Extension.swift */,
 				02398A7E2551F7E4009BFC32 /* Traits Font Extension.swift */,
@@ -1158,6 +1162,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				02DC77D62553321700F0B4E4 /* Colors.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1201,6 +1206,7 @@
 				E4026287252FAC7800BCDD93 /* DancingScript-Regular.ttf in Resources */,
 				E40220D8253A1ED7009C08C4 /* DarkModeIcon-60@2x.png in Resources */,
 				E40220DB253A1ED7009C08C4 /* DarkModeIcon-Small-40@2x.png in Resources */,
+				02DC77DB2553328000F0B4E4 /* Colors.xcassets in Resources */,
 				E40220D9253A1ED7009C08C4 /* DarkModeIcon-Small-40@3x.png in Resources */,
 				E40220D0253A1ED7009C08C4 /* DarkModeIcon-Small.png in Resources */,
 			);
