@@ -57,7 +57,7 @@ internal class WorkspaceCollectionViewCell: UICollectionViewCell, EditableCollec
         let lbl = UILabel(frame: .zero)
 
         lbl.textColor = UIColor.titleColor ?? .black
-        lbl.font = MarkdownHeader.thirdHeaderFont
+        lbl.font = UIFont.defaultHeader.toStyle(.h3)
         lbl.textAlignment = .center
         lbl.translatesAutoresizingMaskIntoConstraints = false
 
