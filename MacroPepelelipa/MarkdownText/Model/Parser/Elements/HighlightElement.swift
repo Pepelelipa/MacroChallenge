@@ -23,7 +23,7 @@ internal struct HighlightElement: MarkdownElement {
             if (value as? UIColor) == UIColor.highlightColor {
                 attributedString.addAttribute(.backgroundColor, value: UIColor.clear, range: range)
             } else {
-                attributedString.addAttribute(.backgroundColor, value: UIColor.highlightColor, range: range)
+                attributedString.addAttribute(.backgroundColor, value: UIColor.highlightColor ?? .systemYellow, range: range)
             }
         }
         // deleting leading markdown
