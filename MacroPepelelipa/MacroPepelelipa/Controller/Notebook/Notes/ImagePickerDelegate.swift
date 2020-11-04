@@ -10,7 +10,7 @@
 
 import UIKit
 
-internal class ImagePickerDelegate: NSObject, UIImagePickerControllerDelegate, UINavigationBarDelegate {
+internal class ImagePickerDelegate: NSObject, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     // MARK: - Variables and Constants
     
@@ -29,11 +29,14 @@ internal class ImagePickerDelegate: NSObject, UIImagePickerControllerDelegate, U
      - Parameter picker: UIImagePickerController;
      - Parameter info: the key from our Controller (UIIMagePickerController.InfoKey).
      */
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
         guard let originalImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage else {
             return
         }
-        selectedImage?(originalImage)
+        
+        picker.dismiss(animated: true) { 
+            self.selectedImage?(originalImage)
+        }
     }
 }
 
