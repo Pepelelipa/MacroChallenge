@@ -56,6 +56,7 @@ internal class CoreDataController {
         guard let workspace = NSEntityDescription.insertNewObject(forEntityName: "Workspace", into: context) as? Workspace else {
             throw CoreDataError.failedToParseObject
         }
+        workspace.id = UUID()
         workspace.name = name
         try saveContext()
 
@@ -84,6 +85,7 @@ internal class CoreDataController {
         guard let notebook = NSEntityDescription.insertNewObject(forEntityName: "Notebook", into: context) as? Notebook else {
             throw CoreDataError.failedToParseObject
         }
+        notebook.id = UUID()
         notebook.workspace = workspace
         notebook.name = name
         notebook.colorName = colorName
@@ -113,6 +115,7 @@ internal class CoreDataController {
         guard let note = NSEntityDescription.insertNewObject(forEntityName: "Note", into: context) as? Note else {
             throw CoreDataError.failedToParseObject
         }
+        note.id = UUID()
         note.notebook = notebook
 
         try saveContext()

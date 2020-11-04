@@ -80,6 +80,7 @@
 		0230E078253A3CED009C5A76 /* UIDeviceOrientation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0230E077253A3CED009C5A76 /* UIDeviceOrientation.swift */; };
 		023886022523CA2700F807E9 /* WorkspaceCellNotebookCollectionViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 023886012523CA2700F807E9 /* WorkspaceCellNotebookCollectionViewDataSource.swift */; };
 		023886062523CAEC00F807E9 /* WorkspaceCellNotebookCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 023886052523CAEC00F807E9 /* WorkspaceCellNotebookCollectionViewCell.swift */; };
+		02398A962551FE8E009BFC32 /* ObservableError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02398A952551FE8E009BFC32 /* ObservableError.swift */; };
 		02458EDC2525094C00466BFF /* WorkspaceCellNotebookCollectionViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02458EDB2525094C00466BFF /* WorkspaceCellNotebookCollectionViewDelegate.swift */; };
 		0247F78D25115BAA00405A61 /* NotebooksSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0247F78C25115BAA00405A61 /* NotebooksSelectionViewController.swift */; };
 		024C5BB3252E41D8009549CE /* AddNotebookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 024C5BB1252E41D8009549CE /* AddNotebookViewController.swift */; };
@@ -293,6 +294,7 @@
 		0230E077253A3CED009C5A76 /* UIDeviceOrientation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIDeviceOrientation.swift; sourceTree = "<group>"; };
 		023886012523CA2700F807E9 /* WorkspaceCellNotebookCollectionViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkspaceCellNotebookCollectionViewDataSource.swift; sourceTree = "<group>"; };
 		023886052523CAEC00F807E9 /* WorkspaceCellNotebookCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkspaceCellNotebookCollectionViewCell.swift; sourceTree = "<group>"; };
+		02398A952551FE8E009BFC32 /* ObservableError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservableError.swift; sourceTree = "<group>"; };
 		02458EDB2525094C00466BFF /* WorkspaceCellNotebookCollectionViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkspaceCellNotebookCollectionViewDelegate.swift; sourceTree = "<group>"; };
 		0247F78C25115BAA00405A61 /* NotebooksSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotebooksSelectionViewController.swift; sourceTree = "<group>"; };
 		024C5BB1252E41D8009549CE /* AddNotebookViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddNotebookViewController.swift; sourceTree = "<group>"; };
@@ -459,6 +461,7 @@
 				021107AD252F8EE30009D4E1 /* CoreDataError.swift */,
 				021107C4252FADC90009D4E1 /* TextBoxError.swift */,
 				021107C7252FADE00009D4E1 /* ImageBoxError.swift */,
+				02398A952551FE8E009BFC32 /* ObservableError.swift */,
 			);
 			path = Errors;
 			sourceTree = "<group>";
@@ -1365,6 +1368,7 @@
 				022832E6252E5CE900DDD46B /* Note+CoreDataClass.swift in Sources */,
 				022832F3252E5F9C00DDD46B /* DataManager.swift in Sources */,
 				0207772F251D192000D97B5A /* NoteEntity.swift in Sources */,
+				02398A962551FE8E009BFC32 /* ObservableError.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
