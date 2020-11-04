@@ -172,6 +172,7 @@ internal class AddNotebookViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        txtName.becomeFirstResponder()
         AppUtility.setOrientation(.portrait, andRotateTo: .portrait)
         if let notebook = notebook {
             txtName.text = notebook.name
