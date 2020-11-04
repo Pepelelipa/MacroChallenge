@@ -297,7 +297,7 @@ internal class TextEditingContainerViewController: UIViewController,
             preferredStyle: .alert)
             .makeErrorMessage(with: "A color cell could not be loaded in the creation of a notebook".localized())
 
-        alertController.createMultipleActionsAlert(on: self, title: "Choose your image", message: "Tip: you can transcript text from an image.", action: [photoLibraryAction, cameraAction])
+        alertController.createMultipleActionsAlert(on: self, title: "Choose your image", message: "Tip: you can transcript text from an image.", actions: [photoLibraryAction, cameraAction])
         
         #endif
     }

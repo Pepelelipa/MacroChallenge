@@ -55,7 +55,7 @@ extension UIAlertController {
      - Parameter message: the message in the alert.
      - Parameter action: which action will be taken.
      */
-    internal func createMultipleActionsAlert(on viewController: UIViewController, title: String, message: String, action: [UIAlertAction]) {
+    internal func createMultipleActionsAlert(on viewController: UIViewController, title: String, message: String, actions: [UIAlertAction]) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .actionSheet)
         
         for i in 0 ..< actions.count {
