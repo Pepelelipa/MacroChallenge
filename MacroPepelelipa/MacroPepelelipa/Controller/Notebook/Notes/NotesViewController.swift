@@ -71,6 +71,7 @@ internal class NotesViewController: UIViewController,
     
     internal private(set) lazy var textView: MarkdownTextView = {
         let  markdownTextView = MarkdownTextView(frame: .zero)
+        markdownTextView.markdownDelegate = AppMarkdownTextViewDelegate()
         markdownTextView.contentInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
         markdownTextView.setColor(UIColor.bodyColor ?? .black)
         return markdownTextView

@@ -9,14 +9,49 @@
 import UIKit
 import MarkdownText
 
+internal protocol MarkdownObserver: class {
+    func didChangeSelection(_ textView: UITextView)
+}
+
 internal class AppMarkdownTextViewDelegate: MarkdownTextViewDelegate {
-    private var textDidChangeSelection: (() -> Void)?
-    init(textDidChangeSelection: (() -> Void)? = nil) {
-        self.textDidChangeSelection = textDidChangeSelection
+    private var markdownObservers: [MarkdownObserver] = []
+    internal func addMarkdownObserver(_ observer: MarkdownObserver) {
+        markdownObservers.append(observer)
+    }
+    internal func removeMarkdownObserver(_ observer: MarkdownObserver) {
+        if let index = markdownObservers.firstIndex(where: { $0 === observer }) {
+            markdownObservers.remove(at: index)
+        }
+    }
+
+    private var textObservers: [TextEditingDelegateObserver] = []
+    internal func addTextObserver(_ observer: TextEditingDelegateObserver) {
+        textObservers.append(observer)
+    }
+    internal func removeTextObserver(_ observer: TextEditingDelegateObserver) {
+        if let index = textObservers.firstIndex(where: { $0 === observer }) {
+            textObservers.remove(at: index)
+        }
     }
 
     override func textViewDidChangeSelection(_ textView: UITextView) {
         super.textViewDidChangeSelection(textView)
-        textDidChangeSelection?()
+        for observer in markdownObservers {
+            observer.didChangeSelection(textView)
+        }
+    }
+
+    override func textViewDidBeginEditing(_ textView: UITextView) {
+        super.textViewDidBeginEditing(textView)
+        for observer in textObservers {
+            observer.textEditingDidBegin()
+        }
+    }
+
+    override func textViewDidEndEditing(_ textView: UITextView) {
+        super.textViewDidEndEditing(textView)
+        for observer in textObservers {
+            observer.textEditingDidEnd()
+        }
     }
 }

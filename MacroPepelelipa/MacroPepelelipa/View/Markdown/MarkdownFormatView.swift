@@ -27,7 +27,7 @@ internal enum FontSelector: String {
     case dancingScript = "Dancing"
 }
 
-internal class MarkdownFormatView: UIView {
+internal class MarkdownFormatView: UIView, MarkdownObserver {
     
     // MARK: - Variables and Constants
 
@@ -104,7 +104,9 @@ internal class MarkdownFormatView: UIView {
     internal init(frame: CGRect, owner: MarkdownTextView, viewController: NotesViewController) {
         super.init(frame: frame)
         self.textView = owner
-        textView?.markdownDelegate = AppMarkdownTextViewDelegate(textDidChangeSelection: updateSelectors)
+        if let delegate = textView?.markdownDelegate as? AppMarkdownTextViewDelegate {
+            delegate.addMarkdownObserver(self)
+        }
         self.viewController = viewController
         
         addSelectors()
@@ -122,6 +124,13 @@ internal class MarkdownFormatView: UIView {
     }
     
     // MARK: - Override functions
+
+    override func removeFromSuperview() {
+        if let delegate = textView?.markdownDelegate as? AppMarkdownTextViewDelegate {
+            delegate.removeMarkdownObserver(self)
+        }
+        super.removeFromSuperview()
+    }
     
     override func didMoveToWindow() {
         for (_, selector) in colorSelector {
@@ -263,7 +272,11 @@ internal class MarkdownFormatView: UIView {
         setColorSelectorConstraints()
         setFormatSelectorConstraints()
     }
-    
+
+    func didChangeSelection(_ textView: UITextView) {
+        updateSelectors()
+    }
+
     ///This method updates the selectors appearence based on the text style.
     internal func updateSelectors() {
         guard let textView = self.textView else {

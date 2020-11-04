@@ -38,14 +38,12 @@ internal class MarkdownContainerView: MarkdownFormatView, TextEditingDelegateObs
         return fmtLabel
     }()
     
-    // MARK: - Initializers
-    
-    deinit {
-        #warning("needs delegate")
-//        (self.textView?.delegate as? MarkupTextViewDelegate)?.removeObserver(self)
-    }
-    
     // MARK: - Override functions
+
+    override func removeFromSuperview() {
+        (self.textView?.delegate as? AppMarkdownTextViewDelegate)?.removeTextObserver(self)
+        super.removeFromSuperview()
+    }
     
     override func addSelectors() {
         self.backgroundColor = UIColor.backgroundColor
@@ -67,8 +65,7 @@ internal class MarkdownContainerView: MarkdownFormatView, TextEditingDelegateObs
         backgroundView.addSubview(formatLabel)
         createConstraints()
 
-        #warning("needs delegate")
-//        (viewController?.textView.delegate as? MarkupTextViewDelegate)?.addObserver(self)
+        (viewController?.textView.delegate as? AppMarkdownTextViewDelegate)?.addTextObserver(self)
     }
     
     ///This method sets the constraints for the inner elements of the container view.

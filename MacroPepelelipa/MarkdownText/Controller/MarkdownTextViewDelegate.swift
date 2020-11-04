@@ -9,14 +9,14 @@
 import UIKit
 
 open class MarkdownTextViewDelegate: NSObject, UITextViewDelegate {
-    public func textViewDidBeginEditing(_ textView: UITextView) {
+    open func textViewDidBeginEditing(_ textView: UITextView) {
         if textView.textColor == .placeholderColor {
             textView.attributedText = "".toStyle(.paragraph)
             textView.textColor = .bodyColor
         }
     }
 
-    public func textViewDidEndEditing(_ textView: UITextView) {
+    open func textViewDidEndEditing(_ textView: UITextView) {
         if let textView = textView as? MarkdownTextView,
            textView.text == "" {
             textView.textColor = .placeholderColor ?? .placeholderText
