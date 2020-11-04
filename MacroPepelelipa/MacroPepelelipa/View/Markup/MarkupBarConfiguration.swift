@@ -74,18 +74,25 @@ internal class MarkupBarConfiguration {
         var barButtonItems: [UIBarButtonItem] = []
         
         let listButton = createBarButtonItem(imageName: "list.bullet", systemImage: true, objcFunc: #selector(addList))
+        // TODO: - needs VoiceOver
         barButtonItems.append(listButton)
         
         let paragraphButton = createBarButtonItem(imageName: "h1", systemImage: false, objcFunc: #selector(addHeader))
+        // TODO: - needs VoiceOver
         barButtonItems.append(paragraphButton)
         
         let imageGalleryButton = createBarButtonItem(imageName: "photo", systemImage: true, objcFunc: #selector(photoPicker))
+        imageGalleryButton.accessibilityLabel = "Add image label".localized()
+        imageGalleryButton.accessibilityHint = "Add image hint".localized()
         barButtonItems.append(imageGalleryButton)
         
         let textBoxButton = createBarButtonItem(imageName: "textbox", systemImage: true, objcFunc: #selector(addTextBox))
+        textBoxButton.accessibilityHint = "Text box hint".localized()
         barButtonItems.append(textBoxButton)
         
         let paintbrushButton = createBarButtonItem(imageName: "paintbrush", systemImage: true, objcFunc: #selector(openEditTextContainer))
+        paintbrushButton.accessibilityLabel = "Format".localized()
+        paintbrushButton.accessibilityLabel = "Format hint".localized()
         barButtonItems.append(paintbrushButton)
         
         return barButtonItems

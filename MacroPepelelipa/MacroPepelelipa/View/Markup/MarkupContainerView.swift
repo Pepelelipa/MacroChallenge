@@ -24,6 +24,10 @@ internal class MarkupContainerView: MarkupFormatView, TextEditingDelegateObserve
         let button = UIButton()
         button.tintColor = UIColor.placeholderColor
         button.setBackgroundImage(UIImage(systemName: "xmark.circle"), for: .normal)
+        button.accessibilityLabel = "Exit formatting label".localized()
+        if UIDevice.current.userInterfaceIdiom == .phone {
+            button.accessibilityHint = "Exit formatting hint".localized()            
+        }
         button.translatesAutoresizingMaskIntoConstraints = false
         button.addTarget(delegate, action: #selector(delegate?.dismissContainer), for: .touchDown)
         return button

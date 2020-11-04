@@ -40,6 +40,9 @@ internal class TextEditingContainerViewController: UIViewController,
                                    target: self,
                                    action: #selector(closeKeyboard))
         
+        item.accessibilityLabel = "Done".localized()
+        item.accessibilityHint = "End editing hint".localized()
+        
         return item
     }()
     

@@ -178,9 +178,35 @@
 
 "Selected" = "Selecionada";
 
+"Text box hint" = "Toque duas vezes para adicionar uma caixa de texto à sua nota";
+
+"Format hint" = "Toque duas vezes para começar a formatar seu texto";
+
+"Exit formatting label" = "Sair da formatação";
+"Exit formatting hint" = "Toque duas vezes para sair da formatação e retornar à digitação";
+
+"Color selector" = "Seletor de côr";
+"Color selector hint" = "Toque duas vezes para mudar a cor de texto para %@";
+
+"Bold" = "Negrito";
+"Italic" = "Itálico";
+"Highlight" = "Destaque";
+
+"Format hint" = "Toque duas vezes para formatar o texto com %@";
+
+"Merriweather" = "Méuriwédêr";
+"Open Sans" = "Oupen Sans";
+"Dancing" = "Déncin script";
+"Font hint" = "Toque duas vezes para mudar a fonte do texto para %@";
+"Serif" = "Serifada";
+"Sans-serif" = "Não serifada";
+"Cursive" = "Cursiva";
+
+"End editing hint" = "Double tap to end editing";
 
 // MARK: - Colors
 
+"Text body color" = "Cor de corpo de texto";
 "nb0" = "Azul Aero";
 "nb1" = "Jeans Azul";
 "nb2" = "Azul Centáurea";
