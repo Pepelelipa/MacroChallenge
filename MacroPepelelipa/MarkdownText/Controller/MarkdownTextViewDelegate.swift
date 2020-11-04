@@ -8,7 +8,7 @@
 
 import UIKit
 
-public class MarkdownTextViewDelegate: NSObject, UITextViewDelegate {
+open class MarkdownTextViewDelegate: NSObject, UITextViewDelegate {
     public func textViewDidBeginEditing(_ textView: UITextView) {
         if textView.textColor == .placeholderColor {
             textView.attributedText = "".toStyle(.paragraph)
@@ -25,7 +25,7 @@ public class MarkdownTextViewDelegate: NSObject, UITextViewDelegate {
     }
 
     var ignore: Bool = false
-    public func textViewDidChangeSelection(_ textView: UITextView) {
+    open func textViewDidChangeSelection(_ textView: UITextView) {
         //always checks the one on the right
         guard !ignore,
               textView.attributedText != nil,

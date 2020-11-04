@@ -20,7 +20,7 @@ public extension NoteEntity {
             kCGPDFContextCreator: "Purple Notebook".localized(),
             kCGPDFContextAuthor: "PEPELELIPA.Macro",
             kCGPDFContextTitle: title
-        ] as [CFString : Any]
+        ] as [CFString: Any]
         let format = UIGraphicsPDFRendererFormat()
         format.documentInfo = pdfMetaData as [String: Any]
         

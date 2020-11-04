@@ -75,4 +75,3 @@ public enum ListStyle {
         return attributedString
     }
 }
-

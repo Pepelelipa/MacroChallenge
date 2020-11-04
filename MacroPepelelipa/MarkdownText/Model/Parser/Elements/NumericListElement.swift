@@ -19,4 +19,3 @@ internal struct NumericListElement: MarkdownElement {
         return ([match.range(at: 1)], .numeric)
     }
 }
-

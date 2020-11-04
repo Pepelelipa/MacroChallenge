@@ -41,7 +41,7 @@ internal class MarkdownFormatView: UIView {
         buttonColors.forEach { (color) in
             var newButton = MarkdownToggleButton(frame: .zero, color: color)
             newButton.translatesAutoresizingMaskIntoConstraints = false
-//            newButton.addTarget(delegate, action: #selector(delegate?.changeTextColor), for: .touchDown)
+            newButton.addTarget(self, action: #selector(setColor(_:)), for: .touchUpInside)
             
             if color == buttonColors[0] {
                 buttons[.black] = newButton
@@ -67,11 +67,11 @@ internal class MarkdownFormatView: UIView {
             newButton.translatesAutoresizingMaskIntoConstraints = false
             
             if key == .italic {
-//                newButton.addTarget(delegate, action: #selector(delegate?.makeTextItalic), for: .touchDown)
+                newButton.addTarget(self, action: #selector(makeTextItalic(_:)), for: .touchUpInside)
             } else if key == .bold {
-//                newButton.addTarget(delegate, action: #selector(delegate?.makeTextBold), for: .touchDown)
+                newButton.addTarget(self, action: #selector(makeTextBold(_:)), for: .touchUpInside)
             } else {
-//                newButton.addTarget(delegate, action: #selector(delegate?.highlightText), for: .touchUpInside)
+                newButton.addTarget(self, action: #selector(highlightText(_:)), for: .touchUpInside)
             }
             
             buttons[key] = newButton
@@ -92,7 +92,7 @@ internal class MarkdownFormatView: UIView {
                 font: font.key
             )
             newButton.translatesAutoresizingMaskIntoConstraints = false
-//            newButton.addTarget(delegate, action: #selector(delegate?.changeTextFont), for: .touchDown)
+            newButton.addTarget(self, action: #selector(changeFont(_:)), for: .touchUpInside)
             buttons[font.value] = newButton
         }
         
@@ -269,23 +269,67 @@ internal class MarkdownFormatView: UIView {
             return
         }
         
-//        formatSelector[.italic]?.isSelected = textView.checkTrait(.traitItalic)
-//        formatSelector[.bold]?.isSelected = textView.checkTrait(.traitBold)
-//        formatSelector[.highlight]?.isSelected = textView.checkBackground()
+        formatSelector[.italic]?.isSelected = textView.isItalic
+        formatSelector[.bold]?.isSelected = textView.isBold
+        formatSelector[.highlight]?.isSelected = textView.isHighlighted
 
         for (_, button) in formatSelector {
             button.setTintColor()
         }
         
-//        let textcolor = textView.getTextColor()
-//        for (_, button) in colorSelector {
-//            button.isSelected = (textcolor == button.backgroundColor)
-//        }
-//        
-//        let textFont = textView.getTextFont()
-//        for (_, button) in fontSelector {
-//            button.isSelected = (textFont.familyName == button.titleLabel?.font.familyName)
-//        }
+        let textcolor = textView.color
+        for (_, button) in colorSelector {
+            button.isSelected = (textcolor == button.backgroundColor)
+        }
+
+        let textFont = textView.activeFont
+        for (_, button) in fontSelector {
+            button.isSelected = (textFont.familyName == button.titleLabel?.font.familyName)
+        }
+    }
+
+    @objc func setColor(_ sender: UIButton) {
+        textView?.setColor(sender.backgroundColor ?? .black)
+        updateSelectors()
+    }
+
+    @objc func makeTextBold(_ sender: UIButton) {
+        guard let textView = textView else {
+            return
+        }
+        textView.setBold(!textView.isBold)
+        updateSelectors()
+    }
+
+    @objc func makeTextItalic(_ sender: UIButton) {
+        guard let textView = textView else {
+            return
+        }
+        textView.setItalic(!textView.isItalic)
+        updateSelectors()
+    }
+
+    @objc func highlightText(_ sender: UIButton) {
+        guard let textView = textView else {
+            return
+        }
+        textView.setHighlighted(!textView.isHighlighted)
+        updateSelectors()
+    }
+
+    @objc func changeFont(_ sender: UIButton) {
+        if let match = fontSelector.first(where: { $0.value == sender }) {
+            let newFont: UIFont
+            switch match.key {
+            case .dancingScript:
+                newFont = UIFont.dancingScript ?? UIFont()
+            case .merriweather:
+                newFont = UIFont.merriweather ?? UIFont()
+            case .openSans:
+                newFont = UIFont.openSans ?? UIFont()
+            }
+            textView?.setFont(to: newFont)
+        }
     }
     
     /**

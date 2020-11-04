@@ -12,7 +12,7 @@
 		0207772F251D192000D97B5A /* NoteEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0207772E251D192000D97B5A /* NoteEntity.swift */; };
 		02077732251D192600D97B5A /* TextBoxEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02077731251D192600D97B5A /* TextBoxEntity.swift */; };
 		02077735251D192D00D97B5A /* ImageBoxEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02077734251D192D00D97B5A /* ImageBoxEntity.swift */; };
-		020E22252513F10800A93EAB /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 020E22242513F10800A93EAB /* StringExtension.swift */; };
+		020E22252513F10800A93EAB /* App Database String Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 020E22242513F10800A93EAB /* App Database String Extension.swift */; };
 		020E22262513F1A800A93EAB /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 020E22282513F1A800A93EAB /* Localizable.strings */; };
 		020FFA2C252501B20095266D /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 020FFA2B252501B20095266D /* Colors.xcassets */; };
 		020FFA2F252501D10095266D /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 020FFA2E252501D10095266D /* Media.xcassets */; };
@@ -67,8 +67,7 @@
 		02398A2A2551EAB8009BFC32 /* NSAttributedString Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02398A292551EAB8009BFC32 /* NSAttributedString Extension.swift */; };
 		02398A342551EB88009BFC32 /* MarkdownTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02398A332551EB88009BFC32 /* MarkdownTextView.swift */; };
 		02398A382551EB9C009BFC32 /* MarkdownTextViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02398A372551EB9C009BFC32 /* MarkdownTextViewDelegate.swift */; };
-		02398A442551F495009BFC32 /* String Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02398A432551F495009BFC32 /* String Extensions.swift */; };
-		02398A502551F4D7009BFC32 /* String Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02398A432551F495009BFC32 /* String Extensions.swift */; };
+		02398A442551F495009BFC32 /* Markdown String Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02398A432551F495009BFC32 /* Markdown String Extension.swift */; };
 		02398A562551F515009BFC32 /* AttributedString Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02398A552551F515009BFC32 /* AttributedString Extension.swift */; };
 		02398A592551F522009BFC32 /* AttributedString Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02398A552551F515009BFC32 /* AttributedString Extension.swift */; };
 		02398A792551F775009BFC32 /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02398A782551F775009BFC32 /* Fonts.swift */; };
@@ -85,10 +84,12 @@
 		026821A22541F5B300CDC7AF /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 026821A42541F5B300CDC7AF /* InfoPlist.strings */; };
 		02695ECE25279EAE007D60C3 /* AddWorkspaceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02695ECD25279EAE007D60C3 /* AddWorkspaceViewController.swift */; };
 		026C3CAC251942A7001E32AE /* NotesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 026C3CAB251942A7001E32AE /* NotesViewController.swift */; };
-		026D4C7E251D1A8E00CBED5A /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 020E22242513F10800A93EAB /* StringExtension.swift */; };
+		026D4C7E251D1A8E00CBED5A /* App Database String Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 020E22242513F10800A93EAB /* App Database String Extension.swift */; };
 		027D5931251E8213007BDD8C /* NotebookIndexEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 027D5930251E8213007BDD8C /* NotebookIndexEntity.swift */; };
 		0282EB71253A2E9E009CB4AC /* FileHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 025C015525379C6D009923B2 /* FileHelper.swift */; };
 		02870891254A207A0075235D /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02870890254A207A0075235D /* Extensions.swift */; };
+		02919F4225531B1F00C03E27 /* MarkdownTextViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02919F4125531B1E00C03E27 /* MarkdownTextViewDelegate.swift */; };
+		02919F4825531BFA00C03E27 /* App String Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02919F4725531BFA00C03E27 /* App String Extensions.swift */; };
 		029847F2251D13D1004E0B62 /* Database.h in Headers */ = {isa = PBXBuildFile; fileRef = 029847F0251D13D1004E0B62 /* Database.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		029847F5251D13D1004E0B62 /* Database.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 029847EE251D13D1004E0B62 /* Database.framework */; };
 		029847F6251D13D1004E0B62 /* Database.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 029847EE251D13D1004E0B62 /* Database.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -222,7 +223,7 @@
 		0207772E251D192000D97B5A /* NoteEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteEntity.swift; sourceTree = "<group>"; };
 		02077731251D192600D97B5A /* TextBoxEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextBoxEntity.swift; sourceTree = "<group>"; };
 		02077734251D192D00D97B5A /* ImageBoxEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageBoxEntity.swift; sourceTree = "<group>"; };
-		020E22242513F10800A93EAB /* StringExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
+		020E22242513F10800A93EAB /* App Database String Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "App Database String Extension.swift"; sourceTree = "<group>"; };
 		020E22272513F1A800A93EAB /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		020E22292513F1B500A93EAB /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		020FFA2B252501B20095266D /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
@@ -277,7 +278,7 @@
 		02398A292551EAB8009BFC32 /* NSAttributedString Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSAttributedString Extension.swift"; sourceTree = "<group>"; };
 		02398A332551EB88009BFC32 /* MarkdownTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkdownTextView.swift; sourceTree = "<group>"; };
 		02398A372551EB9C009BFC32 /* MarkdownTextViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkdownTextViewDelegate.swift; sourceTree = "<group>"; };
-		02398A432551F495009BFC32 /* String Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String Extensions.swift"; sourceTree = "<group>"; };
+		02398A432551F495009BFC32 /* Markdown String Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Markdown String Extension.swift"; sourceTree = "<group>"; };
 		02398A552551F515009BFC32 /* AttributedString Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AttributedString Extension.swift"; sourceTree = "<group>"; };
 		02398A782551F775009BFC32 /* Fonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
 		02398A7E2551F7E4009BFC32 /* Traits Font Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Traits Font Extension.swift"; sourceTree = "<group>"; };
@@ -295,6 +296,8 @@
 		026C3CAB251942A7001E32AE /* NotesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesViewController.swift; sourceTree = "<group>"; };
 		027D5930251E8213007BDD8C /* NotebookIndexEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotebookIndexEntity.swift; sourceTree = "<group>"; };
 		02870890254A207A0075235D /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		02919F4125531B1E00C03E27 /* MarkdownTextViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarkdownTextViewDelegate.swift; sourceTree = "<group>"; };
+		02919F4725531BFA00C03E27 /* App String Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "App String Extensions.swift"; sourceTree = "<group>"; };
 		029847EE251D13D1004E0B62 /* Database.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Database.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		029847F0251D13D1004E0B62 /* Database.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Database.h; sourceTree = "<group>"; };
 		029847F1251D13D1004E0B62 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -532,6 +535,7 @@
 		023989DB2551E6C3009BFC32 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				02398A432551F495009BFC32 /* Markdown String Extension.swift */,
 				02398A782551F775009BFC32 /* Fonts.swift */,
 				02398A872551F878009BFC32 /* Font Style Extension.swift */,
 				023989F62551E878009BFC32 /* Parser */,
@@ -561,7 +565,7 @@
 			isa = PBXGroup;
 			children = (
 				025C015525379C6D009923B2 /* FileHelper.swift */,
-				020E22242513F10800A93EAB /* StringExtension.swift */,
+				020E22242513F10800A93EAB /* App Database String Extension.swift */,
 			);
 			path = "App-Database";
 			sourceTree = "<group>";
@@ -602,7 +606,6 @@
 			isa = PBXGroup;
 			children = (
 				020FFA37252502E30095266D /* Colors.swift */,
-				02398A432551F495009BFC32 /* String Extensions.swift */,
 				02398A552551F515009BFC32 /* AttributedString Extension.swift */,
 				02398A7E2551F7E4009BFC32 /* Traits Font Extension.swift */,
 			);
@@ -665,6 +668,7 @@
 		026C3CAF2519435E001E32AE /* Notes */ = {
 			isa = PBXGroup;
 			children = (
+				02919F4125531B1E00C03E27 /* MarkdownTextViewDelegate.swift */,
 				026C3CAB251942A7001E32AE /* NotesViewController.swift */,
 				D9F04BEB25377D5D001C6551 /* AddNoteViewController.swift */,
 				1E9EF4AC2522609400CC623B /* MarkupTextFieldDelegate.swift */,
@@ -796,6 +800,7 @@
 		02DD0A1125114E9D00B6696B /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				02919F4725531BFA00C03E27 /* App String Extensions.swift */,
 				D97EE7B3254B557A00A68B06 /* Search */,
 				0230E077253A3CED009C5A76 /* UIDeviceOrientation.swift */,
 				1E9EF4A725225B7A00CC623B /* Notes */,
@@ -1243,7 +1248,7 @@
 				02398A1F2551E9C8009BFC32 /* ListStyle.swift in Sources */,
 				023989F82551E888009BFC32 /* MarkdownParser.swift in Sources */,
 				02398A012551E8FD009BFC32 /* BoldElement.swift in Sources */,
-				02398A442551F495009BFC32 /* String Extensions.swift in Sources */,
+				02398A442551F495009BFC32 /* Markdown String Extension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1268,7 +1273,7 @@
 				02110781252F82D10009D4E1 /* WorkspaceObject.swift in Sources */,
 				02110785252F85170009D4E1 /* NotebookObject.swift in Sources */,
 				0207772C251D191B00D97B5A /* NotebookEntity.swift in Sources */,
-				026D4C7E251D1A8E00CBED5A /* StringExtension.swift in Sources */,
+				026D4C7E251D1A8E00CBED5A /* App Database String Extension.swift in Sources */,
 				022832EA252E5CE900DDD46B /* ImageBox+CoreDataClass.swift in Sources */,
 				02077729251D191600D97B5A /* WorkspaceEntity.swift in Sources */,
 				022832EF252E5CE900DDD46B /* Notebook+CoreDataProperties.swift in Sources */,
@@ -1302,7 +1307,6 @@
 				02ECA43C2512ABD100E68588 /* NotebookCollectionViewCell.swift in Sources */,
 				A7C057C525420F260023A370 /* NotesToolbar.swift in Sources */,
 				02207A392523A5970001FD7E /* WorkspacesCollectionViewDataSource.swift in Sources */,
-				02398A502551F4D7009BFC32 /* String Extensions.swift in Sources */,
 				D9F4A9AB25277A6B00BFDC19 /* CGRectExtension.swift in Sources */,
 				024C5BBC252E41EE009549CE /* ColorSelectionCollectionViewCell.swift in Sources */,
 				1E6E148C252E33E700383E10 /* MarkdownBarConfiguration.swift in Sources */,
@@ -1323,6 +1327,7 @@
 				02AD78F225475C5800C87D2B /* EditableCollectionView.swift in Sources */,
 				1E9EF4A925225B9B00CC623B /* TextEditingDelegateObserver.swift in Sources */,
 				02CD7CA12523B48900A140A3 /* WorkspacesCollectionViewDelegate.swift in Sources */,
+				02919F4825531BFA00C03E27 /* App String Extensions.swift in Sources */,
 				D97EE7C2254B565600A68B06 /* SearchBarObserver.swift in Sources */,
 				A7FD9B13253BACF500235D20 /* NotesPageViewObserver.swift in Sources */,
 				D9D87544251BD39F00B842C8 /* PhotoEditingViewController.swift in Sources */,
@@ -1332,7 +1337,7 @@
 				A731AA7425372F9C00624131 /* IndexObserver.swift in Sources */,
 				02DD09FE25114D6200B6696B /* SceneDelegate.swift in Sources */,
 				1E9EF4AD2522609400CC623B /* MarkupTextFieldDelegate.swift in Sources */,
-				020E22252513F10800A93EAB /* StringExtension.swift in Sources */,
+				020E22252513F10800A93EAB /* App Database String Extension.swift in Sources */,
 				1EFA49CE252D15C500602904 /* MarkdownNavigationView.swift in Sources */,
 				02398A842551F7FA009BFC32 /* Traits Font Extension.swift in Sources */,
 				D97EE7B6254B557A00A68B06 /* SearchResultEnum.swift in Sources */,
@@ -1349,6 +1354,7 @@
 				1EE652C2252504400015E3D4 /* MarkdownContainerView.swift in Sources */,
 				02695ECE25279EAE007D60C3 /* AddWorkspaceViewController.swift in Sources */,
 				024C5BB3252E41D8009549CE /* AddNotebookViewController.swift in Sources */,
+				02919F4225531B1F00C03E27 /* MarkdownTextViewDelegate.swift in Sources */,
 				D97EE7AE254B554F00A68B06 /* CustomUISearchController.swift in Sources */,
 				A73C94BA253F84E8004EFA4F /* PhotoPickerDelegate.swift in Sources */,
 				A7BDD60A251406D900DDB6A0 /* TableViewDataSource.swift in Sources */,

@@ -175,8 +175,6 @@ internal class MarkdownBarConfiguration {
     @objc internal func addHeader(paragraphButton: UIBarButtonItem) {
         // TODO: AddHeaderFont
         textView?.setFont(to: UIFont.defaultFont.toStyle(.h1))
-
-
 //        switch MarkdownToolBar.headerStyle {
 //        case .h1:
 //            paragraphButton.image = UIImage(named: "h2")

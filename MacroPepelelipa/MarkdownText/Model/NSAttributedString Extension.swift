@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 internal extension NSAttributedString {
-    static func defaultAttributesForStyle(_ style: FontStyle) -> [NSAttributedString.Key : Any] {
+    static func defaultAttributesForStyle(_ style: FontStyle) -> [NSAttributedString.Key: Any] {
         return [.font: Fonts.defaultTextFont.toStyle(style), .foregroundColor: UIColor.bodyColor ?? UIColor.black ]
     }
 
@@ -81,4 +81,3 @@ internal extension NSAttributedString {
         return result
     }
 }
-

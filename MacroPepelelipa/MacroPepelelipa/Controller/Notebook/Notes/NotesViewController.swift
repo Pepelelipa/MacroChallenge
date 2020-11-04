@@ -131,6 +131,7 @@ internal class NotesViewController: UIViewController,
     // MARK: - Override functions
     
     override func viewDidLoad() {
+        textView.placeholder = "Start writing here".localized()
         super.viewDidLoad()
 
         NotificationCenter.default.addObserver(
@@ -178,7 +179,6 @@ internal class NotesViewController: UIViewController,
 
     override func viewWillAppear(_ animated: Bool) {
         navigationItem.largeTitleDisplayMode = .never
-        textView.placeholder = ""
         NSLayoutConstraint.activate(constraints)
     }
 

@@ -235,7 +235,6 @@ public class MarkdownTextView: UITextView {
             writeAction()
         }
 
-
         let aroundSample = attributedText.smallAroundSample(100, location: selectedRange.location)
         let initialRange = aroundSample.1
         let initialNormalizedLocation = selectedRange.location - initialRange.location
@@ -368,7 +367,6 @@ public class MarkdownTextView: UITextView {
                     }
                 }
 
-
                 //Get forward occurences of list
                 stillList = true
                 let forwardText = mutableString.smallForwardSample(1000, location: targetLocation)
@@ -454,7 +452,3 @@ public class MarkdownTextView: UITextView {
         }
     }
 }
-
-
-
-

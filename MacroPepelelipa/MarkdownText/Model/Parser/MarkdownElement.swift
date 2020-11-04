@@ -39,8 +39,7 @@ internal extension MarkdownElement {
                 let newLength = attributedString.length
                 location = regexMatch.range.location + regexMatch.range.length + newLength - oldLength
             }
-        } catch let error { print(error.localizedDescription) }
+        } catch { }
         return (consumedCharacters, list)
     }
 }
-

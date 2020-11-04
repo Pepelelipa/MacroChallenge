@@ -24,10 +24,8 @@ public extension UIFont {
     }
 
     func toParagraphFont() -> UIFont {
-        for font in Fonts.availableFonts {
-            if familyName == font.familyName {
-                return font
-            }
+        if let first = Fonts.availableFonts.first(where: { $0.familyName == familyName }) {
+            return first
         }
         return UIFont.systemFont(ofSize: UIFont.systemFontSize)
     }
