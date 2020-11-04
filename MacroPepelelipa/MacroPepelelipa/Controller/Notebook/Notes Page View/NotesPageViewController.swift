@@ -62,7 +62,7 @@ internal class NotesPageViewController: UIPageViewController,
     
     internal init(notes: [NoteEntity]) {
         self.notes = notes
-        super.init(transitionStyle: .scroll, navigationOrientation: .horizontal, options: .none)
+        super.init(transitionStyle: .scroll, navigationOrientation: .vertical, options: .none)
         setNotesViewControllers(for: NotesViewController(note: notes[notes.count-1]))
         
         do {
