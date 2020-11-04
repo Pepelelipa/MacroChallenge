@@ -113,7 +113,9 @@ internal class NotesViewController: UIViewController,
         self.addMedia(from: results)
     }
     
-    internal var imagePickerDelegate = ImagePickerDelegate()
+    internal lazy var imagePickerDelegate = ImagePickerDelegate { (results) in
+        self.addMedia(from: results)
+    }
     #endif
     
     // MARK: - Initializers
