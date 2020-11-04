@@ -57,7 +57,7 @@ internal class MarkdownFormatView: UIView, MarkdownObserver {
     
     internal private(set) lazy var formatSelector: [FormatSelector: MarkdownToggleButton] = {
         var buttons = [FormatSelector: MarkdownToggleButton]()
-        var imageNames: [FormatSelector: String] = [.italic: "italic", .bold: "bold", .highlight: "pencil.tip"]
+        var imageNames: [FormatSelector: String] = [.italic: "italic", .bold: "bold", .highlight: "highlighter"]
         
         for (key, imageName) in imageNames {
             var newButton = createButton(
@@ -229,14 +229,20 @@ internal class MarkdownFormatView: UIView, MarkdownObserver {
             var lastSelector = italic
             if key == .highlight {
                 lastSelector = bold
+                NSLayoutConstraint.activate([
+                    selector.widthAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.2)
+                ])
+            } else {
+                NSLayoutConstraint.activate([
+                    selector.widthAnchor.constraint(equalTo: italic.widthAnchor)
+                ])
             }
             
             NSLayoutConstraint.activate([
                 selector.topAnchor.constraint(equalTo: italic.topAnchor),
                 selector.trailingAnchor.constraint(equalTo: lastSelector.leadingAnchor, constant: -16),
                 selector.bottomAnchor.constraint(equalTo: italic.bottomAnchor),
-                selector.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.2),
-                selector.widthAnchor.constraint(equalTo: italic.widthAnchor)
+                selector.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.2)
             ])
         }
     }
