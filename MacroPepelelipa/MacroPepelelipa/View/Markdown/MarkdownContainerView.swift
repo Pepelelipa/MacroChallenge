@@ -25,7 +25,7 @@ internal class MarkdownContainerView: MarkdownFormatView, TextEditingDelegateObs
         button.tintColor = UIColor.placeholderColor
         button.setBackgroundImage(UIImage(systemName: "xmark.circle"), for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
-//        button.addTarget(delegate, action: #selector(delegate?.dismissContainer), for: .touchDown)
+        button.addTarget(self, action: #selector(dismiss()), for: .touchUpInside)
         return button
     }()
     
@@ -108,6 +108,10 @@ internal class MarkdownContainerView: MarkdownFormatView, TextEditingDelegateObs
     }
     
     // MARK: - Functions
+
+    @objc dismiss() {
+        viewController?.changeTextViewInput(isCustom: false)
+    }
     
     ///This method sets the contraints for the font selector buttons.
     private func setFontSelectorConstraints() {
