@@ -10,6 +10,13 @@ import UIKit
 
 internal class NotebookObject: NotebookEntity {
 
+    func getID() throws -> UUID {
+        if let id = coreDataObject.id {
+            return id
+        }
+        throw ObservableError.idWasNull
+    }
+
     private weak var workspace: WorkspaceObject?
     public func getWorkspace() throws -> WorkspaceEntity {
         if let workspace = workspace {
