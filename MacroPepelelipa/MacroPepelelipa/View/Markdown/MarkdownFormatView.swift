@@ -104,6 +104,7 @@ internal class MarkdownFormatView: UIView {
     internal init(frame: CGRect, owner: MarkdownTextView, viewController: NotesViewController) {
         super.init(frame: frame)
         self.textView = owner
+        textView?.markdownDelegate = AppMarkdownTextViewDelegate(textDidChangeSelection: updateSelectors)
         self.viewController = viewController
         
         addSelectors()

@@ -55,10 +55,10 @@ open class MarkdownTextViewDelegate: NSObject, UITextViewDelegate {
                 textView.activeFont = font
             }
             if let highlightColor = attributes[.backgroundColor] as? UIColor {
-                if highlightColor == .clear {
-                    textView.isHighlighted = false
-                } else {
+                if highlightColor == UIColor.highlightColor {
                     textView.isHighlighted = true
+                } else {
+                    textView.isHighlighted = false
                 }
             }
             if attributes[.underlineStyle] != nil {
