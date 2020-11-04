@@ -144,9 +144,9 @@ public class MarkdownTextView: UITextView {
         isUnderlined = value
         if value {
             let underlineNumber = NSNumber.init(value: NSUnderlineStyle.single.rawValue)
-            changeTextPreservingRange(to: attributedText.withExtraAttribute((.strikethroughStyle, underlineNumber), in: selectedRange))
+            changeTextPreservingRange(to: attributedText.withExtraAttribute((.underlineStyle, underlineNumber), in: selectedRange))
         } else {
-            changeTextPreservingRange(to: attributedText.removeAttribute(.strikethroughStyle, in: selectedRange))
+            changeTextPreservingRange(to: attributedText.removeAttribute(.underlineStyle, in: selectedRange))
         }
     }
 
