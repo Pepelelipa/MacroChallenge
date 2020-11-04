@@ -130,11 +130,11 @@ internal class WorkspaceSelectionViewController: UIViewController,
         self.collectionView.addGestureRecognizer(longPressGesture)
         
         navigationController?.navigationBar.largeTitleTextAttributes = [
-            .font: MarkdownHeader.firstHeaderFont,
+            .font: UIFont.defaultHeader.toStyle(.h1),
             .foregroundColor: UIColor.titleColor ?? .black
         ]
         navigationController?.navigationBar.titleTextAttributes = [
-            .font: MarkdownHeader.thirdHeaderFont,
+            .font: UIFont.defaultHeader.toStyle(.h3),
             .foregroundColor: UIColor.titleColor ?? .black
         ]
 
@@ -230,18 +230,18 @@ internal class WorkspaceSelectionViewController: UIViewController,
             let note = try DataManager.shared().createNote(in: notebook)
             note.title = NSAttributedString(string: "Welcome Note".localized())
             let parts: [NSAttributedString] = [
-                "Onboard intro".localized().toNoteDefaulText(),
-                "Workspaces".localized().toNoteH2Text(),
-                "Workspace text".localized().toNoteDefaulText(),
-                "Notebooks".localized().toNoteH2Text(),
-                "Notebook text".localized().toNoteDefaulText(),
-                "Note Taking".localized().toNoteH2Text(),
-                "Writing".localized().toNoteH3Text(),
-                "Writing text".localized().toNoteDefaulText(),
-                "Floating Boxes".localized().toNoteH3Text(),
-                "Floating boxes text".localized().toNoteDefaulText(),
-                "Markdown".localized().toNoteH3Text(),
-                "Markdown text".localized().toNoteDefaulText()
+                "Onboard intro".localized().toStyle(.paragraph),
+                "Workspaces".localized().toStyle(.h2),
+                "Workspace text".localized().toStyle(.paragraph),
+                "Notebooks".localized().toStyle(.h2),
+                "Notebook text".localized().toStyle(.paragraph),
+                "Note Taking".localized().toStyle(.h2),
+                "Writing".localized().toStyle(.h3),
+                "Writing text".localized().toStyle(.paragraph),
+                "Floating Boxes".localized().toStyle(.h3),
+                "Floating boxes text".localized().toStyle(.paragraph),
+                "Markdown".localized().toStyle(.h3),
+                "Markdown text".localized().toStyle(.paragraph)
             ]
             let text = NSMutableAttributedString()
             for part in parts {

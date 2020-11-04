@@ -71,7 +71,7 @@ class EmptyScreenView: UIView {
     private lazy var descriptionLabel: UILabel = {
         let label = UILabel(frame: .zero)
         label.text = descriptionText
-        label.font = MarkdownHeader.thirdHeaderFont
+        label.font = UIFont.defaultHeader.toStyle(.h3)
         label.textAlignment = .center
         label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -105,7 +105,7 @@ class EmptyScreenView: UIView {
         let button = UIButton(frame: .zero)
         button.tintColor = UIColor.backgroundColor
         button.setTitle(buttonTitle, for: .normal)
-        button.titleLabel?.font = MarkdownHeader.thirdHeaderFont
+        button.titleLabel?.font = UIFont.defaultHeader.toStyle(.h3)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.addTarget(self, action: #selector(handleAction), for: .touchUpInside)
         return button
