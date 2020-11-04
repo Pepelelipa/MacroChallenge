@@ -119,6 +119,7 @@ internal class ResizeHandleView: UIView {
         }
         referenceView.internalFrame = referenceView.frame
         owner.uptadeResizeHandles()
+        owner.updateExclusionPaths()
     }
     
     /**

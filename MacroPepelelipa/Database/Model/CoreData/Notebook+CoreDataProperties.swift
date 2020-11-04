@@ -1,8 +1,8 @@
 //
 //  Notebook+CoreDataProperties.swift
-//  Database
+//  MacroPepelelipa
 //
-//  Created by Pedro Giuliano Farina on 08/10/20.
+//  Created by Pedro Giuliano Farina on 03/11/20.
 //  Copyright © 2020 Pedro Giuliano Farina. All rights reserved.
 //
 //
@@ -10,6 +10,7 @@
 
 import Foundation
 import CoreData
+
 
 extension Notebook {
 
@@ -19,6 +20,7 @@ extension Notebook {
 
     @NSManaged public var colorName: String?
     @NSManaged public var name: String?
+    @NSManaged public var id: UUID?
     @NSManaged public var notes: NSOrderedSet?
     @NSManaged public var workspace: Workspace?
 

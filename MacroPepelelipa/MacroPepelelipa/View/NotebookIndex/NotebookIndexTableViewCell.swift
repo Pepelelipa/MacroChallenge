@@ -77,7 +77,7 @@ internal class NotebookIndexTableViewCell: UITableViewCell {
     
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-        if selected == true {
+        if selected && index.isTitle {
             selectedView.isHidden = false
             self.selectionStyle = .none
             lessonLbl.textColor = .backgroundColor

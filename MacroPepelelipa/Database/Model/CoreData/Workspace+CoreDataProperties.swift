@@ -2,7 +2,7 @@
 //  Workspace+CoreDataProperties.swift
 //  MacroPepelelipa
 //
-//  Created by Pedro Giuliano Farina on 22/10/20.
+//  Created by Pedro Giuliano Farina on 03/11/20.
 //  Copyright © 2020 Pedro Giuliano Farina. All rights reserved.
 //
 //
@@ -11,14 +11,16 @@
 import Foundation
 import CoreData
 
+
 extension Workspace {
 
     @nonobjc public class func fetchRequest() -> NSFetchRequest<Workspace> {
         return NSFetchRequest<Workspace>(entityName: "Workspace")
     }
 
-    @NSManaged public var name: String?
     @NSManaged public var isEnabled: Bool
+    @NSManaged public var name: String?
+    @NSManaged public var id: UUID?
     @NSManaged public var notebooks: NSOrderedSet?
 
 }

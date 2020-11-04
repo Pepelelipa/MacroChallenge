@@ -10,7 +10,6 @@ import UIKit
 extension UIFont {
     
     // MARK: - Variables and Constants
-        
     static let merriweather: UIFont? = {
         let device = UIDevice.current.userInterfaceIdiom
         switch device {
@@ -20,18 +19,6 @@ extension UIFont {
             return UIFont(name: "Merriweather", size: 20)
         default:
             return UIFont(name: "Merriweather", size: UIFont.labelFontSize)
-        }
-    }()
-    
-    static let openSans: UIFont? = {
-        let device = UIDevice.current.userInterfaceIdiom
-        switch device {
-        case .phone:
-            return UIFont(name: "OpenSans", size: 16)
-        case .pad:
-            return UIFont(name: "OpenSans", size: 21)
-        default:
-            return UIFont(name: "OpenSans", size: UIFont.labelFontSize + 1)
         }
     }()
     
@@ -48,25 +35,6 @@ extension UIFont {
     }()
     
     // MARK: - Functions
-    
-    /**
-     This method adds traits to a UIFont.
-     - Parameter traits: The Symbolic Traits to describe the font.
-     - Returns: An optional UIFont with the described traits.
-     */
-    func withTraits(_ traits: UIFontDescriptor.SymbolicTraits...) -> UIFont? {
-        var newTraits = fontDescriptor.symbolicTraits
-        for trait in traits {
-            if !newTraits.contains(trait) {
-                newTraits.insert(trait)
-            }
-        }
-        
-        guard let descriptor = fontDescriptor.withSymbolicTraits(newTraits) else {
-            return nil
-        }
-        return UIFont(descriptor: descriptor, size: 0)
-    }
     
     /**
      This method removes a trait from a UIFont.

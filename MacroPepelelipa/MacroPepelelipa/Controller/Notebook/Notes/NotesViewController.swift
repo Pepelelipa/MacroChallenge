@@ -139,7 +139,7 @@ internal class NotesViewController: UIViewController,
         textViewDelegate.removeObserver(self)
     }
 
-    internal convenience required init?(coder: NSCoder) {
+    internal required convenience init?(coder: NSCoder) {
         guard let note = coder.decodeObject(forKey: "note") as? NoteEntity else {
             return nil
         }
@@ -574,7 +574,7 @@ internal class NotesViewController: UIViewController,
     
     // MARK: - Uptade exclusion path frames
     
-    private func updateExclusionPaths() {
+    internal func updateExclusionPaths() {
         exclusionPaths.removeAll()
         
         imageBoxes.forEach { (imageBox) in
