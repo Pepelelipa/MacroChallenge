@@ -551,7 +551,7 @@ internal class NotesViewController: UIViewController,
         let picker = PHPickerViewController(configuration: config)
         picker.delegate = photoPickerDelegate
         
-        let photoLibraryAction = UIAlertAction(title: "Photos".localized(), style: .default) { (_) in
+        let photoLibraryAction = UIAlertAction(title: "Library".localized(), style: .default) { (_) in
             self.present(picker, animated: true, completion: nil)
         }
         
