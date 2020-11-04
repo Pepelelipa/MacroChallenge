@@ -73,7 +73,6 @@ internal class NotesViewController: UIViewController,
         let  markdownTextView = MarkdownTextView(frame: .zero)
         markdownTextView.markdownDelegate = AppMarkdownTextViewDelegate()
         markdownTextView.contentInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
-        markdownTextView.setColor(UIColor.bodyColor ?? .black)
         return markdownTextView
     }()
     
@@ -183,8 +182,12 @@ internal class NotesViewController: UIViewController,
             textView.inputAccessoryView = nil
         }
 
-        self.textField.attributedText = note?.title
-        self.textView.attributedText = note?.text
+        if note?.title.string != "" {
+            self.textField.attributedText = note?.title
+        }
+        if note?.text.string != "" {
+            self.textView.attributedText = note?.text
+        }
         for textBox in note?.textBoxes ?? [] {
             addTextBox(with: textBox)
         }
@@ -256,8 +259,12 @@ internal class NotesViewController: UIViewController,
             guard let note = note else {
                 return
             }
-            note.title = textField.attributedText ?? NSAttributedString(string: "Lesson".localized())
-            note.text = textView.attributedText ?? NSAttributedString()
+            if textField.text?.replacingOccurrences(of: " ", with: "") != "" {
+                note.title = textField.attributedText ?? NSAttributedString()
+            }
+            if textView.text?.replacingOccurrences(of: " ", with: "") != "" {
+                note.text = textView.attributedText ?? NSAttributedString()
+            }
             for textBox in textBoxes where textBox.frame.origin.x != 0 && textBox.frame.origin.y != 0 {
                 if let entity = note.textBoxes.first(where: { $0 === textBox.entity }) {
                     entity.text = textBox.markupTextView.attributedText
