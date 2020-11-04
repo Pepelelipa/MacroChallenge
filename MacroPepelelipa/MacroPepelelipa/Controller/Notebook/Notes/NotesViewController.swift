@@ -10,6 +10,7 @@
 import UIKit
 import Database
 import PhotosUI
+import MarkdownText
 
 internal class NotesViewController: UIViewController, 
                                     TextEditingDelegateObserver,
@@ -37,8 +38,8 @@ internal class NotesViewController: UIViewController,
     
     private lazy var textViewBottomConstraint = textView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20)
     
-    private lazy var textField: MarkupTextField = {
-        let textField = MarkupTextField(frame: .zero, placeholder: "Your Title".localized(), paddingSpace: 4)
+    private lazy var textField: MarkdownTextField = {
+        let textField = MarkdownTextField(frame: .zero, placeholder: "Your Title".localized(), paddingSpace: 4)
         textField.delegate = self.textFieldDelegate
         return textField
     }()
@@ -49,8 +50,8 @@ internal class NotesViewController: UIViewController,
         return delegate
     }()
     
-    private lazy var keyboardToolbar: MarkupToolBar = {
-        let toolBar = MarkupToolBar(frame: .zero, configurations: markupConfig)
+    private lazy var keyboardToolbar: MarkdownToolBar = {
+        let toolBar = MarkdownToolBar(frame: .zero, configurations: markupConfig)
         return toolBar
     }()
     
@@ -68,49 +69,54 @@ internal class NotesViewController: UIViewController,
         ]
     }()
     
-    internal private(set) lazy var textView: MarkupTextView = {
-        let  markupTextView = MarkupTextView(frame: .zero, delegate: self.textViewDelegate)
-        markupTextView.contentInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
-        return markupTextView
+    internal private(set) lazy var textView: MarkdownTextView = {
+        let  markdownTextView = MarkdownTextView(frame: .zero)
+        markdownTextView.markdownDelegate = AppMarkdownTextViewDelegate()
+        markdownTextView.contentInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
+        markdownTextView.setColor(UIColor.bodyColor ?? .black)
+        return markdownTextView
     }()
     
-    internal lazy var textViewDelegate: MarkupTextViewDelegate = {
-        let delegate = MarkupTextViewDelegate()
-        delegate.addObserver(self)
-        return delegate
-    }()
-    
-    internal lazy var workItem = DispatchWorkItem {
-        if self.textView.textColor == .placeholderColor {
-            self.textViewDelegate.parsePlaceholder(on: self.textView)
-        }
-    }
-    
-    internal lazy var markupConfig: MarkupBarConfiguration = {
-        let mrkConf = MarkupBarConfiguration(owner: textView)
+    internal lazy var markupConfig: MarkdownBarConfiguration = {
+        let mrkConf = MarkdownBarConfiguration(owner: textView)
         mrkConf.observer = self
         return mrkConf
     }()
     
-    internal private(set) lazy var formatViewDelegate: MarkupFormatViewDelegate? = {
-        return MarkupFormatViewDelegate(viewController: self)
-    }()
-    
-    internal private(set) lazy var markupContainerView: MarkupContainerView = {
+    internal private(set) lazy var markupContainerView: MarkdownContainerView = {
         let height: CGFloat = screenHeight/4
         
-        let container = MarkupContainerView(frame: CGRect(x: 0, y: 0, width: screenWidth, height: height), owner: self.textView, delegate: self.formatViewDelegate, viewController: self)
+        let container = MarkdownContainerView(frame: CGRect(x: 0, y: 0, width: screenWidth, height: height), owner: self.textView, viewController: self)
         
         container.autoresizingMask = []
         container.isHidden = true
-        container.delegate = self.formatViewDelegate
         
         return container
     }()
     
     #if !targetEnvironment(macCatalyst)
-    internal lazy var photoPickerDelegate = PhotoPickerDelegate { (results) in
-        self.addMedia(from: results)
+    internal lazy var photoPickerDelegate = PhotoPickerDelegate { (image, error) in
+        if let error = error {
+            let alertController = UIAlertController(
+                title: "Error presenting Photo Library".localized(),
+                message: "The app could not present the Photo Library".localized(),
+                preferredStyle: .alert)
+                .makeErrorMessage(with: "The app could not load the native Image Picker Controller".localized())
+            DispatchQueue.main.async {
+                self.present(alertController, animated: true, completion: nil)
+            }
+            NSLog("Error requesting -> \(error)")
+            return
+        }
+        if let image = image {
+            self.addMedia(from: image)
+        }
+    }
+    
+    internal lazy var imagePickerDelegate = ImagePickerDelegate { (image) in
+        if let image = image {
+            self.addMedia(from: image)
+        }
     }
     #endif
     
@@ -134,7 +140,7 @@ internal class NotesViewController: UIViewController,
     }
     
     deinit {
-        textViewDelegate.removeObserver(self)
+//        textViewDelegate.removeObserver(self)
     }
 
     internal required convenience init?(coder: NSCoder) {
@@ -147,6 +153,7 @@ internal class NotesViewController: UIViewController,
     // MARK: - Override functions
     
     override func viewDidLoad() {
+        textView.placeholder = "Start writing here".localized()
         super.viewDidLoad()
 
         NotificationCenter.default.addObserver(
@@ -172,7 +179,6 @@ internal class NotesViewController: UIViewController,
         
         if UIDevice.current.userInterfaceIdiom == .phone {
             textView.inputAccessoryView = keyboardToolbar
-            formatViewDelegate?.setFormatView(markupContainerView)
         } else if UIDevice.current.userInterfaceIdiom == .pad {
             textView.inputAccessoryView = nil
         }
@@ -195,7 +201,6 @@ internal class NotesViewController: UIViewController,
 
     override func viewWillAppear(_ animated: Bool) {
         navigationItem.largeTitleDisplayMode = .never
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.01, execute: self.workItem)
         NSLayoutConstraint.activate(constraints)
     }
 
@@ -205,7 +210,6 @@ internal class NotesViewController: UIViewController,
         }
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.largeTitleDisplayMode = .automatic
-        workItem.cancel()
     }
     
     // MARK: - Functions
@@ -287,52 +291,41 @@ internal class NotesViewController: UIViewController,
     }
     
     #if !targetEnvironment(macCatalyst)
-    private func addMedia(from results: [PHPickerResult]) {
+    /// This method presents the image picker for accessing the camera
+    internal func showImagePickerController(sourceType: UIImagePickerController.SourceType) {
+        let imagePickerController = UIImagePickerController()
+        imagePickerController.delegate = imagePickerDelegate
+        imagePickerController.allowsEditing = true
+        imagePickerController.sourceType = sourceType
         
-        if let itemProvider = results.first?.itemProvider, itemProvider.canLoadObject(ofClass: UIImage.self) {
-            itemProvider.loadObject(ofClass: UIImage.self) { [weak self] (loadedImage, error) in
-                if let error = error, let self = self {
-                    let alertController = UIAlertController(
-                        title: "Error presenting Photo Library".localized(),
-                        message: "The app could not present the Photo Library".localized(),
-                        preferredStyle: .alert)
-                        .makeErrorMessage(with: "The app could not load the native Image Picker Controller".localized())
-                    DispatchQueue.main.async {
-                        self.present(alertController, animated: true, completion: nil)
-                    }
-                    NSLog("Error requesting -> \(error)")
-                    return
-                }
-                
-                DispatchQueue.main.async {
-                    guard let image = loadedImage as? UIImage else {
-                        return
-                    }
-                    
-                    let alert = UIAlertController(title: "Image or text?".localized(), 
-                                                  message: "Import the media as an image or as a text transcription (Beta version)".localized(), 
-                                                  preferredStyle: .alert)
-                    
-                    let importImageAction = UIAlertAction(title: "Image".localized(), style: .default) { (_) in
-                        self?.createImageBox(image: image)
-                    }
-                    
-                    let importTextAction = UIAlertAction(title: "Text".localized(), style: .default) { (_) in
-                        
-                        let textRecognition = TextRecognitionManager()
-                        let transcription = textRecognition.imageRequest(toImage: image)
-                        
-                        self?.createTextBox(transcription: transcription)
-                    }
-                    
-                    alert.view.tintColor = .actionColor
-                    
-                    alert.addAction(importImageAction)
-                    alert.addAction(importTextAction)
-                    
-                    self?.present(alert, animated: true, completion: nil)
-                }
+        present(imagePickerController, animated: true, completion: nil)
+    }
+    
+    /// This method adds a image box or a transcripted text from selected image in a text box to the current note
+    private func addMedia(from image: UIImage) {
+        DispatchQueue.main.async {
+            let alert = UIAlertController(title: "Image or text?".localized(), 
+                                          message: "Import the media as an image or as a text transcription (Beta version)".localized(), 
+                                          preferredStyle: .alert)
+            
+            let importImageAction = UIAlertAction(title: "Image".localized(), style: .default) { (_) in
+                self.createImageBox(image: image)
             }
+            
+            let importTextAction = UIAlertAction(title: "Text".localized(), style: .default) { (_) in
+                
+                let textRecognition = TextRecognitionManager()
+                let transcription = textRecognition.imageRequest(toImage: image)
+                
+                self.textView.insertText("\n\"\(transcription)\"\n")
+            }
+            
+            alert.view.tintColor = .actionColor
+            
+            alert.addAction(importImageAction)
+            alert.addAction(importTextAction)
+            
+            self.present(alert, animated: true, completion: nil)
         }
     }
     #endif
@@ -516,9 +509,9 @@ internal class NotesViewController: UIViewController,
             textBoxEntity.height = 40
             textBoxEntity.width = 140
             if let transcriptedText = transcription {
-                textBoxEntity.text = transcriptedText.toNoteDefaulText()
+                textBoxEntity.text = transcriptedText.toStyle(.paragraph)
             } else {
-                textBoxEntity.text = "Text".localized().toNoteDefaulText()
+                textBoxEntity.text = "Text".localized().toStyle(.paragraph)
             }
             addTextBox(with: textBoxEntity)
         } catch {
@@ -538,12 +531,22 @@ internal class NotesViewController: UIViewController,
         #if !targetEnvironment(macCatalyst)
         var config = PHPickerConfiguration()
         config.filter = .images
-                
-        let picker = PHPickerViewController(configuration: config)
-        
-        picker.delegate = photoPickerDelegate
 
-        present(picker, animated: true, completion: nil)
+        let picker = PHPickerViewController(configuration: config)
+        picker.delegate = photoPickerDelegate
+        
+        let photoLibraryAction = UIAlertAction(title: "Library".localized(), style: .default) { (_) in
+            self.present(picker, animated: true, completion: nil)
+        }
+        
+        let cameraAction = UIAlertAction(title: "Camera".localized(), style: .default) { (_) in
+            self.showImagePickerController(sourceType: .camera)
+        }
+        
+        let alertController = UIAlertController()
+
+        alertController.createMultipleActionsAlert(on: self, title: "Choose your image".localized(), message: "Tip for transcripting text".localized(), actions: [photoLibraryAction, cameraAction])
+        
         #endif
     }
     

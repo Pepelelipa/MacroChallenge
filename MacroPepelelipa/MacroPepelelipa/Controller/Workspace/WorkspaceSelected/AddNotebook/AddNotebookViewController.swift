@@ -40,7 +40,7 @@ internal class AddNotebookViewController: UIViewController {
         txtName.translatesAutoresizingMaskIntoConstraints = false
         txtName.placeholder = "New notebook name".localized()
         txtName.borderStyle = .none
-        txtName.font = MarkdownHeader.thirdHeaderFont
+        txtName.font = UIFont.defaultHeader.toStyle(.h3)
         txtName.tintColor = .actionColor
         txtName.addTarget(self, action: #selector(textChanged(_:)), for: .editingChanged)
         txtName.returnKeyType = UIReturnKeyType.done 
@@ -84,7 +84,7 @@ internal class AddNotebookViewController: UIViewController {
         btnConfirm.tintColor = .white
         btnConfirm.setBackgroundImage(UIImage(named: "btnWorkspaceBackground"), for: .normal)
         btnConfirm.layer.cornerRadius = 22
-        btnConfirm.titleLabel?.font = MarkdownHeader.thirdHeaderFont
+        btnConfirm.titleLabel?.font = UIFont.defaultHeader.toStyle(.h3)
         btnConfirm.contentEdgeInsets = UIEdgeInsets(top: 10, left: 15, bottom: 10, right: 15)
         return btnConfirm
     }()
@@ -172,6 +172,7 @@ internal class AddNotebookViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        txtName.becomeFirstResponder()
         AppUtility.setOrientation(.portrait, andRotateTo: .portrait)
         if let notebook = notebook {
             txtName.text = notebook.name
