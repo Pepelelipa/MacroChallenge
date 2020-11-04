@@ -455,10 +455,29 @@ public class MarkdownTextView: UITextView {
     
     // MARK: - UIResponderStandardEditActions
     
+    private lazy var boldMenuItem: UIMenuItem = {
+        return UIMenuItem(title: "Bold".localized(), action: #selector(toggleBoldface(_:)))
+    }()
+    
+    private lazy var italicMenuItem: UIMenuItem = {
+        return UIMenuItem(title: "Italic".localized(), action: #selector(toggleItalics(_:)))
+    }()
+    
+    private lazy var underlineMenuItem: UIMenuItem = {
+        return UIMenuItem(title: "Underline".localized(), action: #selector(toggleUnderline(_:)))
+    }()
+    
+    private lazy var highlightMenuItem: UIMenuItem = {
+        return UIMenuItem(title: "Highlight".localized(), action: #selector(toggleHighlight(_:)))
+    }()
+    
     public override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
         let superCanPerformBold = super.canPerformAction(#selector(UIResponderStandardEditActions.toggleBoldface(_:)), withSender: sender)
         
-        if action == Selector(("_showTextStyleOptions:")) && !superCanPerformBold {
+        if superCanPerformBold {
+            UIMenuController.shared.menuItems = [boldMenuItem, italicMenuItem, underlineMenuItem, highlightMenuItem]
+        } else if action == Selector(("_showTextStyleOptions:")) {
+            UIMenuController.shared.menuItems = nil
             return true
         }
         
@@ -475,5 +494,9 @@ public class MarkdownTextView: UITextView {
     
     public override func toggleUnderline(_ sender: Any?) {
         self.setUnderlined(!self.isUnderlined)
+    }
+    
+    @objc public func toggleHighlight(_ sender: Any?) {
+        self.setHighlighted(!self.isHighlighted)
     }
 }
