@@ -80,7 +80,7 @@ internal class NotebookIndexTableViewCell: UITableViewCell {
         if selected && index.isTitle {
             selectedView.isHidden = false
             self.selectionStyle = .none
-            lessonLbl.textColor = .backgroundColor
+            lessonLbl.textColor = UIColor.white
         } else {
             selectedView.isHidden = true
             self.selectionStyle = .none
