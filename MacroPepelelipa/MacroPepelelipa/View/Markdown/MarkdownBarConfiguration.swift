@@ -182,18 +182,18 @@ internal class MarkdownBarConfiguration {
     @objc internal func addHeader(paragraphButton: UIBarButtonItem) {
         if let textView = textView {
             let style: FontStyle
-            if paragraphButton.image == UIImage(named: "h1") {
+            if paragraphButton.image == UIImage(systemName: "paragraph") {
+                paragraphButton.image = UIImage(named: "h1")
+                style = .h1
+            } else if paragraphButton.image == UIImage(named: "h1") {
                 paragraphButton.image = UIImage(named: "h2")
                 style = .h2
             } else if paragraphButton.image == UIImage(named: "h2") {
                 paragraphButton.image = UIImage(named: "h3")
                 style = .h3
-            } else if paragraphButton.image == UIImage(named: "h3") {
+            } else {
                 paragraphButton.image = UIImage(systemName: "paragraph")
                 style = .paragraph
-            } else {
-                paragraphButton.image = UIImage(named: "h1")
-                style = .h1
             }
             textView.setFont(to: textView.activeFont.toStyle(style))
         }
@@ -207,17 +207,17 @@ internal class MarkdownBarConfiguration {
 
         if let textView = textView {
             let style: FontStyle
-            if paragraphButton.backgroundImage(for: .normal) == UIImage(named: "h1") {
-                paragraphButton.setBackgroundImage(UIImage(named: "h2"), for: .normal)
+            if paragraphButton.backgroundImage(for: .normal) == UIImage(systemName: "paragraph") {
+                paragraphButton.setBackgroundImage(UIImage(named: "h1"), for: .normal)
                 style = .h1
+            } else if paragraphButton.backgroundImage(for: .normal) == UIImage(named: "h1") {
+                paragraphButton.setBackgroundImage(UIImage(named: "h2"), for: .normal)
+                style = .h2
             } else if paragraphButton.backgroundImage(for: .normal) == UIImage(named: "h2") {
                 paragraphButton.setBackgroundImage(UIImage(named: "h3"), for: .normal)
-                style = .h2
-            } else if paragraphButton.backgroundImage(for: .normal) == UIImage(named: "h3") {
-                paragraphButton.setBackgroundImage(UIImage(systemName: "paragraph"), for: .normal)
                 style = .h3
             } else {
-                paragraphButton.setBackgroundImage(UIImage(named: "h1"), for: .normal)
+                paragraphButton.setBackgroundImage(UIImage(systemName: "paragraph"), for: .normal)
                 style = .paragraph
             }
             textView.setFont(to: textView.activeFont.toStyle(style))
