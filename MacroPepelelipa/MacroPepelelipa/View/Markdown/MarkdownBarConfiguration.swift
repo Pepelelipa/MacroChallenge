@@ -59,7 +59,7 @@ internal class MarkdownBarConfiguration {
     internal func setUpButtons() -> [UIBarButtonItem] {
         var barButtonItems: [UIBarButtonItem] = []
         
-        let listButton = createBarButtonItem(imageName: "list.bullet", systemImage: true, objcFunc: #selector(addList))
+        let listButton = createBarButtonItem(imageName: "text.badge.plus", systemImage: true, objcFunc: #selector(addList))
         barButtonItems.append(listButton)
         
         let paragraphButton = createBarButtonItem(imageName: "h1", systemImage: false, objcFunc: #selector(addHeader))
@@ -111,7 +111,7 @@ internal class MarkdownBarConfiguration {
     internal func setupUIButtons() -> [UIButton] {
         var buttons: [UIButton] = []
         
-        let listButton = createButton(imageName: "list.bullet", systemImage: true, objcFunc: #selector(addListButton))
+        let listButton = createButton(imageName: "text.badge.plus", systemImage: true, objcFunc: #selector(addListButton))
         buttons.append(listButton)
         
         let paragraphButton = createButton(imageName: "h1", systemImage: false, objcFunc: #selector(addHeaderButton))
@@ -149,12 +149,15 @@ internal class MarkdownBarConfiguration {
     - Parameter listButton: The UIBarButtonItem for the list items.
     */
     @objc internal func addList(listButton: UIBarButtonItem) {
-        if listButton.image == UIImage(systemName: "list.number") {
+        if listButton.image == UIImage(systemName: "text.badge.plus") {
             listButton.image = UIImage(systemName: "list.bullet")
+            textView?.addList(.bullet)
+        } else if listButton.image == UIImage(systemName: "list.bullet") {
+            listButton.image = UIImage(systemName: "list.number")
             textView?.addList(.numeric)
         } else {
-            listButton.image = UIImage(systemName: "list.number")
-            textView?.addList(.bullet)
+            listButton.image = UIImage(systemName: "text.badge.plus")
+            // TODO: remove the list so that it can change to the correct button, without any type of bullet.
         }
     }
 
