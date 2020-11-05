@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import MarkdownText
 
 internal enum BoxViewState {
     case idle
@@ -18,6 +19,6 @@ internal enum BoxViewState {
 internal protocol BoxView: UIView {
     var state: BoxViewState { get set }
     var internalFrame: CGRect { get set }
-    var owner: MarkupTextView { get set }
+    var owner: MarkdownTextView { get set }
     var boxViewBorder: CAShapeLayer { get set }
 }

@@ -41,17 +41,17 @@ internal class TextEditingContainerViewController: UIViewController,
     
     private lazy var notesViewController = centerViewController?.viewControllers?.first as? NotesViewController
     
-    internal lazy var markupConfig: MarkupBarConfiguration = {
+    internal lazy var markupConfig: MarkdownBarConfiguration = {
         guard let textView = notesViewController?.textView else {
             fatalError("Controller not found")
         }
-        let mrkConf = MarkupBarConfiguration(owner: textView)
+        let mrkConf = MarkdownBarConfiguration(owner: textView)
         mrkConf.observer = self
         return mrkConf
     }()
     
-    private lazy var markupNavigationView: MarkupNavigationView = {
-        let mrkView = MarkupNavigationView(frame: .zero, configurations: markupConfig)
+    private lazy var markupNavigationView: MarkdownNavigationView = {
+        let mrkView = MarkdownNavigationView(frame: .zero, configurations: markupConfig)
         mrkView.backgroundColor = UIColor.backgroundColor
         
         return mrkView
@@ -212,25 +212,17 @@ internal class TextEditingContainerViewController: UIViewController,
     
     ///This method opens the pop over when the button is pressed
     internal func openPopOver() {
-        guard let textView = notesViewController?.textView,
-              let formatViewDelegate = notesViewController?.formatViewDelegate,
-              let textViewDelegate = notesViewController?.textViewDelegate else {
+        guard let textView = notesViewController?.textView else {
             return
         }
-        
+
         let markupContainerViewController = MarkupContainerViewController(owner: textView,
-                                                                          delegate: formatViewDelegate,
                                                                           viewController: notesViewController,
                                                                           size: .init(width: 380, height: 110))
-        
-        if let formatView = markupContainerViewController.formatView {
-            formatViewDelegate.setFormatView(formatView)
-            textViewDelegate.setFotmatView(formatView)
-        }
-        
+
         markupContainerViewController.modalPresentationStyle = .popover
         markupContainerViewController.popoverPresentationController?.sourceView = markupNavigationView.barButtonItems[4]
-        
+
         present(markupContainerViewController, animated: true)
     }
     
@@ -275,16 +267,7 @@ internal class TextEditingContainerViewController: UIViewController,
             return
         }
         
-        #if !targetEnvironment(macCatalyst)
-        
-        var config = PHPickerConfiguration()
-        config.filter = .images
-
-        let picker = PHPickerViewController(configuration: config)
-        picker.delegate = noteController.photoPickerDelegate
-        present(picker, animated: true, completion: nil)
-        
-        #endif
+        noteController.presentPicker()
     }
 
     internal func changeTextViewInput(isCustom: Bool) {

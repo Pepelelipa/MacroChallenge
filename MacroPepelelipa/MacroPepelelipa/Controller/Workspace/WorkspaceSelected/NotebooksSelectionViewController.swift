@@ -83,8 +83,6 @@ internal class NotebooksSelectionViewController: UIViewController {
                 } else {
                     do {
                         note = try DataManager.shared().createNote(in: notebook)
-                        note.title = NSAttributedString(string: "Lesson".localized())
-                        try note.save()
                     } catch {
                         self.presentErrorAlert()
                     }
@@ -125,7 +123,7 @@ internal class NotebooksSelectionViewController: UIViewController {
             self.collectionView.addGestureRecognizer(longPressGesture)
         }
         navigationItem.title = workspace?.name
-        navigationItem.backBarButtonItem?.setTitleTextAttributes([.font: MarkdownHeader.thirdHeaderFont], for: .application)
+        navigationItem.backBarButtonItem?.setTitleTextAttributes([.font: UIFont.defaultHeader.toStyle(.h3)], for: .application)
         
         view.backgroundColor = .backgroundColor
         view.addSubview(collectionView)
