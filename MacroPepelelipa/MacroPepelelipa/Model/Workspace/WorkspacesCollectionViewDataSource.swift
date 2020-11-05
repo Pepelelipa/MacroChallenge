@@ -92,11 +92,11 @@ internal class WorkspacesCollectionViewDataSource: NSObject,
     // MARK: - EntityObserver functions
     
     internal func entityWasCreated(_ value: ObservableEntity) {
-        if workspaces.isEmpty {
-            (viewController as? WorkspaceSelectionViewController)?.switchEmptyScreenView(shouldBeHidden: true)
-        }
         if let workspace = value as? WorkspaceEntity {
             workspace.addObserver(self)
+            if workspaces.isEmpty {
+                (viewController as? WorkspaceSelectionViewController)?.switchEmptyScreenView(shouldBeHidden: true)
+            }
             workspaces.append(workspace)
             self.collectionView?().insertItems(at: [IndexPath(item: workspaces.count - 1, section: 0)])
         }
