@@ -59,10 +59,10 @@ internal class MarkdownBarConfiguration {
     internal func setUpButtons() -> [UIBarButtonItem] {
         var barButtonItems: [UIBarButtonItem] = []
         
-        let listButton = createBarButtonItem(imageName: "list.bullet", systemImage: true, objcFunc: #selector(addList))
+        let listButton = createBarButtonItem(imageName: "text.badge.plus", systemImage: true, objcFunc: #selector(addList))
         barButtonItems.append(listButton)
         
-        let paragraphButton = createBarButtonItem(imageName: "h1", systemImage: false, objcFunc: #selector(addHeader))
+        let paragraphButton = createBarButtonItem(imageName: "paragraph", systemImage: true, objcFunc: #selector(addHeader))
         barButtonItems.append(paragraphButton)
         
         let imageGalleryButton = createBarButtonItem(imageName: "photo", systemImage: true, objcFunc: #selector(photoPicker))
@@ -111,10 +111,10 @@ internal class MarkdownBarConfiguration {
     internal func setupUIButtons() -> [UIButton] {
         var buttons: [UIButton] = []
         
-        let listButton = createButton(imageName: "list.bullet", systemImage: true, objcFunc: #selector(addListButton))
+        let listButton = createButton(imageName: "text.badge.plus", systemImage: true, objcFunc: #selector(addListButton))
         buttons.append(listButton)
         
-        let paragraphButton = createButton(imageName: "h1", systemImage: false, objcFunc: #selector(addHeaderButton))
+        let paragraphButton = createButton(imageName: "paragraph", systemImage: true, objcFunc: #selector(addHeaderButton))
         buttons.append(paragraphButton)
         
         let imageGalleryButton = createButton(imageName: "photo", systemImage: true, objcFunc: #selector(photoPicker))
@@ -149,12 +149,15 @@ internal class MarkdownBarConfiguration {
     - Parameter listButton: The UIBarButtonItem for the list items.
     */
     @objc internal func addList(listButton: UIBarButtonItem) {
-        if listButton.image == UIImage(systemName: "list.number") {
+        if listButton.image == UIImage(systemName: "text.badge.plus") {
             listButton.image = UIImage(systemName: "list.bullet")
+            textView?.addList(.bullet)
+        } else if listButton.image == UIImage(systemName: "list.bullet") {
+            listButton.image = UIImage(systemName: "list.number")
             textView?.addList(.numeric)
         } else {
-            listButton.image = UIImage(systemName: "list.number")
-            textView?.addList(.bullet)
+            listButton.image = UIImage(systemName: "text.badge.plus")
+            // TODO: remove the list so that it can change to the correct button, without any type of bullet.
         }
     }
 
@@ -179,17 +182,17 @@ internal class MarkdownBarConfiguration {
     @objc internal func addHeader(paragraphButton: UIBarButtonItem) {
         if let textView = textView {
             let style: FontStyle
-            if paragraphButton.image == UIImage(named: "h1") {
-                paragraphButton.image = UIImage(named: "h2")
+            if paragraphButton.image == UIImage(systemName: "paragraph") {
+                paragraphButton.image = UIImage(named: "h1")
                 style = .h1
+            } else if paragraphButton.image == UIImage(named: "h1") {
+                paragraphButton.image = UIImage(named: "h2")
+                style = .h2
             } else if paragraphButton.image == UIImage(named: "h2") {
                 paragraphButton.image = UIImage(named: "h3")
-                style = .h2
-            } else if paragraphButton.image == UIImage(named: "h3") {
-                paragraphButton.image = UIImage(systemName: "paragraph")
                 style = .h3
             } else {
-                paragraphButton.image = UIImage(named: "h1")
+                paragraphButton.image = UIImage(systemName: "paragraph")
                 style = .paragraph
             }
             textView.setFont(to: textView.activeFont.toStyle(style))
@@ -204,17 +207,17 @@ internal class MarkdownBarConfiguration {
 
         if let textView = textView {
             let style: FontStyle
-            if paragraphButton.backgroundImage(for: .normal) == UIImage(named: "h1") {
-                paragraphButton.setBackgroundImage(UIImage(named: "h2"), for: .normal)
+            if paragraphButton.backgroundImage(for: .normal) == UIImage(systemName: "paragraph") {
+                paragraphButton.setBackgroundImage(UIImage(named: "h1"), for: .normal)
                 style = .h1
+            } else if paragraphButton.backgroundImage(for: .normal) == UIImage(named: "h1") {
+                paragraphButton.setBackgroundImage(UIImage(named: "h2"), for: .normal)
+                style = .h2
             } else if paragraphButton.backgroundImage(for: .normal) == UIImage(named: "h2") {
                 paragraphButton.setBackgroundImage(UIImage(named: "h3"), for: .normal)
-                style = .h2
-            } else if paragraphButton.backgroundImage(for: .normal) == UIImage(named: "h3") {
-                paragraphButton.setBackgroundImage(UIImage(systemName: "paragraph"), for: .normal)
                 style = .h3
             } else {
-                paragraphButton.setBackgroundImage(UIImage(named: "h1"), for: .normal)
+                paragraphButton.setBackgroundImage(UIImage(systemName: "paragraph"), for: .normal)
                 style = .paragraph
             }
             textView.setFont(to: textView.activeFont.toStyle(style))
