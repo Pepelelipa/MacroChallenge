@@ -72,6 +72,19 @@ internal class TextEditingContainerViewController: UIViewController,
         return []
     }()
     
+    
+    internal lazy var deleteCommand: UIKeyCommand = {
+        let command = UIKeyCommand(input: "\u{8}", modifierFlags: .command, action: #selector(deleteNote))
+        command.discoverabilityTitle = "Delete note".localized()
+        return command
+    }()
+    
+    internal lazy var newNoteCommand: UIKeyCommand = {
+        let command = UIKeyCommand(input: "N", modifierFlags: .command, action: #selector(createNote))
+        command.discoverabilityTitle = "New note".localized()
+        return command
+    }()
+    
     // MARK: - Initializers
     
     internal init(centerViewController: NotesPageViewController) {
@@ -86,20 +99,14 @@ internal class TextEditingContainerViewController: UIViewController,
         self.init(centerViewController: centerViewController)
     }
     
-    public override var keyCommands: [UIKeyCommand]? {
-        return [
-            UIKeyCommand(title: "Bold", image: nil,
-                         action: #selector(notesViewController?.textView.toggleBoldface(_:)),
-                         input: "b", modifierFlags: .command,
-                         propertyList: nil, alternates: [],
-                         discoverabilityTitle: "Text Editing VC", attributes: .hidden, state: .mixed)
-        ]
-    }
-    
     // MARK: - Override functions
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        addKeyCommand(deleteCommand)
+        addKeyCommand(newNoteCommand)
+        
         if let centerViewController = self.centerViewController {
             showCenterViewController(centerViewController)
         } else {
@@ -287,6 +294,14 @@ internal class TextEditingContainerViewController: UIViewController,
     }
     
     // MARK: - IBActions functions
+    
+    @IBAction private func createNote() {
+        self.centerViewController?.createNote()
+    }
+    
+    @IBAction private func deleteNote() {
+        self.centerViewController?.deleteNote()
+    }
     
     @IBAction private func presentMoreActions() {
         guard let pageViewController = centerViewController,
