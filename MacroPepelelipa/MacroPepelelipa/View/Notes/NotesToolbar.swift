@@ -17,7 +17,7 @@ internal class NotesToolbar: UIToolbar {
     internal var shareNoteTriggered: ((UIBarButtonItem) -> Void)?
     internal var newNoteTriggered: (() -> Void)?
     
-    private lazy var deleteNoteButton: UIBarButtonItem = {
+    internal lazy var deleteNoteButton: UIBarButtonItem = {
         let button = UIBarButtonItem(barButtonSystemItem: .trash, 
                                      target: self, 
                                      action: #selector(deleteNote))
