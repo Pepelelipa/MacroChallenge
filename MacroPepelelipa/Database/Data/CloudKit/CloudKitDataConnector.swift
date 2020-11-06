@@ -37,7 +37,7 @@ internal class DataConnector {
     private static let publicDB: CKDatabase = container.publicCloudDatabase
 
     // MARK: Saving Object
-    internal static func saveObject(database: DatabaseType, object: EntityObject,
+    internal static func saveObject(database: DatabaseType, object: CloudKitEntity,
                                     completionHandler: @escaping ((DataActionAnswer) -> Void)) {
         database.value.save(object.record) { (_, error) in
             if let error = error as? CKError {
@@ -55,14 +55,14 @@ internal class DataConnector {
     }
 
     // MARK: Saving Objects
-    internal static func saveData(database: DatabaseType, entitiesToSave: [EntityObject]) {
+    internal static func saveData(database: DatabaseType, entitiesToSave: [CloudKitEntity]) {
         saveData(database: database, entitiesToSave: entitiesToSave, entitiesToDelete: [])
     }
-    internal static func deleteData(database: DatabaseType, entitiesToDelete: [EntityObject]) {
+    internal static func deleteData(database: DatabaseType, entitiesToDelete: [CloudKitEntity]) {
         saveData(database: database, entitiesToSave: [], entitiesToDelete: entitiesToDelete)
     }
 
-    internal static func saveData(database: DatabaseType, entitiesToSave: [EntityObject], entitiesToDelete: [EntityObject]) {
+    internal static func saveData(database: DatabaseType, entitiesToSave: [CloudKitEntity], entitiesToDelete: [CloudKitEntity]) {
 
         var savingRecords: [CKRecord] = []
         for obj in entitiesToSave {
@@ -81,7 +81,7 @@ internal class DataConnector {
     }
 
     // MARK: Deleting Object
-    internal func deleteObject(database: DatabaseType, object: EntityObject,
+    internal func deleteObject(database: DatabaseType, object: CloudKitEntity,
                                completionHandler: @escaping ((DataActionAnswer) -> Void)) {
         database.value.delete(withRecordID: object.record.recordID) { (_, error) in
             if let error = error as? CKError {

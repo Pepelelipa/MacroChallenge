@@ -99,7 +99,7 @@
 		029EFC942555DEDC00361F29 /* Data Property.swift in Sources */ = {isa = PBXBuildFile; fileRef = 029EFC932555DEDC00361F29 /* Data Property.swift */; };
 		029EFC9B2555DF1100361F29 /* DataActionAnswer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 029EFC9A2555DF1100361F29 /* DataActionAnswer.swift */; };
 		029EFCA12555DF2600361F29 /* DataFetchAnswer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 029EFCA02555DF2600361F29 /* DataFetchAnswer.swift */; };
-		029EFCA62555DF6700361F29 /* EntityObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 029EFCA52555DF6700361F29 /* EntityObject.swift */; };
+		029EFCA62555DF6700361F29 /* CloudKitEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 029EFCA52555DF6700361F29 /* CloudKitEntity.swift */; };
 		029EFCAF2555E0BF00361F29 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 029EFCB12555E0BF00361F29 /* Localizable.strings */; };
 		02A75293252E5282006D37B5 /* NSPersistantContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A75292252E5282006D37B5 /* NSPersistantContainer.swift */; };
 		02A75297252E5316006D37B5 /* CoreDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A75296252E5316006D37B5 /* CoreDataController.swift */; };
@@ -319,7 +319,7 @@
 		029EFC932555DEDC00361F29 /* Data Property.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data Property.swift"; sourceTree = "<group>"; };
 		029EFC9A2555DF1100361F29 /* DataActionAnswer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataActionAnswer.swift; sourceTree = "<group>"; };
 		029EFCA02555DF2600361F29 /* DataFetchAnswer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataFetchAnswer.swift; sourceTree = "<group>"; };
-		029EFCA52555DF6700361F29 /* EntityObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntityObject.swift; sourceTree = "<group>"; };
+		029EFCA52555DF6700361F29 /* CloudKitEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudKitEntity.swift; sourceTree = "<group>"; };
 		029EFCB02555E0BF00361F29 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		029EFCB42555E0C100361F29 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		02A75292252E5282006D37B5 /* NSPersistantContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSPersistantContainer.swift; sourceTree = "<group>"; };
@@ -797,7 +797,7 @@
 			children = (
 				029EFC992555DEF300361F29 /* QueryAnswers */,
 				029EFC922555DECC00361F29 /* Record Types */,
-				029EFCA52555DF6700361F29 /* EntityObject.swift */,
+				029EFCA52555DF6700361F29 /* CloudKitEntity.swift */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -1383,7 +1383,7 @@
 				022832E6252E5CE900DDD46B /* Note+CoreDataClass.swift in Sources */,
 				022832F3252E5F9C00DDD46B /* DataManager.swift in Sources */,
 				029EFC9B2555DF1100361F29 /* DataActionAnswer.swift in Sources */,
-				029EFCA62555DF6700361F29 /* EntityObject.swift in Sources */,
+				029EFCA62555DF6700361F29 /* CloudKitEntity.swift in Sources */,
 				0207772F251D192000D97B5A /* NoteEntity.swift in Sources */,
 				02398A962551FE8E009BFC32 /* ObservableError.swift in Sources */,
 			);
