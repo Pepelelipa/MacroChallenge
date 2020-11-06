@@ -91,6 +91,18 @@ internal class WorkspaceSelectionViewController: UIViewController,
         return item
     }()
     
+    private lazy var newWorspaceCommand: UIKeyCommand = {
+        let command = UIKeyCommand(input: "N", modifierFlags: .command, action: #selector(btnAddTap))
+        command.discoverabilityTitle = "New workspace".localized()
+        return command
+    }()
+    
+    private lazy var findCommand: UIKeyCommand = {
+        let command = UIKeyCommand(input: "F", modifierFlags: .command, action: #selector(startSearch))
+        command.discoverabilityTitle = "Find".localized()
+        return command
+    }()
+    
     private lazy var emptyScreenView: EmptyScreenView = {
         let view = EmptyScreenView(
             frame: .zero,
@@ -114,6 +126,10 @@ internal class WorkspaceSelectionViewController: UIViewController,
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        addKeyCommand(newWorspaceCommand)
+        addKeyCommand(findCommand)
+        
         view.backgroundColor = .rootColor
         navigationItem.rightBarButtonItem = btnAdd
         navigationItem.largeTitleDisplayMode = .always
@@ -394,6 +410,11 @@ internal class WorkspaceSelectionViewController: UIViewController,
     }
     
     // MARK: - IBActions functions
+    
+    /// Makes the search controller first responder
+    @IBAction func startSearch() {
+        self.searchController.isActive = true
+    }
     
     @IBAction func btnAddTap() {
         btnAdd.isEnabled = false
