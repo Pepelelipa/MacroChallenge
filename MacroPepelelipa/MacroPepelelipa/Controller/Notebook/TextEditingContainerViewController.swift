@@ -86,6 +86,16 @@ internal class TextEditingContainerViewController: UIViewController,
         self.init(centerViewController: centerViewController)
     }
     
+    public override var keyCommands: [UIKeyCommand]? {
+        return [
+            UIKeyCommand(title: "Bold", image: nil,
+                         action: #selector(notesViewController?.textView.toggleBoldface(_:)),
+                         input: "b", modifierFlags: .command,
+                         propertyList: nil, alternates: [],
+                         discoverabilityTitle: "Text Editing VC", attributes: .hidden, state: .mixed)
+        ]
+    }
+    
     // MARK: - Override functions
     
     override func viewDidLoad() {

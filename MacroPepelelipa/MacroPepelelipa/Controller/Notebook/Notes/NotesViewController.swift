@@ -95,6 +95,24 @@ internal class NotesViewController: UIViewController,
         return container
     }()
     
+    private lazy var boldfaceKeyCommand: UIKeyCommand = {
+        let command = UIKeyCommand(input: "B", modifierFlags: .command, action: #selector(textView.toggleFormat(_:)))
+        command.discoverabilityTitle = "Bold".localized()
+        return command
+    }()
+    
+    private lazy var italicsKeyCommand: UIKeyCommand = {
+        let command = UIKeyCommand(input: "I", modifierFlags: .command, action: #selector(textView.toggleFormat(_:)))
+        command.discoverabilityTitle = "Italic".localized()
+        return command
+    }()
+    
+    private lazy var underlineKeyCommand: UIKeyCommand = {
+        let command = UIKeyCommand(input: "U", modifierFlags: .command, action: #selector(textView.toggleFormat(_:)))
+        command.discoverabilityTitle = "Underline".localized()
+        return command
+    }()
+    
     #if !targetEnvironment(macCatalyst)
     internal lazy var photoPickerDelegate = PhotoPickerDelegate { (image, error) in
         if let error = error {
@@ -150,12 +168,16 @@ internal class NotesViewController: UIViewController,
         }
         self.init(note: note)
     }
-    
+
     // MARK: - Override functions
-    
+
     override func viewDidLoad() {
         textView.placeholder = "Start writing here".localized()
         super.viewDidLoad()
+        
+        addKeyCommand(boldfaceKeyCommand)
+        addKeyCommand(italicsKeyCommand)
+        addKeyCommand(underlineKeyCommand)
 
         NotificationCenter.default.addObserver(
             self,

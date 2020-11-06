@@ -499,4 +499,17 @@ public class MarkdownTextView: UITextView {
     @objc public func toggleHighlight(_ sender: Any?) {
         self.setHighlighted(!self.isHighlighted)
     }
+    
+    @objc public func toggleFormat(_ sender: UIKeyCommand) {
+        switch sender.input {
+        case "B":
+            toggleBoldface(nil)
+        case "I":
+            toggleItalics(nil)
+        case "U":
+            toggleUnderline(nil)
+        default:
+            break
+        }
+    }
 }
