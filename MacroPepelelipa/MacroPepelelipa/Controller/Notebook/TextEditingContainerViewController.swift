@@ -289,12 +289,12 @@ internal class TextEditingContainerViewController: UIViewController,
         }
     }
 
-    internal func presentPicker() {
+    internal func presentPicker(_ sender: NSObject) {
         guard let noteController = centerViewController?.viewControllers?.first as? NotesViewController else {
             return
         }
         
-        noteController.presentPicker()
+        noteController.presentPicker(sender)
     }
 
     internal func changeTextViewInput(isCustom: Bool) {
@@ -309,8 +309,8 @@ internal class TextEditingContainerViewController: UIViewController,
         self.centerViewController?.createNote()
     }
     
-    @IBAction private func deleteNote() {
-        self.centerViewController?.deleteNote()
+    @IBAction private func deleteNote(_ sender: UIBarButtonItem) {
+        self.centerViewController?.deleteNote(sender)
     }
     
     @IBAction private func presentMoreActions() {
