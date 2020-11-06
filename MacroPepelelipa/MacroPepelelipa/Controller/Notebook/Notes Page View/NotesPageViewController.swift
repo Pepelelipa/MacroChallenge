@@ -144,32 +144,40 @@ internal class NotesPageViewController: UIPageViewController,
         }
         
         notesToolbar.newNoteTriggered = {
-            guard let notebook = self.notebook else {
-                return
-            }
-            
-            let destination = AddNoteViewController(notebook: notebook) { 
-                self.updateNotes()
-            }
-            
-            destination.isModalInPresentation = true
-            destination.modalTransitionStyle = .crossDissolve
-            destination.modalPresentationStyle = .overFullScreen
-            
-            self.present(destination, animated: true)
+            self.createNote()
         }
     }
     
+    ///This methos creates a note in the notebook
+    internal func createNote() {
+        guard let notebook = self.notebook else {
+            return
+        }
+        
+        let destination = AddNoteViewController(notebook: notebook) {
+            self.updateNotes()
+        }
+        
+        destination.isModalInPresentation = true
+        destination.modalTransitionStyle = .crossDissolve
+        destination.modalPresentationStyle = .overFullScreen
+        
+        self.present(destination, animated: true)
+    }
+    
     ///This method deletes the current note from the notebook 
-    private func deleteNote() {
+    internal func deleteNote() {
         guard let viewController = viewControllers?.first as? NotesViewController,
             let note = viewController.note else {
             return
         }
-        let alertControlller = UIAlertController(
+        var alertControlller = UIAlertController(
             title: "Delete Note confirmation".localized(),
             message: "Warning".localized(),
-            preferredStyle: .actionSheet).makeDeleteConfirmation(dataType: .note) { _ in
+            preferredStyle: .actionSheet)
+            
+        alertControlller.popoverPresentationController?.barButtonItem = notesToolbar.deleteNoteButton
+        alertControlller = alertControlller.makeDeleteConfirmation(dataType: .note) { _ in
             let deleteAlertController = UIAlertController(
                 title: "Delete note confirmation".localized(),
                 message: "Warning".localized(),
