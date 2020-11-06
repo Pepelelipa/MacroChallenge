@@ -496,10 +496,24 @@ public class MarkdownTextView: UITextView {
         self.setUnderlined(!self.isUnderlined)
     }
     
+    /**
+     Toggles the highlight style information of the selected text.
+     
+     - Parameter sender: The object calling this method.
+     
+     Use this method to apply or remove style information to the currently selected content.
+     */
     @objc public func toggleHighlight(_ sender: Any?) {
         self.setHighlighted(!self.isHighlighted)
     }
     
+    /**
+     Toggles the format style information of the selected text.
+     
+     - Parameter sender: The UIKeyCommand calling this method.
+     
+     Use this method to apply or remove style information to the currently selected content for boldface, italics and underline.
+     */
     @objc public func toggleFormat(_ sender: UIKeyCommand) {
         switch sender.input {
         case "B":
