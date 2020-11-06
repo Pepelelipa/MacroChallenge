@@ -171,7 +171,8 @@ internal class NotesPageViewController: UIPageViewController,
             let note = viewController.note else {
             return
         }
-        var alertControlller = UIAlertController(
+        
+        let alertControlller = UIAlertController(
             title: "Delete Note confirmation".localized(),
             message: "Warning".localized(),
             preferredStyle: .actionSheet).makeDeleteConfirmation(dataType: .note) { _ in
