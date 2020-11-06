@@ -122,8 +122,8 @@ internal class NotesPageViewController: UIPageViewController,
     ///This method configures que actions performed by the buttons at the notes toolbar 
     private func setupNotesToolbarActions() {
         
-        notesToolbar.deleteNoteTriggered = { button in
-            self.deleteNote(button)
+        notesToolbar.deleteNoteTriggered = {
+            self.deleteNote()
         }
         
         notesToolbar.addImageTriggered = { button in
@@ -166,18 +166,16 @@ internal class NotesPageViewController: UIPageViewController,
     }
     
     ///This method deletes the current note from the notebook 
-    internal func deleteNote(_ sender: UIBarButtonItem) {
+    internal func deleteNote() {
         guard let viewController = viewControllers?.first as? NotesViewController,
             let note = viewController.note else {
             return
         }
-        var alertControlller = UIAlertController(
+        
+        let alertControlller = UIAlertController(
             title: "Delete Note confirmation".localized(),
             message: "Warning".localized(),
-            preferredStyle: .actionSheet)
-            
-        alertControlller.popoverPresentationController?.barButtonItem = notesToolbar.deleteNoteButton
-        alertControlller = alertControlller.makeDeleteConfirmation(dataType: .note) { _ in
+            preferredStyle: .actionSheet).makeDeleteConfirmation(dataType: .note) { _ in
             let deleteAlertController = UIAlertController(
                 title: "Delete note confirmation".localized(),
                 message: "Warning".localized(),
@@ -199,7 +197,7 @@ internal class NotesPageViewController: UIPageViewController,
             }
             self.present(deleteAlertController, animated: true, completion: nil)
         }
-        alertControlller.popoverPresentationController?.barButtonItem = sender
+        alertControlller.popoverPresentationController?.barButtonItem = notesToolbar.deleteNoteButton
         self.present(alertControlller, animated: true, completion: nil)
     }
     

@@ -72,7 +72,6 @@ internal class TextEditingContainerViewController: UIViewController,
         return []
     }()
     
-    
     internal lazy var deleteCommand: UIKeyCommand = {
         let command = UIKeyCommand(input: "\u{8}", modifierFlags: .command, action: #selector(deleteNote))
         command.discoverabilityTitle = "Delete note".localized()
@@ -97,16 +96,6 @@ internal class TextEditingContainerViewController: UIViewController,
             return nil
         }
         self.init(centerViewController: centerViewController)
-    }
-    
-    public override var keyCommands: [UIKeyCommand]? {
-        return [
-            UIKeyCommand(title: "Bold", image: nil,
-                         action: #selector(notesViewController?.textView.toggleBoldface(_:)),
-                         input: "b", modifierFlags: .command,
-                         propertyList: nil, alternates: [],
-                         discoverabilityTitle: "Text Editing VC", attributes: .hidden, state: .mixed)
-        ]
     }
     
     // MARK: - Override functions
@@ -309,8 +298,8 @@ internal class TextEditingContainerViewController: UIViewController,
         self.centerViewController?.createNote()
     }
     
-    @IBAction private func deleteNote(_ sender: UIBarButtonItem) {
-        self.centerViewController?.deleteNote(sender)
+    @IBAction private func deleteNote() {
+        self.centerViewController?.deleteNote()
     }
     
     @IBAction private func presentMoreActions() {
