@@ -65,7 +65,7 @@ internal class MarkdownBarConfiguration {
         let paragraphButton = createBarButtonItem(imageName: "paragraph", systemImage: true, objcFunc: #selector(addHeader))
         barButtonItems.append(paragraphButton)
         
-        let imageGalleryButton = createBarButtonItem(imageName: "photo", systemImage: true, objcFunc: #selector(photoPicker))
+        let imageGalleryButton = createBarButtonItem(imageName: "photo", systemImage: true, objcFunc: #selector(photoPicker(_:)))
         barButtonItems.append(imageGalleryButton)
         
         let textBoxButton = createBarButtonItem(imageName: "textbox", systemImage: true, objcFunc: #selector(addTextBox))
@@ -117,7 +117,7 @@ internal class MarkdownBarConfiguration {
         let paragraphButton = createButton(imageName: "paragraph", systemImage: true, objcFunc: #selector(addHeaderButton))
         buttons.append(paragraphButton)
         
-        let imageGalleryButton = createButton(imageName: "photo", systemImage: true, objcFunc: #selector(photoPicker))
+        let imageGalleryButton = createButton(imageName: "photo", systemImage: true, objcFunc: #selector(photoPicker(_:)))
         buttons.append(imageGalleryButton)
         
         let textBoxButton = createButton(imageName: "textbox", systemImage: true, objcFunc: #selector(addTextBox))
@@ -237,7 +237,7 @@ internal class MarkdownBarConfiguration {
         
     }
     
-    @objc internal func photoPicker() {
-        observer?.presentPicker()
+    @objc internal func photoPicker(_ sender: NSObject) {
+        observer?.presentPicker(sender)
     }
 }

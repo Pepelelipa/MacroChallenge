@@ -556,7 +556,7 @@ internal class NotesViewController: UIViewController,
     }
     
     ///Present the native Image Picker. There we instantiate a PHPickerViewController and set its delegate. Finally, there is a present from the view controller.
-    internal func presentPicker() {
+    internal func presentPicker(_ sender: NSObject) {
         
         #if !targetEnvironment(macCatalyst)
         var config = PHPickerConfiguration()
@@ -574,6 +574,12 @@ internal class NotesViewController: UIViewController,
         }
         
         let alertController = UIAlertController()
+        
+        if let button = sender as? UIButton {
+            alertController.popoverPresentationController?.sourceView = button
+        } else if let barButton = sender as? UIBarButtonItem {
+            alertController.popoverPresentationController?.barButtonItem = barButton
+        }
 
         alertController.createMultipleActionsAlert(on: self, title: "Choose your image".localized(), message: "Tip for transcripting text".localized(), actions: [photoLibraryAction, cameraAction])
         

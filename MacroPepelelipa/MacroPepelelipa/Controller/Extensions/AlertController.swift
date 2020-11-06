@@ -56,15 +56,16 @@ extension UIAlertController {
      - Parameter action: which action will be taken.
      */
     internal func createMultipleActionsAlert(on viewController: UIViewController, title: String, message: String, actions: [UIAlertAction]) {
-        let alert = UIAlertController(title: title, message: message, preferredStyle: .actionSheet)
+        self.title = title
+        self.message = message
         
         for i in 0 ..< actions.count {
-            alert.addAction(actions[i])
+            self.addAction(actions[i])
         }
         
         let dismissAction = UIAlertAction(title: "Cancel".localized(), style: .cancel, handler: nil)
-        alert.addAction(dismissAction)
-        alert.view.tintColor = UIColor.actionColor
-        viewController.present(alert, animated: true, completion: nil)
+        self.addAction(dismissAction)
+        self.view.tintColor = UIColor.actionColor
+        viewController.present(self, animated: true, completion: nil)
     }
 }

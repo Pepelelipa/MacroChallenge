@@ -122,13 +122,13 @@ internal class NotesPageViewController: UIPageViewController,
     ///This method configures que actions performed by the buttons at the notes toolbar 
     private func setupNotesToolbarActions() {
         
-        notesToolbar.deleteNoteTriggered = {
-            self.deleteNote()
+        notesToolbar.deleteNoteTriggered = { button in
+            self.deleteNote(button)
         }
         
-        notesToolbar.addImageTriggered = {
+        notesToolbar.addImageTriggered = { button in
             if let notesViewController = self.viewControllers?.first as? NotesViewController {
-                notesViewController.presentPicker()
+                notesViewController.presentPicker(button)
             }
         }
         
@@ -161,7 +161,7 @@ internal class NotesPageViewController: UIPageViewController,
     }
     
     ///This method deletes the current note from the notebook 
-    private func deleteNote() {
+    private func deleteNote(_ sender: UIBarButtonItem) {
         guard let viewController = viewControllers?.first as? NotesViewController,
             let note = viewController.note else {
             return
@@ -191,6 +191,7 @@ internal class NotesPageViewController: UIPageViewController,
             }
             self.present(deleteAlertController, animated: true, completion: nil)
         }
+        alertControlller.popoverPresentationController?.barButtonItem = sender
         self.present(alertControlller, animated: true, completion: nil)
     }
     

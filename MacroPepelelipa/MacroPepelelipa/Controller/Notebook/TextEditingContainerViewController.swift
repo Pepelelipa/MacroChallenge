@@ -272,12 +272,12 @@ internal class TextEditingContainerViewController: UIViewController,
         }
     }
 
-    internal func presentPicker() {
+    internal func presentPicker(_ sender: NSObject) {
         guard let noteController = centerViewController?.viewControllers?.first as? NotesViewController else {
             return
         }
         
-        noteController.presentPicker()
+        noteController.presentPicker(sender)
     }
 
     internal func changeTextViewInput(isCustom: Bool) {
