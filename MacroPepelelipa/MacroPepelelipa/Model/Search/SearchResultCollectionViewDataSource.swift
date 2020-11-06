@@ -175,7 +175,7 @@ internal class SearchResultCollectionViewDataSource: NSObject,
             }
             return headerView
         default:
-            assert(false, "Invalid element type")
+            return UICollectionReusableView()
         }
     }
     
