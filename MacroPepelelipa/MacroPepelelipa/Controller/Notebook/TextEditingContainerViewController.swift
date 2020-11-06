@@ -309,8 +309,8 @@ internal class TextEditingContainerViewController: UIViewController,
         self.centerViewController?.createNote()
     }
     
-    @IBAction private func deleteNote() {
-        self.centerViewController?.deleteNote()
+    @IBAction private func deleteNote(_ sender: UIBarButtonItem) {
+        self.centerViewController?.deleteNote(sender)
     }
     
     @IBAction private func presentMoreActions() {

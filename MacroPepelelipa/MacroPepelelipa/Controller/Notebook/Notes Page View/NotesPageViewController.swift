@@ -166,7 +166,7 @@ internal class NotesPageViewController: UIPageViewController,
     }
     
     ///This method deletes the current note from the notebook 
-    private func deleteNote(_ sender: UIBarButtonItem) {
+    internal func deleteNote(_ sender: UIBarButtonItem) {
         guard let viewController = viewControllers?.first as? NotesViewController,
             let note = viewController.note else {
             return
