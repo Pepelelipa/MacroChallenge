@@ -15,6 +15,8 @@ internal class WorkspacesCollectionViewDelegate: NSObject,
     // MARK: - Variables and Constants
     
     private var didSelectCell: ((WorkspaceCollectionViewCell) -> Void)?
+    internal var viewTraitCollection: UITraitCollection = UITraitCollection()
+    internal var frame: CGRect = CGRect()
     
     // MARK: - Initializers
     
@@ -40,29 +42,69 @@ internal class WorkspacesCollectionViewDelegate: NSObject,
         let width: CGFloat
         let height: CGFloat
         let isLandscape = UIDevice.current.orientation.isActuallyLandscape
-        if UIDevice.current.userInterfaceIdiom == .pad {
-            if collectionView.isEditing {
-                width = collectionView.bounds.width/2.1
-                height = 90
-            } else if isLandscape {
-                width = collectionView.bounds.width/2 - 25
-                height = width/1.6
-            } else {
-                width = collectionView.bounds.width/2.1
-                height = width/1.5
-            }
-        } else {
+        
+        if viewTraitCollection.horizontalSizeClass == .compact {
+            // iPhone: all portrait and some landscape
+            // iPad: all multitasking portrait and some multitasking landscape
+            
             if collectionView.isEditing {
                 width = collectionView.bounds.width
                 height = 70
-            } else if isLandscape {
+                
+            } else if frame.width+5 == UIScreen.main.bounds.width/2 {
                 width = collectionView.bounds.width/2.1
-                height = width/1.45
+                height = width/1.5
+            
             } else {
                 width = collectionView.bounds.width
                 height = width/1.45
             }
+        
+        } else {
+            // iPhone: Some landscape
+            // iPad: all portrait and landscape and some multitasking landscape
+            
+            if UIDevice.current.userInterfaceIdiom == .phone {
+                width = collectionView.bounds.width/2.1
+                height = width/1.45
+            
+            } else {
+                if collectionView.isEditing {
+                    width = collectionView.bounds.width/2.1
+                    height = 90
+                } else if isLandscape {
+                    width = collectionView.bounds.width/2 - 25
+                    height = width/1.6
+                } else {
+                    width = collectionView.bounds.width/2.1
+                    height = width/1.5
+                }
+            }
         }
+//        
+//        if UIDevice.current.userInterfaceIdiom == .pad {
+//            if collectionView.isEditing {
+//                width = collectionView.bounds.width/2.1
+//                height = 90
+//            } else if isLandscape {
+//                width = collectionView.bounds.width/2 - 25
+//                height = width/1.6
+//            } else {
+//                width = collectionView.bounds.width/2.1
+//                height = width/1.5
+//            }
+//        } else {
+//            if collectionView.isEditing {
+//                width = collectionView.bounds.width
+//                height = 70
+//            } else if isLandscape {
+//                width = collectionView.bounds.width/2.1
+//                height = width/1.45
+//            } else {
+//                width = collectionView.bounds.width
+//                height = width/1.45
+//            }
+//        }
         return CGSize(width: width, height: height)
     }
 

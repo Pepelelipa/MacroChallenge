@@ -175,6 +175,7 @@ internal class WorkspaceSelectionViewController: UIViewController,
         if UIDevice.current.userInterfaceIdiom == .pad {
             updateConstraintsForIpad()
         }
+        collectionDelegate.frame = view.frame
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -184,6 +185,7 @@ internal class WorkspaceSelectionViewController: UIViewController,
         if UIDevice.current.userInterfaceIdiom == .phone {
             emptyScreenView.isLandscape = UIDevice.current.orientation.isActuallyLandscape
         }
+        collectionDelegate.viewTraitCollection = traitCollection
     }
 
     override func setEditing(_ editing: Bool, animated: Bool) {
