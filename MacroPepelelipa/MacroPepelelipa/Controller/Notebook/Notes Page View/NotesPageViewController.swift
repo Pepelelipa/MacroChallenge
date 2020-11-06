@@ -148,6 +148,7 @@ internal class NotesPageViewController: UIPageViewController,
         }
     }
     
+    ///This methos creates a note in the notebook
     internal func createNote() {
         guard let notebook = self.notebook else {
             return
