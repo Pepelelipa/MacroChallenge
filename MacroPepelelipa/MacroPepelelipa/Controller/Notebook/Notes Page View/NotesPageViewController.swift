@@ -44,9 +44,8 @@ internal class NotesPageViewController: UIPageViewController,
     }()
     
     private lazy var presentTipButton: UIBarButtonItem = {
-        let item = UIBarButtonItem(ofType: .index, 
-                                   target: self, 
-                                   action: #selector(presentTip))
+        let item = UIBarButtonItem(image: UIImage(systemName: "info.circle"), style: .plain, target: self, action: #selector(presentTip))
+
         return item
     }()
     
@@ -292,7 +291,7 @@ internal class NotesPageViewController: UIPageViewController,
     }
     
     @IBAction private func presentTip() {
-        if let _ = self.notebook {
+        if self.notebook != nil {
             let tipViewController = TipViewController()
             self.present(tipViewController, animated: true, completion: nil)
         }

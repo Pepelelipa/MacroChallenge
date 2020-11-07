@@ -127,3 +127,14 @@
 "Camera" = "Câmera";
 "Tip for transcripting text" = "Dica: você consegue transcrever texto de imagem.";
 "Choose your image" = "Escolha a sua imagem";
+"Bold" = "Negrito";
+"Italic" = "Italico";
+"Highlighted" = "Marca Texto";
+"Underline" = "Sublinhado";
+"Bold explanation" = "**seu texto**";
+"Italic explanation" = "*seu texto*";
+"Highlighted explanation" = "::seu texto::";
+"Underline explanation" = "~~seu texto~~";
+"Settings Bar" = "Barra de Configurações";
+"InputView explanation" = "Você também pode acessar as mesmas opções através da Barra de Configuração, localizado na parte inferior da tela.";
+"Tips" = "Dicas";

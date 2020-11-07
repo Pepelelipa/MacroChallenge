@@ -20,6 +20,10 @@ public extension UIFont {
             return self.toSecondHeaderFont()
         case .h3:
             return self.toThirdHeaderFont()
+        case .bold:
+            return self.toBoldFont()
+        case .italic:
+            return self.toItalicFont()
         }
     }
 
@@ -53,4 +57,23 @@ public extension UIFont {
             return self.withSize(18).bold() ?? .boldSystemFont(ofSize: 18)
         }
     }
+    
+    func toBoldFont() -> UIFont {
+        if let first = Fonts.availableFonts.first(where: { $0.familyName == familyName }) {
+            if let boldVersion = first.bold() {
+                return boldVersion
+            }
+        }
+        return UIFont.systemFont(ofSize: UIFont.systemFontSize)
+    }
+    
+    func toItalicFont() -> UIFont {
+        if let first = Fonts.availableFonts.first(where: { $0.familyName == familyName }) {
+            if let italicVersion = first.italic() {
+                return italicVersion
+            }
+        }
+        return UIFont.systemFont(ofSize: UIFont.systemFontSize)
+    }
+    
 }
