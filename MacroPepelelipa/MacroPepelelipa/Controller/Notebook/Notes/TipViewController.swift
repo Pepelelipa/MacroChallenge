@@ -49,8 +49,6 @@ internal class TipViewController: UIViewController {
         return label
     }() 
     
-    private lazy var supportMarkdownView = UIView()
-
     private lazy var markdownArtifact: UILabel = {
         let label = UILabel()
         
@@ -197,22 +195,17 @@ internal class TipViewController: UIViewController {
             markupTitle.heightAnchor.constraint(equalToConstant: 32),
             markupTitle.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
             
-            supportMarkdownView.topAnchor.constraint(equalTo: markupTitle.bottomAnchor, constant: 34),
-            supportMarkdownView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
-            supportMarkdownView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
-            supportMarkdownView.heightAnchor.constraint(equalTo: scrollView.heightAnchor, multiplier: 0.3),
+            markdownArtifact.topAnchor.constraint(equalTo: markupTitle.bottomAnchor, constant: 34),
+            markdownArtifact.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 20),
+            markdownArtifact.widthAnchor.constraint(equalTo: scrollView.widthAnchor, multiplier: 0.44),
+            markdownArtifact.heightAnchor.constraint(equalTo: markdownArtifact.widthAnchor),
             
-            markdownArtifact.topAnchor.constraint(equalTo: supportMarkdownView.topAnchor),
-            markdownArtifact.leadingAnchor.constraint(equalTo: supportMarkdownView.leadingAnchor, constant: 20),
-            markdownArtifact.heightAnchor.constraint(equalTo: supportMarkdownView.heightAnchor),
-            markdownArtifact.widthAnchor.constraint(equalTo: supportMarkdownView.widthAnchor, multiplier: 0.5),
+            markdownArtifactExplanation.topAnchor.constraint(equalTo: markupTitle.bottomAnchor, constant: 34),
+            markdownArtifactExplanation.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
+            markdownArtifactExplanation.widthAnchor.constraint(equalTo: scrollView.widthAnchor, multiplier: 0.44),
+            markdownArtifactExplanation.heightAnchor.constraint(equalTo: markdownArtifactExplanation.widthAnchor),
             
-            markdownArtifactExplanation.topAnchor.constraint(equalTo: supportMarkdownView.topAnchor),
-            markdownArtifactExplanation.trailingAnchor.constraint(equalTo: supportMarkdownView.trailingAnchor, constant: -20),
-            markdownArtifactExplanation.heightAnchor.constraint(equalTo: supportMarkdownView.heightAnchor),
-            markdownArtifactExplanation.widthAnchor.constraint(equalTo: supportMarkdownView.widthAnchor, multiplier: 0.44),
-            
-            inputViewTitle.topAnchor.constraint(equalTo: supportMarkdownView.bottomAnchor, constant: 20),
+            inputViewTitle.topAnchor.constraint(equalTo: markdownArtifact.bottomAnchor, constant: 20),
             inputViewTitle.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 20),
             inputViewTitle.heightAnchor.constraint(equalToConstant: 34),
             inputViewTitle.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
@@ -239,8 +232,6 @@ internal class TipViewController: UIViewController {
         super.viewDidLoad()
         
         view.addSubview(scrollView)
-        view.addSubview(supportMarkdownView)
-        self.supportMarkdownView.translatesAutoresizingMaskIntoConstraints = false
         self.scrollView.translatesAutoresizingMaskIntoConstraints = false
 
         view.addSubview(tipTitle)
