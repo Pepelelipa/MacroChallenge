@@ -136,6 +136,8 @@
 		A7FD9B13253BACF500235D20 /* NotesPageViewObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7FD9B12253BACF500235D20 /* NotesPageViewObserver.swift */; };
 		D925934E255986F1000529B4 /* InputViewTipsStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = D925934D255986F1000529B4 /* InputViewTipsStack.swift */; };
 		D925935225598700000529B4 /* TipViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D925935125598700000529B4 /* TipViewController.swift */; };
+		D92593992559E53C000529B4 /* ResizeHandleReceiver.swift in Sources */ = {isa = PBXBuildFile; fileRef = D92593972559E53C000529B4 /* ResizeHandleReceiver.swift */; };
+		D925939A2559E53C000529B4 /* MarkdownFormatViewReceiver.swift in Sources */ = {isa = PBXBuildFile; fileRef = D92593982559E53C000529B4 /* MarkdownFormatViewReceiver.swift */; };
 		D96DAA09252F9F4B00552AB1 /* AddNewSpaceToolBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = D96DAA08252F9F4B00552AB1 /* AddNewSpaceToolBar.swift */; };
 		D97EE7AC254B554F00A68B06 /* SearchResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D97EE7A7254B554F00A68B06 /* SearchResultViewController.swift */; };
 		D97EE7AD254B554F00A68B06 /* SearchResultCollectionViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D97EE7A8254B554F00A68B06 /* SearchResultCollectionViewDelegate.swift */; };
@@ -353,6 +355,8 @@
 		A7FD9B12253BACF500235D20 /* NotesPageViewObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesPageViewObserver.swift; sourceTree = "<group>"; };
 		D925934D255986F1000529B4 /* InputViewTipsStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InputViewTipsStack.swift; sourceTree = "<group>"; };
 		D925935125598700000529B4 /* TipViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TipViewController.swift; sourceTree = "<group>"; };
+		D92593972559E53C000529B4 /* ResizeHandleReceiver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResizeHandleReceiver.swift; sourceTree = "<group>"; };
+		D92593982559E53C000529B4 /* MarkdownFormatViewReceiver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarkdownFormatViewReceiver.swift; sourceTree = "<group>"; };
 		D96DAA08252F9F4B00552AB1 /* AddNewSpaceToolBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewSpaceToolBar.swift; sourceTree = "<group>"; };
 		D97EE7A7254B554F00A68B06 /* SearchResultViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchResultViewController.swift; sourceTree = "<group>"; };
 		D97EE7A8254B554F00A68B06 /* SearchResultCollectionViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchResultCollectionViewDelegate.swift; sourceTree = "<group>"; };
@@ -680,6 +684,7 @@
 		026C3CAF2519435E001E32AE /* Notes */ = {
 			isa = PBXGroup;
 			children = (
+				D92593962559E53C000529B4 /* Protocols */,
 				D925935125598700000529B4 /* TipViewController.swift */,
 				02919F4125531B1E00C03E27 /* MarkdownTextViewDelegate.swift */,
 				026C3CAB251942A7001E32AE /* NotesViewController.swift */,
@@ -920,6 +925,15 @@
 				A7FD9B12253BACF500235D20 /* NotesPageViewObserver.swift */,
 			);
 			path = "Notes Page View";
+			sourceTree = "<group>";
+		};
+		D92593962559E53C000529B4 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				D92593972559E53C000529B4 /* ResizeHandleReceiver.swift */,
+				D92593982559E53C000529B4 /* MarkdownFormatViewReceiver.swift */,
+			);
+			path = Protocols;
 			sourceTree = "<group>";
 		};
 		D97EE7A5254B554F00A68B06 /* Search */ = {
@@ -1320,6 +1334,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D92593992559E53C000529B4 /* ResizeHandleReceiver.swift in Sources */,
 				025C015625379C6D009923B2 /* FileHelper.swift in Sources */,
 				D9F4A9BD2527D0A600BFDC19 /* MarkupToolBarObserver.swift in Sources */,
 				023886062523CAEC00F807E9 /* WorkspaceCellNotebookCollectionViewCell.swift in Sources */,
@@ -1390,6 +1405,7 @@
 				D97EE7B7254B557A00A68B06 /* SearchResultCollectionViewDataSource.swift in Sources */,
 				A7BDD60F2514078600DDB6A0 /* NotebookIndexTableViewCell.swift in Sources */,
 				A72942E7253A13D800C788EE /* ImageButtonObserver.swift in Sources */,
+				D925939A2559E53C000529B4 /* MarkdownFormatViewReceiver.swift in Sources */,
 				A7BDD5FF2513F83F00DDB6A0 /* IndexViewController.swift in Sources */,
 				D9BBA584252FAB28004B724F /* AddWorkspaceObserver.swift in Sources */,
 				020FFA38252502E40095266D /* Colors.swift in Sources */,
@@ -1460,7 +1476,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 6;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = X54K5PJVGU;
+				DEVELOPMENT_TEAM = Q9Y63W6Q4X;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -1489,7 +1505,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 6;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = X54K5PJVGU;
+				DEVELOPMENT_TEAM = Q9Y63W6Q4X;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -1518,7 +1534,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 6;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = X54K5PJVGU;
+				DEVELOPMENT_TEAM = Q9Y63W6Q4X;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -1549,7 +1565,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 6;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = X54K5PJVGU;
+				DEVELOPMENT_TEAM = Q9Y63W6Q4X;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -1697,7 +1713,7 @@
 				CODE_SIGN_ENTITLEMENTS = MacroPepelelipa/MacroPepelelipa.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 6;
-				DEVELOPMENT_TEAM = X54K5PJVGU;
+				DEVELOPMENT_TEAM = Q9Y63W6Q4X;
 				INFOPLIST_FILE = MacroPepelelipa/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1719,7 +1735,7 @@
 				CODE_SIGN_ENTITLEMENTS = MacroPepelelipa/MacroPepelelipa.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 6;
-				DEVELOPMENT_TEAM = X54K5PJVGU;
+				DEVELOPMENT_TEAM = Q9Y63W6Q4X;
 				INFOPLIST_FILE = MacroPepelelipa/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

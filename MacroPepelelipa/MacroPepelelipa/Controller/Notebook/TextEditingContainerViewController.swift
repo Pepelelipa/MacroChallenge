@@ -37,7 +37,6 @@ internal class TextEditingContainerViewController: UIViewController,
         return item
     }()
     
-    
     private lazy var doneButton: UIBarButtonItem = {
         let item = UIBarButtonItem(ofType: .done,
                                    target: self,

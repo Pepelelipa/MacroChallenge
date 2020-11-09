@@ -18,7 +18,6 @@ internal class NotesViewController: UIViewController,
                                     MarkdownFormatViewReceiver,
                                     ResizeHandleReceiver {
     
-    
     // MARK: - Variables and Constants
     
     private var resizeHandles = [ResizeHandleView]()
@@ -37,7 +36,6 @@ internal class NotesViewController: UIViewController,
     internal var imgeButtonObserver: ImageButtonObserver?
     internal lazy var receiverView: UIView = self.view
 
-    
     internal weak var note: NoteEntity?
     internal var delegate: AppMarkdownTextViewDelegate?
     internal private(set) weak var notebook: NotebookEntity?
@@ -75,7 +73,7 @@ internal class NotesViewController: UIViewController,
         ]
     }()
     
-    internal lazy var textView: MarkdownTextView = {
+    internal private(set) lazy var textView: MarkdownTextView = {
         let  markdownTextView = MarkdownTextView(frame: .zero)
         self.delegate = AppMarkdownTextViewDelegate()
         delegate?.addTextObserver(self)

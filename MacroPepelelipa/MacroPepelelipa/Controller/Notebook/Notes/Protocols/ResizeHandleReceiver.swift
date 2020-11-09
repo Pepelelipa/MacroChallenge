@@ -12,7 +12,7 @@ import MarkdownText
 
 internal protocol ResizeHandleReceiver: class {
     var receiverView: UIView { get set }
-    var textView: MarkdownTextView { get set}
+    var textView: MarkdownTextView { get }
     func uptadeResizeHandles()
     func updateExclusionPaths()
     
