@@ -9,9 +9,7 @@
 
 import CloudKit
 
-internal class ImageBoxObject: ImageBoxEntity, CloudKitEntity {
-    internal static let recordType: String = "ImageBox"
-    internal lazy var record: CKRecord = .from(self)
+internal class ImageBoxObject: ImageBoxEntity {
 
     internal init(in note: NoteObject, coreDataObject: ImageBox) {
         self.note = note
@@ -66,6 +64,7 @@ internal class ImageBoxObject: ImageBoxEntity, CloudKitEntity {
     }
 
     internal let coreDataObject: ImageBox
+    internal var cloudKitObject: CloudKitImageBox?
 
     internal func removeReferences() throws {
         if let note = self.note,

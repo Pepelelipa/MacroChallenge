@@ -9,9 +9,7 @@
 
 import CloudKit
 
-internal class TextBoxObject: TextBoxEntity, CloudKitEntity {
-    internal static let recordType: String = "TextBox"
-    internal lazy var record: CKRecord = .from(self)
+internal class TextBoxObject: TextBoxEntity {
 
     internal init(in note: NoteObject, coreDataObject: TextBox) {
         self.note = note
@@ -66,6 +64,7 @@ internal class TextBoxObject: TextBoxEntity, CloudKitEntity {
     }
 
     internal let coreDataObject: TextBox
+    internal var cloudKitObject: CloudKitTextBox?
 
     internal func removeReferences() throws {
         if let note = self.note,

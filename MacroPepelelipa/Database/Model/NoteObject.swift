@@ -8,9 +8,7 @@
 
 import CloudKit
 
-internal class NoteObject: NoteEntity, CloudKitEntity {
-    internal static let recordType: String = "Note"
-    internal lazy var record: CKRecord = .from(self)
+internal class NoteObject: NoteEntity {
 
     func getID() throws -> UUID {
         if let id = coreDataObject.id {
@@ -54,6 +52,7 @@ internal class NoteObject: NoteEntity, CloudKitEntity {
     private var observers: [EntityObserver] = []
 
     internal let coreDataObject: Note
+    internal var cloudKitObject: CloudKitNote?
 
     internal init(in notebook: NotebookObject, from note: Note) {
         self.notebook = notebook

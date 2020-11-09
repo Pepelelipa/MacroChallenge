@@ -9,10 +9,7 @@
 import UIKit
 import CloudKit
 
-internal class NotebookObject: NotebookEntity, CloudKitEntity {
-    internal static let recordType: String = "Notebook"
-    internal lazy var record: CKRecord = .from(self)
-
+internal class NotebookObject: NotebookEntity {
 
     func getID() throws -> UUID {
         if let id = coreDataObject.id {
@@ -59,6 +56,7 @@ internal class NotebookObject: NotebookEntity, CloudKitEntity {
     private var observers: [EntityObserver] = []
 
     internal let coreDataObject: Notebook
+    internal var cloudKitObject: CloudKitNotebook?
 
     internal init(in workspace: WorkspaceObject, from notebook: Notebook) {
         self.workspace = workspace
