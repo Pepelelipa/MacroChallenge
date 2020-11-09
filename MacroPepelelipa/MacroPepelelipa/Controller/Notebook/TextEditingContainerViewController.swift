@@ -244,7 +244,7 @@ internal class TextEditingContainerViewController: UIViewController,
                                                                           size: .init(width: 380, height: 110))
 
         markupContainerViewController.modalPresentationStyle = .popover
-        markupContainerViewController.popoverPresentationController?.sourceView = markupNavigationView.barButtonItems[4]
+        markupContainerViewController.popoverPresentationController?.sourceView = markupNavigationView.barButtonItems[.format]
 
         present(markupContainerViewController, animated: true)
     }

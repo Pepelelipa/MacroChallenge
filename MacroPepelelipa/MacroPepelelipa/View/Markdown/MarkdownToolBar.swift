@@ -42,24 +42,29 @@ internal class MarkdownToolBar: UIToolbar {
     ///A private method to set up all the Buttons on the UIToolBar.
     private func setUpButtons() {
         
-        guard let barButtonItems = markupBarConfiguration?.setUpButtons() else {
+        guard let barButtonItems = markupBarConfiguration?.setUpButtons(),
+              let textBox = barButtonItems[.textBox],
+              let image = barButtonItems[.image],
+              let format = barButtonItems[.format],
+              let list = barButtonItems[.list],
+              let paragraph = barButtonItems[.paragraph] else {
             return
         }
 
         let flexible = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         
-        self.items = [flexible, barButtonItems[3], flexible, barButtonItems[2]]
+        self.items = [flexible, textBox, flexible, image]
         for _ in 0...9 {
             self.items?.append(flexible)
         }
         
-        self.items?.append(barButtonItems[4])
+        self.items?.append(format)
         self.items?.append(flexible)
         
-        self.items?.append(barButtonItems[0])
+        self.items?.append(list)
         self.items?.append(flexible)
         
-        MarkdownToolBar.paragraphButton = barButtonItems[1]
+        MarkdownToolBar.paragraphButton = paragraph
         
         if let paragraphBtn = MarkdownToolBar.paragraphButton {
             self.items?.append(paragraphBtn)
