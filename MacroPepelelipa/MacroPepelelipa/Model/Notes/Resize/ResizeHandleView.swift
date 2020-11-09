@@ -17,12 +17,13 @@ internal class ResizeHandleView: UIView {
     private let constant: CGFloat = 40
         
     internal unowned var referenceView: BoxView
-    internal unowned var owner: NotesViewController
+    internal unowned var receiver: ResizeHandleReceiver
+//    internal unowned var owner: NotesViewController
     internal let minimumWidht: CGFloat = 100
     internal let minimumHeight: CGFloat = 35
     
     private var scale: CGFloat {
-        return 100/owner.view.frame.width
+        return 100/receiver.receiverView.frame.width
     }
     
     private var size: CGSize {
@@ -53,9 +54,9 @@ internal class ResizeHandleView: UIView {
     
     // MARK: - Initializers
     
-    internal init(referenceView: BoxView, owner: NotesViewController, corner: CornerEnum) {
+    internal init(referenceView: BoxView, receiver: ResizeHandleReceiver, corner: CornerEnum) {
         self.referenceView = referenceView
-        self.owner = owner
+        self.receiver = receiver
         self.corner = corner
         
         super.init(frame: .zero)
@@ -66,11 +67,11 @@ internal class ResizeHandleView: UIView {
     
     required convenience init?(coder: NSCoder) {
         guard let referenceView = coder.decodeObject(forKey: "referenceView") as? BoxView,
-            let owner = coder.decodeObject(forKey: "owner") as? NotesViewController,
+            let receiver = coder.decodeObject(forKey: "receiver") as? ResizeHandleReceiver,
             let corner = coder.decodeObject(forKey: "corner") as? CornerEnum else {
                     return nil
             }
-        self.init(referenceView: referenceView, owner: owner, corner: corner)
+        self.init(referenceView: referenceView, receiver: receiver, corner: corner)
     }
     
     // MARK: - Override functions
@@ -118,8 +119,8 @@ internal class ResizeHandleView: UIView {
             referenceView.frame = CGRect(minX: referenceView.frame.minX, minY: referenceView.frame.minY, maxX: newX, maxY: newY)
         }
         referenceView.internalFrame = referenceView.frame
-        owner.uptadeResizeHandles()
-        owner.updateExclusionPaths()
+        receiver.uptadeResizeHandles()
+        receiver.updateExclusionPaths()
     }
     
     /**
@@ -129,12 +130,12 @@ internal class ResizeHandleView: UIView {
         - handlesArray: Owners Array of Handle View
         - owner : The View Controller of the reciving view
      */
-    internal static func createResizeHandleView(on view: BoxView, handlesArray: inout [ResizeHandleView], inside owner: NotesViewController) {
+    internal static func createResizeHandleView(on view: BoxView, handlesArray: inout [ResizeHandleView], inside receiver: ResizeHandleReceiver) {
         for corner in CornerEnum.allCases {
-            let resizeView = ResizeHandleView(referenceView: view, owner: owner, corner: corner)
+            let resizeView = ResizeHandleView(referenceView: view, receiver: receiver, corner: corner)
             resizeView.addGestureRecognizer(UIPanGestureRecognizer(target: resizeView, action: #selector(resizeView.dragHandle(_:))))
             handlesArray.append(resizeView)
-            owner.textView.addSubview(resizeView)
+            receiver.textView.addSubview(resizeView)
         }
     }
     
@@ -157,7 +158,7 @@ internal class ResizeHandleView: UIView {
     
     ///Handles the Pan Gesture of the resize handle
     @objc private func dragHandle(_ sender: UIPanGestureRecognizer) {
-        self.center = sender.location(in: owner.textView)
+        self.center = sender.location(in: receiver.textView)
         updateReferenceView()
     }
 }

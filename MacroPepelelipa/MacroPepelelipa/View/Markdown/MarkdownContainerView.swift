@@ -64,8 +64,8 @@ internal class MarkdownContainerView: MarkdownFormatView, TextEditingDelegateObs
         backgroundView.addSubview(dismissButton)
         backgroundView.addSubview(formatLabel)
         createConstraints()
-
-        (viewController?.textView.delegate as? AppMarkdownTextViewDelegate)?.addTextObserver(self)
+        
+        receiver?.delegate?.addTextObserver(self)
     }
     
     ///This method sets the constraints for the inner elements of the container view.
@@ -110,7 +110,7 @@ internal class MarkdownContainerView: MarkdownFormatView, TextEditingDelegateObs
     // MARK: - Functions
 
     @objc func dismiss() {
-        viewController?.changeTextViewInput(isCustom: false)
+        receiver?.changeTextViewInput(isCustom: false)
     }
     
     ///This method sets the contraints for the font selector buttons.
