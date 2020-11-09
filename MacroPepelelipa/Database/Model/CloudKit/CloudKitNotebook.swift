@@ -12,9 +12,9 @@ internal class CloudKitNotebook: CloudKitEntity {
     internal static let recordType: String = "Notebook"
     internal var record: CKRecord
 
-    internal lazy var id: DataProperty<String> = DataProperty(record: record, key: "id")
-    internal lazy var name: DataProperty<String> = DataProperty(record: record, key: "name")
-    internal lazy var colorName: DataProperty<String> = DataProperty(record: record, key: "colorName")
+    internal private(set) lazy var id: DataProperty<String> = DataProperty(record: record, key: "id")
+    internal private(set) lazy var name: DataProperty<String> = DataProperty(record: record, key: "name")
+    internal private(set) lazy var colorName: DataProperty<String> = DataProperty(record: record, key: "colorName")
     //TODO: Notes and workspace
 
     init(from notebook: NotebookObject) {
@@ -25,7 +25,7 @@ internal class CloudKitNotebook: CloudKitEntity {
         //TODO: Notes and workspace
         self.record = record
     }
-    init(record: CKRecord) {
+    init(from record: CKRecord) {
         self.record = record
     }
 }

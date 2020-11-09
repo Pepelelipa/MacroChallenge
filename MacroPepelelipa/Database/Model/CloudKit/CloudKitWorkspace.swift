@@ -12,9 +12,9 @@ internal class CloudKitWorkspace: CloudKitEntity {
     internal static let recordType: String = "Workspace"
     internal var record: CKRecord
 
-    internal lazy var id: DataProperty<String> = DataProperty(record: record, key: "id")
-    internal lazy var name: DataProperty<String> = DataProperty(record: record, key: "name")
-    internal lazy var isEnabled: DataProperty<Int64> = DataProperty(record: record, key: "isEnabled")
+    internal private(set) lazy var id: DataProperty<String> = DataProperty(record: record, key: "id")
+    internal private(set) lazy var name: DataProperty<String> = DataProperty(record: record, key: "name")
+    internal private(set) lazy var isEnabled: DataProperty<Int64> = DataProperty(record: record, key: "isEnabled")
     //TODO: Notebooks
 
     init(from workspace: WorkspaceObject) {
@@ -25,7 +25,7 @@ internal class CloudKitWorkspace: CloudKitEntity {
         //TODO: Notebooks
         self.record = record
     }
-    init(record: CKRecord) {
+    init(from record: CKRecord) {
         self.record = record
     }
 }
