@@ -61,6 +61,18 @@ internal class CloudKitDataController {
                 for note in noteResults {
                     notes[note.recordID] = CloudKitNote(from: note)
                 }
+
+                //Checking if textbox fetched and imagebox also fetched
+                var didEndTextBox = false
+                var didEndImageBox = false
+                func didEndFetch() {
+                    if didEndImageBox && didEndTextBox {
+                        var finalNotes: [CloudKitNote] = []
+                        finalNotes.append(contentsOf: notes.values)
+                        completionHandler?(.successfulWith(result: finalNotes))
+                    }
+                }
+
                 //Fetching all text boxes of notes
                 self.fetchTextBoxes(of: noteResults) { answer in
                     switch answer {
@@ -73,6 +85,8 @@ internal class CloudKitDataController {
                                 textBox.setNote(note)
                             }
                         }
+                        didEndTextBox = true
+                        didEndFetch()
                     default:
                         completionHandler?(answer)
                     }
@@ -89,6 +103,8 @@ internal class CloudKitDataController {
                                 imageBox.setNote(note)
                             }
                         }
+                        didEndImageBox = true
+                        didEndFetch()
                     default:
                         completionHandler?(answer)
                     }
