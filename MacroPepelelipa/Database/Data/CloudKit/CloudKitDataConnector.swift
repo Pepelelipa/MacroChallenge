@@ -27,7 +27,7 @@ internal enum DatabaseType {
     }
 }
 
-internal class DataConnector {
+internal class CloudKitDataConnector {
     private init() {
     }
 
@@ -114,7 +114,14 @@ internal class DataConnector {
 
     internal static func fetch(recordType: String, database: DatabaseType, completionHandler: @escaping (DataFetchAnswer) -> Void) {
         let predicate = NSPredicate(value: true)
-        fetch(query: CKQuery(recordType: recordType, predicate: predicate), database: database, completionHandler: completionHandler)
+        let query = CKQuery(recordType: recordType, predicate: predicate)
+        fetch(query: query, database: database, completionHandler: completionHandler)
+    }
+
+    internal static func fetch(references: [CKRecord.Reference], recordType: String, database: DatabaseType, completionHandler: @escaping (DataFetchAnswer) -> Void) {
+        let predicate = NSPredicate(format: "%K in %@", "recordID", references)
+        let query = CKQuery(recordType: recordType, predicate: predicate)
+        fetch(query: query, database: database, completionHandler: completionHandler)
     }
 
     internal static func fetch(query: CKQuery, database: DatabaseType, completionHandler: @escaping (DataFetchAnswer) -> Void ) {

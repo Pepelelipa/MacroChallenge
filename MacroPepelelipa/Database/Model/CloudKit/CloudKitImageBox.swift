@@ -32,7 +32,7 @@ internal class CloudKitImageBox: CloudKitEntity {
         self.record = record
     }
 
-    init(record: CKRecord) {
+    init(from record: CKRecord) {
         self.record = record
     }
 }
