@@ -452,4 +452,78 @@ public class MarkdownTextView: UITextView {
             }
         }
     }
+    
+    // MARK: - UIResponderStandardEditActions
+    
+    private lazy var boldMenuItem: UIMenuItem = {
+        return UIMenuItem(title: "Bold".localized(), action: #selector(toggleBoldface(_:)))
+    }()
+    
+    private lazy var italicMenuItem: UIMenuItem = {
+        return UIMenuItem(title: "Italic".localized(), action: #selector(toggleItalics(_:)))
+    }()
+    
+    private lazy var underlineMenuItem: UIMenuItem = {
+        return UIMenuItem(title: "Underline".localized(), action: #selector(toggleUnderline(_:)))
+    }()
+    
+    private lazy var highlightMenuItem: UIMenuItem = {
+        return UIMenuItem(title: "Highlight".localized(), action: #selector(toggleHighlight(_:)))
+    }()
+    
+    public override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
+        let superCanPerformBold = super.canPerformAction(#selector(UIResponderStandardEditActions.toggleBoldface(_:)), withSender: sender)
+        
+        if superCanPerformBold {
+            UIMenuController.shared.menuItems = [boldMenuItem, italicMenuItem, underlineMenuItem, highlightMenuItem]
+        } else if action == Selector(("_showTextStyleOptions:")) {
+            UIMenuController.shared.menuItems = nil
+            return true
+        }
+        
+        return super.canPerformAction(action, withSender: sender)
+    }
+    
+    public override func toggleBoldface(_ sender: Any?) {
+        self.setBold(!self.isBold)
+    }
+    
+    public override func toggleItalics(_ sender: Any?) {
+        self.setItalic(!self.isItalic)
+    }
+    
+    public override func toggleUnderline(_ sender: Any?) {
+        self.setUnderlined(!self.isUnderlined)
+    }
+    
+    /**
+     Toggles the highlight style information of the selected text.
+     
+     - Parameter sender: The object calling this method.
+     
+     Use this method to apply or remove style information to the currently selected content.
+     */
+    @objc public func toggleHighlight(_ sender: Any?) {
+        self.setHighlighted(!self.isHighlighted)
+    }
+    
+    /**
+     Toggles the format style information of the selected text.
+     
+     - Parameter sender: The UIKeyCommand calling this method.
+     
+     Use this method to apply or remove style information to the currently selected content for boldface, italics and underline.
+     */
+    @objc public func toggleFormat(_ sender: UIKeyCommand) {
+        switch sender.input {
+        case "B":
+            toggleBoldface(nil)
+        case "I":
+            toggleItalics(nil)
+        case "U":
+            toggleUnderline(nil)
+        default:
+            break
+        }
+    }
 }

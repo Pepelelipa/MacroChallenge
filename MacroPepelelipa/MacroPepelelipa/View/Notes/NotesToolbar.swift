@@ -13,11 +13,11 @@ internal class NotesToolbar: UIToolbar {
     // MARK: - Variables and Constants
     
     internal var deleteNoteTriggered: (() -> Void)?
-    internal var addImageTriggered: (() -> Void)?
+    internal var addImageTriggered: ((NSObject) -> Void)?
     internal var shareNoteTriggered: ((UIBarButtonItem) -> Void)?
     internal var newNoteTriggered: (() -> Void)?
     
-    private lazy var deleteNoteButton: UIBarButtonItem = {
+    internal lazy var deleteNoteButton: UIBarButtonItem = {
         let button = UIBarButtonItem(barButtonSystemItem: .trash, 
                                      target: self, 
                                      action: #selector(deleteNote))
@@ -83,7 +83,7 @@ internal class NotesToolbar: UIToolbar {
     }
     
     @IBAction private func addImage() {
-        addImageTriggered?()
+        addImageTriggered?(addImageButton)
     }
     
     @IBAction private func shareNote(_ sender: UIBarButtonItem) {

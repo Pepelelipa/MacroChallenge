@@ -73,6 +73,12 @@ internal class NotebooksSelectionViewController: UIViewController {
         
         return view
     }()
+    
+    private lazy var newNotebookCommand: UIKeyCommand = {
+        let command = UIKeyCommand(input: "N", modifierFlags: .command, action: #selector(btnAddTap))
+        command.discoverabilityTitle = "New notebook".localized()
+        return command
+    }()
 
     private lazy var collectionDelegate = NotebooksCollectionViewDelegate { [unowned self] (selectedCell) in
         if let notebook = selectedCell.notebook {
@@ -117,6 +123,8 @@ internal class NotebooksSelectionViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        addKeyCommand(newNotebookCommand)
+        
         if workspace?.isEnabled ?? false {
             navigationItem.rightBarButtonItem = btnAdd
             let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress(gesture:)))

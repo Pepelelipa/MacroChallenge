@@ -11,7 +11,7 @@ import Database
 
 internal protocol MarkupToolBarObserver: class {
     func createTextBox(transcription: String?)
-    func presentPicker()
+    func presentPicker(_ sender: NSObject)
     func changeTextViewInput(isCustom: Bool)
     func openPopOver()
 }
