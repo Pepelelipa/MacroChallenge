@@ -14,23 +14,9 @@ internal class ReferenceList<T: CloudKitEntity> {
     internal private(set) var recordReferences: [CKRecord.Reference] = []
     internal private(set) var references: [T] = []
 
-    internal init?(references: [T], record: CKRecord, key: String) {
+    internal init(record: CKRecord, key: String) {
         self.record = record
         self.key = key
-
-        if let refs = record.value(forKey: key) as? [CKRecord.Reference] {
-            recordReferences = refs
-
-            for ref in refs {
-                if let object = references.first(where: { $0.record.recordID == ref.recordID }) {
-                    self.references.append(object)
-                }
-            }
-
-            if refs.count != self.references.count {
-                return nil
-            }
-        }
     }
 
     internal func append(_ value: T, action: CKRecord_Reference_Action) {

@@ -12,21 +12,35 @@ internal class CloudKitNote: CloudKitEntity {
     internal static let recordType: String = "Note"
     internal var record: CKRecord
 
-    internal lazy var id: DataProperty<String> = DataProperty(record: record, key: "id")
-    internal lazy var title: DataProperty<Data> = DataProperty(record: record, key: "title")
-    internal lazy var text: DataProperty<Data> = DataProperty(record: record, key: "text")
-    //TODO: Notebooks, TextBoxes and IamgeBoxes
+    internal private(set) lazy var id: DataProperty<String> = DataProperty(record: record, key: "id")
+    internal private(set) lazy var title: DataProperty<Data> = DataProperty(record: record, key: "title")
+    internal private(set) lazy var text: DataProperty<Data> = DataProperty(record: record, key: "text")
+    internal private(set) var textBoxes: ReferenceList<CloudKitTextBox>?
+    internal private(set) var imageBoxes: ReferenceList<CloudKitImageBox>?
+    //TODO: Notebooks
 
     init(from note: NoteObject) {
         let record = CKRecord(recordType: CloudKitNote.recordType)
         record["id"] = try? note.getID().uuidString
         record["title"] = note.title.toData()
         record["text"] = note.text.toData()
-        //TODO: Notebooks, TextBoxes and IamgeBoxes
         self.record = record
     }
 
-    init(record: CKRecord) {
+    init(from record: CKRecord) {
         self.record = record
+    }
+
+    internal func appendTextBox(_ textBox: CloudKitTextBox) {
+        if textBoxes == nil {
+            textBoxes = ReferenceList(record: record, key: "textBoxes")
+        }
+        textBoxes?.append(textBox, action: .none)
+    }
+    internal func appendImageBox(_ imageBox: CloudKitImageBox) {
+        if imageBoxes == nil {
+            imageBoxes = ReferenceList(record: record, key: "imageBoxes")
+        }
+        imageBoxes?.append(imageBox, action: .none)
     }
 }

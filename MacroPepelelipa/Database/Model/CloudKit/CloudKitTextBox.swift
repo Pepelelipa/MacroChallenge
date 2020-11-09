@@ -13,13 +13,13 @@ internal class CloudKitTextBox: CloudKitEntity {
     internal static let recordType: String = "TextBox"
     internal var record: CKRecord
 
-    internal lazy var text: DataProperty<Data> = DataProperty(record: record, key: "text")
-    internal lazy var width: DataProperty<Double> = DataProperty(record: record, key: "width")
-    internal lazy var height: DataProperty<Double> = DataProperty(record: record, key: "height")
-    internal lazy var x: DataProperty<Double> = DataProperty(record: record, key: "x")
-    internal lazy var y: DataProperty<Double> = DataProperty(record: record, key: "y")
-    internal lazy var z: DataProperty<Double> = DataProperty(record: record, key: "z")
-    //TODO: Note
+    internal private(set) lazy var text: DataProperty<Data> = DataProperty(record: record, key: "text")
+    internal private(set) lazy var width: DataProperty<Double> = DataProperty(record: record, key: "width")
+    internal private(set) lazy var height: DataProperty<Double> = DataProperty(record: record, key: "height")
+    internal private(set) lazy var x: DataProperty<Double> = DataProperty(record: record, key: "x")
+    internal private(set) lazy var y: DataProperty<Double> = DataProperty(record: record, key: "y")
+    internal private(set) lazy var z: DataProperty<Double> = DataProperty(record: record, key: "z")
+    internal private(set) var note: ReferenceField<CloudKitNote>?
 
     init(from textBox: TextBoxObject) {
         let record = CKRecord(recordType: CloudKitTextBox.recordType)
@@ -29,12 +29,18 @@ internal class CloudKitTextBox: CloudKitEntity {
         record["x"] = Double(textBox.x)
         record["y"] = Double(textBox.y)
         record["z"] = Double(textBox.z)
-        //TODO: Note
         self.record = record
     }
 
-    init(record: CKRecord) {
+    init(from record: CKRecord) {
         self.record = record
+    }
+
+    internal func setNote(_ note: CloudKitNote?) {
+        if self.note == nil, let note = note {
+            self.note = ReferenceField(reference: note, record: record, key: "note", action: .deleteSelf)
+        }
+        self.note?.value = note
     }
 }
 

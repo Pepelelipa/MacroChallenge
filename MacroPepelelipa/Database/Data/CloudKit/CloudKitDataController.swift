@@ -57,13 +57,21 @@ internal class CloudKitDataController {
         CloudKitDataConnector.fetch(references: notesReferences, recordType: CloudKitNote.recordType, database: database) { answer in
             switch answer {
             case .successful(let noteResults):
+                var notes: [CKRecord.ID: CloudKitNote] = [:]
+                for note in noteResults {
+                    notes[note.recordID] = CloudKitNote(from: note)
+                }
                 //Fetching all text boxes of notes
                 self.fetchTextBoxes(of: noteResults) { answer in
-                    var textBoxes: [CloudKitTextBox] = []
                     switch answer {
                     case .successful(let results):
                         for result in results {
-                            textBoxes.append(CloudKitTextBox(record: result))
+                            let textBox = CloudKitTextBox(from: result)
+                            if let noteReference = result.object(forKey: "note") as? CKRecord.Reference,
+                               let note = notes[noteReference.recordID] {
+                                note.appendTextBox(textBox)
+                                textBox.setNote(note)
+                            }
                         }
                     default:
                         completionHandler?(answer)
@@ -71,11 +79,15 @@ internal class CloudKitDataController {
                 }
                 //Fetching all image boxes of notes
                 self.fetchImageBoxes(of: noteResults) { answer in
-                    var imageBoxes: [CloudKitImageBox] = []
                     switch answer {
                     case .successful(let results):
                         for result in results {
-                            imageBoxes.append(CloudKitImageBox(from: result))
+                            let imageBox = CloudKitImageBox(from: result)
+                            if let noteReference = result.object(forKey: "note") as? CKRecord.Reference,
+                               let note = notes[noteReference.recordID] {
+                                note.appendImageBox(imageBox)
+                                imageBox.setNote(note)
+                            }
                         }
                     default:
                         completionHandler?(answer)

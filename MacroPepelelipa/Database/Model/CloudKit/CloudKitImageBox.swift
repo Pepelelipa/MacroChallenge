@@ -13,16 +13,15 @@ internal class CloudKitImageBox: CloudKitEntity {
     internal static let recordType: String = "ImageBox"
     internal var record: CKRecord
 
-    internal lazy var width: DataProperty<Double> = DataProperty(record: record, key: "width")
-    internal lazy var height: DataProperty<Double> = DataProperty(record: record, key: "height")
-    internal lazy var x: DataProperty<Double> = DataProperty(record: record, key: "x")
-    internal lazy var y: DataProperty<Double> = DataProperty(record: record, key: "y")
-    internal lazy var z: DataProperty<Double> = DataProperty(record: record, key: "z")
-    //TODO: Note
+    internal private(set) lazy var width: DataProperty<Double> = DataProperty(record: record, key: "width")
+    internal private(set) lazy var height: DataProperty<Double> = DataProperty(record: record, key: "height")
+    internal private(set) lazy var x: DataProperty<Double> = DataProperty(record: record, key: "x")
+    internal private(set) lazy var y: DataProperty<Double> = DataProperty(record: record, key: "y")
+    internal private(set) lazy var z: DataProperty<Double> = DataProperty(record: record, key: "z")
+    internal private(set) var note: ReferenceField<CloudKitNote>?
 
     init(from textBox: TextBoxObject) {
         let record = CKRecord(recordType: CloudKitTextBox.recordType)
-        //TODO: image
         record["width"] = Double(textBox.width)
         record["height"] = Double(textBox.height)
         record["x"] = Double(textBox.x)
@@ -34,6 +33,13 @@ internal class CloudKitImageBox: CloudKitEntity {
 
     init(from record: CKRecord) {
         self.record = record
+    }
+
+    internal func setNote(_ note: CloudKitNote?) {
+        if self.note == nil, let note = note {
+            self.note = ReferenceField(reference: note, record: record, key: "note", action: .deleteSelf)
+        }
+        self.note?.value = note
     }
 }
 
