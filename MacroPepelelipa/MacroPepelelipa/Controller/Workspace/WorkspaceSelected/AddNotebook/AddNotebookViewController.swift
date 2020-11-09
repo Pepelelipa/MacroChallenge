@@ -49,6 +49,15 @@ internal class AddNotebookViewController: UIViewController {
         return txtName
     }()
     
+    private lazy var dismissButton: UIButton = {
+        let button = UIButton()
+        button.tintColor = UIColor.placeholderColor
+        button.setBackgroundImage(UIImage(systemName: "xmark.circle"), for: .normal)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.addTarget(self, action: #selector(dismissPopUpView), for: .touchUpInside)
+        return button
+    }()
+    
     private lazy var collectionViewDelegate = ColorSelectionCollectionViewDelegate {
         self.notebookView.color = $0.color ?? .clear
     }
@@ -107,7 +116,12 @@ internal class AddNotebookViewController: UIViewController {
             popupView.centerYAnchor.constraint(equalTo: self.view.centerYAnchor),
             popupView.widthAnchor.constraint(equalToConstant: ratio),
             
-            txtName.topAnchor.constraint(equalTo: popupView.topAnchor, constant: 20),
+            dismissButton.topAnchor.constraint(equalTo: popupView.topAnchor, constant: 16),
+            dismissButton.trailingAnchor.constraint(equalTo: popupView.trailingAnchor, constant: -16),
+            dismissButton.widthAnchor.constraint(equalTo: popupView.heightAnchor, multiplier: 0.06),
+            dismissButton.heightAnchor.constraint(equalTo: popupView.heightAnchor, multiplier: 0.06),
+            
+            txtName.topAnchor.constraint(equalTo: dismissButton.bottomAnchor, constant: 5),
             txtName.leadingAnchor.constraint(equalTo: popupView.leadingAnchor, constant: 20),
             txtName.trailingAnchor.constraint(equalTo: popupView.trailingAnchor, constant: -20),
             txtName.heightAnchor.constraint(equalToConstant: 45),
@@ -161,6 +175,7 @@ internal class AddNotebookViewController: UIViewController {
         popupView.addSubview(collectionView)
         popupView.addSubview(notebookView)
         popupView.addSubview(btnConfirm)
+        popupView.addSubview(dismissButton)
         
         btnConfirm.isEnabled = false
         
@@ -201,6 +216,10 @@ internal class AddNotebookViewController: UIViewController {
     }
 
     // MARK: - IBActions functions
+    
+    @IBAction func dismissPopUpView() {
+        self.dismiss(animated: true, completion: nil)
+    }
     
     @IBAction func selfTap() {
         if txtName.isEditing {
