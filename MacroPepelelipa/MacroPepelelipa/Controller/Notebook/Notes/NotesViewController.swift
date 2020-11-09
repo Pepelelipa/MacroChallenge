@@ -14,7 +14,9 @@ import MarkdownText
 
 internal class NotesViewController: UIViewController, 
                                     TextEditingDelegateObserver,
-                                    MarkupToolBarObserver {
+                                    MarkupToolBarObserver,
+                                    MarkdownFormatViewReceiver,
+                                    ResizeHandleReceiver {
     
     // MARK: - Variables and Constants
     
@@ -32,8 +34,10 @@ internal class NotesViewController: UIViewController,
     internal var textBoxes: Set<TextBoxView> = []  
     internal var imageBoxes: Set<ImageBoxView> = []
     internal var imgeButtonObserver: ImageButtonObserver?
-    
+    internal lazy var receiverView: UIView = self.view
+
     internal weak var note: NoteEntity?
+    internal var delegate: AppMarkdownTextViewDelegate?
     internal private(set) weak var notebook: NotebookEntity?
     
     private lazy var textViewBottomConstraint = textView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20)
@@ -71,8 +75,8 @@ internal class NotesViewController: UIViewController,
     
     internal private(set) lazy var textView: MarkdownTextView = {
         let  markdownTextView = MarkdownTextView(frame: .zero)
-        let delegate = AppMarkdownTextViewDelegate()
-        delegate.addTextObserver(self)
+        self.delegate = AppMarkdownTextViewDelegate()
+        delegate?.addTextObserver(self)
         markdownTextView.markdownDelegate = delegate
         markdownTextView.contentInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
         return markdownTextView
@@ -87,7 +91,7 @@ internal class NotesViewController: UIViewController,
     internal private(set) lazy var markupContainerView: MarkdownContainerView = {
         let height: CGFloat = screenHeight/4
         
-        let container = MarkdownContainerView(frame: CGRect(x: 0, y: 0, width: screenWidth, height: height), owner: self.textView, viewController: self)
+        let container = MarkdownContainerView(frame: CGRect(x: 0, y: 0, width: screenWidth, height: height), owner: self.textView, receiver: self)
         
         container.autoresizingMask = []
         container.isHidden = true
@@ -281,6 +285,7 @@ internal class NotesViewController: UIViewController,
     private func moveBoxView(boxView: BoxView, by vector: CGPoint) {
         boxView.center = currentBoxViewPosition + vector
         uptadeResizeHandles()
+        updateExclusionPaths()
     }
     
     private func saveNote() {
