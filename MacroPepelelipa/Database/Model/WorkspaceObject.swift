@@ -10,7 +10,7 @@ import CloudKit
 
 internal class WorkspaceObject: WorkspaceEntity, CloudKitEntity {
     internal static let recordType: String = "Workspace"
-    internal var record: CKRecord = .from(self)
+    internal lazy var record: CKRecord = .from(self)
 
     func getID() throws -> UUID {
         if let id = coreDataObject.id {
