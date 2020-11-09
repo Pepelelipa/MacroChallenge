@@ -121,7 +121,7 @@ internal class AddNotebookViewController: UIViewController {
             dismissButton.widthAnchor.constraint(equalTo: popupView.heightAnchor, multiplier: 0.06),
             dismissButton.heightAnchor.constraint(equalTo: popupView.heightAnchor, multiplier: 0.06),
             
-            txtName.topAnchor.constraint(equalTo: dismissButton.topAnchor, constant: 25),
+            txtName.topAnchor.constraint(equalTo: dismissButton.bottomAnchor, constant: 5),
             txtName.leadingAnchor.constraint(equalTo: popupView.leadingAnchor, constant: 20),
             txtName.trailingAnchor.constraint(equalTo: popupView.trailingAnchor, constant: -20),
             txtName.heightAnchor.constraint(equalToConstant: 45),

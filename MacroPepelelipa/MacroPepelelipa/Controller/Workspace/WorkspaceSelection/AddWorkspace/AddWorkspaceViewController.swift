@@ -81,7 +81,12 @@ internal class AddWorkspaceViewController: UIViewController, AddWorkspaceObserve
             popupView.heightAnchor.constraint(greaterThanOrEqualTo: view.heightAnchor, multiplier: 0.18),
             popupView.widthAnchor.constraint(lessThanOrEqualTo: view.widthAnchor, multiplier: 0.8),
             
-            txtName.topAnchor.constraint(equalTo: popupView.topAnchor, constant: 40),
+            dismissButton.topAnchor.constraint(equalTo: popupView.topAnchor, constant: 16),
+            dismissButton.trailingAnchor.constraint(equalTo: popupView.trailingAnchor, constant: -16),
+            dismissButton.widthAnchor.constraint(equalTo: popupView.heightAnchor, multiplier: 0.15),
+            dismissButton.heightAnchor.constraint(equalTo: popupView.heightAnchor, multiplier: 0.15),
+            
+            txtName.topAnchor.constraint(equalTo: dismissButton.bottomAnchor, constant: 5),
             txtName.leadingAnchor.constraint(equalTo: popupView.leadingAnchor, constant: 30),
             txtName.trailingAnchor.constraint(equalTo: popupView.trailingAnchor, constant: -30),
             txtName.heightAnchor.constraint(equalToConstant: 40),
@@ -91,12 +96,7 @@ internal class AddWorkspaceViewController: UIViewController, AddWorkspaceObserve
             btnConfirm.centerXAnchor.constraint(equalTo: popupView.centerXAnchor),
             btnConfirm.heightAnchor.constraint(equalToConstant: 45),
             btnConfirm.leadingAnchor.constraint(greaterThanOrEqualTo: popupView.leadingAnchor, constant: 40),
-            btnConfirm.trailingAnchor.constraint(lessThanOrEqualTo: popupView.trailingAnchor, constant: -40),
-            
-            dismissButton.topAnchor.constraint(equalTo: popupView.topAnchor, constant: 16),
-            dismissButton.trailingAnchor.constraint(equalTo: popupView.trailingAnchor, constant: -16),
-            dismissButton.widthAnchor.constraint(equalTo: popupView.heightAnchor, multiplier: 0.15),
-            dismissButton.heightAnchor.constraint(equalTo: popupView.heightAnchor, multiplier: 0.15)
+            btnConfirm.trailingAnchor.constraint(lessThanOrEqualTo: popupView.trailingAnchor, constant: -40)
         ]
     }()
     
