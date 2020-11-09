@@ -23,8 +23,8 @@ internal extension String {
         let range = NSRange(location: 0, length: self.count)
         let mutableString = NSMutableAttributedString(string: self)
 
-        mutableString.addAttribute(.font, value: font, range: range)
         mutableString.addAttribute(.foregroundColor, value: UIColor.bodyColor ?? .black, range: range)
+        mutableString.addAttribute(.font, value: font, range: range)
 
         return mutableString
     }
