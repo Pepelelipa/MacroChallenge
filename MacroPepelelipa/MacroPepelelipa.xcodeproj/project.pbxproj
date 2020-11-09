@@ -71,8 +71,6 @@
 		02398A562551F515009BFC32 /* AttributedString Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02398A552551F515009BFC32 /* AttributedString Extension.swift */; };
 		02398A592551F522009BFC32 /* AttributedString Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02398A552551F515009BFC32 /* AttributedString Extension.swift */; };
 		02398A792551F775009BFC32 /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02398A782551F775009BFC32 /* Fonts.swift */; };
-		02398A7F2551F7E4009BFC32 /* Traits Font Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02398A7E2551F7E4009BFC32 /* Traits Font Extension.swift */; };
-		02398A842551F7FA009BFC32 /* Traits Font Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02398A7E2551F7E4009BFC32 /* Traits Font Extension.swift */; };
 		02398A882551F878009BFC32 /* Font Style Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02398A872551F878009BFC32 /* Font Style Extension.swift */; };
 		02398A962551FE8E009BFC32 /* ObservableError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02398A952551FE8E009BFC32 /* ObservableError.swift */; };
 		02458EDC2525094C00466BFF /* WorkspaceCellNotebookCollectionViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02458EDB2525094C00466BFF /* WorkspaceCellNotebookCollectionViewDelegate.swift */; };
@@ -136,6 +134,8 @@
 		A7BDD60F2514078600DDB6A0 /* NotebookIndexTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7BDD60E2514078600DDB6A0 /* NotebookIndexTableViewCell.swift */; };
 		A7C057C525420F260023A370 /* NotesToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7C057C425420F260023A370 /* NotesToolbar.swift */; };
 		A7FD9B13253BACF500235D20 /* NotesPageViewObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7FD9B12253BACF500235D20 /* NotesPageViewObserver.swift */; };
+		D925934E255986F1000529B4 /* InputViewTipsStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = D925934D255986F1000529B4 /* InputViewTipsStack.swift */; };
+		D925935225598700000529B4 /* TipViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D925935125598700000529B4 /* TipViewController.swift */; };
 		D96DAA09252F9F4B00552AB1 /* AddNewSpaceToolBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = D96DAA08252F9F4B00552AB1 /* AddNewSpaceToolBar.swift */; };
 		D97EE7AC254B554F00A68B06 /* SearchResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D97EE7A7254B554F00A68B06 /* SearchResultViewController.swift */; };
 		D97EE7AD254B554F00A68B06 /* SearchResultCollectionViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D97EE7A8254B554F00A68B06 /* SearchResultCollectionViewDelegate.swift */; };
@@ -287,7 +287,6 @@
 		02398A432551F495009BFC32 /* Markdown String Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Markdown String Extension.swift"; sourceTree = "<group>"; };
 		02398A552551F515009BFC32 /* AttributedString Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AttributedString Extension.swift"; sourceTree = "<group>"; };
 		02398A782551F775009BFC32 /* Fonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
-		02398A7E2551F7E4009BFC32 /* Traits Font Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Traits Font Extension.swift"; sourceTree = "<group>"; };
 		02398A872551F878009BFC32 /* Font Style Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Font Style Extension.swift"; sourceTree = "<group>"; };
 		02398A952551FE8E009BFC32 /* ObservableError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservableError.swift; sourceTree = "<group>"; };
 		02458EDB2525094C00466BFF /* WorkspaceCellNotebookCollectionViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkspaceCellNotebookCollectionViewDelegate.swift; sourceTree = "<group>"; };
@@ -352,6 +351,8 @@
 		A7BDD60E2514078600DDB6A0 /* NotebookIndexTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotebookIndexTableViewCell.swift; sourceTree = "<group>"; };
 		A7C057C425420F260023A370 /* NotesToolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesToolbar.swift; sourceTree = "<group>"; };
 		A7FD9B12253BACF500235D20 /* NotesPageViewObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesPageViewObserver.swift; sourceTree = "<group>"; };
+		D925934D255986F1000529B4 /* InputViewTipsStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InputViewTipsStack.swift; sourceTree = "<group>"; };
+		D925935125598700000529B4 /* TipViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TipViewController.swift; sourceTree = "<group>"; };
 		D96DAA08252F9F4B00552AB1 /* AddNewSpaceToolBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewSpaceToolBar.swift; sourceTree = "<group>"; };
 		D97EE7A7254B554F00A68B06 /* SearchResultViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchResultViewController.swift; sourceTree = "<group>"; };
 		D97EE7A8254B554F00A68B06 /* SearchResultCollectionViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchResultCollectionViewDelegate.swift; sourceTree = "<group>"; };
@@ -619,7 +620,6 @@
 				02DC77D52553321700F0B4E4 /* Colors.xcassets */,
 				020FFA37252502E30095266D /* Colors.swift */,
 				02398A552551F515009BFC32 /* AttributedString Extension.swift */,
-				02398A7E2551F7E4009BFC32 /* Traits Font Extension.swift */,
 			);
 			path = "App-Markdown";
 			sourceTree = "<group>";
@@ -680,6 +680,7 @@
 		026C3CAF2519435E001E32AE /* Notes */ = {
 			isa = PBXGroup;
 			children = (
+				D925935125598700000529B4 /* TipViewController.swift */,
 				02919F4125531B1E00C03E27 /* MarkdownTextViewDelegate.swift */,
 				026C3CAB251942A7001E32AE /* NotesViewController.swift */,
 				D9F04BEB25377D5D001C6551 /* AddNoteViewController.swift */,
@@ -905,6 +906,7 @@
 		A7C057C325420EEC0023A370 /* Notes */ = {
 			isa = PBXGroup;
 			children = (
+				D925934D255986F1000529B4 /* InputViewTipsStack.swift */,
 				A7C057C425420F260023A370 /* NotesToolbar.swift */,
 			);
 			path = Notes;
@@ -1255,7 +1257,6 @@
 				02398A172551E994009BFC32 /* BulletListElement.swift in Sources */,
 				02398A2A2551EAB8009BFC32 /* NSAttributedString Extension.swift in Sources */,
 				02398A792551F775009BFC32 /* Fonts.swift in Sources */,
-				02398A7F2551F7E4009BFC32 /* Traits Font Extension.swift in Sources */,
 				02398A382551EB9C009BFC32 /* MarkdownTextViewDelegate.swift in Sources */,
 				02398A0F2551E95B009BFC32 /* HighlightElement.swift in Sources */,
 				023989FC2551E8C1009BFC32 /* MarkdownElement.swift in Sources */,
@@ -1327,6 +1328,7 @@
 				02207A392523A5970001FD7E /* WorkspacesCollectionViewDataSource.swift in Sources */,
 				D9F4A9AB25277A6B00BFDC19 /* CGRectExtension.swift in Sources */,
 				024C5BBC252E41EE009549CE /* ColorSelectionCollectionViewCell.swift in Sources */,
+				D925934E255986F1000529B4 /* InputViewTipsStack.swift in Sources */,
 				1E6E148C252E33E700383E10 /* MarkdownBarConfiguration.swift in Sources */,
 				D9F4A9AE25277AC900BFDC19 /* TextBoxView.swift in Sources */,
 				02AD78F625475C7300C87D2B /* EditableCollectionViewCell.swift in Sources */,
@@ -1341,6 +1343,7 @@
 				D97EE7AC254B554F00A68B06 /* SearchResultViewController.swift in Sources */,
 				02AC9ADA251BF35200A067D0 /* NotebooksCollectionViewDelegate.swift in Sources */,
 				D97EE7BB254B558B00A68B06 /* SearchResultCollectionReusableView.swift in Sources */,
+				D925935225598700000529B4 /* TipViewController.swift in Sources */,
 				024C5BB4252E41D8009549CE /* ColorSelectionCollectionViewDelegate.swift in Sources */,
 				02AD78F225475C5800C87D2B /* EditableCollectionView.swift in Sources */,
 				1E9EF4A925225B9B00CC623B /* TextEditingDelegateObserver.swift in Sources */,
@@ -1358,7 +1361,6 @@
 				1E9EF4AD2522609400CC623B /* MarkupTextFieldDelegate.swift in Sources */,
 				020E22252513F10800A93EAB /* App Database String Extension.swift in Sources */,
 				1EFA49CE252D15C500602904 /* MarkdownNavigationView.swift in Sources */,
-				02398A842551F7FA009BFC32 /* Traits Font Extension.swift in Sources */,
 				D97EE7B6254B557A00A68B06 /* SearchResultEnum.swift in Sources */,
 				1EE652C72525049E0015E3D4 /* MarkdownToggleButton.swift in Sources */,
 				02E4E99525266F3900290A39 /* NotebookView.swift in Sources */,
