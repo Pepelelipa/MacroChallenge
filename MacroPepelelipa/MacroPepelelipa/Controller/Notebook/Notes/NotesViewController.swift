@@ -113,6 +113,10 @@ internal class NotesViewController: UIViewController,
         return command
     }()
     
+    private lazy var dropInteractionDelegate: DropInteractionDelegate = {
+        return DropInteractionDelegate(viewController: self)
+    }()
+    
     #if !targetEnvironment(macCatalyst)
     internal lazy var photoPickerDelegate = PhotoPickerDelegate { (image, error) in
         if let error = error {
@@ -224,6 +228,9 @@ internal class NotesViewController: UIViewController,
             textView.isEditable = false
             textView.inputAccessoryView = nil
         }
+        
+        let dropInteraction = UIDropInteraction(delegate: dropInteractionDelegate)
+        textView.addInteraction(dropInteraction)
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -332,7 +339,7 @@ internal class NotesViewController: UIViewController,
     }
     
     /// This method adds a image box or a transcripted text from selected image in a text box to the current note
-    private func addMedia(from image: UIImage) {
+    internal func addMedia(from image: UIImage) {
         DispatchQueue.main.async {
             let alert = UIAlertController(title: "Image or text?".localized(), 
                                           message: "Import the media as an image or as a text transcription (Beta version)".localized(), 
@@ -472,6 +479,10 @@ internal class NotesViewController: UIViewController,
         UIView.animate(withDuration: 0.5) {
             self.textView.layoutIfNeeded()
         }
+    }
+    
+    internal func insertText(_ text: String) {
+        self.textView.insertText("\n" + text + "\n")
     }
     
     // MARK: - TextEditingDelegateObserver functions
