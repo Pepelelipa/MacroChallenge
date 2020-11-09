@@ -31,6 +31,13 @@ internal class TextEditingContainerViewController: UIViewController,
         return item
     }()
     
+    private lazy var presentTipButton: UIBarButtonItem = {
+        let item = UIBarButtonItem(image: UIImage(systemName: "info.circle"), style: .plain, target: self, action: #selector(presentTip))
+
+        return item
+    }()
+    
+    
     private lazy var doneButton: UIBarButtonItem = {
         let item = UIBarButtonItem(ofType: .done,
                                    target: self,
@@ -113,9 +120,9 @@ internal class TextEditingContainerViewController: UIViewController,
         }
 
         if (try? notesViewController?.note?.getNotebook().getWorkspace().isEnabled) ?? false {
-            navigationItem.rightBarButtonItems = [notebookIndexButton]
+            navigationItem.rightBarButtonItems = [notebookIndexButton, presentTipButton]
         } else {
-            navigationItem.rightBarButtonItems = [notebookIndexButton]
+            navigationItem.rightBarButtonItems = [notebookIndexButton, presentTipButton]
         }
         navigationItem.largeTitleDisplayMode = .never
         navigationItem.titleView = markupNavigationView
@@ -356,6 +363,11 @@ internal class TextEditingContainerViewController: UIViewController,
             
             present(alertController, animated: true, completion: nil)
         }
+    }
+    
+    @IBAction private func presentTip() {
+            let tipViewController = TipViewController()
+            self.present(tipViewController, animated: true, completion: nil)
     }
     
     // This method is called when the UIBarButton for the done button is pressed and it closes the keyboard
