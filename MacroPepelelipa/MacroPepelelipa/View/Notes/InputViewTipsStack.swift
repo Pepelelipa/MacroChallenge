@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import MarkdownText
 
 internal class InputViewTipsStack: UIStackView {
     
@@ -31,7 +32,7 @@ internal class InputViewTipsStack: UIStackView {
     internal func buildInputStackView() {
         switch stackType {
         case .bold:
-            let attributedText = NSMutableAttributedString(attributedString: "Bold".localized().toStyle(.bold))
+            let attributedText = NSMutableAttributedString(attributedString: "Bold".localized().toStyle(font: Fonts.defaultTextFont.bold() ?? Fonts.defaultTextFont, .paragraph))
             
             tipLabel.attributedText = attributedText
             tipImageView.image = UIImage(named: "Bold Tip")
@@ -48,7 +49,7 @@ internal class InputViewTipsStack: UIStackView {
             self.addArrangedSubview(tipImageView)
             self.addArrangedSubview(tipLabel)            
         case .italic:
-            let attributedText = NSMutableAttributedString(attributedString: "Italic".localized().toStyle(.italic))
+            let attributedText = NSMutableAttributedString(attributedString: "Italic".localized().toStyle(font: Fonts.defaultTextFont.italic() ?? Fonts.defaultTextFont, .paragraph))
             
             tipLabel.attributedText = attributedText
             tipImageView.image = UIImage(named: "Italic Tip")

@@ -13,8 +13,6 @@ public enum FontStyle: Int {
     case h2 = 2
     case h3 = 3
     case paragraph = 4
-    case bold = 5
-    case italic = 6
 }
 
 public struct Fonts {

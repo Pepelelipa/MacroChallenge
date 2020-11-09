@@ -52,18 +52,20 @@ internal class TipViewController: UIViewController {
     private lazy var markdownArtifact: UILabel = {
         let label = UILabel()
         
+        label.font = Fonts.defaultTextFont.bold()!
+
         let text = NSMutableAttributedString()
 
         let attributedStringsParts: [NSAttributedString] = [
-            "Bold".localized().toStyle(.bold),
-            "Italic".localized().toStyle(.italic)
+            "Bold".localized().toStyle(font: Fonts.defaultTextFont.bold()!, .paragraph),
+            "Italic".localized().toStyle(font: Fonts.defaultTextFont.italic()!, .paragraph)
         ]
         
         let mutableattributedStringsParts: [NSMutableAttributedString] = [
             NSMutableAttributedString(attributedString: "Highlighted".localized().toStyle(.paragraph)),
             NSMutableAttributedString(attributedString: "Underline".localized().toStyle(.paragraph))
         ]
-        
+                
         mutableattributedStringsParts[0].addAttribute(NSAttributedString.Key.backgroundColor, 
                                                       value: UIColor.highlightColor ?? .systemYellow, 
                                                       range: NSRange(location: 0, length: mutableattributedStringsParts[0].length))
@@ -86,7 +88,6 @@ internal class TipViewController: UIViewController {
         }
         
         label.attributedText = text
-        label.font = UIFont.defaultHeader.toStyle(.paragraph)
         label.tintColor = UIColor.bodyColor
         label.numberOfLines = 0
         
@@ -95,9 +96,7 @@ internal class TipViewController: UIViewController {
         
         return label
     }()
-    
-    private lazy var markdownArtifactSizeHeight: CGFloat = markdownArtifact.intrinsicContentSize.height
-    
+        
     private lazy var markdownArtifactExplanation: UILabel = {
         let label = UILabel()
         
@@ -121,7 +120,7 @@ internal class TipViewController: UIViewController {
         text.addAttribute(NSAttributedString.Key.paragraphStyle, value: paragraphStyle, range: NSRange(location: 0, length: text.length))
         
         label.attributedText = text
-        label.font = UIFont.defaultHeader.toStyle(.paragraph)
+        label.font = UIFont.defaultFont.toStyle(.paragraph)
         label.tintColor = UIColor.bodyColor
         label.numberOfLines = 0
         
@@ -136,7 +135,7 @@ internal class TipViewController: UIViewController {
         let label = UILabel()
         
         label.text = "InputView explanation".localized()
-        label.font = UIFont.defaultHeader.toStyle(.paragraph)
+        label.font = UIFont.defaultFont.toStyle(.paragraph)
         label.tintColor = UIColor.titleColor
         label.numberOfLines = 0
         
@@ -144,9 +143,7 @@ internal class TipViewController: UIViewController {
         scrollView.addSubview(label)
         return label
     }()
-    
-    private lazy var inputViewExplanationHeight: CGFloat = inputViewExplanation.intrinsicContentSize.height
-    
+        
     private lazy var inputViewImageView: UIImageView = {
         let image = UIImage(named: "InputViewAsset")
         let imageView = UIImageView(image: image)
