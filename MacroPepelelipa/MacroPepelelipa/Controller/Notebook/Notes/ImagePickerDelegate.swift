@@ -30,12 +30,12 @@ internal class ImagePickerDelegate: NSObject, UIImagePickerControllerDelegate, U
      - Parameter info: the key from our Controller (UIIMagePickerController.InfoKey).
      */
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
-        guard let originalImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage else {
+        guard let editedImage = info[UIImagePickerController.InfoKey.editedImage] as? UIImage else {
             return
         }
         
         picker.dismiss(animated: true) { 
-            self.selectedImage?(originalImage)
+            self.selectedImage?(editedImage)
         }
     }
 }

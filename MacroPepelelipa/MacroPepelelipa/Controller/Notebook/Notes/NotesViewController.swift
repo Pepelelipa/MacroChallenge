@@ -587,7 +587,7 @@ internal class NotesViewController: UIViewController,
         picker.delegate = photoPickerDelegate
         
         let photoLibraryAction = UIAlertAction(title: "Library".localized(), style: .default) { (_) in
-            self.present(picker, animated: true, completion: nil)
+            self.showImagePickerController(sourceType: .photoLibrary)
         }
         
         let cameraAction = UIAlertAction(title: "Camera".localized(), style: .default) { (_) in
