@@ -479,6 +479,11 @@ internal class NotesViewController: UIViewController,
         }
     }
     
+    /**
+     This method inserts a string into the text view.
+     
+     - Parameter text: The string that will be added to the text view.
+     */
     internal func insertText(_ text: String) {
         self.textView.insertText("\n" + text + "\n")
     }
