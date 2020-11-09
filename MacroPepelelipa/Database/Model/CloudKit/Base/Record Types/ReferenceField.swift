@@ -26,10 +26,11 @@ internal class ReferenceField<T: CloudKitEntity> {
         }
     }
 
-    internal init(record: CKRecord, key: String, action: CKRecord_Reference_Action) {
+    internal init(reference: T, record: CKRecord, key: String, action: CKRecord_Reference_Action) {
         self.record = record
         self.key = key
         self.action = action
+        self.value = reference
     }
 }
 

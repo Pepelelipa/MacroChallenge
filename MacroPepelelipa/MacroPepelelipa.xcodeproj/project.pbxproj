@@ -115,6 +115,7 @@
 		02D20B6C2558E43800159AB0 /* CloudKitTextBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02D20B6B2558E43800159AB0 /* CloudKitTextBox.swift */; };
 		02D20B702558E51700159AB0 /* CloudKitImageBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02D20B6F2558E51700159AB0 /* CloudKitImageBox.swift */; };
 		02D20B762558E78500159AB0 /* ReferenceField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02D20B752558E78500159AB0 /* ReferenceField.swift */; };
+		02D20B7A2559B94800159AB0 /* ReferenceList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02D20B792559B94800159AB0 /* ReferenceList.swift */; };
 		02DC77D62553321700F0B4E4 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 02DC77D52553321700F0B4E4 /* Colors.xcassets */; };
 		02DC77DB2553328000F0B4E4 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 02DC77D52553321700F0B4E4 /* Colors.xcassets */; };
 		02DD09FC25114D6200B6696B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02DD09FB25114D6200B6696B /* AppDelegate.swift */; };
@@ -342,6 +343,7 @@
 		02D20B6B2558E43800159AB0 /* CloudKitTextBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudKitTextBox.swift; sourceTree = "<group>"; };
 		02D20B6F2558E51700159AB0 /* CloudKitImageBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudKitImageBox.swift; sourceTree = "<group>"; };
 		02D20B752558E78500159AB0 /* ReferenceField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReferenceField.swift; sourceTree = "<group>"; };
+		02D20B792559B94800159AB0 /* ReferenceList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReferenceList.swift; sourceTree = "<group>"; };
 		02DC77D52553321700F0B4E4 /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		02DD09F825114D6200B6696B /* MacroPepelelipa.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MacroPepelelipa.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		02DD09FB25114D6200B6696B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -797,6 +799,7 @@
 			children = (
 				029EFC932555DEDC00361F29 /* Data Property.swift */,
 				02D20B752558E78500159AB0 /* ReferenceField.swift */,
+				02D20B792559B94800159AB0 /* ReferenceList.swift */,
 			);
 			path = "Record Types";
 			sourceTree = "<group>";
@@ -1372,6 +1375,7 @@
 				022832F7252E603800DDD46B /* EntityObserver.swift in Sources */,
 				021107C5252FADC90009D4E1 /* TextBoxError.swift in Sources */,
 				022832E7252E5CE900DDD46B /* Note+CoreDataProperties.swift in Sources */,
+				02D20B7A2559B94800159AB0 /* ReferenceList.swift in Sources */,
 				022832ED252E5CE900DDD46B /* Workspace+CoreDataProperties.swift in Sources */,
 				022832E8252E5CE900DDD46B /* TextBox+CoreDataClass.swift in Sources */,
 				022832EC252E5CE900DDD46B /* Workspace+CoreDataClass.swift in Sources */,
