@@ -6,7 +6,11 @@
 //  Copyright © 2020 Pedro Giuliano Farina. All rights reserved.
 //
 
-internal class WorkspaceObject: WorkspaceEntity {
+import CloudKit
+
+internal class WorkspaceObject: WorkspaceEntity, CloudKitEntity {
+    internal static let recordType: String = "Workspace"
+    internal var record: CKRecord = .from(self)
 
     func getID() throws -> UUID {
         if let id = coreDataObject.id {

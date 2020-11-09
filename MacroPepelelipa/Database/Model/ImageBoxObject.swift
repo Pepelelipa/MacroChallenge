@@ -7,7 +7,11 @@
 //
 //swiftlint:disable identifier_name
 
-internal class ImageBoxObject: ImageBoxEntity {
+import CloudKit
+
+internal class ImageBoxObject: ImageBoxEntity, CloudKitEntity {
+    internal static let recordType: String = "ImageBox"
+    internal lazy var record: CKRecord = .from(self)
 
     internal init(in note: NoteObject, coreDataObject: ImageBox) {
         self.note = note

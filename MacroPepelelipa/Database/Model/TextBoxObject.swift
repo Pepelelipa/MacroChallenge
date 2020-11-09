@@ -7,7 +7,11 @@
 //
 //swiftlint:disable identifier_name
 
-internal class TextBoxObject: TextBoxEntity {
+import CloudKit
+
+internal class TextBoxObject: TextBoxEntity, CloudKitEntity {
+    internal static let recordType: String = "TextBox"
+    internal lazy var record: CKRecord = .from(self)
 
     internal init(in note: NoteObject, coreDataObject: TextBox) {
         self.note = note

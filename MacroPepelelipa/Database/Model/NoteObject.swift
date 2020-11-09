@@ -6,7 +6,11 @@
 //  Copyright © 2020 Pedro Giuliano Farina. All rights reserved.
 //
 
-internal class NoteObject: NoteEntity {
+import CloudKit
+
+internal class NoteObject: NoteEntity, CloudKitEntity {
+    internal static let recordType: String = "Note"
+    internal lazy var record: CKRecord = .from(self)
 
     func getID() throws -> UUID {
         if let id = coreDataObject.id {

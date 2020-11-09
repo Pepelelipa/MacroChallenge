@@ -101,6 +101,7 @@
 		029EFCA12555DF2600361F29 /* DataFetchAnswer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 029EFCA02555DF2600361F29 /* DataFetchAnswer.swift */; };
 		029EFCA62555DF6700361F29 /* CloudKitEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 029EFCA52555DF6700361F29 /* CloudKitEntity.swift */; };
 		029EFCAF2555E0BF00361F29 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 029EFCB12555E0BF00361F29 /* Localizable.strings */; };
+		029EFCBA2555ECE000361F29 /* CKRecordExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 029EFCB92555ECE000361F29 /* CKRecordExtension.swift */; };
 		02A75293252E5282006D37B5 /* NSPersistantContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A75292252E5282006D37B5 /* NSPersistantContainer.swift */; };
 		02A75297252E5316006D37B5 /* CoreDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A75296252E5316006D37B5 /* CoreDataController.swift */; };
 		02A8BCEC2512A453006B685E /* NotebooksCollectionViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A8BCEB2512A453006B685E /* NotebooksCollectionViewDataSource.swift */; };
@@ -322,6 +323,7 @@
 		029EFCA52555DF6700361F29 /* CloudKitEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudKitEntity.swift; sourceTree = "<group>"; };
 		029EFCB02555E0BF00361F29 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		029EFCB42555E0C100361F29 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		029EFCB92555ECE000361F29 /* CKRecordExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CKRecordExtension.swift; sourceTree = "<group>"; };
 		02A75292252E5282006D37B5 /* NSPersistantContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSPersistantContainer.swift; sourceTree = "<group>"; };
 		02A75296252E5316006D37B5 /* CoreDataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataController.swift; sourceTree = "<group>"; };
 		02A8BCEB2512A453006B685E /* NotebooksCollectionViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotebooksCollectionViewDataSource.swift; sourceTree = "<group>"; };
@@ -779,6 +781,7 @@
 			isa = PBXGroup;
 			children = (
 				029EFC932555DEDC00361F29 /* Data Property.swift */,
+				029EFCB92555ECE000361F29 /* CKRecordExtension.swift */,
 			);
 			path = "Record Types";
 			sourceTree = "<group>";
@@ -1342,6 +1345,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				029EFCBA2555ECE000361F29 /* CKRecordExtension.swift in Sources */,
 				021107A8252F8B060009D4E1 /* NoteError.swift in Sources */,
 				02110793252F88540009D4E1 /* ModifiableEntity.swift in Sources */,
 				021107A4252F8A9F0009D4E1 /* ImageBoxObject.swift in Sources */,

@@ -7,8 +7,12 @@
 //
 
 import UIKit
+import CloudKit
 
-internal class NotebookObject: NotebookEntity {
+internal class NotebookObject: NotebookEntity, CloudKitEntity {
+    internal static let recordType: String = "Notebook"
+    internal lazy var record: CKRecord = .from(self)
+
 
     func getID() throws -> UUID {
         if let id = coreDataObject.id {
