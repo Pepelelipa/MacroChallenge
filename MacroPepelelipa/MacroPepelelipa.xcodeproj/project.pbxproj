@@ -177,6 +177,7 @@
 		E40220DE253A1ED7009C08C4 /* DarkModeIcon-Small-40.png in Resources */ = {isa = PBXBuildFile; fileRef = E40220CF253A1ED7009C08C4 /* DarkModeIcon-Small-40.png */; };
 		E4026286252FAC7800BCDD93 /* DancingScript-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E4026284252FAC7800BCDD93 /* DancingScript-Bold.ttf */; };
 		E4026287252FAC7800BCDD93 /* DancingScript-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E4026285252FAC7800BCDD93 /* DancingScript-Regular.ttf */; };
+		E40A7DFE2559B6D600D81087 /* DropInteractionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E40A7DFD2559B6D600D81087 /* DropInteractionDelegate.swift */; };
 		E41209532538C1020088AC26 /* EmptyScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E41209522538C1020088AC26 /* EmptyScreenView.swift */; };
 		E42FC8372530EF78004E81C9 /* MarkdownFormatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E42FC8362530EF78004E81C9 /* MarkdownFormatView.swift */; };
 		E4C3DB7025534F300058985A /* App Database String Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 020E22242513F10800A93EAB /* App Database String Extension.swift */; };
@@ -392,6 +393,7 @@
 		E40220CF253A1ED7009C08C4 /* DarkModeIcon-Small-40.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "DarkModeIcon-Small-40.png"; sourceTree = "<group>"; };
 		E4026284252FAC7800BCDD93 /* DancingScript-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "DancingScript-Bold.ttf"; sourceTree = "<group>"; };
 		E4026285252FAC7800BCDD93 /* DancingScript-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "DancingScript-Regular.ttf"; sourceTree = "<group>"; };
+		E40A7DFD2559B6D600D81087 /* DropInteractionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropInteractionDelegate.swift; sourceTree = "<group>"; };
 		E41209522538C1020088AC26 /* EmptyScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyScreenView.swift; sourceTree = "<group>"; };
 		E42FC8362530EF78004E81C9 /* MarkdownFormatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkdownFormatView.swift; sourceTree = "<group>"; };
 		E4F88C87252FA564003AD037 /* Merriweather-BoldItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Merriweather-BoldItalic.otf"; sourceTree = "<group>"; };
@@ -686,6 +688,7 @@
 				A72942E6253A13D800C788EE /* ImageButtonObserver.swift */,
 				A73C94B9253F84E8004EFA4F /* PhotoPickerDelegate.swift */,
 				1EDCF73E25533FB8008A950F /* ImagePickerDelegate.swift */,
+				E40A7DFD2559B6D600D81087 /* DropInteractionDelegate.swift */,
 			);
 			path = Notes;
 			sourceTree = "<group>";
@@ -1348,6 +1351,7 @@
 				D9D87544251BD39F00B842C8 /* PhotoEditingViewController.swift in Sources */,
 				02398A592551F522009BFC32 /* AttributedString Extension.swift in Sources */,
 				02DD09FC25114D6200B6696B /* AppDelegate.swift in Sources */,
+				E40A7DFE2559B6D600D81087 /* DropInteractionDelegate.swift in Sources */,
 				02A8BCEC2512A453006B685E /* NotebooksCollectionViewDataSource.swift in Sources */,
 				A731AA7425372F9C00624131 /* IndexObserver.swift in Sources */,
 				02DD09FE25114D6200B6696B /* SceneDelegate.swift in Sources */,
@@ -1454,7 +1458,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 6;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = X54K5PJVGU;
+				DEVELOPMENT_TEAM = 5HW626WUP4;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -1483,7 +1487,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 6;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = X54K5PJVGU;
+				DEVELOPMENT_TEAM = 5HW626WUP4;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -1512,7 +1516,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 6;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = X54K5PJVGU;
+				DEVELOPMENT_TEAM = 5HW626WUP4;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -1543,7 +1547,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 6;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = X54K5PJVGU;
+				DEVELOPMENT_TEAM = 5HW626WUP4;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -1691,7 +1695,7 @@
 				CODE_SIGN_ENTITLEMENTS = MacroPepelelipa/MacroPepelelipa.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 6;
-				DEVELOPMENT_TEAM = X54K5PJVGU;
+				DEVELOPMENT_TEAM = 5HW626WUP4;
 				INFOPLIST_FILE = MacroPepelelipa/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1713,7 +1717,7 @@
 				CODE_SIGN_ENTITLEMENTS = MacroPepelelipa/MacroPepelelipa.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 6;
-				DEVELOPMENT_TEAM = X54K5PJVGU;
+				DEVELOPMENT_TEAM = 5HW626WUP4;
 				INFOPLIST_FILE = MacroPepelelipa/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
