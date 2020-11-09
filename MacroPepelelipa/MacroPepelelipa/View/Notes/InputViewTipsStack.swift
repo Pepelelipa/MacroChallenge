@@ -11,11 +11,11 @@ import UIKit
 
 internal class InputViewTipsStack: UIStackView {
     
-    private let stackType: InputViewType
+    private let stackType: InputViewType?
     private var tipImageView = UIImageView()
     private var tipLabel = UILabel()
     
-    init(of type: InputViewType) {
+    internal init(of type: InputViewType? = nil) {
         self.stackType = type
         
         super.init(frame: .zero)
@@ -55,13 +55,18 @@ internal class InputViewTipsStack: UIStackView {
             
             self.addArrangedSubview(tipImageView)
             self.addArrangedSubview(tipLabel)            
+        case .none:
+            break
         }
     }
     
-    required init(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+    internal required convenience init(coder: NSCoder) {
+        if let type = coder.decodeObject(forKey: "type") as? InputViewType {
+            self.init(of: type)
+        } else {
+            self.init()
+        }
     }
-    
 }
 
 internal enum InputViewType {
