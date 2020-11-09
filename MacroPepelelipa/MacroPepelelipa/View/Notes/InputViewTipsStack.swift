@@ -8,7 +8,6 @@
 
 import Foundation
 import UIKit
-import MarkdownText
 
 internal class InputViewTipsStack: UIStackView {
     
@@ -30,9 +29,13 @@ internal class InputViewTipsStack: UIStackView {
     }
     
     internal func buildInputStackView() {
+        guard let boldFont = UIFont.defaultFont.bold(),
+              let italicFont = UIFont.defaultFont.italic() else {
+            return
+        }
         switch stackType {
         case .bold:
-            let attributedText = NSMutableAttributedString(attributedString: "Bold".localized().toStyle(font: Fonts.defaultTextFont.bold() ?? Fonts.defaultTextFont, .paragraph))
+            let attributedText = NSMutableAttributedString(attributedString: "Bold".localized().toFontWithDefaultColor(font: boldFont))
             
             tipLabel.attributedText = attributedText
             tipImageView.image = UIImage(named: "Bold Tip")
@@ -40,7 +43,7 @@ internal class InputViewTipsStack: UIStackView {
             self.addArrangedSubview(tipImageView)
             self.addArrangedSubview(tipLabel)            
         case .highlighted:
-            let attributedText = NSMutableAttributedString(attributedString: "Highlighted".localized().toStyle(.paragraph))
+            let attributedText = NSMutableAttributedString(attributedString: "Highlighted".localized().toFontWithDefaultColor(font: italicFont))
             attributedText.addAttributes([NSAttributedString.Key.backgroundColor: UIColor.highlightColor ?? .systemYellow], range: NSRange(location: 0, length: attributedText.length))
             
             tipLabel.attributedText = attributedText
@@ -49,7 +52,7 @@ internal class InputViewTipsStack: UIStackView {
             self.addArrangedSubview(tipImageView)
             self.addArrangedSubview(tipLabel)            
         case .italic:
-            let attributedText = NSMutableAttributedString(attributedString: "Italic".localized().toStyle(font: Fonts.defaultTextFont.italic() ?? Fonts.defaultTextFont, .paragraph))
+            let attributedText = NSMutableAttributedString(attributedString: "Italic".localized().toStyle(font: italicFont, .paragraph))
             
             tipLabel.attributedText = attributedText
             tipImageView.image = UIImage(named: "Italic Tip")

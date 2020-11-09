@@ -20,7 +20,7 @@ internal extension String {
         return mutable.withForegroundColor(.placeholderColor ?? .placeholderText)
     }
 
-    private func toFontWithDefaultColor(font: Any) -> NSMutableAttributedString {
+    func toFontWithDefaultColor(font: Any) -> NSMutableAttributedString {
         let range = NSRange(location: 0, length: self.count)
         let mutableString = NSMutableAttributedString(string: self)
 

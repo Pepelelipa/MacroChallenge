@@ -8,7 +8,6 @@
 
 import Foundation
 import UIKit
-import MarkdownText
 
 internal class TipViewController: UIViewController {
     
@@ -51,14 +50,16 @@ internal class TipViewController: UIViewController {
     
     private lazy var markdownArtifact: UILabel = {
         let label = UILabel()
-        
-        label.font = Fonts.defaultTextFont.bold()!
+        guard let boldFont = UIFont.defaultFont.bold(),
+              let italicFont = UIFont.defaultFont.italic() else {
+            return label
+        }
 
         let text = NSMutableAttributedString()
 
         let attributedStringsParts: [NSAttributedString] = [
-            "Bold".localized().toStyle(font: Fonts.defaultTextFont.bold()!, .paragraph),
-            "Italic".localized().toStyle(font: Fonts.defaultTextFont.italic()!, .paragraph)
+            "Bold".localized().toFontWithDefaultColor(font: boldFont),
+            "Italic".localized().toFontWithDefaultColor(font: italicFont)
         ]
         
         let mutableattributedStringsParts: [NSMutableAttributedString] = [
