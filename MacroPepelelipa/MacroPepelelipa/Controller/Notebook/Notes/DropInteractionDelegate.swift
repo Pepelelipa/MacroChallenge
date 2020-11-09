@@ -38,15 +38,12 @@ class DropInteractionDelegate: NSObject, UIDropInteractionDelegate {
                 #if !targetEnvironment(macCatalyst)
                     viewController.addMedia(from: image)
                 #endif
+                // TODO: enable drop interaction for mac 
             }
         }
         
-        session.loadObjects(ofClass: String.self) { textItems in
-            guard let texts = textItems as? [String] else {
-                return
-            }
-            
-            for text in texts {
+        _ = session.loadObjects(ofClass: String.self) { textItems in
+            for text in textItems {
                 viewController.insertText(text)
             }
         }

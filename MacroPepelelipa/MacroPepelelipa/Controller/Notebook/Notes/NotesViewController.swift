@@ -113,10 +113,8 @@ internal class NotesViewController: UIViewController,
         return command
     }()
     
-    private lazy var dropInteractionDelegate: DropInteractionDelegate = {
-        return DropInteractionDelegate(viewController: self)
-    }()
-    
+    private lazy var dropInteractionDelegate: DropInteractionDelegate = DropInteractionDelegate(viewController: self)
+        
     #if !targetEnvironment(macCatalyst)
     internal lazy var photoPickerDelegate = PhotoPickerDelegate { (image, error) in
         if let error = error {
@@ -228,7 +226,7 @@ internal class NotesViewController: UIViewController,
             textView.isEditable = false
             textView.inputAccessoryView = nil
         }
-        
+                
         let dropInteraction = UIDropInteraction(delegate: dropInteractionDelegate)
         textView.addInteraction(dropInteraction)
     }
@@ -686,7 +684,7 @@ internal class NotesViewController: UIViewController,
                                                               })
                 self?.present(deleteAlertController, animated: true, completion: nil)
             })
-
+            alertController.popoverPresentationController?.sourceView = boxView
             self.present(alertController, animated: true, completion: nil)
         }
     }
@@ -721,6 +719,7 @@ internal class NotesViewController: UIViewController,
                 self?.present(deleteAlertController, animated: true, completion: nil)
             })
 
+            alertController.popoverPresentationController?.sourceView = boxView
             self.present(alertController, animated: true, completion: nil)
         }
     }
