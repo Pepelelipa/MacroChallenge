@@ -56,6 +56,29 @@ internal class CloudKitDataController {
         CloudKitDataConnector.deleteData(database: .Private, entitiesToDelete: [notebook])
     }
 
+    // MARK: Note
+    /**
+     Creates a Note into the CoreData
+     - Parameter notebook: To what notebook it belongs.
+     */
+    internal func createNote(in notebook: CloudKitNotebook, id: UUID) -> CloudKitNote {
+        let note = CloudKitNote(id: id)
+        note.setNotebook(notebook)
+        notebook.appendNote(note)
+
+        return note
+    }
+
+    /**
+     Deletes a note from CoreData
+     - Parameter note: Note to be deleted.
+     */
+    internal func deleteNote(_ note: CloudKitNote) {
+        note.notebook?.value?.removeNote(note)
+        CloudKitDataConnector.deleteData(database: .Private, entitiesToDelete: [note])
+    }
+
+
     // MARK: Saving
     private func saveData(entitiesToSave: [CloudKitEntity] = [], entitiesToDelete: [CloudKitEntity] = []) {
         CloudKitDataConnector.saveData(database: .Private, entitiesToSave: entitiesToSave, entitiesToDelete: entitiesToDelete)

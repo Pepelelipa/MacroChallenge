@@ -107,12 +107,12 @@ public class DataManager {
         guard let workspaceObject = workspace as? WorkspaceObject else {
             throw WorkspaceError.failedToParse
         }
-
-        let id = UUID()
-        let cdNotebook = try coreDataController.createNotebook(in: workspaceObject.coreDataWorkspace, id: id, named: name, colorName: colorName)
         guard let ckWorkspace = workspaceObject.cloudKitWorkspace else {
             throw WorkspaceError.workspaceWasNull
         }
+
+        let id = UUID()
+        let cdNotebook = try coreDataController.createNotebook(in: workspaceObject.coreDataWorkspace, id: id, named: name, colorName: colorName)
         let ckNotebook = cloudKitController.createNotebook(in: ckWorkspace, id: id, named: name, colorName: colorName)
 
         let notebookObject = NotebookObject(in: workspaceObject, from: cdNotebook, and: ckNotebook)
@@ -151,9 +151,15 @@ public class DataManager {
         guard let notebookObject = notebook as? NotebookObject else {
             throw NotebookError.failedToParse
         }
+        guard let ckNotebook = notebookObject.cloudKitNotebook else {
+            throw NotebookError.notebookWasNull
+        }
 
-        let cdNote = try coreDataController.createNote(in: notebookObject.coreDataNotebook)
-        let noteObject = NoteObject(in: notebookObject, from: cdNote)
+        let id = UUID()
+        let cdNote = try coreDataController.createNote(in: notebookObject.coreDataNotebook, id: id)
+        let ckNote = cloudKitController.createNote(in: ckNotebook, id: id)
+
+        let noteObject = NoteObject(in: notebookObject, from: cdNote, and: ckNote)
         defer {
             notifyCreation(noteObject, type: .note)
         }
@@ -171,7 +177,10 @@ public class DataManager {
             throw NoteError.failedToParse
         }
 
-        try coreDataController.deleteNote(noteObject.coreDataObject)
+        if let ckNote = noteObject.cloudKitNote {
+            cloudKitController.deleteNote(ckNote)
+        }
+        try coreDataController.deleteNote(noteObject.coreDataNote)
         try noteObject.removeReferences()
         notifyDeletion(note, type: .note)
     }
@@ -187,7 +196,7 @@ public class DataManager {
             throw NoteError.failedToParse
         }
 
-        let cdTextBox = try coreDataController.createTextBox(in: noteObject.coreDataObject)
+        let cdTextBox = try coreDataController.createTextBox(in: noteObject.coreDataNote)
         return TextBoxObject(in: noteObject, coreDataObject: cdTextBox)
     }
 
@@ -216,7 +225,7 @@ public class DataManager {
             throw NoteError.failedToParse
         }
 
-        let cdImageBox = try coreDataController.createImageBox(in: noteObject.coreDataObject, at: imagePath)
+        let cdImageBox = try coreDataController.createImageBox(in: noteObject.coreDataNote, at: imagePath)
         return ImageBoxObject(in: noteObject, coreDataObject: cdImageBox)
     }
 

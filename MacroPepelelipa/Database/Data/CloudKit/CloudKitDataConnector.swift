@@ -32,9 +32,6 @@ internal class CloudKitDataConnector {
     }
 
     private static let container: CKContainer = DatabaseType.container
-    private static let privateDB: CKDatabase = container.privateCloudDatabase
-    private static let sharedDB: CKDatabase = container.sharedCloudDatabase
-    private static let publicDB: CKDatabase = container.publicCloudDatabase
 
     // MARK: Saving Object
     internal static func saveObject(database: DatabaseType, object: CloudKitEntity,

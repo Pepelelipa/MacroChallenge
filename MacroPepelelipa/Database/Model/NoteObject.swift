@@ -8,10 +8,10 @@
 
 import CloudKit
 
-internal class NoteObject: NoteEntity {
+internal class NoteObject: NoteEntity, CloudKitObjectWrapper {
 
     func getID() throws -> UUID {
-        if let id = coreDataObject.id {
+        if let id = coreDataNote.id {
             return id
         }
         throw ObservableError.idWasNull
@@ -27,13 +27,13 @@ internal class NoteObject: NoteEntity {
 
     public var title: NSAttributedString {
         didSet {
-            coreDataObject.title = title.toData()
+            coreDataNote.title = title.toData()
             notifyObservers()
         }
     }
     var text: NSAttributedString {
         didSet {
-            coreDataObject.text = text.toData()
+            coreDataNote.text = text.toData()
             notifyObservers()
         }
     }
@@ -51,23 +51,27 @@ internal class NoteObject: NoteEntity {
 
     private var observers: [EntityObserver] = []
 
-    internal let coreDataObject: Note
-    internal var cloudKitObject: CloudKitNote?
+    internal let coreDataNote: Note
+    internal var cloudKitNote: CloudKitNote?
+    var cloudKitObject: CloudKitEntity? {
+        return cloudKitNote
+    }
 
-    internal init(in notebook: NotebookObject, from note: Note) {
+    internal init(in notebook: NotebookObject, from note: Note, and ckNote: CloudKitNote? = nil) {
+        self.cloudKitNote = ckNote
         self.notebook = notebook
-        self.coreDataObject = note
+        self.coreDataNote = note
         self.title = note.title?.toAttributedString() ?? NSAttributedString()
         self.text = note.text?.toAttributedString() ?? NSAttributedString()
         
         notebook.notes.append(self)
 
-        if let textBoxes = coreDataObject.textBoxes?.allObjects as? [TextBox] {
+        if let textBoxes = coreDataNote.textBoxes?.allObjects as? [TextBox] {
             textBoxes.forEach { (textBox) in
                 _ = TextBoxObject(in: self, coreDataObject: textBox)
             }
         }
-        if let images = coreDataObject.images?.allObjects as? [ImageBox] {
+        if let images = coreDataNote.images?.allObjects as? [ImageBox] {
             images.forEach { (imageBox) in
                 _ = ImageBoxObject(in: self, coreDataObject: imageBox)
             }

@@ -73,7 +73,9 @@ internal class NotebookObject: NotebookEntity, CloudKitObjectWrapper {
 
         if let notes = coreDataNotebook.notes?.array as? [Note] {
             notes.forEach { (note) in
-                _ = NoteObject(in: self, from: note)
+                let ckObject = ckNotebook?.notes?.first(where: { $0.record["id"] == note.id?.uuidString }) as? CloudKitNote
+                assert(ckObject != nil, "CloudKit note was null")
+                _ = NoteObject(in: self, from: note, and: ckObject)
             }
         }
     }

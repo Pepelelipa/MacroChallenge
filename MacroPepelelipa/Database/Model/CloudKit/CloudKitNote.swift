@@ -23,11 +23,9 @@ internal class CloudKitNote: CloudKitEntity, Equatable {
     internal private(set) var textBoxes: ReferenceList<CloudKitTextBox>?
     internal private(set) var imageBoxes: ReferenceList<CloudKitImageBox>?
 
-    init(from note: NoteObject) {
+    init(id: UUID) {
         let record = CKRecord(recordType: CloudKitNote.recordType)
-        record["id"] = try? note.getID().uuidString
-        record["title"] = note.title.toData()
-        record["text"] = note.text.toData()
+        record["id"] = id.uuidString
         self.record = record
     }
 
