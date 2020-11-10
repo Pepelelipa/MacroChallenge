@@ -15,7 +15,7 @@ internal class CloudKitWorkspace: CloudKitEntity {
     internal private(set) lazy var id: DataProperty<String> = DataProperty(record: record, key: "id")
     internal private(set) lazy var name: DataProperty<String> = DataProperty(record: record, key: "name")
     internal private(set) lazy var isEnabled: DataProperty<Int64> = DataProperty(record: record, key: "isEnabled")
-    //TODO: Notebooks
+    internal private(set) var notebooks: ReferenceList<CloudKitNotebook>?
 
     init(from workspace: WorkspaceObject) {
         let record = CKRecord(recordType: CloudKitWorkspace.recordType)
@@ -27,5 +27,12 @@ internal class CloudKitWorkspace: CloudKitEntity {
     }
     init(from record: CKRecord) {
         self.record = record
+    }
+
+    internal func appendNotebook(_ notebook: CloudKitNotebook) {
+        if notebooks == nil {
+            notebooks = ReferenceList(record: record, key: "notebooks")
+        }
+        notebooks?.append(notebook, action: .none)
     }
 }

@@ -11,12 +11,38 @@ import CloudKit
 internal class CloudKitDataController {
     private let database: DatabaseType = .Private
     internal func fetchWorkspaces(_ completionHandler: ((DataFetchAnswer) -> Void)? = nil ) {
-        var workspaceObjects: [CloudKitWorkspace] = []
         CloudKitDataConnector.fetch(recordType: CloudKitWorkspace.recordType, database: database) { (answer) in
             switch answer {
             case .successful(let workspaceResults):
+                if workspaceResults.isEmpty {
+                    completionHandler?(.successfulWith(result: [CloudKitWorkspace]()))
+                }
+
+                //Creating all workspaces
+                var workspaces: [CKRecord.ID: CloudKitWorkspace] = [:]
+                for workspaceRecord in workspaceResults {
+                    workspaces[workspaceRecord.recordID] = CloudKitWorkspace(from: workspaceRecord)
+                }
+
                 //Fetching all notebooks of workspaces
-                self.fetchNotebooks(of: workspaceResults)
+                self.fetchNotebooks(of: workspaceResults) { answer in
+                    switch answer {
+                    case .successfulWith(let notebooks as [CloudKitNotebook]):
+                        for notebook in notebooks {
+                            if let workspaceReference = notebook.record.value(forKey: "workspace") as? CKRecord.Reference,
+                               let workspace = workspaces[workspaceReference.recordID] {
+                                workspace.appendNotebook(notebook)
+                                notebook.setWorkspace(workspace)
+                            }
+                        }
+                        var finalWorkspaces: [CloudKitWorkspace] = []
+                        finalWorkspaces.append(contentsOf: workspaces.values)
+                        completionHandler?(.successfulWith(result: finalWorkspaces))
+                        break
+                    default:
+                        completionHandler?(answer)
+                    }
+                }
             default:
                 //Failed to fetch workspaces, back to first completion
                 completionHandler?(answer)
