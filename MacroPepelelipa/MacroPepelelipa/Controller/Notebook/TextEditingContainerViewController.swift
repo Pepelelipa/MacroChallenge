@@ -290,10 +290,12 @@ internal class TextEditingContainerViewController: UIViewController,
         }
     }
     
+    /// This method presentes the photo picker for iOS and iPadOS
     func presentPhotoPicker() {
         (centerViewController?.viewControllers?.first as? NotesViewController)?.presentPhotoPicker()
     }
     
+    /// This method presentes the camera picker for iOS and iPadOS
     func presentCameraPicker() {
         (centerViewController?.viewControllers?.first as? NotesViewController)?.presentCameraPicker()
     }

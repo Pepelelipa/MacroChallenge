@@ -574,6 +574,7 @@ internal class NotesViewController: UIViewController,
         }
     }
     
+    /// This method presentes the photo picker for iOS and iPadOS
     internal func presentPhotoPicker() {
         #if !targetEnvironment(macCatalyst)
         var config = PHPickerConfiguration()
@@ -586,6 +587,7 @@ internal class NotesViewController: UIViewController,
         #endif
     }
     
+    /// This method presentes the camera picker for iOS and iPadOS
     internal func presentCameraPicker() {
         #if !targetEnvironment(macCatalyst)
         self.showImagePickerController(sourceType: .camera)

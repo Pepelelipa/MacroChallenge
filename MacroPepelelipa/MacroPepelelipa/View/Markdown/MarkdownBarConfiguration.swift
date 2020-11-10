@@ -230,6 +230,10 @@ internal class MarkdownBarConfiguration {
         }
     }
     
+    /**
+     This function executes an action, using the UIAction's identifier to determine the type of image to be imported.
+     - Parameter action: The UIAction that will be analysed.
+     */
     private func addImage(action: UIAction) {
         switch action.identifier {
         case .init("camera"):
