@@ -81,7 +81,7 @@ internal class NotesViewController: UIViewController,
         delegate?.addTextObserver(self)
         markdownTextView.markdownDelegate = delegate
         markdownTextView.contentInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
-        markupTextView.accessibilityLabel = "Note".localized()
+        markdownTextView.accessibilityLabel = "Note".localized()
         return markdownTextView
     }()
     

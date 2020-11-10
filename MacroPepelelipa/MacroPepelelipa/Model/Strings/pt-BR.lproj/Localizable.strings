@@ -175,6 +175,11 @@
 "New note label" = "Escrever nova nota";
 "New note hint" = "Toque duas vezes para adicionar uma nova nota no final deste caderno";
 
+"Dismiss pop-up label" = "Fechar pop-up";
+"Dismiss collection pop-up hint" = "Toque duas vezes para sair do pop-up de criação de uma nova coleção";
+"Dismiss notebook pop-up hint" = "Toque duas vezes para sair do pop-up de criação de um novo caderno";
+"Dismiss note pop-up hint" = "Toque duas vezes para sair do pop-up de criação de uma nova nota";
+
 "Index hint" = "Toque duas vezes para ir para a nota %@";
 
 "Selected" = "Selecionada";
