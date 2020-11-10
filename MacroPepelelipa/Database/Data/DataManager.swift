@@ -14,6 +14,7 @@ public enum ObservableCreationType {
 
 public class DataManager {
     private let coreDataController = CoreDataController()
+    private let cloudKitController = CloudKitDataController()
 
     ///Save all modified objects
     /// - Throws: Throws if Core Data fails to save.
@@ -64,9 +65,11 @@ public class DataManager {
      - Throws: Throws if fails to create in CoreData.
      */
     public func createWorkspace(named name: String) throws -> WorkspaceEntity {
-        let cdWorkspace = try coreDataController.createWorkspace(named: name)
+        let id = UUID()
+        let cdWorkspace = try coreDataController.createWorkspace(named: name, id: id)
+        let ckWorkspace = cloudKitController.createWorkspace(named: name, id: id)
 
-        let workspaceObject = WorkspaceObject(from: cdWorkspace)
+        let workspaceObject = WorkspaceObject(from: cdWorkspace, and: ckWorkspace)
         defer {
             notifyCreation(workspaceObject, type: .workspace)
         }
@@ -84,6 +87,9 @@ public class DataManager {
             throw WorkspaceError.failedToParse
         }
 
+        if let ckWorkspace = workspaceObject.cloudKitWorkspace {
+            cloudKitController.deleteWorkspace(ckWorkspace)
+        }
         try coreDataController.deleteWorkspace(workspaceObject.coreDataWorkspace)
         try workspaceObject.removeReferences()
         notifyDeletion(workspace, type: .workspace)

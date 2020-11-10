@@ -10,6 +10,33 @@ import CloudKit
 
 internal class CloudKitDataController {
     private let database: DatabaseType = .Private
+
+    // MARK: Workspace
+    /**
+     Creates a Workspace into CloudKit.
+     - Parameter name: The workspace's  name.
+     - Parameter id: The workspace's UUID.
+     */
+    internal func createWorkspace(named name: String, id: UUID) -> CloudKitWorkspace {
+        let workspace = CloudKitWorkspace(named: name, id: id)
+        saveData(entitiesToSave: [workspace])
+        return workspace
+    }
+
+    /**
+     Deletes a workspace from CoreData
+     - Parameter workspace: Workspace to be deleted.
+     */
+    internal func deleteWorkspace(_ workspace: CloudKitWorkspace) {
+        CloudKitDataConnector.deleteData(database: .Private, entitiesToDelete: [workspace])
+    }
+
+    // MARK: Saving
+    private func saveData(entitiesToSave: [CloudKitEntity] = [], entitiesToDelete: [CloudKitEntity] = []) {
+        CloudKitDataConnector.saveData(database: .Private, entitiesToSave: entitiesToSave, entitiesToDelete: entitiesToDelete)
+    }
+
+    // MARK: Fetches
     internal func fetchWorkspaces(_ completionHandler: ((DataFetchAnswer) -> Void)? = nil ) {
         CloudKitDataConnector.fetch(recordType: CloudKitWorkspace.recordType, database: database) { (answer) in
             switch answer {

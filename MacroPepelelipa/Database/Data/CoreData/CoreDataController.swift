@@ -33,13 +33,14 @@ internal class CoreDataController {
     /**
      Creates a Workspace into the CoreData
      - Parameter name: The workspace's  name.
+     - Parameter id: The workspace's UUID.
      - Throws: Throws if fails to parse object to Workspace or the context saving is unsuccessful.
      */
-    internal func createWorkspace(named name: String) throws -> Workspace {
+    internal func createWorkspace(named name: String, id: UUID) throws -> Workspace {
         guard let workspace = NSEntityDescription.insertNewObject(forEntityName: "Workspace", into: context) as? Workspace else {
             throw CoreDataError.failedToParseObject
         }
-        workspace.id = UUID()
+        workspace.id = id
         workspace.name = name
         try saveContext()
 

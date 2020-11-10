@@ -81,7 +81,7 @@ internal class CloudKitDataConnector {
     }
 
     // MARK: Deleting Object
-    internal func deleteObject(database: DatabaseType, object: CloudKitEntity,
+    internal static func deleteObject(database: DatabaseType, object: CloudKitEntity,
                                completionHandler: @escaping ((DataActionAnswer) -> Void)) {
         database.value.delete(withRecordID: object.record.recordID) { (_, error) in
             if let error = error as? CKError {

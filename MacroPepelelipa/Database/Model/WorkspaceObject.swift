@@ -45,7 +45,8 @@ internal class WorkspaceObject: WorkspaceEntity, CloudKitObjectWrapper {
         return cloudKitWorkspace
     }
 
-    internal init(from workspace: Workspace) {
+    internal init(from workspace: Workspace, and ckWorkspace: CloudKitWorkspace? = nil) {
+        self.cloudKitWorkspace = ckWorkspace
         self.coreDataWorkspace = workspace
         self.name = workspace.name ?? ""
         self.isEnabled = workspace.isEnabled
