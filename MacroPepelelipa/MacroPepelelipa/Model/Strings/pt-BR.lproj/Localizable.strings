@@ -138,3 +138,14 @@
 "Settings Bar" = "Barra de Configurações";
 "InputView explanation" = "Você também pode acessar as mesmas opções através da Barra de Configuração, localizado na parte inferior da tela.";
 "Tips" = "Dicas";
+"List style" = "Estilo de lista";
+"Paragraph style" = "Estilo de parágrafo";
+"Import image" = "Importar imagem";
+"Add text box" = "Adicionar caixa de texto";
+"Bullet list" = "Lista de tópicos";
+"Numeric list" = "Lista numérica";
+"First Header" = "Primeiro cabeçalho";
+"Second Header" = "Segundo cabeçalho";
+"Third Header" = "Terceiro cabeçalho";
+"Paragraph" = "Parágrafo";
+

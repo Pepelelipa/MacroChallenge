@@ -8,7 +8,7 @@
 
 import UIKit
 
-class DropInteractionDelegate: NSObject, UIDropInteractionDelegate {
+internal class DropInteractionDelegate: NSObject, UIDropInteractionDelegate {
     
     private weak var viewController: UIViewController?
     
