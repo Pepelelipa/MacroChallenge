@@ -266,7 +266,7 @@ internal class WorkspaceSelectionViewController: UIViewController,
         collectionView.collectionViewLayout.invalidateLayout()
         for visibleCell in collectionView.visibleCells {
             if let cell = visibleCell as? WorkspaceCollectionViewCell {
-                cell.invalidateLayout()
+                cell.updateLayout()
             }
         }
     }
@@ -459,7 +459,6 @@ internal class WorkspaceSelectionViewController: UIViewController,
 
         if UIDevice.current.userInterfaceIdiom == .pad {
             alertController.popoverPresentationController?.sourceView = cell
-            alertController.popoverPresentationController?.sourceRect = cell.frame
         }
         self.present(alertController, animated: true, completion: nil)
     }

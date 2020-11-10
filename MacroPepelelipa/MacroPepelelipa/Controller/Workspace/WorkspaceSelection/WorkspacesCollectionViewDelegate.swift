@@ -81,30 +81,6 @@ internal class WorkspacesCollectionViewDelegate: NSObject,
                 }
             }
         }
-//        
-//        if UIDevice.current.userInterfaceIdiom == .pad {
-//            if collectionView.isEditing {
-//                width = collectionView.bounds.width/2.1
-//                height = 90
-//            } else if isLandscape {
-//                width = collectionView.bounds.width/2 - 25
-//                height = width/1.6
-//            } else {
-//                width = collectionView.bounds.width/2.1
-//                height = width/1.5
-//            }
-//        } else {
-//            if collectionView.isEditing {
-//                width = collectionView.bounds.width
-//                height = 70
-//            } else if isLandscape {
-//                width = collectionView.bounds.width/2.1
-//                height = width/1.45
-//            } else {
-//                width = collectionView.bounds.width
-//                height = width/1.45
-//            }
-//        }
         return CGSize(width: width, height: height)
     }
 

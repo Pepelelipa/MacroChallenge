@@ -10,13 +10,14 @@ import UIKit
 import Database
 
 internal class WorkspaceCollectionViewCell: UICollectionViewCell, EditableCollectionViewCell {
+    
     // MARK: - Variables and Constants
 
     internal var isEditing: Bool = false {
         didSet {
             if isEditing {
                 NSLayoutConstraint.deactivate(notEditingConstraints)
-                collectionView.removeFromSuperview()
+                workspaceStackView.removeFromSuperview()
                 NSLayoutConstraint.activate(editingConstraints)
                 if workspace?.isEnabled ?? false {
                     disclosureIndicator.isHidden = false
@@ -24,7 +25,7 @@ internal class WorkspaceCollectionViewCell: UICollectionViewCell, EditableCollec
                 minusIndicator.isHidden = false
             } else {
                 NSLayoutConstraint.deactivate(editingConstraints)
-                addSubview(collectionView)
+                addSubview(workspaceStackView)
                 NSLayoutConstraint.activate(notEditingConstraints)
                 minusIndicator.isHidden = true
                 disclosureIndicator.isHidden = true
@@ -38,29 +39,32 @@ internal class WorkspaceCollectionViewCell: UICollectionViewCell, EditableCollec
 
     internal var entityShouldBeDeleted: ((ObservableEntity) -> Void)?
     
-    private var dataSource: WorkspaceCellNotebookCollectionViewDataSource?
-    private var delegate: WorkspaceCellNotebookCollectionViewDelegate?
+    private lazy var workspaceStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .horizontal
+        stackView.distribution = .equalSpacing
+        stackView.spacing = 10
+        stackView.alignment = .center
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        return stackView
+    }()
 
     private lazy var minusIndicator: UIButton = {
         let button = UIButton()
         button.setBackgroundImage(UIImage(systemName: "minus.circle.fill"), for: .normal)
         button.tintColor = UIColor.notebookColors[15]
         button.isHidden = true
-
         button.addTarget(self, action: #selector(deleteTap), for: .touchUpInside)
-
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
 
     private var lblWorkspaceName: UILabel = {
         let lbl = UILabel(frame: .zero)
-
         lbl.textColor = UIColor.titleColor ?? .black
         lbl.font = UIFont.defaultHeader.toStyle(.h3)
         lbl.textAlignment = .center
         lbl.translatesAutoresizingMaskIntoConstraints = false
-
         return lbl
     }()
 
@@ -68,31 +72,8 @@ internal class WorkspaceCollectionViewCell: UICollectionViewCell, EditableCollec
         let imageView = UIImageView(image: UIImage(systemName: "chevron.right"))
         imageView.tintColor = .actionColor
         imageView.isHidden = true
-
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
-    }()
-    
-    private lazy var collectionView: UICollectionView = {
-        let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .horizontal
-
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
-        collectionView.backgroundColor = .backgroundColor
-        collectionView.showsVerticalScrollIndicator = false
-        collectionView.showsHorizontalScrollIndicator = false
-        collectionView.allowsMultipleSelection = false
-        collectionView.isUserInteractionEnabled = false
-
-        collectionView.dataSource = dataSource
-        collectionView.delegate = delegate
-
-        collectionView.register(
-            WorkspaceCollectionViewCell.self,
-            forCellWithReuseIdentifier: WorkspaceCollectionViewCell.cellID())
-
-        return collectionView
     }()
 
     private lazy var editingConstraints: [NSLayoutConstraint] = {
@@ -104,13 +85,13 @@ internal class WorkspaceCollectionViewCell: UICollectionViewCell, EditableCollec
 
     private lazy var notEditingConstraints: [NSLayoutConstraint] = {
         [
+            lblWorkspaceName.heightAnchor.constraint(equalToConstant: 30),
             lblWorkspaceName.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
             lblWorkspaceName.topAnchor.constraint(equalTo: topAnchor, constant: 20),
-            collectionView.topAnchor.constraint(equalTo: lblWorkspaceName.bottomAnchor, constant: 20),
-            collectionView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -20),
-            collectionView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
-            collectionView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
-            collectionView.widthAnchor.constraint(greaterThanOrEqualTo: collectionView.heightAnchor, multiplier: 2)
+            workspaceStackView.topAnchor.constraint(equalTo: lblWorkspaceName.bottomAnchor, constant: 20),
+            workspaceStackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -20),
+            workspaceStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
+            workspaceStackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20)
         ]
     }()
 
@@ -124,15 +105,15 @@ internal class WorkspaceCollectionViewCell: UICollectionViewCell, EditableCollec
 
     override init(frame: CGRect) {
         super.init(frame: frame)
+        
         backgroundColor = .backgroundColor
+        
         addSubview(minusIndicator)
         addSubview(lblWorkspaceName)
         addSubview(disclosureIndicator)
-        addSubview(collectionView)
-        collectionView.register(
-            WorkspaceCellNotebookCollectionViewCell.self,
-            forCellWithReuseIdentifier: WorkspaceCellNotebookCollectionViewCell.cellID())
+        
         setupConstraints()
+        
         layer.cornerRadius = 10
     }
     
@@ -144,7 +125,7 @@ internal class WorkspaceCollectionViewCell: UICollectionViewCell, EditableCollec
     }
     
     // MARK: - Functions
-
+    
     private func setupConstraints() {
         NSLayoutConstraint.activate([
             lblWorkspaceName.trailingAnchor.constraint(lessThanOrEqualTo: trailingAnchor, constant: -20),
@@ -158,28 +139,82 @@ internal class WorkspaceCollectionViewCell: UICollectionViewCell, EditableCollec
             disclosureIndicator.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
             disclosureIndicator.heightAnchor.constraint(equalToConstant: 30),
             disclosureIndicator.widthAnchor.constraint(equalTo: disclosureIndicator.heightAnchor, multiplier: 0.6)
-
         ])
-
-        NSLayoutConstraint.activate(notEditingConstraints)
+    }
+    
+    private func generateNotebook(color: UIColor) -> NotebookView {
+        let notebookView = NotebookView(frame: .zero)
+        notebookView.color = color
+        notebookView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            notebookView.widthAnchor.constraint(equalTo: notebookView.heightAnchor, multiplier: 0.75)
+        ])
+        return notebookView
+    }
+    
+    private func setupWorkspaceView() {
+        
+        workspaceStackView.removeFromSuperview()
+        for subview in workspaceStackView.subviews {
+            subview.removeFromSuperview()
+        }
+        
+        var colors: [UIColor] = []
+        let defaultColor = UIColor.gray.withAlphaComponent(0.15)
+        var defaultNotebooks = 4
+        
+        if let notebooks = workspace?.notebooks {
+            let presentingNotebooks = notebooks.count < 7 ? notebooks.count : 7
+            for i in 0..<presentingNotebooks {
+                if let color = UIColor(named: notebooks[i].colorName) {
+                    colors.append(color)
+                } else {
+                    break
+                }
+            }
+            defaultNotebooks = colors.count > 4 ? 7 - colors.count : 4 - colors.count
+        }
+        
+        for _ in 0..<defaultNotebooks {
+            colors.append(defaultColor)
+        }
+        
+        let firstNotebook = generateNotebook(color: colors.first ?? defaultColor)
+        workspaceStackView.addArrangedSubview(firstNotebook)
+        
+        let start = colors.count > 4 ? 1 : 2
+        
+        if colors.count < 5 {
+            let secondNotebook = generateNotebook(color: colors[1])
+            workspaceStackView.addArrangedSubview(secondNotebook)
+        }
+        
+        for i in stride(from: start, to: colors.count, by: 2) {
+            let verticalSV = UIStackView()
+            verticalSV.axis = .vertical
+            verticalSV.alignment = .center
+            verticalSV.distribution = .fillEqually
+            verticalSV.spacing = 10
+            verticalSV.addArrangedSubview(generateNotebook(color: colors[i]))
+            verticalSV.addArrangedSubview(generateNotebook(color: colors[i+1]))
+            workspaceStackView.addArrangedSubview(verticalSV)
+        }
     }
     
     internal class func cellID() -> String { 
         return "workspaceCell"
     }
     
-    internal func invalidateLayout() {
-        collectionView.collectionViewLayout.invalidateLayout()
+    internal func updateLayout() {
+        workspaceStackView.layoutIfNeeded()
     }
     
     internal func setWorkspace(_ workspace: WorkspaceEntity, viewController: UIViewController? = nil) {
         self.workspace = workspace
-        dataSource = .init(workspace: workspace, viewController: viewController)
-        delegate = .init(totalNotebooks: workspace.notebooks.count)
-        collectionView.dataSource = dataSource
-        collectionView.delegate = delegate
-        collectionView.reloadData()
+        setupWorkspaceView()
     }
+    
+    // MARK: - Objective-C functions
 
     @objc internal func deleteTap() {
         if let workspace = workspace {
