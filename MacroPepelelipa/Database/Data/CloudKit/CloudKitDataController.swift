@@ -35,8 +35,34 @@ internal class CloudKitDataController {
         CloudKitDataConnector.fetch(references: notebookReferences, recordType: CloudKitNotebook.recordType, database: database) { answer in
             switch answer {
             case .successful(let notebooksResults):
+                if notebooksResults.isEmpty {
+                    completionHandler?(.successfulWith(result: [CloudKitNotebook]()))
+                    return
+                }
+                //Creating all notebooks
+                var notebooks: [CKRecord.ID: CloudKitNotebook] = [:]
+                for notebookRecord in notebooksResults {
+                    notebooks[notebookRecord.recordID] = CloudKitNotebook(from: notebookRecord)
+                }
+
                 //Fetching all notes of notebooks
-                self.fetchNotes(of: notebooksResults)
+                self.fetchNotes(of: notebooksResults) { answer in
+                    switch answer {
+                    case .successfulWith(let notes as [CloudKitNote]):
+                        for note in notes {
+                            if let notebookReference = note.record.value(forKey: "notebook") as? CKRecord.Reference,
+                               let notebook = notebooks[notebookReference.recordID] {
+                                notebook.appendNote(note)
+                                note.setNotebook(notebook)
+                            }
+                        }
+                        var finalNotebooks: [CloudKitNotebook] = []
+                        finalNotebooks.append(contentsOf: notebooks.values)
+                        completionHandler?(.successfulWith(result: finalNotebooks))
+                    default:
+                        completionHandler?(answer)
+                    }
+                }
             break
             default:
                 //Failed to fetch notebooks, back to first completion
@@ -57,12 +83,17 @@ internal class CloudKitDataController {
         CloudKitDataConnector.fetch(references: notesReferences, recordType: CloudKitNote.recordType, database: database) { answer in
             switch answer {
             case .successful(let noteResults):
+                //Creating all the notes
+                if noteResults.isEmpty {
+                    completionHandler?(.successfulWith(result: [CloudKitNote]()))
+                    return
+                }
                 var notes: [CKRecord.ID: CloudKitNote] = [:]
-                for note in noteResults {
-                    notes[note.recordID] = CloudKitNote(from: note)
+                for noteRecord in noteResults {
+                    notes[noteRecord.recordID] = CloudKitNote(from: noteRecord)
                 }
 
-                //Checking if textbox fetched and imagebox also fetched
+                //Checking if textbox fetched and imagebox also fetched to complete the fetch
                 var didEndTextBox = false
                 var didEndImageBox = false
                 func didEndFetch() {

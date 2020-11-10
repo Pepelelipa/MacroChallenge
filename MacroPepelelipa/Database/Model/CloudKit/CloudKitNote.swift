@@ -15,9 +15,9 @@ internal class CloudKitNote: CloudKitEntity {
     internal private(set) lazy var id: DataProperty<String> = DataProperty(record: record, key: "id")
     internal private(set) lazy var title: DataProperty<Data> = DataProperty(record: record, key: "title")
     internal private(set) lazy var text: DataProperty<Data> = DataProperty(record: record, key: "text")
+    internal private(set) var notebook: ReferenceField<CloudKitNotebook>?
     internal private(set) var textBoxes: ReferenceList<CloudKitTextBox>?
     internal private(set) var imageBoxes: ReferenceList<CloudKitImageBox>?
-    //TODO: Notebooks
 
     init(from note: NoteObject) {
         let record = CKRecord(recordType: CloudKitNote.recordType)
@@ -31,6 +31,12 @@ internal class CloudKitNote: CloudKitEntity {
         self.record = record
     }
 
+    internal func setNotebook(_ notebook: CloudKitNotebook?) {
+        if self.notebook == nil, let notebook = notebook {
+            self.notebook = ReferenceField(reference: notebook, record: record, key: "notebook", action: .deleteSelf)
+        }
+        self.notebook?.value = notebook
+    }
     internal func appendTextBox(_ textBox: CloudKitTextBox) {
         if textBoxes == nil {
             textBoxes = ReferenceList(record: record, key: "textBoxes")
