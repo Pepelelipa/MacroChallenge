@@ -133,6 +133,9 @@ public class DataManager {
             throw NotebookError.failedToParse
         }
 
+        if let ckNotebook = notebookObject.cloudKitNotebook {
+            cloudKitController.deleteNotebook(ckNotebook)
+        }
         try coreDataController.deleteNotebook(notebookObject.coreDataNotebook)
         try notebookObject.removeReferences()
         notifyDeletion(notebook, type: .notebook)
