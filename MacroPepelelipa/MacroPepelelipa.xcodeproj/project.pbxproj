@@ -48,7 +48,6 @@
 		022832F7252E603800DDD46B /* EntityObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 022832F6252E603800DDD46B /* EntityObserver.swift */; };
 		022832FB252E6C4200DDD46B /* ObservableEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 022832FA252E6C4200DDD46B /* ObservableEntity.swift */; };
 		0230E078253A3CED009C5A76 /* UIDeviceOrientation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0230E077253A3CED009C5A76 /* UIDeviceOrientation.swift */; };
-		023886022523CA2700F807E9 /* WorkspaceCellNotebookCollectionViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 023886012523CA2700F807E9 /* WorkspaceCellNotebookCollectionViewDataSource.swift */; };
 		023886062523CAEC00F807E9 /* WorkspaceCellNotebookCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 023886052523CAEC00F807E9 /* WorkspaceCellNotebookCollectionViewCell.swift */; };
 		023989CD2551E68F009BFC32 /* MarkdownText.h in Headers */ = {isa = PBXBuildFile; fileRef = 023989CB2551E68F009BFC32 /* MarkdownText.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		023989D02551E68F009BFC32 /* MarkdownText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 023989C92551E68F009BFC32 /* MarkdownText.framework */; };
@@ -75,7 +74,6 @@
 		02398A842551F7FA009BFC32 /* Traits Font Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02398A7E2551F7E4009BFC32 /* Traits Font Extension.swift */; };
 		02398A882551F878009BFC32 /* Font Style Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02398A872551F878009BFC32 /* Font Style Extension.swift */; };
 		02398A962551FE8E009BFC32 /* ObservableError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02398A952551FE8E009BFC32 /* ObservableError.swift */; };
-		02458EDC2525094C00466BFF /* WorkspaceCellNotebookCollectionViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02458EDB2525094C00466BFF /* WorkspaceCellNotebookCollectionViewDelegate.swift */; };
 		0247F78D25115BAA00405A61 /* NotebooksSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0247F78C25115BAA00405A61 /* NotebooksSelectionViewController.swift */; };
 		024C5BB3252E41D8009549CE /* AddNotebookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 024C5BB1252E41D8009549CE /* AddNotebookViewController.swift */; };
 		024C5BB4252E41D8009549CE /* ColorSelectionCollectionViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 024C5BB2252E41D8009549CE /* ColorSelectionCollectionViewDelegate.swift */; };
@@ -265,7 +263,6 @@
 		022832F6252E603800DDD46B /* EntityObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntityObserver.swift; sourceTree = "<group>"; };
 		022832FA252E6C4200DDD46B /* ObservableEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservableEntity.swift; sourceTree = "<group>"; };
 		0230E077253A3CED009C5A76 /* UIDeviceOrientation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIDeviceOrientation.swift; sourceTree = "<group>"; };
-		023886012523CA2700F807E9 /* WorkspaceCellNotebookCollectionViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkspaceCellNotebookCollectionViewDataSource.swift; sourceTree = "<group>"; };
 		023886052523CAEC00F807E9 /* WorkspaceCellNotebookCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkspaceCellNotebookCollectionViewCell.swift; sourceTree = "<group>"; };
 		023989C92551E68F009BFC32 /* MarkdownText.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MarkdownText.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		023989CB2551E68F009BFC32 /* MarkdownText.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MarkdownText.h; sourceTree = "<group>"; };
@@ -289,7 +286,6 @@
 		02398A7E2551F7E4009BFC32 /* Traits Font Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Traits Font Extension.swift"; sourceTree = "<group>"; };
 		02398A872551F878009BFC32 /* Font Style Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Font Style Extension.swift"; sourceTree = "<group>"; };
 		02398A952551FE8E009BFC32 /* ObservableError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservableError.swift; sourceTree = "<group>"; };
-		02458EDB2525094C00466BFF /* WorkspaceCellNotebookCollectionViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkspaceCellNotebookCollectionViewDelegate.swift; sourceTree = "<group>"; };
 		0247F78C25115BAA00405A61 /* NotebooksSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotebooksSelectionViewController.swift; sourceTree = "<group>"; };
 		024C5BB1252E41D8009549CE /* AddNotebookViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddNotebookViewController.swift; sourceTree = "<group>"; };
 		024C5BB2252E41D8009549CE /* ColorSelectionCollectionViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorSelectionCollectionViewDelegate.swift; sourceTree = "<group>"; };
@@ -473,7 +469,6 @@
 			children = (
 				024C5BB6252E41E2009549CE /* AddNotebook */,
 				02207A382523A5970001FD7E /* WorkspacesCollectionViewDataSource.swift */,
-				023886012523CA2700F807E9 /* WorkspaceCellNotebookCollectionViewDataSource.swift */,
 				02A8BCEB2512A453006B685E /* NotebooksCollectionViewDataSource.swift */,
 				D9BBA583252FAB28004B724F /* AddWorkspaceObserver.swift */,
 			);
@@ -706,7 +701,6 @@
 				02695ECC25279E96007D60C3 /* AddWorkspace */,
 				02E5A22B25239E36009DFFB5 /* WorkspaceSelectionViewController.swift */,
 				02CD7CA02523B48900A140A3 /* WorkspacesCollectionViewDelegate.swift */,
-				02458EDB2525094C00466BFF /* WorkspaceCellNotebookCollectionViewDelegate.swift */,
 			);
 			path = WorkspaceSelection;
 			sourceTree = "<group>";
@@ -1391,14 +1385,12 @@
 				D9D87534251BAA6700B842C8 /* MarkdownTextField.swift in Sources */,
 				A71E2C1E2538EEB8000DA164 /* NotesPageViewControllerDelegate.swift in Sources */,
 				E42FC8372530EF78004E81C9 /* MarkdownFormatView.swift in Sources */,
-				02458EDC2525094C00466BFF /* WorkspaceCellNotebookCollectionViewDelegate.swift in Sources */,
 				1E47C56C254377BE00535DDD /* NoteEntityToPDFExtension.swift in Sources */,
 				D9F04BF025378236001C6551 /* AddNoteObserver.swift in Sources */,
 				A71E2C212538EF51000DA164 /* NotesPageViewControllerDataSource.swift in Sources */,
 				D9F4A9A925277A6B00BFDC19 /* CornerEnum.swift in Sources */,
 				A71E2C1D2538EEB8000DA164 /* NotesPageViewController.swift in Sources */,
 				D996CEC3252FA608009D31F8 /* AddNewSpaceTextFieldDelegate.swift in Sources */,
-				023886022523CA2700F807E9 /* WorkspaceCellNotebookCollectionViewDataSource.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
