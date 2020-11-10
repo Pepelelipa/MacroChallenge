@@ -9,10 +9,10 @@
 import UIKit
 import CloudKit
 
-internal class NotebookObject: NotebookEntity {
+internal class NotebookObject: NotebookEntity, CloudKitObjectWrapper {
 
     func getID() throws -> UUID {
-        if let id = coreDataObject.id {
+        if let id = coreDataNotebook.id {
             return id
         }
         throw ObservableError.idWasNull
@@ -28,13 +28,13 @@ internal class NotebookObject: NotebookEntity {
 
     public var name: String {
         didSet {
-            coreDataObject.name = name
+            coreDataNotebook.name = name
             notifyObservers()
         }
     }
     public var colorName: String {
         didSet {
-            coreDataObject.colorName = colorName
+            coreDataNotebook.colorName = colorName
             notifyObservers()
         }
     }
@@ -55,18 +55,23 @@ internal class NotebookObject: NotebookEntity {
 
     private var observers: [EntityObserver] = []
 
-    internal let coreDataObject: Notebook
-    internal var cloudKitObject: CloudKitNotebook?
+    internal let coreDataNotebook: Notebook
+    internal var cloudKitNotebook: CloudKitNotebook?
+    var cloudKitObject: CloudKitEntity? {
+        return cloudKitNotebook
+    }
 
-    internal init(in workspace: WorkspaceObject, from notebook: Notebook) {
+
+    internal init(in workspace: WorkspaceObject, from notebook: Notebook, and ckNotebook: CloudKitNotebook? = nil) {
+        self.cloudKitNotebook = ckNotebook
         self.workspace = workspace
-        self.coreDataObject = notebook
+        self.coreDataNotebook = notebook
         self.name = notebook.name ?? ""
         self.colorName = notebook.colorName ?? ""
         
         workspace.notebooks.append(self)
 
-        if let notes = coreDataObject.notes?.array as? [Note] {
+        if let notes = coreDataNotebook.notes?.array as? [Note] {
             notes.forEach { (note) in
                 _ = NoteObject(in: self, from: note)
             }

@@ -22,11 +22,11 @@ internal class CloudKitNotebook: CloudKitEntity, Equatable {
     internal private(set) var workspace: ReferenceField<CloudKitWorkspace>?
     internal private(set) var notes: ReferenceList<CloudKitNote>?
 
-    init(from notebook: NotebookObject) {
+    init(named name: String, colorName: String, id: UUID) {
         let record = CKRecord(recordType: CloudKitNotebook.recordType)
-        record["id"] = try? notebook.getID().uuidString
-        record["name"] = notebook.name
-        record["colorName"] = notebook.colorName
+        record["id"] = id.uuidString
+        record["name"] = name
+        record["colorName"] = colorName
         self.record = record
     }
     init(from record: CKRecord) {

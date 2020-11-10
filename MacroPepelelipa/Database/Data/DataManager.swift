@@ -108,8 +108,14 @@ public class DataManager {
             throw WorkspaceError.failedToParse
         }
 
-        let cdNotebook = try coreDataController.createNotebook(in: workspaceObject.coreDataWorkspace, named: name, colorName: colorName)
-        let notebookObject = NotebookObject(in: workspaceObject, from: cdNotebook)
+        let id = UUID()
+        let cdNotebook = try coreDataController.createNotebook(in: workspaceObject.coreDataWorkspace, id: id, named: name, colorName: colorName)
+        guard let ckWorkspace = workspaceObject.cloudKitWorkspace else {
+            throw WorkspaceError.workspaceWasNull
+        }
+        let ckNotebook = cloudKitController.createNotebook(in: ckWorkspace, id: id, named: name, colorName: colorName)
+
+        let notebookObject = NotebookObject(in: workspaceObject, from: cdNotebook, and: ckNotebook)
         defer {
             notifyCreation(notebookObject, type: .notebook)
         }
@@ -127,7 +133,7 @@ public class DataManager {
             throw NotebookError.failedToParse
         }
 
-        try coreDataController.deleteNotebook(notebookObject.coreDataObject)
+        try coreDataController.deleteNotebook(notebookObject.coreDataNotebook)
         try notebookObject.removeReferences()
         notifyDeletion(notebook, type: .notebook)
     }
@@ -143,7 +149,7 @@ public class DataManager {
             throw NotebookError.failedToParse
         }
 
-        let cdNote = try coreDataController.createNote(in: notebookObject.coreDataObject)
+        let cdNote = try coreDataController.createNote(in: notebookObject.coreDataNotebook)
         let noteObject = NoteObject(in: notebookObject, from: cdNote)
         defer {
             notifyCreation(noteObject, type: .note)

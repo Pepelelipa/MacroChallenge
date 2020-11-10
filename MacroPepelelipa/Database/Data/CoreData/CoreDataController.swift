@@ -65,11 +65,11 @@ internal class CoreDataController {
      - Parameter colorName: The nootebook's color name.
      - Throws: Throws if fails to parse object to Notebook or the context saving is unsuccessful.
      */
-    internal func createNotebook(in workspace: Workspace, named name: String, colorName: String) throws -> Notebook {
+    internal func createNotebook(in workspace: Workspace, id: UUID, named name: String, colorName: String) throws -> Notebook {
         guard let notebook = NSEntityDescription.insertNewObject(forEntityName: "Notebook", into: context) as? Notebook else {
             throw CoreDataError.failedToParseObject
         }
-        notebook.id = UUID()
+        notebook.id = id
         notebook.workspace = workspace
         notebook.name = name
         notebook.colorName = colorName

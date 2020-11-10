@@ -19,6 +19,10 @@ internal class ReferenceList<T: CloudKitEntity> {
         self.key = key
     }
 
+    internal func first(where predicate: (CloudKitEntity) throws -> Bool) rethrows -> CloudKitEntity? {
+        return try references.first(where: predicate)
+    }
+
     internal func append(_ value: T, action: CKRecord_Reference_Action) {
         references.append(value)
         let ref = CKRecord.Reference(recordID: value.record.recordID, action: action)

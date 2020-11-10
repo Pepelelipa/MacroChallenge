@@ -53,7 +53,9 @@ internal class WorkspaceObject: WorkspaceEntity, CloudKitObjectWrapper {
         
         if let notebooks = coreDataWorkspace.notebooks?.array as? [Notebook] {
             notebooks.forEach { (notebook) in
-                _ = NotebookObject(in: self, from: notebook)
+                let ckObject = ckWorkspace?.notebooks?.first(where: { $0.record["id"] == notebook.id?.uuidString }) as? CloudKitNotebook
+                assert(ckObject != nil, "CloudKit notebook was null")
+                _ = NotebookObject(in: self, from: notebook, and: ckObject)
             }
         }
     }

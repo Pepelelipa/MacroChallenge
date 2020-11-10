@@ -31,6 +31,31 @@ internal class CloudKitDataController {
         CloudKitDataConnector.deleteData(database: .Private, entitiesToDelete: [workspace])
     }
 
+    // MARK: Notebook
+    /**
+     Creates a Notebook into the CoreData
+     - Parameter workspace: To what workspace it belongs.
+     - Parameter name: The notebook's name.
+     - Parameter colorName: The nootebook's color name.
+     */
+    internal func createNotebook(in workspace: CloudKitWorkspace, id: UUID, named name: String, colorName: String) -> CloudKitNotebook {
+        let notebook = CloudKitNotebook(named: name, colorName: colorName, id: id)
+        notebook.setWorkspace(workspace)
+        workspace.appendNotebook(notebook)
+        saveData(entitiesToSave: [workspace, notebook])
+
+        return notebook
+    }
+
+    /**
+     Deletes a notebook from CoreData
+     - Parameter notebook: Notebook to be deleted.
+     */
+    internal func deleteNotebook(_ notebook: CloudKitNotebook) {
+        notebook.workspace?.value?.removeNotebook(notebook)
+        CloudKitDataConnector.deleteData(database: .Private, entitiesToDelete: [notebook])
+    }
+
     // MARK: Saving
     private func saveData(entitiesToSave: [CloudKitEntity] = [], entitiesToDelete: [CloudKitEntity] = []) {
         CloudKitDataConnector.saveData(database: .Private, entitiesToSave: entitiesToSave, entitiesToDelete: entitiesToDelete)
