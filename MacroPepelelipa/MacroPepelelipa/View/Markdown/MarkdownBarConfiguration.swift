@@ -75,7 +75,8 @@ internal class MarkdownBarConfiguration {
         paragraphButton.menu = setupMenu(for: .paragraph)
         barButtonItems[.paragraph] = paragraphButton
         
-        let imageGalleryButton = createBarButtonItem(imageName: "photo", systemImage: true, objcFunc: #selector(photoPicker(_:)))
+        let imageGalleryButton = createBarButtonItem(imageName: "photo", systemImage: true)
+        imageGalleryButton.menu = setupMenu(for: .image)
         barButtonItems[.image] = imageGalleryButton
         
         let textBoxButton = createBarButtonItem(imageName: "textbox", systemImage: true, objcFunc: #selector(addTextBox))
@@ -134,7 +135,9 @@ internal class MarkdownBarConfiguration {
         paragraphButton.showsMenuAsPrimaryAction = true
         buttons[.paragraph] = paragraphButton
         
-        let imageGalleryButton = createButton(imageName: "photo", systemImage: true, objcFunc: #selector(photoPicker(_:)))
+        let imageGalleryButton = createButton(imageName: "photo", systemImage: true)
+        imageGalleryButton.menu = setupMenu(for: .image)
+        imageGalleryButton.showsMenuAsPrimaryAction = true
         buttons[.image] = imageGalleryButton
         
         let textBoxButton = createButton(imageName: "textbox", systemImage: true, objcFunc: #selector(addTextBox))
@@ -163,7 +166,10 @@ internal class MarkdownBarConfiguration {
                 UIAction(title: "Paragraph", image: UIImage(systemName: "paragraph"), identifier: .init("P"), state: .off, handler: addHeader(action:))
             ]
         case .image:
-            break
+            actions = [
+                UIAction(title: "Camera".localized(), image: UIImage(systemName: "camera"), identifier: .init("camera"), state: .off, handler: addImage(action:)),
+                UIAction(title: "Library".localized(), image: UIImage(systemName: "photo.on.rectangle"), identifier: .init("library"), state: .off, handler: addImage(action:))
+            ]
         default:
             break
         }
@@ -224,6 +230,17 @@ internal class MarkdownBarConfiguration {
         }
     }
     
+    private func addImage(action: UIAction) {
+        switch action.identifier {
+        case .init("camera"):
+            observer?.presentCameraPicker()
+        case .init("library"):
+            observer?.presentPhotoPicker()
+        default:
+            break
+        }
+    }
+    
     @objc internal func addTextBox() {
         observer?.createTextBox(transcription: nil)
     }
@@ -234,10 +251,5 @@ internal class MarkdownBarConfiguration {
         } else if UIDevice.current.userInterfaceIdiom == .pad {
             observer?.openPopOver()
         }
-        
-    }
-    
-    @objc internal func photoPicker(_ sender: NSObject) {
-        observer?.presentPicker(sender)
     }
 }

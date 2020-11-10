@@ -37,7 +37,6 @@ internal class TextEditingContainerViewController: UIViewController,
         return item
     }()
     
-    
     private lazy var doneButton: UIBarButtonItem = {
         let item = UIBarButtonItem(ofType: .done,
                                    target: self,
@@ -285,18 +284,18 @@ internal class TextEditingContainerViewController: UIViewController,
         }
     }
 
-    internal func presentPicker(_ sender: NSObject) {
-        guard let noteController = centerViewController?.viewControllers?.first as? NotesViewController else {
-            return
-        }
-        
-        noteController.presentPicker(sender)
-    }
-
     internal func changeTextViewInput(isCustom: Bool) {
         if let noteController = centerViewController?.viewControllers?.first as? NotesViewController {
             noteController.changeTextViewInput(isCustom: isCustom)
         }
+    }
+    
+    func presentPhotoPicker() {
+        (centerViewController?.viewControllers?.first as? NotesViewController)?.presentPhotoPicker()
+    }
+    
+    func presentCameraPicker() {
+        (centerViewController?.viewControllers?.first as? NotesViewController)?.presentCameraPicker()
     }
     
     // MARK: - IBActions functions

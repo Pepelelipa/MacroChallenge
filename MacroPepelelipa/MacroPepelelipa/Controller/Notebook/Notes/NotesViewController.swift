@@ -569,9 +569,7 @@ internal class NotesViewController: UIViewController,
         }
     }
     
-    ///Present the native Image Picker. There we instantiate a PHPickerViewController and set its delegate. Finally, there is a present from the view controller.
-    internal func presentPicker(_ sender: NSObject) {
-        
+    internal func presentPhotoPicker() {
         #if !targetEnvironment(macCatalyst)
         var config = PHPickerConfiguration()
         config.filter = .images
@@ -579,24 +577,13 @@ internal class NotesViewController: UIViewController,
         let picker = PHPickerViewController(configuration: config)
         picker.delegate = photoPickerDelegate
         
-        let photoLibraryAction = UIAlertAction(title: "Library".localized(), style: .default) { (_) in
-            self.present(picker, animated: true, completion: nil)
-        }
-        
-        let cameraAction = UIAlertAction(title: "Camera".localized(), style: .default) { (_) in
-            self.showImagePickerController(sourceType: .camera)
-        }
-        
-        let alertController = UIAlertController()
-        
-        if let button = sender as? UIButton {
-            alertController.popoverPresentationController?.sourceView = button
-        } else if let barButton = sender as? UIBarButtonItem {
-            alertController.popoverPresentationController?.barButtonItem = barButton
-        }
-
-        alertController.createMultipleActionsAlert(on: self, title: "Choose your image".localized(), message: "Tip for transcripting text".localized(), actions: [photoLibraryAction, cameraAction])
-        
+        self.present(picker, animated: true, completion: nil)
+        #endif
+    }
+    
+    internal func presentCameraPicker() {
+        #if !targetEnvironment(macCatalyst)
+        self.showImagePickerController(sourceType: .camera)
         #endif
     }
     
