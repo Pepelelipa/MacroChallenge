@@ -64,8 +64,6 @@ internal class SearchResultViewController: UIViewController {
                 } else {
                     do {
                         note = try DataManager.shared().createNote(in: notebook)
-                        note.title = NSAttributedString(string: "Lesson".localized())
-                        try note.save()
                     } catch {
                         self.presentErrorAlert(of: .notebook)
                     }
@@ -109,11 +107,11 @@ internal class SearchResultViewController: UIViewController {
         layoutTrait(traitCollection: UIScreen.main.traitCollection)
         
         navigationController?.navigationBar.largeTitleTextAttributes = [
-            .font: MarkdownHeader.firstHeaderFont,
+            .font: UIFont.defaultHeader.toStyle(.h1),
             .foregroundColor: UIColor.titleColor ?? .black
         ]
         navigationController?.navigationBar.titleTextAttributes = [
-            .font: MarkdownHeader.thirdHeaderFont,
+            .font: UIFont.defaultHeader.toStyle(.h3),
             .foregroundColor: UIColor.titleColor ?? .black
         ]
         

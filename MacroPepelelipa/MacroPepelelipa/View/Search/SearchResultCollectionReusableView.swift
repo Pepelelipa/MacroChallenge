@@ -18,7 +18,7 @@ internal class SearchResultCollectionReusableView: UICollectionReusableView {
         let lbl = UILabel(frame: .zero)
         lbl.numberOfLines = 0
         lbl.textColor = UIColor.titleColor ?? .black
-        lbl.font = MarkdownHeader.firstHeaderFont
+        lbl.font = UIFont.defaultHeader.toStyle(.h1)
         lbl.textAlignment = .left
         lbl.translatesAutoresizingMaskIntoConstraints = false
 

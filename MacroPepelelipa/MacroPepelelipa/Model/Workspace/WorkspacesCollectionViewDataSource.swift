@@ -49,18 +49,20 @@ internal class WorkspacesCollectionViewDataSource: NSObject,
         self.collectionView = collectionView
         super.init()
         DataManager.shared().addCreationObserver(self, type: .workspace)
+
+        guard let viewController = viewController as? WorkspaceSelectionViewController else {
+            return
+        }
+        if workspaces.isEmpty {
+            viewController.switchEmptyScreenView()
+        } else {
+            viewController.switchEmptyScreenView(shouldBeHidden: true)
+        }
     }
     
     // MARK: - UICollectionViewDataSource functions
     
     internal func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if let viewController = viewController as? WorkspaceSelectionViewController {
-            if workspaces.isEmpty {
-                viewController.switchEmptyScreenView()
-            } else {
-                viewController.switchEmptyScreenView(shouldBeHidden: true)
-            }
-        }
         return workspaces.count
     }
 
@@ -92,6 +94,9 @@ internal class WorkspacesCollectionViewDataSource: NSObject,
     internal func entityWasCreated(_ value: ObservableEntity) {
         if let workspace = value as? WorkspaceEntity {
             workspace.addObserver(self)
+            if workspaces.isEmpty {
+                (viewController as? WorkspaceSelectionViewController)?.switchEmptyScreenView(shouldBeHidden: true)
+            }
             workspaces.append(workspace)
             self.collectionView?().insertItems(at: [IndexPath(item: workspaces.count - 1, section: 0)])
         }

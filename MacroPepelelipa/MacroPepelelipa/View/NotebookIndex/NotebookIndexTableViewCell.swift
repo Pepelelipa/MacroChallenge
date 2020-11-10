@@ -18,7 +18,7 @@ internal class NotebookIndexTableViewCell: UITableViewCell {
     private let lessonLbl: UILabel = {
         let lbl = UILabel(frame: .zero)
         lbl.translatesAutoresizingMaskIntoConstraints = false
-        lbl.font = MarkdownHeader.secondHeaderFont
+        lbl.font = UIFont.defaultHeader.toStyle(.h2)
 
         return lbl
     }()
@@ -84,7 +84,7 @@ internal class NotebookIndexTableViewCell: UITableViewCell {
         if selected && index.isTitle {
             selectedView.isHidden = false
             self.selectionStyle = .none
-            lessonLbl.textColor = .backgroundColor
+            lessonLbl.textColor = UIColor.white
         } else {
             selectedView.isHidden = true
             self.selectionStyle = .none

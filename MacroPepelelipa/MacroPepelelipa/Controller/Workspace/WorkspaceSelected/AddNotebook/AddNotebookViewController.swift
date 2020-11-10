@@ -40,13 +40,22 @@ internal class AddNotebookViewController: UIViewController {
         txtName.translatesAutoresizingMaskIntoConstraints = false
         txtName.placeholder = "New notebook name".localized()
         txtName.borderStyle = .none
-        txtName.font = MarkdownHeader.thirdHeaderFont
+        txtName.font = UIFont.defaultHeader.toStyle(.h3)
         txtName.tintColor = .actionColor
         txtName.addTarget(self, action: #selector(textChanged(_:)), for: .editingChanged)
         txtName.returnKeyType = UIReturnKeyType.done 
         txtName.delegate = txtNoteDelegate
 
         return txtName
+    }()
+    
+    private lazy var dismissButton: UIButton = {
+        let button = UIButton()
+        button.tintColor = UIColor.placeholderColor
+        button.setBackgroundImage(UIImage(systemName: "xmark.circle"), for: .normal)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.addTarget(self, action: #selector(dismissPopUpView), for: .touchUpInside)
+        return button
     }()
     
     private lazy var collectionViewDelegate = ColorSelectionCollectionViewDelegate {
@@ -84,7 +93,7 @@ internal class AddNotebookViewController: UIViewController {
         btnConfirm.tintColor = .white
         btnConfirm.setBackgroundImage(UIImage(named: "btnWorkspaceBackground"), for: .normal)
         btnConfirm.layer.cornerRadius = 22
-        btnConfirm.titleLabel?.font = MarkdownHeader.thirdHeaderFont
+        btnConfirm.titleLabel?.font = UIFont.defaultHeader.toStyle(.h3)
         btnConfirm.contentEdgeInsets = UIEdgeInsets(top: 10, left: 15, bottom: 10, right: 15)
         return btnConfirm
     }()
@@ -107,7 +116,12 @@ internal class AddNotebookViewController: UIViewController {
             popupView.centerYAnchor.constraint(equalTo: self.view.centerYAnchor),
             popupView.widthAnchor.constraint(equalToConstant: ratio),
             
-            txtName.topAnchor.constraint(equalTo: popupView.topAnchor, constant: 20),
+            dismissButton.topAnchor.constraint(equalTo: popupView.topAnchor, constant: 16),
+            dismissButton.trailingAnchor.constraint(equalTo: popupView.trailingAnchor, constant: -16),
+            dismissButton.widthAnchor.constraint(equalTo: popupView.heightAnchor, multiplier: 0.06),
+            dismissButton.heightAnchor.constraint(equalTo: popupView.heightAnchor, multiplier: 0.06),
+            
+            txtName.topAnchor.constraint(equalTo: dismissButton.bottomAnchor, constant: 5),
             txtName.leadingAnchor.constraint(equalTo: popupView.leadingAnchor, constant: 20),
             txtName.trailingAnchor.constraint(equalTo: popupView.trailingAnchor, constant: -20),
             txtName.heightAnchor.constraint(equalToConstant: 45),
@@ -161,6 +175,7 @@ internal class AddNotebookViewController: UIViewController {
         popupView.addSubview(collectionView)
         popupView.addSubview(notebookView)
         popupView.addSubview(btnConfirm)
+        popupView.addSubview(dismissButton)
         
         btnConfirm.isEnabled = false
         
@@ -172,6 +187,7 @@ internal class AddNotebookViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        txtName.becomeFirstResponder()
         AppUtility.setOrientation(.portrait, andRotateTo: .portrait)
         if let notebook = notebook {
             txtName.text = notebook.name
@@ -200,6 +216,10 @@ internal class AddNotebookViewController: UIViewController {
     }
 
     // MARK: - IBActions functions
+    
+    @IBAction func dismissPopUpView() {
+        self.dismiss(animated: true, completion: nil)
+    }
     
     @IBAction func selfTap() {
         if txtName.isEditing {

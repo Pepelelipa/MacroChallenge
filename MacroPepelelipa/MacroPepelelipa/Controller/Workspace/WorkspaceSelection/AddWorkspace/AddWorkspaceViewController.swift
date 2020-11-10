@@ -32,14 +32,23 @@ internal class AddWorkspaceViewController: UIViewController, AddWorkspaceObserve
         txtName.translatesAutoresizingMaskIntoConstraints = false
         txtName.placeholder = "New workspace name".localized()
         txtName.borderStyle = .none
-        txtName.font = MarkdownHeader.thirdHeaderFont
+        txtName.font = UIFont.defaultHeader.toStyle(.h3)
         txtName.tintColor = .actionColor
         txtName.addTarget(self, action: #selector(textChanged(_:)), for: .editingChanged)
         txtName.returnKeyType = UIReturnKeyType.done
         txtName.delegate = txtNoteDelegate
 
         return txtName
-    }()   
+    }()
+    
+    private lazy var dismissButton: UIButton = {
+        let button = UIButton()
+        button.tintColor = UIColor.placeholderColor
+        button.setBackgroundImage(UIImage(systemName: "xmark.circle"), for: .normal)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.addTarget(self, action: #selector(dismissPopUpView), for: .touchUpInside)
+        return button
+    }()
     
     private lazy var txtNoteDelegate: AddNewSpaceTextFieldDelegate = {
         let delegate = AddNewSpaceTextFieldDelegate()
@@ -58,7 +67,7 @@ internal class AddWorkspaceViewController: UIViewController, AddWorkspaceObserve
         btnConfirm.tintColor = .white
         btnConfirm.setBackgroundImage(UIImage(named: "btnWorkspaceBackground"), for: .normal)
         btnConfirm.layer.cornerRadius = 22
-        btnConfirm.titleLabel?.font = MarkdownHeader.thirdHeaderFont
+        btnConfirm.titleLabel?.font = UIFont.defaultHeader.toStyle(.h3)
         btnConfirm.contentEdgeInsets = UIEdgeInsets(top: 10, left: 15, bottom: 10, right: 15)
 
         return btnConfirm
@@ -72,13 +81,18 @@ internal class AddWorkspaceViewController: UIViewController, AddWorkspaceObserve
             popupView.heightAnchor.constraint(greaterThanOrEqualTo: view.heightAnchor, multiplier: 0.18),
             popupView.widthAnchor.constraint(lessThanOrEqualTo: view.widthAnchor, multiplier: 0.8),
             
-            txtName.topAnchor.constraint(equalTo: popupView.topAnchor, constant: 20),
+            dismissButton.topAnchor.constraint(equalTo: popupView.topAnchor, constant: 16),
+            dismissButton.trailingAnchor.constraint(equalTo: popupView.trailingAnchor, constant: -16),
+            dismissButton.widthAnchor.constraint(equalTo: popupView.heightAnchor, multiplier: 0.15),
+            dismissButton.heightAnchor.constraint(equalTo: popupView.heightAnchor, multiplier: 0.15),
+            
+            txtName.topAnchor.constraint(equalTo: dismissButton.bottomAnchor, constant: 5),
             txtName.leadingAnchor.constraint(equalTo: popupView.leadingAnchor, constant: 30),
             txtName.trailingAnchor.constraint(equalTo: popupView.trailingAnchor, constant: -30),
             txtName.heightAnchor.constraint(equalToConstant: 40),
 
             btnConfirm.bottomAnchor.constraint(lessThanOrEqualTo: popupView.bottomAnchor, constant: -20),
-            btnConfirm.topAnchor.constraint(greaterThanOrEqualTo: txtName.bottomAnchor, constant: 30),
+            btnConfirm.topAnchor.constraint(greaterThanOrEqualTo: txtName.bottomAnchor, constant: 25),
             btnConfirm.centerXAnchor.constraint(equalTo: popupView.centerXAnchor),
             btnConfirm.heightAnchor.constraint(equalToConstant: 45),
             btnConfirm.leadingAnchor.constraint(greaterThanOrEqualTo: popupView.leadingAnchor, constant: 40),
@@ -96,6 +110,7 @@ internal class AddWorkspaceViewController: UIViewController, AddWorkspaceObserve
         view.addSubview(popupView)
         popupView.addSubview(txtName)
         popupView.addSubview(btnConfirm)
+        popupView.addSubview(dismissButton)
         btnConfirm.isEnabled = false
 
         let selfTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(selfTap))
@@ -129,6 +144,10 @@ internal class AddWorkspaceViewController: UIViewController, AddWorkspaceObserve
     }
     
     // MARK: - IBActions functions
+    
+    @IBAction func dismissPopUpView() {
+        self.dismiss(animated: true, completion: nil)
+    }
 
     @IBAction func selfTap() {
         if txtName.isEditing {

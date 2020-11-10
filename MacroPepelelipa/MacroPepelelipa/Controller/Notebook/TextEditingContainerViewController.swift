@@ -35,6 +35,12 @@ internal class TextEditingContainerViewController: UIViewController,
         return item
     }()
     
+    private lazy var presentTipButton: UIBarButtonItem = {
+        let item = UIBarButtonItem(image: UIImage(systemName: "info.circle"), style: .plain, target: self, action: #selector(presentTip))
+
+        return item
+    }()
+    
     private lazy var doneButton: UIBarButtonItem = {
         let item = UIBarButtonItem(ofType: .done,
                                    target: self,
@@ -48,17 +54,17 @@ internal class TextEditingContainerViewController: UIViewController,
     
     private lazy var notesViewController = centerViewController?.viewControllers?.first as? NotesViewController
     
-    internal lazy var markupConfig: MarkupBarConfiguration = {
+    internal lazy var markupConfig: MarkdownBarConfiguration = {
         guard let textView = notesViewController?.textView else {
             fatalError("Controller not found")
         }
-        let mrkConf = MarkupBarConfiguration(owner: textView)
+        let mrkConf = MarkdownBarConfiguration(owner: textView)
         mrkConf.observer = self
         return mrkConf
     }()
     
-    private lazy var markupNavigationView: MarkupNavigationView = {
-        let mrkView = MarkupNavigationView(frame: .zero, configurations: markupConfig)
+    private lazy var markupNavigationView: MarkdownNavigationView = {
+        let mrkView = MarkdownNavigationView(frame: .zero, configurations: markupConfig)
         mrkView.backgroundColor = UIColor.backgroundColor
         
         return mrkView
@@ -79,6 +85,18 @@ internal class TextEditingContainerViewController: UIViewController,
         return []
     }()
     
+    internal lazy var deleteCommand: UIKeyCommand = {
+        let command = UIKeyCommand(input: "\u{8}", modifierFlags: .command, action: #selector(deleteNote))
+        command.discoverabilityTitle = "Delete note".localized()
+        return command
+    }()
+    
+    internal lazy var newNoteCommand: UIKeyCommand = {
+        let command = UIKeyCommand(input: "N", modifierFlags: .command, action: #selector(createNote))
+        command.discoverabilityTitle = "New note".localized()
+        return command
+    }()
+    
     // MARK: - Initializers
     
     internal init(centerViewController: NotesPageViewController) {
@@ -97,6 +115,10 @@ internal class TextEditingContainerViewController: UIViewController,
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        addKeyCommand(deleteCommand)
+        addKeyCommand(newNoteCommand)
+        
         if let centerViewController = self.centerViewController {
             showCenterViewController(centerViewController)
         } else {
@@ -104,9 +126,9 @@ internal class TextEditingContainerViewController: UIViewController,
         }
 
         if (try? notesViewController?.note?.getNotebook().getWorkspace().isEnabled) ?? false {
-            navigationItem.rightBarButtonItems = [notebookIndexButton]
+            navigationItem.rightBarButtonItems = [notebookIndexButton, presentTipButton]
         } else {
-            navigationItem.rightBarButtonItems = [notebookIndexButton]
+            navigationItem.rightBarButtonItems = [notebookIndexButton, presentTipButton]
         }
         navigationItem.largeTitleDisplayMode = .never
         navigationItem.titleView = markupNavigationView
@@ -219,25 +241,17 @@ internal class TextEditingContainerViewController: UIViewController,
     
     ///This method opens the pop over when the button is pressed
     internal func openPopOver() {
-        guard let textView = notesViewController?.textView,
-              let formatViewDelegate = notesViewController?.formatViewDelegate,
-              let textViewDelegate = notesViewController?.textViewDelegate else {
+        guard let textView = notesViewController?.textView else {
             return
         }
-        
+
         let markupContainerViewController = MarkupContainerViewController(owner: textView,
-                                                                          delegate: formatViewDelegate,
                                                                           viewController: notesViewController,
                                                                           size: .init(width: 380, height: 110))
-        
-        if let formatView = markupContainerViewController.formatView {
-            formatViewDelegate.setFormatView(formatView)
-            textViewDelegate.setFotmatView(formatView)
-        }
-        
+
         markupContainerViewController.modalPresentationStyle = .popover
         markupContainerViewController.popoverPresentationController?.sourceView = markupNavigationView.barButtonItems[4]
-        
+
         present(markupContainerViewController, animated: true)
     }
     
@@ -277,21 +291,12 @@ internal class TextEditingContainerViewController: UIViewController,
         }
     }
 
-    internal func presentPicker() {
+    internal func presentPicker(_ sender: NSObject) {
         guard let noteController = centerViewController?.viewControllers?.first as? NotesViewController else {
             return
         }
         
-        #if !targetEnvironment(macCatalyst)
-        
-        var config = PHPickerConfiguration()
-        config.filter = .images
-
-        let picker = PHPickerViewController(configuration: config)
-        picker.delegate = noteController.photoPickerDelegate
-        present(picker, animated: true, completion: nil)
-        
-        #endif
+        noteController.presentPicker(sender)
     }
 
     internal func changeTextViewInput(isCustom: Bool) {
@@ -301,6 +306,14 @@ internal class TextEditingContainerViewController: UIViewController,
     }
     
     // MARK: - IBActions functions
+    
+    @IBAction private func createNote() {
+        self.centerViewController?.createNote()
+    }
+    
+    @IBAction private func deleteNote() {
+        self.centerViewController?.deleteNote()
+    }
     
     @IBAction private func presentMoreActions() {
         guard let pageViewController = centerViewController,
@@ -356,6 +369,11 @@ internal class TextEditingContainerViewController: UIViewController,
             
             present(alertController, animated: true, completion: nil)
         }
+    }
+    
+    @IBAction private func presentTip() {
+            let tipViewController = TipViewController()
+            self.present(tipViewController, animated: true, completion: nil)
     }
     
     // This method is called when the UIBarButton for the done button is pressed and it closes the keyboard

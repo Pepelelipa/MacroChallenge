@@ -68,7 +68,7 @@ internal class NotebookCollectionViewCell: UICollectionViewCell, EditableCollect
         let lbl = UILabel(frame: .zero)
         lbl.numberOfLines = 0
         lbl.textColor = UIColor.titleColor ?? .black
-        lbl.font = MarkdownHeader.thirdHeaderFont
+        lbl.font = UIFont.defaultHeader.toStyle(.h3)
         lbl.textAlignment = .left
         lbl.translatesAutoresizingMaskIntoConstraints = false
         

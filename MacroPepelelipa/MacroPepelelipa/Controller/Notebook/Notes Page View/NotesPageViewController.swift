@@ -46,6 +46,12 @@ internal class NotesPageViewController: UIPageViewController,
         return item
     }()
     
+    private lazy var presentTipButton: UIBarButtonItem = {
+        let item = UIBarButtonItem(image: UIImage(systemName: "info.circle"), style: .plain, target: self, action: #selector(presentTip))
+
+        return item
+    }()
+    
     private lazy var doneButton: UIBarButtonItem = {
         let item = UIBarButtonItem(ofType: .done,
                                    target: self,
@@ -65,7 +71,7 @@ internal class NotesPageViewController: UIPageViewController,
     
     internal init(notes: [NoteEntity]) {
         self.notes = notes
-        super.init(transitionStyle: .scroll, navigationOrientation: .horizontal, options: .none)
+        super.init(transitionStyle: .scroll, navigationOrientation: .vertical, options: .none)
         setNotesViewControllers(for: NotesViewController(note: notes[notes.count-1]))
         
         do {
@@ -104,7 +110,7 @@ internal class NotesPageViewController: UIPageViewController,
         view.backgroundColor = .rootColor
         
         navigationItem.largeTitleDisplayMode = .never
-        navigationItem.rightBarButtonItems = [notebookIndexButton]
+        navigationItem.rightBarButtonItems = [notebookIndexButton, presentTipButton]
         
         setupNotesToolbarActions()
         
@@ -135,9 +141,9 @@ internal class NotesPageViewController: UIPageViewController,
             self.deleteNote()
         }
         
-        notesToolbar.addImageTriggered = {
+        notesToolbar.addImageTriggered = { button in
             if let notesViewController = self.viewControllers?.first as? NotesViewController {
-                notesViewController.presentPicker()
+                notesViewController.presentPicker(button)
             }
         }
         
@@ -153,28 +159,34 @@ internal class NotesPageViewController: UIPageViewController,
         }
         
         notesToolbar.newNoteTriggered = {
-            guard let notebook = self.notebook else {
-                return
-            }
-            
-            let destination = AddNoteViewController(notebook: notebook) { 
-                self.updateNotes()
-            }
-            
-            destination.isModalInPresentation = true
-            destination.modalTransitionStyle = .crossDissolve
-            destination.modalPresentationStyle = .overFullScreen
-            
-            self.present(destination, animated: true)
+            self.createNote()
         }
     }
     
+    ///This methos creates a note in the notebook
+    internal func createNote() {
+        guard let notebook = self.notebook else {
+            return
+        }
+        
+        let destination = AddNoteViewController(notebook: notebook) {
+            self.updateNotes()
+        }
+        
+        destination.isModalInPresentation = true
+        destination.modalTransitionStyle = .crossDissolve
+        destination.modalPresentationStyle = .overFullScreen
+        
+        self.present(destination, animated: true)
+    }
+    
     ///This method deletes the current note from the notebook 
-    private func deleteNote() {
+    internal func deleteNote() {
         guard let viewController = viewControllers?.first as? NotesViewController,
             let note = viewController.note else {
             return
         }
+        
         let alertControlller = UIAlertController(
             title: "Delete Note confirmation".localized(),
             message: "Warning".localized(),
@@ -200,6 +212,7 @@ internal class NotesPageViewController: UIPageViewController,
             }
             self.present(deleteAlertController, animated: true, completion: nil)
         }
+        alertControlller.popoverPresentationController?.barButtonItem = notesToolbar.deleteNoteButton
         self.present(alertControlller, animated: true, completion: nil)
     }
     
@@ -293,7 +306,16 @@ internal class NotesPageViewController: UIPageViewController,
         }
     }
     
+    @IBAction private func presentTip() {
+        if self.notebook != nil {
+            let tipViewController = TipViewController()
+            self.present(tipViewController, animated: true, completion: nil)
+        }
+    }
+    
+    // This method is called 
     /// This method stops editing the view
+    
     @IBAction private func closeKeyboard() {
         self.view.endEditing(true)
     }

@@ -31,7 +31,7 @@ internal class NotebookIndexViewController: UIViewController {
     private var lblSubject: UILabel = {
         let lbl = UILabel(frame: .zero)
         lbl.textAlignment = .left
-        lbl.font = MarkdownHeader.firstHeaderFont
+        lbl.font = UIFont.defaultHeader.toStyle(.h1)
         lbl.numberOfLines = 0
         lbl.translatesAutoresizingMaskIntoConstraints = false
                 
