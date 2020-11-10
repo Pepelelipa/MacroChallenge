@@ -68,12 +68,13 @@ internal class MarkdownBarConfiguration {
         var barButtonItems = [BarButtonType: UIBarButtonItem]()
         
         let listButton = createBarButtonItem(imageName: "text.badge.plus", systemImage: true)
-        // TODO: - needs VoiceOver
+        listButton.accessibilityLabel = "List label".localized()
+        listButton.accessibilityHint = "List hint".localized()
         listButton.menu = setupMenu(for: .list)
         barButtonItems[.list] = listButton
         
         let paragraphButton = createBarButtonItem(imageName: "paragraph", systemImage: true)
-        // TODO: - needs VoiceOver
+        paragraphButton.accessibilityHint = "Paragraph hint".localized()
         paragraphButton.menu = setupMenu(for: .paragraph)
         barButtonItems[.paragraph] = paragraphButton
         
@@ -133,24 +134,32 @@ internal class MarkdownBarConfiguration {
         var buttons = [BarButtonType: UIButton]()
         
         let listButton = createButton(imageName: "text.badge.plus", systemImage: true)
+        listButton.accessibilityLabel = "List label".localized()
+        listButton.accessibilityHint = "List hint".localized()
         listButton.menu = setupMenu(for: .list)
         listButton.showsMenuAsPrimaryAction = true
         buttons[.list] = listButton
         
         let paragraphButton = createButton(imageName: "paragraph", systemImage: true)
+        paragraphButton.accessibilityHint = "Paragraph hint".localized()
         paragraphButton.menu = setupMenu(for: .paragraph)
         paragraphButton.showsMenuAsPrimaryAction = true
         buttons[.paragraph] = paragraphButton
         
         let imageGalleryButton = createButton(imageName: "photo", systemImage: true)
+        imageGalleryButton.accessibilityLabel = "Add image label".localized()
+        imageGalleryButton.accessibilityHint = "Add image hint".localized()
         imageGalleryButton.menu = setupMenu(for: .image)
         imageGalleryButton.showsMenuAsPrimaryAction = true
         buttons[.image] = imageGalleryButton
         
         let textBoxButton = createButton(imageName: "textbox", systemImage: true, objcFunc: #selector(addTextBox))
+        textBoxButton.accessibilityHint = "Text box hint".localized()
         buttons[.textBox] = textBoxButton
         
         let paintbrushButton = createButton(imageName: "paintbrush", systemImage: true, objcFunc: #selector(openEditTextContainer))
+        paintbrushButton.accessibilityLabel = "Format".localized()
+        paintbrushButton.accessibilityLabel = "Format hint".localized()
         buttons[.format] = paintbrushButton
         
         return buttons

@@ -202,7 +202,7 @@
 "Italic" = "Itálico";
 "Highlight" = "Destaque";
 
-"Format hint" = "Toque duas vezes para formatar o texto com %@";
+"Format hint" = "Toque duas vezes para formatar o texto com negrito, itálico, marca-texto, cor e fonte";
 
 "Merriweather" = "Méuriwédêr";
 "Open Sans" = "Oupen Sans";
@@ -211,6 +211,11 @@
 "Serif" = "Serifada";
 "Sans-serif" = "Não serifada";
 "Cursive" = "Cursiva";
+
+"List label" = "Crie listas";
+"List hint" = "Toque duas vezes para criar listas não númericas e númericas";
+
+"Paragraph hint" = "Toque duas vezes para trocar o tipo de parágrafo";
 
 "End editing hint" = "Double tap to end editing";
 

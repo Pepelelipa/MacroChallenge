@@ -198,7 +198,7 @@
 "Bold" = "Bold";
 "Italic" = "Italic";
 "Highlight" = "Highlight";
-"Format hint" = "Double tap to format the text with %@";
+"Format hint" = "Double tap to format the text with bold, italic, highlight, color and font";
 
 "Merriweather" = "Merriweather";
 "Open Sans" = "Open Sans";
@@ -207,6 +207,11 @@
 "Serif" = "Serif";
 "Sans-serif" = "Sans-serif";
 "Cursive" = "Cursive";
+
+"List label" = "Make lists";
+"List hint" = "Double tap to create bulleted and numeric lists";
+
+"Paragraph hint" = "Double tap to change the paragraph type";
 
 "End editing hint" = "Toque duas vezes para finalizar edição";
 
