@@ -210,6 +210,9 @@
 
 "End editing hint" = "Double tap to end editing";
 
+"Filter Workspaces Hint" = "Mostrando cadernos e workspaces da pesquisa";
+"Filter Notebooks Hint" = "Mostrando os cadernos da pesquisa";
+
 // MARK: - Colors
 
 "Text body color" = "Cor de corpo de texto";

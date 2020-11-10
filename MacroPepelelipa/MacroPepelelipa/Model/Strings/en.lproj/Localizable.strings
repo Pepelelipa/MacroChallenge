@@ -206,6 +206,9 @@
 
 "End editing hint" = "Toque duas vezes para finalizar edição";
 
+"Filter Workspaces Hint" = "Showing all notebooks and workspaces from search";
+"Filter Notebooks Hint" = "Showing notebooks from search";
+
 // MARK: - Colors
 
 "Text body color" = "Text body color";
