@@ -17,8 +17,17 @@ public class DataManager {
 
     ///Save all modified objects
     /// - Throws: Throws if Core Data fails to save.
-    internal func saveObjects() throws {
+    internal func saveObjects(_ entities: [PersistentEntity]) throws {
         try coreDataController.saveContext()
+
+        var cloudKitEntities: [CloudKitEntity] = []
+        for persistentEntity in entities {
+            if let wrapper = persistentEntity as? CloudKitObjectWrapper,
+               let cloudKitEntity = wrapper.cloudKitObject {
+                cloudKitEntities.append(cloudKitEntity)
+            }
+        }
+        CloudKitDataConnector.saveData(database: .Private, entitiesToSave: cloudKitEntities)
     }
 
     private var observers: [(EntityObserver, ObservableCreationType)] = []
@@ -75,7 +84,7 @@ public class DataManager {
             throw WorkspaceError.failedToParse
         }
 
-        try coreDataController.deleteWorkspace(workspaceObject.coreDataObject)
+        try coreDataController.deleteWorkspace(workspaceObject.coreDataWorkspace)
         try workspaceObject.removeReferences()
         notifyDeletion(workspace, type: .workspace)
     }
@@ -93,7 +102,7 @@ public class DataManager {
             throw WorkspaceError.failedToParse
         }
 
-        let cdNotebook = try coreDataController.createNotebook(in: workspaceObject.coreDataObject, named: name, colorName: colorName)
+        let cdNotebook = try coreDataController.createNotebook(in: workspaceObject.coreDataWorkspace, named: name, colorName: colorName)
         let notebookObject = NotebookObject(in: workspaceObject, from: cdNotebook)
         defer {
             notifyCreation(notebookObject, type: .notebook)

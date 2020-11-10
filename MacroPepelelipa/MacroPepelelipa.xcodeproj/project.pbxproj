@@ -91,6 +91,8 @@
 		02870891254A207A0075235D /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02870890254A207A0075235D /* Extensions.swift */; };
 		02919F4225531B1F00C03E27 /* MarkdownTextViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02919F4125531B1E00C03E27 /* MarkdownTextViewDelegate.swift */; };
 		02919F4825531BFA00C03E27 /* App String Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02919F4725531BFA00C03E27 /* App String Extensions.swift */; };
+		0292CE08255B24C200D05CA2 /* PersistentEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0292CE07255B24C200D05CA2 /* PersistentEntity.swift */; };
+		0292CE10255B273B00D05CA2 /* CloudKitObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0292CE0F255B273B00D05CA2 /* CloudKitObject.swift */; };
 		029847F2251D13D1004E0B62 /* Database.h in Headers */ = {isa = PBXBuildFile; fileRef = 029847F0251D13D1004E0B62 /* Database.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		029847F5251D13D1004E0B62 /* Database.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 029847EE251D13D1004E0B62 /* Database.framework */; };
 		029847F6251D13D1004E0B62 /* Database.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 029847EE251D13D1004E0B62 /* Database.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -319,6 +321,8 @@
 		02870890254A207A0075235D /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		02919F4125531B1E00C03E27 /* MarkdownTextViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarkdownTextViewDelegate.swift; sourceTree = "<group>"; };
 		02919F4725531BFA00C03E27 /* App String Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "App String Extensions.swift"; sourceTree = "<group>"; };
+		0292CE07255B24C200D05CA2 /* PersistentEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistentEntity.swift; sourceTree = "<group>"; };
+		0292CE0F255B273B00D05CA2 /* CloudKitObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudKitObject.swift; sourceTree = "<group>"; };
 		029847EE251D13D1004E0B62 /* Database.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Database.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		029847F0251D13D1004E0B62 /* Database.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Database.h; sourceTree = "<group>"; };
 		029847F1251D13D1004E0B62 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -466,6 +470,7 @@
 		02077727251D190800D97B5A /* EntityProtocols */ = {
 			isa = PBXGroup;
 			children = (
+				0292CE07255B24C200D05CA2 /* PersistentEntity.swift */,
 				022832FA252E6C4200DDD46B /* ObservableEntity.swift */,
 				02110792252F88540009D4E1 /* ModifiableEntity.swift */,
 				02077728251D191600D97B5A /* WorkspaceEntity.swift */,
@@ -822,6 +827,7 @@
 				029EFC992555DEF300361F29 /* QueryAnswers */,
 				029EFC922555DECC00361F29 /* Record Types */,
 				029EFCA52555DF6700361F29 /* CloudKitEntity.swift */,
+				0292CE0F255B273B00D05CA2 /* CloudKitObject.swift */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -1375,6 +1381,7 @@
 				02110789252F86E60009D4E1 /* WorkspaceError.swift in Sources */,
 				02077735251D192D00D97B5A /* ImageBoxEntity.swift in Sources */,
 				022832D9252E547200DDD46B /* DataModel.xcdatamodeld in Sources */,
+				0292CE10255B273B00D05CA2 /* CloudKitObject.swift in Sources */,
 				022832F7252E603800DDD46B /* EntityObserver.swift in Sources */,
 				021107C5252FADC90009D4E1 /* TextBoxError.swift in Sources */,
 				022832E7252E5CE900DDD46B /* Note+CoreDataProperties.swift in Sources */,
@@ -1414,6 +1421,7 @@
 				02D20B6C2558E43800159AB0 /* CloudKitTextBox.swift in Sources */,
 				022832F3252E5F9C00DDD46B /* DataManager.swift in Sources */,
 				029EFC9B2555DF1100361F29 /* DataActionAnswer.swift in Sources */,
+				0292CE08255B24C200D05CA2 /* PersistentEntity.swift in Sources */,
 				02D20B7E2559C5D200159AB0 /* CloudKitDataController.swift in Sources */,
 				029EFCA62555DF6700361F29 /* CloudKitEntity.swift in Sources */,
 				0207772F251D192000D97B5A /* NoteEntity.swift in Sources */,

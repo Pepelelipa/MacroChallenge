@@ -84,7 +84,19 @@ internal class NotebookObject: NotebookEntity {
     }
 
     func save() throws {
-        try DataManager.shared().saveObjects()
+        try DataManager.shared().saveObjects(getChildren())
+    }
+
+    internal func getChildren() -> [PersistentEntity] {
+        var children: [PersistentEntity] = []
+        children.append(contentsOf: notes)
+        if let notes = notes as? [NoteObject] {
+            for note in notes {
+                children.append(contentsOf: note.getChildren())
+            }
+        }
+        
+        return children
     }
 
     internal func removeReferences() throws {

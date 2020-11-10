@@ -8,9 +8,10 @@
 
 import CloudKit
 
-internal class WorkspaceObject: WorkspaceEntity {
+internal class WorkspaceObject: WorkspaceEntity, CloudKitObjectWrapper {
+
     func getID() throws -> UUID {
-        if let id = coreDataObject.id {
+        if let id = coreDataWorkspace.id {
             return id
         }
         throw ObservableError.idWasNull
@@ -18,14 +19,14 @@ internal class WorkspaceObject: WorkspaceEntity {
 
     public var name: String {
         didSet {
-            coreDataObject.name = name
+            coreDataWorkspace.name = name
             notifyObservers()
         }
     }
 
     public var isEnabled: Bool {
         didSet {
-            coreDataObject.isEnabled = isEnabled
+            coreDataWorkspace.isEnabled = isEnabled
             notifyObservers()
         }
     }
@@ -38,15 +39,18 @@ internal class WorkspaceObject: WorkspaceEntity {
     
     private var observers: [EntityObserver] = []
 
-    internal let coreDataObject: Workspace
-    internal var cloudKitObject: CloudKitWorkspace?
+    internal let coreDataWorkspace: Workspace
+    internal private(set) var cloudKitWorkspace: CloudKitWorkspace?
+    internal var cloudKitObject: CloudKitEntity? {
+        return cloudKitWorkspace
+    }
 
     internal init(from workspace: Workspace) {
-        self.coreDataObject = workspace
+        self.coreDataWorkspace = workspace
         self.name = workspace.name ?? ""
         self.isEnabled = workspace.isEnabled
         
-        if let notebooks = coreDataObject.notebooks?.array as? [Notebook] {
+        if let notebooks = coreDataWorkspace.notebooks?.array as? [Notebook] {
             notebooks.forEach { (notebook) in
                 _ = NotebookObject(in: self, from: notebook)
             }
@@ -64,7 +68,19 @@ internal class WorkspaceObject: WorkspaceEntity {
     }
 
     func save() throws {
-        try DataManager.shared().saveObjects()
+        try DataManager.shared().saveObjects(getChildren())
+    }
+
+    internal func getChildren() -> [PersistentEntity] {
+        var children: [PersistentEntity] = []
+        children.append(contentsOf: notebooks)
+        if let notebooks = notebooks as? [NotebookObject] {
+            for notebook in notebooks {
+                children.append(contentsOf: notebook.getChildren())
+            }
+        }
+        
+        return children
     }
 
     internal func removeReferences() throws {

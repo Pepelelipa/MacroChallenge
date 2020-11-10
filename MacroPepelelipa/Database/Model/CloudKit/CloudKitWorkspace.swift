@@ -21,11 +21,11 @@ internal class CloudKitWorkspace: CloudKitEntity, Equatable {
     internal private(set) lazy var isEnabled: DataProperty<Int64> = DataProperty(record: record, key: "isEnabled")
     internal private(set) var notebooks: ReferenceList<CloudKitNotebook>?
 
-    init(from workspace: WorkspaceObject) {
+    init(named name: String, id: UUID) {
         let record = CKRecord(recordType: CloudKitWorkspace.recordType)
-        record["id"] = try? workspace.getID().uuidString
-        record["isEnabled"] = workspace.isEnabled
-        record["name"] = workspace.name
+        record["id"] = id.uuidString
+        record["isEnabled"] = true
+        record["name"] = name
         self.record = record
     }
     init(from record: CKRecord) {

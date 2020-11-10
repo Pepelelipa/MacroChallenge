@@ -85,7 +85,15 @@ internal class NoteObject: NoteEntity {
     }
 
     func save() throws {
-        try DataManager.shared().saveObjects()
+        try DataManager.shared().saveObjects(getChildren())
+    }
+
+    internal func getChildren() -> [PersistentEntity] {
+        var children: [PersistentEntity] = []
+        children.append(contentsOf: textBoxes)
+        children.append(contentsOf: images)
+        
+        return children
     }
 
     internal func removeReferences() throws {
