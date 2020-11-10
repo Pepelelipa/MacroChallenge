@@ -16,9 +16,9 @@ internal class MarkdownNavigationView: UIView {
     private weak var markupBarConfiguration: MarkdownBarConfiguration?
     private static var paragraphButton: UIBarButtonItem?
     
-    internal lazy var barButtonItems: [UIButton] = {
+    internal lazy var barButtonItems: [BarButtonType: UIButton] = {
         guard let buttons = markupBarConfiguration?.setupUIButtons() else {
-            return [UIButton]()
+            return [BarButtonType: UIButton]()
         }
         
         return buttons
@@ -31,7 +31,7 @@ internal class MarkdownNavigationView: UIView {
         super.init(frame: frame)
         
         barButtonItems.forEach({
-            self.addSubview($0)
+            self.addSubview($0.value)
         })
         
         setConstraints()
@@ -53,20 +53,28 @@ internal class MarkdownNavigationView: UIView {
     
     ///A private method to set the buttons constraints.
     private func setConstraints() {
-        barButtonItems.forEach({
+        for (_, button) in barButtonItems {
             NSLayoutConstraint.activate([
-                $0.topAnchor.constraint(equalTo: self.topAnchor),
-                $0.bottomAnchor.constraint(equalTo: self.bottomAnchor)
+                button.topAnchor.constraint(equalTo: self.topAnchor),
+                button.bottomAnchor.constraint(equalTo: self.bottomAnchor)
             ])
-        })
+        }
+        
+        guard let textBox = barButtonItems[.textBox],
+              let image = barButtonItems[.image],
+              let format = barButtonItems[.format],
+              let list = barButtonItems[.list],
+              let paragraph = barButtonItems[.paragraph] else {
+            return
+        }
         
         NSLayoutConstraint.activate([
-            barButtonItems[3].leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 10),
-            barButtonItems[2].leadingAnchor.constraint(equalTo: barButtonItems[3].trailingAnchor, constant: 10),
-            barButtonItems[4].leadingAnchor.constraint(equalTo: barButtonItems[2].trailingAnchor, constant: 10),
-            barButtonItems[0].leadingAnchor.constraint(equalTo: barButtonItems[4].trailingAnchor, constant: 10),
-            barButtonItems[1].leadingAnchor.constraint(equalTo: barButtonItems[0].trailingAnchor, constant: 10),
-            barButtonItems[1].trailingAnchor.constraint(equalTo: self.trailingAnchor)
+            textBox.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 10),
+            image.leadingAnchor.constraint(equalTo: textBox.trailingAnchor, constant: 10),
+            format.leadingAnchor.constraint(equalTo: image.trailingAnchor, constant: 10),
+            list.leadingAnchor.constraint(equalTo: format.trailingAnchor, constant: 10),
+            paragraph.leadingAnchor.constraint(equalTo: list.trailingAnchor, constant: 10),
+            paragraph.trailingAnchor.constraint(equalTo: self.trailingAnchor)
         ])
     }
 }

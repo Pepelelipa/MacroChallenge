@@ -250,7 +250,7 @@ internal class TextEditingContainerViewController: UIViewController,
                                                                           size: .init(width: 380, height: 110))
 
         markupContainerViewController.modalPresentationStyle = .popover
-        markupContainerViewController.popoverPresentationController?.sourceView = markupNavigationView.barButtonItems[4]
+        markupContainerViewController.popoverPresentationController?.sourceView = markupNavigationView.barButtonItems[.format]
 
         present(markupContainerViewController, animated: true)
     }
@@ -291,18 +291,20 @@ internal class TextEditingContainerViewController: UIViewController,
         }
     }
 
-    internal func presentPicker(_ sender: NSObject) {
-        guard let noteController = centerViewController?.viewControllers?.first as? NotesViewController else {
-            return
-        }
-        
-        noteController.presentPicker(sender)
-    }
-
     internal func changeTextViewInput(isCustom: Bool) {
         if let noteController = centerViewController?.viewControllers?.first as? NotesViewController {
             noteController.changeTextViewInput(isCustom: isCustom)
         }
+    }
+    
+    /// This method presentes the photo picker for iOS and iPadOS
+    func presentPhotoPicker() {
+        (centerViewController?.viewControllers?.first as? NotesViewController)?.presentPhotoPicker()
+    }
+    
+    /// This method presentes the camera picker for iOS and iPadOS
+    func presentCameraPicker() {
+        (centerViewController?.viewControllers?.first as? NotesViewController)?.presentCameraPicker()
     }
     
     // MARK: - IBActions functions
