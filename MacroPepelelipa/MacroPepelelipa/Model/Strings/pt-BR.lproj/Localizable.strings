@@ -168,6 +168,10 @@
 
 "Add image label" = "Adicionar imagem";
 "Add image hint" = "Toque duas vezes para adicionar uma imagem à nota";
+"Add from camera label" = "Tire uma foto";
+"Add from camera hint" = "Toque duas vezes para tirar uma foto para a sua nota";
+"Add from library label" = "Adicione uma foto da biblioteca";
+"Add from library hint" = "Toque duas vezes para escolher uma foto de sua galeria";
 
 "Share note label" = "Compartilhar nota";
 "Share note hint" = "Toque duas vezes para compartilhar esta nota";
