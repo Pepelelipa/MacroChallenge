@@ -32,7 +32,7 @@ internal class MarkdownFormatView: UIView, MarkdownObserver {
     // MARK: - Variables and Constants
 
     internal weak var textView: MarkdownTextView?
-    internal weak var viewController: NotesViewController?
+    internal weak var receiver: MarkdownFormatViewReceiver?
     
     internal private(set) lazy var colorSelector: [ColorSelector: MarkdownToggleButton] = {
         var buttons = [ColorSelector: MarkdownToggleButton]()
@@ -101,13 +101,13 @@ internal class MarkdownFormatView: UIView, MarkdownObserver {
     
     // MARK: - Initializers
     
-    internal init(frame: CGRect, owner: MarkdownTextView, viewController: NotesViewController) {
+    internal init(frame: CGRect, owner: MarkdownTextView, receiver: MarkdownFormatViewReceiver) {
         super.init(frame: frame)
         self.textView = owner
         if let delegate = textView?.markdownDelegate as? AppMarkdownTextViewDelegate {
             delegate.addMarkdownObserver(self)
         }
-        self.viewController = viewController
+        self.receiver = receiver
         
         addSelectors()
     }
