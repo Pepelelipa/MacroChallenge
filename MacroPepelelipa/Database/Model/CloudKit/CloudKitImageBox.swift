@@ -9,7 +9,11 @@
 
 import CloudKit
 
-internal class CloudKitImageBox: CloudKitEntity {
+internal class CloudKitImageBox: CloudKitEntity, Equatable {
+    static func == (lhs: CloudKitImageBox, rhs: CloudKitImageBox) -> Bool {
+        return lhs.record.recordID == rhs.record.recordID
+    }
+
     internal static let recordType: String = "ImageBox"
     internal var record: CKRecord
 

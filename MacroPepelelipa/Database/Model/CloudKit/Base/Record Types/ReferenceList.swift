@@ -39,13 +39,19 @@ internal class ReferenceList<T: CloudKitEntity> {
     }
 }
 
-extension ReferenceList where T: Equatable {
+internal extension ReferenceList where T: Equatable {
 
-    internal func firstIndex(of value: T) -> Int? {
+    func remove(_ value: T) {
+        if let index = firstIndex(of: value) {
+            remove(at: index)
+        }
+    }
+
+    func firstIndex(of value: T) -> Int? {
         return references.firstIndex(of: value)
     }
 
-    internal func contains(_ value: T) -> Bool {
+    func contains(_ value: T) -> Bool {
         return references.contains(value)
     }
 

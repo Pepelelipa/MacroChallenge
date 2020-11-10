@@ -8,7 +8,11 @@
 
 import CloudKit
 
-internal class CloudKitNote: CloudKitEntity {
+internal class CloudKitNote: CloudKitEntity, Equatable {
+    static func == (lhs: CloudKitNote, rhs: CloudKitNote) -> Bool {
+        return lhs.record.recordID == rhs.record.recordID
+    }
+
     internal static let recordType: String = "Note"
     internal var record: CKRecord
 
@@ -43,10 +47,16 @@ internal class CloudKitNote: CloudKitEntity {
         }
         textBoxes?.append(textBox, action: .none)
     }
+    internal func removeTextBox(_ textBox: CloudKitTextBox) {
+        textBoxes?.remove(textBox)
+    }
     internal func appendImageBox(_ imageBox: CloudKitImageBox) {
         if imageBoxes == nil {
             imageBoxes = ReferenceList(record: record, key: "imageBoxes")
         }
         imageBoxes?.append(imageBox, action: .none)
+    }
+    internal func removeImageBox(_ imageBox: CloudKitImageBox) {
+        imageBoxes?.remove(imageBox)
     }
 }

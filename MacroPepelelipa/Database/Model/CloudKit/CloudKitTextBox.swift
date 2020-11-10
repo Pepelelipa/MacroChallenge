@@ -9,7 +9,11 @@
 
 import CloudKit
 
-internal class CloudKitTextBox: CloudKitEntity {
+internal class CloudKitTextBox: CloudKitEntity, Equatable {
+    static func == (lhs: CloudKitTextBox, rhs: CloudKitTextBox) -> Bool {
+        return lhs.record.recordID == rhs.record.recordID
+    }
+
     internal static let recordType: String = "TextBox"
     internal var record: CKRecord
 

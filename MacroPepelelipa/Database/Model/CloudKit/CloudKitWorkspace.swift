@@ -8,7 +8,11 @@
 
 import CloudKit
 
-internal class CloudKitWorkspace: CloudKitEntity {
+internal class CloudKitWorkspace: CloudKitEntity, Equatable {
+    static func == (lhs: CloudKitWorkspace, rhs: CloudKitWorkspace) -> Bool {
+        return lhs.record.recordID == rhs.record.recordID
+    }
+
     internal static let recordType: String = "Workspace"
     internal var record: CKRecord
 
@@ -22,7 +26,6 @@ internal class CloudKitWorkspace: CloudKitEntity {
         record["id"] = try? workspace.getID().uuidString
         record["isEnabled"] = workspace.isEnabled
         record["name"] = workspace.name
-        //TODO: Notebooks
         self.record = record
     }
     init(from record: CKRecord) {
@@ -34,5 +37,8 @@ internal class CloudKitWorkspace: CloudKitEntity {
             notebooks = ReferenceList(record: record, key: "notebooks")
         }
         notebooks?.append(notebook, action: .none)
+    }
+    internal func removeNotebook(_ notebook: CloudKitNotebook) {
+        notebooks?.remove(notebook)
     }
 }

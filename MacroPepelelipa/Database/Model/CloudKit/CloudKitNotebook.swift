@@ -8,7 +8,11 @@
 
 import CloudKit
 
-internal class CloudKitNotebook: CloudKitEntity {
+internal class CloudKitNotebook: CloudKitEntity, Equatable {
+    static func == (lhs: CloudKitNotebook, rhs: CloudKitNotebook) -> Bool {
+        return lhs.record.recordID == rhs.record.recordID
+    }
+
     internal static let recordType: String = "Notebook"
     internal var record: CKRecord
 
@@ -40,5 +44,8 @@ internal class CloudKitNotebook: CloudKitEntity {
             notes = ReferenceList(record: record, key: "notes")
         }
         notes?.append(note, action: .none)
+    }
+    internal func removeNote(_ note: CloudKitNote) {
+        notes?.remove(note)
     }
 }
