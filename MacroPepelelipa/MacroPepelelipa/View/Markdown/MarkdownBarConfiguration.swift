@@ -155,15 +155,15 @@ internal class MarkdownBarConfiguration {
         switch type {
         case .list:
             actions = [
-                UIAction(title: "Bullet list", image: UIImage(systemName: "list.bullet"), identifier: .init("bullet"), state: .off, handler: addList(action:)),
-                UIAction(title: "Numeric list", image: UIImage(systemName: "list.number"), identifier: .init("numeric"), state: .off, handler: addList(action:))
+                UIAction(title: "Bullet list".localized(), image: UIImage(systemName: "list.bullet"), identifier: .init("bullet"), state: .off, handler: addList(action:)),
+                UIAction(title: "Numeric list".localized(), image: UIImage(systemName: "list.number"), identifier: .init("numeric"), state: .off, handler: addList(action:))
             ]
         case .paragraph:
             actions = [
-                UIAction(title: "First Header", image: UIImage(named: "h1"), identifier: .init("H1"), state: .off, handler: addHeader(action:)),
-                UIAction(title: "Second Header", image: UIImage(named: "h2"), identifier: .init("H2"), state: .off, handler: addHeader(action:)),
-                UIAction(title: "Third Header", image: UIImage(named: "h3"), identifier: .init("H3"), state: .off, handler: addHeader(action:)),
-                UIAction(title: "Paragraph", image: UIImage(systemName: "paragraph"), identifier: .init("P"), state: .off, handler: addHeader(action:))
+                UIAction(title: "First Header".localized(), image: UIImage(named: "h1"), identifier: .init("H1"), state: .off, handler: addHeader(action:)),
+                UIAction(title: "Second Header".localized(), image: UIImage(named: "h2"), identifier: .init("H2"), state: .off, handler: addHeader(action:)),
+                UIAction(title: "Third Header".localized(), image: UIImage(named: "h3"), identifier: .init("H3"), state: .off, handler: addHeader(action:)),
+                UIAction(title: "Paragraph".localized(), image: UIImage(systemName: "paragraph"), identifier: .init("P"), state: .off, handler: addHeader(action:))
             ]
         case .image:
             actions = [
