@@ -65,10 +65,10 @@ internal class WorkspaceObject: WorkspaceEntity {
         try DataManager.shared().saveObjects()
     }
 
-    internal func removeReferences() throws {
+    internal func removeReferences() {
         for notebook in notebooks {
             if let notebook = notebook as? NotebookObject {
-                try notebook.removeReferences()
+                notebook.removeReferences()
             }
         }
     }

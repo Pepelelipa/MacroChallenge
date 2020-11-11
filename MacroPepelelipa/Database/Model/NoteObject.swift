@@ -51,13 +51,13 @@ internal class NoteObject: NoteEntity {
 
     internal let coreDataObject: Note
 
-    internal init(in notebook: NotebookObject, from note: Note) {
+    internal init(in notebook: NotebookObject?, from note: Note) {
         self.notebook = notebook
         self.coreDataObject = note
         self.title = note.title?.toAttributedString() ?? NSAttributedString()
         self.text = note.text?.toAttributedString() ?? NSAttributedString()
         
-        notebook.notes.append(self)
+        notebook?.notes.append(self)
 
         if let textBoxes = coreDataObject.textBoxes?.allObjects as? [TextBox] {
             textBoxes.forEach { (textBox) in
@@ -69,6 +69,12 @@ internal class NoteObject: NoteEntity {
                 _ = ImageBoxObject(in: self, coreDataObject: imageBox)
             }
         }
+    }
+
+    func setNotebook(_ notebook: NotebookObject) {
+        removeReferences()
+        self.notebook = notebook
+        notebook.notes.append(self)
     }
 
     func addObserver(_ observer: EntityObserver) {
@@ -85,7 +91,7 @@ internal class NoteObject: NoteEntity {
         try DataManager.shared().saveObjects()
     }
 
-    internal func removeReferences() throws {
+    internal func removeReferences() {
         if let notebook = self.notebook,
            let index = notebook.notes.firstIndex(where: { $0 === self }) {
             notebook.notes.remove(at: index)

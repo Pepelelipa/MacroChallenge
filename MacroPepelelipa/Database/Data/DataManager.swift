@@ -76,7 +76,7 @@ public class DataManager {
         }
 
         try coreDataController.deleteWorkspace(workspaceObject.coreDataObject)
-        try workspaceObject.removeReferences()
+        workspaceObject.removeReferences()
         notifyDeletion(workspace, type: .workspace)
     }
 
@@ -113,11 +113,27 @@ public class DataManager {
         }
 
         try coreDataController.deleteNotebook(notebookObject.coreDataObject)
-        try notebookObject.removeReferences()
+        notebookObject.removeReferences()
         notifyDeletion(notebook, type: .notebook)
     }
 
     // MARK: Note
+
+    /**
+     Creates a loose note into the Database
+     - Parameter notebook: To what notebook it belongs.
+     - Throws: Throws if fails to parse notebook to NotebookObject or fails to create in CoreData.
+     */
+    public func createLooseNote() throws -> NoteEntity {
+        let cdNote = try coreDataController.createNote(in: nil)
+        let noteObject = NoteObject(in: nil, from: cdNote)
+        defer {
+            notifyCreation(noteObject, type: .note)
+        }
+
+        return noteObject
+    }
+
     /**
      Creates a Note into the Database
      - Parameter notebook: To what notebook it belongs.
@@ -148,7 +164,7 @@ public class DataManager {
         }
 
         try coreDataController.deleteNote(noteObject.coreDataObject)
-        try noteObject.removeReferences()
+        noteObject.removeReferences()
         notifyDeletion(note, type: .note)
     }
 
@@ -178,7 +194,7 @@ public class DataManager {
         }
 
         try coreDataController.deleteTextBox(textBoxObject.coreDataObject)
-        try textBoxObject.removeReferences()
+        textBoxObject.removeReferences()
     }
 
     // MARK: ImageBox
@@ -209,7 +225,7 @@ public class DataManager {
         _ = try? FileHelper.deleteImage(fileName: imageBox.imagePath)
 
         try coreDataController.deleteImageBox(imageBoxObject.coreDataObject)
-        try imageBoxObject.removeReferences()
+        imageBoxObject.removeReferences()
     }
 
     // MARK: Singleton Basic Properties
