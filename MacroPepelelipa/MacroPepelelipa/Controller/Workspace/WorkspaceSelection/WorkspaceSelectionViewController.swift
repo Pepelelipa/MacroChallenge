@@ -91,6 +91,11 @@ internal class WorkspaceSelectionViewController: UIViewController,
         return item
     }()
     
+    private lazy var btnAddLooseNote: UIBarButtonItem = {
+        let item = UIBarButtonItem(image: UIImage(systemName: "square.and.pencil"), style: .plain, target: self, action: #selector(addLooseNote))
+        return item
+    }()
+    
     private lazy var newWorspaceCommand: UIKeyCommand = {
         let command = UIKeyCommand(input: "N", modifierFlags: .command, action: #selector(btnAddTap))
         command.discoverabilityTitle = "New workspace".localized()
@@ -131,7 +136,7 @@ internal class WorkspaceSelectionViewController: UIViewController,
         addKeyCommand(findCommand)
         
         view.backgroundColor = .rootColor
-        navigationItem.rightBarButtonItem = btnAdd
+        navigationItem.rightBarButtonItems = [btnAdd, btnAddLooseNote]
         navigationItem.largeTitleDisplayMode = .always
         navigationItem.title = "Workspaces".localized()
         view.addSubview(collectionView)
@@ -426,6 +431,23 @@ internal class WorkspaceSelectionViewController: UIViewController,
         
         self.present(destination, animated: true) { 
             self.btnAdd.isEnabled = true
+        }
+    }
+    
+    @IBAction func addLooseNote() {
+        var looseNote: NoteEntity?
+        
+        do {
+            looseNote = try DataManager.shared().createLooseNote()
+        } catch {
+            //TODO
+            print(error.localizedDescription)
+        }
+        
+        if let note = looseNote {
+            let destination = LooseNoteViewController(note: note)
+            
+            self.navigationController?.pushViewController(destination, animated: true)
         }
     }
     
