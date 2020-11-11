@@ -29,11 +29,15 @@ internal class NotebooksSelectionViewController: UIViewController {
         collectionView.backgroundColor = view.backgroundColor
         collectionView.showsVerticalScrollIndicator = false
         collectionView.allowsSelection = true
-        collectionView.allowsSelectionDuringEditing = true
         collectionView.allowsMultipleSelection = false
         collectionView.contentInset = UIEdgeInsets(top: 20, left: 0, bottom: 20, right: 0)
         collectionView.delegate = collectionDelegate
         collectionView.dataSource = collectionDataSource
+        
+        #warning("Check for macOS Big Sur")
+        #if !targetEnvironment(macCatalyst)
+        collectionView.allowsSelectionDuringEditing = true
+        #endif
         
         collectionView.register(
             NotebookCollectionViewCell.self,
@@ -82,7 +86,13 @@ internal class NotebooksSelectionViewController: UIViewController {
 
     private lazy var collectionDelegate = NotebooksCollectionViewDelegate { [unowned self] (selectedCell) in
         if let notebook = selectedCell.notebook {
-            if !self.collectionView.isEditing {
+            var isEditing = false
+            #warning("Check for macOS Big Sur")
+            #if !targetEnvironment(macCatalyst)
+            isEditing = self.collectionView.isEditing
+            #endif
+            
+            if !isEditing {
                 let note: NoteEntity
                 if let lastNote = notebook.notes.last {
                     note = lastNote

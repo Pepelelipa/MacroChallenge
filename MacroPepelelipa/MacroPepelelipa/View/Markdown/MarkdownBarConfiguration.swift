@@ -68,15 +68,18 @@ internal class MarkdownBarConfiguration {
         var barButtonItems = [BarButtonType: UIBarButtonItem]()
         
         let listButton = createBarButtonItem(imageName: "text.badge.plus", systemImage: true)
-        listButton.menu = setupMenu(for: .list)
-        barButtonItems[.list] = listButton
-        
         let paragraphButton = createBarButtonItem(imageName: "paragraph", systemImage: true)
-        paragraphButton.menu = setupMenu(for: .paragraph)
-        barButtonItems[.paragraph] = paragraphButton
-        
         let imageGalleryButton = createBarButtonItem(imageName: "photo", systemImage: true)
+        
+        #warning("Check for macOS Big Sur")
+        #if !targetEnvironment(macCatalyst)
+        listButton.menu = setupMenu(for: .list)
+        paragraphButton.menu = setupMenu(for: .paragraph)
         imageGalleryButton.menu = setupMenu(for: .image)
+        #endif
+        
+        barButtonItems[.list] = listButton
+        barButtonItems[.paragraph] = paragraphButton
         barButtonItems[.image] = imageGalleryButton
         
         let textBoxButton = createBarButtonItem(imageName: "textbox", systemImage: true, objcFunc: #selector(addTextBox))
@@ -126,18 +129,25 @@ internal class MarkdownBarConfiguration {
         var buttons = [BarButtonType: UIButton]()
         
         let listButton = createButton(imageName: "text.badge.plus", systemImage: true)
+        let paragraphButton = createButton(imageName: "paragraph", systemImage: true)
+        let imageGalleryButton = createButton(imageName: "photo", systemImage: true)
+        
+        #warning("Check for macOS Big Sur")
+        #if !targetEnvironment(macCatalyst)
+        
         listButton.menu = setupMenu(for: .list)
         listButton.showsMenuAsPrimaryAction = true
-        buttons[.list] = listButton
         
-        let paragraphButton = createButton(imageName: "paragraph", systemImage: true)
         paragraphButton.menu = setupMenu(for: .paragraph)
         paragraphButton.showsMenuAsPrimaryAction = true
-        buttons[.paragraph] = paragraphButton
         
-        let imageGalleryButton = createButton(imageName: "photo", systemImage: true)
         imageGalleryButton.menu = setupMenu(for: .image)
         imageGalleryButton.showsMenuAsPrimaryAction = true
+        
+        #endif
+        
+        buttons[.list] = listButton
+        buttons[.paragraph] = paragraphButton
         buttons[.image] = imageGalleryButton
         
         let textBoxButton = createButton(imageName: "textbox", systemImage: true, objcFunc: #selector(addTextBox))

@@ -34,7 +34,11 @@ internal class NotesToolbar: UIToolbar {
             UIAction(title: "Camera".localized(), image: UIImage(systemName: "camera"), identifier: .init("camera"), state: .off, handler: addImage(action:)),
             UIAction(title: "Library".localized(), image: UIImage(systemName: "photo.on.rectangle"), identifier: .init("library"), state: .off, handler: addImage(action:))
         ]
+        
+        #warning("Check for macOS Big Sur")
+        #if !targetEnvironment(macCatalyst)
         button.menu = UIMenu(title: BarButtonType.image.rawValue, identifier: .format, children: actions)
+        #endif
         
         return button
     }()
