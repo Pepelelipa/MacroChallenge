@@ -13,6 +13,18 @@ internal class NotebooksSelectionViewController: UIViewController {
     
     // MARK: - Variables and Constants
     
+    internal static let newNotebookCommand: UIKeyCommand = {
+        let command = UIKeyCommand(title: "New notebook".localized(),
+                                   image: nil,
+                                   action: #selector(btnAddTap),
+                                   input: "N",
+                                   modifierFlags: .command,
+                                   propertyList: nil)
+        command.discoverabilityTitle = "New notebook".localized()
+        // TODO: localize title
+        return command
+    }()
+    
     private var collectionDataSource: NotebooksCollectionViewDataSource?
     private var compactRegularConstraints: [NSLayoutConstraint] = []
     private var regularCompactConstraints: [NSLayoutConstraint] = []
@@ -77,12 +89,6 @@ internal class NotebooksSelectionViewController: UIViewController {
         
         return view
     }()
-    
-    private lazy var newNotebookCommand: UIKeyCommand = {
-        let command = UIKeyCommand(input: "N", modifierFlags: .command, action: #selector(btnAddTap))
-        command.discoverabilityTitle = "New notebook".localized()
-        return command
-    }()
 
     private lazy var collectionDelegate = NotebooksCollectionViewDelegate { [unowned self] (selectedCell) in
         if let notebook = selectedCell.notebook {
@@ -132,8 +138,9 @@ internal class NotebooksSelectionViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        UIMenuSystem.main.setNeedsRebuild()
 
-        addKeyCommand(newNotebookCommand)
+        addKeyCommand(NotebooksSelectionViewController.newNotebookCommand)
         
         if workspace?.isEnabled ?? false {
             navigationItem.rightBarButtonItem = btnAdd

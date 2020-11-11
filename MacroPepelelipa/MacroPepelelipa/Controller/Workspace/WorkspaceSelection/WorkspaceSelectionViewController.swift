@@ -16,6 +16,30 @@ internal class WorkspaceSelectionViewController: UIViewController,
 
     // MARK: - Variables and Constants
     
+    internal static let newWorspaceCommand: UIKeyCommand = {
+        let command = UIKeyCommand(title: "New workspace".localized(),
+                     image: nil,
+                     action: #selector(btnAddTap),
+                     input: "N",
+                     modifierFlags: .command,
+                     propertyList: nil)
+        command.discoverabilityTitle = "New workspace".localized()
+        // TODO: localize title
+        return command
+    }()
+    
+    internal static let findCommand: UIKeyCommand = {
+        let command = UIKeyCommand(title: "Find".localized(),
+                     image: nil,
+                     action: #selector(startSearch),
+                     input: "F",
+                     modifierFlags: .command,
+                     propertyList: nil)
+        command.discoverabilityTitle = "Find".localized()
+        // TODO: localize title
+        return command
+    }()
+    
     internal weak var filterObserver: SearchBarObserver?
     
     private var compactRegularConstraints: [NSLayoutConstraint] = []
@@ -105,18 +129,6 @@ internal class WorkspaceSelectionViewController: UIViewController,
         return item
     }()
     
-    private lazy var newWorspaceCommand: UIKeyCommand = {
-        let command = UIKeyCommand(input: "N", modifierFlags: .command, action: #selector(btnAddTap))
-        command.discoverabilityTitle = "New workspace".localized()
-        return command
-    }()
-    
-    private lazy var findCommand: UIKeyCommand = {
-        let command = UIKeyCommand(input: "F", modifierFlags: .command, action: #selector(startSearch))
-        command.discoverabilityTitle = "Find".localized()
-        return command
-    }()
-    
     private lazy var emptyScreenView: EmptyScreenView = {
         let view = EmptyScreenView(
             frame: .zero,
@@ -141,8 +153,8 @@ internal class WorkspaceSelectionViewController: UIViewController,
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        addKeyCommand(newWorspaceCommand)
-        addKeyCommand(findCommand)
+        addKeyCommand(WorkspaceSelectionViewController.newWorspaceCommand)
+        addKeyCommand(WorkspaceSelectionViewController.findCommand)
         
         view.backgroundColor = .rootColor
         navigationItem.rightBarButtonItem = btnAdd
