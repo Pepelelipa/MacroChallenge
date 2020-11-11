@@ -58,7 +58,19 @@ internal class NoteObject: NoteEntity, CloudKitObjectWrapper {
     private var observers: [EntityObserver] = []
 
     internal let coreDataNote: Note
-    internal var cloudKitNote: CloudKitNote?
+    internal var cloudKitNote: CloudKitNote? {
+        didSet {
+            textBoxes.forEach({ textBox in
+                let ckTextBox = cloudKitNote?.textBoxes?.references.first(where: { $0.id.value == (try? textBox.getID())?.uuidString })
+                (textBox as? TextBoxObject)?.cloudKitTextBox = ckTextBox
+            })
+
+            images.forEach({ imageBox in
+                let ckImageBox = cloudKitNote?.imageBoxes?.references.first(where: { $0.id.value == (try? imageBox.getID())?.uuidString })
+                (imageBox as? ImageBoxObject)?.cloudKitImageBox = ckImageBox
+            })
+        }
+    }
     var cloudKitObject: CloudKitEntity? {
         return cloudKitNote
     }
@@ -75,14 +87,12 @@ internal class NoteObject: NoteEntity, CloudKitObjectWrapper {
         if let textBoxes = coreDataNote.textBoxes?.allObjects as? [TextBox] {
             textBoxes.forEach { (textBox) in
                 let ckObject = ckNote?.textBoxes?.first(where: { $0.record["id"] == textBox.id?.uuidString }) as? CloudKitTextBox
-                assert(ckObject != nil, "CloudKit textBox was null")
                 _ = TextBoxObject(in: self, from: textBox, and: ckObject)
             }
         }
         if let images = coreDataNote.images?.allObjects as? [ImageBox] {
             images.forEach { (imageBox) in
                 let ckObject = ckNote?.imageBoxes?.first(where: { $0.record["id"] == imageBox.id?.uuidString }) as? CloudKitImageBox
-                assert(ckObject != nil, "CloudKit imageBox was null")
                 _ = ImageBoxObject(in: self, for: imageBox, and: ckObject)
             }
         }

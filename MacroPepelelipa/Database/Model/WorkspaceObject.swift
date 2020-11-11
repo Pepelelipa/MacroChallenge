@@ -42,7 +42,14 @@ internal class WorkspaceObject: WorkspaceEntity, CloudKitObjectWrapper {
     private var observers: [EntityObserver] = []
 
     internal let coreDataWorkspace: Workspace
-    internal private(set) var cloudKitWorkspace: CloudKitWorkspace?
+    internal var cloudKitWorkspace: CloudKitWorkspace? {
+        didSet {
+            notebooks.forEach({ notebook in
+                let ckNotebook = cloudKitWorkspace?.notebooks?.references.first(where: { $0.id.value == (try? notebook.getID())?.uuidString })
+                (notebook as? NotebookObject)?.cloudKitNotebook = ckNotebook
+            })
+        }
+    }
     internal var cloudKitObject: CloudKitEntity? {
         return cloudKitWorkspace
     }
@@ -56,7 +63,6 @@ internal class WorkspaceObject: WorkspaceEntity, CloudKitObjectWrapper {
         if let notebooks = coreDataWorkspace.notebooks?.array as? [Notebook] {
             notebooks.forEach { (notebook) in
                 let ckObject = ckWorkspace?.notebooks?.first(where: { $0.record["id"] == notebook.id?.uuidString }) as? CloudKitNotebook
-                assert(ckObject != nil, "CloudKit notebook was null")
                 _ = NotebookObject(in: self, from: notebook, and: ckObject)
             }
         }

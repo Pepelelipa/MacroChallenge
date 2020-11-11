@@ -56,7 +56,18 @@ public class DataManager {
 
     public func fetchWorkspaces() throws -> [WorkspaceEntity] {
         let cdWorkspaces = try coreDataController.fetchWorkspaces()
-        return cdWorkspaces.map({ WorkspaceObject(from: $0) })
+        let workspaceObjects = cdWorkspaces.map({ WorkspaceObject(from: $0) })
+        cloudKitController.fetchWorkspaces { (answer) in
+            switch answer {
+            case .successfulWith(let result as [CloudKitWorkspace]):
+                for workspace in result {
+                    workspaceObjects.first(where: { (try? $0.getID())?.uuidString == workspace.id.value })?.cloudKitWorkspace = workspace
+                }
+            default:
+                print("ops")
+            }
+        }
+        return workspaceObjects
     }
 
     /**

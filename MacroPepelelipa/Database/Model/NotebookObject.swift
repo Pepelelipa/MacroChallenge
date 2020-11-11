@@ -58,7 +58,14 @@ internal class NotebookObject: NotebookEntity, CloudKitObjectWrapper {
     private var observers: [EntityObserver] = []
 
     internal let coreDataNotebook: Notebook
-    internal var cloudKitNotebook: CloudKitNotebook?
+    internal var cloudKitNotebook: CloudKitNotebook? {
+        didSet {
+            notes.forEach { note in
+                let ckNote = cloudKitNotebook?.notes?.references.first(where: { $0.id.value == (try? note.getID())?.uuidString })
+                (note as? NoteObject)?.cloudKitNote = ckNote
+            }
+        }
+    }
     var cloudKitObject: CloudKitEntity? {
         return cloudKitNotebook
     }
@@ -75,7 +82,6 @@ internal class NotebookObject: NotebookEntity, CloudKitObjectWrapper {
         if let notes = coreDataNotebook.notes?.array as? [Note] {
             notes.forEach { (note) in
                 let ckObject = ckNotebook?.notes?.first(where: { $0.record["id"] == note.id?.uuidString }) as? CloudKitNote
-                assert(ckObject != nil, "CloudKit note was null")
                 _ = NoteObject(in: self, from: note, and: ckObject)
             }
         }
