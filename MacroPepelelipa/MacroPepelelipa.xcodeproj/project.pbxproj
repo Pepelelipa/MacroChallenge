@@ -110,6 +110,7 @@
 		02AD78F225475C5800C87D2B /* EditableCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02AD78F125475C5800C87D2B /* EditableCollectionView.swift */; };
 		02AD78F625475C7300C87D2B /* EditableCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02AD78F525475C7300C87D2B /* EditableCollectionViewCell.swift */; };
 		02C21B34254B55BB0061CCBA /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C21B33254B55BB0061CCBA /* Font.swift */; };
+		02C3F61D255C70F00069670D /* Conflict Handler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C3F61C255C70F00069670D /* Conflict Handler.swift */; };
 		02CD7CA12523B48900A140A3 /* WorkspacesCollectionViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02CD7CA02523B48900A140A3 /* WorkspacesCollectionViewDelegate.swift */; };
 		02D20B5E2558DD9E00159AB0 /* CloudKitWorkspace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02D20B5D2558DD9E00159AB0 /* CloudKitWorkspace.swift */; };
 		02D20B622558E1E000159AB0 /* CloudKitNotebook.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02D20B612558E1E000159AB0 /* CloudKitNotebook.swift */; };
@@ -341,6 +342,7 @@
 		02AD78F125475C5800C87D2B /* EditableCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditableCollectionView.swift; sourceTree = "<group>"; };
 		02AD78F525475C7300C87D2B /* EditableCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditableCollectionViewCell.swift; sourceTree = "<group>"; };
 		02C21B33254B55BB0061CCBA /* Font.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Font.swift; sourceTree = "<group>"; };
+		02C3F61C255C70F00069670D /* Conflict Handler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Conflict Handler.swift"; sourceTree = "<group>"; };
 		02CD7CA02523B48900A140A3 /* WorkspacesCollectionViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkspacesCollectionViewDelegate.swift; sourceTree = "<group>"; };
 		02D20B5D2558DD9E00159AB0 /* CloudKitWorkspace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudKitWorkspace.swift; sourceTree = "<group>"; };
 		02D20B612558E1E000159AB0 /* CloudKitNotebook.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudKitNotebook.swift; sourceTree = "<group>"; };
@@ -835,9 +837,10 @@
 		02A75291252E5270006D37B5 /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				022832F2252E5F9C00DDD46B /* DataManager.swift */,
+				02C3F61C255C70F00069670D /* Conflict Handler.swift */,
 				022832F6252E603800DDD46B /* EntityObserver.swift */,
 				0211078C252F87220009D4E1 /* Errors */,
-				022832F2252E5F9C00DDD46B /* DataManager.swift */,
 				029EFC8A2555DE1D00361F29 /* CloudKit */,
 				02A75299252E536A006D37B5 /* CoreData */,
 			);
@@ -1391,6 +1394,7 @@
 				022832EC252E5CE900DDD46B /* Workspace+CoreDataClass.swift in Sources */,
 				02110781252F82D10009D4E1 /* WorkspaceObject.swift in Sources */,
 				02110785252F85170009D4E1 /* NotebookObject.swift in Sources */,
+				02C3F61D255C70F00069670D /* Conflict Handler.swift in Sources */,
 				0207772C251D191B00D97B5A /* NotebookEntity.swift in Sources */,
 				02D20B682558E29D00159AB0 /* CloudKitNote.swift in Sources */,
 				026D4C7E251D1A8E00CBED5A /* App Database String Extension.swift in Sources */,

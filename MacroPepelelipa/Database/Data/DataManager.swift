@@ -15,6 +15,7 @@ public enum ObservableCreationType {
 public class DataManager {
     private let coreDataController = CoreDataController()
     private let cloudKitController = CloudKitDataController()
+    public var conflictHandler: ConflictHandler = DefaultConflictHandler()
 
     ///Save all modified objects
     /// - Throws: Throws if Core Data fails to save.
@@ -53,7 +54,6 @@ public class DataManager {
     }
 
     // MARK: Workspace
-
     public func fetchWorkspaces() throws -> [WorkspaceEntity] {
         let cdWorkspaces = try coreDataController.fetchWorkspaces()
         let workspaceObjects = cdWorkspaces.map({ WorkspaceObject(from: $0) })
@@ -63,8 +63,10 @@ public class DataManager {
                 for workspace in result {
                     workspaceObjects.first(where: { (try? $0.getID())?.uuidString == workspace.id.value })?.cloudKitWorkspace = workspace
                 }
+            case .fail(let error, _):
+                self.conflictHandler.errDidOccur(err: error)
             default:
-                print("ops")
+                self.conflictHandler.errDidOccur(err: WorkspaceError.failedToFetch)
             }
         }
         return workspaceObjects

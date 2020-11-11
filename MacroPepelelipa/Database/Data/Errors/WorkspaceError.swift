@@ -9,4 +9,5 @@
 public enum WorkspaceError: Error {
     case workspaceWasNull
     case failedToParse
+    case failedToFetch
 }
