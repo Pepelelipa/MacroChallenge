@@ -40,6 +40,7 @@ internal class NotesViewController: UIViewController,
     private lazy var resizeHandleFunctions = ResizeHandleFunctions(owner: self)
     private lazy var boxViewInteractions = BoxViewInteractions(resizeHandleReceiver: self, boxViewReceiver: self, owner: self)
     private lazy var noteContentHandler = NoteContentHandler(owner: self)
+    private lazy var notesControllerConfiguration = NotesViewControllerConfiguration(boxViewReceiver: self)
     
     private lazy var textViewBottomConstraint = textView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20)
     
@@ -80,6 +81,7 @@ internal class NotesViewController: UIViewController,
         delegate?.addTextObserver(self)
         markdownTextView.markdownDelegate = delegate
         markdownTextView.contentInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
+        markdownTextView.placeholder = "Start writing here".localized()
         return markdownTextView
     }()
     
@@ -179,7 +181,6 @@ internal class NotesViewController: UIViewController,
     // MARK: - Override functions
 
     override func viewDidLoad() {
-        textView.placeholder = "Start writing here".localized()
         super.viewDidLoad()
         
         addKeyCommand(boldfaceKeyCommand)
@@ -207,24 +208,8 @@ internal class NotesViewController: UIViewController,
         view.addSubview(textView)
         self.view.backgroundColor = .backgroundColor
         
-        if UIDevice.current.userInterfaceIdiom == .phone {
-            textView.inputAccessoryView = keyboardToolbar
-        } else if UIDevice.current.userInterfaceIdiom == .pad {
-            textView.inputAccessoryView = nil
-        }
-
-        if note?.title.string != "" {
-            self.textField.attributedText = note?.title
-        }
-        if note?.text.string != "" {
-            self.textView.attributedText = note?.text
-        }
-        for textBox in note?.textBoxes ?? [] {
-            addTextBox(with: textBox)
-        }
-        for imageBox in note?.images ?? [] {
-            addImageBox(with: imageBox)
-        }
+        notesControllerConfiguration.configureNotesViewControllerContent(textView: textView, textField: textField, note: note, keyboardToolbar: keyboardToolbar)
+        
         updateExclusionPaths()
 
         if !((try? notebook?.getWorkspace().isEnabled) ?? false) {
