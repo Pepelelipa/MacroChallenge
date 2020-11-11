@@ -138,6 +138,9 @@
 		D925935225598700000529B4 /* TipViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D925935125598700000529B4 /* TipViewController.swift */; };
 		D92593992559E53C000529B4 /* ResizeHandleReceiver.swift in Sources */ = {isa = PBXBuildFile; fileRef = D92593972559E53C000529B4 /* ResizeHandleReceiver.swift */; };
 		D925939A2559E53C000529B4 /* MarkdownFormatViewReceiver.swift in Sources */ = {isa = PBXBuildFile; fileRef = D92593982559E53C000529B4 /* MarkdownFormatViewReceiver.swift */; };
+		D92593AC255B0B1C000529B4 /* ResizeHandleFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D92593AB255B0B1C000529B4 /* ResizeHandleFunctions.swift */; };
+		D92593B3255B12D4000529B4 /* BoxViewInteractions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D92593B2255B12D4000529B4 /* BoxViewInteractions.swift */; };
+		D92593B7255B1579000529B4 /* BoxViewReceiver.swift in Sources */ = {isa = PBXBuildFile; fileRef = D92593B6255B1579000529B4 /* BoxViewReceiver.swift */; };
 		D96DAA09252F9F4B00552AB1 /* AddNewSpaceToolBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = D96DAA08252F9F4B00552AB1 /* AddNewSpaceToolBar.swift */; };
 		D97EE7AC254B554F00A68B06 /* SearchResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D97EE7A7254B554F00A68B06 /* SearchResultViewController.swift */; };
 		D97EE7AD254B554F00A68B06 /* SearchResultCollectionViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D97EE7A8254B554F00A68B06 /* SearchResultCollectionViewDelegate.swift */; };
@@ -148,6 +151,7 @@
 		D97EE7C2254B565600A68B06 /* SearchBarObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = D97EE7C1254B565600A68B06 /* SearchBarObserver.swift */; };
 		D996CEC3252FA608009D31F8 /* AddNewSpaceTextFieldDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D996CEC2252FA608009D31F8 /* AddNewSpaceTextFieldDelegate.swift */; };
 		D9BBA584252FAB28004B724F /* AddWorkspaceObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BBA583252FAB28004B724F /* AddWorkspaceObserver.swift */; };
+		D9D4338A255B3759006E540E /* NoteContentHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D43389255B3759006E540E /* NoteContentHandler.swift */; };
 		D9D87534251BAA6700B842C8 /* MarkdownTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D87533251BAA6700B842C8 /* MarkdownTextField.swift */; };
 		D9D87538251BB26500B842C8 /* MarkdownToolBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D87537251BB26500B842C8 /* MarkdownToolBar.swift */; };
 		D9D87544251BD39F00B842C8 /* PhotoEditingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D87543251BD39F00B842C8 /* PhotoEditingViewController.swift */; };
@@ -357,6 +361,9 @@
 		D925935125598700000529B4 /* TipViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TipViewController.swift; sourceTree = "<group>"; };
 		D92593972559E53C000529B4 /* ResizeHandleReceiver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResizeHandleReceiver.swift; sourceTree = "<group>"; };
 		D92593982559E53C000529B4 /* MarkdownFormatViewReceiver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarkdownFormatViewReceiver.swift; sourceTree = "<group>"; };
+		D92593AB255B0B1C000529B4 /* ResizeHandleFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResizeHandleFunctions.swift; sourceTree = "<group>"; };
+		D92593B2255B12D4000529B4 /* BoxViewInteractions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoxViewInteractions.swift; sourceTree = "<group>"; };
+		D92593B6255B1579000529B4 /* BoxViewReceiver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoxViewReceiver.swift; sourceTree = "<group>"; };
 		D96DAA08252F9F4B00552AB1 /* AddNewSpaceToolBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewSpaceToolBar.swift; sourceTree = "<group>"; };
 		D97EE7A7254B554F00A68B06 /* SearchResultViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchResultViewController.swift; sourceTree = "<group>"; };
 		D97EE7A8254B554F00A68B06 /* SearchResultCollectionViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchResultCollectionViewDelegate.swift; sourceTree = "<group>"; };
@@ -367,6 +374,7 @@
 		D97EE7C1254B565600A68B06 /* SearchBarObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarObserver.swift; sourceTree = "<group>"; };
 		D996CEC2252FA608009D31F8 /* AddNewSpaceTextFieldDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddNewSpaceTextFieldDelegate.swift; sourceTree = "<group>"; };
 		D9BBA583252FAB28004B724F /* AddWorkspaceObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddWorkspaceObserver.swift; sourceTree = "<group>"; };
+		D9D43389255B3759006E540E /* NoteContentHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteContentHandler.swift; sourceTree = "<group>"; };
 		D9D87533251BAA6700B842C8 /* MarkdownTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkdownTextField.swift; sourceTree = "<group>"; };
 		D9D87537251BB26500B842C8 /* MarkdownToolBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkdownToolBar.swift; sourceTree = "<group>"; };
 		D9D87543251BD39F00B842C8 /* PhotoEditingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoEditingViewController.swift; sourceTree = "<group>"; };
@@ -684,10 +692,9 @@
 		026C3CAF2519435E001E32AE /* Notes */ = {
 			isa = PBXGroup;
 			children = (
-				D92593962559E53C000529B4 /* Protocols */,
+				D92593A12559E841000529B4 /* NotesViewController */,
 				D925935125598700000529B4 /* TipViewController.swift */,
 				02919F4125531B1E00C03E27 /* MarkdownTextViewDelegate.swift */,
-				026C3CAB251942A7001E32AE /* NotesViewController.swift */,
 				D9F04BEB25377D5D001C6551 /* AddNoteViewController.swift */,
 				1E9EF4AC2522609400CC623B /* MarkupTextFieldDelegate.swift */,
 				1E9290C0252FA68600E8B142 /* MarkupContainerViewController.swift */,
@@ -932,8 +939,29 @@
 			children = (
 				D92593972559E53C000529B4 /* ResizeHandleReceiver.swift */,
 				D92593982559E53C000529B4 /* MarkdownFormatViewReceiver.swift */,
+				D92593B6255B1579000529B4 /* BoxViewReceiver.swift */,
 			);
 			path = Protocols;
+			sourceTree = "<group>";
+		};
+		D92593A12559E841000529B4 /* NotesViewController */ = {
+			isa = PBXGroup;
+			children = (
+				D92593AF255B0B22000529B4 /* Accessories */,
+				026C3CAB251942A7001E32AE /* NotesViewController.swift */,
+				D92593962559E53C000529B4 /* Protocols */,
+			);
+			path = NotesViewController;
+			sourceTree = "<group>";
+		};
+		D92593AF255B0B22000529B4 /* Accessories */ = {
+			isa = PBXGroup;
+			children = (
+				D92593AB255B0B1C000529B4 /* ResizeHandleFunctions.swift */,
+				D92593B2255B12D4000529B4 /* BoxViewInteractions.swift */,
+				D9D43389255B3759006E540E /* NoteContentHandler.swift */,
+			);
+			path = Accessories;
 			sourceTree = "<group>";
 		};
 		D97EE7A5254B554F00A68B06 /* Search */ = {
@@ -1376,9 +1404,11 @@
 				1E9EF4AD2522609400CC623B /* MarkupTextFieldDelegate.swift in Sources */,
 				020E22252513F10800A93EAB /* App Database String Extension.swift in Sources */,
 				1EFA49CE252D15C500602904 /* MarkdownNavigationView.swift in Sources */,
+				D92593AC255B0B1C000529B4 /* ResizeHandleFunctions.swift in Sources */,
 				D97EE7B6254B557A00A68B06 /* SearchResultEnum.swift in Sources */,
 				1EE652C72525049E0015E3D4 /* MarkdownToggleButton.swift in Sources */,
 				02E4E99525266F3900290A39 /* NotebookView.swift in Sources */,
+				D9D4338A255B3759006E540E /* NoteContentHandler.swift in Sources */,
 				D9F4A9A825277A6B00BFDC19 /* CGPointExtension.swift in Sources */,
 				D9F4A9A125277A6000BFDC19 /* BoxView.swift in Sources */,
 				02E5A22C25239E36009DFFB5 /* WorkspaceSelectionViewController.swift in Sources */,
@@ -1394,6 +1424,7 @@
 				02919F4225531B1F00C03E27 /* MarkdownTextViewDelegate.swift in Sources */,
 				D97EE7AE254B554F00A68B06 /* CustomUISearchController.swift in Sources */,
 				A73C94BA253F84E8004EFA4F /* PhotoPickerDelegate.swift in Sources */,
+				D92593B3255B12D4000529B4 /* BoxViewInteractions.swift in Sources */,
 				A7BDD60A251406D900DDB6A0 /* TableViewDataSource.swift in Sources */,
 				D9F4A9AA25277A6B00BFDC19 /* ResizeHandleView.swift in Sources */,
 				A792F03A25279E8400AB1766 /* NotebookIndexTableViewDelegate.swift in Sources */,
@@ -1415,6 +1446,7 @@
 				E42FC8372530EF78004E81C9 /* MarkdownFormatView.swift in Sources */,
 				02458EDC2525094C00466BFF /* WorkspaceCellNotebookCollectionViewDelegate.swift in Sources */,
 				1E47C56C254377BE00535DDD /* NoteEntityToPDFExtension.swift in Sources */,
+				D92593B7255B1579000529B4 /* BoxViewReceiver.swift in Sources */,
 				D9F04BF025378236001C6551 /* AddNoteObserver.swift in Sources */,
 				A71E2C212538EF51000DA164 /* NotesPageViewControllerDataSource.swift in Sources */,
 				D9F4A9A925277A6B00BFDC19 /* CornerEnum.swift in Sources */,

@@ -16,19 +16,16 @@ internal class NotesViewController: UIViewController,
                                     TextEditingDelegateObserver,
                                     MarkupToolBarObserver,
                                     MarkdownFormatViewReceiver,
-                                    ResizeHandleReceiver {
+                                    ResizeHandleReceiver,
+                                    BoxViewReceiver {
     
     // MARK: - Variables and Constants
     
     private var resizeHandles = [ResizeHandleView]()
     private var initialCenter = CGPoint()
-    private var scale: CGFloat = 1.0
-    private var currentBoxViewPosition: CGPoint = .zero
-    private var libraryImage: UIImage?
     private var exclusionPaths: [UIBezierPath] = []
-
-    private let screenWidth = UIScreen.main.bounds.width
-    private let screenHeight = UIScreen.main.bounds.height
+    
+    private let screenSize = UIScreen.main.bounds
     
     internal var shouldSave: Bool = true
     internal var textBoxes: Set<TextBoxView> = []  
@@ -39,6 +36,10 @@ internal class NotesViewController: UIViewController,
     internal weak var note: NoteEntity?
     internal var delegate: AppMarkdownTextViewDelegate?
     internal private(set) weak var notebook: NotebookEntity?
+    
+    private lazy var resizeHandleFunctions = ResizeHandleFunctions(owner: self)
+    private lazy var boxViewInteractions = BoxViewInteractions(resizeHandleReceiver: self, boxViewReceiver: self, owner: self)
+    private lazy var noteContentHandler = NoteContentHandler(owner: self)
     
     private lazy var textViewBottomConstraint = textView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20)
     
@@ -89,9 +90,9 @@ internal class NotesViewController: UIViewController,
     }()
     
     internal private(set) lazy var markupContainerView: MarkdownContainerView = {
-        let height: CGFloat = screenHeight/4
+        let height: CGFloat = screenSize.height/4
         
-        let container = MarkdownContainerView(frame: CGRect(x: 0, y: 0, width: screenWidth, height: height), owner: self.textView, receiver: self)
+        let container = MarkdownContainerView(frame: CGRect(x: 0, y: 0, width: screenSize.width, height: height), owner: self.textView, receiver: self)
         
         container.autoresizingMask = []
         container.isHidden = true
@@ -242,93 +243,13 @@ internal class NotesViewController: UIViewController,
 
     override func viewWillDisappear(_ animated: Bool) {
         if shouldSave {
-            saveNote()
+            noteContentHandler.saveNote(note: &note, textField: textField, textView: textView, textBoxes: textBoxes, imageBoxes: imageBoxes)
         }
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.largeTitleDisplayMode = .automatic
     }
     
     // MARK: - Functions
-    
-    /**
-     Adds and position the resize handles in the box view
-     - Parameters
-        - boxView: The Box View who will receive the resize handle.
-     */
-    private func placeResizeHandles(boxView: BoxView) {
-        if !resizeHandles.isEmpty {
-            resizeHandles.forEach { (resizeHandle) in
-                resizeHandle.removeFromSuperview()
-            }
-            resizeHandles.removeAll()
-        }
-        ResizeHandleView.createResizeHandleView(on: boxView, handlesArray: &resizeHandles, inside: self)
-        resizeHandles[0].setNeedsDisplay()
-    }
-    
-    ////Delete all resize handles
-    private func cleanResizeHandles() {
-        if !resizeHandles.isEmpty {
-            resizeHandles.forEach { (resizeHandle) in
-                resizeHandle.removeFromSuperview()
-            }
-            resizeHandles.removeAll()
-        }
-    }
-    
-    /**
-     Move the box view and uptade their resize handles position.
-     - Parameters
-        - boxView: The Box View who will be moved.
-        - vector: The new position of the box view.
-     */
-    private func moveBoxView(boxView: BoxView, by vector: CGPoint) {
-        boxView.center = currentBoxViewPosition + vector
-        uptadeResizeHandles()
-        updateExclusionPaths()
-    }
-    
-    private func saveNote() {
-        do {
-            guard let note = note else {
-                return
-            }
-            if textField.text?.replacingOccurrences(of: " ", with: "") != "" {
-                note.title = textField.attributedText ?? NSAttributedString()
-            }
-            if textView.text?.replacingOccurrences(of: " ", with: "") != "" {
-                note.text = textView.attributedText ?? NSAttributedString()
-            }
-            for textBox in textBoxes where textBox.frame.origin.x != 0 && textBox.frame.origin.y != 0 {
-                if let entity = note.textBoxes.first(where: { $0 === textBox.entity }) {
-                    entity.text = textBox.markupTextView.attributedText
-                    entity.x = Float(textBox.frame.origin.x)
-                    entity.y = Float(textBox.frame.origin.y)
-                    entity.z = Float(textBox.layer.zPosition)
-                    entity.width = Float(textBox.frame.width)
-                    entity.height = Float(textBox.frame.height)
-                }
-            }
-            
-            for imageBox in imageBoxes where imageBox.frame.origin.x != 0 && imageBox.frame.origin.y != 0 {
-                if let entity = note.images.first(where: { $0 === imageBox.entity }) {
-                    entity.x = Float(imageBox.frame.origin.x)
-                    entity.y = Float(imageBox.frame.origin.y)
-                    entity.z = Float(imageBox.layer.zPosition)
-                    entity.width = Float(imageBox.frame.width)
-                    entity.height = Float(imageBox.frame.height)
-                }
-            }
-            try note.save()
-        } catch {
-            let alertController = UIAlertController(
-                title: "Error saving the notebook".localized(),
-                message: "The database could not save the notebook".localized(),
-                preferredStyle: .alert)
-                .makeErrorMessage(with: "The Notebook could not be saved".localized())
-            self.present(alertController, animated: true, completion: nil)
-        }
-    }
     
     #if !targetEnvironment(macCatalyst)
     /// This method presents the image picker for accessing the camera
@@ -406,36 +327,17 @@ internal class NotesViewController: UIViewController,
     
     ///Creates an Image Box
     internal func createImageBox(image: UIImage?) {
-        do {
-            guard let image = image,
-                  let note = note else {
-                let alertController = UIAlertController(
-                    title: "Note do not exist".localized(),
-                    message: "The app could not safe unwrap the view controller note".localized(),
-                    preferredStyle: .alert)
-                    .makeErrorMessage(with: "Failed to load the Note".localized())
-
-                self.present(alertController, animated: true, completion: nil)
-                return
-            }
-
-            let path = try FileHelper.saveToFiles(image: image)
-            let imageBoxEntity = try DataManager.shared().createImageBox(in: note, at: path)
-            imageBoxEntity.x = Float(view.frame.width/2)
-            imageBoxEntity.y = 10
-            imageBoxEntity.width = 150
-            imageBoxEntity.height = 150
-
-            addImageBox(with: imageBoxEntity)
-        } catch {
+        guard let note = note else {
             let alertController = UIAlertController(
-                title: "Failed to create a Image Box".localized(),
-                message: "The app could not create a Image Box".localized(),
+                title: "Note do not exist".localized(),
+                message: "The app could not safe unwrap the view controller note".localized(),
                 preferredStyle: .alert)
-                .makeErrorMessage(with: "Failed to create a Image Box".localized())
+                .makeErrorMessage(with: "Failed to load the Note".localized())
 
             self.present(alertController, animated: true, completion: nil)
+            return
         }
+        boxViewInteractions.createImageBox(image: image, note: note)
     }
 
     ///Adds an Image Box
@@ -474,9 +376,11 @@ internal class NotesViewController: UIViewController,
             setTextViewConstant(to: -height)
         }
     }
+    
     @objc func keyboardWillHide(_ notification: Notification) {
         setTextViewConstant(to: 0)
     }
+    
     private func setTextViewConstant(to value: CGFloat) {
         textViewBottomConstraint.constant = value
         UIView.animate(withDuration: 0.5) {
@@ -518,7 +422,7 @@ internal class NotesViewController: UIViewController,
         DispatchQueue.main.async {
             self.imgeButtonObserver?.showImageButton()
         }
-        saveNote()
+        noteContentHandler.saveNote(note: &note, textField: textField, textView: textView, textBoxes: textBoxes, imageBoxes: imageBoxes)
     }
     
     // MARK: - MarkupToolBarObserver functions
@@ -541,37 +445,17 @@ internal class NotesViewController: UIViewController,
     
     ///Creates a TextBox
     internal func createTextBox(transcription: String? = nil) {
-        do {
-            guard let note = note else {
-                let alertController = UIAlertController(
-                    title: "Note do not exist".localized(),
-                    message: "The app could not safe unwrap the view controller note".localized(),
-                    preferredStyle: .alert)
-                    .makeErrorMessage(with: "Failed to load the Note".localized())
-
-                self.present(alertController, animated: true, completion: nil)
-                return
-            }
-            let textBoxEntity = try DataManager.shared().createTextBox(in: note)
-            textBoxEntity.x = Float(view.frame.width/2)
-            textBoxEntity.y = 10
-            textBoxEntity.height = 40
-            textBoxEntity.width = 140
-            if let transcriptedText = transcription {
-                textBoxEntity.text = transcriptedText.toStyle(.paragraph)
-            } else {
-                textBoxEntity.text = "Text".localized().toStyle(.paragraph)
-            }
-            addTextBox(with: textBoxEntity)
-        } catch {
+        guard let note = note else {
             let alertController = UIAlertController(
-                title: "Failed to create a Text Box".localized(),
-                message: "The app could not create a Text Box".localized(),
+                title: "Note do not exist".localized(),
+                message: "The app could not safe unwrap the view controller note".localized(),
                 preferredStyle: .alert)
-                .makeErrorMessage(with: "Failed to create a Text Box".localized())
+                .makeErrorMessage(with: "Failed to load the Note".localized())
 
             self.present(alertController, animated: true, completion: nil)
+            return
         }
+        boxViewInteractions.createTextBox(transcription: transcription, note: note)
     }
     
     ///Present the native Image Picker. There we instantiate a PHPickerViewController and set its delegate. Finally, there is a present from the view controller.
@@ -632,7 +516,7 @@ internal class NotesViewController: UIViewController,
     @IBAction private func handleTap(_ gestureRecognizer: UITapGestureRecognizer) {
         if let boxView = gestureRecognizer.view as? BoxView {
             boxView.state = .editing
-            placeResizeHandles(boxView: boxView)            
+            resizeHandleFunctions.placeResizeHandles(boxView: boxView, resizeHandles: &resizeHandles)
             boxView.owner.endEditing(true)
         } 
     }
@@ -655,7 +539,7 @@ internal class NotesViewController: UIViewController,
             }
             if gestureRecognizer.state != .cancelled {
                 let newCenter = CGPoint(x: initialCenter.x + translation.x, y: initialCenter.y + translation.y)
-                moveBoxView(boxView: boxView, by: newCenter)
+                boxViewInteractions.moveBoxView(boxView: boxView, by: newCenter)
             } else {
                 boxView.center = initialCenter
             }
@@ -664,7 +548,6 @@ internal class NotesViewController: UIViewController,
             }
         }
     }
-    
     @IBAction private func handleLongPressInImageBox(_ gestureRecognizer: UILongPressGestureRecognizer) {
         
         guard let boxView = gestureRecognizer.view as? ImageBoxView, let entity = boxView.entity else {
@@ -673,15 +556,15 @@ internal class NotesViewController: UIViewController,
         
         if gestureRecognizer.state == .began {
             
-            let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet).makeDeleteConfirmation(dataType: .imageBox, deletionHandler: { [weak self] _ in
+            let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet).makeDeleteConfirmation(dataType: .imageBox, deletionHandler: { _ in
                 let deleteAlertController = UIAlertController(title: "Delete Image Box confirmation".localized(),
                                                               message: "Warning".localized(),
-                                                              preferredStyle: .alert).makeDeleteConfirmation(dataType: .imageBox, deletionHandler: {[weak self] _ in
+                                                              preferredStyle: .alert).makeDeleteConfirmation(dataType: .imageBox, deletionHandler: { _ in
                                                                 do {
                                                                     boxView.removeFromSuperview()
-                                                                    self?.imageBoxes.remove(boxView)
-                                                                    self?.cleanResizeHandles()
-                                                                    self?.updateExclusionPaths()
+                                                                    self.imageBoxes.remove(boxView)
+                                                                    self.resizeHandleFunctions.cleanResizeHandles(resizeHandles: &self.resizeHandles)
+                                                                    self.updateExclusionPaths()
                                                                     try DataManager.shared().deleteImageBox(entity)
                                                                 } catch {
                                                                     let alertController = UIAlertController(
@@ -689,10 +572,10 @@ internal class NotesViewController: UIViewController,
                                                                         message: "The app could not delete the image box".localized(),
                                                                         preferredStyle: .alert)
                                                                         .makeErrorMessage(with: "An error occurred while deleting this instance on the database".localized())
-                                                                    self?.present(alertController, animated: true, completion: nil)
+                                                                    self.present(alertController, animated: true, completion: nil)
                                                                 }
                                                               })
-                self?.present(deleteAlertController, animated: true, completion: nil)
+                self.present(deleteAlertController, animated: true, completion: nil)
             })
             alertController.popoverPresentationController?.sourceView = boxView
             self.present(alertController, animated: true, completion: nil)
@@ -707,15 +590,15 @@ internal class NotesViewController: UIViewController,
         
         if gestureRecognizer.state == .began {
             
-            let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet).makeDeleteConfirmation(dataType: .textBox, deletionHandler: { [weak self] _ in
+            let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet).makeDeleteConfirmation(dataType: .textBox, deletionHandler: { _ in
                 let deleteAlertController = UIAlertController(title: "Delete Text Box confirmation".localized(),
                                                               message: "Warning".localized(),
-                                                              preferredStyle: .alert).makeDeleteConfirmation(dataType: .textBox, deletionHandler: { [weak self] _ in
+                                                              preferredStyle: .alert).makeDeleteConfirmation(dataType: .textBox, deletionHandler: { _ in
                                                                 do {
                                                                     boxView.removeFromSuperview()
-                                                                    self?.textBoxes.remove(boxView)
-                                                                    self?.cleanResizeHandles()
-                                                                    self?.updateExclusionPaths()
+                                                                    self.textBoxes.remove(boxView)
+                                                                    self.resizeHandleFunctions.cleanResizeHandles(resizeHandles: &self.resizeHandles)
+                                                                    self.updateExclusionPaths()
                                                                     try DataManager.shared().deleteTextBox(entity)
                                                                 } catch {
                                                                     let alertController = UIAlertController(
@@ -723,10 +606,10 @@ internal class NotesViewController: UIViewController,
                                                                         message: "The app could not delete the text box".localized(),
                                                                         preferredStyle: .alert)
                                                                         .makeErrorMessage(with: "An error occurred while deleting this instance on the database".localized())
-                                                                    self?.present(alertController, animated: true, completion: nil)
+                                                                    self.present(alertController, animated: true, completion: nil)
                                                                 }
                                                               })
-                self?.present(deleteAlertController, animated: true, completion: nil)
+                self.present(deleteAlertController, animated: true, completion: nil)
             })
 
             alertController.popoverPresentationController?.sourceView = boxView
