@@ -13,4 +13,3 @@ public enum DataFetchAnswer {
     case successful(results: [CKRecord])
     case successfulWith(result: Any?)
 }
-

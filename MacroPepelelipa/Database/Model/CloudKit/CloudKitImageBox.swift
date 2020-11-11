@@ -46,5 +46,3 @@ internal class CloudKitImageBox: CloudKitEntity, Equatable {
         self.note?.value = note
     }
 }
-
-

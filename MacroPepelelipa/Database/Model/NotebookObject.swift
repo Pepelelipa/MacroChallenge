@@ -63,7 +63,6 @@ internal class NotebookObject: NotebookEntity, CloudKitObjectWrapper {
         return cloudKitNotebook
     }
 
-
     internal init(in workspace: WorkspaceObject, from notebook: Notebook, and ckNotebook: CloudKitNotebook? = nil) {
         self.cloudKitNotebook = ckNotebook
         self.workspace = workspace
@@ -93,15 +92,15 @@ internal class NotebookObject: NotebookEntity, CloudKitObjectWrapper {
     }
 
     func save() throws {
-        try DataManager.shared().saveObjects(getChildren())
+        try DataManager.shared().saveObjects(getSavable())
     }
 
-    internal func getChildren() -> [PersistentEntity] {
-        var children: [PersistentEntity] = []
+    internal func getSavable() -> [PersistentEntity] {
+        var children: [PersistentEntity] = [self]
         children.append(contentsOf: notes)
         if let notes = notes as? [NoteObject] {
             for note in notes {
-                children.append(contentsOf: note.getChildren())
+                children.append(contentsOf: note.getSavable())
             }
         }
         

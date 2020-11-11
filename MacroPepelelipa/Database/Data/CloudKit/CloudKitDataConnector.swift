@@ -5,6 +5,7 @@
 //  Created by Pedro Giuliano Farina on 06/11/20.
 //  Copyright © 2020 Pedro Giuliano Farina. All rights reserved.
 //
+//swiftlint:disable identifier_name
 
 import CloudKit
 
@@ -78,8 +79,7 @@ internal class CloudKitDataConnector {
     }
 
     // MARK: Deleting Object
-    internal static func deleteObject(database: DatabaseType, object: CloudKitEntity,
-                               completionHandler: @escaping ((DataActionAnswer) -> Void)) {
+    internal static func deleteObject(database: DatabaseType, object: CloudKitEntity, completionHandler: @escaping ((DataActionAnswer) -> Void)) {
         database.value.delete(withRecordID: object.record.recordID) { (_, error) in
             if let error = error as? CKError {
                 DispatchQueue.main.async {
@@ -137,4 +137,3 @@ internal class CloudKitDataConnector {
         }
     }
 }
-

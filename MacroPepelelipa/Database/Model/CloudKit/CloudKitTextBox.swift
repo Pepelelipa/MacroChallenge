@@ -18,7 +18,7 @@ internal class CloudKitTextBox: CloudKitEntity, Equatable {
     internal var record: CKRecord
 
     internal private(set) lazy var id: DataProperty<String> = DataProperty(record: record, key: "id")
-    internal private(set) lazy var text: DataProperty<Data> = DataProperty(record: record, key: "text")
+    internal private(set) lazy var text: DataProperty<NSData> = DataProperty(record: record, key: "text")
     internal private(set) lazy var width: DataProperty<Double> = DataProperty(record: record, key: "width")
     internal private(set) lazy var height: DataProperty<Double> = DataProperty(record: record, key: "height")
     internal private(set) lazy var x: DataProperty<Double> = DataProperty(record: record, key: "x")
@@ -43,4 +43,3 @@ internal class CloudKitTextBox: CloudKitEntity, Equatable {
         self.note?.value = note
     }
 }
-

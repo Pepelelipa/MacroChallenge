@@ -45,7 +45,7 @@ internal class TextBoxObject: TextBoxEntity, CloudKitObjectWrapper {
         didSet {
             if let data = text.toData() {
                 coreDataTextBox.text = data
-                cloudKitTextBox?.text.value = data
+                cloudKitTextBox?.text.value = NSData(data: data)
             }
         }
     }

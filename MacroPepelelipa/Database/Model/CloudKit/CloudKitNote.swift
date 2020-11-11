@@ -17,8 +17,8 @@ internal class CloudKitNote: CloudKitEntity, Equatable {
     internal var record: CKRecord
 
     internal private(set) lazy var id: DataProperty<String> = DataProperty(record: record, key: "id")
-    internal private(set) lazy var title: DataProperty<Data> = DataProperty(record: record, key: "title")
-    internal private(set) lazy var text: DataProperty<Data> = DataProperty(record: record, key: "text")
+    internal private(set) lazy var title: DataProperty<NSData> = DataProperty(record: record, key: "title")
+    internal private(set) lazy var text: DataProperty<NSData> = DataProperty(record: record, key: "text")
     internal private(set) var notebook: ReferenceField<CloudKitNotebook>?
     internal private(set) var textBoxes: ReferenceList<CloudKitTextBox>?
     internal private(set) var imageBoxes: ReferenceList<CloudKitImageBox>?

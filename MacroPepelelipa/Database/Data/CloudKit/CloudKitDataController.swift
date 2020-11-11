@@ -5,6 +5,7 @@
 //  Created by Pedro Giuliano Farina on 09/11/20.
 //  Copyright © 2020 Pedro Giuliano Farina. All rights reserved.
 //
+//swiftlint:disable cyclomatic_complexity function_body_length
 
 import CloudKit
 
@@ -125,7 +126,6 @@ internal class CloudKitDataController {
         CloudKitDataConnector.deleteData(database: .Private, entitiesToDelete: [imageBox])
     }
 
-
     // MARK: Saving
     private func saveData(entitiesToSave: [CloudKitEntity] = [], entitiesToDelete: [CloudKitEntity] = []) {
         CloudKitDataConnector.saveData(database: .Private, entitiesToSave: entitiesToSave, entitiesToDelete: entitiesToDelete)
@@ -160,7 +160,6 @@ internal class CloudKitDataController {
                         var finalWorkspaces: [CloudKitWorkspace] = []
                         finalWorkspaces.append(contentsOf: workspaces.values)
                         completionHandler?(.successfulWith(result: finalWorkspaces))
-                        break
                     default:
                         completionHandler?(answer)
                     }
@@ -211,7 +210,6 @@ internal class CloudKitDataController {
                         completionHandler?(answer)
                     }
                 }
-            break
             default:
                 //Failed to fetch notebooks, back to first completion
                 completionHandler?(answer)
@@ -288,7 +286,6 @@ internal class CloudKitDataController {
                         completionHandler?(answer)
                     }
                 }
-                break
             default:
                 //Failed to fetch notes, back to first completion
                 completionHandler?(answer)

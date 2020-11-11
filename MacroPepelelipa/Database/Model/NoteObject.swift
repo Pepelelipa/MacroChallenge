@@ -29,7 +29,7 @@ internal class NoteObject: NoteEntity, CloudKitObjectWrapper {
         didSet {
             if let data = title.toData() {
                 coreDataNote.title = data
-                cloudKitNote?.title.value = data
+                cloudKitNote?.title.value = NSData(data: data)
             }
             notifyObservers()
         }
@@ -38,7 +38,7 @@ internal class NoteObject: NoteEntity, CloudKitObjectWrapper {
         didSet {
             if let data = text.toData() {
                 coreDataNote.text = data
-                cloudKitNote?.text.value = data
+                cloudKitNote?.text.value = NSData(data: data)
             }
             notifyObservers()
         }
@@ -99,11 +99,11 @@ internal class NoteObject: NoteEntity, CloudKitObjectWrapper {
     }
 
     func save() throws {
-        try DataManager.shared().saveObjects(getChildren())
+        try DataManager.shared().saveObjects(getSavable())
     }
 
-    internal func getChildren() -> [PersistentEntity] {
-        var children: [PersistentEntity] = []
+    internal func getSavable() -> [PersistentEntity] {
+        var children: [PersistentEntity] = [self]
         children.append(contentsOf: textBoxes)
         children.append(contentsOf: images)
         
