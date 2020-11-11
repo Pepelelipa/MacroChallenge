@@ -43,32 +43,40 @@ internal class TextBoxObject: TextBoxEntity, CloudKitObjectWrapper {
 
     public var text: NSAttributedString {
         didSet {
-            coreDataTextBox.text = text.toData()
+            if let data = text.toData() {
+                coreDataTextBox.text = data
+                cloudKitTextBox?.text.value = data
+            }
         }
     }
     public var width: Float {
         didSet {
             coreDataTextBox.width = width
+            cloudKitTextBox?.width.value = Double(width)
         }
     }
     public var height: Float {
         didSet {
             coreDataTextBox.height = height
+            cloudKitTextBox?.height.value = Double(height)
         }
     }
     public var x: Float {
         didSet {
             coreDataTextBox.x = x
+            cloudKitTextBox?.x.value = Double(x)
         }
     }
     public var y: Float {
         didSet {
             coreDataTextBox.y = y
+            cloudKitTextBox?.y.value = Double(y)
         }
     }
     public var z: Float {
         didSet {
             coreDataTextBox.z = z
+            cloudKitTextBox?.z.value = Double(z)
         }
     }
 

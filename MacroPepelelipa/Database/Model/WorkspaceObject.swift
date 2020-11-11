@@ -20,6 +20,7 @@ internal class WorkspaceObject: WorkspaceEntity, CloudKitObjectWrapper {
     public var name: String {
         didSet {
             coreDataWorkspace.name = name
+            cloudKitWorkspace?.name.value = name
             notifyObservers()
         }
     }
@@ -27,6 +28,7 @@ internal class WorkspaceObject: WorkspaceEntity, CloudKitObjectWrapper {
     public var isEnabled: Bool {
         didSet {
             coreDataWorkspace.isEnabled = isEnabled
+            cloudKitWorkspace?.isEnabled.value = isEnabled ? 1 : 0
             notifyObservers()
         }
     }

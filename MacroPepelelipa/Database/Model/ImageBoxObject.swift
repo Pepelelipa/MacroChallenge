@@ -43,31 +43,39 @@ internal class ImageBoxObject: ImageBoxEntity, CloudKitObjectWrapper {
     var imagePath: String {
         didSet {
             coreDataImageBox.imagePath = imagePath
+            if let filePath = FileHelper.getFilePath(fileName: imagePath) {
+                cloudKitImageBox?.image.value = CKAsset(fileURL: URL(fileURLWithPath: filePath))
+            }
         }
     }
     var width: Float {
         didSet {
             coreDataImageBox.width = width
+            cloudKitImageBox?.width.value = Double(width)
         }
     }
     var height: Float {
         didSet {
             coreDataImageBox.height = height
+            cloudKitImageBox?.height.value = Double(height)
         }
     }
     var x: Float {
         didSet {
             coreDataImageBox.x = x
+            cloudKitImageBox?.x.value = Double(x)
         }
     }
     var y: Float {
         didSet {
             coreDataImageBox.y = y
+            cloudKitImageBox?.y.value = Double(y)
         }
     }
     var z: Float {
         didSet {
             coreDataImageBox.z = z
+            cloudKitImageBox?.z.value = Double(z)
         }
     }
 

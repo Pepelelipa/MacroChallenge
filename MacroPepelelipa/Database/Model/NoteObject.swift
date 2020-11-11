@@ -27,13 +27,19 @@ internal class NoteObject: NoteEntity, CloudKitObjectWrapper {
 
     public var title: NSAttributedString {
         didSet {
-            coreDataNote.title = title.toData()
+            if let data = title.toData() {
+                coreDataNote.title = data
+                cloudKitNote?.title.value = data
+            }
             notifyObservers()
         }
     }
     var text: NSAttributedString {
         didSet {
-            coreDataNote.text = text.toData()
+            if let data = text.toData() {
+                coreDataNote.text = data
+                cloudKitNote?.text.value = data
+            }
             notifyObservers()
         }
     }

@@ -29,8 +29,9 @@ internal class CloudKitImageBox: CloudKitEntity, Equatable {
     init(id: UUID, at imagePath: String) {
         let record = CKRecord(recordType: CloudKitImageBox.recordType)
         record["id"] = id.uuidString
-        let imageUrl = URL(fileURLWithPath: imagePath)
-        record["image"] = CKAsset(fileURL: imageUrl)
+        if let filePath = FileHelper.getFilePath(fileName: imagePath) {
+            record["image"] = CKAsset(fileURL: URL(fileURLWithPath: filePath))
+        }
         self.record = record
     }
 

@@ -29,12 +29,14 @@ internal class NotebookObject: NotebookEntity, CloudKitObjectWrapper {
     public var name: String {
         didSet {
             coreDataNotebook.name = name
+            cloudKitNotebook?.name.value = name
             notifyObservers()
         }
     }
     public var colorName: String {
         didSet {
             coreDataNotebook.colorName = colorName
+            cloudKitNotebook?.colorName.value = colorName
             notifyObservers()
         }
     }
