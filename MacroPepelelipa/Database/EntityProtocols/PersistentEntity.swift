@@ -7,4 +7,5 @@
 //
 
 public protocol PersistentEntity: class {
+    func getID() throws -> UUID
 }

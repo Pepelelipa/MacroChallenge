@@ -2,7 +2,7 @@
 //  TextBox+CoreDataProperties.swift
 //  MacroPepelelipa
 //
-//  Created by Pedro Giuliano Farina on 28/10/20.
+//  Created by Pedro Giuliano Farina on 10/11/20.
 //  Copyright © 2020 Pedro Giuliano Farina. All rights reserved.
 //
 //
@@ -24,6 +24,7 @@ extension TextBox {
     @NSManaged public var x: Float
     @NSManaged public var y: Float
     @NSManaged public var z: Float
+    @NSManaged public var id: UUID?
     @NSManaged public var note: Note?
 
 }

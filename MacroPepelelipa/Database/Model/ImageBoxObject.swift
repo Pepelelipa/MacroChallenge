@@ -9,11 +9,19 @@
 
 import CloudKit
 
-internal class ImageBoxObject: ImageBoxEntity {
+internal class ImageBoxObject: ImageBoxEntity, CloudKitObjectWrapper {
 
-    internal init(in note: NoteObject, coreDataObject: ImageBox) {
+    func getID() throws -> UUID {
+        if let id = coreDataImageBox.id {
+            return id
+        }
+        throw PersistentError.idWasNull
+    }
+
+    internal init(in note: NoteObject, for coreDataObject: ImageBox, and cloudKitImageBox: CloudKitImageBox?) {
+        self.cloudKitImageBox = cloudKitImageBox
+        self.coreDataImageBox = coreDataObject
         self.note = note
-        self.coreDataObject = coreDataObject
 
         self.imagePath = coreDataObject.imagePath ?? ""
         self.width = coreDataObject.width
@@ -34,37 +42,40 @@ internal class ImageBoxObject: ImageBoxEntity {
     }
     var imagePath: String {
         didSet {
-            coreDataObject.imagePath = imagePath
+            coreDataImageBox.imagePath = imagePath
         }
     }
     var width: Float {
         didSet {
-            coreDataObject.width = width
+            coreDataImageBox.width = width
         }
     }
     var height: Float {
         didSet {
-            coreDataObject.height = height
+            coreDataImageBox.height = height
         }
     }
     var x: Float {
         didSet {
-            coreDataObject.x = x
+            coreDataImageBox.x = x
         }
     }
     var y: Float {
         didSet {
-            coreDataObject.y = y
+            coreDataImageBox.y = y
         }
     }
     var z: Float {
         didSet {
-            coreDataObject.z = z
+            coreDataImageBox.z = z
         }
     }
 
-    internal let coreDataObject: ImageBox
-    internal var cloudKitObject: CloudKitImageBox?
+    internal let coreDataImageBox: ImageBox
+    internal var cloudKitImageBox: CloudKitImageBox?
+    var cloudKitObject: CloudKitEntity? {
+        return cloudKitImageBox
+    }
 
     internal func removeReferences() throws {
         if let note = self.note,

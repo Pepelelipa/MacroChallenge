@@ -14,7 +14,7 @@ internal class NoteObject: NoteEntity, CloudKitObjectWrapper {
         if let id = coreDataNote.id {
             return id
         }
-        throw ObservableError.idWasNull
+        throw PersistentError.idWasNull
     }
 
     func getNotebook() throws -> NotebookEntity {
@@ -68,12 +68,16 @@ internal class NoteObject: NoteEntity, CloudKitObjectWrapper {
 
         if let textBoxes = coreDataNote.textBoxes?.allObjects as? [TextBox] {
             textBoxes.forEach { (textBox) in
-                _ = TextBoxObject(in: self, coreDataObject: textBox)
+                let ckObject = ckNote?.textBoxes?.first(where: { $0.record["id"] == textBox.id?.uuidString }) as? CloudKitTextBox
+                assert(ckObject != nil, "CloudKit textBox was null")
+                _ = TextBoxObject(in: self, from: textBox, and: ckObject)
             }
         }
         if let images = coreDataNote.images?.allObjects as? [ImageBox] {
             images.forEach { (imageBox) in
-                _ = ImageBoxObject(in: self, coreDataObject: imageBox)
+                let ckObject = ckNote?.imageBoxes?.first(where: { $0.record["id"] == imageBox.id?.uuidString }) as? CloudKitImageBox
+                assert(ckObject != nil, "CloudKit imageBox was null")
+                _ = ImageBoxObject(in: self, for: imageBox, and: ckObject)
             }
         }
     }

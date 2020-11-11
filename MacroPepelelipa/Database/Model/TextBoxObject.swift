@@ -9,11 +9,19 @@
 
 import CloudKit
 
-internal class TextBoxObject: TextBoxEntity {
+internal class TextBoxObject: TextBoxEntity, CloudKitObjectWrapper {
 
-    internal init(in note: NoteObject, coreDataObject: TextBox) {
+    func getID() throws -> UUID {
+        if let id = coreDataTextBox.id {
+            return id
+        }
+        throw PersistentError.idWasNull
+    }
+
+    internal init(in note: NoteObject, from coreDataObject: TextBox, and ckTextBox: CloudKitTextBox? = nil) {
+        self.cloudKitTextBox = ckTextBox
         self.note = note
-        self.coreDataObject = coreDataObject
+        self.coreDataTextBox = coreDataObject
 
         self.text = coreDataObject.text?.toAttributedString() ?? NSAttributedString()
         self.width = coreDataObject.width
@@ -32,39 +40,43 @@ internal class TextBoxObject: TextBoxEntity {
         }
         throw NoteError.noteWasNull
     }
+
     public var text: NSAttributedString {
         didSet {
-            coreDataObject.text = text.toData()
+            coreDataTextBox.text = text.toData()
         }
     }
     public var width: Float {
         didSet {
-            coreDataObject.width = width
+            coreDataTextBox.width = width
         }
     }
     public var height: Float {
         didSet {
-            coreDataObject.height = height
+            coreDataTextBox.height = height
         }
     }
     public var x: Float {
         didSet {
-            coreDataObject.x = x
+            coreDataTextBox.x = x
         }
     }
     public var y: Float {
         didSet {
-            coreDataObject.y = y
+            coreDataTextBox.y = y
         }
     }
     public var z: Float {
         didSet {
-            coreDataObject.z = z
+            coreDataTextBox.z = z
         }
     }
 
-    internal let coreDataObject: TextBox
-    internal var cloudKitObject: CloudKitTextBox?
+    internal let coreDataTextBox: TextBox
+    internal var cloudKitTextBox: CloudKitTextBox?
+    var cloudKitObject: CloudKitEntity? {
+        return cloudKitTextBox
+    }
 
     internal func removeReferences() throws {
         if let note = self.note,

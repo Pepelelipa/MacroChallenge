@@ -14,7 +14,7 @@ internal class WorkspaceObject: WorkspaceEntity, CloudKitObjectWrapper {
         if let id = coreDataWorkspace.id {
             return id
         }
-        throw ObservableError.idWasNull
+        throw PersistentError.idWasNull
     }
 
     public var name: String {

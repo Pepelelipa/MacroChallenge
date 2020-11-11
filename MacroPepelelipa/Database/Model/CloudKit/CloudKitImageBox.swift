@@ -17,6 +17,7 @@ internal class CloudKitImageBox: CloudKitEntity, Equatable {
     internal static let recordType: String = "ImageBox"
     internal var record: CKRecord
 
+    internal private(set) lazy var id: DataProperty<String> = DataProperty(record: record, key: "id")
     internal private(set) lazy var image: DataProperty<CKAsset> = DataProperty(record: record, key: "image")
     internal private(set) lazy var width: DataProperty<Double> = DataProperty(record: record, key: "width")
     internal private(set) lazy var height: DataProperty<Double> = DataProperty(record: record, key: "height")
@@ -25,15 +26,11 @@ internal class CloudKitImageBox: CloudKitEntity, Equatable {
     internal private(set) lazy var z: DataProperty<Double> = DataProperty(record: record, key: "z")
     internal private(set) var note: ReferenceField<CloudKitNote>?
 
-    init(from imageBox: ImageBoxObject) {
+    init(id: UUID, at imagePath: String) {
         let record = CKRecord(recordType: CloudKitImageBox.recordType)
-        let imageUrl = URL(fileURLWithPath: imageBox.imagePath)
+        record["id"] = id.uuidString
+        let imageUrl = URL(fileURLWithPath: imagePath)
         record["image"] = CKAsset(fileURL: imageUrl)
-        record["width"] = Double(imageBox.width)
-        record["height"] = Double(imageBox.height)
-        record["x"] = Double(imageBox.x)
-        record["y"] = Double(imageBox.y)
-        record["z"] = Double(imageBox.z)
         self.record = record
     }
 

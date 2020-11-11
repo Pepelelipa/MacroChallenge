@@ -87,11 +87,11 @@ public class DataManager {
             throw WorkspaceError.failedToParse
         }
 
+        try coreDataController.deleteWorkspace(workspaceObject.coreDataWorkspace)
+        try workspaceObject.removeReferences()
         if let ckWorkspace = workspaceObject.cloudKitWorkspace {
             cloudKitController.deleteWorkspace(ckWorkspace)
         }
-        try coreDataController.deleteWorkspace(workspaceObject.coreDataWorkspace)
-        try workspaceObject.removeReferences()
         notifyDeletion(workspace, type: .workspace)
     }
 
@@ -133,11 +133,11 @@ public class DataManager {
             throw NotebookError.failedToParse
         }
 
+        try coreDataController.deleteNotebook(notebookObject.coreDataNotebook)
+        try notebookObject.removeReferences()
         if let ckNotebook = notebookObject.cloudKitNotebook {
             cloudKitController.deleteNotebook(ckNotebook)
         }
-        try coreDataController.deleteNotebook(notebookObject.coreDataNotebook)
-        try notebookObject.removeReferences()
         notifyDeletion(notebook, type: .notebook)
     }
 
@@ -177,11 +177,11 @@ public class DataManager {
             throw NoteError.failedToParse
         }
 
+        try coreDataController.deleteNote(noteObject.coreDataNote)
+        try noteObject.removeReferences()
         if let ckNote = noteObject.cloudKitNote {
             cloudKitController.deleteNote(ckNote)
         }
-        try coreDataController.deleteNote(noteObject.coreDataNote)
-        try noteObject.removeReferences()
         notifyDeletion(note, type: .note)
     }
 
@@ -195,9 +195,14 @@ public class DataManager {
         guard let noteObject = note as? NoteObject else {
             throw NoteError.failedToParse
         }
+        guard let ckNote = noteObject.cloudKitNote else {
+            throw NoteError.noteWasNull
+        }
 
-        let cdTextBox = try coreDataController.createTextBox(in: noteObject.coreDataNote)
-        return TextBoxObject(in: noteObject, coreDataObject: cdTextBox)
+        let id = UUID()
+        let cdTextBox = try coreDataController.createTextBox(in: noteObject.coreDataNote, id: id)
+        let ckTextBox = cloudKitController.createTextBox(in: ckNote, id: id)
+        return TextBoxObject(in: noteObject, from: cdTextBox, and: ckTextBox)
     }
 
     /**
@@ -210,8 +215,11 @@ public class DataManager {
             throw TextBoxError.failedToParse
         }
 
-        try coreDataController.deleteTextBox(textBoxObject.coreDataObject)
+        try coreDataController.deleteTextBox(textBoxObject.coreDataTextBox)
         try textBoxObject.removeReferences()
+        if let ckTextBox = textBoxObject.cloudKitTextBox {
+            cloudKitController.deleteTextBox(ckTextBox)
+        }
     }
 
     // MARK: ImageBox
@@ -224,9 +232,14 @@ public class DataManager {
         guard let noteObject = note as? NoteObject else {
             throw NoteError.failedToParse
         }
+        guard let ckNote = noteObject.cloudKitNote else {
+            throw NoteError.noteWasNull
+        }
 
-        let cdImageBox = try coreDataController.createImageBox(in: noteObject.coreDataNote, at: imagePath)
-        return ImageBoxObject(in: noteObject, coreDataObject: cdImageBox)
+        let id = UUID()
+        let cdImageBox = try coreDataController.createImageBox(in: noteObject.coreDataNote, id: id, at: imagePath)
+        let ckImageBox = cloudKitController.createImageBox(in: ckNote, id: id, at: imagePath)
+        return ImageBoxObject(in: noteObject, for: cdImageBox, and: ckImageBox)
     }
 
     /**
@@ -241,7 +254,7 @@ public class DataManager {
 
         _ = try? FileHelper.deleteImage(fileName: imageBox.imagePath)
 
-        try coreDataController.deleteImageBox(imageBoxObject.coreDataObject)
+        try coreDataController.deleteImageBox(imageBoxObject.coreDataImageBox)
         try imageBoxObject.removeReferences()
     }
 

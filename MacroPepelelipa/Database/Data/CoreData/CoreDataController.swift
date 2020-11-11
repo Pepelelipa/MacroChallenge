@@ -123,11 +123,12 @@ internal class CoreDataController {
      - Parameter note: To what note it belongs.
      - Throws: Throws if fails to parse object to TextBox or the context saving is unsuccessful.
      */
-    internal func createTextBox(in note: Note) throws -> TextBox {
+    internal func createTextBox(in note: Note, id: UUID) throws -> TextBox {
         guard let textBox = NSEntityDescription.insertNewObject(forEntityName: "TextBox", into: context) as? TextBox else {
             throw CoreDataError.failedToParseObject
         }
 
+        textBox.id = id
         textBox.note = note
 
         try saveContext()
@@ -151,11 +152,12 @@ internal class CoreDataController {
      - Parameter note: To what note it belongs.
      - Throws: Throws if fails to parse object to ImageBox or the context saving is unsuccessful.
      */
-    internal func createImageBox(in note: Note, at imagePath: String) throws -> ImageBox {
+    internal func createImageBox(in note: Note, id: UUID, at imagePath: String) throws -> ImageBox {
         guard let imageBox = NSEntityDescription.insertNewObject(forEntityName: "ImageBox", into: context) as? ImageBox else {
             throw CoreDataError.failedToParseObject
         }
-        
+
+        imageBox.id = id
         imageBox.imagePath = imagePath
         imageBox.note = note
 

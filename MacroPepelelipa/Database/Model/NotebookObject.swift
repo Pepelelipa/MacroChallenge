@@ -15,7 +15,7 @@ internal class NotebookObject: NotebookEntity, CloudKitObjectWrapper {
         if let id = coreDataNotebook.id {
             return id
         }
-        throw ObservableError.idWasNull
+        throw PersistentError.idWasNull
     }
 
     private weak var workspace: WorkspaceObject?

@@ -74,7 +74,7 @@
 		02398A7F2551F7E4009BFC32 /* Traits Font Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02398A7E2551F7E4009BFC32 /* Traits Font Extension.swift */; };
 		02398A842551F7FA009BFC32 /* Traits Font Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02398A7E2551F7E4009BFC32 /* Traits Font Extension.swift */; };
 		02398A882551F878009BFC32 /* Font Style Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02398A872551F878009BFC32 /* Font Style Extension.swift */; };
-		02398A962551FE8E009BFC32 /* ObservableError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02398A952551FE8E009BFC32 /* ObservableError.swift */; };
+		02398A962551FE8E009BFC32 /* PersistentError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02398A952551FE8E009BFC32 /* PersistentError.swift */; };
 		02458EDC2525094C00466BFF /* WorkspaceCellNotebookCollectionViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02458EDB2525094C00466BFF /* WorkspaceCellNotebookCollectionViewDelegate.swift */; };
 		0247F78D25115BAA00405A61 /* NotebooksSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0247F78C25115BAA00405A61 /* NotebooksSelectionViewController.swift */; };
 		024C5BB3252E41D8009549CE /* AddNotebookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 024C5BB1252E41D8009549CE /* AddNotebookViewController.swift */; };
@@ -305,7 +305,7 @@
 		02398A782551F775009BFC32 /* Fonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
 		02398A7E2551F7E4009BFC32 /* Traits Font Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Traits Font Extension.swift"; sourceTree = "<group>"; };
 		02398A872551F878009BFC32 /* Font Style Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Font Style Extension.swift"; sourceTree = "<group>"; };
-		02398A952551FE8E009BFC32 /* ObservableError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservableError.swift; sourceTree = "<group>"; };
+		02398A952551FE8E009BFC32 /* PersistentError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistentError.swift; sourceTree = "<group>"; };
 		02458EDB2525094C00466BFF /* WorkspaceCellNotebookCollectionViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkspaceCellNotebookCollectionViewDelegate.swift; sourceTree = "<group>"; };
 		0247F78C25115BAA00405A61 /* NotebooksSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotebooksSelectionViewController.swift; sourceTree = "<group>"; };
 		024C5BB1252E41D8009549CE /* AddNotebookViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddNotebookViewController.swift; sourceTree = "<group>"; };
@@ -500,7 +500,7 @@
 				021107AD252F8EE30009D4E1 /* CoreDataError.swift */,
 				021107C4252FADC90009D4E1 /* TextBoxError.swift */,
 				021107C7252FADE00009D4E1 /* ImageBoxError.swift */,
-				02398A952551FE8E009BFC32 /* ObservableError.swift */,
+				02398A952551FE8E009BFC32 /* PersistentError.swift */,
 			);
 			path = Errors;
 			sourceTree = "<group>";
@@ -1425,7 +1425,7 @@
 				02D20B7E2559C5D200159AB0 /* CloudKitDataController.swift in Sources */,
 				029EFCA62555DF6700361F29 /* CloudKitEntity.swift in Sources */,
 				0207772F251D192000D97B5A /* NoteEntity.swift in Sources */,
-				02398A962551FE8E009BFC32 /* ObservableError.swift in Sources */,
+				02398A962551FE8E009BFC32 /* PersistentError.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

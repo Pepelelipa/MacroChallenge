@@ -24,7 +24,7 @@ internal class CloudKitDataController {
     }
 
     /**
-     Deletes a workspace from CoreData
+     Deletes a workspace from CloudKit
      - Parameter workspace: Workspace to be deleted.
      */
     internal func deleteWorkspace(_ workspace: CloudKitWorkspace) {
@@ -33,7 +33,7 @@ internal class CloudKitDataController {
 
     // MARK: Notebook
     /**
-     Creates a Notebook into the CoreData
+     Creates a Notebook into CloudKit
      - Parameter workspace: To what workspace it belongs.
      - Parameter name: The notebook's name.
      - Parameter colorName: The nootebook's color name.
@@ -48,7 +48,7 @@ internal class CloudKitDataController {
     }
 
     /**
-     Deletes a notebook from CoreData
+     Deletes a notebook from CloudKit
      - Parameter notebook: Notebook to be deleted.
      */
     internal func deleteNotebook(_ notebook: CloudKitNotebook) {
@@ -58,24 +58,71 @@ internal class CloudKitDataController {
 
     // MARK: Note
     /**
-     Creates a Note into the CoreData
+     Creates a Note into CloudKit
      - Parameter notebook: To what notebook it belongs.
      */
     internal func createNote(in notebook: CloudKitNotebook, id: UUID) -> CloudKitNote {
         let note = CloudKitNote(id: id)
         note.setNotebook(notebook)
         notebook.appendNote(note)
+        saveData(entitiesToSave: [notebook, note])
 
         return note
     }
 
     /**
-     Deletes a note from CoreData
+     Deletes a note from CloudKit
      - Parameter note: Note to be deleted.
      */
     internal func deleteNote(_ note: CloudKitNote) {
         note.notebook?.value?.removeNote(note)
         CloudKitDataConnector.deleteData(database: .Private, entitiesToDelete: [note])
+    }
+
+    // MARK: TextBox
+    /**
+     Creates a TextBox into CloudKit
+     - Parameter note: To what note it belongs.
+     */
+    internal func createTextBox(in note: CloudKitNote, id: UUID) -> CloudKitTextBox {
+        let textBox = CloudKitTextBox(id: id)
+        textBox.setNote(note)
+        note.appendTextBox(textBox)
+        saveData(entitiesToSave: [note, textBox])
+
+        return textBox
+    }
+
+    /**
+     Deletes a TextBox from CloudKit
+     - Parameter textBox: TextBox to be deleted.
+     */
+    internal func deleteTextBox(_ textBox: CloudKitTextBox) {
+        textBox.note?.value?.removeTextBox(textBox)
+        CloudKitDataConnector.deleteData(database: .Private, entitiesToDelete: [textBox])
+    }
+
+    // MARK: ImageBox
+    /**
+     Creates a ImageBox into CloudKit
+     - Parameter note: To what note it belongs.
+     */
+    internal func createImageBox(in note: CloudKitNote, id: UUID, at imagePath: String) -> CloudKitImageBox {
+        let imageBox = CloudKitImageBox(id: id, at: imagePath)
+        imageBox.setNote(note)
+        note.appendImageBox(imageBox)
+        saveData(entitiesToSave: [note, imageBox])
+
+        return imageBox
+    }
+
+    /**
+     Deletes a ImageBox from CloudKit
+     - Parameter imageBox: ImageBox to be deleted.
+     */
+    internal func deleteImageBox(_ imageBox: CloudKitImageBox) {
+        imageBox.note?.value?.removeImageBox(imageBox)
+        CloudKitDataConnector.deleteData(database: .Private, entitiesToDelete: [imageBox])
     }
 
 
