@@ -9,27 +9,7 @@
 import CloudKit
 
 internal class DataProperty<T: Equatable> {
-    private let record: CKRecord
-    private let key: String
-    internal var value: T {
-        get {
-            guard let val = record.value(forKey: key) as? T else {
-                fatalError("Couldn't convert data to associated type.")
-            }
-            return val
-        }
-        set {
-            record.setValue(newValue, forKey: key)
-        }
-    }
 
-    init(record: CKRecord, key: String) {
-        self.record = record
-        self.key = key
-    }
-}
-
-extension DataProperty {
     static func == (lhs: T, rhs: DataProperty) -> Bool {
         return lhs == rhs.value
     }
@@ -41,5 +21,21 @@ extension DataProperty {
     }
     static func != (lhs: DataProperty, rhs: T) -> Bool {
         return lhs.value != rhs
+    }
+
+    private let record: CKRecord
+    private let key: String
+    internal var value: T? {
+        get {
+            return record.value(forKey: key) as? T
+        }
+        set {
+            record.setValue(newValue, forKey: key)
+        }
+    }
+
+    init(record: CKRecord, key: String) {
+        self.record = record
+        self.key = key
     }
 }

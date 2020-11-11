@@ -111,6 +111,7 @@
 		02AD78F625475C7300C87D2B /* EditableCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02AD78F525475C7300C87D2B /* EditableCollectionViewCell.swift */; };
 		02C21B34254B55BB0061CCBA /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C21B33254B55BB0061CCBA /* Font.swift */; };
 		02C3F61D255C70F00069670D /* Conflict Handler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C3F61C255C70F00069670D /* Conflict Handler.swift */; };
+		02CB8B50255C7A9000C0C04E /* CoreData-CloudKit Operators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02CB8B4F255C7A9000C0C04E /* CoreData-CloudKit Operators.swift */; };
 		02CD7CA12523B48900A140A3 /* WorkspacesCollectionViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02CD7CA02523B48900A140A3 /* WorkspacesCollectionViewDelegate.swift */; };
 		02D20B5E2558DD9E00159AB0 /* CloudKitWorkspace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02D20B5D2558DD9E00159AB0 /* CloudKitWorkspace.swift */; };
 		02D20B622558E1E000159AB0 /* CloudKitNotebook.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02D20B612558E1E000159AB0 /* CloudKitNotebook.swift */; };
@@ -343,6 +344,7 @@
 		02AD78F525475C7300C87D2B /* EditableCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditableCollectionViewCell.swift; sourceTree = "<group>"; };
 		02C21B33254B55BB0061CCBA /* Font.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Font.swift; sourceTree = "<group>"; };
 		02C3F61C255C70F00069670D /* Conflict Handler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Conflict Handler.swift"; sourceTree = "<group>"; };
+		02CB8B4F255C7A9000C0C04E /* CoreData-CloudKit Operators.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CoreData-CloudKit Operators.swift"; sourceTree = "<group>"; };
 		02CD7CA02523B48900A140A3 /* WorkspacesCollectionViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkspacesCollectionViewDelegate.swift; sourceTree = "<group>"; };
 		02D20B5D2558DD9E00159AB0 /* CloudKitWorkspace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudKitWorkspace.swift; sourceTree = "<group>"; };
 		02D20B612558E1E000159AB0 /* CloudKitNotebook.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudKitNotebook.swift; sourceTree = "<group>"; };
@@ -530,6 +532,7 @@
 				021107A3252F8A9F0009D4E1 /* ImageBoxObject.swift */,
 				022832D6252E545900DDD46B /* CoreData */,
 				029EFC912555DEB500361F29 /* CloudKit */,
+				02CB8B4F255C7A9000C0C04E /* CoreData-CloudKit Operators.swift */,
 				02870890254A207A0075235D /* Extensions.swift */,
 				029EFCB12555E0BF00361F29 /* Localizable.strings */,
 			);
@@ -1389,6 +1392,7 @@
 				021107C5252FADC90009D4E1 /* TextBoxError.swift in Sources */,
 				022832E7252E5CE900DDD46B /* Note+CoreDataProperties.swift in Sources */,
 				02D20B7A2559B94800159AB0 /* ReferenceList.swift in Sources */,
+				02CB8B50255C7A9000C0C04E /* CoreData-CloudKit Operators.swift in Sources */,
 				022832ED252E5CE900DDD46B /* Workspace+CoreDataProperties.swift in Sources */,
 				022832E8252E5CE900DDD46B /* TextBox+CoreDataClass.swift in Sources */,
 				022832EC252E5CE900DDD46B /* Workspace+CoreDataClass.swift in Sources */,
