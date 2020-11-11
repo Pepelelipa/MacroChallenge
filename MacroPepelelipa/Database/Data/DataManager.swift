@@ -256,6 +256,9 @@ public class DataManager {
 
         try coreDataController.deleteImageBox(imageBoxObject.coreDataImageBox)
         try imageBoxObject.removeReferences()
+        if let ckImageBox = imageBoxObject.cloudKitImageBox {
+            cloudKitController.deleteImageBox(ckImageBox)
+        }
     }
 
     // MARK: Singleton Basic Properties
