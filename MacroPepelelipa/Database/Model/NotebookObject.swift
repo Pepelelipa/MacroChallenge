@@ -85,14 +85,14 @@ internal class NotebookObject: NotebookEntity {
         try DataManager.shared().saveObjects()
     }
 
-    internal func removeReferences() throws {
+    internal func removeReferences() {
         if let workspace = self.workspace,
            let index = workspace.notebooks.firstIndex(where: { $0 === self }) {
             workspace.notebooks.remove(at: index)
         }
         for note in notes {
             if let note = note as? NoteObject {
-                try note.removeReferences()
+                note.removeReferences()
             }
         }
     }
