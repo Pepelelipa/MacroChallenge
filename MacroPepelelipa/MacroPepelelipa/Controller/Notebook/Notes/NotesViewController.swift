@@ -45,6 +45,8 @@ internal class NotesViewController: UIViewController,
     private lazy var textField: MarkdownTextField = {
         let textField = MarkdownTextField(frame: .zero, placeholder: "Your Title".localized(), paddingSpace: 4)
         textField.delegate = self.textFieldDelegate
+        textField.accessibilityLabel = "Note title".localized()
+        textField.accessibilityHint = "Note title hint".localized()
         return textField
     }()
     
@@ -79,6 +81,7 @@ internal class NotesViewController: UIViewController,
         delegate?.addTextObserver(self)
         markdownTextView.markdownDelegate = delegate
         markdownTextView.contentInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
+        markdownTextView.accessibilityLabel = "Note".localized()
         return markdownTextView
     }()
     

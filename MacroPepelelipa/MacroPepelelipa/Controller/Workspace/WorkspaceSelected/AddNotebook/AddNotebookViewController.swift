@@ -55,6 +55,8 @@ internal class AddNotebookViewController: UIViewController {
         button.setBackgroundImage(UIImage(systemName: "xmark.circle"), for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.addTarget(self, action: #selector(dismissPopUpView), for: .touchUpInside)
+        button.accessibilityLabel = "Dismiss pop-up label".localized()
+        button.accessibilityHint = "Dismiss notebook pop-up hint".localized()
         return button
     }()
     

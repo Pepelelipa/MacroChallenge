@@ -34,6 +34,7 @@ internal class NotebookIndexViewController: UIViewController {
         lbl.font = UIFont.defaultHeader.toStyle(.h1)
         lbl.numberOfLines = 0
         lbl.translatesAutoresizingMaskIntoConstraints = false
+                
         return lbl
     }()
     
@@ -89,7 +90,10 @@ internal class NotebookIndexViewController: UIViewController {
     
     internal init(notebook: NotebookEntity, note: NoteEntity) {
         self.notebook = notebook
+        
         lblSubject.text = notebook.name
+        lblSubject.accessibilityValue = String(format: "color notebook".localized(), notebook.colorName.localized())
+        
         tableViewDataSource = NotebookIndexTableViewDataSource(notebook: notebook, 
                                                                note: note)
         

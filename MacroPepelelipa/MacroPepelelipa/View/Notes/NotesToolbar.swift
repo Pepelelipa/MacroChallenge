@@ -21,6 +21,10 @@ internal class NotesToolbar: UIToolbar {
         let button = UIBarButtonItem(barButtonSystemItem: .trash, 
                                      target: self, 
                                      action: #selector(deleteNote))
+        
+        button.accessibilityLabel = "Delete note label".localized()
+        button.accessibilityHint = "Delete note hint".localized()
+        
         return button
     }()
     
@@ -29,11 +33,17 @@ internal class NotesToolbar: UIToolbar {
                                      style: .plain, 
                                      target: self,
                                      action: nil)
+        button.accessibilityLabel = "Add image label".localized()
+        button.accessibilityHint = "Add image hint".localized()
         
         let actions = [
             UIAction(title: "Camera".localized(), image: UIImage(systemName: "camera"), identifier: .init("camera"), state: .off, handler: addImage(action:)),
             UIAction(title: "Library".localized(), image: UIImage(systemName: "photo.on.rectangle"), identifier: .init("library"), state: .off, handler: addImage(action:))
         ]
+        actions[0].accessibilityLabel = "Add from camera label".localized()
+        actions[0].accessibilityHint = "Add from camera hint".localized()
+        actions[1].accessibilityLabel = "Add from library label".localized()
+        actions[1].accessibilityHint = "Add from library hint".localized()
         button.menu = UIMenu(title: BarButtonType.image.rawValue, identifier: .format, children: actions)
         
         return button
@@ -44,6 +54,10 @@ internal class NotesToolbar: UIToolbar {
                                      style: .plain, 
                                      target: self, 
                                      action: #selector(shareNote))
+        
+        button.accessibilityLabel = "Share note label".localized()
+        button.accessibilityHint = "Share note hint".localized()
+        
         return button
     }()
     
@@ -51,6 +65,10 @@ internal class NotesToolbar: UIToolbar {
         let button = UIBarButtonItem(barButtonSystemItem: .compose, 
                                      target: self, 
                                      action: #selector(newNote))
+        
+        button.accessibilityLabel = "New note label".localized()
+        button.accessibilityHint = "New note hint".localized()
+        
         return button
     }()
     
