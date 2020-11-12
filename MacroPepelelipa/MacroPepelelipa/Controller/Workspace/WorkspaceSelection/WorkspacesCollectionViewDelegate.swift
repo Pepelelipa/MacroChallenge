@@ -70,14 +70,14 @@ internal class WorkspacesCollectionViewDelegate: NSObject,
             if collectionView.isEditing {
                 // Editing mode
                 
-                if frame.width < UIScreen.main.bounds.width/2 {
-                    // Multitasking less than half screen
-                    width = collectionView.bounds.width
-                    height = 70
-                } else {
-                    // All others
+                if frame.width == UIScreen.main.bounds.width {
+                    // Full screen
                     width = collectionView.bounds.width/2.1
                     height = 90
+                } else {
+                    // All others
+                    width = collectionView.bounds.width
+                    height = 70
                 }
             
             } else {
