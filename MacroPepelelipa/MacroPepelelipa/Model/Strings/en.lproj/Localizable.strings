@@ -124,6 +124,8 @@
 "Save notebook" = "Save notebook";
 "Edit" = "Edit";
 "Find" = "Find";
+"New note" = "New note";
+"Delete note" = "Delete note";
 
 // MARK: - Accessibility
 

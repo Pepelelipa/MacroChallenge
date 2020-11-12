@@ -127,8 +127,8 @@
 "Edit Notebook" = "Editar Caderno";
 "Edit" = "Editar";
 "Find" = "Buscar";
-
-
+"New note" = "Nova nota";
+"Delete note" = "Excluir nota";
 
 // MARK: - Accessibility
 

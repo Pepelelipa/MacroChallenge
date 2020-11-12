@@ -28,10 +28,26 @@ internal class MenuController {
     // MARK: - Init
     
     init(with builder: UIMenuBuilder) {
-        guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
-              let sceneDelegate = windowScene.delegate as? SceneDelegate,
-              let navigationController = sceneDelegate.window?.rootViewController as? UINavigationController,
-              let viewController = navigationController.visibleViewController else {
+        var navigationController: UINavigationController?
+        
+        if #available(macCatalyst 14, *) {
+            guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+                  let sceneDelegate = windowScene.delegate as? SceneDelegate,
+                  let navController = sceneDelegate.window?.rootViewController as? UINavigationController else {
+                setupWorkspaceMenu(with: builder)
+                return
+            }
+            navigationController = navController
+            
+        } else {
+            guard let navController = UIApplication.shared.windows.first?.rootViewController as? UINavigationController else {
+                setupWorkspaceMenu(with: builder)
+                return
+            }
+            navigationController = navController
+        }
+        
+        guard let viewController = navigationController?.visibleViewController  else {
             setupWorkspaceMenu(with: builder)
             return
         }
