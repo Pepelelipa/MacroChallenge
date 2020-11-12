@@ -42,12 +42,18 @@ internal class MarkdownFormatView: UIView, MarkdownObserver {
             var newButton = MarkdownToggleButton(frame: .zero, color: color)
             newButton.translatesAutoresizingMaskIntoConstraints = false
             newButton.addTarget(self, action: #selector(setColor(_:)), for: .touchUpInside)
-            
+            newButton.accessibilityLabel = "Color selector".localized()
             if color == buttonColors[0] {
+                newButton.accessibilityValue = "Text body color".localized()
+                newButton.accessibilityHint = String(format: "Color selector hint".localized(), "Text body color".localized())
                 buttons[.black] = newButton
             } else if color == buttonColors[1] {
+                newButton.accessibilityValue = "nb4".localized()
+                newButton.accessibilityHint = String(format: "Color selector hint".localized(), "nb4".localized())
                 buttons[.green] = newButton
             } else {
+                newButton.accessibilityValue = "nb14".localized()
+                newButton.accessibilityHint = String(format: "Color selector hint".localized(), "nb14".localized())
                 buttons[.red] = newButton
             }
         }
@@ -65,12 +71,18 @@ internal class MarkdownFormatView: UIView, MarkdownObserver {
                 titleLabel: nil
             )
             newButton.translatesAutoresizingMaskIntoConstraints = false
-            
+           
             if key == .italic {
+                newButton.accessibilityLabel = "Italic".localized()
+                newButton.accessibilityHint = String(format: "Format hint".localized(), "Italic".localized())
                 newButton.addTarget(self, action: #selector(makeTextItalic(_:)), for: .touchUpInside)
             } else if key == .bold {
+                newButton.accessibilityLabel = "Bold".localized()
+                newButton.accessibilityHint = String(format: "Format hint".localized(), "Bold".localized())
                 newButton.addTarget(self, action: #selector(makeTextBold(_:)), for: .touchUpInside)
             } else {
+                newButton.accessibilityLabel = "Highlight".localized()
+                newButton.accessibilityHint = String(format: "Format hint".localized(), "Highlight".localized())
                 newButton.addTarget(self, action: #selector(highlightText(_:)), for: .touchUpInside)
             }
             
@@ -94,6 +106,26 @@ internal class MarkdownFormatView: UIView, MarkdownObserver {
             newButton.translatesAutoresizingMaskIntoConstraints = false
             newButton.addTarget(self, action: #selector(changeFont(_:)), for: .touchUpInside)
             buttons[font.value] = newButton
+        }
+        
+        for (font, button) in buttons {
+            var fontName = ""
+            var fontValue = ""
+            switch font {
+            case .merriweather:
+                fontName = "Merriweather".localized()
+                fontValue = "Serif".localized()
+            case .openSans:
+                fontName = "Open Sans".localized()
+                fontValue = "Sans-serif".localized()
+            case .dancingScript:
+                fontName = "Dancing".localized()
+                fontValue = "Cursive".localized()
+            }
+            
+            button.accessibilityLabel = fontName
+            button.accessibilityValue = fontValue
+            button.accessibilityHint = String(format: "Font hint".localized(), fontName)
         }
         
         return buttons

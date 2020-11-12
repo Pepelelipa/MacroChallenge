@@ -126,6 +126,9 @@ internal class WorkspaceSelectionViewController: UIViewController,
 
     private lazy var btnAdd: UIBarButtonItem = {
         let item = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(btnAddTap))
+        item.isAccessibilityElement = true
+        item.accessibilityHint = "Add workspace hint".localized()
+        item.accessibilityLabel = "Add workspace label".localized()
         return item
     }()
     
@@ -196,6 +199,9 @@ internal class WorkspaceSelectionViewController: UIViewController,
         self.definesPresentationContext = true
         if !collectionDataSource.isEmpty {
             navigationItem.leftBarButtonItem = editButtonItem
+            navigationItem.leftBarButtonItem?.accessibilityHint = "Edit workspaces hint".localized()
+            navigationItem.leftBarButtonItem?.accessibilityLabel = "Edit workspaces label".localized()
+            navigationItem.leftBarButtonItem?.accessibilityValue = "Editing disabled".localized()
         }
     }
     
@@ -218,6 +224,7 @@ internal class WorkspaceSelectionViewController: UIViewController,
         if UIDevice.current.userInterfaceIdiom == .pad {
             updateConstraintsForIpad()
         }
+        collectionDelegate.frame = view.frame
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -227,11 +234,18 @@ internal class WorkspaceSelectionViewController: UIViewController,
         if UIDevice.current.userInterfaceIdiom == .phone {
             emptyScreenView.isLandscape = UIDevice.current.orientation.isActuallyLandscape
         }
+        collectionDelegate.viewTraitCollection = traitCollection
     }
 
     override func setEditing(_ editing: Bool, animated: Bool) {
         super.setEditing(editing, animated: animated)
         collectionView.setEditing(editing)
+        
+        if editing {
+            navigationItem.leftBarButtonItem?.accessibilityValue = "Editing enabled".localized()
+        } else {
+            navigationItem.leftBarButtonItem?.accessibilityValue = "Editing disabled".localized()
+        }
     }
     
     // MARK: - UISearchResultsUpdating Functions
@@ -307,7 +321,7 @@ internal class WorkspaceSelectionViewController: UIViewController,
         collectionView.collectionViewLayout.invalidateLayout()
         for visibleCell in collectionView.visibleCells {
             if let cell = visibleCell as? WorkspaceCollectionViewCell {
-                cell.invalidateLayout()
+                cell.updateLayout()
             }
         }
     }
@@ -505,7 +519,6 @@ internal class WorkspaceSelectionViewController: UIViewController,
 
         if UIDevice.current.userInterfaceIdiom == .pad {
             alertController.popoverPresentationController?.sourceView = cell
-            alertController.popoverPresentationController?.sourceRect = cell.frame
         }
         self.present(alertController, animated: true, completion: nil)
     }

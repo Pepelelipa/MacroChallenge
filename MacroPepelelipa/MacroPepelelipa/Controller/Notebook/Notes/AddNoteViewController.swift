@@ -68,6 +68,8 @@ internal class AddNoteViewController: UIViewController, AddNoteObserver {
         button.setBackgroundImage(UIImage(systemName: "xmark.circle"), for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.addTarget(self, action: #selector(dismissPopUpView), for: .touchUpInside)
+        button.accessibilityLabel = "Dismiss pop-up label".localized()
+        button.accessibilityHint = "Dismiss note pop-up hint".localized()
         return button
     }()
 

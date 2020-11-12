@@ -40,6 +40,9 @@ internal class NotesPageViewController: UIPageViewController,
         let item = UIBarButtonItem(ofType: .index, 
                                    target: self, 
                                    action: #selector(presentNotebookIndex))
+        
+        item.accessibilityHint = "Index button hint".localized()
+        
         return item
     }()
     
@@ -73,6 +76,12 @@ internal class NotesPageViewController: UIPageViewController,
         
         do {
             self.notebook = try notes[0].getNotebook()
+            
+            if let name = notebook?.name {
+                self.notebookIndexButton.accessibilityLabel = String(format: "Index button label".localized(), name)
+            } else {
+                self.notebookIndexButton.accessibilityLabel = "Index".localized()
+            }
         } catch {
             let alertController = UIAlertController(
                 title: "Error retriving notebook".localized(),

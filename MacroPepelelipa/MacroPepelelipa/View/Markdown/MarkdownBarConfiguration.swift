@@ -77,15 +77,26 @@ internal class MarkdownBarConfiguration {
         paragraphButton.menu = setupMenu(for: .paragraph)
         imageGalleryButton.menu = setupMenu(for: .image)
         #endif
+
+        listButton.accessibilityLabel = "List label".localized()
+        listButton.accessibilityHint = "List hint".localized()
         
+        paragraphButton.accessibilityHint = "Paragraph hint".localized()
+        
+        imageGalleryButton.accessibilityLabel = "Add image label".localized()
+        imageGalleryButton.accessibilityHint = "Add image hint".localized()
+
         barButtonItems[.list] = listButton
         barButtonItems[.paragraph] = paragraphButton
         barButtonItems[.image] = imageGalleryButton
         
         let textBoxButton = createBarButtonItem(imageName: "textbox", systemImage: true, objcFunc: #selector(addTextBox))
+        textBoxButton.accessibilityHint = "Text box hint".localized()
         barButtonItems[.textBox] = textBoxButton
         
         let paintbrushButton = createBarButtonItem(imageName: "paintbrush", systemImage: true, objcFunc: #selector(openEditTextContainer))
+        paintbrushButton.accessibilityLabel = "Format".localized()
+        paintbrushButton.accessibilityLabel = "Format hint".localized()
         barButtonItems[.format] = paintbrushButton
         
         return barButtonItems
@@ -134,7 +145,6 @@ internal class MarkdownBarConfiguration {
         
         #warning("Check for macOS Big Sur")
         #if !targetEnvironment(macCatalyst)
-        
         listButton.menu = setupMenu(for: .list)
         listButton.showsMenuAsPrimaryAction = true
         
@@ -143,17 +153,27 @@ internal class MarkdownBarConfiguration {
         
         imageGalleryButton.menu = setupMenu(for: .image)
         imageGalleryButton.showsMenuAsPrimaryAction = true
-        
         #endif
+        
+        listButton.accessibilityLabel = "List label".localized()
+        listButton.accessibilityHint = "List hint".localized()
+        
+        paragraphButton.accessibilityHint = "Paragraph hint".localized()
+        
+        imageGalleryButton.accessibilityLabel = "Add image label".localized()
+        imageGalleryButton.accessibilityHint = "Add image hint".localized()
         
         buttons[.list] = listButton
         buttons[.paragraph] = paragraphButton
         buttons[.image] = imageGalleryButton
         
         let textBoxButton = createButton(imageName: "textbox", systemImage: true, objcFunc: #selector(addTextBox))
+        textBoxButton.accessibilityHint = "Text box hint".localized()
         buttons[.textBox] = textBoxButton
         
         let paintbrushButton = createButton(imageName: "paintbrush", systemImage: true, objcFunc: #selector(openEditTextContainer))
+        paintbrushButton.accessibilityLabel = "Format".localized()
+        paintbrushButton.accessibilityLabel = "Format hint".localized()
         buttons[.format] = paintbrushButton
         
         return buttons
