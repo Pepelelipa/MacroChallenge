@@ -121,7 +121,152 @@
 "Save workspace" = "Save workspace";
 "Save notebook" = "Save notebook";
 "Edit" = "Edit";
+
+// MARK: - Accessibility
+
+"Editing enabled" = "Editing enabled";
+"Editing disabled" = "Editing disabled";
+
+"Long press hint" = "Double tap and hold for more options";
+
+"Edit workspaces hint" = "Activate button to edit your workspaces";
+"Edit workspaces label" = "Edit: enables editing mode for all of your workspaces";
+
+"Add workspace hint" = "Activate button to add a new workspace";
+"Add workspace label" = "Add a new workspace";
+
+"Delete workspace hint" = "Activate button to delete the %@ workspace";
+"Delete workspace label" = "Delete %@ workspace";
+
+"Edit workspace name hint" = "Double tap edit this workspace's name";
+
+"Add notebook hint" = "Activate button to add a new notebook";
+"Add notebook label" = "Add a new notebook";
+
+"color notebook" = "%@ notebook";
+
+"Edit notebooks hint" = "Activate button to edit the notebooks in this workspace";
+"Edit notebooks label" = "Edit: enables editing mode for all notebooks in this workspace";
+
+"Delete notebook hint" = "Activate button to delete the %@ notebook";
+"Delete notebook label" = "Delete %@ notebook";
+
+"Edit notebook name hint" = "Double tap edit this notebook's information";
+
+"Note title" = "Note's title";
+"Note title hint" = "Insert the note's title in this text field";
+
+"Index" = "Index";
+"Index button label" = "%@ notebook's index";
+"Index button hint" = "Double tap to go to this notebook's index";
+
+"Delete note label" = "Delete note";
+"Delete note hint" = "Double tap to delete this note";
+
+"Add image label" = "Add image";
+"Add image hint" = "Double tap to add an image to the note";
+"Add from camera label" = "Take a photo";
+"Add from camera hint" = "Double tap to take a photo for your note";
+"Add from library label" = "Add photo from library";
+"Add from library hint" = "Double tap to choose a photo from your library";
+
+"Share note label" = "Share note";
+"Share note hint" = "Double tap to share this note";
+
+"New note label" = "Write a new note";
+"New note hint" = "Double tap to add a new note at the end of this notebook";
+
+"Dismiss pop-up label" = "Dismiss pop-up";
+"Dismiss collection pop-up hint" = "Double tap to exit the create new workspace pop-up";
+"Dismiss notebook pop-up hint" = "Double tap to exit the create new notebook pop-up";
+"Dismiss note pop-up hint" = "Double tap to exit the create note pop-up";
+
+"Index hint" = "Double tap to go to the note %@";
+
+"Selected" = "Selected";
+
+"Text box hint" = "Double tap to add a text box to your note";
+
+"Format hint" = "Double tap to start formatting your text";
+
+"Exit formatting label" = "Exit formatting";
+"Exit formatting hint" = "Double tap to exit formatting and return to typing";
+
+"Color selector" = "Color selector";
+"Color selector hint" = "Double tap to change text color to %@";
+
+"Bold" = "Bold";
+"Italic" = "Italic";
+"Highlight" = "Highlight";
+"Format hint" = "Double tap to format the text with bold, italic, highlight, color and font";
+
+"Merriweather" = "Merriweather";
+"Open Sans" = "Open Sans";
+"Dancing" = "Dancing script";
+"Font hint" = "Double tap to change text font to %@";
+"Serif" = "Serif";
+"Sans-serif" = "Sans-serif";
+"Cursive" = "Cursive";
+
+"List label" = "Make lists";
+"List hint" = "Double tap to create bulleted and numeric lists";
+
+"Paragraph hint" = "Double tap to change the paragraph type";
+
+"End editing hint" = "Toque duas vezes para finalizar edição";
+
+"Filter Workspaces Hint" = "Showing all notebooks and workspaces from search";
+"Filter Notebooks Hint" = "Showing notebooks from search";
+
+// MARK: - Colors
+
+"Text body color" = "Text body color";
+"nb0" = "Aero Blue";
+"nb1" = "Blue Jeans";
+"nb2" = "Cornflower Blue";
+"nb3" = "Verdigris";
+"nb4" = "Seaweed";
+"nb5" = "Queen Blue";
+"nb6" = "Forest Green";
+"nb7" = "Middle Green";
+"nb8" = "Fern Green";
+"nb9" = "Gold";
+"nb10" = "Marigold";
+"nb11" = "Yellow orange";
+"nb12" = "Congo pink";
+"nb13" = "Mandarin";
+"nb14" = "Fuzzy";
+"nb15" = "Red RYB";
+"nb16" = "Blood red";
+"nb17" = "International Red";
+"nb18" = "Violet";
+"nb19" = "Fuchsia";
+"nb20" = "Liberty Blue";
+"nb21" = "Cadet blue";
+"nb22" = "Shadow blue";
+"nb23" = "Dark liver";
 "Library" = "Library";
 "Camera" = "Camera";
 "Tip for transcripting text" = "Tip: you can transcript text from an image.";
 "Choose your image" = "Choose you image";
+"Bold" = "Bold";
+"Italic" = "Italic";
+"Highlighted" = "Highlighted";
+"Underline" = "Underline";
+"Bold explanation" = "**your text**";
+"Italic explanation" = "*your text*";
+"Highlighted explanation" = "::your text::";
+"Underline explanation" = "~~your text~~";
+"Settings Bar" = "Settings Bar";
+"InputView explanation" = "You can also access the same options through the Configuration Bar, located at the bottom of the screen.";
+"Tips" = "Tips";
+"List style" = "List style";
+"Paragraph style" = "Paragraph style";
+"Import image" = "Import image";
+"Add text box" = "Add text box";
+"Bullet list" = "Bullet list";
+"Numeric list" = "Numeric list";
+"First Header" = "First Header";
+"Second Header" = "Second Header";
+"Third Header" = "Third Header";
+"Paragraph" = "Paragraph";

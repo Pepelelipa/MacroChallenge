@@ -14,7 +14,9 @@ import MarkdownText
 
 internal class NotesViewController: UIViewController, 
                                     TextEditingDelegateObserver,
-                                    MarkupToolBarObserver {
+                                    MarkupToolBarObserver,
+                                    MarkdownFormatViewReceiver,
+                                    ResizeHandleReceiver {
     
     // MARK: - Variables and Constants
     
@@ -32,8 +34,10 @@ internal class NotesViewController: UIViewController,
     internal var textBoxes: Set<TextBoxView> = []  
     internal var imageBoxes: Set<ImageBoxView> = []
     internal var imgeButtonObserver: ImageButtonObserver?
-    
+    internal lazy var receiverView: UIView = self.view
+
     internal weak var note: NoteEntity?
+    internal var delegate: AppMarkdownTextViewDelegate?
     internal private(set) weak var notebook: NotebookEntity?
     
     private lazy var textViewBottomConstraint = textView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20)
@@ -41,6 +45,8 @@ internal class NotesViewController: UIViewController,
     private lazy var textField: MarkdownTextField = {
         let textField = MarkdownTextField(frame: .zero, placeholder: "Your Title".localized(), paddingSpace: 4)
         textField.delegate = self.textFieldDelegate
+        textField.accessibilityLabel = "Note title".localized()
+        textField.accessibilityHint = "Note title hint".localized()
         return textField
     }()
     
@@ -71,10 +77,11 @@ internal class NotesViewController: UIViewController,
     
     internal private(set) lazy var textView: MarkdownTextView = {
         let  markdownTextView = MarkdownTextView(frame: .zero)
-        let delegate = AppMarkdownTextViewDelegate()
-        delegate.addTextObserver(self)
+        self.delegate = AppMarkdownTextViewDelegate()
+        delegate?.addTextObserver(self)
         markdownTextView.markdownDelegate = delegate
         markdownTextView.contentInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
+        markdownTextView.accessibilityLabel = "Note".localized()
         return markdownTextView
     }()
     
@@ -87,7 +94,7 @@ internal class NotesViewController: UIViewController,
     internal private(set) lazy var markupContainerView: MarkdownContainerView = {
         let height: CGFloat = screenHeight/4
         
-        let container = MarkdownContainerView(frame: CGRect(x: 0, y: 0, width: screenWidth, height: height), owner: self.textView, viewController: self)
+        let container = MarkdownContainerView(frame: CGRect(x: 0, y: 0, width: screenWidth, height: height), owner: self.textView, receiver: self)
         
         container.autoresizingMask = []
         container.isHidden = true
@@ -95,6 +102,26 @@ internal class NotesViewController: UIViewController,
         return container
     }()
     
+    private lazy var boldfaceKeyCommand: UIKeyCommand = {
+        let command = UIKeyCommand(input: "B", modifierFlags: .command, action: #selector(textView.toggleFormat(_:)))
+        command.discoverabilityTitle = "Bold".localized()
+        return command
+    }()
+    
+    private lazy var italicsKeyCommand: UIKeyCommand = {
+        let command = UIKeyCommand(input: "I", modifierFlags: .command, action: #selector(textView.toggleFormat(_:)))
+        command.discoverabilityTitle = "Italic".localized()
+        return command
+    }()
+    
+    private lazy var underlineKeyCommand: UIKeyCommand = {
+        let command = UIKeyCommand(input: "U", modifierFlags: .command, action: #selector(textView.toggleFormat(_:)))
+        command.discoverabilityTitle = "Underline".localized()
+        return command
+    }()
+    
+    private lazy var dropInteractionDelegate: DropInteractionDelegate = DropInteractionDelegate(viewController: self)
+        
     #if !targetEnvironment(macCatalyst)
     internal lazy var photoPickerDelegate = PhotoPickerDelegate { (image, error) in
         if let error = error {
@@ -150,12 +177,16 @@ internal class NotesViewController: UIViewController,
         }
         self.init(note: note)
     }
-    
+
     // MARK: - Override functions
-    
+
     override func viewDidLoad() {
         textView.placeholder = "Start writing here".localized()
         super.viewDidLoad()
+        
+        addKeyCommand(boldfaceKeyCommand)
+        addKeyCommand(italicsKeyCommand)
+        addKeyCommand(underlineKeyCommand)
 
         NotificationCenter.default.addObserver(
             self,
@@ -202,6 +233,9 @@ internal class NotesViewController: UIViewController,
             textView.isEditable = false
             textView.inputAccessoryView = nil
         }
+                
+        let dropInteraction = UIDropInteraction(delegate: dropInteractionDelegate)
+        textView.addInteraction(dropInteraction)
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -254,6 +288,7 @@ internal class NotesViewController: UIViewController,
     private func moveBoxView(boxView: BoxView, by vector: CGPoint) {
         boxView.center = currentBoxViewPosition + vector
         uptadeResizeHandles()
+        updateExclusionPaths()
     }
     
     private func saveNote() {
@@ -310,7 +345,7 @@ internal class NotesViewController: UIViewController,
     }
     
     /// This method adds a image box or a transcripted text from selected image in a text box to the current note
-    private func addMedia(from image: UIImage) {
+    internal func addMedia(from image: UIImage) {
         DispatchQueue.main.async {
             let alert = UIAlertController(title: "Image or text?".localized(), 
                                           message: "Import the media as an image or as a text transcription (Beta version)".localized(), 
@@ -452,6 +487,15 @@ internal class NotesViewController: UIViewController,
         }
     }
     
+    /**
+     This method inserts a string into the text view.
+     
+     - Parameter text: The string that will be added to the text view.
+     */
+    internal func insertText(_ text: String) {
+        self.textView.insertText("\n" + text + "\n")
+    }
+    
     // MARK: - TextEditingDelegateObserver functions
     
     func textEditingDidBegin() {
@@ -533,9 +577,8 @@ internal class NotesViewController: UIViewController,
         }
     }
     
-    ///Present the native Image Picker. There we instantiate a PHPickerViewController and set its delegate. Finally, there is a present from the view controller.
-    internal func presentPicker() {
-        
+    /// This method presentes the photo picker for iOS and iPadOS
+    internal func presentPhotoPicker() {
         #if !targetEnvironment(macCatalyst)
         var config = PHPickerConfiguration()
         config.filter = .images
@@ -543,18 +586,14 @@ internal class NotesViewController: UIViewController,
         let picker = PHPickerViewController(configuration: config)
         picker.delegate = photoPickerDelegate
         
-        let photoLibraryAction = UIAlertAction(title: "Library".localized(), style: .default) { (_) in
-            self.present(picker, animated: true, completion: nil)
-        }
-        
-        let cameraAction = UIAlertAction(title: "Camera".localized(), style: .default) { (_) in
-            self.showImagePickerController(sourceType: .camera)
-        }
-        
-        let alertController = UIAlertController()
-
-        alertController.createMultipleActionsAlert(on: self, title: "Choose your image".localized(), message: "Tip for transcripting text".localized(), actions: [photoLibraryAction, cameraAction])
-        
+        self.present(picker, animated: true, completion: nil)
+        #endif
+    }
+    
+    /// This method presentes the camera picker for iOS and iPadOS
+    internal func presentCameraPicker() {
+        #if !targetEnvironment(macCatalyst)
+        self.showImagePickerController(sourceType: .camera)
         #endif
     }
     
@@ -647,7 +686,7 @@ internal class NotesViewController: UIViewController,
                                                               })
                 self?.present(deleteAlertController, animated: true, completion: nil)
             })
-
+            alertController.popoverPresentationController?.sourceView = boxView
             self.present(alertController, animated: true, completion: nil)
         }
     }
@@ -682,6 +721,7 @@ internal class NotesViewController: UIViewController,
                 self?.present(deleteAlertController, animated: true, completion: nil)
             })
 
+            alertController.popoverPresentationController?.sourceView = boxView
             self.present(alertController, animated: true, completion: nil)
         }
     }

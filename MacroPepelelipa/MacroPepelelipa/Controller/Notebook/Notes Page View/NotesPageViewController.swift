@@ -40,6 +40,15 @@ internal class NotesPageViewController: UIPageViewController,
         let item = UIBarButtonItem(ofType: .index, 
                                    target: self, 
                                    action: #selector(presentNotebookIndex))
+        
+        item.accessibilityHint = "Index button hint".localized()
+        
+        return item
+    }()
+    
+    private lazy var presentTipButton: UIBarButtonItem = {
+        let item = UIBarButtonItem(image: UIImage(systemName: "info.circle"), style: .plain, target: self, action: #selector(presentTip))
+
         return item
     }()
     
@@ -67,6 +76,12 @@ internal class NotesPageViewController: UIPageViewController,
         
         do {
             self.notebook = try notes[0].getNotebook()
+            
+            if let name = notebook?.name {
+                self.notebookIndexButton.accessibilityLabel = String(format: "Index button label".localized(), name)
+            } else {
+                self.notebookIndexButton.accessibilityLabel = "Index".localized()
+            }
         } catch {
             let alertController = UIAlertController(
                 title: "Error retriving notebook".localized(),
@@ -95,7 +110,7 @@ internal class NotesPageViewController: UIPageViewController,
         view.backgroundColor = .rootColor
         
         navigationItem.largeTitleDisplayMode = .never
-        navigationItem.rightBarButtonItems = [notebookIndexButton]
+        navigationItem.rightBarButtonItems = [notebookIndexButton, presentTipButton]
         
         setupNotesToolbarActions()
         
@@ -126,9 +141,14 @@ internal class NotesPageViewController: UIPageViewController,
             self.deleteNote()
         }
         
-        notesToolbar.addImageTriggered = {
-            if let notesViewController = self.viewControllers?.first as? NotesViewController {
-                notesViewController.presentPicker()
+        notesToolbar.addImageTriggered = { identifier in
+            switch identifier {
+            case .init("camera"):
+                (self.viewControllers?.first as? NotesViewController)?.presentCameraPicker()
+            case .init("library"):
+                (self.viewControllers?.first as? NotesViewController)?.presentPhotoPicker()
+            default:
+                break
             }
         }
         
@@ -144,28 +164,34 @@ internal class NotesPageViewController: UIPageViewController,
         }
         
         notesToolbar.newNoteTriggered = {
-            guard let notebook = self.notebook else {
-                return
-            }
-            
-            let destination = AddNoteViewController(notebook: notebook) { 
-                self.updateNotes()
-            }
-            
-            destination.isModalInPresentation = true
-            destination.modalTransitionStyle = .crossDissolve
-            destination.modalPresentationStyle = .overFullScreen
-            
-            self.present(destination, animated: true)
+            self.createNote()
         }
     }
     
+    ///This methos creates a note in the notebook
+    internal func createNote() {
+        guard let notebook = self.notebook else {
+            return
+        }
+        
+        let destination = AddNoteViewController(notebook: notebook) {
+            self.updateNotes()
+        }
+        
+        destination.isModalInPresentation = true
+        destination.modalTransitionStyle = .crossDissolve
+        destination.modalPresentationStyle = .overFullScreen
+        
+        self.present(destination, animated: true)
+    }
+    
     ///This method deletes the current note from the notebook 
-    private func deleteNote() {
+    internal func deleteNote() {
         guard let viewController = viewControllers?.first as? NotesViewController,
             let note = viewController.note else {
             return
         }
+        
         let alertControlller = UIAlertController(
             title: "Delete Note confirmation".localized(),
             message: "Warning".localized(),
@@ -191,6 +217,7 @@ internal class NotesPageViewController: UIPageViewController,
             }
             self.present(deleteAlertController, animated: true, completion: nil)
         }
+        alertControlller.popoverPresentationController?.barButtonItem = notesToolbar.deleteNoteButton
         self.present(alertControlller, animated: true, completion: nil)
     }
     
@@ -284,7 +311,16 @@ internal class NotesPageViewController: UIPageViewController,
         }
     }
     
+    @IBAction private func presentTip() {
+        if self.notebook != nil {
+            let tipViewController = TipViewController()
+            self.present(tipViewController, animated: true, completion: nil)
+        }
+    }
+    
+    // This method is called 
     /// This method stops editing the view
+    
     @IBAction private func closeKeyboard() {
         self.view.endEditing(true)
     }

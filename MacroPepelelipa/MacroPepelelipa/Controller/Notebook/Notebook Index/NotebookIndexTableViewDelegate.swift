@@ -28,8 +28,11 @@ internal class NotebookIndexTableViewDelegate: NSObject, UITableViewDelegate {
             return
         }
         
+        notebookIndexCell.accessibilityValue = "Selected".localized()
+        
         for cell in tableView.visibleCells where cell !== notebookIndexCell {
             cell.setSelected(false, animated: true)
+            cell.accessibilityValue = ""
         }
         
         didSelectCell?(notebookIndexCell)

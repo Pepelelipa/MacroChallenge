@@ -23,6 +23,7 @@ internal class WorkspaceCollectionViewCell: UICollectionViewCell, EditableCollec
                     disclosureIndicator.isHidden = false
                 }
                 minusIndicator.isHidden = false
+                lblWorkspaceName.accessibilityHint = "Edit workspace name hint".localized()
             } else {
                 NSLayoutConstraint.deactivate(editingConstraints)
                 addSubview(workspaceView)
@@ -30,6 +31,7 @@ internal class WorkspaceCollectionViewCell: UICollectionViewCell, EditableCollec
                 NSLayoutConstraint.activate(workspaceNotebooksConstraints)
                 minusIndicator.isHidden = true
                 disclosureIndicator.isHidden = true
+                lblWorkspaceName.accessibilityHint = "Long press hint".localized()
             }
             
             UIView.animate(withDuration: 0.3) {
@@ -65,6 +67,9 @@ internal class WorkspaceCollectionViewCell: UICollectionViewCell, EditableCollec
         lbl.font = UIFont.defaultHeader.toStyle(.h3)
         lbl.textAlignment = .center
         lbl.translatesAutoresizingMaskIntoConstraints = false
+        
+        lbl.accessibilityHint = "Long press hint".localized()
+
         return lbl
     }()
     
@@ -72,6 +77,9 @@ internal class WorkspaceCollectionViewCell: UICollectionViewCell, EditableCollec
         let imageView = UIImageView(image: UIImage(systemName: "chevron.right"))
         imageView.tintColor = .actionColor
         imageView.isHidden = true
+
+        imageView.isAccessibilityElement = false
+        
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
@@ -98,6 +106,11 @@ internal class WorkspaceCollectionViewCell: UICollectionViewCell, EditableCollec
     internal private(set) weak var workspace: WorkspaceEntity? {
         didSet {
             self.lblWorkspaceName.text = workspace?.name
+            
+            if let name = workspace?.name {
+                self.minusIndicator.accessibilityHint = String(format: "Delete workspace hint".localized(), name)
+                self.minusIndicator.accessibilityLabel = String(format: "Delete workspace label".localized(), name)
+            }
         }
     }
     

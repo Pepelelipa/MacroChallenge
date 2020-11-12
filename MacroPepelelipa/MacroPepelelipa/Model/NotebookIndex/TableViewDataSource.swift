@@ -44,6 +44,7 @@ internal class NotebookIndexTableViewDataSource: NSObject, UITableViewDataSource
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) { 
             if indexes[indexPath.row].note === note {
                 cell.setSelected(true, animated: true)
+                cell.accessibilityValue = "Selected".localized()
             }
         }
         

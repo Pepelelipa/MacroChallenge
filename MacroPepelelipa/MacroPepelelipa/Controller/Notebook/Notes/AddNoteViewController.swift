@@ -61,6 +61,17 @@ internal class AddNoteViewController: UIViewController, AddNoteObserver {
 
         return btnConfirm
     }()
+    
+    private lazy var dismissButton: UIButton = {
+        let button = UIButton()
+        button.tintColor = UIColor.placeholderColor
+        button.setBackgroundImage(UIImage(systemName: "xmark.circle"), for: .normal)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.addTarget(self, action: #selector(dismissPopUpView), for: .touchUpInside)
+        button.accessibilityLabel = "Dismiss pop-up label".localized()
+        button.accessibilityHint = "Dismiss note pop-up hint".localized()
+        return button
+    }()
 
     private lazy var constraints: [NSLayoutConstraint] = {
         [
@@ -70,7 +81,12 @@ internal class AddNoteViewController: UIViewController, AddNoteObserver {
             popupView.heightAnchor.constraint(greaterThanOrEqualTo: view.heightAnchor, multiplier: 0.18),
             popupView.widthAnchor.constraint(lessThanOrEqualTo: view.widthAnchor, multiplier: 0.8),
             
-            txtName.topAnchor.constraint(equalTo: popupView.topAnchor, constant: 20),
+            dismissButton.topAnchor.constraint(equalTo: popupView.topAnchor, constant: 16),
+            dismissButton.trailingAnchor.constraint(equalTo: popupView.trailingAnchor, constant: -16),
+            dismissButton.widthAnchor.constraint(equalTo: popupView.heightAnchor, multiplier: 0.15),
+            dismissButton.heightAnchor.constraint(equalTo: popupView.heightAnchor, multiplier: 0.15),
+            
+            txtName.topAnchor.constraint(equalTo: dismissButton.bottomAnchor, constant: 5),
             txtName.leadingAnchor.constraint(equalTo: popupView.leadingAnchor, constant: 30),
             txtName.trailingAnchor.constraint(equalTo: popupView.trailingAnchor, constant: -30),
             txtName.heightAnchor.constraint(equalToConstant: 40),
@@ -109,6 +125,7 @@ internal class AddNoteViewController: UIViewController, AddNoteObserver {
         view.addSubview(popupView)
         popupView.addSubview(txtName)
         popupView.addSubview(btnConfirm)
+        popupView.addSubview(dismissButton)
         btnConfirm.isEnabled = false
 
         let selfTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(selfTap))
@@ -145,6 +162,10 @@ internal class AddNoteViewController: UIViewController, AddNoteObserver {
     }
     
     // MARK: - IBActions functions
+    
+    @IBAction func dismissPopUpView() {
+        self.dismiss(animated: true, completion: nil)
+    }
 
     @IBAction func selfTap() {
         if txtName.isEditing {

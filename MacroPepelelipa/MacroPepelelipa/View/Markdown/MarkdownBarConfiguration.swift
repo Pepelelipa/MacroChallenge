@@ -10,10 +10,18 @@ import UIKit
 import PhotosUI
 import MarkdownText
 
+internal enum BarButtonType: String {
+    case list = "List style"
+    case paragraph = "Paragraph style"
+    case image = "Import image"
+    case textBox = "Add text box"
+    case format = "Format"
+}
+
 internal class MarkdownBarConfiguration {    
     
     // MARK: - Variables and Constants
-
+    
     private weak var textView: MarkdownTextView?
     private weak var markupViewController: MarkupContainerViewController?
     
@@ -30,8 +38,8 @@ internal class MarkdownBarConfiguration {
         }
         self.init(owner: owner)
     }
-     
-    // MARK: UIBarButtonItem functions
+    
+    // MARK: - UIBarButtonItem functions
     
     /**
      This internal method creates a UIBarButtonItem with an image and an Objective-C function.
@@ -41,7 +49,7 @@ internal class MarkdownBarConfiguration {
         - objcFunc: An optional Selector to be added to the button.
      - Returns: An UIBarButtonItem with an image and a selector, if passed as parameter.
      */
-    internal func createBarButtonItem(imageName: String, systemImage: Bool, objcFunc: Selector?) -> UIBarButtonItem {
+    internal func createBarButtonItem(imageName: String, systemImage: Bool, objcFunc: Selector? = nil) -> UIBarButtonItem {
         var buttonImage: UIImage?
         if systemImage {
             buttonImage = UIImage(systemName: imageName)
@@ -54,30 +62,41 @@ internal class MarkdownBarConfiguration {
     
     /**
      This internal creates all of the UIBarButtonItems for the tab bar.
-     - Returns: An array of UIBarButtonItems so that the class that will be using this function can access the buttons.
+     - Returns: A dictionaty of UIBarButtonItems per BarButtonType so that the class that will be using this function can access the buttons.
      */
-    internal func setUpButtons() -> [UIBarButtonItem] {
-        var barButtonItems: [UIBarButtonItem] = []
+    internal func setUpButtons() -> [BarButtonType: UIBarButtonItem] {
+        var barButtonItems = [BarButtonType: UIBarButtonItem]()
         
-        let listButton = createBarButtonItem(imageName: "text.badge.plus", systemImage: true, objcFunc: #selector(addList))
-        barButtonItems.append(listButton)
+        let listButton = createBarButtonItem(imageName: "text.badge.plus", systemImage: true)
+        listButton.accessibilityLabel = "List label".localized()
+        listButton.accessibilityHint = "List hint".localized()
+        listButton.menu = setupMenu(for: .list)
+        barButtonItems[.list] = listButton
         
-        let paragraphButton = createBarButtonItem(imageName: "paragraph", systemImage: true, objcFunc: #selector(addHeader))
-        barButtonItems.append(paragraphButton)
+        let paragraphButton = createBarButtonItem(imageName: "paragraph", systemImage: true)
+        paragraphButton.accessibilityHint = "Paragraph hint".localized()
+        paragraphButton.menu = setupMenu(for: .paragraph)
+        barButtonItems[.paragraph] = paragraphButton
         
-        let imageGalleryButton = createBarButtonItem(imageName: "photo", systemImage: true, objcFunc: #selector(photoPicker))
-        barButtonItems.append(imageGalleryButton)
+        let imageGalleryButton = createBarButtonItem(imageName: "photo", systemImage: true)
+        imageGalleryButton.accessibilityLabel = "Add image label".localized()
+        imageGalleryButton.accessibilityHint = "Add image hint".localized()
+        imageGalleryButton.menu = setupMenu(for: .image)
+        barButtonItems[.image] = imageGalleryButton
         
         let textBoxButton = createBarButtonItem(imageName: "textbox", systemImage: true, objcFunc: #selector(addTextBox))
-        barButtonItems.append(textBoxButton)
+        textBoxButton.accessibilityHint = "Text box hint".localized()
+        barButtonItems[.textBox] = textBoxButton
         
         let paintbrushButton = createBarButtonItem(imageName: "paintbrush", systemImage: true, objcFunc: #selector(openEditTextContainer))
-        barButtonItems.append(paintbrushButton)
+        paintbrushButton.accessibilityLabel = "Format".localized()
+        paintbrushButton.accessibilityLabel = "Format hint".localized()
+        barButtonItems[.format] = paintbrushButton
         
         return barButtonItems
     }
     
-    // MARK: UIButton functions
+    // MARK: - UIButton functions
     
     /**
      This internal method creates a UIButton with an image and an Objective-C function.
@@ -87,7 +106,7 @@ internal class MarkdownBarConfiguration {
         - objcFunc: An optional Selector to be added to the button.
      - Returns: An UIBarButtonItem with an image and a selector, if passed as parameter.
      */
-    internal func createButton(imageName: String, systemImage: Bool, objcFunc: Selector) -> UIButton {
+    internal func createButton(imageName: String, systemImage: Bool, objcFunc: Selector? = nil) -> UIButton {
         let button = UIButton(frame: .zero)
         button.translatesAutoresizingMaskIntoConstraints = false
         
@@ -99,7 +118,10 @@ internal class MarkdownBarConfiguration {
         }
         
         button.setBackgroundImage(buttonImage, for: .normal)
-        button.addTarget(self, action: objcFunc, for: .touchUpInside)
+        
+        if let action = objcFunc {
+            button.addTarget(self, action: action, for: .touchUpInside)
+        }
         
         return button
     }
@@ -108,33 +130,75 @@ internal class MarkdownBarConfiguration {
      This internal creates all of the UIButtons for the tab bar.
      - Returns: An array of UIButtons so that the class that will be using this function can access the buttons.
      */
-    internal func setupUIButtons() -> [UIButton] {
-        var buttons: [UIButton] = []
+    internal func setupUIButtons() -> [BarButtonType: UIButton] {
+        var buttons = [BarButtonType: UIButton]()
         
-        let listButton = createButton(imageName: "text.badge.plus", systemImage: true, objcFunc: #selector(addListButton))
-        buttons.append(listButton)
+        let listButton = createButton(imageName: "text.badge.plus", systemImage: true)
+        listButton.accessibilityLabel = "List label".localized()
+        listButton.accessibilityHint = "List hint".localized()
+        listButton.menu = setupMenu(for: .list)
+        listButton.showsMenuAsPrimaryAction = true
+        buttons[.list] = listButton
         
-        let paragraphButton = createButton(imageName: "paragraph", systemImage: true, objcFunc: #selector(addHeaderButton))
-        buttons.append(paragraphButton)
+        let paragraphButton = createButton(imageName: "paragraph", systemImage: true)
+        paragraphButton.accessibilityHint = "Paragraph hint".localized()
+        paragraphButton.menu = setupMenu(for: .paragraph)
+        paragraphButton.showsMenuAsPrimaryAction = true
+        buttons[.paragraph] = paragraphButton
         
-        let imageGalleryButton = createButton(imageName: "photo", systemImage: true, objcFunc: #selector(photoPicker))
-        buttons.append(imageGalleryButton)
+        let imageGalleryButton = createButton(imageName: "photo", systemImage: true)
+        imageGalleryButton.accessibilityLabel = "Add image label".localized()
+        imageGalleryButton.accessibilityHint = "Add image hint".localized()
+        imageGalleryButton.menu = setupMenu(for: .image)
+        imageGalleryButton.showsMenuAsPrimaryAction = true
+        buttons[.image] = imageGalleryButton
         
         let textBoxButton = createButton(imageName: "textbox", systemImage: true, objcFunc: #selector(addTextBox))
-        buttons.append(textBoxButton)
+        textBoxButton.accessibilityHint = "Text box hint".localized()
+        buttons[.textBox] = textBoxButton
         
         let paintbrushButton = createButton(imageName: "paintbrush", systemImage: true, objcFunc: #selector(openEditTextContainer))
-        buttons.append(paintbrushButton)
+        paintbrushButton.accessibilityLabel = "Format".localized()
+        paintbrushButton.accessibilityLabel = "Format hint".localized()
+        buttons[.format] = paintbrushButton
         
         return buttons
     }
-
-    // MARK: Action functions
+    
+    internal func setupMenu(for type: BarButtonType) -> UIMenu {
+        var actions = [UIAction]()
+        
+        switch type {
+        case .list:
+            actions = [
+                UIAction(title: "Bullet list".localized(), image: UIImage(systemName: "list.bullet"), identifier: .init("bullet"), state: .off, handler: addList(action:)),
+                UIAction(title: "Numeric list".localized(), image: UIImage(systemName: "list.number"), identifier: .init("numeric"), state: .off, handler: addList(action:))
+            ]
+        case .paragraph:
+            actions = [
+                UIAction(title: "First Header".localized(), image: UIImage(named: "h1"), identifier: .init("H1"), state: .off, handler: addHeader(action:)),
+                UIAction(title: "Second Header".localized(), image: UIImage(named: "h2"), identifier: .init("H2"), state: .off, handler: addHeader(action:)),
+                UIAction(title: "Third Header".localized(), image: UIImage(named: "h3"), identifier: .init("H3"), state: .off, handler: addHeader(action:)),
+                UIAction(title: "Paragraph".localized(), image: UIImage(systemName: "paragraph"), identifier: .init("P"), state: .off, handler: addHeader(action:))
+            ]
+        case .image:
+            actions = [
+                UIAction(title: "Camera".localized(), image: UIImage(systemName: "camera"), identifier: .init("camera"), state: .off, handler: addImage(action:)),
+                UIAction(title: "Library".localized(), image: UIImage(systemName: "photo.on.rectangle"), identifier: .init("library"), state: .off, handler: addImage(action:))
+            ]
+        default:
+            break
+        }
+        
+        return UIMenu(title: type.rawValue.localized(), identifier: .format, children: actions)
+    }
+    
+    // MARK: - Action functions
     
     /**
-    In this funcion, we toggle the color of the button when the button is selected.
+     In this funcion, we toggle the color of the button when the button is selected.
      - Parameter sender: The UIButton.
-    */
+     */
     @objc internal func toogleButton(_ sender: UIButton) {
         sender.isSelected.toggle()
         if sender.isSelected {
@@ -145,82 +209,55 @@ internal class MarkdownBarConfiguration {
     }
     
     /**
-    In this funcion, we deal with the toolbar button for adding a list, adding it manually, when the function receives a UIBarButtonItem.
-    - Parameter listButton: The UIBarButtonItem for the list items.
-    */
-    @objc internal func addList(listButton: UIBarButtonItem) {
-        if listButton.image == UIImage(systemName: "text.badge.plus") {
-            listButton.image = UIImage(systemName: "list.bullet")
-            textView?.addList(.bullet)
-        } else if listButton.image == UIImage(systemName: "list.bullet") {
-            listButton.image = UIImage(systemName: "list.number")
-            textView?.addList(.numeric)
-        } else {
-            listButton.image = UIImage(systemName: "text.badge.plus")
-            // TODO: remove the list so that it can change to the correct button, without any type of bullet.
-        }
-    }
-
-    /**
-     In this funcion, we deal with the toolbar button for adding a list, adding it manually, when the function receives a UIButton.
-     - Parameter listButton: The UIButton for the list items.
+     This function executes an action, using the UIAction's identifier to determine the type of list to be added.
+     - Parameter action: The UIAction that will be analysed.
      */
-    @objc internal func addListButton(listButton: UIButton) {
-        if listButton.backgroundImage(for: .normal) == UIImage(systemName: "list.number") {
-            listButton.setBackgroundImage(UIImage(systemName: "list.bullet"), for: .normal)
-            textView?.addList(.numeric)
-        } else {
-            listButton.setBackgroundImage(UIImage(systemName: "list.number"), for: .normal)
+    private func addList(action: UIAction) {
+        switch action.identifier {
+        case .init("bullet"):
             textView?.addList(.bullet)
+        case .init("numeric"):
+            textView?.addList(.numeric)
+        default:
+            break
         }
     }
     
     /**
-    In this funcion, we deal with the toolbar button for adding a header, adding it manually.
-     - Parameter paragraphButton: The UIBarButtonItem for the items for the paragraph interaction.
-    */
-    @objc internal func addHeader(paragraphButton: UIBarButtonItem) {
-        if let textView = textView {
-            let style: FontStyle
-            if paragraphButton.image == UIImage(systemName: "paragraph") {
-                paragraphButton.image = UIImage(named: "h1")
-                style = .h1
-            } else if paragraphButton.image == UIImage(named: "h1") {
-                paragraphButton.image = UIImage(named: "h2")
-                style = .h2
-            } else if paragraphButton.image == UIImage(named: "h2") {
-                paragraphButton.image = UIImage(named: "h3")
-                style = .h3
-            } else {
-                paragraphButton.image = UIImage(systemName: "paragraph")
-                style = .paragraph
-            }
-            textView.setFont(to: textView.activeFont.toStyle(style))
+     This function executes an action, using the UIAction's identifier to determine the type of paragraph style to be added.
+     - Parameter action: The UIAction that will be analysed.
+     */
+    private func addHeader(action: UIAction) {
+        guard let textView = self.textView else {
+            return
+        }
+        
+        switch action.identifier {
+        case .init("H1"):
+            textView.setFont(to: textView.activeFont.toStyle(.h1))
+        case .init("H2"):
+            textView.setFont(to: textView.activeFont.toStyle(.h2))
+        case .init("H3"):
+            textView.setFont(to: textView.activeFont.toStyle(.h3))
+        case .init("P"):
+            textView.setFont(to: textView.activeFont.toStyle(.paragraph))
+        default:
+            break
         }
     }
     
     /**
-    In this funcion, we deal with the toolbar button for adding a header, adding it manually.
-     - Parameter paragraphButton: The UIButton for the items for the paragraph interaction.
-    */
-    @objc internal func addHeaderButton(paragraphButton: UIButton) {
-
-        if let textView = textView {
-            let style: FontStyle
-            if paragraphButton.backgroundImage(for: .normal) == UIImage(systemName: "paragraph") {
-                paragraphButton.setBackgroundImage(UIImage(named: "h1"), for: .normal)
-                style = .h1
-            } else if paragraphButton.backgroundImage(for: .normal) == UIImage(named: "h1") {
-                paragraphButton.setBackgroundImage(UIImage(named: "h2"), for: .normal)
-                style = .h2
-            } else if paragraphButton.backgroundImage(for: .normal) == UIImage(named: "h2") {
-                paragraphButton.setBackgroundImage(UIImage(named: "h3"), for: .normal)
-                style = .h3
-            } else {
-                paragraphButton.setBackgroundImage(UIImage(systemName: "paragraph"), for: .normal)
-                style = .paragraph
-            }
-            textView.setFont(to: textView.activeFont.toStyle(style))
+     This function executes an action, using the UIAction's identifier to determine the type of image to be imported.
+     - Parameter action: The UIAction that will be analysed.
+     */
+    private func addImage(action: UIAction) {
+        switch action.identifier {
+        case .init("camera"):
+            observer?.presentCameraPicker()
+        case .init("library"):
+            observer?.presentPhotoPicker()
+        default:
+            break
         }
     }
     
@@ -234,10 +271,5 @@ internal class MarkdownBarConfiguration {
         } else if UIDevice.current.userInterfaceIdiom == .pad {
             observer?.openPopOver()
         }
-        
-    }
-    
-    @objc internal func photoPicker() {
-        observer?.presentPicker()
     }
 }

@@ -28,6 +28,16 @@ internal class TextEditingContainerViewController: UIViewController,
         let item = UIBarButtonItem(ofType: .index, 
                                    target: self, 
                                    action: #selector(presentNotebookIndex))
+        
+        item.accessibilityLabel = "Index button label".localized()
+        item.accessibilityHint = "Index button hint".localized()
+        
+        return item
+    }()
+    
+    private lazy var presentTipButton: UIBarButtonItem = {
+        let item = UIBarButtonItem(image: UIImage(systemName: "info.circle"), style: .plain, target: self, action: #selector(presentTip))
+
         return item
     }()
     
@@ -35,6 +45,9 @@ internal class TextEditingContainerViewController: UIViewController,
         let item = UIBarButtonItem(ofType: .done,
                                    target: self,
                                    action: #selector(closeKeyboard))
+        
+        item.accessibilityLabel = "Done".localized()
+        item.accessibilityHint = "End editing hint".localized()
         
         return item
     }()
@@ -72,6 +85,18 @@ internal class TextEditingContainerViewController: UIViewController,
         return []
     }()
     
+    internal lazy var deleteCommand: UIKeyCommand = {
+        let command = UIKeyCommand(input: "\u{8}", modifierFlags: .command, action: #selector(deleteNote))
+        command.discoverabilityTitle = "Delete note".localized()
+        return command
+    }()
+    
+    internal lazy var newNoteCommand: UIKeyCommand = {
+        let command = UIKeyCommand(input: "N", modifierFlags: .command, action: #selector(createNote))
+        command.discoverabilityTitle = "New note".localized()
+        return command
+    }()
+    
     // MARK: - Initializers
     
     internal init(centerViewController: NotesPageViewController) {
@@ -90,6 +115,10 @@ internal class TextEditingContainerViewController: UIViewController,
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        addKeyCommand(deleteCommand)
+        addKeyCommand(newNoteCommand)
+        
         if let centerViewController = self.centerViewController {
             showCenterViewController(centerViewController)
         } else {
@@ -97,9 +126,9 @@ internal class TextEditingContainerViewController: UIViewController,
         }
 
         if (try? notesViewController?.note?.getNotebook().getWorkspace().isEnabled) ?? false {
-            navigationItem.rightBarButtonItems = [notebookIndexButton]
+            navigationItem.rightBarButtonItems = [notebookIndexButton, presentTipButton]
         } else {
-            navigationItem.rightBarButtonItems = [notebookIndexButton]
+            navigationItem.rightBarButtonItems = [notebookIndexButton, presentTipButton]
         }
         navigationItem.largeTitleDisplayMode = .never
         navigationItem.titleView = markupNavigationView
@@ -221,7 +250,7 @@ internal class TextEditingContainerViewController: UIViewController,
                                                                           size: .init(width: 380, height: 110))
 
         markupContainerViewController.modalPresentationStyle = .popover
-        markupContainerViewController.popoverPresentationController?.sourceView = markupNavigationView.barButtonItems[4]
+        markupContainerViewController.popoverPresentationController?.sourceView = markupNavigationView.barButtonItems[.format]
 
         present(markupContainerViewController, animated: true)
     }
@@ -262,21 +291,31 @@ internal class TextEditingContainerViewController: UIViewController,
         }
     }
 
-    internal func presentPicker() {
-        guard let noteController = centerViewController?.viewControllers?.first as? NotesViewController else {
-            return
-        }
-        
-        noteController.presentPicker()
-    }
-
     internal func changeTextViewInput(isCustom: Bool) {
         if let noteController = centerViewController?.viewControllers?.first as? NotesViewController {
             noteController.changeTextViewInput(isCustom: isCustom)
         }
     }
     
+    /// This method presentes the photo picker for iOS and iPadOS
+    func presentPhotoPicker() {
+        (centerViewController?.viewControllers?.first as? NotesViewController)?.presentPhotoPicker()
+    }
+    
+    /// This method presentes the camera picker for iOS and iPadOS
+    func presentCameraPicker() {
+        (centerViewController?.viewControllers?.first as? NotesViewController)?.presentCameraPicker()
+    }
+    
     // MARK: - IBActions functions
+    
+    @IBAction private func createNote() {
+        self.centerViewController?.createNote()
+    }
+    
+    @IBAction private func deleteNote() {
+        self.centerViewController?.deleteNote()
+    }
     
     @IBAction private func presentMoreActions() {
         guard let pageViewController = centerViewController,
@@ -332,6 +371,11 @@ internal class TextEditingContainerViewController: UIViewController,
             
             present(alertController, animated: true, completion: nil)
         }
+    }
+    
+    @IBAction private func presentTip() {
+            let tipViewController = TipViewController()
+            self.present(tipViewController, animated: true, completion: nil)
     }
     
     // This method is called when the UIBarButton for the done button is pressed and it closes the keyboard

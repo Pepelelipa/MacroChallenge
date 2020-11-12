@@ -88,7 +88,22 @@ internal class WorkspaceSelectionViewController: UIViewController,
 
     private lazy var btnAdd: UIBarButtonItem = {
         let item = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(btnAddTap))
+        item.isAccessibilityElement = true
+        item.accessibilityHint = "Add workspace hint".localized()
+        item.accessibilityLabel = "Add workspace label".localized()
         return item
+    }()
+    
+    private lazy var newWorspaceCommand: UIKeyCommand = {
+        let command = UIKeyCommand(input: "N", modifierFlags: .command, action: #selector(btnAddTap))
+        command.discoverabilityTitle = "New workspace".localized()
+        return command
+    }()
+    
+    private lazy var findCommand: UIKeyCommand = {
+        let command = UIKeyCommand(input: "F", modifierFlags: .command, action: #selector(startSearch))
+        command.discoverabilityTitle = "Find".localized()
+        return command
     }()
     
     private lazy var emptyScreenView: EmptyScreenView = {
@@ -114,6 +129,10 @@ internal class WorkspaceSelectionViewController: UIViewController,
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        addKeyCommand(newWorspaceCommand)
+        addKeyCommand(findCommand)
+        
         view.backgroundColor = .rootColor
         navigationItem.rightBarButtonItem = btnAdd
         navigationItem.largeTitleDisplayMode = .always
@@ -154,6 +173,9 @@ internal class WorkspaceSelectionViewController: UIViewController,
         self.definesPresentationContext = true
         if !collectionDataSource.isEmpty {
             navigationItem.leftBarButtonItem = editButtonItem
+            navigationItem.leftBarButtonItem?.accessibilityHint = "Edit workspaces hint".localized()
+            navigationItem.leftBarButtonItem?.accessibilityLabel = "Edit workspaces label".localized()
+            navigationItem.leftBarButtonItem?.accessibilityValue = "Editing disabled".localized()
         }
     }
     
@@ -191,6 +213,12 @@ internal class WorkspaceSelectionViewController: UIViewController,
     override func setEditing(_ editing: Bool, animated: Bool) {
         super.setEditing(editing, animated: animated)
         collectionView.setEditing(editing)
+        
+        if editing {
+            navigationItem.leftBarButtonItem?.accessibilityValue = "Editing enabled".localized()
+        } else {
+            navigationItem.leftBarButtonItem?.accessibilityValue = "Editing disabled".localized()
+        }
     }
     
     // MARK: - UISearchResultsUpdating Functions
@@ -396,6 +424,11 @@ internal class WorkspaceSelectionViewController: UIViewController,
     }
     
     // MARK: - IBActions functions
+    
+    /// Makes the search controller first responder
+    @IBAction func startSearch() {
+        self.searchController.isActive = true
+    }
     
     @IBAction func btnAddTap() {
         btnAdd.isEnabled = false

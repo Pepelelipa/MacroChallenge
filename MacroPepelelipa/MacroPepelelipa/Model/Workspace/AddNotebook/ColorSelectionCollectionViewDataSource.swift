@@ -44,6 +44,8 @@ internal class ColorSelectionCollectionViewDataSource: NSObject, UICollectionVie
             return UICollectionViewCell()
         }
         cell.color = colors[indexPath.row]
+        cell.isAccessibilityElement = true
+        cell.accessibilityLabel = "nb\(indexPath.row)".localized()
 
         return cell
     }
