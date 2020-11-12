@@ -63,6 +63,7 @@ public class DataManager {
                 for workspace in result {
                     workspaceObjects.first(where: { (try? $0.getID())?.uuidString == workspace.id.value })?.cloudKitWorkspace = workspace
                 }
+                self.fixDifferences(differentEntities: self.findDifferences(workspaces: workspaceObjects))
             case .fail(let error, _):
                 self.conflictHandler.errDidOccur(err: error)
             default:
@@ -70,6 +71,106 @@ public class DataManager {
             }
         }
         return workspaceObjects
+    }
+
+    private func findDifferences(workspaces: [WorkspaceObject]) -> [PersistentEntity] {
+        //Checking for different entities(one to one not to replace a whole workspace in CloudKit, taking longer but saving request data)
+        var differentEntities: [PersistentEntity] = []
+        for workspaceObject in workspaces {
+            for notebookObject in workspaceObject.notebooks {
+                for noteObject in notebookObject.notes {
+                    for textBoxObject in noteObject.textBoxes {
+                        if let textBoxObject = textBoxObject as? TextBoxObject,
+                           let ckObject = textBoxObject.cloudKitTextBox,
+                           !(ckObject == textBoxObject.coreDataTextBox) {
+                            differentEntities.append(textBoxObject)
+                        }
+                    }
+                    for imageBoxObject in noteObject.images {
+                        if let imageBoxObject = imageBoxObject as? ImageBoxObject,
+                           let ckObject = imageBoxObject.cloudKitImageBox,
+                           !(ckObject == imageBoxObject.coreDataImageBox) {
+                            differentEntities.append(imageBoxObject)
+                        }
+                    }
+                    if let noteObject = notebookObject as? NoteObject,
+                       let ckObject = noteObject.cloudKitNote,
+                       !(ckObject == noteObject.coreDataNote) {
+                        differentEntities.append(noteObject)
+                    }
+                }
+                if let notebookObject = notebookObject as? NotebookObject,
+                   let ckObject = notebookObject.cloudKitNotebook,
+                   !(ckObject == notebookObject.coreDataNotebook) {
+                    differentEntities.append(notebookObject)
+                }
+            }
+            if let ckObject = workspaceObject.cloudKitWorkspace,
+               !(ckObject == workspaceObject.coreDataWorkspace) {
+                differentEntities.append(workspaceObject)
+            }
+        }
+        return differentEntities
+    }
+    private func fixDifferences(differentEntities: [PersistentEntity]) {
+        if differentEntities.isEmpty {
+            return
+        }
+        conflictHandler.chooseVersion { (version) in
+            for entity in differentEntities {
+                if let workspace = entity as? WorkspaceObject {
+                    guard let ckWorkspace = workspace.cloudKitWorkspace else {
+                        self.conflictHandler.errDidOccur(err: WorkspaceError.workspaceWasNull)
+                        return
+                    }
+                    if version == .local {
+                        ckWorkspace <- workspace.coreDataWorkspace
+                    } else {
+                        workspace.coreDataWorkspace <- ckWorkspace
+                    }
+                } else if let notebook = entity as? NotebookObject {
+                    guard let ckNotebook = notebook.cloudKitNotebook else {
+                        self.conflictHandler.errDidOccur(err: NotebookError.notebookWasNull)
+                        return
+                    }
+                    if version == .local {
+                        ckNotebook <- notebook.coreDataNotebook
+                    } else {
+                        notebook.coreDataNotebook <- ckNotebook
+                    }
+                } else if let note = entity as? NoteObject {
+                    guard let ckNote = note.cloudKitNote else {
+                        self.conflictHandler.errDidOccur(err: NoteError.noteWasNull)
+                        return
+                    }
+                    if version == .local {
+                        ckNote <- note.coreDataNote
+                    } else {
+                        note.coreDataNote <- ckNote
+                    }
+                } else if let textBox = entity as? TextBoxObject {
+                    guard let ckTextBox = textBox.cloudKitTextBox else {
+                        self.conflictHandler.errDidOccur(err: TextBoxError.textBoxWasNull)
+                        return
+                    }
+                    if version == .local {
+                        ckTextBox <- textBox.coreDataTextBox
+                    } else {
+                        textBox.coreDataTextBox <- ckTextBox
+                    }
+                } else if let imageBox = entity as? ImageBoxObject {
+                    guard let ckImageBox = imageBox.cloudKitImageBox else {
+                        self.conflictHandler.errDidOccur(err: ImageBoxError.imageBoxWasNull)
+                        return
+                    }
+                    if version == .local {
+                        ckImageBox <- imageBox.coreDataImageBox
+                    } else {
+                        imageBox.coreDataImageBox <- ckImageBox
+                    }
+                }
+            }
+        }
     }
 
     /**

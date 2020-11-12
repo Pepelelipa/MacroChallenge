@@ -8,4 +8,5 @@
 
 public enum ImageBoxError: Error {
     case failedToParse
+    case imageBoxWasNull
 }
