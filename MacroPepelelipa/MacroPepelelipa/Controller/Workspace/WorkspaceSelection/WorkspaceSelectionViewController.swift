@@ -24,7 +24,6 @@ internal class WorkspaceSelectionViewController: UIViewController,
                      modifierFlags: .command,
                      propertyList: nil)
         command.discoverabilityTitle = "New workspace".localized()
-        // TODO: localize title
         return command
     }()
     
@@ -36,7 +35,6 @@ internal class WorkspaceSelectionViewController: UIViewController,
                      modifierFlags: .command,
                      propertyList: nil)
         command.discoverabilityTitle = "Find".localized()
-        // TODO: localize title
         return command
     }()
     

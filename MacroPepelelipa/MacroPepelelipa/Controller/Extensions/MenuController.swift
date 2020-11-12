@@ -60,8 +60,7 @@ internal class MenuController {
     }
     
     private class func newWorkspaceMenu() -> UIMenu {
-        // TODO: localize title
-        return UIMenu(title: "NewWorkspaceCommandTitle".localized(),
+        return UIMenu(title: "New workspace".localized(),
                       image: nil,
                       identifier: UIMenu.Identifier(WorkspaceMenuId.new.rawValue),
                       options: [.destructive, .displayInline],
@@ -69,8 +68,7 @@ internal class MenuController {
     }
     
     private class func findMenu() -> UIMenu {
-        // TODO: localize title
-        return UIMenu(title: "FindCommandTitle".localized(),
+        return UIMenu(title: "Find".localized(),
                       image: nil,
                       identifier: UIMenu.Identifier(WorkspaceMenuId.find.rawValue),
                       options: [.destructive, .displayInline],
@@ -88,8 +86,7 @@ internal class MenuController {
     }
     
     private class func newNotebookMenu() -> UIMenu {
-        // TODO: localize title
-        return UIMenu(title: "NewNotebookCommandTitle".localized(),
+        return UIMenu(title: "New notebook".localized(),
                       image: nil,
                       identifier: UIMenu.Identifier(NotebookMenuId.new.rawValue),
                       options: [.destructive, .displayInline],
@@ -107,8 +104,7 @@ internal class MenuController {
     }
     
     private class func noteMenu() -> UIMenu {
-        // TODO: localize title
-        return UIMenu(title: "NoteCommandTitle".localized(),
+        return UIMenu(title: "Note".localized(),
                       image: nil,
                       identifier: UIMenu.Identifier(NoteMenuId.note.rawValue),
                       options: [.destructive, .displayInline],

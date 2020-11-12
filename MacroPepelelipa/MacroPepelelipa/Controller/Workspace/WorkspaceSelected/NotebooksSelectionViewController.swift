@@ -21,7 +21,6 @@ internal class NotebooksSelectionViewController: UIViewController {
                                    modifierFlags: .command,
                                    propertyList: nil)
         command.discoverabilityTitle = "New notebook".localized()
-        // TODO: localize title
         return command
     }()
     
