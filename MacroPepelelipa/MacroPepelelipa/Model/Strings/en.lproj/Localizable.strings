@@ -136,3 +136,9 @@
 "Settings Bar" = "Settings Bar";
 "InputView explanation" = "You can also access the same options through the Configuration Bar, located at the bottom of the screen.";
 "Tips" = "Tips";
+"Finish" = "Finish";
+"Back" = "Back";
+"Discard" = "Discard";
+"Save Explanation" = "To save this note, we need to add it to a collection and notebook.";
+"Selected Notebook" = "Selected Notebook";
+

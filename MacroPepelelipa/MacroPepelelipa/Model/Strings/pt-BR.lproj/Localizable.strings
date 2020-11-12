@@ -138,3 +138,9 @@
 "Settings Bar" = "Barra de Configurações";
 "InputView explanation" = "Você também pode acessar as mesmas opções através da Barra de Configuração, localizado na parte inferior da tela.";
 "Tips" = "Dicas";
+"Finish" = "Finalizar";
+"Back" = "Voltar";
+"Discard" = "Descartar";
+"Save Explanation" = "Para salvar esta nota precisamos adiciona-la à uma coleção e à um caderno.";
+"Selected Notebook" = "Caderno selecionado";
+

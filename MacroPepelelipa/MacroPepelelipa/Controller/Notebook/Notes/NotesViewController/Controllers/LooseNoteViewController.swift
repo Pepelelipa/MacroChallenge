@@ -32,7 +32,7 @@ internal class LooseNoteViewController: UIViewController,
     internal var imgeButtonObserver: ImageButtonObserver?
     internal lazy var receiverView: UIView = self.view
 
-    internal weak var note: NoteEntity?
+    internal var note: NoteEntity?
     internal var delegate: AppMarkdownTextViewDelegate?
     internal private(set) weak var notebook: NotebookEntity?
     
@@ -75,7 +75,7 @@ internal class LooseNoteViewController: UIViewController,
     }()
     
     private lazy var btnAddLooseNote: UIBarButtonItem = {
-        let item = UIBarButtonItem(title: "Finalizar", style: .plain, target: self, action: nil)
+        let item = UIBarButtonItem(title: "Finish".localized(), style: .plain, target: self, action: #selector(addToNotebook))
         item.tintColor = UIColor.actionColor
         item.setTitleTextAttributes([NSAttributedString.Key.font: Fonts.defaultTextFont], for: .normal)
         return item
@@ -507,6 +507,14 @@ internal class LooseNoteViewController: UIViewController,
     @IBAction func didTap() {
         textField.resignFirstResponder()
         textView.resignFirstResponder()
+    }
+    
+    @IBAction func addToNotebook() {
+        let destination = NoteAssignerViewController(noteName: note?.title.string ?? "Sem nota")
+//        destination.isModalInPresentation = true
+//        destination.modalTransitionStyle = .crossDissolve
+        
+        self.navigationController?.present(destination, animated: true, completion: nil)
     }
     
     @IBAction private func handleTap(_ gestureRecognizer: UITapGestureRecognizer) {
