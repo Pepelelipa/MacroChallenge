@@ -43,41 +43,83 @@ internal class WorkspacesCollectionViewDelegate: NSObject,
         let height: CGFloat
         let isLandscape = UIDevice.current.orientation.isActuallyLandscape
         
-        if viewTraitCollection.horizontalSizeClass == .compact {
-            // iPhone: all portrait and some landscape
-            // iPad: all multitasking portrait and some multitasking landscape
+        let titleSpace: CGFloat = 20 + 30 + 20 + 20
+        
+        if UIDevice.current.userInterfaceIdiom == .phone {
+            // iPhone
             
             if collectionView.isEditing {
+                // Editing mode
                 width = collectionView.bounds.width
                 height = 70
                 
-            } else if frame.width+5 == UIScreen.main.bounds.width/2 {
-                width = collectionView.bounds.width/2.1
-                height = width/1.5
-            
             } else {
-                width = collectionView.bounds.width
-                height = width/1.45
+                // Normal mode
+                if isLandscape {
+                    // Landscape
+                    width = collectionView.bounds.width/2.1
+                } else {
+                    // Portrait
+                    width = collectionView.bounds.width
+                }
+                height = (width * 0.42) + titleSpace
             }
-        
+            
         } else {
-            // iPhone: Some landscape
-            // iPad: all portrait and landscape and some multitasking landscape
+            // iPad
             
-            if UIDevice.current.userInterfaceIdiom == .phone {
-                width = collectionView.bounds.width/2.1
-                height = width/1.45
-            
-            } else {
-                if collectionView.isEditing {
+            if collectionView.isEditing {
+                // Editing mode
+                
+                if frame.width < UIScreen.main.bounds.width/2 {
+                    // Multitasking less than half screen
+                    width = collectionView.bounds.width
+                    height = 70
+                } else {
+                    // All others
                     width = collectionView.bounds.width/2.1
                     height = 90
-                } else if isLandscape {
-                    width = collectionView.bounds.width/2 - 25
-                    height = width/1.6
+                }
+            
+            } else {
+                // Normal mode
+                
+                if isLandscape {
+                    // Landscape
+                    
+                    if frame.width+5 == UIScreen.main.bounds.width/2 {
+                        // Multitasking half screen
+                        width = collectionView.bounds.width
+                        height = (width * 0.45) + titleSpace
+                        
+                    } else if frame.width < UIScreen.main.bounds.width/2 {
+                        // Multitasking less than half screen
+                        width = collectionView.bounds.width
+                        height = (width * 0.42) + titleSpace
+                        
+                    } else {
+                        // Full screen and Multitasking more than half screen
+                        width = collectionView.bounds.width/2.1
+                        height = (width * 0.44) + titleSpace
+                    }
+                    
                 } else {
-                    width = collectionView.bounds.width/2.1
-                    height = width/1.5
+                    // Portrait
+                    
+                    if frame.width < UIScreen.main.bounds.width/2 {
+                        // Multitasking less than half screen
+                        width = collectionView.bounds.width
+                        height = (width * 0.42) + titleSpace
+                    
+                    } else if frame.width == UIScreen.main.bounds.width {
+                        // Full screen
+                        width = collectionView.bounds.width/2.1
+                        height = (width * 0.44) + titleSpace
+                    } else {
+                        // Multitasking more than half screen
+                        width = collectionView.bounds.width
+                        height = (width * 0.45) + titleSpace
+                    }
                 }
             }
         }
