@@ -197,6 +197,7 @@ internal class WorkspaceSelectionViewController: UIViewController,
         if UIDevice.current.userInterfaceIdiom == .pad {
             updateConstraintsForIpad()
         }
+        collectionDelegate.frame = view.frame
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -206,6 +207,7 @@ internal class WorkspaceSelectionViewController: UIViewController,
         if UIDevice.current.userInterfaceIdiom == .phone {
             emptyScreenView.isLandscape = UIDevice.current.orientation.isActuallyLandscape
         }
+        collectionDelegate.viewTraitCollection = traitCollection
     }
 
     override func setEditing(_ editing: Bool, animated: Bool) {
@@ -292,7 +294,7 @@ internal class WorkspaceSelectionViewController: UIViewController,
         collectionView.collectionViewLayout.invalidateLayout()
         for visibleCell in collectionView.visibleCells {
             if let cell = visibleCell as? WorkspaceCollectionViewCell {
-                cell.invalidateLayout()
+                cell.updateLayout()
             }
         }
     }
@@ -490,7 +492,6 @@ internal class WorkspaceSelectionViewController: UIViewController,
 
         if UIDevice.current.userInterfaceIdiom == .pad {
             alertController.popoverPresentationController?.sourceView = cell
-            alertController.popoverPresentationController?.sourceRect = cell.frame
         }
         self.present(alertController, animated: true, completion: nil)
     }

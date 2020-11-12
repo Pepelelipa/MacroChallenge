@@ -169,7 +169,7 @@ internal class SearchResultViewController: UIViewController {
         collectionView.collectionViewLayout.invalidateLayout()
         for visibleCell in collectionView.visibleCells {
             if let workspaceCell = visibleCell as? WorkspaceCollectionViewCell {
-                workspaceCell.invalidateLayout()
+                workspaceCell.updateLayout()
             }
         }
     }
