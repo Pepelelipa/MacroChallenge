@@ -68,20 +68,26 @@ internal class MarkdownBarConfiguration {
         var barButtonItems = [BarButtonType: UIBarButtonItem]()
         
         let listButton = createBarButtonItem(imageName: "text.badge.plus", systemImage: true)
+        let paragraphButton = createBarButtonItem(imageName: "paragraph", systemImage: true)
+        let imageGalleryButton = createBarButtonItem(imageName: "photo", systemImage: true)
+        
+        #warning("Check for macOS Big Sur")
+        #if !targetEnvironment(macCatalyst)
+        listButton.menu = setupMenu(for: .list)
+        paragraphButton.menu = setupMenu(for: .paragraph)
+        imageGalleryButton.menu = setupMenu(for: .image)
+        #endif
+
         listButton.accessibilityLabel = "List label".localized()
         listButton.accessibilityHint = "List hint".localized()
-        listButton.menu = setupMenu(for: .list)
-        barButtonItems[.list] = listButton
         
-        let paragraphButton = createBarButtonItem(imageName: "paragraph", systemImage: true)
         paragraphButton.accessibilityHint = "Paragraph hint".localized()
-        paragraphButton.menu = setupMenu(for: .paragraph)
-        barButtonItems[.paragraph] = paragraphButton
         
-        let imageGalleryButton = createBarButtonItem(imageName: "photo", systemImage: true)
         imageGalleryButton.accessibilityLabel = "Add image label".localized()
         imageGalleryButton.accessibilityHint = "Add image hint".localized()
-        imageGalleryButton.menu = setupMenu(for: .image)
+
+        barButtonItems[.list] = listButton
+        barButtonItems[.paragraph] = paragraphButton
         barButtonItems[.image] = imageGalleryButton
         
         let textBoxButton = createBarButtonItem(imageName: "textbox", systemImage: true, objcFunc: #selector(addTextBox))
@@ -134,23 +140,31 @@ internal class MarkdownBarConfiguration {
         var buttons = [BarButtonType: UIButton]()
         
         let listButton = createButton(imageName: "text.badge.plus", systemImage: true)
-        listButton.accessibilityLabel = "List label".localized()
-        listButton.accessibilityHint = "List hint".localized()
+        let paragraphButton = createButton(imageName: "paragraph", systemImage: true)
+        let imageGalleryButton = createButton(imageName: "photo", systemImage: true)
+        
+        #warning("Check for macOS Big Sur")
+        #if !targetEnvironment(macCatalyst)
         listButton.menu = setupMenu(for: .list)
         listButton.showsMenuAsPrimaryAction = true
-        buttons[.list] = listButton
         
-        let paragraphButton = createButton(imageName: "paragraph", systemImage: true)
-        paragraphButton.accessibilityHint = "Paragraph hint".localized()
         paragraphButton.menu = setupMenu(for: .paragraph)
         paragraphButton.showsMenuAsPrimaryAction = true
-        buttons[.paragraph] = paragraphButton
         
-        let imageGalleryButton = createButton(imageName: "photo", systemImage: true)
-        imageGalleryButton.accessibilityLabel = "Add image label".localized()
-        imageGalleryButton.accessibilityHint = "Add image hint".localized()
         imageGalleryButton.menu = setupMenu(for: .image)
         imageGalleryButton.showsMenuAsPrimaryAction = true
+        #endif
+        
+        listButton.accessibilityLabel = "List label".localized()
+        listButton.accessibilityHint = "List hint".localized()
+        
+        paragraphButton.accessibilityHint = "Paragraph hint".localized()
+        
+        imageGalleryButton.accessibilityLabel = "Add image label".localized()
+        imageGalleryButton.accessibilityHint = "Add image hint".localized()
+        
+        buttons[.list] = listButton
+        buttons[.paragraph] = paragraphButton
         buttons[.image] = imageGalleryButton
         
         let textBoxButton = createButton(imageName: "textbox", systemImage: true, objcFunc: #selector(addTextBox))

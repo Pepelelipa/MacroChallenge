@@ -13,6 +13,17 @@ internal class NotebooksSelectionViewController: UIViewController {
     
     // MARK: - Variables and Constants
     
+    internal static let newNotebookCommand: UIKeyCommand = {
+        let command = UIKeyCommand(title: "New notebook".localized(),
+                                   image: nil,
+                                   action: #selector(btnAddTap),
+                                   input: "N",
+                                   modifierFlags: .command,
+                                   propertyList: nil)
+        command.discoverabilityTitle = "New notebook".localized()
+        return command
+    }()
+    
     private var collectionDataSource: NotebooksCollectionViewDataSource?
     private var compactRegularConstraints: [NSLayoutConstraint] = []
     private var regularCompactConstraints: [NSLayoutConstraint] = []
@@ -29,11 +40,15 @@ internal class NotebooksSelectionViewController: UIViewController {
         collectionView.backgroundColor = view.backgroundColor
         collectionView.showsVerticalScrollIndicator = false
         collectionView.allowsSelection = true
-        collectionView.allowsSelectionDuringEditing = true
         collectionView.allowsMultipleSelection = false
         collectionView.contentInset = UIEdgeInsets(top: 20, left: 0, bottom: 20, right: 0)
         collectionView.delegate = collectionDelegate
         collectionView.dataSource = collectionDataSource
+        
+        #warning("Check for macOS Big Sur")
+        #if !targetEnvironment(macCatalyst)
+        collectionView.allowsSelectionDuringEditing = true
+        #endif
         
         collectionView.register(
             NotebookCollectionViewCell.self,
@@ -76,16 +91,16 @@ internal class NotebooksSelectionViewController: UIViewController {
         
         return view
     }()
-    
-    private lazy var newNotebookCommand: UIKeyCommand = {
-        let command = UIKeyCommand(input: "N", modifierFlags: .command, action: #selector(btnAddTap))
-        command.discoverabilityTitle = "New notebook".localized()
-        return command
-    }()
 
     private lazy var collectionDelegate = NotebooksCollectionViewDelegate { [unowned self] (selectedCell) in
         if let notebook = selectedCell.notebook {
-            if !self.collectionView.isEditing {
+            var isEditing = false
+            #warning("Check for macOS Big Sur")
+            #if !targetEnvironment(macCatalyst)
+            isEditing = self.collectionView.isEditing
+            #endif
+            
+            if !isEditing {
                 let note: NoteEntity
                 if let lastNote = notebook.notes.last {
                     note = lastNote
@@ -126,7 +141,7 @@ internal class NotebooksSelectionViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        addKeyCommand(newNotebookCommand)
+        addKeyCommand(NotebooksSelectionViewController.newNotebookCommand)
         
         if workspace?.isEnabled ?? false {
             navigationItem.rightBarButtonItem = btnAdd
@@ -156,6 +171,7 @@ internal class NotebooksSelectionViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        UIMenuSystem.main.setNeedsRebuild()
         navigationItem.largeTitleDisplayMode = .always
         navigationController?.navigationBar.isTranslucent = true
         navigationController?.navigationBar.backgroundColor = .clear

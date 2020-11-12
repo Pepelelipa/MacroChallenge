@@ -36,6 +36,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, supportedInterfaceOrientationsFor window: UIWindow?) -> UIInterfaceOrientationMask {
         return self.orientationLock
     }
+    
+    // MARK: - Menus
+    
+    var menuController: MenuController?
+    
+    override func buildMenu(with builder: UIMenuBuilder) {
+        if builder.system == .main {
+            menuController = MenuController(with: builder)
+        }
+    }
 }
 
 struct AppUtility {

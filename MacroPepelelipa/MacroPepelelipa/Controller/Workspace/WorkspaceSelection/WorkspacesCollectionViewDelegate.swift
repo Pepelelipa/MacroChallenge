@@ -37,18 +37,24 @@ internal class WorkspacesCollectionViewDelegate: NSObject,
     }
     
     // MARK: - UICollectionViewDelegateFlowLayout functions
-
+    
     internal func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let width: CGFloat
-        let height: CGFloat
+        var width: CGFloat = 0
+        var height: CGFloat = 0
         let isLandscape = UIDevice.current.orientation.isActuallyLandscape
         
         let titleSpace: CGFloat = 20 + 30 + 20 + 20
         
+        var isEditing = false
+        #warning("Check for macOS Big Sur")
+        #if !targetEnvironment(macCatalyst)
+        isEditing = collectionView.isEditing
+        #endif
+        
         if UIDevice.current.userInterfaceIdiom == .phone {
             // iPhone
             
-            if collectionView.isEditing {
+            if isEditing {
                 // Editing mode
                 width = collectionView.bounds.width
                 height = 70
@@ -68,7 +74,7 @@ internal class WorkspacesCollectionViewDelegate: NSObject,
         } else {
             // iPad
             
-            if collectionView.isEditing {
+            if isEditing {
                 // Editing mode
                 
                 if frame.width < UIScreen.main.bounds.width/2 {
@@ -80,7 +86,7 @@ internal class WorkspacesCollectionViewDelegate: NSObject,
                     width = collectionView.bounds.width/2.1
                     height = 90
                 }
-            
+                
             } else {
                 // Normal mode
                 
@@ -110,7 +116,7 @@ internal class WorkspacesCollectionViewDelegate: NSObject,
                         // Multitasking less than half screen
                         width = collectionView.bounds.width
                         height = (width * 0.42) + titleSpace
-                    
+                        
                     } else if frame.width == UIScreen.main.bounds.width {
                         // Full screen
                         width = collectionView.bounds.width/2.1
@@ -123,16 +129,17 @@ internal class WorkspacesCollectionViewDelegate: NSObject,
                 }
             }
         }
+        
         return CGSize(width: width, height: height)
     }
-
+    
     internal func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         if UIDevice.current.userInterfaceIdiom == .pad {
             return 50
         }
         return 20
     }
-
+    
     internal func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return .init(top: 0, left: 0, bottom: 0, right: 0)
     }

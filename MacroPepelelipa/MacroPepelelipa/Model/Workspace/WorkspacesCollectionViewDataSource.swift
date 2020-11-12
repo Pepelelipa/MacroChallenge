@@ -81,7 +81,10 @@ internal class WorkspacesCollectionViewDataSource: NSObject,
         }
         
         cell.setWorkspace(workspaces[indexPath.row], viewController: viewController)
+        #warning("Check for macOS Big Sur")
+        #if !targetEnvironment(macCatalyst)
         cell.isEditing = collectionView.isEditing
+        #endif
 
         if let editableCollection = collectionView as? EditableCollectionView {
             cell.entityShouldBeDeleted = editableCollection.entityShouldBeDeleted

@@ -40,11 +40,16 @@ internal class NotesToolbar: UIToolbar {
             UIAction(title: "Camera".localized(), image: UIImage(systemName: "camera"), identifier: .init("camera"), state: .off, handler: addImage(action:)),
             UIAction(title: "Library".localized(), image: UIImage(systemName: "photo.on.rectangle"), identifier: .init("library"), state: .off, handler: addImage(action:))
         ]
+        
+        #warning("Check for macOS Big Sur")
+        #if !targetEnvironment(macCatalyst)
         actions[0].accessibilityLabel = "Add from camera label".localized()
         actions[0].accessibilityHint = "Add from camera hint".localized()
         actions[1].accessibilityLabel = "Add from library label".localized()
         actions[1].accessibilityHint = "Add from library hint".localized()
+        
         button.menu = UIMenu(title: BarButtonType.image.rawValue, identifier: .format, children: actions)
+        #endif
         
         return button
     }()

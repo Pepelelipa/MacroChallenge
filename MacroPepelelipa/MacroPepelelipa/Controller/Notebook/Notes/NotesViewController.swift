@@ -20,6 +20,26 @@ internal class NotesViewController: UIViewController,
     
     // MARK: - Variables and Constants
     
+#if !targetEnvironment(macCatalyst)
+    private static let boldfaceKeyCommand: UIKeyCommand = {
+        let command = UIKeyCommand(input: "B", modifierFlags: .command, action: #selector(toggleFormat(_:)))
+        command.discoverabilityTitle = "Bold".localized()
+        return command
+    }()
+    
+    private static let italicsKeyCommand: UIKeyCommand = {
+        let command = UIKeyCommand(input: "I", modifierFlags: .command, action: #selector(toggleFormat(_:)))
+        command.discoverabilityTitle = "Italic".localized()
+        return command
+    }()
+    
+    static let underlineKeyCommand: UIKeyCommand = {
+        let command = UIKeyCommand(input: "U", modifierFlags: .command, action: #selector(toggleFormat(_:)))
+        command.discoverabilityTitle = "Underline".localized()
+        return command
+    }()
+#endif
+    
     private var resizeHandles = [ResizeHandleView]()
     private var initialCenter = CGPoint()
     private var scale: CGFloat = 1.0
@@ -102,24 +122,6 @@ internal class NotesViewController: UIViewController,
         return container
     }()
     
-    private lazy var boldfaceKeyCommand: UIKeyCommand = {
-        let command = UIKeyCommand(input: "B", modifierFlags: .command, action: #selector(textView.toggleFormat(_:)))
-        command.discoverabilityTitle = "Bold".localized()
-        return command
-    }()
-    
-    private lazy var italicsKeyCommand: UIKeyCommand = {
-        let command = UIKeyCommand(input: "I", modifierFlags: .command, action: #selector(textView.toggleFormat(_:)))
-        command.discoverabilityTitle = "Italic".localized()
-        return command
-    }()
-    
-    private lazy var underlineKeyCommand: UIKeyCommand = {
-        let command = UIKeyCommand(input: "U", modifierFlags: .command, action: #selector(textView.toggleFormat(_:)))
-        command.discoverabilityTitle = "Underline".localized()
-        return command
-    }()
-    
     private lazy var dropInteractionDelegate: DropInteractionDelegate = DropInteractionDelegate(viewController: self)
         
     #if !targetEnvironment(macCatalyst)
@@ -183,10 +185,12 @@ internal class NotesViewController: UIViewController,
     override func viewDidLoad() {
         textView.placeholder = "Start writing here".localized()
         super.viewDidLoad()
-        
-        addKeyCommand(boldfaceKeyCommand)
-        addKeyCommand(italicsKeyCommand)
-        addKeyCommand(underlineKeyCommand)
+
+#if !targetEnvironment(macCatalyst)
+        addKeyCommand(NotesViewController.boldfaceKeyCommand)
+        addKeyCommand(NotesViewController.italicsKeyCommand)
+        addKeyCommand(NotesViewController.underlineKeyCommand)
+#endif
 
         NotificationCenter.default.addObserver(
             self,
@@ -239,6 +243,7 @@ internal class NotesViewController: UIViewController,
     }
 
     override func viewWillAppear(_ animated: Bool) {
+        UIMenuSystem.main.setNeedsRebuild()
         navigationItem.largeTitleDisplayMode = .never
         NSLayoutConstraint.activate(constraints)
     }
@@ -249,6 +254,18 @@ internal class NotesViewController: UIViewController,
         }
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.largeTitleDisplayMode = .automatic
+    }
+    
+    override func toggleBoldface(_ sender: Any?) {
+        textView.toggleBoldface(sender)
+    }
+    
+    override func toggleItalics(_ sender: Any?) {
+        textView.toggleItalics(sender)
+    }
+    
+    override func toggleUnderline(_ sender: Any?) {
+        textView.toggleUnderline(sender)
     }
     
     // MARK: - Functions
@@ -615,6 +632,12 @@ internal class NotesViewController: UIViewController,
     }
     
     // MARK: - IBActions functions
+    
+#if !targetEnvironment(macCatalyst)
+    @IBAction private func toggleFormat(_ sender: UIKeyCommand) {
+        textView.toggleFormat(sender)
+    }
+#endif
     
     @IBAction func didTap() {
         textField.resignFirstResponder()

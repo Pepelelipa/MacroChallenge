@@ -38,10 +38,12 @@ internal class NotebooksCollectionViewDelegate: NSObject,
     
     internal func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let isLandscape = UIDevice.current.orientation.isActuallyLandscape
-        let width: CGFloat
-        let height: CGFloat
+        var width: CGFloat = 0
+        var height: CGFloat = 0
 
         if UIDevice.current.userInterfaceIdiom == .pad {
+            #warning("Check for macOS Big Sur")
+            #if !targetEnvironment(macCatalyst)
             if collectionView.isEditing {
                 width = collectionView.bounds.width/2.1
                 height = 90
@@ -52,7 +54,21 @@ internal class NotebooksCollectionViewDelegate: NSObject,
                 width = collectionView.bounds.width/4
                 height = width * 1.67
             }
+            
+            #else
+            if isLandscape {
+                width = collectionView.bounds.width/5
+                height = width * 1.68
+            } else {
+                width = collectionView.bounds.width/4
+                height = width * 1.67
+            }
+            
+            #endif
+            
         } else {
+            #warning("Check for macOS Big Sur")
+            #if !targetEnvironment(macCatalyst)
             if collectionView.isEditing {
                 width = collectionView.bounds.width
                 height = 70
@@ -63,6 +79,7 @@ internal class NotebooksCollectionViewDelegate: NSObject,
                 width = collectionView.bounds.width/2.3
                 height = width * 1.72
             }
+            #endif
         }
 
         return CGSize(width: width, height: height)

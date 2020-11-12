@@ -16,6 +16,28 @@ internal class WorkspaceSelectionViewController: UIViewController,
 
     // MARK: - Variables and Constants
     
+    internal static let newWorspaceCommand: UIKeyCommand = {
+        let command = UIKeyCommand(title: "New workspace".localized(),
+                     image: nil,
+                     action: #selector(btnAddTap),
+                     input: "N",
+                     modifierFlags: .command,
+                     propertyList: nil)
+        command.discoverabilityTitle = "New workspace".localized()
+        return command
+    }()
+    
+    internal static let findCommand: UIKeyCommand = {
+        let command = UIKeyCommand(title: "Find".localized(),
+                     image: nil,
+                     action: #selector(startSearch),
+                     input: "F",
+                     modifierFlags: .command,
+                     propertyList: nil)
+        command.discoverabilityTitle = "Find".localized()
+        return command
+    }()
+    
     internal weak var filterObserver: SearchBarObserver?
     
     private var compactRegularConstraints: [NSLayoutConstraint] = []
@@ -43,11 +65,15 @@ internal class WorkspaceSelectionViewController: UIViewController,
         collectionView.backgroundColor = view.backgroundColor
         collectionView.showsVerticalScrollIndicator = false
         collectionView.allowsSelection = true
-        collectionView.allowsSelectionDuringEditing = true
         collectionView.allowsMultipleSelection = false
         collectionView.contentInset = UIEdgeInsets(top: 20, left: 0, bottom: 20, right: 0)
         collectionView.delegate = collectionDelegate
         collectionView.dataSource = collectionDataSource
+        
+        #warning("Check for macOS Big Sur")
+        #if !targetEnvironment(macCatalyst)
+        collectionView.allowsSelectionDuringEditing = true
+        #endif
         
         collectionView.register(
             WorkspaceCollectionViewCell.self,
@@ -75,13 +101,23 @@ internal class WorkspaceSelectionViewController: UIViewController,
             self.present(alertController, animated: true, completion: nil)
             return
         }
-
+        
+        #warning("Check for macOS Big Sur")
+        #if !targetEnvironment(macCatalyst)
+        
         if !self.collectionView.isEditing {
             let notebooksSelectionView = NotebooksSelectionViewController(workspace: workspace)
             self.navigationController?.pushViewController(notebooksSelectionView, animated: true)
         } else if workspace.isEnabled {
             self.editWorkspace(workspace)
         }
+
+        #else
+        
+        let notebooksSelectionView = NotebooksSelectionViewController(workspace: workspace)
+        self.navigationController?.pushViewController(notebooksSelectionView, animated: true)
+        
+        #endif
     }
     
     private lazy var collectionDataSource = WorkspacesCollectionViewDataSource(viewController: self, collectionView: { self.collectionView })
@@ -92,18 +128,6 @@ internal class WorkspaceSelectionViewController: UIViewController,
         item.accessibilityHint = "Add workspace hint".localized()
         item.accessibilityLabel = "Add workspace label".localized()
         return item
-    }()
-    
-    private lazy var newWorspaceCommand: UIKeyCommand = {
-        let command = UIKeyCommand(input: "N", modifierFlags: .command, action: #selector(btnAddTap))
-        command.discoverabilityTitle = "New workspace".localized()
-        return command
-    }()
-    
-    private lazy var findCommand: UIKeyCommand = {
-        let command = UIKeyCommand(input: "F", modifierFlags: .command, action: #selector(startSearch))
-        command.discoverabilityTitle = "Find".localized()
-        return command
     }()
     
     private lazy var emptyScreenView: EmptyScreenView = {
@@ -130,8 +154,8 @@ internal class WorkspaceSelectionViewController: UIViewController,
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        addKeyCommand(newWorspaceCommand)
-        addKeyCommand(findCommand)
+        addKeyCommand(WorkspaceSelectionViewController.newWorspaceCommand)
+        addKeyCommand(WorkspaceSelectionViewController.findCommand)
         
         view.backgroundColor = .rootColor
         navigationItem.rightBarButtonItem = btnAdd
@@ -180,6 +204,7 @@ internal class WorkspaceSelectionViewController: UIViewController,
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        UIMenuSystem.main.setNeedsRebuild()
         navigationItem.largeTitleDisplayMode = .always
         self.navigationController?.navigationBar.prefersLargeTitles = true
         super.viewWillAppear(animated)
