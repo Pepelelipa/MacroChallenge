@@ -48,7 +48,6 @@
 		022832F7252E603800DDD46B /* EntityObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 022832F6252E603800DDD46B /* EntityObserver.swift */; };
 		022832FB252E6C4200DDD46B /* ObservableEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 022832FA252E6C4200DDD46B /* ObservableEntity.swift */; };
 		0230E078253A3CED009C5A76 /* UIDeviceOrientation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0230E077253A3CED009C5A76 /* UIDeviceOrientation.swift */; };
-		023886062523CAEC00F807E9 /* WorkspaceCellNotebookCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 023886052523CAEC00F807E9 /* WorkspaceCellNotebookCollectionViewCell.swift */; };
 		023989CD2551E68F009BFC32 /* MarkdownText.h in Headers */ = {isa = PBXBuildFile; fileRef = 023989CB2551E68F009BFC32 /* MarkdownText.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		023989D02551E68F009BFC32 /* MarkdownText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 023989C92551E68F009BFC32 /* MarkdownText.framework */; };
 		023989D12551E68F009BFC32 /* MarkdownText.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 023989C92551E68F009BFC32 /* MarkdownText.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -266,7 +265,6 @@
 		022832F6252E603800DDD46B /* EntityObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntityObserver.swift; sourceTree = "<group>"; };
 		022832FA252E6C4200DDD46B /* ObservableEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservableEntity.swift; sourceTree = "<group>"; };
 		0230E077253A3CED009C5A76 /* UIDeviceOrientation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIDeviceOrientation.swift; sourceTree = "<group>"; };
-		023886052523CAEC00F807E9 /* WorkspaceCellNotebookCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkspaceCellNotebookCollectionViewCell.swift; sourceTree = "<group>"; };
 		023989C92551E68F009BFC32 /* MarkdownText.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MarkdownText.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		023989CB2551E68F009BFC32 /* MarkdownText.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MarkdownText.h; sourceTree = "<group>"; };
 		023989CC2551E68F009BFC32 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -847,7 +845,6 @@
 				D96DAA08252F9F4B00552AB1 /* AddNewSpaceToolBar.swift */,
 				024C5BBA252E41EE009549CE /* AddNotebook */,
 				02207A3D2523AB160001FD7E /* WorkspaceCollectionViewCell.swift */,
-				023886052523CAEC00F807E9 /* WorkspaceCellNotebookCollectionViewCell.swift */,
 				02ECA43B2512ABD100E68588 /* NotebookCollectionViewCell.swift */,
 				E41209522538C1020088AC26 /* EmptyScreenView.swift */,
 			);
@@ -1331,7 +1328,6 @@
 				D92593992559E53C000529B4 /* ResizeHandleReceiver.swift in Sources */,
 				025C015625379C6D009923B2 /* FileHelper.swift in Sources */,
 				D9F4A9BD2527D0A600BFDC19 /* MarkupToolBarObserver.swift in Sources */,
-				023886062523CAEC00F807E9 /* WorkspaceCellNotebookCollectionViewCell.swift in Sources */,
 				02ECA43C2512ABD100E68588 /* NotebookCollectionViewCell.swift in Sources */,
 				A7C057C525420F260023A370 /* NotesToolbar.swift in Sources */,
 				02207A392523A5970001FD7E /* WorkspacesCollectionViewDataSource.swift in Sources */,

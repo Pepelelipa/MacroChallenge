@@ -13,6 +13,8 @@ internal class WorkspaceCollectionViewCell: UICollectionViewCell, EditableCollec
     
     // MARK: - Variables and Constants
     
+    private var workspaceNotebooksConstraints: [NSLayoutConstraint] = []
+    
     internal var isEditing: Bool = false {
         didSet {
             if isEditing {
@@ -41,8 +43,6 @@ internal class WorkspaceCollectionViewCell: UICollectionViewCell, EditableCollec
     }
     
     internal var entityShouldBeDeleted: ((ObservableEntity) -> Void)?
-    
-    private var workspaceNotebooksConstraints: [NSLayoutConstraint] = []
     
     private lazy var workspaceView: UIView = {
         let view = UIView()
