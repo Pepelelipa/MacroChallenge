@@ -5,6 +5,7 @@
 //  Created by Pedro Giuliano Farina on 07/10/20.
 //  Copyright © 2020 Pedro Giuliano Farina. All rights reserved.
 //
+//swiftlint:disable cyclomatic_complexity
 
 public enum ObservableCreationType {
     case workspace
@@ -63,6 +64,7 @@ public class DataManager {
                 for workspace in result {
                     workspaceObjects.first(where: { (try? $0.getID())?.uuidString == workspace.id.value })?.cloudKitWorkspace = workspace
                 }
+                //TODO: CloudKit entities from CoreData, and CoreData entities from CloudKit
                 self.fixDifferences(differentEntities: self.findDifferences(workspaces: workspaceObjects))
             case .fail(let error, _):
                 self.conflictHandler.errDidOccur(err: error)
