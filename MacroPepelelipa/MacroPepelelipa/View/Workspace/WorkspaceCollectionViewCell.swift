@@ -12,12 +12,12 @@ import Database
 internal class WorkspaceCollectionViewCell: UICollectionViewCell, EditableCollectionViewCell {
     
     // MARK: - Variables and Constants
-
+    
     internal var isEditing: Bool = false {
         didSet {
             if isEditing {
                 NSLayoutConstraint.deactivate(notEditingConstraints)
-                workspaceStackView.removeFromSuperview()
+                workspaceView.removeFromSuperview()
                 NSLayoutConstraint.activate(editingConstraints)
                 if workspace?.isEnabled ?? false {
                     disclosureIndicator.isHidden = false
@@ -25,30 +25,30 @@ internal class WorkspaceCollectionViewCell: UICollectionViewCell, EditableCollec
                 minusIndicator.isHidden = false
             } else {
                 NSLayoutConstraint.deactivate(editingConstraints)
-                addSubview(workspaceStackView)
+                addSubview(workspaceView)
                 NSLayoutConstraint.activate(notEditingConstraints)
+                NSLayoutConstraint.activate(workspaceNotebooksConstraints)
                 minusIndicator.isHidden = true
                 disclosureIndicator.isHidden = true
             }
-
+            
             UIView.animate(withDuration: 0.3) {
                 self.layoutIfNeeded()
             }
         }
     }
-
+    
     internal var entityShouldBeDeleted: ((ObservableEntity) -> Void)?
     
-    private lazy var workspaceStackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.axis = .horizontal
-        stackView.distribution = .equalSpacing
-        stackView.spacing = 10
-        stackView.alignment = .center
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        return stackView
+    private var workspaceNotebooksConstraints: [NSLayoutConstraint] = []
+    
+    private lazy var workspaceView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .clear
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
     }()
-
+    
     private lazy var minusIndicator: UIButton = {
         let button = UIButton()
         button.setBackgroundImage(UIImage(systemName: "minus.circle.fill"), for: .normal)
@@ -58,8 +58,8 @@ internal class WorkspaceCollectionViewCell: UICollectionViewCell, EditableCollec
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
-
-    private var lblWorkspaceName: UILabel = {
+    
+    internal private(set) var lblWorkspaceName: UILabel = {
         let lbl = UILabel(frame: .zero)
         lbl.textColor = UIColor.titleColor ?? .black
         lbl.font = UIFont.defaultHeader.toStyle(.h3)
@@ -67,7 +67,7 @@ internal class WorkspaceCollectionViewCell: UICollectionViewCell, EditableCollec
         lbl.translatesAutoresizingMaskIntoConstraints = false
         return lbl
     }()
-
+    
     private var disclosureIndicator: UIImageView = {
         let imageView = UIImageView(image: UIImage(systemName: "chevron.right"))
         imageView.tintColor = .actionColor
@@ -75,26 +75,26 @@ internal class WorkspaceCollectionViewCell: UICollectionViewCell, EditableCollec
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
-
+    
     private lazy var editingConstraints: [NSLayoutConstraint] = {
         [
             lblWorkspaceName.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 60),
             lblWorkspaceName.centerYAnchor.constraint(equalTo: centerYAnchor)
         ]
     }()
-
+    
     private lazy var notEditingConstraints: [NSLayoutConstraint] = {
         [
             lblWorkspaceName.heightAnchor.constraint(equalToConstant: 30),
             lblWorkspaceName.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
             lblWorkspaceName.topAnchor.constraint(equalTo: topAnchor, constant: 20),
-            workspaceStackView.topAnchor.constraint(equalTo: lblWorkspaceName.bottomAnchor, constant: 20),
-            workspaceStackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -20),
-            workspaceStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
-            workspaceStackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20)
+            workspaceView.topAnchor.constraint(equalTo: lblWorkspaceName.bottomAnchor, constant: 20),
+            workspaceView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -20),
+            workspaceView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
+            workspaceView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20)
         ]
     }()
-
+    
     internal private(set) weak var workspace: WorkspaceEntity? {
         didSet {
             self.lblWorkspaceName.text = workspace?.name
@@ -102,7 +102,7 @@ internal class WorkspaceCollectionViewCell: UICollectionViewCell, EditableCollec
     }
     
     // MARK: - Initializers
-
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -129,12 +129,12 @@ internal class WorkspaceCollectionViewCell: UICollectionViewCell, EditableCollec
     private func setupConstraints() {
         NSLayoutConstraint.activate([
             lblWorkspaceName.trailingAnchor.constraint(lessThanOrEqualTo: trailingAnchor, constant: -20),
-
+            
             minusIndicator.centerYAnchor.constraint(equalTo: centerYAnchor),
             minusIndicator.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
             minusIndicator.heightAnchor.constraint(equalToConstant: 20),
             minusIndicator.widthAnchor.constraint(equalTo: minusIndicator.heightAnchor, multiplier: 1),
-
+            
             disclosureIndicator.centerYAnchor.constraint(equalTo: centerYAnchor),
             disclosureIndicator.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
             disclosureIndicator.heightAnchor.constraint(equalToConstant: 30),
@@ -146,16 +146,27 @@ internal class WorkspaceCollectionViewCell: UICollectionViewCell, EditableCollec
         let notebookView = NotebookView(frame: .zero)
         notebookView.color = color
         notebookView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            notebookView.widthAnchor.constraint(equalTo: notebookView.heightAnchor, multiplier: 0.75)
-        ])
         return notebookView
+    }
+    
+    private func generateVerticalStack(colors: (top: UIColor, bottom: UIColor)) -> UIStackView {
+        let verticalSV = UIStackView()
+        verticalSV.axis = .vertical
+        verticalSV.alignment = .center
+        verticalSV.distribution = .fillEqually
+        verticalSV.spacing = 10
+        verticalSV.translatesAutoresizingMaskIntoConstraints = false
+        verticalSV.addArrangedSubview(generateNotebook(color: colors.top))
+        verticalSV.addArrangedSubview(generateNotebook(color: colors.bottom))
+        return verticalSV
     }
     
     private func setupWorkspaceView() {
         
-        workspaceStackView.removeFromSuperview()
-        for subview in workspaceStackView.subviews {
+        workspaceNotebooksConstraints = []
+        
+        workspaceView.removeFromSuperview()
+        for subview in workspaceView.subviews {
             subview.removeFromSuperview()
         }
         
@@ -180,24 +191,65 @@ internal class WorkspaceCollectionViewCell: UICollectionViewCell, EditableCollec
         }
         
         let firstNotebook = generateNotebook(color: colors.first ?? defaultColor)
-        workspaceStackView.addArrangedSubview(firstNotebook)
-        
-        let start = colors.count > 4 ? 1 : 2
+        workspaceView.addSubview(firstNotebook)
+        workspaceNotebooksConstraints.append(firstNotebook.topAnchor.constraint(equalTo: workspaceView.topAnchor))
+        workspaceNotebooksConstraints.append(firstNotebook.bottomAnchor.constraint(equalTo: workspaceView.bottomAnchor))
+        workspaceNotebooksConstraints.append(firstNotebook.leadingAnchor.constraint(equalTo: workspaceView.leadingAnchor))
+        workspaceNotebooksConstraints.append(firstNotebook.widthAnchor.constraint(equalTo: firstNotebook.heightAnchor, multiplier: 0.75))
         
         if colors.count < 5 {
+            
+            let auxiliarView = UIView()
+            auxiliarView.backgroundColor = .clear
+            auxiliarView.translatesAutoresizingMaskIntoConstraints = false
+            workspaceView.addSubview(auxiliarView)
+            
             let secondNotebook = generateNotebook(color: colors[1])
-            workspaceStackView.addArrangedSubview(secondNotebook)
-        }
-        
-        for i in stride(from: start, to: colors.count, by: 2) {
-            let verticalSV = UIStackView()
-            verticalSV.axis = .vertical
-            verticalSV.alignment = .center
-            verticalSV.distribution = .fillEqually
-            verticalSV.spacing = 10
-            verticalSV.addArrangedSubview(generateNotebook(color: colors[i]))
-            verticalSV.addArrangedSubview(generateNotebook(color: colors[i+1]))
-            workspaceStackView.addArrangedSubview(verticalSV)
+            auxiliarView.addSubview(secondNotebook)
+            
+            let verticalSV = generateVerticalStack(colors: (top: colors[2], bottom: colors[3]))
+            verticalSV.alignment = .leading
+            workspaceView.addSubview(verticalSV)
+            
+            workspaceNotebooksConstraints.append(auxiliarView.topAnchor.constraint(equalTo: workspaceView.topAnchor))
+            workspaceNotebooksConstraints.append(auxiliarView.bottomAnchor.constraint(equalTo: workspaceView.bottomAnchor))
+            workspaceNotebooksConstraints.append(auxiliarView.leadingAnchor.constraint(equalTo: firstNotebook.trailingAnchor))
+            workspaceNotebooksConstraints.append(auxiliarView.trailingAnchor.constraint(equalTo: verticalSV.leadingAnchor))
+            
+            workspaceNotebooksConstraints.append(verticalSV.topAnchor.constraint(equalTo: workspaceView.topAnchor))
+            workspaceNotebooksConstraints.append(verticalSV.bottomAnchor.constraint(equalTo: workspaceView.bottomAnchor))
+            workspaceNotebooksConstraints.append(verticalSV.trailingAnchor.constraint(equalTo: workspaceView.trailingAnchor))
+            workspaceNotebooksConstraints.append(verticalSV.widthAnchor.constraint(equalTo: secondNotebook.heightAnchor, multiplier: 0.375))
+            
+            workspaceNotebooksConstraints.append(secondNotebook.topAnchor.constraint(equalTo: auxiliarView.topAnchor))
+            workspaceNotebooksConstraints.append(secondNotebook.bottomAnchor.constraint(equalTo: auxiliarView.bottomAnchor))
+            workspaceNotebooksConstraints.append(secondNotebook.centerXAnchor.constraint(equalTo: auxiliarView.centerXAnchor))
+            workspaceNotebooksConstraints.append(secondNotebook.widthAnchor.constraint(equalTo: auxiliarView.heightAnchor, multiplier: 0.75))
+            
+        } else {
+            let horizontalSV = UIStackView()
+            horizontalSV.alignment = .leading
+            horizontalSV.distribution = .equalSpacing
+            horizontalSV.axis = .horizontal
+            horizontalSV.translatesAutoresizingMaskIntoConstraints = false
+            
+            let verticalSV1 = generateVerticalStack(colors: (top: colors[1], bottom: colors[2]))
+            let verticalSV2 = generateVerticalStack(colors: (top: colors[3], bottom: colors[4]))
+            let verticalSV3 = generateVerticalStack(colors: (top: colors[5], bottom: colors[6]))
+            
+            horizontalSV.addArrangedSubview(verticalSV1)
+            horizontalSV.addArrangedSubview(verticalSV2)
+            horizontalSV.addArrangedSubview(verticalSV3)
+            workspaceView.addSubview(horizontalSV)
+            
+            workspaceNotebooksConstraints.append(verticalSV1.widthAnchor.constraint(equalTo: firstNotebook.heightAnchor, multiplier: 0.375))
+            workspaceNotebooksConstraints.append(verticalSV2.widthAnchor.constraint(equalTo: firstNotebook.heightAnchor, multiplier: 0.375))
+            workspaceNotebooksConstraints.append(verticalSV3.widthAnchor.constraint(equalTo: firstNotebook.heightAnchor, multiplier: 0.375))
+            
+            workspaceNotebooksConstraints.append(horizontalSV.topAnchor.constraint(equalTo: firstNotebook.topAnchor))
+            workspaceNotebooksConstraints.append(horizontalSV.bottomAnchor.constraint(equalTo: firstNotebook.bottomAnchor))
+            workspaceNotebooksConstraints.append(horizontalSV.leadingAnchor.constraint(equalTo: firstNotebook.trailingAnchor, constant: 10))
+            workspaceNotebooksConstraints.append(horizontalSV.trailingAnchor.constraint(equalTo: workspaceView.trailingAnchor))
         }
     }
     
@@ -206,7 +258,7 @@ internal class WorkspaceCollectionViewCell: UICollectionViewCell, EditableCollec
     }
     
     internal func updateLayout() {
-        workspaceStackView.layoutIfNeeded()
+        workspaceView.layoutIfNeeded()
     }
     
     internal func setWorkspace(_ workspace: WorkspaceEntity, viewController: UIViewController? = nil) {
@@ -215,10 +267,12 @@ internal class WorkspaceCollectionViewCell: UICollectionViewCell, EditableCollec
     }
     
     // MARK: - Objective-C functions
-
+    
     @objc internal func deleteTap() {
         if let workspace = workspace {
             entityShouldBeDeleted?(workspace)
         }
     }
 }
+
+
