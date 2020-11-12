@@ -36,7 +36,9 @@ internal class NotebookCollectionViewCell: UICollectionViewCell, EditableCollect
             }
         }
     }
+    
     internal var entityShouldBeDeleted: ((ObservableEntity) -> Void)?
+    
     internal var text: String? {
         get {
             return lblName.text
@@ -66,7 +68,8 @@ internal class NotebookCollectionViewCell: UICollectionViewCell, EditableCollect
 
     private let lblName: UILabel = {
         let lbl = UILabel(frame: .zero)
-        lbl.numberOfLines = 0
+        lbl.numberOfLines = 2
+        lbl.adjustsFontSizeToFitWidth = true
         lbl.textColor = UIColor.titleColor ?? .black
         lbl.font = UIFont.defaultHeader.toStyle(.h3)
         lbl.textAlignment = .left
@@ -112,8 +115,8 @@ internal class NotebookCollectionViewCell: UICollectionViewCell, EditableCollect
             notebookView.centerXAnchor.constraint(equalTo: centerXAnchor),
             notebookView.topAnchor.constraint(equalTo: topAnchor),
             notebookView.widthAnchor.constraint(equalTo: widthAnchor),
-            notebookView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.8),
-            lblName.centerYAnchor.constraint(equalTo: notebookView.bottomAnchor, constant: 20),
+            notebookView.heightAnchor.constraint(equalTo: widthAnchor, multiplier: 1.25),
+            lblName.topAnchor.constraint(equalTo: notebookView.bottomAnchor, constant: 10),
             lblName.leadingAnchor.constraint(equalTo: notebookView.leadingAnchor),
             lblName.trailingAnchor.constraint(equalTo: trailingAnchor)
         ]
@@ -174,6 +177,8 @@ internal class NotebookCollectionViewCell: UICollectionViewCell, EditableCollect
     internal func setNotebook(_ notebook: NotebookEntity) {
         self.notebook = notebook
     }
+    
+    // MARK: - Objective-C Functions
 
     @objc internal func deleteTap() {
         if let notebook = notebook {

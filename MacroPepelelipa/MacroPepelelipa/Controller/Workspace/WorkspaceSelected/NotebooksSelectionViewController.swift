@@ -174,6 +174,7 @@ internal class NotebooksSelectionViewController: UIViewController {
         if UIDevice.current.userInterfaceIdiom == .pad {
             updateConstraintsForIpad()
         }
+        collectionDelegate.frame = view.frame
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {

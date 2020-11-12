@@ -15,6 +15,7 @@ internal class NotebooksCollectionViewDelegate: NSObject,
     // MARK: - Variables and Constants
     
     private var didSelectCell: ((NotebookCollectionViewCell) -> Void)?
+    internal var frame: CGRect = CGRect()
     
     // MARK: - Initializers
     
@@ -42,29 +43,87 @@ internal class NotebooksCollectionViewDelegate: NSObject,
         let height: CGFloat
 
         if UIDevice.current.userInterfaceIdiom == .pad {
+            // iPad
+            
             if collectionView.isEditing {
-                width = collectionView.bounds.width/2.1
-                height = 90
-            } else if isLandscape {
-                width = collectionView.bounds.width/5
-                height = width * 1.68
+                // Editing mode
+                
+                if frame.width < UIScreen.main.bounds.width/2 {
+                    // Multitasking less than half screen
+                    width = collectionView.bounds.width
+                    height = 70
+                } else {
+                    // All others
+                    width = collectionView.bounds.width/2.1
+                    height = 90
+                }
+            
             } else {
-                width = collectionView.bounds.width/4
-                height = width * 1.67
+                // Normal mode
+                
+                if isLandscape {
+                    // Landscape
+                    
+                    if frame.width+5 == UIScreen.main.bounds.width/2 {
+                        // Multitasking half screen
+                        width = collectionView.bounds.width/4
+                        height = width * 2.0
+                        
+                    } else if frame.width < UIScreen.main.bounds.width/2 {
+                        // Multitasking less than half screen
+                        width = collectionView.bounds.width/2.5
+                        height = width * 2.0
+                        
+                    } else if frame.width == UIScreen.main.bounds.width {
+                        // Full screen
+                        width = collectionView.bounds.width/6
+                        height = width * 1.85
+                        
+                    } else {
+                        // Multitasking more than half screen
+                        width = collectionView.bounds.width/5
+                        height = width * 1.85
+                    }
+                    
+                } else {
+                    // Portrait
+                    
+                    if frame.width < UIScreen.main.bounds.width/2 {
+                        // Multitasking less than half screen
+                        width = collectionView.bounds.width/1.5
+                    
+                    } else if frame.width == UIScreen.main.bounds.width {
+                        // Full screen
+                        width = collectionView.bounds.width/4
+                    } else {
+                        // Multitasking more than half screen
+                        width = collectionView.bounds.width/2.5
+                    }
+                    height = width * 1.8
+                }
             }
+            
         } else {
+            // iPhone
+            
             if collectionView.isEditing {
+                // Editing mode
                 width = collectionView.bounds.width
                 height = 70
-            } else if isLandscape {
-                width = collectionView.bounds.width/5.2
-                height = width * 1.74
+                
             } else {
-                width = collectionView.bounds.width/2.3
-                height = width * 1.72
+                // Normal mode
+                if isLandscape {
+                    // Landscape
+                    width = collectionView.bounds.width/5.2
+                    height = width * 1.74
+                } else {
+                    // Portrait
+                    width = collectionView.bounds.width/2.3
+                    height = width * 1.72
+                }
             }
         }
-
         return CGSize(width: width, height: height)
     }
 

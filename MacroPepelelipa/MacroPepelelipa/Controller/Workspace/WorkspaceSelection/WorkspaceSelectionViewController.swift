@@ -207,7 +207,6 @@ internal class WorkspaceSelectionViewController: UIViewController,
         if UIDevice.current.userInterfaceIdiom == .phone {
             emptyScreenView.isLandscape = UIDevice.current.orientation.isActuallyLandscape
         }
-        collectionDelegate.viewTraitCollection = traitCollection
     }
 
     override func setEditing(_ editing: Bool, animated: Bool) {

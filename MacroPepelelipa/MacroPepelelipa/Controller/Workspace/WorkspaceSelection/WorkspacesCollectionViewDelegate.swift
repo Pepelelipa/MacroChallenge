@@ -15,7 +15,6 @@ internal class WorkspacesCollectionViewDelegate: NSObject,
     // MARK: - Variables and Constants
     
     private var didSelectCell: ((WorkspaceCollectionViewCell) -> Void)?
-    internal var viewTraitCollection: UITraitCollection = UITraitCollection()
     internal var frame: CGRect = CGRect()
     
     // MARK: - Initializers
