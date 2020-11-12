@@ -273,3 +273,7 @@
 "Second Header" = "Second Header";
 "Third Header" = "Third Header";
 "Paragraph" = "Paragraph";
+
+// MARK: - Images
+
+"Workspace Image" = "Workspace Image English";

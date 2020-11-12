@@ -113,7 +113,7 @@ class OnboardingViewController: UIViewController {
         
         let subtitles = ["Organisation subtitle".localized(), "Text subtitle".localized(), "Markdown subtitle".localized(), "Devices subtitle".localized(), "Transcript subtitle".localized()]
         
-        let images = ["WorkspaceImage".localized(), "FormatImage".localized(), "MarkdownImage".localized(), "DevicesImage".localized(), "TranscriptImage".localized()]
+        let images = ["Workspace Image".localized(), "Format Image".localized(), "Markdown Image".localized(), "Devices Image".localized(), "Transcript Image".localized()]
         
         let page1 = configureView(title: titles[0], subtitle: subtitles[0], imageName: images[0])
         let page2 = configureView(title: titles[1], subtitle: subtitles[1], imageName: images[1])
