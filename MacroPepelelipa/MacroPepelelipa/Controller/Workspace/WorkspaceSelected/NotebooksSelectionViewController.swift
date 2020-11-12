@@ -138,7 +138,6 @@ internal class NotebooksSelectionViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        UIMenuSystem.main.setNeedsRebuild()
 
         addKeyCommand(NotebooksSelectionViewController.newNotebookCommand)
         
@@ -167,6 +166,7 @@ internal class NotebooksSelectionViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        UIMenuSystem.main.setNeedsRebuild()
         navigationItem.largeTitleDisplayMode = .always
         navigationController?.navigationBar.isTranslucent = true
         navigationController?.navigationBar.backgroundColor = .clear

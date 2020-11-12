@@ -32,14 +32,18 @@ internal class MenuController {
             return
         }
         
-        
+        if viewController is WorkspaceSelectionViewController {
+            setupWorkspaceMenu(with: builder)
+        } else if viewController is NotebooksSelectionViewController {
+            setupNotebookMenu(with: builder)
+        }
     }
     
     // MARK: - Workspace Menu
     
     private func setupWorkspaceMenu(with builder: UIMenuBuilder) {
-        if builder.menu(for: UIMenu.Identifier(NotebookMenuId.new.rawValue)) != nil {
-            builder.remove(menu: UIMenu.Identifier(NotebookMenuId.new.rawValue))
+        if let notebookMenu = builder.menu(for: UIMenu.Identifier(NotebookMenuId.new.rawValue)) {
+            builder.remove(menu: notebookMenu.identifier)
         }
         
         builder.insertChild(MenuController.findMenu(), atStartOfMenu: .file)
@@ -48,7 +52,7 @@ internal class MenuController {
     
     private class func newWorkspaceMenu() -> UIMenu {
         // TODO: localize title
-        return UIMenu(title: "NewCommandTitle".localized(),
+        return UIMenu(title: "NewWorkspaceCommandTitle".localized(),
                       image: nil,
                       identifier: UIMenu.Identifier(WorkspaceMenuId.new.rawValue),
                       options: [.destructive, .displayInline],
@@ -65,6 +69,27 @@ internal class MenuController {
     }
     
     // MARK: - Notebook Menu
+    
+    private func setupNotebookMenu(with builder: UIMenuBuilder) {
+        if let newWorspaceMenu = builder.menu(for: UIMenu.Identifier(WorkspaceMenuId.new.rawValue)) {
+            builder.remove(menu: newWorspaceMenu.identifier)
+        }
+        
+        if let findMenu = builder.menu(for: UIMenu.Identifier(WorkspaceMenuId.find.rawValue)) {
+            builder.remove(menu: findMenu.identifier)
+        }
+        
+        builder.insertChild(MenuController.newNotebookMenu(), atStartOfMenu: .file)
+    }
+    
+    private class func newNotebookMenu() -> UIMenu {
+        // TODO: localize title
+        return UIMenu(title: "NewNotebookCommandTitle".localized(),
+                      image: nil,
+                      identifier: UIMenu.Identifier(NotebookMenuId.new.rawValue),
+                      options: [.destructive, .displayInline],
+                      children: [NotebooksSelectionViewController.newNotebookCommand])
+    }
     
     // MARK: - Note Menu
     

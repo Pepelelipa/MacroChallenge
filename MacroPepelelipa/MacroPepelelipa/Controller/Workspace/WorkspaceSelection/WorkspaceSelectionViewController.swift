@@ -200,6 +200,7 @@ internal class WorkspaceSelectionViewController: UIViewController,
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        UIMenuSystem.main.setNeedsRebuild()
         navigationItem.largeTitleDisplayMode = .always
         self.navigationController?.navigationBar.prefersLargeTitles = true
         super.viewWillAppear(animated)
