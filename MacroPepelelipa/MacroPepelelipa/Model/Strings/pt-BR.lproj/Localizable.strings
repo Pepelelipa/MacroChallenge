@@ -124,6 +124,7 @@
 "Edit Workspace" = "Editar Coleção";
 "Edit Notebook" = "Editar Caderno";
 "Edit" = "Editar";
+"Skip" = "Pular";
 
 // MARK: - Accessibility
 
@@ -217,10 +218,12 @@
 
 "Paragraph hint" = "Toque duas vezes para trocar o tipo de parágrafo";
 
-"End editing hint" = "Double tap to end editing";
+"End editing hint" = "Toque duas vezes para terminar a edição";
 
 "Filter Workspaces Hint" = "Mostrando cadernos e workspaces da pesquisa";
 "Filter Notebooks Hint" = "Mostrando os cadernos da pesquisa";
+
+"Skip hint" = "Toque duas vezes para pular o onboarding";
 
 // MARK: - Colors
 

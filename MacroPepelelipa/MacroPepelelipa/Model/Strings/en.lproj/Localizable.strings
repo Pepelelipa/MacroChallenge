@@ -121,6 +121,7 @@
 "Save workspace" = "Save workspace";
 "Save notebook" = "Save notebook";
 "Edit" = "Edit";
+"Skip" = "Skip";
 
 // MARK: - Accessibility
 
@@ -213,10 +214,12 @@
 
 "Paragraph hint" = "Double tap to change the paragraph type";
 
-"End editing hint" = "Toque duas vezes para finalizar edição";
+"End editing hint" = "Double tap to finish editing";
 
 "Filter Workspaces Hint" = "Showing all notebooks and workspaces from search";
 "Filter Notebooks Hint" = "Showing notebooks from search";
+
+"Skip hint" = "Double tap to skip the onboarding";
 
 // MARK: - Colors
 
