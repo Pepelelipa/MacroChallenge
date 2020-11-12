@@ -11,6 +11,7 @@ import CloudKit
 
 internal class CloudKitDataController {
     private let database: DatabaseType = .Private
+    private var savingQueue: [CloudKitEntity] = []
 
     // MARK: Workspace
     /**
@@ -22,6 +23,25 @@ internal class CloudKitDataController {
         let workspace = CloudKitWorkspace(named: name, id: id)
         saveData(entitiesToSave: [workspace])
         return workspace
+    }
+
+    /**
+     Creates a Workspace into CloudKit.
+     - Parameter workspace: The CoreData workspace.
+     */
+    internal func createWorkspace(from workspace: Workspace) throws -> CloudKitWorkspace {
+        let record = CKRecord(recordType: CloudKitWorkspace.recordType)
+        let ckworkspace = CloudKitWorkspace(from: record)
+        savingQueue.append(ckworkspace)
+        ckworkspace <- workspace
+        if let notebooks = workspace.notebooks?.array as? [Notebook] {
+            for notebook in notebooks {
+                _ = createNotebook(from: notebook, in: ckworkspace, shouldSave: false)
+            }
+        }
+
+        saveData(entitiesToSave: savingQueue)
+        return ckworkspace
     }
 
     /**
@@ -49,6 +69,32 @@ internal class CloudKitDataController {
     }
 
     /**
+     Creates a Notebook into CloudKit
+     - Parameter notebook: The CoreData notebook.
+     - Parameter ckWorkspace: To what workspace it belongs.
+     */
+    internal func createNotebook(from notebook: Notebook, in ckWorkspace: CloudKitWorkspace, shouldSave: Bool = true) -> CloudKitNotebook {
+        let record = CKRecord(recordType: CloudKitNotebook.recordType)
+        let ckNotebook = CloudKitNotebook(from: record)
+        ckNotebook <- notebook
+        ckNotebook.setWorkspace(ckWorkspace)
+        ckWorkspace.appendNotebook(ckNotebook)
+
+        if let notes = notebook.notes?.array as? [Note] {
+            for note in notes {
+                _ = createNote(from: note, in: ckNotebook, shouldSave: false)
+            }
+        }
+
+        if shouldSave {
+            saveData(entitiesToSave: [ckWorkspace, ckNotebook])
+        } else {
+            savingQueue.append(ckNotebook)
+        }
+        return ckNotebook
+    }
+
+    /**
      Deletes a notebook from CloudKit
      - Parameter notebook: Notebook to be deleted.
      */
@@ -69,6 +115,39 @@ internal class CloudKitDataController {
         saveData(entitiesToSave: [notebook, note])
 
         return note
+    }
+
+    /**
+     Creates a Note into CloudKit
+     - Parameter note: The CoreData Object.
+     - Parameter ckNotebook: To what notebook it belongs.
+     */
+    internal func createNote(from note: Note, in ckNotebook: CloudKitNotebook, shouldSave: Bool = true) -> CloudKitNote {
+        let record = CKRecord(recordType: CloudKitNote.recordType)
+        let ckNote = CloudKitNote(from: record)
+        ckNote <- note
+        ckNote.setNotebook(ckNotebook)
+        ckNotebook.appendNote(ckNote)
+
+        if let textBoxes = note.textBoxes?.allObjects as? [TextBox] {
+            for textBox in textBoxes {
+                _ = createTextBox(from: textBox, in: ckNote, shouldSave: false)
+            }
+        }
+
+        if let imageBoxes = note.images?.allObjects as? [ImageBox] {
+            for imageBox in imageBoxes {
+                _ = createImageBox(from: imageBox, in: ckNote, shouldSave: false)
+            }
+        }
+
+        if shouldSave {
+            saveData(entitiesToSave: [ckNotebook, ckNote])
+        } else {
+            savingQueue.append(ckNote)
+        }
+
+        return ckNote
     }
 
     /**
@@ -95,6 +174,27 @@ internal class CloudKitDataController {
     }
 
     /**
+     Creates a TextBox into CloudKit
+     - Parameter textBox: The CoreData object.
+     - Parameter ckNote: To what note it belongs.
+     */
+    internal func createTextBox(from textBox: TextBox, in ckNote: CloudKitNote, shouldSave: Bool = true) -> CloudKitTextBox {
+        let record = CKRecord(recordType: CloudKitTextBox.recordType)
+        let ckTextBox = CloudKitTextBox(from: record)
+        ckTextBox <- textBox
+        ckTextBox.setNote(ckNote)
+        ckNote.appendTextBox(ckTextBox)
+
+        if shouldSave {
+            saveData(entitiesToSave: [ckNote, ckTextBox])
+        } else {
+            savingQueue.append(ckTextBox)
+        }
+
+        return ckTextBox
+    }
+
+    /**
      Deletes a TextBox from CloudKit
      - Parameter textBox: TextBox to be deleted.
      */
@@ -118,6 +218,27 @@ internal class CloudKitDataController {
     }
 
     /**
+     Creates a ImageBox into CloudKit
+     - Parameter imageBox: The CoreData object.
+     - Parameter ckNote: To what note it belongs.
+     */
+    internal func createImageBox(from imageBox: ImageBox, in ckNote: CloudKitNote, shouldSave: Bool = true) -> CloudKitImageBox {
+        let record = CKRecord(recordType: CloudKitImageBox.recordType)
+        let ckImageBox = CloudKitImageBox(from: record)
+        ckImageBox <- imageBox
+        ckImageBox.setNote(ckNote)
+        ckNote.appendImageBox(ckImageBox)
+
+        if shouldSave {
+            saveData(entitiesToSave: [ckNote, ckImageBox])
+        } else {
+            savingQueue.append(ckImageBox)
+        }
+
+        return ckImageBox
+    }
+
+    /**
      Deletes a ImageBox from CloudKit
      - Parameter imageBox: ImageBox to be deleted.
      */
@@ -129,6 +250,7 @@ internal class CloudKitDataController {
     // MARK: Saving
     private func saveData(entitiesToSave: [CloudKitEntity] = [], entitiesToDelete: [CloudKitEntity] = []) {
         CloudKitDataConnector.saveData(database: .Private, entitiesToSave: entitiesToSave, entitiesToDelete: entitiesToDelete)
+        savingQueue.removeAll()
     }
 
     // MARK: Fetches
