@@ -105,8 +105,9 @@
 		02E4E99525266F3900290A39 /* NotebookView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02E4E99425266F3900290A39 /* NotebookView.swift */; };
 		02E5A22C25239E36009DFFB5 /* WorkspaceSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02E5A22B25239E36009DFFB5 /* WorkspaceSelectionViewController.swift */; };
 		02ECA43C2512ABD100E68588 /* NotebookCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02ECA43B2512ABD100E68588 /* NotebookCollectionViewCell.swift */; };
-		1E117804255DC6090095A339 /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E117803255DC6090095A339 /* OnboardingViewController.swift */; };
+		1E117804255DC6090095A339 /* OnboardingPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E117803255DC6090095A339 /* OnboardingPageViewController.swift */; };
 		1E1D9CD22549EB2D00E2D7A7 /* NotebookEntityToPDFExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E1D9CD12549EB2D00E2D7A7 /* NotebookEntityToPDFExtension.swift */; };
+		1E477550255F008600E3B141 /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E47754F255F008600E3B141 /* OnboardingViewController.swift */; };
 		1E47C56C254377BE00535DDD /* NoteEntityToPDFExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E47C56B254377BE00535DDD /* NoteEntityToPDFExtension.swift */; };
 		1E6E148C252E33E700383E10 /* MarkdownBarConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E6E148B252E33E700383E10 /* MarkdownBarConfiguration.swift */; };
 		1E9290C1252FA68600E8B142 /* MarkupContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E9290C0252FA68600E8B142 /* MarkupContainerViewController.swift */; };
@@ -321,8 +322,9 @@
 		02E4E99425266F3900290A39 /* NotebookView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotebookView.swift; sourceTree = "<group>"; };
 		02E5A22B25239E36009DFFB5 /* WorkspaceSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkspaceSelectionViewController.swift; sourceTree = "<group>"; };
 		02ECA43B2512ABD100E68588 /* NotebookCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotebookCollectionViewCell.swift; sourceTree = "<group>"; };
-		1E117803255DC6090095A339 /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
+		1E117803255DC6090095A339 /* OnboardingPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingPageViewController.swift; sourceTree = "<group>"; };
 		1E1D9CD12549EB2D00E2D7A7 /* NotebookEntityToPDFExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotebookEntityToPDFExtension.swift; sourceTree = "<group>"; };
+		1E47754F255F008600E3B141 /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
 		1E47C56B254377BE00535DDD /* NoteEntityToPDFExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteEntityToPDFExtension.swift; sourceTree = "<group>"; };
 		1E6E148B252E33E700383E10 /* MarkdownBarConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkdownBarConfiguration.swift; sourceTree = "<group>"; };
 		1E9290C0252FA68600E8B142 /* MarkupContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkupContainerViewController.swift; sourceTree = "<group>"; };
@@ -837,7 +839,8 @@
 				0247F78B25115B8900405A61 /* Workspace */,
 				A7BDD5F82513F4DC00DDB6A0 /* Notebook */,
 				A7BC781C253A2925006489CF /* Text Recognition */,
-				1E117803255DC6090095A339 /* OnboardingViewController.swift */,
+				1E117803255DC6090095A339 /* OnboardingPageViewController.swift */,
+				1E47754F255F008600E3B141 /* OnboardingViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -1350,7 +1353,7 @@
 				E41209532538C1020088AC26 /* EmptyScreenView.swift in Sources */,
 				D97EE7AC254B554F00A68B06 /* SearchResultViewController.swift in Sources */,
 				02AC9ADA251BF35200A067D0 /* NotebooksCollectionViewDelegate.swift in Sources */,
-				1E117804255DC6090095A339 /* OnboardingViewController.swift in Sources */,
+				1E117804255DC6090095A339 /* OnboardingPageViewController.swift in Sources */,
 				D97EE7BB254B558B00A68B06 /* SearchResultCollectionReusableView.swift in Sources */,
 				D925935225598700000529B4 /* TipViewController.swift in Sources */,
 				024C5BB4252E41D8009549CE /* ColorSelectionCollectionViewDelegate.swift in Sources */,
@@ -1399,6 +1402,7 @@
 				D97EE7B7254B557A00A68B06 /* SearchResultCollectionViewDataSource.swift in Sources */,
 				A7BDD60F2514078600DDB6A0 /* NotebookIndexTableViewCell.swift in Sources */,
 				A72942E7253A13D800C788EE /* ImageButtonObserver.swift in Sources */,
+				1E477550255F008600E3B141 /* OnboardingViewController.swift in Sources */,
 				D925939A2559E53C000529B4 /* MarkdownFormatViewReceiver.swift in Sources */,
 				A7BDD5FF2513F83F00DDB6A0 /* IndexViewController.swift in Sources */,
 				D9BBA584252FAB28004B724F /* AddWorkspaceObserver.swift in Sources */,

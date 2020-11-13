@@ -20,7 +20,16 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let navController = UINavigationController()
         navController.navigationBar.tintColor = .actionColor
         navController.navigationBar.prefersLargeTitles = true
-        navController.viewControllers = [WorkspaceSelectionViewController()]
+        
+//        let time = UserDefaults.standard.integer(forKey: "numberOfTimes")
+//        if time == 0 {
+//            navController.viewControllers = [OnboardingViewController()]
+//            UserDefaults.standard.setValue(time + 1, forKey: "numberOfTimes")
+//        } else {
+//            navController.viewControllers = [WorkspaceSelectionViewController()]
+//        }
+        navController.viewControllers = [OnboardingViewController(title: "Teste", subtitle: "Testando novamente pq funcione ahhhhhh", imageName: "Transcript Image English")]
+        
         window = UIWindow(windowScene: scene)
         window?.rootViewController = navController
         window?.makeKeyAndVisible()
