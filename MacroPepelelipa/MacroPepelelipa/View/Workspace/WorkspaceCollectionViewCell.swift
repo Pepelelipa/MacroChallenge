@@ -163,14 +163,23 @@ internal class WorkspaceCollectionViewCell: UICollectionViewCell, EditableCollec
     }
     
     private func generateVerticalStack(colors: (top: UIColor, bottom: UIColor)) -> UIStackView {
+        
         let verticalSV = UIStackView()
         verticalSV.axis = .vertical
         verticalSV.alignment = .center
         verticalSV.distribution = .fillEqually
         verticalSV.spacing = 10
         verticalSV.translatesAutoresizingMaskIntoConstraints = false
-        verticalSV.addArrangedSubview(generateNotebook(color: colors.top))
-        verticalSV.addArrangedSubview(generateNotebook(color: colors.bottom))
+        
+        let topNotebook = generateNotebook(color: colors.top)
+        workspaceNotebooksConstraints.append(topNotebook.widthAnchor.constraint(equalTo: workspaceView.heightAnchor, multiplier: 0.35))
+        
+        let bottomNotebook = generateNotebook(color: colors.bottom)
+        workspaceNotebooksConstraints.append(bottomNotebook.widthAnchor.constraint(equalTo: workspaceView.heightAnchor, multiplier: 0.35))
+        
+        verticalSV.addArrangedSubview(topNotebook)
+        verticalSV.addArrangedSubview(bottomNotebook)
+        
         return verticalSV
     }
     
