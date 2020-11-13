@@ -126,6 +126,15 @@
 "Find" = "Find";
 "New note" = "New note";
 "Delete note" = "Delete note";
+"Import image" = "Import image";
+"Import" = "Import";
+"Export note as PDF" = "Export note as PDF";
+"Export" = "Export";
+"An error has occurred while exporting the PDF" = "An error has occurred while exporting the PDF";
+"The app could not export the file as a PDF" = "The app could not export the file as a PDF";
+"Error writing data to the designed url" = "Error writing data to the designed url";
+"Export notebook as PDF" = "Export notebook as PDF";
+
 
 // MARK: - Accessibility
 

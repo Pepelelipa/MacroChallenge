@@ -172,7 +172,10 @@ internal class MenuController {
                       image: nil,
                       identifier: UIMenu.Identifier(NoteMenuId.export.rawValue),
                       options: [.displayInline],
-                      children: [NotesViewController.exportCommand])
+                      children: [
+                        NotesViewController.exportNoteCommand,
+                        NotesViewController.exportNotebookCommand
+                      ])
     }
     
 }
