@@ -10,13 +10,15 @@ import UIKit
 
 class OnboardingViewController: UIViewController {
 
+    // MARK: - Variables and Constants
+    
     private lazy var titleLabel: UILabel = {
         let lbl = UILabel(frame: .zero)
         lbl.translatesAutoresizingMaskIntoConstraints = false
         
         lbl.text = titleString
         lbl.font = UIFont.defaultHeader.toStyle(.h3)
-        lbl.textColor = UIColor.bodyColor
+        lbl.textColor = UIColor.titleColor
         lbl.textAlignment = .left
         
         return lbl
@@ -65,6 +67,8 @@ class OnboardingViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: - Override functions
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -72,26 +76,32 @@ class OnboardingViewController: UIViewController {
         view.addSubview(subtitleLabel)
         view.addSubview(imageView)
         
+        view.backgroundColor = UIColor.formatColor
+        
         setConstraints()
     }
     
+    // MARK: - Functions
+    
+    /**
+     This private method sets the constraints for different size classes and devices.
+     */
     private func setConstraints() {
         NSLayoutConstraint.activate([
             
-            imageView.topAnchor.constraint(equalTo: view.topAnchor, constant: 100),
+            imageView.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -20),
             imageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             imageView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.8),
             imageView.heightAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.4),
             
             subtitleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            subtitleLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 20),
+            subtitleLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
             subtitleLabel.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -50),
             
             titleLabel.bottomAnchor.constraint(equalTo: subtitleLabel.topAnchor, constant: -20),
             titleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            titleLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 20)
+            titleLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20)
             
         ])
     }
-
 }
