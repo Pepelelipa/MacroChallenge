@@ -96,7 +96,7 @@ class OnboardingViewController: UIViewController {
             
             subtitleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             subtitleLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -30),
-            subtitleLabel.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -50),
+            subtitleLabel.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -150),
             
             titleLabel.bottomAnchor.constraint(equalTo: subtitleLabel.topAnchor, constant: -20),
             titleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),

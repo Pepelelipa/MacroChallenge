@@ -28,9 +28,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 //        } else {
 //            navController.viewControllers = [WorkspaceSelectionViewController()]
 //        }
-        navController.viewControllers = [OnboardingViewController(title: "Teste",
-                                      subtitle: "Testando novamente pq funcione ahhhhhh. Vamos lá e torcer que isso quebre a linha e fique tudo ok pq",
-                                      imageName: "Transcript Image English")]
+        navController.viewControllers = [OnboardingPageViewController()]
         
         window = UIWindow(windowScene: scene)
         window?.rootViewController = navController
