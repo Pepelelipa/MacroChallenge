@@ -21,13 +21,6 @@ class OnboardingPageViewController: UIPageViewController {
         return pg
     }()
     
-//    private lazy var containerView: UIView = {
-//        let contView = UIView(frame: .zero)
-//        contView.translatesAutoresizingMaskIntoConstraints = false
-//
-//        return contView
-//    }()
-    
     private lazy var skipButton: UIBarButtonItem = {
         
         let btn = UIBarButtonItem(title: "Skip".localized(), style: .plain, target: self, action: #selector(openWorkspace))
@@ -103,7 +96,7 @@ class OnboardingPageViewController: UIPageViewController {
     }
     
     private func setViews() {
-        let titles = ["Organisation".localized(), "Text".localized(), "Markdown".localized(), "Devices".localized(), "Transcript".localized()]
+        let titles = ["Organisation title".localized(), "Text title".localized(), "Markdown title".localized(), "Devices title".localized(), "Transcript title".localized()]
         
         let subtitles = ["Organisation subtitle".localized(), "Text subtitle".localized(), "Markdown subtitle".localized(), "Devices subtitle".localized(), "Transcript subtitle".localized()]
         
@@ -118,9 +111,6 @@ class OnboardingPageViewController: UIPageViewController {
     
     private func setFixedConstraints() {
         NSLayoutConstraint.activate([
-//            containerView.topAnchor.constraint(equalTo: view.topAnchor),
-//            containerView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-//            containerView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             
             pageControl.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -60),
             pageControl.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -20),

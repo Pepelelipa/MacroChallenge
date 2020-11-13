@@ -29,7 +29,7 @@ class OnboardingViewController: UIViewController {
         lbl.translatesAutoresizingMaskIntoConstraints = false
         
         lbl.text = subtitle
-        lbl.numberOfLines = 2
+        lbl.numberOfLines = 0
         lbl.font = UIFont.defaultFont.toParagraphFont()
         lbl.textColor = UIColor.bodyColor
         lbl.textAlignment = .left

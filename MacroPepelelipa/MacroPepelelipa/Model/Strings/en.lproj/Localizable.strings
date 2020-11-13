@@ -123,6 +123,18 @@
 "Edit" = "Edit";
 "Skip" = "Skip";
 
+"Organisation title" = "Organisation";
+"Text title" = "Text Editing";
+"Markdown title" = "Markdown";
+"Devices title" = "Devices";
+"Transcript title" = "Text Transcription";
+
+"Organisation subtitle" = "Create a shelf to keep your notebooks and, inside your notebook, create your notes!";
+"Text subtitle" = "Use our toolbar to change the color, size, highlight and font of your text! Place lists, text boxes and images.";
+"Markdown subtitle" = "Use our markdown to make bold, italic, underline and highlight!";
+"Devices subtitle" = "You can use our app to sync your data on your iPhone, iPad and your Mac!";
+"Transcript subtitle" = "And you know that picture of your teachers notes you took during class? Add it here to have the text transcribed!";
+
 // MARK: - Accessibility
 
 "Editing enabled" = "Editing enabled";

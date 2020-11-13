@@ -126,6 +126,18 @@
 "Edit" = "Editar";
 "Skip" = "Pular";
 
+"Organisation title" = "Organização";
+"Text title" = "Edição do Texto";
+"Markdown title" = "Markdown";
+"Devices title" = "Dispositivos";
+"Transcript title" = "Transcrição de Texto";
+
+"Organisation subtitle" = "Crie uma estante para guardar seus cadernos e dentro dos cadernos, crie as suas notas!";
+"Text subtitle" = "Use a nossa barra de configurações para trocar a cor, tamanho, destaque e fonte de seu texto! Coloque listas, caixas de texto e imagens.";
+"Markdown subtitle" = "Utilize o nosso markdown para fazer negrito, itálico, sublinhado e marca-texto!";
+"Devices subtitle" = "Você pode utilizar o nosso aplicativo com sincronização dos seus dados no iPhone, iPad e no seu Mac!";
+"Transcript subtitle" = "E sabe aquela sua foto da lousa do professor? Adiciona ela aqui para ter o texto transcrito!";
+
 // MARK: - Accessibility
 
 "Editing enabled" = "Edição habilitada";
