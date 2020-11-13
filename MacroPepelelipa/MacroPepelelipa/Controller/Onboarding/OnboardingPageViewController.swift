@@ -10,6 +10,8 @@ import UIKit
 
 class OnboardingPageViewController: UIPageViewController {
     
+    // MARK: - Variables and Constants
+    
     private lazy var pageControl: UIPageControl = {
         let pg = UIPageControl(frame: .zero)
     
@@ -61,6 +63,8 @@ class OnboardingPageViewController: UIPageViewController {
     
     private var pages = [UIViewController]()
     
+    // MARK: - Initializer
+    
     init() {
         super.init(transitionStyle: .scroll, navigationOrientation: .horizontal, options: .none)
     }
@@ -68,6 +72,8 @@ class OnboardingPageViewController: UIPageViewController {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    // MARK: - Override functions
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -96,12 +102,16 @@ class OnboardingPageViewController: UIPageViewController {
         view.backgroundColor = UIColor.formatColor
     }
     
+    // MARK: - @objc functions
+    
     @objc func openWorkspace(sender: UITapGestureRecognizer) {
         let view = WorkspaceSelectionViewController()
         view.modalPresentationStyle = .fullScreen
         self.navigationController?.setViewControllers([view], animated: true)
         self.navigationController?.popToRootViewController(animated: true)
     }
+    
+    // MARK: - Functions
     
     private func setViews() {
         let titles = ["Organisation title".localized(), "Text title".localized(), "Markdown title".localized(), "Devices title".localized(), "Transcript title".localized()]
@@ -177,10 +187,8 @@ extension OnboardingPageViewController: UIPageViewControllerDataSource {
         
         if let viewControllerIndex = self.pages.firstIndex(of: viewController) {
             if viewControllerIndex < self.pages.count - 1 {
-                // go to next page in array
                 return self.pages[viewControllerIndex + 1]
             } else {
-                // wrap to first page in array
                 return self.pages.first
             }
         }

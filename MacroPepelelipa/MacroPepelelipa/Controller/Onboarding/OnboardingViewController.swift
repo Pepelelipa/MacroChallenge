@@ -55,6 +55,8 @@ class OnboardingViewController: UIViewController {
     private var subtitle: String?
     private var imageName: String?
     
+    // MARK: - Initializers
+    
     internal init(title: String, subtitle: String, imageName: String) {
         super.init(nibName: nil, bundle: nil)
         

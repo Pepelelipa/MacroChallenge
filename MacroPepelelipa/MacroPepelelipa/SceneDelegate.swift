@@ -21,14 +21,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         navController.navigationBar.tintColor = .actionColor
         navController.navigationBar.prefersLargeTitles = true
         
-//        let time = UserDefaults.standard.integer(forKey: "numberOfTimes")
-//        if time == 0 {
-//            navController.viewControllers = [OnboardingViewController()]
-//            UserDefaults.standard.setValue(time + 1, forKey: "numberOfTimes")
-//        } else {
-//            navController.viewControllers = [WorkspaceSelectionViewController()]
-//        }
-        navController.viewControllers = [OnboardingPageViewController()]
+        let time = UserDefaults.standard.integer(forKey: "numberOfTimes")
+        if time == 0 {
+            navController.viewControllers = [OnboardingPageViewController()]
+            UserDefaults.standard.setValue(time + 1, forKey: "numberOfTimes")
+        } else {
+            navController.viewControllers = [WorkspaceSelectionViewController()]
+        }
         
         window = UIWindow(windowScene: scene)
         window?.rootViewController = navController

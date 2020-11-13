@@ -110,6 +110,8 @@
 		1E477550255F008600E3B141 /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E47754F255F008600E3B141 /* OnboardingViewController.swift */; };
 		1E47C56C254377BE00535DDD /* NoteEntityToPDFExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E47C56B254377BE00535DDD /* NoteEntityToPDFExtension.swift */; };
 		1E6E148C252E33E700383E10 /* MarkdownBarConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E6E148B252E33E700383E10 /* MarkdownBarConfiguration.swift */; };
+		1E91D35B255F307A002FA8F1 /* OnboardingPageViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E91D35A255F307A002FA8F1 /* OnboardingPageViewControllerDelegate.swift */; };
+		1E91D362255F30B5002FA8F1 /* OnboardingPageViewControllerDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E91D361255F30B5002FA8F1 /* OnboardingPageViewControllerDataSource.swift */; };
 		1E9290C1252FA68600E8B142 /* MarkupContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E9290C0252FA68600E8B142 /* MarkupContainerViewController.swift */; };
 		1E9EF4A925225B9B00CC623B /* TextEditingDelegateObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E9EF4A825225B9B00CC623B /* TextEditingDelegateObserver.swift */; };
 		1E9EF4AD2522609400CC623B /* MarkupTextFieldDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E9EF4AC2522609400CC623B /* MarkupTextFieldDelegate.swift */; };
@@ -327,6 +329,8 @@
 		1E47754F255F008600E3B141 /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
 		1E47C56B254377BE00535DDD /* NoteEntityToPDFExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteEntityToPDFExtension.swift; sourceTree = "<group>"; };
 		1E6E148B252E33E700383E10 /* MarkdownBarConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkdownBarConfiguration.swift; sourceTree = "<group>"; };
+		1E91D35A255F307A002FA8F1 /* OnboardingPageViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingPageViewControllerDelegate.swift; sourceTree = "<group>"; };
+		1E91D361255F30B5002FA8F1 /* OnboardingPageViewControllerDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingPageViewControllerDataSource.swift; sourceTree = "<group>"; };
 		1E9290C0252FA68600E8B142 /* MarkupContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkupContainerViewController.swift; sourceTree = "<group>"; };
 		1E9EF4A825225B9B00CC623B /* TextEditingDelegateObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextEditingDelegateObserver.swift; sourceTree = "<group>"; };
 		1E9EF4AC2522609400CC623B /* MarkupTextFieldDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkupTextFieldDelegate.swift; sourceTree = "<group>"; };
@@ -816,6 +820,7 @@
 		02DD0A1125114E9D00B6696B /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				1E91D360255F30A0002FA8F1 /* Onbording */,
 				02919F4725531BFA00C03E27 /* App String Extensions.swift */,
 				D97EE7B3254B557A00A68B06 /* Search */,
 				0230E077253A3CED009C5A76 /* UIDeviceOrientation.swift */,
@@ -830,6 +835,7 @@
 		02DD0A1225114EA200B6696B /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				1E91D359255F2F72002FA8F1 /* Onboarding */,
 				D97EE7A5254B554F00A68B06 /* Search */,
 				02AD78F125475C5800C87D2B /* EditableCollectionView.swift */,
 				02AD78F525475C7300C87D2B /* EditableCollectionViewCell.swift */,
@@ -839,8 +845,6 @@
 				0247F78B25115B8900405A61 /* Workspace */,
 				A7BDD5F82513F4DC00DDB6A0 /* Notebook */,
 				A7BC781C253A2925006489CF /* Text Recognition */,
-				1E117803255DC6090095A339 /* OnboardingPageViewController.swift */,
-				1E47754F255F008600E3B141 /* OnboardingViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -855,6 +859,24 @@
 				E41209522538C1020088AC26 /* EmptyScreenView.swift */,
 			);
 			path = Workspace;
+			sourceTree = "<group>";
+		};
+		1E91D359255F2F72002FA8F1 /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+				1E117803255DC6090095A339 /* OnboardingPageViewController.swift */,
+				1E47754F255F008600E3B141 /* OnboardingViewController.swift */,
+				1E91D35A255F307A002FA8F1 /* OnboardingPageViewControllerDelegate.swift */,
+			);
+			path = Onboarding;
+			sourceTree = "<group>";
+		};
+		1E91D360255F30A0002FA8F1 /* Onbording */ = {
+			isa = PBXGroup;
+			children = (
+				1E91D361255F30B5002FA8F1 /* OnboardingPageViewControllerDataSource.swift */,
+			);
+			path = Onbording;
 			sourceTree = "<group>";
 		};
 		1E9EF4A725225B7A00CC623B /* Notes */ = {
@@ -1391,6 +1413,7 @@
 				02919F4225531B1F00C03E27 /* MarkdownTextViewDelegate.swift in Sources */,
 				D97EE7AE254B554F00A68B06 /* CustomUISearchController.swift in Sources */,
 				A73C94BA253F84E8004EFA4F /* PhotoPickerDelegate.swift in Sources */,
+				1E91D35B255F307A002FA8F1 /* OnboardingPageViewControllerDelegate.swift in Sources */,
 				A7BDD60A251406D900DDB6A0 /* TableViewDataSource.swift in Sources */,
 				D9F4A9AA25277A6B00BFDC19 /* ResizeHandleView.swift in Sources */,
 				A792F03A25279E8400AB1766 /* NotebookIndexTableViewDelegate.swift in Sources */,
@@ -1411,6 +1434,7 @@
 				D9D87534251BAA6700B842C8 /* MarkdownTextField.swift in Sources */,
 				A71E2C1E2538EEB8000DA164 /* NotesPageViewControllerDelegate.swift in Sources */,
 				E42FC8372530EF78004E81C9 /* MarkdownFormatView.swift in Sources */,
+				1E91D362255F30B5002FA8F1 /* OnboardingPageViewControllerDataSource.swift in Sources */,
 				1E47C56C254377BE00535DDD /* NoteEntityToPDFExtension.swift in Sources */,
 				D9F04BF025378236001C6551 /* AddNoteObserver.swift in Sources */,
 				A71E2C212538EF51000DA164 /* NotesPageViewControllerDataSource.swift in Sources */,
