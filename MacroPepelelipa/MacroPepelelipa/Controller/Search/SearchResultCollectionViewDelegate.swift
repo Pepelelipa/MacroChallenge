@@ -16,8 +16,7 @@ internal class SearchResultCollectionViewDelegate: NSObject,
     // MARK: - Variables and Constants
     
     private var didSelectCell: ((UICollectionViewCell) -> Void)?
-    internal var numberOfFilteredWorkspaces: Int?
-    internal var numberOfFilteredNotebooks: Int?
+    internal var frame: CGRect = CGRect()
     
     // MARK: - Initializers
     
@@ -39,47 +38,14 @@ internal class SearchResultCollectionViewDelegate: NSObject,
     // MARK: - UICollectionViewDelegateFlowLayout functions
 
     internal func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        var size = CGSize()
-        let isLandscape = UIDevice.current.orientation.isActuallyLandscape
         
         if indexPath.section == 0 {
-            if UIDevice.current.userInterfaceIdiom == .pad {
-                if isLandscape {
-                    let width = collectionView.bounds.width/2 - 25
-                    size = CGSize(width: width, height: width/1.6)
-                } else {
-                    let width = collectionView.bounds.width/2.1
-                    size = CGSize(width: width, height: width/1.5)
-                }
-            } else {
-                if isLandscape {
-                    let width = collectionView.bounds.width/2.1
-                    size = CGSize(width: width, height: width/1.45)
-                } else {
-                    let width = collectionView.bounds.width
-                    size = CGSize(width: width, height: width/1.45)
-                }
-            }
+            return ItemSizeHelper.workspaceItemSize(at: collectionView, for: frame)
         } else if indexPath.section == 1 {
-            if UIDevice.current.userInterfaceIdiom == .pad {
-                if isLandscape {
-                    let width = collectionView.bounds.width/5
-                    size = CGSize(width: width, height: width * 1.68)
-                } else {
-                    let width = collectionView.bounds.width/4
-                    size = CGSize(width: width, height: width * 1.67)
-                }
-            } else {
-                if isLandscape {
-                    let width = collectionView.bounds.width/5.2
-                    size = CGSize(width: width, height: width * 1.74)
-                } else {
-                    let width = collectionView.bounds.width/2.3
-                    size = CGSize(width: width, height: width * 1.72)
-                }
-            }
+            return ItemSizeHelper.notebookItemSize(at: collectionView, for: frame)
+        } else {
+            return CGSize(width: 100, height: 100)
         }
-        return size
     }
 
     internal func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
