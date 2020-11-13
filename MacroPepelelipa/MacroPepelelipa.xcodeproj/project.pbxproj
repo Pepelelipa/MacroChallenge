@@ -122,6 +122,7 @@
 		A731AA7425372F9C00624131 /* IndexObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = A731AA7325372F9C00624131 /* IndexObserver.swift */; };
 		A731AA7F25374A8A00624131 /* TextEditingContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A731AA7E25374A8A00624131 /* TextEditingContainerViewController.swift */; };
 		A73C94BA253F84E8004EFA4F /* PhotoPickerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A73C94B9253F84E8004EFA4F /* PhotoPickerDelegate.swift */; };
+		A73E8127255EFEDA00435FDF /* ItemSizeHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A73E8126255EFEDA00435FDF /* ItemSizeHelper.swift */; };
 		A74D472425474A220038D388 /* GestureDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A74D472325474A210038D388 /* GestureDelegate.swift */; };
 		A77579EF2538C9CC00F4268C /* NotesBarButtonItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = A77579EE2538C9CC00F4268C /* NotesBarButtonItems.swift */; };
 		A792F03A25279E8400AB1766 /* NotebookIndexTableViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A792F03925279E8400AB1766 /* NotebookIndexTableViewDelegate.swift */; };
@@ -339,6 +340,7 @@
 		A731AA7E25374A8A00624131 /* TextEditingContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextEditingContainerViewController.swift; sourceTree = "<group>"; };
 		A73C94B6253F7E4C004EFA4F /* MacroPepelelipa.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MacroPepelelipa.entitlements; sourceTree = "<group>"; };
 		A73C94B9253F84E8004EFA4F /* PhotoPickerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoPickerDelegate.swift; sourceTree = "<group>"; };
+		A73E8126255EFEDA00435FDF /* ItemSizeHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ItemSizeHelper.swift; path = ../../../../../../../ItemSizeHelper.swift; sourceTree = "<group>"; };
 		A74D472325474A210038D388 /* GestureDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GestureDelegate.swift; sourceTree = "<group>"; };
 		A77579EE2538C9CC00F4268C /* NotesBarButtonItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesBarButtonItems.swift; sourceTree = "<group>"; };
 		A792F03925279E8400AB1766 /* NotebookIndexTableViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotebookIndexTableViewDelegate.swift; sourceTree = "<group>"; };
@@ -832,6 +834,7 @@
 				02AD78F125475C5800C87D2B /* EditableCollectionView.swift */,
 				02AD78F525475C7300C87D2B /* EditableCollectionViewCell.swift */,
 				A74D472325474A210038D388 /* GestureDelegate.swift */,
+				A73E8126255EFEDA00435FDF /* ItemSizeHelper.swift */,
 				E4017A92252D09DC00ABB87C /* Extensions */,
 				D9D8753A251BC3D300B842C8 /* PhotoPicker */,
 				0247F78B25115B8900405A61 /* Workspace */,
@@ -1388,6 +1391,7 @@
 				02919F4225531B1F00C03E27 /* MarkdownTextViewDelegate.swift in Sources */,
 				D97EE7AE254B554F00A68B06 /* CustomUISearchController.swift in Sources */,
 				A73C94BA253F84E8004EFA4F /* PhotoPickerDelegate.swift in Sources */,
+				A73E8127255EFEDA00435FDF /* ItemSizeHelper.swift in Sources */,
 				A7BDD60A251406D900DDB6A0 /* TableViewDataSource.swift in Sources */,
 				D9F4A9AA25277A6B00BFDC19 /* ResizeHandleView.swift in Sources */,
 				A792F03A25279E8400AB1766 /* NotebookIndexTableViewDelegate.swift in Sources */,
@@ -1468,7 +1472,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 6;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = 5HW626WUP4;
+				DEVELOPMENT_TEAM = 4BUKN8ST5B;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -1498,7 +1502,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 6;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = 5HW626WUP4;
+				DEVELOPMENT_TEAM = 4BUKN8ST5B;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -1528,7 +1532,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 6;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = 5HW626WUP4;
+				DEVELOPMENT_TEAM = 4BUKN8ST5B;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -1560,7 +1564,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 6;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = 5HW626WUP4;
+				DEVELOPMENT_TEAM = 4BUKN8ST5B;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -1709,7 +1713,7 @@
 				CODE_SIGN_ENTITLEMENTS = MacroPepelelipa/MacroPepelelipa.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 6;
-				DEVELOPMENT_TEAM = 5HW626WUP4;
+				DEVELOPMENT_TEAM = 4BUKN8ST5B;
 				INFOPLIST_FILE = MacroPepelelipa/Info.plist;
 				"IPHONEOS_DEPLOYMENT_TARGET[sdk=macosx*]" = 14.2;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1732,7 +1736,7 @@
 				CODE_SIGN_ENTITLEMENTS = MacroPepelelipa/MacroPepelelipa.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 6;
-				DEVELOPMENT_TEAM = 5HW626WUP4;
+				DEVELOPMENT_TEAM = 4BUKN8ST5B;
 				INFOPLIST_FILE = MacroPepelelipa/Info.plist;
 				"IPHONEOS_DEPLOYMENT_TARGET[sdk=macosx*]" = 14.2;
 				LD_RUNPATH_SEARCH_PATHS = (

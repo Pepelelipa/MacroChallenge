@@ -365,27 +365,42 @@ internal class TextEditingContainerViewController: UIViewController,
     ///This method checks if the notebook index is already appearing on screen or not. If it isn't appearing on screen, instaciates NotebookIndexViewController and peform an animation to show it. If it is appearing on screen, peform an animation to hide it.
     @IBAction private func presentNotebookIndex() {
         
-        if let rightViewController = rightViewController {
-            hideIndex(rightViewController)
+        let isLandscape = UIDevice.current.orientation.isActuallyLandscape
         
-        } else if let notebook = centerViewController?.notebook {
-            showIndex(for: notebook)
-        
-        } else {
-            // Present error alert
-            let alertController = UIAlertController(
-                title: "Error presenting Notebook Index".localized(),
-                message: "The app could not present the Notebook Index".localized(),
-                preferredStyle: .alert)
-                .makeErrorMessage(with: "The app could not load the NotebookIndexViewController".localized())
+        if view.frame.width == UIScreen.main.bounds.width ||
+            (view.frame.width > UIScreen.main.bounds.width/2 && isLandscape) {
+            if let rightViewController = rightViewController {
+                hideIndex(rightViewController)
             
-            present(alertController, animated: true, completion: nil)
+            } else if let notebook = centerViewController?.notebook {
+                showIndex(for: notebook)
+            
+            } else {
+                // Present error alert
+                let alertController = UIAlertController(
+                    title: "Error presenting Notebook Index".localized(),
+                    message: "The app could not present the Notebook Index".localized(),
+                    preferredStyle: .alert)
+                    .makeErrorMessage(with: "The app could not load the NotebookIndexViewController".localized())
+                
+                present(alertController, animated: true, completion: nil)
+            }
+        } else {
+            if let presentNotebook = centerViewController?.notebook,
+               let index = centerViewController?.index,
+               let presentNote = centerViewController?.notes[index] {
+                
+                let notebookIndexViewController = NotebookIndexViewController(notebook: presentNotebook, 
+                                                                              note: presentNote)
+                notebookIndexViewController.observer = self
+                self.present(notebookIndexViewController, animated: true, completion: nil)
+            }
         }
     }
     
     @IBAction private func presentTip() {
-            let tipViewController = TipViewController()
-            self.present(tipViewController, animated: true, completion: nil)
+        let tipViewController = TipViewController()
+        self.present(tipViewController, animated: true, completion: nil)
     }
     
     // This method is called when the UIBarButton for the done button is pressed and it closes the keyboard
