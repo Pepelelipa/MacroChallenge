@@ -113,6 +113,9 @@ class OnboardingPageViewController: UIPageViewController {
     
     // MARK: - Functions
     
+    /**
+    Creating the views for each page in the page view controller
+     */
     private func setViews() {
         let titles = ["Organisation title".localized(), "Text title".localized(), "Markdown title".localized(), "Devices title".localized(), "Transcript title".localized()]
         
@@ -127,6 +130,9 @@ class OnboardingPageViewController: UIPageViewController {
         
     }
     
+    /**
+    Adding the constraints to the page control inside the view.
+     */
     private func setFixedConstraints() {
         NSLayoutConstraint.activate([
             
@@ -137,6 +143,9 @@ class OnboardingPageViewController: UIPageViewController {
         ])
     }
     
+    /**
+    Adding the constraints to the button that opens the application.
+     */
     private func setButtonConstraints() {
         NSLayoutConstraint.activate([
             backgroundButtonView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.8),
