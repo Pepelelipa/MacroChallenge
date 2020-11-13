@@ -31,18 +31,21 @@ class OnboardingPageViewController: UIPageViewController {
         return btn
     }()
     
-    private lazy var backgoundButtonView: UIView = {
-        let view = UIView(frame: .zero)
-        view.backgroundColor = UIColor.actionColor
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
+    private lazy var backgroundButtonView: UIView = {
+        let backView = UIView(frame: .zero)
+        backView.backgroundColor = UIColor.actionColor
+        
+        backView.layer.cornerRadius = 30
+        
+        backView.translatesAutoresizingMaskIntoConstraints = false
+        return backView
     }()
     
     private lazy var startButton: UIButton = {
         let button = UIButton(frame: .zero)
-        button.tintColor = UIColor.backgroundColor
-        button.setTitle("Start".localized(), for: .normal)
-        button.titleLabel?.font = UIFont.defaultHeader.toStyle(.h3)
+        button.tintColor = UIColor.bodyColor
+        button.setTitle("Begin".localized(), for: .normal)
+        button.titleLabel?.font = UIFont.defaultHeader.toParagraphFont()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.addTarget(self, action: #selector(openWorkspace), for: .touchUpInside)
         
@@ -84,7 +87,12 @@ class OnboardingPageViewController: UIPageViewController {
         pageControl.currentPage = initialPage
         view.addSubview(pageControl)
         setFixedConstraints()
- 
+        view.addSubview(backgroundButtonView)
+        view.addSubview(startButton)
+        setButtonConstraints()
+        startButton.isHidden = true
+        backgroundButtonView.isHidden = true
+
         view.backgroundColor = UIColor.formatColor
     }
     
@@ -118,6 +126,20 @@ class OnboardingPageViewController: UIPageViewController {
             pageControl.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
     }
+    
+    private func setButtonConstraints() {
+        NSLayoutConstraint.activate([
+            backgroundButtonView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.8),
+            backgroundButtonView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.06),
+            backgroundButtonView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            backgroundButtonView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -50),
+            
+            startButton.centerXAnchor.constraint(equalTo: backgroundButtonView.centerXAnchor),
+            startButton.centerYAnchor.constraint(equalTo: backgroundButtonView.centerYAnchor),
+            startButton.widthAnchor.constraint(equalTo: backgroundButtonView.widthAnchor),
+            startButton.heightAnchor.constraint(equalTo: backgroundButtonView.heightAnchor)
+        ])
+    }
 }
 
 extension OnboardingPageViewController: UIPageViewControllerDelegate {
@@ -126,6 +148,14 @@ extension OnboardingPageViewController: UIPageViewControllerDelegate {
             if let viewControllerIndex = self.pages.firstIndex(of: viewControllers[0]) {
                 self.pageControl.currentPage = viewControllerIndex
             }
+        }
+        
+        if pageControl.currentPage == 4 {
+            startButton.isHidden = false
+            backgroundButtonView.isHidden = false
+        } else {
+            startButton.isHidden = true
+            backgroundButtonView.isHidden = true
         }
     }
 }

@@ -89,10 +89,10 @@ class OnboardingViewController: UIViewController {
     private func setConstraints() {
         NSLayoutConstraint.activate([
             
-            imageView.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -20),
+            imageView.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -50),
             imageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            imageView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.8),
-            imageView.heightAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.4),
+            imageView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 1),
+            imageView.heightAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.6),
             
             subtitleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             subtitleLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -30),

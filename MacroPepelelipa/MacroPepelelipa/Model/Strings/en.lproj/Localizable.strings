@@ -135,6 +135,8 @@
 "Devices subtitle" = "You can use our app to sync your data on your iPhone, iPad and your Mac!";
 "Transcript subtitle" = "And you know that picture of your teachers notes you took during class? Add it here to have the text transcribed!";
 
+"Begin" = "Begin";
+
 // MARK: - Accessibility
 
 "Editing enabled" = "Editing enabled";

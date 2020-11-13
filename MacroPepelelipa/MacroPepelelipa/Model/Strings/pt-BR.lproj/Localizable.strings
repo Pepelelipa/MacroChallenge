@@ -138,6 +138,8 @@
 "Devices subtitle" = "Você pode utilizar o nosso aplicativo com sincronização dos seus dados no iPhone, iPad e no seu Mac!";
 "Transcript subtitle" = "E sabe aquela sua foto da lousa do professor? Adiciona ela aqui para ter o texto transcrito!";
 
+"Begin" = "Iniciar";
+
 // MARK: - Accessibility
 
 "Editing enabled" = "Edição habilitada";
