@@ -71,12 +71,9 @@ internal class MarkdownBarConfiguration {
         let paragraphButton = createBarButtonItem(imageName: "paragraph", systemImage: true)
         let imageGalleryButton = createBarButtonItem(imageName: "photo", systemImage: true)
         
-        #warning("Check for macOS Big Sur")
-        #if !targetEnvironment(macCatalyst)
         listButton.menu = setupMenu(for: .list)
         paragraphButton.menu = setupMenu(for: .paragraph)
         imageGalleryButton.menu = setupMenu(for: .image)
-        #endif
 
         listButton.accessibilityLabel = "List label".localized()
         listButton.accessibilityHint = "List hint".localized()
@@ -143,8 +140,6 @@ internal class MarkdownBarConfiguration {
         let paragraphButton = createButton(imageName: "paragraph", systemImage: true)
         let imageGalleryButton = createButton(imageName: "photo", systemImage: true)
         
-        #warning("Check for macOS Big Sur")
-        #if !targetEnvironment(macCatalyst)
         listButton.menu = setupMenu(for: .list)
         listButton.showsMenuAsPrimaryAction = true
         
@@ -153,7 +148,6 @@ internal class MarkdownBarConfiguration {
         
         imageGalleryButton.menu = setupMenu(for: .image)
         imageGalleryButton.showsMenuAsPrimaryAction = true
-        #endif
         
         listButton.accessibilityLabel = "List label".localized()
         listButton.accessibilityHint = "List hint".localized()
@@ -282,7 +276,7 @@ internal class MarkdownBarConfiguration {
     @objc private func openEditTextContainer() {
         if UIDevice.current.userInterfaceIdiom == .phone {
             observer?.changeTextViewInput(isCustom: true)
-        } else if UIDevice.current.userInterfaceIdiom == .pad {
+        } else if UIDevice.current.userInterfaceIdiom == .pad || UIDevice.current.userInterfaceIdiom == .mac {
             observer?.openPopOver()
         }
     }

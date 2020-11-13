@@ -44,12 +44,7 @@ internal class WorkspacesCollectionViewDelegate: NSObject,
         let isLandscape = UIDevice.current.orientation.isActuallyLandscape
         
         let titleSpace: CGFloat = 20 + 30 + 20 + 20
-        
-        var isEditing = false
-        #warning("Check for macOS Big Sur")
-        #if !targetEnvironment(macCatalyst)
-        isEditing = collectionView.isEditing
-        #endif
+        let isEditing = collectionView.isEditing
         
         if UIDevice.current.userInterfaceIdiom == .phone {
             // iPhone
@@ -134,7 +129,7 @@ internal class WorkspacesCollectionViewDelegate: NSObject,
     }
     
     internal func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        if UIDevice.current.userInterfaceIdiom == .pad {
+        if UIDevice.current.userInterfaceIdiom == .pad || UIDevice.current.userInterfaceIdiom == .mac  {
             return 50
         }
         return 20

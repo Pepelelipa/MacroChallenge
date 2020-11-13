@@ -215,7 +215,7 @@ internal class NotesViewController: UIViewController,
         
         if UIDevice.current.userInterfaceIdiom == .phone {
             textView.inputAccessoryView = keyboardToolbar
-        } else if UIDevice.current.userInterfaceIdiom == .pad {
+        } else if UIDevice.current.userInterfaceIdiom == .pad || UIDevice.current.userInterfaceIdiom == .mac {
             textView.inputAccessoryView = nil
         }
 
