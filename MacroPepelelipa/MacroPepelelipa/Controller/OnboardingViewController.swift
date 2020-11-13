@@ -78,18 +78,18 @@ class OnboardingViewController: UIViewController {
     private func setConstraints() {
         NSLayoutConstraint.activate([
             
-            imageView.topAnchor.constraint(equalTo: view.topAnchor, constant: 30),
-            imageView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            imageView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 20),
+            imageView.topAnchor.constraint(equalTo: view.topAnchor, constant: 100),
+            imageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            imageView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.8),
+            imageView.heightAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.4),
             
-            titleLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 20),
-            titleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            titleLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 20),
-            
-            subtitleLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 20),
             subtitleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             subtitleLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 20),
-            subtitleLabel.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+            subtitleLabel.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -50),
+            
+            titleLabel.bottomAnchor.constraint(equalTo: subtitleLabel.topAnchor, constant: -20),
+            titleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            titleLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 20)
             
         ])
     }
