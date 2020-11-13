@@ -66,14 +66,10 @@ internal class WorkspaceSelectionViewController: UIViewController,
         collectionView.showsVerticalScrollIndicator = false
         collectionView.allowsSelection = true
         collectionView.allowsMultipleSelection = false
+        collectionView.allowsSelectionDuringEditing = true
         collectionView.contentInset = UIEdgeInsets(top: 20, left: 0, bottom: 20, right: 0)
         collectionView.delegate = collectionDelegate
         collectionView.dataSource = collectionDataSource
-        
-        #warning("Check for macOS Big Sur")
-        #if !targetEnvironment(macCatalyst)
-        collectionView.allowsSelectionDuringEditing = true
-        #endif
         
         collectionView.register(
             WorkspaceCollectionViewCell.self,
@@ -102,22 +98,12 @@ internal class WorkspaceSelectionViewController: UIViewController,
             return
         }
         
-        #warning("Check for macOS Big Sur")
-        #if !targetEnvironment(macCatalyst)
-        
         if !self.collectionView.isEditing {
             let notebooksSelectionView = NotebooksSelectionViewController(workspace: workspace)
             self.navigationController?.pushViewController(notebooksSelectionView, animated: true)
         } else if workspace.isEnabled {
             self.editWorkspace(workspace)
         }
-
-        #else
-        
-        let notebooksSelectionView = NotebooksSelectionViewController(workspace: workspace)
-        self.navigationController?.pushViewController(notebooksSelectionView, animated: true)
-        
-        #endif
     }
     
     private lazy var collectionDataSource = WorkspacesCollectionViewDataSource(viewController: self, collectionView: { self.collectionView })
@@ -219,7 +205,7 @@ internal class WorkspaceSelectionViewController: UIViewController,
     }
     
     override func viewDidLayoutSubviews() {
-        if UIDevice.current.userInterfaceIdiom == .pad {
+        if UIDevice.current.userInterfaceIdiom == .pad || UIDevice.current.userInterfaceIdiom == .mac  {
             updateConstraintsForIpad()
         }
         collectionDelegate.frame = view.frame
@@ -515,7 +501,7 @@ internal class WorkspaceSelectionViewController: UIViewController,
             alertController.addAction(editAction)
         }
 
-        if UIDevice.current.userInterfaceIdiom == .pad {
+        if UIDevice.current.userInterfaceIdiom == .pad || UIDevice.current.userInterfaceIdiom == .mac {
             alertController.popoverPresentationController?.sourceView = cell
         }
         self.present(alertController, animated: true, completion: nil)

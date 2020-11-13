@@ -41,14 +41,10 @@ internal class NotebooksSelectionViewController: UIViewController {
         collectionView.showsVerticalScrollIndicator = false
         collectionView.allowsSelection = true
         collectionView.allowsMultipleSelection = false
+        collectionView.allowsSelectionDuringEditing = true
         collectionView.contentInset = UIEdgeInsets(top: 20, left: 0, bottom: 20, right: 0)
         collectionView.delegate = collectionDelegate
         collectionView.dataSource = collectionDataSource
-        
-        #warning("Check for macOS Big Sur")
-        #if !targetEnvironment(macCatalyst)
-        collectionView.allowsSelectionDuringEditing = true
-        #endif
         
         collectionView.register(
             NotebookCollectionViewCell.self,
@@ -94,13 +90,7 @@ internal class NotebooksSelectionViewController: UIViewController {
 
     private lazy var collectionDelegate = NotebooksCollectionViewDelegate { [unowned self] (selectedCell) in
         if let notebook = selectedCell.notebook {
-            var isEditing = false
-            #warning("Check for macOS Big Sur")
-            #if !targetEnvironment(macCatalyst)
-            isEditing = self.collectionView.isEditing
-            #endif
-            
-            if !isEditing {
+            if !self.collectionView.isEditing {
                 let note: NoteEntity
                 if let lastNote = notebook.notes.last {
                     note = lastNote
@@ -157,7 +147,7 @@ internal class NotebooksSelectionViewController: UIViewController {
         
         setConstraints()
         NSLayoutConstraint.activate(sharedConstraints)
-        if UIDevice.current.userInterfaceIdiom != .pad {
+        if UIDevice.current.userInterfaceIdiom != .pad && UIDevice.current.userInterfaceIdiom != .mac  {
             layoutTrait(traitCollection: UIScreen.main.traitCollection)
         }
 
@@ -187,7 +177,7 @@ internal class NotebooksSelectionViewController: UIViewController {
     }
     
     override func viewDidLayoutSubviews() {
-        if UIDevice.current.userInterfaceIdiom == .pad {
+        if UIDevice.current.userInterfaceIdiom == .pad || UIDevice.current.userInterfaceIdiom == .mac  {
             updateConstraintsForIpad()
         }
     }
@@ -427,7 +417,7 @@ internal class NotebooksSelectionViewController: UIViewController {
             alertController.addAction(editAction)
         }
 
-        if UIDevice.current.userInterfaceIdiom == .pad {
+        if UIDevice.current.userInterfaceIdiom == .pad || UIDevice.current.userInterfaceIdiom == .mac  {
             alertController.popoverPresentationController?.sourceView = cell
         }
         self.present(alertController, animated: true, completion: nil)

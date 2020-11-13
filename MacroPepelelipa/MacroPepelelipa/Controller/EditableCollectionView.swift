@@ -18,10 +18,6 @@ internal class EditableCollectionView: UICollectionView {
                 editableCell.isEditing = editing
             }
         }
-        
-        #warning("Check for macOS Big Sur")
-        #if !targetEnvironment(macCatalyst)
         isEditing = editing
-        #endif
     }
 }

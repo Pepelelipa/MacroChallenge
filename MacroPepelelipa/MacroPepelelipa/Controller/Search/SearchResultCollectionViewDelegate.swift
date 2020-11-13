@@ -43,7 +43,7 @@ internal class SearchResultCollectionViewDelegate: NSObject,
         let isLandscape = UIDevice.current.orientation.isActuallyLandscape
         
         if indexPath.section == 0 {
-            if UIDevice.current.userInterfaceIdiom == .pad {
+            if UIDevice.current.userInterfaceIdiom == .pad || UIDevice.current.userInterfaceIdiom == .mac {
                 if isLandscape {
                     let width = collectionView.bounds.width/2 - 25
                     size = CGSize(width: width, height: width/1.6)
@@ -61,7 +61,7 @@ internal class SearchResultCollectionViewDelegate: NSObject,
                 }
             }
         } else if indexPath.section == 1 {
-            if UIDevice.current.userInterfaceIdiom == .pad {
+            if UIDevice.current.userInterfaceIdiom == .pad || UIDevice.current.userInterfaceIdiom == .mac {
                 if isLandscape {
                     let width = collectionView.bounds.width/5
                     size = CGSize(width: width, height: width * 1.68)
@@ -83,7 +83,7 @@ internal class SearchResultCollectionViewDelegate: NSObject,
     }
 
     internal func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        if UIDevice.current.userInterfaceIdiom == .pad {
+        if UIDevice.current.userInterfaceIdiom == .pad || UIDevice.current.userInterfaceIdiom == .mac  {
             return 50
         }
         return 20
