@@ -45,6 +45,10 @@ internal class NotesViewController: UIViewController,
         return UICommand(title: "Import image".localized(), image: nil, action: #selector(importImage), propertyList: nil, alternates: [], discoverabilityTitle: "Import image".localized())
     }()
     
+    internal static let exportCommand: UICommand = {
+        return UICommand(title: "Export note as PDF".localized(), image: nil, action: #selector(exportPDF), propertyList: nil, alternates: [], discoverabilityTitle: "Export note as PDF".localized())
+    }()
+    
     private lazy var documentPickerDelegate: DocumentPickerDelegate = {
         return DocumentPickerDelegate { image in
             self.addMedia(from: image)
@@ -768,5 +772,39 @@ internal class NotesViewController: UIViewController,
         documentPicker.allowsMultipleSelection = false
         documentPicker.modalPresentationStyle = .automatic
         present(documentPicker, animated: true, completion: nil)
+    }
+    
+    @available(macCatalyst 14, *)
+    @IBAction private func exportPDF() {
+        guard let note = note else {
+            return
+        }
+        
+        let pdfData = note.createDocument()
+        let fileManager = FileManager.default
+
+        var title = note.title.string
+        if title.isEmpty {
+            var lenght = 10
+            if note.text.length < 10 {
+                lenght = note.text.length
+            }
+            title = note.text.attributedSubstring(from: NSRange(location: 0, length: lenght)).string
+        }
+        
+        do {
+            let fileURL = fileManager.temporaryDirectory.appendingPathComponent("\(title).pdf")
+            try pdfData.write(to: fileURL)
+            
+            let controller = UIDocumentPickerViewController(forExporting: [fileURL])
+            present(controller, animated: true)
+        } catch {
+            let alertController = UIAlertController(
+                title: "An error has occurred while exporting the PDF".localized(),
+                message: "The app could not export the file as a PDF".localized(),
+                preferredStyle: .alert)
+                .makeErrorMessage(with: "Error writing data to the designed url".localized())
+            self.present(alertController, animated: true)
+        }
     }
 }

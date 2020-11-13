@@ -25,6 +25,7 @@ internal class MenuController {
     private enum NoteMenuId: String {
         case note = "PEPELELIPA.Macro.menus.note"
         case importImage = "PEPELELIPA.Macro.menus.import"
+        case export = "PEPELELIPA.Macro.menus.export"
     }
     
     // MARK: - Init
@@ -61,6 +62,7 @@ internal class MenuController {
         builder.remove(menu: UIMenu.Identifier(NotebookMenuId.new.rawValue))
         builder.remove(menu: UIMenu.Identifier(NoteMenuId.note.rawValue))
         builder.remove(menu: UIMenu.Identifier(NoteMenuId.importImage.rawValue))
+        builder.remove(menu: UIMenu.Identifier(NoteMenuId.export.rawValue))
         
         builder.insertChild(MenuController.findMenu(), atStartOfMenu: .file)
         builder.insertChild(MenuController.newWorkspaceMenu(), atStartOfMenu: .file)
@@ -101,6 +103,7 @@ internal class MenuController {
         builder.remove(menu: UIMenu.Identifier(WorkspaceMenuId.find.rawValue))
         builder.remove(menu: UIMenu.Identifier(NoteMenuId.note.rawValue))
         builder.remove(menu: UIMenu.Identifier(NoteMenuId.importImage.rawValue))
+        builder.remove(menu: UIMenu.Identifier(NoteMenuId.export.rawValue))
         
         builder.insertChild(MenuController.newNotebookMenu(), atStartOfMenu: .file)
     }
@@ -128,6 +131,7 @@ internal class MenuController {
         builder.remove(menu: UIMenu.Identifier(WorkspaceMenuId.find.rawValue))
         builder.remove(menu: UIMenu.Identifier(NotebookMenuId.new.rawValue))
         
+        builder.insertChild(MenuController.exportMenu(), atStartOfMenu: .file)
         builder.insertChild(MenuController.importMenu(), atStartOfMenu: .file)
         builder.insertChild(MenuController.noteMenu(), atStartOfMenu: .file)
     }
@@ -158,4 +162,17 @@ internal class MenuController {
                       options: [.displayInline],
                       children: [NotesViewController.importCommand])
     }
+    
+    /**
+     Creates a UIMenu to handle image imports.
+     - Returns: The new UIMenu.
+     */
+    private class func exportMenu() -> UIMenu {
+        return UIMenu(title: "Export".localized(),
+                      image: nil,
+                      identifier: UIMenu.Identifier(NoteMenuId.export.rawValue),
+                      options: [.displayInline],
+                      children: [NotesViewController.exportCommand])
+    }
+    
 }
