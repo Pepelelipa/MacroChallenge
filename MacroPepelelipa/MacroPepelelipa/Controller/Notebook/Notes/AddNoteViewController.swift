@@ -32,8 +32,9 @@ internal class AddNoteViewController: UIViewController, AddNoteObserver {
         let txtName = UITextField()
         txtName.translatesAutoresizingMaskIntoConstraints = false
         txtName.placeholder = "New note title".localized()
+        txtName.adjustsFontSizeToFitWidth = true
         txtName.borderStyle = .none
-        txtName.font = .preferredFont(forTextStyle: .title1)
+        txtName.font = UIFont.defaultHeader.toStyle(.h3)
         txtName.tintColor = .actionColor
         txtName.addTarget(self, action: #selector(textChanged(_:)), for: .editingChanged)
         txtName.returnKeyType = UIReturnKeyType.done
@@ -54,10 +55,13 @@ internal class AddNoteViewController: UIViewController, AddNoteObserver {
         let btnConfirm = UIButton()
         btnConfirm.translatesAutoresizingMaskIntoConstraints = false
         btnConfirm.setTitle("Create new Note".localized(), for: .normal)
+        btnConfirm.titleLabel?.adjustsFontSizeToFitWidth = true
         btnConfirm.addTarget(self, action: #selector(btnConfirmTap), for: .touchUpInside)
         btnConfirm.tintColor = .white
         btnConfirm.setBackgroundImage(UIImage(named: "btnWorkspaceBackground"), for: .normal)
         btnConfirm.layer.cornerRadius = 22
+        btnConfirm.titleLabel?.font = UIFont.defaultHeader.toStyle(.h3)
+        btnConfirm.contentEdgeInsets = UIEdgeInsets(top: 10, left: 15, bottom: 10, right: 15)
 
         return btnConfirm
     }()

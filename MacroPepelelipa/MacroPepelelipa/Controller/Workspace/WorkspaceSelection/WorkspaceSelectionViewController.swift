@@ -218,7 +218,6 @@ internal class WorkspaceSelectionViewController: UIViewController,
         if UIDevice.current.userInterfaceIdiom == .phone {
             emptyScreenView.isLandscape = UIDevice.current.orientation.isActuallyLandscape
         }
-        collectionDelegate.viewTraitCollection = traitCollection
     }
 
     override func setEditing(_ editing: Bool, animated: Bool) {
@@ -310,9 +309,7 @@ internal class WorkspaceSelectionViewController: UIViewController,
         }
     }
 
-    /**
-     This private method sets the constraints for different size classes and devices.
-     */
+    ///This private method sets the constraints for different size classes and devices.
     private func setConstraints() {
         sharedConstraints.append(contentsOf: [
             collectionView.topAnchor.constraint(equalTo: view.topAnchor),
@@ -396,21 +393,59 @@ internal class WorkspaceSelectionViewController: UIViewController,
         NSLayoutConstraint.activate(activate)
     }
     
-    /**
-     This method updates the view's constraints for an iPad based on the device orientation.
-     */
+    /// This method updates the view's constraints for an iPad based on the device orientation.
     private func updateConstraintsForIpad() {
         var activate = [NSLayoutConstraint]()
         var deactivate = [NSLayoutConstraint]()
         
-        let orientation = UIApplication.shared.windows.first?.windowScene?.interfaceOrientation
+        let isLandscape = UIDevice.current.orientation.isActuallyLandscape
         
-        if orientation == .portrait || orientation == .portraitUpsideDown {
-            deactivate.append(contentsOf: regularConstraints[0].isActive ? regularConstraints : [])
-            activate.append(contentsOf: regularCompactConstraints)
+        if isLandscape {
+            
+            if view.frame.width+5 == UIScreen.main.bounds.width/2 {
+                // Multitasking half screen
+                deactivate.append(contentsOf: regularConstraints[0].isActive ? regularConstraints : [])
+                deactivate.append(contentsOf: regularCompactConstraints[0].isActive ? regularCompactConstraints : [])
+                activate.append(contentsOf: compactRegularConstraints)
+                
+            } else if view.frame.width < UIScreen.main.bounds.width/2 {
+                // Multitasking less than half screen
+                deactivate.append(contentsOf: regularConstraints[0].isActive ? regularConstraints : [])
+                deactivate.append(contentsOf: regularCompactConstraints[0].isActive ? regularCompactConstraints : [])
+                activate.append(contentsOf: compactRegularConstraints)
+                
+            } else if view.frame.width == UIScreen.main.bounds.width {
+                // Full screen
+                deactivate.append(contentsOf: compactRegularConstraints[0].isActive ? compactRegularConstraints : [])
+                deactivate.append(contentsOf: regularCompactConstraints[0].isActive ? regularCompactConstraints : [])
+                activate.append(contentsOf: regularConstraints)
+                
+            } else {
+                // Multitasking more than half screen
+                deactivate.append(contentsOf: compactRegularConstraints[0].isActive ? compactRegularConstraints : [])
+                deactivate.append(contentsOf: regularConstraints[0].isActive ? regularConstraints : [])
+                activate.append(contentsOf: regularCompactConstraints)
+            }
+            
         } else {
-            deactivate.append(contentsOf: regularCompactConstraints[0].isActive ? regularCompactConstraints : [])
-            activate.append(contentsOf: regularConstraints)
+            
+            if view.frame.width < UIScreen.main.bounds.width/2 {
+                // Multitasking less than half screen
+                deactivate.append(contentsOf: regularConstraints[0].isActive ? regularConstraints : [])
+                deactivate.append(contentsOf: regularCompactConstraints[0].isActive ? regularCompactConstraints : [])
+                activate.append(contentsOf: compactRegularConstraints)
+            
+            } else if view.frame.width == UIScreen.main.bounds.width {
+                // Full screen
+                deactivate.append(contentsOf: compactRegularConstraints[0].isActive ? compactRegularConstraints : [])
+                deactivate.append(contentsOf: regularConstraints[0].isActive ? regularConstraints : [])
+                activate.append(contentsOf: regularCompactConstraints)
+            } else {
+                // Multitasking more than half screen
+                deactivate.append(contentsOf: regularConstraints[0].isActive ? regularConstraints : [])
+                deactivate.append(contentsOf: regularCompactConstraints[0].isActive ? regularCompactConstraints : [])
+                activate.append(contentsOf: compactRegularConstraints)
+            }
         }
         
         NSLayoutConstraint.deactivate(deactivate)
@@ -456,7 +491,6 @@ internal class WorkspaceSelectionViewController: UIViewController,
     
     /**
      This method handles the long press on a workspace, asking the user to delete it or not.
-     
      - Parameter gesture: The UILongPressGestureRecognizer containing the gesture.
      */
     @IBAction func handleLongPress(gesture: UILongPressGestureRecognizer) {

@@ -20,8 +20,7 @@ internal class AddNotebookViewController: UIViewController {
     private let notebookView = NotebookView(frame: .zero)
     private var referenceView = UIView(frame: .zero)
     
-    private var portraitViewConstraints: [NSLayoutConstraint] = []
-    private var landscapeViewConstraints: [NSLayoutConstraint] = []
+    private var popupViewViewConstraints: [NSLayoutConstraint] = []
     
     private lazy var keyboardToolBar = AddNewSpaceToolBar(frame: .zero, owner: txtName)
     private lazy var collectionViewDataSource = ColorSelectionCollectionViewDataSource(viewController: self)
@@ -100,24 +99,23 @@ internal class AddNotebookViewController: UIViewController {
         return btnConfirm
     }()
     
-    private lazy var ratio: CGFloat = {
-        if UIDevice.current.userInterfaceIdiom == .pad || UIDevice.current.userInterfaceIdiom == .mac {
+    private var ratio: CGFloat {
+        if UIDevice.current.userInterfaceIdiom == .pad {
             if UIDevice.current.orientation.isActuallyLandscape {
-                return UIScreen.main.bounds.width / 2.5
+                if view.frame.width > UIScreen.main.bounds.width/2 {
+                    return view.frame.width / 2
+                }
             } else {
-                return UIScreen.main.bounds.width / 2
+                if view.frame.width == UIScreen.main.bounds.width {
+                    return view.frame.width / 2
+                }
             }
-        } else {
-            return UIScreen.main.bounds.width - 40
-        }
-    }()
+        } 
+        return view.frame.width - 40
+    }
     
     private lazy var constraints: [NSLayoutConstraint] = {
         [
-            popupView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
-            popupView.centerYAnchor.constraint(equalTo: self.view.centerYAnchor),
-            popupView.widthAnchor.constraint(equalToConstant: ratio),
-            
             dismissButton.topAnchor.constraint(equalTo: popupView.topAnchor, constant: 16),
             dismissButton.trailingAnchor.constraint(equalTo: popupView.trailingAnchor, constant: -16),
             dismissButton.widthAnchor.constraint(equalTo: popupView.heightAnchor, multiplier: 0.06),
@@ -206,6 +204,15 @@ internal class AddNotebookViewController: UIViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         NSLayoutConstraint.activate(constraints)
+        
+        NSLayoutConstraint.deactivate(popupViewViewConstraints)
+        popupViewViewConstraints.removeAll()
+        
+        popupViewViewConstraints.append(popupView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor))
+        popupViewViewConstraints.append(popupView.centerYAnchor.constraint(equalTo: self.view.centerYAnchor))
+        popupViewViewConstraints.append(popupView.widthAnchor.constraint(equalToConstant: ratio))
+        NSLayoutConstraint.activate(popupViewViewConstraints)
+        
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
             self.collectionView.collectionViewLayout.invalidateLayout()
         }

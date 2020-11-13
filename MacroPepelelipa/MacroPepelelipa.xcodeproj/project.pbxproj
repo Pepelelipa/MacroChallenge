@@ -130,6 +130,7 @@
 		A7BDD60A251406D900DDB6A0 /* TableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7BDD609251406D900DDB6A0 /* TableViewDataSource.swift */; };
 		A7BDD60F2514078600DDB6A0 /* NotebookIndexTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7BDD60E2514078600DDB6A0 /* NotebookIndexTableViewCell.swift */; };
 		A7C057C525420F260023A370 /* NotesToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7C057C425420F260023A370 /* NotesToolbar.swift */; };
+		A7FC9BF4255F2C7900330283 /* ItemSizeHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7FC9BF3255F2C7900330283 /* ItemSizeHelper.swift */; };
 		A7FD9B13253BACF500235D20 /* NotesPageViewObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7FD9B12253BACF500235D20 /* NotesPageViewObserver.swift */; };
 		D925934E255986F1000529B4 /* InputViewTipsStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = D925934D255986F1000529B4 /* InputViewTipsStack.swift */; };
 		D925935225598700000529B4 /* TipViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D925935125598700000529B4 /* TipViewController.swift */; };
@@ -348,6 +349,7 @@
 		A7BDD609251406D900DDB6A0 /* TableViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewDataSource.swift; sourceTree = "<group>"; };
 		A7BDD60E2514078600DDB6A0 /* NotebookIndexTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotebookIndexTableViewCell.swift; sourceTree = "<group>"; };
 		A7C057C425420F260023A370 /* NotesToolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesToolbar.swift; sourceTree = "<group>"; };
+		A7FC9BF3255F2C7900330283 /* ItemSizeHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemSizeHelper.swift; sourceTree = "<group>"; };
 		A7FD9B12253BACF500235D20 /* NotesPageViewObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesPageViewObserver.swift; sourceTree = "<group>"; };
 		D925934D255986F1000529B4 /* InputViewTipsStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InputViewTipsStack.swift; sourceTree = "<group>"; };
 		D925935125598700000529B4 /* TipViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TipViewController.swift; sourceTree = "<group>"; };
@@ -836,6 +838,7 @@
 				02AD78F525475C7300C87D2B /* EditableCollectionViewCell.swift */,
 				A74D472325474A210038D388 /* GestureDelegate.swift */,
 				E4ED0FAF255C65DF002ADBF1 /* MenuController.swift */,
+				A7FC9BF3255F2C7900330283 /* ItemSizeHelper.swift */,
 				E4017A92252D09DC00ABB87C /* Extensions */,
 				D9D8753A251BC3D300B842C8 /* PhotoPicker */,
 				0247F78B25115B8900405A61 /* Workspace */,
@@ -1403,6 +1406,7 @@
 				D97EE7B7254B557A00A68B06 /* SearchResultCollectionViewDataSource.swift in Sources */,
 				A7BDD60F2514078600DDB6A0 /* NotebookIndexTableViewCell.swift in Sources */,
 				A72942E7253A13D800C788EE /* ImageButtonObserver.swift in Sources */,
+				A7FC9BF4255F2C7900330283 /* ItemSizeHelper.swift in Sources */,
 				D925939A2559E53C000529B4 /* MarkdownFormatViewReceiver.swift in Sources */,
 				A7BDD5FF2513F83F00DDB6A0 /* IndexViewController.swift in Sources */,
 				D9BBA584252FAB28004B724F /* AddWorkspaceObserver.swift in Sources */,

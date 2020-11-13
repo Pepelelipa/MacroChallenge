@@ -100,7 +100,11 @@ internal class NotesToolbar: UIToolbar {
         
         let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         
-        self.items = [deleteNoteButton, flexibleSpace, addImageButton, flexibleSpace, shareNoteButton, flexibleSpace, newNoteButton]
+        if UIDevice.current.userInterfaceIdiom == .phone {
+            self.items = [deleteNoteButton, flexibleSpace, addImageButton, flexibleSpace, shareNoteButton, flexibleSpace, newNoteButton]
+        } else {
+            self.items = [deleteNoteButton, flexibleSpace, shareNoteButton, flexibleSpace, newNoteButton]
+        }
     }
     
     // MARK: - IBActions Functions

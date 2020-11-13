@@ -15,6 +15,7 @@ internal class NotebooksCollectionViewDelegate: NSObject,
     // MARK: - Variables and Constants
     
     private var didSelectCell: ((NotebookCollectionViewCell) -> Void)?
+    internal var frame: CGRect = CGRect()
     
     // MARK: - Initializers
     
@@ -37,35 +38,7 @@ internal class NotebooksCollectionViewDelegate: NSObject,
     // MARK: - UICollectionViewDelegateFlowLayout functions
     
     internal func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let isLandscape = UIDevice.current.orientation.isActuallyLandscape
-        var width: CGFloat = 0
-        var height: CGFloat = 0
-
-        if UIDevice.current.userInterfaceIdiom == .pad || UIDevice.current.userInterfaceIdiom == .mac {
-            if collectionView.isEditing {
-                width = collectionView.bounds.width/2.1
-                height = 90
-            } else if isLandscape {
-                width = collectionView.bounds.width/5
-                height = width * 1.68
-            } else {
-                width = collectionView.bounds.width/4
-                height = width * 1.67
-            }
-        } else {
-            if collectionView.isEditing {
-                width = collectionView.bounds.width
-                height = 70
-            } else if isLandscape {
-                width = collectionView.bounds.width/5.2
-                height = width * 1.74
-            } else {
-                width = collectionView.bounds.width/2.3
-                height = width * 1.72
-            }
-        }
-
-        return CGSize(width: width, height: height)
+        return ItemSizeHelper.notebookItemSize(at: collectionView, for: frame)
     }
 
     internal func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
