@@ -285,14 +285,54 @@ internal class NotebooksSelectionViewController: UIViewController {
         var activate = [NSLayoutConstraint]()
         var deactivate = [NSLayoutConstraint]()
         
-        let orientation = UIApplication.shared.windows.first?.windowScene?.interfaceOrientation
+        let isLandscape = UIDevice.current.orientation.isActuallyLandscape
         
-        if orientation == .portrait || orientation == .portraitUpsideDown {
-            deactivate.append(contentsOf: regularConstraints[0].isActive ? regularConstraints : [])
-            activate.append(contentsOf: regularCompactConstraints)
+        if isLandscape {
+            
+            if view.frame.width+5 == UIScreen.main.bounds.width/2 {
+                // Multitasking half screen
+                deactivate.append(contentsOf: regularConstraints[0].isActive ? regularConstraints : [])
+                deactivate.append(contentsOf: regularCompactConstraints[0].isActive ? regularCompactConstraints : [])
+                activate.append(contentsOf: compactRegularConstraints)
+                
+            } else if view.frame.width < UIScreen.main.bounds.width/2 {
+                // Multitasking less than half screen
+                deactivate.append(contentsOf: regularConstraints[0].isActive ? regularConstraints : [])
+                deactivate.append(contentsOf: regularCompactConstraints[0].isActive ? regularCompactConstraints : [])
+                activate.append(contentsOf: compactRegularConstraints)
+                
+            } else if view.frame.width == UIScreen.main.bounds.width {
+                // Full screen
+                deactivate.append(contentsOf: compactRegularConstraints[0].isActive ? compactRegularConstraints : [])
+                deactivate.append(contentsOf: regularCompactConstraints[0].isActive ? regularCompactConstraints : [])
+                activate.append(contentsOf: regularConstraints)
+                
+            } else {
+                // Multitasking more than half screen
+                deactivate.append(contentsOf: compactRegularConstraints[0].isActive ? compactRegularConstraints : [])
+                deactivate.append(contentsOf: regularConstraints[0].isActive ? regularConstraints : [])
+                activate.append(contentsOf: regularCompactConstraints)
+            }
+            
         } else {
-            deactivate.append(contentsOf: regularCompactConstraints[0].isActive ? regularCompactConstraints : [])
-            activate.append(contentsOf: regularConstraints)
+            
+            if view.frame.width < UIScreen.main.bounds.width/2 {
+                // Multitasking less than half screen
+                deactivate.append(contentsOf: regularConstraints[0].isActive ? regularConstraints : [])
+                deactivate.append(contentsOf: regularCompactConstraints[0].isActive ? regularCompactConstraints : [])
+                activate.append(contentsOf: compactRegularConstraints)
+            
+            } else if view.frame.width == UIScreen.main.bounds.width {
+                // Full screen
+                deactivate.append(contentsOf: compactRegularConstraints[0].isActive ? compactRegularConstraints : [])
+                deactivate.append(contentsOf: regularConstraints[0].isActive ? regularConstraints : [])
+                activate.append(contentsOf: regularCompactConstraints)
+            } else {
+                // Multitasking more than half screen
+                deactivate.append(contentsOf: regularConstraints[0].isActive ? regularConstraints : [])
+                deactivate.append(contentsOf: regularCompactConstraints[0].isActive ? regularCompactConstraints : [])
+                activate.append(contentsOf: compactRegularConstraints)
+            }
         }
         
         NSLayoutConstraint.deactivate(deactivate)
