@@ -93,7 +93,7 @@ internal class NoteObject: NoteEntity, CloudKitObjectWrapper {
         if let images = coreDataNote.images?.allObjects as? [ImageBox] {
             images.forEach { (imageBox) in
                 let ckObject = ckNote?.imageBoxes?.first(where: { $0.record["id"] == imageBox.id?.uuidString }) as? CloudKitImageBox
-                _ = ImageBoxObject(in: self, for: imageBox, and: ckObject)
+                _ = ImageBoxObject(in: self, from: imageBox, and: ckObject)
             }
         }
     }

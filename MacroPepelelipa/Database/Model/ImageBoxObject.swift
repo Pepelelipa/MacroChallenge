@@ -18,7 +18,7 @@ internal class ImageBoxObject: ImageBoxEntity, CloudKitObjectWrapper {
         throw PersistentError.idWasNull
     }
 
-    internal init(in note: NoteObject, for coreDataObject: ImageBox, and cloudKitImageBox: CloudKitImageBox?) {
+    internal init(in note: NoteObject, from coreDataObject: ImageBox, and cloudKitImageBox: CloudKitImageBox?) {
         self.cloudKitImageBox = cloudKitImageBox
         self.coreDataImageBox = coreDataObject
         self.note = note

@@ -29,7 +29,7 @@ internal class CloudKitDataController {
      Creates a Workspace into CloudKit.
      - Parameter workspace: The CoreData workspace.
      */
-    internal func createWorkspace(from workspace: Workspace) throws -> CloudKitWorkspace {
+    internal func createWorkspace(from workspace: Workspace) -> CloudKitWorkspace {
         let record = CKRecord(recordType: CloudKitWorkspace.recordType)
         let ckworkspace = CloudKitWorkspace(from: record)
         savingQueue.append(ckworkspace)

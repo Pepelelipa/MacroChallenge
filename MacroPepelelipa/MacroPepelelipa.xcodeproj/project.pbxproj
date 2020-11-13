@@ -112,6 +112,7 @@
 		02C21B34254B55BB0061CCBA /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C21B33254B55BB0061CCBA /* Font.swift */; };
 		02C3F61D255C70F00069670D /* Conflict Handler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C3F61C255C70F00069670D /* Conflict Handler.swift */; };
 		02CB8B50255C7A9000C0C04E /* CoreData-CloudKit Operators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02CB8B4F255C7A9000C0C04E /* CoreData-CloudKit Operators.swift */; };
+		02CB8B5C255DD4F500C0C04E /* DataSynchronizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02CB8B5B255DD4F500C0C04E /* DataSynchronizer.swift */; };
 		02CD7CA12523B48900A140A3 /* WorkspacesCollectionViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02CD7CA02523B48900A140A3 /* WorkspacesCollectionViewDelegate.swift */; };
 		02D20B5E2558DD9E00159AB0 /* CloudKitWorkspace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02D20B5D2558DD9E00159AB0 /* CloudKitWorkspace.swift */; };
 		02D20B622558E1E000159AB0 /* CloudKitNotebook.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02D20B612558E1E000159AB0 /* CloudKitNotebook.swift */; };
@@ -345,6 +346,7 @@
 		02C21B33254B55BB0061CCBA /* Font.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Font.swift; sourceTree = "<group>"; };
 		02C3F61C255C70F00069670D /* Conflict Handler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Conflict Handler.swift"; sourceTree = "<group>"; };
 		02CB8B4F255C7A9000C0C04E /* CoreData-CloudKit Operators.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CoreData-CloudKit Operators.swift"; sourceTree = "<group>"; };
+		02CB8B5B255DD4F500C0C04E /* DataSynchronizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSynchronizer.swift; sourceTree = "<group>"; };
 		02CD7CA02523B48900A140A3 /* WorkspacesCollectionViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkspacesCollectionViewDelegate.swift; sourceTree = "<group>"; };
 		02D20B5D2558DD9E00159AB0 /* CloudKitWorkspace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudKitWorkspace.swift; sourceTree = "<group>"; };
 		02D20B612558E1E000159AB0 /* CloudKitNotebook.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudKitNotebook.swift; sourceTree = "<group>"; };
@@ -841,6 +843,7 @@
 			isa = PBXGroup;
 			children = (
 				022832F2252E5F9C00DDD46B /* DataManager.swift */,
+				02CB8B5B255DD4F500C0C04E /* DataSynchronizer.swift */,
 				02C3F61C255C70F00069670D /* Conflict Handler.swift */,
 				022832F6252E603800DDD46B /* EntityObserver.swift */,
 				0211078C252F87220009D4E1 /* Errors */,
@@ -1425,6 +1428,7 @@
 				02077732251D192600D97B5A /* TextBoxEntity.swift in Sources */,
 				02870891254A207A0075235D /* Extensions.swift in Sources */,
 				022832EE252E5CE900DDD46B /* Notebook+CoreDataClass.swift in Sources */,
+				02CB8B5C255DD4F500C0C04E /* DataSynchronizer.swift in Sources */,
 				022832E6252E5CE900DDD46B /* Note+CoreDataClass.swift in Sources */,
 				02D20B6C2558E43800159AB0 /* CloudKitTextBox.swift in Sources */,
 				022832F3252E5F9C00DDD46B /* DataManager.swift in Sources */,

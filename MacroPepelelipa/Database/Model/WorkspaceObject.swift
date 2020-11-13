@@ -50,6 +50,7 @@ internal class WorkspaceObject: WorkspaceEntity, CloudKitObjectWrapper {
             })
         }
     }
+
     internal var cloudKitObject: CloudKitEntity? {
         return cloudKitWorkspace
     }

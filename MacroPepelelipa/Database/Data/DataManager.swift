@@ -14,6 +14,7 @@ public enum ObservableCreationType {
 }
 
 public class DataManager {
+    private lazy var dataSynchroninzer = DataSynchronizer(coreDataController: coreDataController, cloudKitController: cloudKitController, conflictHandler: {self.conflictHandler})
     private let coreDataController = CoreDataController()
     private let cloudKitController = CloudKitDataController()
     public var conflictHandler: ConflictHandler = DefaultConflictHandler()
@@ -57,15 +58,11 @@ public class DataManager {
     // MARK: Workspace
     public func fetchWorkspaces() throws -> [WorkspaceEntity] {
         let cdWorkspaces = try coreDataController.fetchWorkspaces()
-        let workspaceObjects = cdWorkspaces.map({ WorkspaceObject(from: $0) })
+        var workspaceObjects = cdWorkspaces.map({ WorkspaceObject(from: $0) })
         cloudKitController.fetchWorkspaces { (answer) in
             switch answer {
             case .successfulWith(let result as [CloudKitWorkspace]):
-                for workspace in result {
-                    workspaceObjects.first(where: { (try? $0.getID())?.uuidString == workspace.id.value })?.cloudKitWorkspace = workspace
-                }
-                //TODO: CloudKit entities from CoreData, and CoreData entities from CloudKit
-                self.fixDifferences(differentEntities: self.findDifferences(workspaces: workspaceObjects))
+                self.fixDifferences(differentEntities: self.dataSynchroninzer.syncWorkspaces(&workspaceObjects, ckWorkspaces: result))
             case .fail(let error, _):
                 self.conflictHandler.errDidOccur(err: error)
             default:
@@ -73,6 +70,10 @@ public class DataManager {
             }
         }
         return workspaceObjects
+    }
+
+    private func createReferencesIfNeeded(on workspaces: inout [WorkspaceObject], ckWorkspaces: [CloudKitWorkspace]) {
+
     }
 
     private func findDifferences(workspaces: [WorkspaceObject]) -> [PersistentEntity] {
@@ -355,7 +356,7 @@ public class DataManager {
         let id = UUID()
         let cdImageBox = try coreDataController.createImageBox(in: noteObject.coreDataNote, id: id, at: imagePath)
         let ckImageBox = cloudKitController.createImageBox(in: ckNote, id: id, at: imagePath)
-        return ImageBoxObject(in: noteObject, for: cdImageBox, and: ckImageBox)
+        return ImageBoxObject(in: noteObject, from: cdImageBox, and: ckImageBox)
     }
 
     /**
