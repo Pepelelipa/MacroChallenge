@@ -17,7 +17,7 @@ class OnboardingViewController: UIViewController {
         lbl.translatesAutoresizingMaskIntoConstraints = false
         
         lbl.text = titleString
-        lbl.font = UIFont.defaultHeader.toStyle(.h3)
+        lbl.font = UIFont.defaultHeader.toFirstHeaderFont()
         lbl.textColor = UIColor.titleColor
         lbl.textAlignment = .left
         
@@ -30,7 +30,7 @@ class OnboardingViewController: UIViewController {
         
         lbl.text = subtitle
         lbl.numberOfLines = 2
-        lbl.font = UIFont.defaultHeader.toStyle(.paragraph)
+        lbl.font = UIFont.defaultFont.toParagraphFont()
         lbl.textColor = UIColor.bodyColor
         lbl.textAlignment = .left
         
@@ -95,7 +95,7 @@ class OnboardingViewController: UIViewController {
             imageView.heightAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.4),
             
             subtitleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            subtitleLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            subtitleLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -30),
             subtitleLabel.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -50),
             
             titleLabel.bottomAnchor.constraint(equalTo: subtitleLabel.topAnchor, constant: -20),
