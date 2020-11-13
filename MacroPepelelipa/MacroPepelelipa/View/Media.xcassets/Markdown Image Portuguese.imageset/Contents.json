@@ -1,7 +1,7 @@
 {
   "images" : [
     {
-      "filename" : "Transcript Image English Light.pdf",
+      "filename" : "Markdown Image.pdf",
       "idiom" : "universal"
     },
     {
@@ -11,7 +11,7 @@
           "value" : "dark"
         }
       ],
-      "filename" : "Transcript Image English Dark.pdf",
+      "filename" : "Markdown Image Pt2.pdf",
       "idiom" : "universal"
     }
   ],

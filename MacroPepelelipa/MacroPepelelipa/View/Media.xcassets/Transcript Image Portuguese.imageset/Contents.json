@@ -1,7 +1,7 @@
 {
   "images" : [
     {
-      "filename" : "Transcript Image Portuguese.png",
+      "filename" : "Transcript Image Portuguese Light.pdf",
       "idiom" : "universal"
     },
     {
@@ -11,7 +11,7 @@
           "value" : "dark"
         }
       ],
-      "filename" : "Transcript Image English Portuguese.png",
+      "filename" : "Transcript Image Portuguese Dark.pdf",
       "idiom" : "universal"
     }
   ],

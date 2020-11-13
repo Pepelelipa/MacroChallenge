@@ -91,7 +91,7 @@ class OnboardingViewController: UIViewController {
             
             imageView.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -50),
             imageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            imageView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 1),
+            imageView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.8),
             imageView.heightAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.6),
             
             subtitleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),

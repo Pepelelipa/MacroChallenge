@@ -1,7 +1,7 @@
 {
   "images" : [
     {
-      "filename" : "Workspace Image Portuguese.png",
+      "filename" : "Workspace Image Portuguese Light.pdf",
       "idiom" : "universal"
     },
     {
@@ -11,7 +11,7 @@
           "value" : "dark"
         }
       ],
-      "filename" : "Workspace Image Dark English.png",
+      "filename" : "Workspace Image Portuguese Dark.pdf",
       "idiom" : "universal"
     }
   ],
