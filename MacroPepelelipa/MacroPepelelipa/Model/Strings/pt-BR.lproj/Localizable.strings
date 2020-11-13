@@ -16,8 +16,10 @@
 "Start writing here" = "Não esquece de colocar o que tá acontecendo na sua aula, enquanto você tá jogando joguinho...";
 "Your Title" = "Vem aqui colocar o seu título!";
 "Format" = "Formatação";
+"New workspace" = "Nova coleção";
 "New workspace name" = "Nome da nova coleção";
 "Create new workspace" = "Criar nova coleção";
+"New notebook" = "Novo caderno";
 "New notebook name" = "Nome do novo caderno";
 "Create new notebook" = "Criar novo caderno";
 "Done" = "OK";
@@ -124,6 +126,9 @@
 "Edit Workspace" = "Editar Coleção";
 "Edit Notebook" = "Editar Caderno";
 "Edit" = "Editar";
+"Find" = "Buscar";
+"New note" = "Nova nota";
+"Delete note" = "Excluir nota";
 
 // MARK: - Accessibility
 

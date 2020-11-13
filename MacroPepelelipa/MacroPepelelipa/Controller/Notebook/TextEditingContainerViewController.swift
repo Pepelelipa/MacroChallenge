@@ -17,6 +17,28 @@ internal class TextEditingContainerViewController: UIViewController,
     
     // MARK: - Variables and Constants
     
+    internal static let deleteCommand: UIKeyCommand = {
+        let command = UIKeyCommand(title: "Delete note".localized(),
+                                   image: nil,
+                                   action: #selector(deleteNote),
+                                   input: "\u{8}",
+                                   modifierFlags: .command,
+                                   propertyList: nil)
+        command.discoverabilityTitle = "Delete note".localized()
+        return command
+    }()
+    
+    internal static let newNoteCommand: UIKeyCommand = {
+        let command = UIKeyCommand(title: "New note".localized(),
+                                   image: nil,
+                                   action: #selector(createNote),
+                                   input: "N",
+                                   modifierFlags: .command,
+                                   propertyList: nil)
+        command.discoverabilityTitle = "New note".localized()
+        return command
+    }()
+    
     private var movement: CGFloat?
     private var isShowingIndex: Bool = false
     private var centerViewController: NotesPageViewController?
@@ -85,18 +107,6 @@ internal class TextEditingContainerViewController: UIViewController,
         return []
     }()
     
-    internal lazy var deleteCommand: UIKeyCommand = {
-        let command = UIKeyCommand(input: "\u{8}", modifierFlags: .command, action: #selector(deleteNote))
-        command.discoverabilityTitle = "Delete note".localized()
-        return command
-    }()
-    
-    internal lazy var newNoteCommand: UIKeyCommand = {
-        let command = UIKeyCommand(input: "N", modifierFlags: .command, action: #selector(createNote))
-        command.discoverabilityTitle = "New note".localized()
-        return command
-    }()
-    
     // MARK: - Initializers
     
     internal init(centerViewController: NotesPageViewController) {
@@ -116,8 +126,8 @@ internal class TextEditingContainerViewController: UIViewController,
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        addKeyCommand(deleteCommand)
-        addKeyCommand(newNoteCommand)
+        addKeyCommand(TextEditingContainerViewController.deleteCommand)
+        addKeyCommand(TextEditingContainerViewController.newNoteCommand)
         
         if let centerViewController = self.centerViewController {
             showCenterViewController(centerViewController)

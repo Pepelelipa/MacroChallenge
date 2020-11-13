@@ -296,5 +296,3 @@ internal class WorkspaceCollectionViewCell: UICollectionViewCell, EditableCollec
         }
     }
 }
-
-

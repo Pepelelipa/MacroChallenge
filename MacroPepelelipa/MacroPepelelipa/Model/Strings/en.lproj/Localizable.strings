@@ -16,8 +16,10 @@
 "Start writing here" = "Do not forget to copy what is happening in your class, while you are playing a little game...";
 "Your Title" = "Your Title";
 "Format" = "Format";
+"New workspace" = "New workspace";
 "New workspace name" = "New workspace name";
 "Create new workspace" = "Create new workspace";
+"New notebook" = "New notebook";
 "New notebook name" = "New notebook name";
 "Create new notebook" = "Create new notebook";
 "Done" = "Done";
@@ -121,6 +123,9 @@
 "Save workspace" = "Save workspace";
 "Save notebook" = "Save notebook";
 "Edit" = "Edit";
+"Find" = "Find";
+"New note" = "New note";
+"Delete note" = "Delete note";
 
 // MARK: - Accessibility
 

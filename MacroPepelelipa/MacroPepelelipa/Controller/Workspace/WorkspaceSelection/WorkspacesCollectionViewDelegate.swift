@@ -36,18 +36,18 @@ internal class WorkspacesCollectionViewDelegate: NSObject,
     }
     
     // MARK: - UICollectionViewDelegateFlowLayout functions
-
+    
     internal func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return ItemSizeHelper.workspaceItemSize(at: collectionView, for: frame)
     }
-
+    
     internal func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        if UIDevice.current.userInterfaceIdiom == .pad {
+        if UIDevice.current.userInterfaceIdiom == .pad || UIDevice.current.userInterfaceIdiom == .mac  {
             return 50
         }
         return 20
     }
-
+    
     internal func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return .init(top: 0, left: 0, bottom: 0, right: 0)
     }
