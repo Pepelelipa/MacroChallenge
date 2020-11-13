@@ -783,6 +783,11 @@ internal class NotesViewController: UIViewController,
         present(documentPicker, animated: true, completion: nil)
     }
     
+    /**
+     This method exports an PDF from Data and a title.
+     - Parameter pdfData: The data to be writen into PDF.
+     - Parameter title: The file title.
+     */
     @available(macCatalyst 14, *)
     private func exportPDF(_ pdfData: Data, title: String) {
         let fileManager = FileManager.default
