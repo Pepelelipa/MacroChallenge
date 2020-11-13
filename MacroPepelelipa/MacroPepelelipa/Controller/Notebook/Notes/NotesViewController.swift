@@ -11,6 +11,7 @@ import UIKit
 import Database
 import PhotosUI
 import MarkdownText
+import AppKit
 
 internal class NotesViewController: UIViewController, 
                                     TextEditingDelegateObserver,
@@ -20,7 +21,7 @@ internal class NotesViewController: UIViewController,
     
     // MARK: - Variables and Constants
     
-#if !targetEnvironment(macCatalyst)
+    #if !targetEnvironment(macCatalyst)
     private static let boldfaceKeyCommand: UIKeyCommand = {
         let command = UIKeyCommand(input: "B", modifierFlags: .command, action: #selector(toggleFormat(_:)))
         command.discoverabilityTitle = "Bold".localized()
@@ -38,7 +39,18 @@ internal class NotesViewController: UIViewController,
         command.discoverabilityTitle = "Underline".localized()
         return command
     }()
-#endif
+    
+    #else
+    internal static let importCommand: UICommand = {
+        return UICommand(title: "Import image".localized(), image: nil, action: #selector(importImage), propertyList: nil, alternates: [], discoverabilityTitle: "Import image".localized())
+    }()
+    
+    private lazy var documentPickerDelegate: DocumentPickerDelegate = {
+        return DocumentPickerDelegate { image in
+            self.addMedia(from: image)
+        }
+    }()
+    #endif
     
     private var resizeHandles = [ResizeHandleView]()
     private var initialCenter = CGPoint()
@@ -46,7 +58,7 @@ internal class NotesViewController: UIViewController,
     private var currentBoxViewPosition: CGPoint = .zero
     private var libraryImage: UIImage?
     private var exclusionPaths: [UIBezierPath] = []
-
+    
     private let screenWidth = UIScreen.main.bounds.width
     private let screenHeight = UIScreen.main.bounds.height
     
@@ -55,7 +67,7 @@ internal class NotesViewController: UIViewController,
     internal var imageBoxes: Set<ImageBoxView> = []
     internal var imgeButtonObserver: ImageButtonObserver?
     internal lazy var receiverView: UIView = self.view
-
+    
     internal weak var note: NoteEntity?
     internal var delegate: AppMarkdownTextViewDelegate?
     internal private(set) weak var notebook: NotebookEntity?
@@ -123,7 +135,7 @@ internal class NotesViewController: UIViewController,
     }()
     
     private lazy var dropInteractionDelegate: DropInteractionDelegate = DropInteractionDelegate(viewController: self)
-        
+    
     #if !targetEnvironment(macCatalyst)
     internal lazy var photoPickerDelegate = PhotoPickerDelegate { (image, error) in
         if let error = error {
@@ -164,34 +176,34 @@ internal class NotesViewController: UIViewController,
                 message: "The app could not retrieve a notebook".localized(),
                 preferredStyle: .alert)
                 .makeErrorMessage(with: "A notebook could not be retrieved".localized())
-
+            
             self.present(alertController, animated: true, completion: nil)
         }
     }
     
     deinit {
-//        textViewDelegate.removeObserver(self)
+        //        textViewDelegate.removeObserver(self)
     }
-
+    
     internal required convenience init?(coder: NSCoder) {
         guard let note = coder.decodeObject(forKey: "note") as? NoteEntity else {
             return nil
         }
         self.init(note: note)
     }
-
+    
     // MARK: - Override functions
-
+    
     override func viewDidLoad() {
         textView.placeholder = "Start writing here".localized()
         super.viewDidLoad()
-
-#if !targetEnvironment(macCatalyst)
+        
+        #if !targetEnvironment(macCatalyst)
         addKeyCommand(NotesViewController.boldfaceKeyCommand)
         addKeyCommand(NotesViewController.italicsKeyCommand)
         addKeyCommand(NotesViewController.underlineKeyCommand)
-#endif
-
+        #endif
+        
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(keyboardWillShow),
@@ -204,7 +216,7 @@ internal class NotesViewController: UIViewController,
             name: UIResponder.keyboardWillHideNotification,
             object: nil
         )
-
+        
         let tap = UITapGestureRecognizer(target: self, action: #selector(didTap))
         
         view.addGestureRecognizer(tap)
@@ -218,7 +230,7 @@ internal class NotesViewController: UIViewController,
         } else if UIDevice.current.userInterfaceIdiom == .pad || UIDevice.current.userInterfaceIdiom == .mac {
             textView.inputAccessoryView = nil
         }
-
+        
         if note?.title.string != "" {
             self.textField.attributedText = note?.title
         }
@@ -232,22 +244,22 @@ internal class NotesViewController: UIViewController,
             addImageBox(with: imageBox)
         }
         updateExclusionPaths()
-
+        
         if !((try? notebook?.getWorkspace().isEnabled) ?? false) {
             textView.isEditable = false
             textView.inputAccessoryView = nil
         }
-                
+        
         let dropInteraction = UIDropInteraction(delegate: dropInteractionDelegate)
         textView.addInteraction(dropInteraction)
     }
-
+    
     override func viewWillAppear(_ animated: Bool) {
         UIMenuSystem.main.setNeedsRebuild()
         navigationItem.largeTitleDisplayMode = .never
         NSLayoutConstraint.activate(constraints)
     }
-
+    
     override func viewWillDisappear(_ animated: Bool) {
         if shouldSave {
             saveNote()
@@ -273,7 +285,7 @@ internal class NotesViewController: UIViewController,
     /**
      Adds and position the resize handles in the box view
      - Parameters
-        - boxView: The Box View who will receive the resize handle.
+     - boxView: The Box View who will receive the resize handle.
      */
     private func placeResizeHandles(boxView: BoxView) {
         if !resizeHandles.isEmpty {
@@ -299,8 +311,8 @@ internal class NotesViewController: UIViewController,
     /**
      Move the box view and uptade their resize handles position.
      - Parameters
-        - boxView: The Box View who will be moved.
-        - vector: The new position of the box view.
+     - boxView: The Box View who will be moved.
+     - vector: The new position of the box view.
      */
     private func moveBoxView(boxView: BoxView, by vector: CGPoint) {
         boxView.center = currentBoxViewPosition + vector
@@ -360,12 +372,13 @@ internal class NotesViewController: UIViewController,
         
         present(imagePickerController, animated: true, completion: nil)
     }
+    #endif
     
     /// This method adds a image box or a transcripted text from selected image in a text box to the current note
     internal func addMedia(from image: UIImage) {
         DispatchQueue.main.async {
-            let alert = UIAlertController(title: "Image or text?".localized(), 
-                                          message: "Import the media as an image or as a text transcription (Beta version)".localized(), 
+            let alert = UIAlertController(title: "Image or text?".localized(),
+                                          message: "Import the media as an image or as a text transcription (Beta version)".localized(),
                                           preferredStyle: .alert)
             
             let importImageAction = UIAlertAction(title: "Image".localized(), style: .default) { (_) in
@@ -388,7 +401,6 @@ internal class NotesViewController: UIViewController,
             self.present(alert, animated: true, completion: nil)
         }
     }
-    #endif
     
     ///Uptade the resize handle position and the border of the text box.
     internal func uptadeResizeHandles() {
@@ -410,7 +422,7 @@ internal class NotesViewController: UIViewController,
         doubleTapGesture.numberOfTapsRequired = 2
         let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePan(_:)))
         let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPressInTextBox(_:)))
-
+        
         let textBox = TextBoxView(textBoxEntity: textBoxEntity, owner: textView)
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
             textBox.markupTextView.attributedText = textBoxEntity.text
@@ -434,18 +446,18 @@ internal class NotesViewController: UIViewController,
                     message: "The app could not safe unwrap the view controller note".localized(),
                     preferredStyle: .alert)
                     .makeErrorMessage(with: "Failed to load the Note".localized())
-
+                
                 self.present(alertController, animated: true, completion: nil)
                 return
             }
-
+            
             let path = try FileHelper.saveToFiles(image: image)
             let imageBoxEntity = try DataManager.shared().createImageBox(in: note, at: path)
             imageBoxEntity.x = Float(view.frame.width/2)
             imageBoxEntity.y = 10
             imageBoxEntity.width = 150
             imageBoxEntity.height = 150
-
+            
             addImageBox(with: imageBoxEntity)
         } catch {
             let alertController = UIAlertController(
@@ -453,11 +465,11 @@ internal class NotesViewController: UIViewController,
                 message: "The app could not create a Image Box".localized(),
                 preferredStyle: .alert)
                 .makeErrorMessage(with: "Failed to create a Image Box".localized())
-
+            
             self.present(alertController, animated: true, completion: nil)
         }
     }
-
+    
     ///Adds an Image Box
     internal func addImageBox(with imageBoxEntity: ImageBoxEntity) {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
@@ -465,11 +477,11 @@ internal class NotesViewController: UIViewController,
         doubleTapGesture.numberOfTapsRequired = 2
         let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePan(_:)))
         let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPressInImageBox(_:)))
-
+        
         if let fileName = FileHelper.getFilePath(fileName: imageBoxEntity.imagePath) {
             let image = UIImage(contentsOfFile: fileName)
             let imageBox = ImageBoxView(imageBoxEntity: imageBoxEntity, owner: textView, image: image)
-
+            
             imageBox.addGestureRecognizer(tapGesture)
             imageBox.addGestureRecognizer(doubleTapGesture)
             imageBox.addGestureRecognizer(panGesture)
@@ -486,7 +498,7 @@ internal class NotesViewController: UIViewController,
             resizeHandle.updatePosition()
         }
     }
-
+    
     ///Resizes the text view according to the keyboard
     @objc func keyboardWillShow(_ notification: Notification) {
         if let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
@@ -568,7 +580,7 @@ internal class NotesViewController: UIViewController,
                     message: "The app could not safe unwrap the view controller note".localized(),
                     preferredStyle: .alert)
                     .makeErrorMessage(with: "Failed to load the Note".localized())
-
+                
                 self.present(alertController, animated: true, completion: nil)
                 return
             }
@@ -589,7 +601,7 @@ internal class NotesViewController: UIViewController,
                 message: "The app could not create a Text Box".localized(),
                 preferredStyle: .alert)
                 .makeErrorMessage(with: "Failed to create a Text Box".localized())
-
+            
             self.present(alertController, animated: true, completion: nil)
         }
     }
@@ -599,7 +611,7 @@ internal class NotesViewController: UIViewController,
         #if !targetEnvironment(macCatalyst)
         var config = PHPickerConfiguration()
         config.filter = .images
-
+        
         let picker = PHPickerViewController(configuration: config)
         picker.delegate = photoPickerDelegate
         
@@ -633,11 +645,11 @@ internal class NotesViewController: UIViewController,
     
     // MARK: - IBActions functions
     
-#if !targetEnvironment(macCatalyst)
+    #if !targetEnvironment(macCatalyst)
     @IBAction private func toggleFormat(_ sender: UIKeyCommand) {
         textView.toggleFormat(sender)
     }
-#endif
+    #endif
     
     @IBAction func didTap() {
         textField.resignFirstResponder()
@@ -658,7 +670,7 @@ internal class NotesViewController: UIViewController,
             textBox.markupTextView.becomeFirstResponder()
         }
     }
-
+    
     @IBAction private func handlePan(_ gestureRecognizer: UIPanGestureRecognizer) {
         guard let boxView = gestureRecognizer.view as? BoxView else {
             return
@@ -743,9 +755,18 @@ internal class NotesViewController: UIViewController,
                                                               })
                 self?.present(deleteAlertController, animated: true, completion: nil)
             })
-
+            
             alertController.popoverPresentationController?.sourceView = boxView
             self.present(alertController, animated: true, completion: nil)
         }
+    }
+    
+    @available(macCatalyst 14, *)
+    @IBAction private func importImage() {
+        let documentPicker = UIDocumentPickerViewController(forOpeningContentTypes: [.image])
+        documentPicker.delegate = documentPickerDelegate
+        documentPicker.allowsMultipleSelection = false
+        documentPicker.modalPresentationStyle = .automatic
+        present(documentPicker, animated: true, completion: nil)
     }
 }

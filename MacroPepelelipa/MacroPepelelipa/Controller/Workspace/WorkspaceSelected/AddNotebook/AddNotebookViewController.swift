@@ -101,7 +101,7 @@ internal class AddNotebookViewController: UIViewController {
     }()
     
     private lazy var ratio: CGFloat = {
-        if UIDevice.current.userInterfaceIdiom == .pad || UIDevice.current.userInterfaceIdiom == .mac  {
+        if UIDevice.current.userInterfaceIdiom == .pad || UIDevice.current.userInterfaceIdiom == .mac {
             if UIDevice.current.orientation.isActuallyLandscape {
                 return UIScreen.main.bounds.width / 2.5
             } else {

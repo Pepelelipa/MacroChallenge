@@ -179,6 +179,7 @@
 		E40A7DFE2559B6D600D81087 /* DropInteractionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E40A7DFD2559B6D600D81087 /* DropInteractionDelegate.swift */; };
 		E41209532538C1020088AC26 /* EmptyScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E41209522538C1020088AC26 /* EmptyScreenView.swift */; };
 		E42FC8372530EF78004E81C9 /* MarkdownFormatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E42FC8362530EF78004E81C9 /* MarkdownFormatView.swift */; };
+		E4714A99255F077E007AE0D6 /* DocumentPickerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4714A98255F077E007AE0D6 /* DocumentPickerDelegate.swift */; };
 		E4C3DB7025534F300058985A /* App Database String Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 020E22242513F10800A93EAB /* App Database String Extension.swift */; };
 		E4ED0FB0255C65DF002ADBF1 /* MenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4ED0FAF255C65DF002ADBF1 /* MenuController.swift */; };
 		E4F88C8B252FA564003AD037 /* Merriweather-BoldItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = E4F88C87252FA564003AD037 /* Merriweather-BoldItalic.otf */; };
@@ -396,6 +397,7 @@
 		E40A7DFD2559B6D600D81087 /* DropInteractionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropInteractionDelegate.swift; sourceTree = "<group>"; };
 		E41209522538C1020088AC26 /* EmptyScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyScreenView.swift; sourceTree = "<group>"; };
 		E42FC8362530EF78004E81C9 /* MarkdownFormatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkdownFormatView.swift; sourceTree = "<group>"; };
+		E4714A98255F077E007AE0D6 /* DocumentPickerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentPickerDelegate.swift; sourceTree = "<group>"; };
 		E4ED0FAF255C65DF002ADBF1 /* MenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuController.swift; sourceTree = "<group>"; };
 		E4F88C87252FA564003AD037 /* Merriweather-BoldItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Merriweather-BoldItalic.otf"; sourceTree = "<group>"; };
 		E4F88C88252FA564003AD037 /* Merriweather-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Merriweather-Regular.otf"; sourceTree = "<group>"; };
@@ -690,6 +692,7 @@
 				A73C94B9253F84E8004EFA4F /* PhotoPickerDelegate.swift */,
 				1EDCF73E25533FB8008A950F /* ImagePickerDelegate.swift */,
 				E40A7DFD2559B6D600D81087 /* DropInteractionDelegate.swift */,
+				E4714A98255F077E007AE0D6 /* DocumentPickerDelegate.swift */,
 			);
 			path = Notes;
 			sourceTree = "<group>";
@@ -832,6 +835,7 @@
 				02AD78F125475C5800C87D2B /* EditableCollectionView.swift */,
 				02AD78F525475C7300C87D2B /* EditableCollectionViewCell.swift */,
 				A74D472325474A210038D388 /* GestureDelegate.swift */,
+				E4ED0FAF255C65DF002ADBF1 /* MenuController.swift */,
 				E4017A92252D09DC00ABB87C /* Extensions */,
 				D9D8753A251BC3D300B842C8 /* PhotoPicker */,
 				0247F78B25115B8900405A61 /* Workspace */,
@@ -983,7 +987,6 @@
 				E4017A8C252CEA9B00ABB87C /* AlertController.swift */,
 				1E47C56B254377BE00535DDD /* NoteEntityToPDFExtension.swift */,
 				1E1D9CD12549EB2D00E2D7A7 /* NotebookEntityToPDFExtension.swift */,
-				E4ED0FAF255C65DF002ADBF1 /* MenuController.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1341,6 +1344,7 @@
 				D9F4A9AE25277AC900BFDC19 /* TextBoxView.swift in Sources */,
 				02AD78F625475C7300C87D2B /* EditableCollectionViewCell.swift in Sources */,
 				0247F78D25115BAA00405A61 /* NotebooksSelectionViewController.swift in Sources */,
+				E4714A99255F077E007AE0D6 /* DocumentPickerDelegate.swift in Sources */,
 				E4017A8D252CEA9B00ABB87C /* AlertController.swift in Sources */,
 				A731AA7F25374A8A00624131 /* TextEditingContainerViewController.swift in Sources */,
 				E4ED0FB0255C65DF002ADBF1 /* MenuController.swift in Sources */,

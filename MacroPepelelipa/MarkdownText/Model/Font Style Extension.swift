@@ -31,7 +31,7 @@ public extension UIFont {
     }
 
     func toFirstHeaderFont() -> UIFont {
-        if UIDevice.current.userInterfaceIdiom == .pad || UIDevice.current.userInterfaceIdiom == .mac  {
+        if UIDevice.current.userInterfaceIdiom == .pad || UIDevice.current.userInterfaceIdiom == .mac {
             return self.withSize(32).bold() ?? .boldSystemFont(ofSize: 32)
         } else {
             return self.withSize(26).bold() ?? .boldSystemFont(ofSize: 26)

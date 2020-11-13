@@ -41,7 +41,7 @@ internal class NotebooksCollectionViewDelegate: NSObject,
         var width: CGFloat = 0
         var height: CGFloat = 0
 
-        if UIDevice.current.userInterfaceIdiom == .pad || UIDevice.current.userInterfaceIdiom == .mac  {
+        if UIDevice.current.userInterfaceIdiom == .pad || UIDevice.current.userInterfaceIdiom == .mac {
             if collectionView.isEditing {
                 width = collectionView.bounds.width/2.1
                 height = 90

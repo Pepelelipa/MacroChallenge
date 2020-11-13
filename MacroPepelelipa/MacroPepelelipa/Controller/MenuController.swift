@@ -8,6 +8,7 @@
 
 import UIKit
 
+@available(macCatalyst 14, *)
 internal class MenuController {
     
     // MARK: - Menu IDs
@@ -23,31 +24,16 @@ internal class MenuController {
     
     private enum NoteMenuId: String {
         case note = "PEPELELIPA.Macro.menus.note"
+        case importImage = "PEPELELIPA.Macro.menus.import"
     }
     
     // MARK: - Init
     
     init(with builder: UIMenuBuilder) {
-        var navigationController: UINavigationController?
-        
-        if #available(macCatalyst 14, *) {
-            guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
-                  let sceneDelegate = windowScene.delegate as? SceneDelegate,
-                  let navController = sceneDelegate.window?.rootViewController as? UINavigationController else {
-                setupWorkspaceMenu(with: builder)
-                return
-            }
-            navigationController = navController
-            
-        } else {
-            guard let navController = UIApplication.shared.windows.first?.rootViewController as? UINavigationController else {
-                setupWorkspaceMenu(with: builder)
-                return
-            }
-            navigationController = navController
-        }
-        
-        guard let viewController = navigationController?.visibleViewController  else {
+        guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+              let sceneDelegate = windowScene.delegate as? SceneDelegate,
+              let navigationController = sceneDelegate.window?.rootViewController as? UINavigationController,
+              let viewController = navigationController.visibleViewController else {
             setupWorkspaceMenu(with: builder)
             return
         }
@@ -74,6 +60,7 @@ internal class MenuController {
     private func setupWorkspaceMenu(with builder: UIMenuBuilder) {
         builder.remove(menu: UIMenu.Identifier(NotebookMenuId.new.rawValue))
         builder.remove(menu: UIMenu.Identifier(NoteMenuId.note.rawValue))
+        builder.remove(menu: UIMenu.Identifier(NoteMenuId.importImage.rawValue))
         
         builder.insertChild(MenuController.findMenu(), atStartOfMenu: .file)
         builder.insertChild(MenuController.newWorkspaceMenu(), atStartOfMenu: .file)
@@ -113,6 +100,7 @@ internal class MenuController {
         builder.remove(menu: UIMenu.Identifier(WorkspaceMenuId.new.rawValue))
         builder.remove(menu: UIMenu.Identifier(WorkspaceMenuId.find.rawValue))
         builder.remove(menu: UIMenu.Identifier(NoteMenuId.note.rawValue))
+        builder.remove(menu: UIMenu.Identifier(NoteMenuId.importImage.rawValue))
         
         builder.insertChild(MenuController.newNotebookMenu(), atStartOfMenu: .file)
     }
@@ -140,6 +128,7 @@ internal class MenuController {
         builder.remove(menu: UIMenu.Identifier(WorkspaceMenuId.find.rawValue))
         builder.remove(menu: UIMenu.Identifier(NotebookMenuId.new.rawValue))
         
+        builder.insertChild(MenuController.importMenu(), atStartOfMenu: .file)
         builder.insertChild(MenuController.noteMenu(), atStartOfMenu: .file)
     }
     
@@ -156,5 +145,17 @@ internal class MenuController {
                         TextEditingContainerViewController.newNoteCommand,
                         TextEditingContainerViewController.deleteCommand
                       ])
+    }
+    
+    /**
+     Creates a UIMenu to handle image imports.
+     - Returns: The new UIMenu.
+     */
+    private class func importMenu() -> UIMenu {
+        return UIMenu(title: "Import".localized(),
+                      image: nil,
+                      identifier: UIMenu.Identifier(NoteMenuId.importImage.rawValue),
+                      options: [.displayInline],
+                      children: [NotesViewController.importCommand])
     }
 }
