@@ -50,17 +50,6 @@ internal class NoteContentHandler {
                 }
             }
             try note.save()
-            
-            let defaults = UserDefaults.standard
-            
-            let notebook = try note.getNotebook()
-            let workspace = try notebook.getWorkspace()
-            
-            let notebookID = try notebook.getID()
-            let workspaceID = try workspace.getID()
-            
-            defaults.setValue(notebookID, forKey: "LastNotebookID")
-            defaults.setValue(workspaceID, forKey: "LastWorkspaceID")
         } catch {
             let alertController = UIAlertController(
                 title: "Error saving the notebook".localized(),

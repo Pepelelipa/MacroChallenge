@@ -155,6 +155,8 @@
 		D9D43390255C6261006E540E /* NotesViewControllerConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D4338F255C6261006E540E /* NotesViewControllerConfiguration.swift */; };
 		D9D43395255C6DCB006E540E /* LooseNoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D43394255C6DCB006E540E /* LooseNoteViewController.swift */; };
 		D9D433A3255C820E006E540E /* NoteAssignerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D433A2255C820E006E540E /* NoteAssignerViewController.swift */; };
+		D9D433AB255F0379006E540E /* NoteAssignerObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D433AA255F0378006E540E /* NoteAssignerObserver.swift */; };
+		D9D433AF255F0708006E540E /* NoteAssignerResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D433AE255F0708006E540E /* NoteAssignerResultsViewController.swift */; };
 		D9D87534251BAA6700B842C8 /* MarkdownTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D87533251BAA6700B842C8 /* MarkdownTextField.swift */; };
 		D9D87538251BB26500B842C8 /* MarkdownToolBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D87537251BB26500B842C8 /* MarkdownToolBar.swift */; };
 		D9D87544251BD39F00B842C8 /* PhotoEditingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D87543251BD39F00B842C8 /* PhotoEditingViewController.swift */; };
@@ -381,6 +383,8 @@
 		D9D4338F255C6261006E540E /* NotesViewControllerConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesViewControllerConfiguration.swift; sourceTree = "<group>"; };
 		D9D43394255C6DCB006E540E /* LooseNoteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LooseNoteViewController.swift; sourceTree = "<group>"; };
 		D9D433A2255C820E006E540E /* NoteAssignerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteAssignerViewController.swift; sourceTree = "<group>"; };
+		D9D433AA255F0378006E540E /* NoteAssignerObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteAssignerObserver.swift; sourceTree = "<group>"; };
+		D9D433AE255F0708006E540E /* NoteAssignerResultsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteAssignerResultsViewController.swift; sourceTree = "<group>"; };
 		D9D87533251BAA6700B842C8 /* MarkdownTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkdownTextField.swift; sourceTree = "<group>"; };
 		D9D87537251BB26500B842C8 /* MarkdownToolBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkdownToolBar.swift; sourceTree = "<group>"; };
 		D9D87543251BD39F00B842C8 /* PhotoEditingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoEditingViewController.swift; sourceTree = "<group>"; };
@@ -946,6 +950,7 @@
 				D92593972559E53C000529B4 /* ResizeHandleReceiver.swift */,
 				D92593982559E53C000529B4 /* MarkdownFormatViewReceiver.swift */,
 				D92593B6255B1579000529B4 /* BoxViewReceiver.swift */,
+				D9D433AA255F0378006E540E /* NoteAssignerObserver.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -1005,6 +1010,7 @@
 				026C3CAB251942A7001E32AE /* NotesViewController.swift */,
 				D9D43394255C6DCB006E540E /* LooseNoteViewController.swift */,
 				D9D433A2255C820E006E540E /* NoteAssignerViewController.swift */,
+				D9D433AE255F0708006E540E /* NoteAssignerResultsViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -1448,8 +1454,10 @@
 				A7BDD60A251406D900DDB6A0 /* TableViewDataSource.swift in Sources */,
 				D9F4A9AA25277A6B00BFDC19 /* ResizeHandleView.swift in Sources */,
 				A792F03A25279E8400AB1766 /* NotebookIndexTableViewDelegate.swift in Sources */,
+				D9D433AF255F0708006E540E /* NoteAssignerResultsViewController.swift in Sources */,
 				1E1D9CD22549EB2D00E2D7A7 /* NotebookEntityToPDFExtension.swift in Sources */,
 				0230E078253A3CED009C5A76 /* UIDeviceOrientation.swift in Sources */,
+				D9D433AB255F0379006E540E /* NoteAssignerObserver.swift in Sources */,
 				D9D87538251BB26500B842C8 /* MarkdownToolBar.swift in Sources */,
 				02207A3E2523AB160001FD7E /* WorkspaceCollectionViewCell.swift in Sources */,
 				D9F04BEC25377D5E001C6551 /* AddNoteViewController.swift in Sources */,

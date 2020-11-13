@@ -89,6 +89,16 @@ internal class WorkspacesCollectionViewDataSource: NSObject,
         return cell
     }
     
+    internal func getLastNotebook() -> NotebookEntity? {
+        let defaults = UserDefaults.standard 
+        
+        let identifier = defaults.object(forKey: "LastNotebookID") as? String ?? String()
+        var notebooks = [NotebookEntity]()
+        workspaces.forEach({ notebooks.append(contentsOf: $0.notebooks) })
+        
+        return notebooks.first(where: { (try? $0.getID())?.uuidString == identifier })
+    }
+    
     // MARK: - EntityObserver functions
     
     internal func entityWasCreated(_ value: ObservableEntity) {

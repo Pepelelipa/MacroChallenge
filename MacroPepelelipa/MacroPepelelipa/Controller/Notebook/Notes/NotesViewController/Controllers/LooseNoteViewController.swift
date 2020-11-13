@@ -16,10 +16,11 @@ internal class LooseNoteViewController: UIViewController,
                                     MarkupToolBarObserver,
                                     MarkdownFormatViewReceiver,
                                     ResizeHandleReceiver,
-                                    BoxViewReceiver {
+                                    BoxViewReceiver,
+                                    NoteAssignerObserver {
     
     // MARK: - Variables and Constants
-    
+        
     private var resizeHandles = [ResizeHandleView]()
     private var initialCenter = CGPoint()
     private var exclusionPaths: [UIBezierPath] = []
@@ -163,8 +164,9 @@ internal class LooseNoteViewController: UIViewController,
     
     // MARK: - Initializers
     
-    internal init(note: NoteEntity) {
+    internal init(note: NoteEntity, notebook: NotebookEntity? = nil) {
         self.note = note
+        self.notebook = notebook
         
         super.init(nibName: nil, bundle: nil)
     }
@@ -173,7 +175,7 @@ internal class LooseNoteViewController: UIViewController,
         guard let note = coder.decodeObject(forKey: "note") as? NoteEntity else {
             return nil
         }
-        self.init(note: note)
+        self.init(note: note, notebook: coder.decodeObject(forKey: "notebook") as? NotebookEntity)
     }
 
     // MARK: - Override functions
@@ -213,8 +215,7 @@ internal class LooseNoteViewController: UIViewController,
         let dropInteraction = UIDropInteraction(delegate: dropInteractionDelegate)
         textView.addInteraction(dropInteraction)
         
-        navigationItem.leftBarButtonItem = btnAddLooseNote
-        navigationItem.rightBarButtonItems = []
+        navigationItem.rightBarButtonItems = [btnAddLooseNote]
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -495,6 +496,11 @@ internal class LooseNoteViewController: UIViewController,
         self.textView.textContainer.exclusionPaths = exclusionPaths
     }
     
+    // MARK: - NoteAssignerObserver Method
+    func dismissLosseNoteViewController() {
+        self.navigationController?.popViewController(animated: true)
+    }
+    
     // MARK: - IBActions functions
     
     // This method is called 
@@ -510,9 +516,8 @@ internal class LooseNoteViewController: UIViewController,
     }
     
     @IBAction func addToNotebook() {
-        let destination = NoteAssignerViewController(noteName: note?.title.string ?? "Sem nota")
-//        destination.isModalInPresentation = true
-//        destination.modalTransitionStyle = .crossDissolve
+        let destination = NoteAssignerViewController(note: note, lastNotebook: notebook)
+        destination.observer = self
         
         self.navigationController?.present(destination, animated: true, completion: nil)
     }

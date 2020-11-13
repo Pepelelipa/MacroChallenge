@@ -445,7 +445,7 @@ internal class WorkspaceSelectionViewController: UIViewController,
         }
         
         if let note = looseNote {
-            let destination = LooseNoteViewController(note: note)
+            let destination = LooseNoteViewController(note: note, notebook: collectionDataSource.getLastNotebook())
             
             self.navigationController?.pushViewController(destination, animated: true)
         }
