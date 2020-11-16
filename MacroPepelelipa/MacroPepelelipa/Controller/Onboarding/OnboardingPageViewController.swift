@@ -31,6 +31,7 @@ class OnboardingPageViewController: UIPageViewController {
     
         pg.currentPageIndicatorTintColor = UIColor.actionColor
         pg.pageIndicatorTintColor = UIColor.toolsColor
+        pg.addTarget(self, action: #selector(pageChanged), for: .valueChanged)
         
         pg.translatesAutoresizingMaskIntoConstraints = false
         
@@ -131,11 +132,32 @@ class OnboardingPageViewController: UIPageViewController {
     
     // MARK: - @objc functions
     
+    /**
+     In this function the app opens the workspace once the user has tapped the currect button
+     - Parameter sender: UITapGesturRecognizer
+     */
     @objc func openWorkspace(sender: UITapGestureRecognizer) {
         let view = WorkspaceSelectionViewController()
         view.modalPresentationStyle = .fullScreen
         self.navigationController?.setViewControllers([view], animated: true)
         self.navigationController?.popToRootViewController(animated: true)
+    }
+    
+    /**
+     This is where the page changes in regard to the pressing of the buttons in the page control.
+     */
+    @objc func pageChanged() {
+        
+        for i in 0 ..< pages.count {
+            if pageControl.currentPage == i {
+                setViewControllers([pages[i]], direction: .forward, animated: true, completion: nil)
+            }
+        }
+        
+        if pageControl.currentPage == 4 {
+            self.startButton.isHidden = false
+            self.backgroundButtonView.isHidden = false
+        }
     }
     
     // MARK: - Functions
