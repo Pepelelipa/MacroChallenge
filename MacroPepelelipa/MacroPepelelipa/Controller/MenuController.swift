@@ -156,11 +156,17 @@ internal class MenuController {
      - Returns: The new UIMenu.
      */
     private class func importMenu() -> UIMenu {
+        #if targetEnvironment(macCatalyst)
         return UIMenu(title: "Import".localized(),
                       image: nil,
                       identifier: UIMenu.Identifier(NoteMenuId.importImage.rawValue),
                       options: [.displayInline],
-                      children: [NotesViewController.importCommand])
+                      children: [
+                        NotesViewController.importCommand
+                      ])
+        #else
+        return UIMenu()
+        #endif
     }
     
     /**
@@ -168,6 +174,7 @@ internal class MenuController {
      - Returns: The new UIMenu.
      */
     private class func exportMenu() -> UIMenu {
+        #if targetEnvironment(macCatalyst)
         return UIMenu(title: "Export".localized(),
                       image: nil,
                       identifier: UIMenu.Identifier(NoteMenuId.export.rawValue),
@@ -176,6 +183,9 @@ internal class MenuController {
                         NotesViewController.exportNoteCommand,
                         NotesViewController.exportNotebookCommand
                       ])
+        #else
+        return UIMenu()
+        #endif
     }
     
 }

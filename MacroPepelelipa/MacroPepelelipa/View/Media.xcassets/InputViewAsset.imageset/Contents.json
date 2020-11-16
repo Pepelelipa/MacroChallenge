@@ -1,23 +1,58 @@
 {
   "images" : [
     {
-      "filename" : "Group 183@1x.png",
-      "idiom" : "universal",
-      "scale" : "1x"
+      "filename" : "Format English Light.pdf",
+      "idiom" : "universal"
     },
     {
-      "filename" : "Group 183@2x.png",
-      "idiom" : "universal",
-      "scale" : "2x"
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "Format English Dark.pdf",
+      "idiom" : "universal"
     },
     {
-      "filename" : "Group 183@3x.png",
+      "filename" : "Format English Light-1.pdf",
       "idiom" : "universal",
-      "scale" : "3x"
+      "locale" : "en"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "Format English Dark-1.pdf",
+      "idiom" : "universal",
+      "locale" : "en"
+    },
+    {
+      "filename" : "Format Portuguese Light.pdf",
+      "idiom" : "universal",
+      "locale" : "pt-BR"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "Format Portuguese Dark.pdf",
+      "idiom" : "universal",
+      "locale" : "pt-BR"
     }
   ],
   "info" : {
     "author" : "xcode",
     "version" : 1
+  },
+  "properties" : {
+    "localizable" : true,
+    "preserves-vector-representation" : true
   }
 }
