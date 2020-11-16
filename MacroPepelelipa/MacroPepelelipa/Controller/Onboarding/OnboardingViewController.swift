@@ -89,16 +89,32 @@ class OnboardingViewController: UIViewController {
      This private method sets the constraints for different size classes and devices.
      */
     private func setConstraints() {
+        
+        let orientation = UIApplication.shared.windows.first?.windowScene?.interfaceOrientation
+    
+        if orientation == .portrait {
+            NSLayoutConstraint.activate([
+                imageView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.8),
+                imageView.heightAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.6),
+                
+                subtitleLabel.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -150)
+            ])
+        } else {
+            NSLayoutConstraint.activate([
+                imageView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.8),
+                imageView.heightAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.2),
+                
+                subtitleLabel.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -80)
+            ])
+        }
+        
         NSLayoutConstraint.activate([
             
             imageView.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -50),
             imageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            imageView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.8),
-            imageView.heightAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.6),
             
             subtitleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             subtitleLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -30),
-            subtitleLabel.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -150),
             
             titleLabel.bottomAnchor.constraint(equalTo: subtitleLabel.topAnchor, constant: -20),
             titleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),

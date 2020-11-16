@@ -144,9 +144,20 @@ class OnboardingPageViewController: UIPageViewController {
     Adding the constraints to the page control inside the view.
      */
     private func setFixedConstraints() {
+        
+        let orientation = UIApplication.shared.windows.first?.windowScene?.interfaceOrientation
+    
+        if orientation == .portrait {
+            NSLayoutConstraint.activate([
+                pageControl.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -60)
+            ])
+        } else {
+            NSLayoutConstraint.activate([
+                pageControl.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -30)
+            ])
+        }
+        
         NSLayoutConstraint.activate([
-            
-            pageControl.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -60),
             pageControl.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -20),
             pageControl.heightAnchor.constraint(equalToConstant: 20),
             pageControl.centerXAnchor.constraint(equalTo: view.centerXAnchor)
@@ -157,11 +168,23 @@ class OnboardingPageViewController: UIPageViewController {
     Adding the constraints to the button that opens the application.
      */
     private func setButtonConstraints() {
+        
+        let orientation = UIApplication.shared.windows.first?.windowScene?.interfaceOrientation
+    
+        if orientation == .portrait {
+            NSLayoutConstraint.activate([
+                backgroundButtonView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -50),
+            ])
+        } else {
+            NSLayoutConstraint.activate([
+                backgroundButtonView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -30),
+            ])
+        }
+        
         NSLayoutConstraint.activate([
             backgroundButtonView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.8),
             backgroundButtonView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.06),
             backgroundButtonView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            backgroundButtonView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -50),
             
             startButton.centerXAnchor.constraint(equalTo: backgroundButtonView.centerXAnchor),
             startButton.centerYAnchor.constraint(equalTo: backgroundButtonView.centerYAnchor),
