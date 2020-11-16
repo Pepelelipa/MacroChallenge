@@ -18,17 +18,23 @@ internal class WorkspaceObject: WorkspaceEntity, CloudKitObjectWrapper {
     }
 
     public var name: String {
-        didSet {
-            coreDataWorkspace.name = name
-            cloudKitWorkspace?.name.value = name
+        get {
+            return coreDataWorkspace.name ?? cloudKitWorkspace?.name.value ?? ""
+        }
+        set {
+            coreDataWorkspace.name = newValue
+            cloudKitWorkspace?.name.value = newValue
             notifyObservers()
         }
     }
 
     public var isEnabled: Bool {
-        didSet {
-            coreDataWorkspace.isEnabled = isEnabled
-            cloudKitWorkspace?.isEnabled.value = isEnabled ? 1 : 0
+        get {
+            return coreDataWorkspace.isEnabled
+        }
+        set {
+            coreDataWorkspace.isEnabled = newValue
+            cloudKitWorkspace?.isEnabled.value = newValue ? 1 : 0
             notifyObservers()
         }
     }
@@ -58,8 +64,6 @@ internal class WorkspaceObject: WorkspaceEntity, CloudKitObjectWrapper {
     internal init(from workspace: Workspace, and ckWorkspace: CloudKitWorkspace? = nil) {
         self.cloudKitWorkspace = ckWorkspace
         self.coreDataWorkspace = workspace
-        self.name = workspace.name ?? ""
-        self.isEnabled = workspace.isEnabled
         
         if let notebooks = coreDataWorkspace.notebooks?.array as? [Notebook] {
             notebooks.forEach { (notebook) in
@@ -103,6 +107,9 @@ internal class WorkspaceObject: WorkspaceEntity, CloudKitObjectWrapper {
         }
     }
 
+    internal func internalObjectsChanged() {
+        notifyObservers()
+    }
     private func notifyObservers() {
         observers.forEach({ $0.entityDidChangeTo(self) })
     }

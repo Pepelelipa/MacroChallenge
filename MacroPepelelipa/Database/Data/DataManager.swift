@@ -5,7 +5,7 @@
 //  Created by Pedro Giuliano Farina on 07/10/20.
 //  Copyright © 2020 Pedro Giuliano Farina. All rights reserved.
 //
-//swiftlint:disable cyclomatic_complexity
+//swiftlint:disable cyclomatic_complexity function_body_length
 
 public enum ObservableCreationType {
     case workspace
@@ -92,6 +92,8 @@ public class DataManager {
                     } else {
                         workspace.coreDataWorkspace <- ckWorkspace
                     }
+                    try? workspace.save()
+                    workspace.internalObjectsChanged()
                 } else if let notebook = entity as? NotebookObject {
                     guard let ckNotebook = notebook.cloudKitNotebook else {
                         self.conflictHandler.errDidOccur(err: NotebookError.notebookWasNull)
@@ -102,6 +104,8 @@ public class DataManager {
                     } else {
                         notebook.coreDataNotebook <- ckNotebook
                     }
+                    try? notebook.save()
+                    notebook.internalObjectsChanged()
                 } else if let note = entity as? NoteObject {
                     guard let ckNote = note.cloudKitNote else {
                         self.conflictHandler.errDidOccur(err: NoteError.noteWasNull)
@@ -112,6 +116,8 @@ public class DataManager {
                     } else {
                         note.coreDataNote <- ckNote
                     }
+                    try? note.save()
+                    note.internalObjectsChanged()
                 } else if let textBox = entity as? TextBoxObject {
                     guard let ckTextBox = textBox.cloudKitTextBox else {
                         self.conflictHandler.errDidOccur(err: TextBoxError.textBoxWasNull)
@@ -122,6 +128,10 @@ public class DataManager {
                     } else {
                         textBox.coreDataTextBox <- ckTextBox
                     }
+                    if let note = try? textBox.getNote() as? NoteObject {
+                        try? note.save()
+                        note.internalObjectsChanged()
+                    }
                 } else if let imageBox = entity as? ImageBoxObject {
                     guard let ckImageBox = imageBox.cloudKitImageBox else {
                         self.conflictHandler.errDidOccur(err: ImageBoxError.imageBoxWasNull)
@@ -131,6 +141,10 @@ public class DataManager {
                         ckImageBox <- imageBox.coreDataImageBox
                     } else {
                         imageBox.coreDataImageBox <- ckImageBox
+                    }
+                    if let note = try? imageBox.getNote() as? NoteObject {
+                        try? note.save()
+                        note.internalObjectsChanged()
                     }
                 }
             }

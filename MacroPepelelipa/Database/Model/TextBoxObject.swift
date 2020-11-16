@@ -23,13 +23,6 @@ internal class TextBoxObject: TextBoxEntity, CloudKitObjectWrapper {
         self.note = note
         self.coreDataTextBox = coreDataObject
 
-        self.text = coreDataObject.text?.toAttributedString() ?? NSAttributedString()
-        self.width = coreDataObject.width
-        self.height = coreDataObject.height
-        self.x = coreDataObject.x
-        self.y = coreDataObject.y
-        self.z = coreDataObject.z
-
         note.textBoxes.append(self)
     }
 
@@ -42,41 +35,59 @@ internal class TextBoxObject: TextBoxEntity, CloudKitObjectWrapper {
     }
 
     public var text: NSAttributedString {
-        didSet {
-            if let data = text.toData() {
+        get {
+            return coreDataTextBox.text?.toAttributedString() ?? (cloudKitTextBox?.text.value as Data?)?.toAttributedString() ?? NSAttributedString()
+        }
+        set {
+            if let data = newValue.toData() {
                 coreDataTextBox.text = data
                 cloudKitTextBox?.text.value = NSData(data: data)
             }
         }
     }
     public var width: Float {
-        didSet {
-            coreDataTextBox.width = width
-            cloudKitTextBox?.width.value = Double(width)
+        get {
+            return coreDataTextBox.width
+        }
+        set {
+            coreDataTextBox.width = newValue
+            cloudKitTextBox?.width.value = Double(newValue)
         }
     }
     public var height: Float {
-        didSet {
-            coreDataTextBox.height = height
-            cloudKitTextBox?.height.value = Double(height)
+        get {
+            return coreDataTextBox.width
+        }
+        set {
+            coreDataTextBox.height = newValue
+            cloudKitTextBox?.height.value = Double(newValue)
         }
     }
     public var x: Float {
-        didSet {
-            coreDataTextBox.x = x
-            cloudKitTextBox?.x.value = Double(x)
+        get {
+            return coreDataTextBox.x
+        }
+        set {
+            coreDataTextBox.x = newValue
+            cloudKitTextBox?.x.value = Double(newValue)
         }
     }
     public var y: Float {
-        didSet {
-            coreDataTextBox.y = y
-            cloudKitTextBox?.y.value = Double(y)
+        get {
+            return coreDataTextBox.y
+        }
+        set {
+            coreDataTextBox.y = newValue
+            cloudKitTextBox?.y.value = Double(newValue)
         }
     }
     public var z: Float {
-        didSet {
-            coreDataTextBox.z = z
-            cloudKitTextBox?.z.value = Double(z)
+        get {
+            return coreDataTextBox.z
+        }
+        set {
+            coreDataTextBox.z = newValue
+            cloudKitTextBox?.z.value = Double(newValue)
         }
     }
 

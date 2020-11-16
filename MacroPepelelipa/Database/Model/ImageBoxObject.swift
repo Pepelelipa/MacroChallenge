@@ -23,13 +23,6 @@ internal class ImageBoxObject: ImageBoxEntity, CloudKitObjectWrapper {
         self.coreDataImageBox = coreDataObject
         self.note = note
 
-        self.imagePath = coreDataObject.imagePath ?? ""
-        self.width = coreDataObject.width
-        self.height = coreDataObject.height
-        self.x = coreDataObject.x
-        self.y = coreDataObject.y
-        self.z = coreDataObject.z
-
         note.images.append(self)
     }
 
@@ -41,41 +34,59 @@ internal class ImageBoxObject: ImageBoxEntity, CloudKitObjectWrapper {
         throw NoteError.noteWasNull
     }
     var imagePath: String {
-        didSet {
-            coreDataImageBox.imagePath = imagePath
-            if let filePath = FileHelper.getFilePath(fileName: imagePath) {
+        get {
+            return coreDataImageBox.imagePath ?? ""
+        }
+        set {
+            coreDataImageBox.imagePath = newValue
+            if let filePath = FileHelper.getFilePath(fileName: newValue) {
                 cloudKitImageBox?.image.value = CKAsset(fileURL: URL(fileURLWithPath: filePath))
             }
         }
     }
     var width: Float {
-        didSet {
-            coreDataImageBox.width = width
-            cloudKitImageBox?.width.value = Double(width)
+        get {
+            return coreDataImageBox.width
+        }
+        set {
+            coreDataImageBox.width = newValue
+            cloudKitImageBox?.width.value = Double(newValue)
         }
     }
     var height: Float {
-        didSet {
-            coreDataImageBox.height = height
-            cloudKitImageBox?.height.value = Double(height)
+        get {
+            return coreDataImageBox.height
+        }
+        set {
+            coreDataImageBox.height = newValue
+            cloudKitImageBox?.height.value = Double(newValue)
         }
     }
     var x: Float {
-        didSet {
-            coreDataImageBox.x = x
-            cloudKitImageBox?.x.value = Double(x)
+        get {
+            return coreDataImageBox.x
+        }
+        set {
+            coreDataImageBox.x = newValue
+            cloudKitImageBox?.x.value = Double(newValue)
         }
     }
     var y: Float {
-        didSet {
-            coreDataImageBox.y = y
-            cloudKitImageBox?.y.value = Double(y)
+        get {
+            return coreDataImageBox.y
+        }
+        set {
+            coreDataImageBox.y = newValue
+            cloudKitImageBox?.y.value = Double(newValue)
         }
     }
     var z: Float {
-        didSet {
-            coreDataImageBox.z = z
-            cloudKitImageBox?.z.value = Double(z)
+        get {
+            return coreDataImageBox.z
+        }
+        set {
+            coreDataImageBox.z = newValue
+            cloudKitImageBox?.z.value = Double(newValue)
         }
     }
 

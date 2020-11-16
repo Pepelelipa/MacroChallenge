@@ -27,16 +27,22 @@ internal class NotebookObject: NotebookEntity, CloudKitObjectWrapper {
     }
 
     public var name: String {
-        didSet {
-            coreDataNotebook.name = name
-            cloudKitNotebook?.name.value = name
+        get {
+            return coreDataNotebook.name ?? cloudKitNotebook?.name.value ?? ""
+        }
+        set {
+            coreDataNotebook.name = newValue
+            cloudKitNotebook?.name.value = newValue
             notifyObservers()
         }
     }
     public var colorName: String {
-        didSet {
-            coreDataNotebook.colorName = colorName
-            cloudKitNotebook?.colorName.value = colorName
+        get {
+            return coreDataNotebook.colorName ?? cloudKitNotebook?.colorName.value ?? ""
+        }
+        set {
+            coreDataNotebook.colorName = newValue
+            cloudKitNotebook?.colorName.value = newValue
             notifyObservers()
         }
     }
@@ -74,8 +80,6 @@ internal class NotebookObject: NotebookEntity, CloudKitObjectWrapper {
         self.cloudKitNotebook = ckNotebook
         self.workspace = workspace
         self.coreDataNotebook = notebook
-        self.name = notebook.name ?? ""
-        self.colorName = notebook.colorName ?? ""
         
         workspace.notebooks.append(self)
 
@@ -125,6 +129,9 @@ internal class NotebookObject: NotebookEntity, CloudKitObjectWrapper {
         }
     }
 
+    internal func internalObjectsChanged() {
+        notifyObservers()
+    }
     private func notifyObservers() {
         observers.forEach({ $0.entityDidChangeTo(self) })
     }

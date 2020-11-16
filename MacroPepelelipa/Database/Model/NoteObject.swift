@@ -26,8 +26,11 @@ internal class NoteObject: NoteEntity, CloudKitObjectWrapper {
     private weak var notebook: NotebookObject?
 
     public var title: NSAttributedString {
-        didSet {
-            if let data = title.toData() {
+        get {
+            return coreDataNote.title?.toAttributedString() ?? (cloudKitNote?.title.value as Data?)?.toAttributedString() ?? NSAttributedString()
+        }
+        set {
+            if let data = newValue.toData() {
                 coreDataNote.title = data
                 cloudKitNote?.title.value = NSData(data: data)
             }
@@ -35,8 +38,11 @@ internal class NoteObject: NoteEntity, CloudKitObjectWrapper {
         }
     }
     var text: NSAttributedString {
-        didSet {
-            if let data = text.toData() {
+        get {
+            return coreDataNote.text?.toAttributedString() ?? (cloudKitNote?.text.value as Data?)?.toAttributedString() ?? NSAttributedString()
+        }
+        set {
+            if let data = newValue.toData() {
                 coreDataNote.text = data
                 cloudKitNote?.text.value = NSData(data: data)
             }
@@ -79,8 +85,6 @@ internal class NoteObject: NoteEntity, CloudKitObjectWrapper {
         self.cloudKitNote = ckNote
         self.notebook = notebook
         self.coreDataNote = note
-        self.title = note.title?.toAttributedString() ?? NSAttributedString()
-        self.text = note.text?.toAttributedString() ?? NSAttributedString()
         
         notebook.notes.append(self)
 
@@ -127,6 +131,9 @@ internal class NoteObject: NoteEntity, CloudKitObjectWrapper {
         }
     }
 
+    internal func internalObjectsChanged() {
+        notifyObservers()
+    }
     private func notifyObservers() {
         observers.forEach({ $0.entityDidChangeTo(self) })
     }
