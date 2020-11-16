@@ -15,7 +15,6 @@ internal class WorkspacesCollectionViewDelegate: NSObject,
     // MARK: - Variables and Constants
     
     private var didSelectCell: ((WorkspaceCollectionViewCell) -> Void)?
-    internal var viewTraitCollection: UITraitCollection = UITraitCollection()
     internal var frame: CGRect = CGRect()
     
     // MARK: - Initializers
@@ -37,102 +36,18 @@ internal class WorkspacesCollectionViewDelegate: NSObject,
     }
     
     // MARK: - UICollectionViewDelegateFlowLayout functions
-
+    
     internal func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let width: CGFloat
-        let height: CGFloat
-        let isLandscape = UIDevice.current.orientation.isActuallyLandscape
-        
-        let titleSpace: CGFloat = 20 + 30 + 20 + 20
-        
-        if UIDevice.current.userInterfaceIdiom == .phone {
-            // iPhone
-            
-            if collectionView.isEditing {
-                // Editing mode
-                width = collectionView.bounds.width
-                height = 70
-                
-            } else {
-                // Normal mode
-                if isLandscape {
-                    // Landscape
-                    width = collectionView.bounds.width/2.1
-                } else {
-                    // Portrait
-                    width = collectionView.bounds.width
-                }
-                height = (width * 0.42) + titleSpace
-            }
-            
-        } else {
-            // iPad
-            
-            if collectionView.isEditing {
-                // Editing mode
-                
-                if frame.width < UIScreen.main.bounds.width/2 {
-                    // Multitasking less than half screen
-                    width = collectionView.bounds.width
-                    height = 70
-                } else {
-                    // All others
-                    width = collectionView.bounds.width/2.1
-                    height = 90
-                }
-            
-            } else {
-                // Normal mode
-                
-                if isLandscape {
-                    // Landscape
-                    
-                    if frame.width+5 == UIScreen.main.bounds.width/2 {
-                        // Multitasking half screen
-                        width = collectionView.bounds.width
-                        height = (width * 0.45) + titleSpace
-                        
-                    } else if frame.width < UIScreen.main.bounds.width/2 {
-                        // Multitasking less than half screen
-                        width = collectionView.bounds.width
-                        height = (width * 0.42) + titleSpace
-                        
-                    } else {
-                        // Full screen and Multitasking more than half screen
-                        width = collectionView.bounds.width/2.1
-                        height = (width * 0.44) + titleSpace
-                    }
-                    
-                } else {
-                    // Portrait
-                    
-                    if frame.width < UIScreen.main.bounds.width/2 {
-                        // Multitasking less than half screen
-                        width = collectionView.bounds.width
-                        height = (width * 0.42) + titleSpace
-                    
-                    } else if frame.width == UIScreen.main.bounds.width {
-                        // Full screen
-                        width = collectionView.bounds.width/2.1
-                        height = (width * 0.44) + titleSpace
-                    } else {
-                        // Multitasking more than half screen
-                        width = collectionView.bounds.width
-                        height = (width * 0.45) + titleSpace
-                    }
-                }
-            }
-        }
-        return CGSize(width: width, height: height)
+        return ItemSizeHelper.workspaceItemSize(at: collectionView, for: frame)
     }
-
+    
     internal func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        if UIDevice.current.userInterfaceIdiom == .pad {
+        if UIDevice.current.userInterfaceIdiom == .pad || UIDevice.current.userInterfaceIdiom == .mac {
             return 50
         }
         return 20
     }
-
+    
     internal func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return .init(top: 0, left: 0, bottom: 0, right: 0)
     }

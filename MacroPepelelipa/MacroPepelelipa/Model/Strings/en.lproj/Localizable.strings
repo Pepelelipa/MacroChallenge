@@ -16,8 +16,10 @@
 "Start writing here" = "Do not forget to copy what is happening in your class, while you are playing a little game...";
 "Your Title" = "Your Title";
 "Format" = "Format";
+"New workspace" = "New workspace";
 "New workspace name" = "New workspace name";
 "Create new workspace" = "Create new workspace";
+"New notebook" = "New notebook";
 "New notebook name" = "New notebook name";
 "Create new notebook" = "Create new notebook";
 "Done" = "Done";
@@ -136,6 +138,18 @@
 "Transcript subtitle" = "And you know that picture of your teachers notes you took during class? Add it here to have the text transcribed!";
 
 "Begin" = "Begin";
+"Find" = "Find";
+"New note" = "New note";
+"Delete note" = "Delete note";
+"Import image" = "Import image";
+"Import" = "Import";
+"Export note as PDF" = "Export note as PDF";
+"Export" = "Export";
+"An error has occurred while exporting the PDF" = "An error has occurred while exporting the PDF";
+"The app could not export the file as a PDF" = "The app could not export the file as a PDF";
+"Error writing data to the designed url" = "Error writing data to the designed url";
+"Export notebook as PDF" = "Export notebook as PDF";
+
 
 // MARK: - Accessibility
 

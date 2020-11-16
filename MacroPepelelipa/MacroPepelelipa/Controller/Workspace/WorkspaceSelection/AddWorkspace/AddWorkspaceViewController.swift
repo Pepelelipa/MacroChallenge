@@ -31,6 +31,7 @@ internal class AddWorkspaceViewController: UIViewController, AddWorkspaceObserve
         let txtName = UITextField()
         txtName.translatesAutoresizingMaskIntoConstraints = false
         txtName.placeholder = "New workspace name".localized()
+        txtName.adjustsFontSizeToFitWidth = true
         txtName.borderStyle = .none
         txtName.font = UIFont.defaultHeader.toStyle(.h3)
         txtName.tintColor = .actionColor

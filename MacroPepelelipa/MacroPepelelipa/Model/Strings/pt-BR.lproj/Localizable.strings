@@ -16,8 +16,10 @@
 "Start writing here" = "Não esquece de colocar o que tá acontecendo na sua aula, enquanto você tá jogando joguinho...";
 "Your Title" = "Vem aqui colocar o seu título!";
 "Format" = "Formatação";
+"New workspace" = "Nova coleção";
 "New workspace name" = "Nome da nova coleção";
 "Create new workspace" = "Criar nova coleção";
+"New notebook" = "Novo caderno";
 "New notebook name" = "Nome do novo caderno";
 "Create new notebook" = "Criar novo caderno";
 "Done" = "OK";
@@ -139,6 +141,17 @@
 "Transcript subtitle" = "E sabe aquela sua foto da lousa do professor? Adiciona ela aqui para ter o texto transcrito!";
 
 "Begin" = "Iniciar";
+"Find" = "Buscar";
+"New note" = "Nova nota";
+"Delete note" = "Excluir nota";
+"Import image" = "Importar imagem";
+"Import" = "Importar";
+"Export note as PDF" = "Exportar nota como PDF";
+"Export" = "Exportar";
+"An error has occurred while exporting the PDF" = "Um erro ocorreu ao exportar o PDF";
+"The app could not export the file as a PDF" = "O aplicativo não pôde exportar o arquivo como PDF";
+"Error writing data to the designed url" = "Erro ao transcrever dados para o URL designada";
+"Export notebook as PDF" = "Exportar caderno como PDF";
 
 // MARK: - Accessibility
 

@@ -13,6 +13,17 @@ internal class NotebooksSelectionViewController: UIViewController {
     
     // MARK: - Variables and Constants
     
+    internal static let newNotebookCommand: UIKeyCommand = {
+        let command = UIKeyCommand(title: "New notebook".localized(),
+                                   image: nil,
+                                   action: #selector(btnAddTap),
+                                   input: "N",
+                                   modifierFlags: .command,
+                                   propertyList: nil)
+        command.discoverabilityTitle = "New notebook".localized()
+        return command
+    }()
+    
     private var collectionDataSource: NotebooksCollectionViewDataSource?
     private var compactRegularConstraints: [NSLayoutConstraint] = []
     private var regularCompactConstraints: [NSLayoutConstraint] = []
@@ -29,8 +40,8 @@ internal class NotebooksSelectionViewController: UIViewController {
         collectionView.backgroundColor = view.backgroundColor
         collectionView.showsVerticalScrollIndicator = false
         collectionView.allowsSelection = true
-        collectionView.allowsSelectionDuringEditing = true
         collectionView.allowsMultipleSelection = false
+        collectionView.allowsSelectionDuringEditing = true
         collectionView.contentInset = UIEdgeInsets(top: 20, left: 0, bottom: 20, right: 0)
         collectionView.delegate = collectionDelegate
         collectionView.dataSource = collectionDataSource
@@ -76,12 +87,6 @@ internal class NotebooksSelectionViewController: UIViewController {
         
         return view
     }()
-    
-    private lazy var newNotebookCommand: UIKeyCommand = {
-        let command = UIKeyCommand(input: "N", modifierFlags: .command, action: #selector(btnAddTap))
-        command.discoverabilityTitle = "New notebook".localized()
-        return command
-    }()
 
     private lazy var collectionDelegate = NotebooksCollectionViewDelegate { [unowned self] (selectedCell) in
         if let notebook = selectedCell.notebook {
@@ -126,7 +131,7 @@ internal class NotebooksSelectionViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        addKeyCommand(newNotebookCommand)
+        addKeyCommand(NotebooksSelectionViewController.newNotebookCommand)
         
         if workspace?.isEnabled ?? false {
             navigationItem.rightBarButtonItem = btnAdd
@@ -142,7 +147,7 @@ internal class NotebooksSelectionViewController: UIViewController {
         
         setConstraints()
         NSLayoutConstraint.activate(sharedConstraints)
-        if UIDevice.current.userInterfaceIdiom != .pad {
+        if UIDevice.current.userInterfaceIdiom != .pad && UIDevice.current.userInterfaceIdiom != .mac {
             layoutTrait(traitCollection: UIScreen.main.traitCollection)
         }
 
@@ -156,6 +161,7 @@ internal class NotebooksSelectionViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        UIMenuSystem.main.setNeedsRebuild()
         navigationItem.largeTitleDisplayMode = .always
         navigationController?.navigationBar.isTranslucent = true
         navigationController?.navigationBar.backgroundColor = .clear
@@ -171,9 +177,10 @@ internal class NotebooksSelectionViewController: UIViewController {
     }
     
     override func viewDidLayoutSubviews() {
-        if UIDevice.current.userInterfaceIdiom == .pad {
+        if UIDevice.current.userInterfaceIdiom == .pad || UIDevice.current.userInterfaceIdiom == .mac {
             updateConstraintsForIpad()
         }
+        collectionDelegate.frame = view.frame
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -278,14 +285,54 @@ internal class NotebooksSelectionViewController: UIViewController {
         var activate = [NSLayoutConstraint]()
         var deactivate = [NSLayoutConstraint]()
         
-        let orientation = UIApplication.shared.windows.first?.windowScene?.interfaceOrientation
+        let isLandscape = UIDevice.current.orientation.isActuallyLandscape
         
-        if orientation == .portrait || orientation == .portraitUpsideDown {
-            deactivate.append(contentsOf: regularConstraints[0].isActive ? regularConstraints : [])
-            activate.append(contentsOf: regularCompactConstraints)
+        if isLandscape {
+            
+            if view.frame.width+5 == UIScreen.main.bounds.width/2 {
+                // Multitasking half screen
+                deactivate.append(contentsOf: regularConstraints[0].isActive ? regularConstraints : [])
+                deactivate.append(contentsOf: regularCompactConstraints[0].isActive ? regularCompactConstraints : [])
+                activate.append(contentsOf: compactRegularConstraints)
+                
+            } else if view.frame.width < UIScreen.main.bounds.width/2 {
+                // Multitasking less than half screen
+                deactivate.append(contentsOf: regularConstraints[0].isActive ? regularConstraints : [])
+                deactivate.append(contentsOf: regularCompactConstraints[0].isActive ? regularCompactConstraints : [])
+                activate.append(contentsOf: compactRegularConstraints)
+                
+            } else if view.frame.width == UIScreen.main.bounds.width {
+                // Full screen
+                deactivate.append(contentsOf: compactRegularConstraints[0].isActive ? compactRegularConstraints : [])
+                deactivate.append(contentsOf: regularCompactConstraints[0].isActive ? regularCompactConstraints : [])
+                activate.append(contentsOf: regularConstraints)
+                
+            } else {
+                // Multitasking more than half screen
+                deactivate.append(contentsOf: compactRegularConstraints[0].isActive ? compactRegularConstraints : [])
+                deactivate.append(contentsOf: regularConstraints[0].isActive ? regularConstraints : [])
+                activate.append(contentsOf: regularCompactConstraints)
+            }
+            
         } else {
-            deactivate.append(contentsOf: regularCompactConstraints[0].isActive ? regularCompactConstraints : [])
-            activate.append(contentsOf: regularConstraints)
+            
+            if view.frame.width < UIScreen.main.bounds.width/2 {
+                // Multitasking less than half screen
+                deactivate.append(contentsOf: regularConstraints[0].isActive ? regularConstraints : [])
+                deactivate.append(contentsOf: regularCompactConstraints[0].isActive ? regularCompactConstraints : [])
+                activate.append(contentsOf: compactRegularConstraints)
+            
+            } else if view.frame.width == UIScreen.main.bounds.width {
+                // Full screen
+                deactivate.append(contentsOf: compactRegularConstraints[0].isActive ? compactRegularConstraints : [])
+                deactivate.append(contentsOf: regularConstraints[0].isActive ? regularConstraints : [])
+                activate.append(contentsOf: regularCompactConstraints)
+            } else {
+                // Multitasking more than half screen
+                deactivate.append(contentsOf: regularConstraints[0].isActive ? regularConstraints : [])
+                deactivate.append(contentsOf: regularCompactConstraints[0].isActive ? regularCompactConstraints : [])
+                activate.append(contentsOf: compactRegularConstraints)
+            }
         }
         
         NSLayoutConstraint.deactivate(deactivate)
@@ -411,7 +458,7 @@ internal class NotebooksSelectionViewController: UIViewController {
             alertController.addAction(editAction)
         }
 
-        if UIDevice.current.userInterfaceIdiom == .pad {
+        if UIDevice.current.userInterfaceIdiom == .pad || UIDevice.current.userInterfaceIdiom == .mac {
             alertController.popoverPresentationController?.sourceView = cell
         }
         self.present(alertController, animated: true, completion: nil)
