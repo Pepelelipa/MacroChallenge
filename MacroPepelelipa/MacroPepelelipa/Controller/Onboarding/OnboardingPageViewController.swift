@@ -14,6 +14,18 @@ class OnboardingPageViewController: UIPageViewController {
     
     private lazy var onboardingPageViewDataSource = OnboardingPageViewControllerDataSource(pages: pages)
     
+    private lazy var onboardingPageViewDelegeta = OnboardingPageViewControllerDelegate(pages: pages) { [unowned self] (currentPage) in
+        self.pageControl.currentPage = currentPage
+        
+        if currentPage == 4 {
+            self.startButton.isHidden = false
+            self.backgroundButtonView.isHidden = false
+        } else {
+            self.startButton.isHidden = true
+            self.backgroundButtonView.isHidden = true
+        }
+    }
+    
     private lazy var pageControl: UIPageControl = {
         let pg = UIPageControl(frame: .zero)
     
@@ -95,7 +107,7 @@ class OnboardingPageViewController: UIPageViewController {
         super.viewDidLoad()
         
         self.dataSource = onboardingPageViewDataSource
-        self.delegate = self
+        self.delegate = onboardingPageViewDelegeta
     
         self.navigationController?.navigationBar.isTranslucent = true
         self.navigationController?.navigationBar.backgroundColor = .clear
@@ -156,23 +168,5 @@ class OnboardingPageViewController: UIPageViewController {
             startButton.widthAnchor.constraint(equalTo: backgroundButtonView.widthAnchor),
             startButton.heightAnchor.constraint(equalTo: backgroundButtonView.heightAnchor)
         ])
-    }
-}
-
-extension OnboardingPageViewController: UIPageViewControllerDelegate {
-    func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
-        if let viewControllers = pageViewController.viewControllers {
-            if let viewControllerIndex = self.pages.firstIndex(of: viewControllers[0]) {
-                self.pageControl.currentPage = viewControllerIndex
-            }
-        }
-        
-        if pageControl.currentPage == 4 {
-            startButton.isHidden = false
-            backgroundButtonView.isHidden = false
-        } else {
-            startButton.isHidden = true
-            backgroundButtonView.isHidden = true
-        }
     }
 }
