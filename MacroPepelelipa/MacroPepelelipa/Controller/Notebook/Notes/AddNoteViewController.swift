@@ -32,8 +32,9 @@ internal class AddNoteViewController: UIViewController, AddNoteObserver {
         let txtName = UITextField()
         txtName.translatesAutoresizingMaskIntoConstraints = false
         txtName.placeholder = "New note title".localized()
+        txtName.adjustsFontSizeToFitWidth = true
         txtName.borderStyle = .none
-        txtName.font = .preferredFont(forTextStyle: .title1)
+        txtName.font = UIFont.defaultHeader.toStyle(.h3)
         txtName.tintColor = .actionColor
         txtName.addTarget(self, action: #selector(textChanged(_:)), for: .editingChanged)
         txtName.returnKeyType = UIReturnKeyType.done
@@ -54,12 +55,26 @@ internal class AddNoteViewController: UIViewController, AddNoteObserver {
         let btnConfirm = UIButton()
         btnConfirm.translatesAutoresizingMaskIntoConstraints = false
         btnConfirm.setTitle("Create new Note".localized(), for: .normal)
+        btnConfirm.titleLabel?.adjustsFontSizeToFitWidth = true
         btnConfirm.addTarget(self, action: #selector(btnConfirmTap), for: .touchUpInside)
         btnConfirm.tintColor = .white
         btnConfirm.setBackgroundImage(UIImage(named: "btnWorkspaceBackground"), for: .normal)
         btnConfirm.layer.cornerRadius = 22
+        btnConfirm.titleLabel?.font = UIFont.defaultHeader.toStyle(.h3)
+        btnConfirm.contentEdgeInsets = UIEdgeInsets(top: 10, left: 15, bottom: 10, right: 15)
 
         return btnConfirm
+    }()
+    
+    private lazy var dismissButton: UIButton = {
+        let button = UIButton()
+        button.tintColor = UIColor.placeholderColor
+        button.setBackgroundImage(UIImage(systemName: "xmark.circle"), for: .normal)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.addTarget(self, action: #selector(dismissPopUpView), for: .touchUpInside)
+        button.accessibilityLabel = "Dismiss pop-up label".localized()
+        button.accessibilityHint = "Dismiss note pop-up hint".localized()
+        return button
     }()
 
     private lazy var constraints: [NSLayoutConstraint] = {
@@ -70,7 +85,12 @@ internal class AddNoteViewController: UIViewController, AddNoteObserver {
             popupView.heightAnchor.constraint(greaterThanOrEqualTo: view.heightAnchor, multiplier: 0.18),
             popupView.widthAnchor.constraint(lessThanOrEqualTo: view.widthAnchor, multiplier: 0.8),
             
-            txtName.topAnchor.constraint(equalTo: popupView.topAnchor, constant: 20),
+            dismissButton.topAnchor.constraint(equalTo: popupView.topAnchor, constant: 16),
+            dismissButton.trailingAnchor.constraint(equalTo: popupView.trailingAnchor, constant: -16),
+            dismissButton.widthAnchor.constraint(equalTo: popupView.heightAnchor, multiplier: 0.15),
+            dismissButton.heightAnchor.constraint(equalTo: popupView.heightAnchor, multiplier: 0.15),
+            
+            txtName.topAnchor.constraint(equalTo: dismissButton.bottomAnchor, constant: 5),
             txtName.leadingAnchor.constraint(equalTo: popupView.leadingAnchor, constant: 30),
             txtName.trailingAnchor.constraint(equalTo: popupView.trailingAnchor, constant: -30),
             txtName.heightAnchor.constraint(equalToConstant: 40),
@@ -109,6 +129,7 @@ internal class AddNoteViewController: UIViewController, AddNoteObserver {
         view.addSubview(popupView)
         popupView.addSubview(txtName)
         popupView.addSubview(btnConfirm)
+        popupView.addSubview(dismissButton)
         btnConfirm.isEnabled = false
 
         let selfTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(selfTap))
@@ -145,6 +166,10 @@ internal class AddNoteViewController: UIViewController, AddNoteObserver {
     }
     
     // MARK: - IBActions functions
+    
+    @IBAction func dismissPopUpView() {
+        self.dismiss(animated: true, completion: nil)
+    }
 
     @IBAction func selfTap() {
         if txtName.isEditing {

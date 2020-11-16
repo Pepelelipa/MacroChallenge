@@ -16,36 +16,9 @@ internal class SearchResultViewController: UIViewController {
     private var sharedConstraints: [NSLayoutConstraint] = []
     private weak var ownerViewController: UIViewController?
     
-    internal lazy var collectionView: UICollectionView = {
-        let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
-        
-        layout.headerReferenceSize = CGSize(width: self.view.frame.width, height: 40)
-        
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
-        collectionView.backgroundColor = view.backgroundColor
-        collectionView.showsVerticalScrollIndicator = false
-        collectionView.allowsSelection = true
-        collectionView.allowsMultipleSelection = false
-        collectionView.contentInset = UIEdgeInsets(top: 20, left: 0, bottom: 20, right: 0)
-        collectionView.delegate = collectionDelegate
-        collectionView.dataSource = collectionDataSource
-        
-        collectionView.register(
-            WorkspaceCollectionViewCell.self,
-            forCellWithReuseIdentifier: WorkspaceCollectionViewCell.cellID())
-        collectionView.register(
-            NotebookCollectionViewCell.self,
-            forCellWithReuseIdentifier: NotebookCollectionViewCell.cellID())
-        collectionView.register(
-            SearchResultCollectionReusableView.self, 
-            forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, 
-            withReuseIdentifier: SearchResultCollectionReusableView.cellID())
-        
-        return collectionView
-    }()
-    
     private lazy var textViewBottomConstraint = collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+    private lazy var collectionDataSource = SearchResultCollectionViewDataSource(viewController: ownerViewController, collectionView: {
+        self.collectionView })
     
     private lazy var collectionDelegate = SearchResultCollectionViewDelegate { [unowned self] (selectedCell) in
         if let workspaceCell = selectedCell as? WorkspaceCollectionViewCell {
@@ -76,10 +49,36 @@ internal class SearchResultViewController: UIViewController {
         }
     }
     
-    private lazy var collectionDataSource = SearchResultCollectionViewDataSource(viewController: ownerViewController, collectionView: {
-        self.collectionView })
+    internal lazy var collectionView: UICollectionView = {
+        let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
+        
+        layout.headerReferenceSize = CGSize(width: self.view.frame.width, height: 40)
+        
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        collectionView.backgroundColor = view.backgroundColor
+        collectionView.showsVerticalScrollIndicator = false
+        collectionView.allowsSelection = true
+        collectionView.allowsMultipleSelection = false
+        collectionView.contentInset = UIEdgeInsets(top: 20, left: 0, bottom: 20, right: 0)
+        collectionView.delegate = collectionDelegate
+        collectionView.dataSource = collectionDataSource
+        
+        collectionView.register(
+            WorkspaceCollectionViewCell.self,
+            forCellWithReuseIdentifier: WorkspaceCollectionViewCell.cellID())
+        collectionView.register(
+            NotebookCollectionViewCell.self,
+            forCellWithReuseIdentifier: NotebookCollectionViewCell.cellID())
+        collectionView.register(
+            SearchResultCollectionReusableView.self, 
+            forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, 
+            withReuseIdentifier: SearchResultCollectionReusableView.cellID())
+        
+        return collectionView
+    }()
     
-    // MARK: - Init
+    // MARK: - Initializers
     
     init(owner: UIViewController? = nil) {
         self.ownerViewController = owner
@@ -150,17 +149,8 @@ internal class SearchResultViewController: UIViewController {
         layoutTrait(traitCollection: traitCollection)
     }
     
-    // MARK: - Objc Functions
-    
-    @objc func keyboardWillShow(_ notification: Notification) {
-        if let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
-            let height = keyboardFrame.cgRectValue.height
-            setTextViewConstant(to: -height)
-        }
-    }
-    
-    @objc func keyboardWillHide(_ notification: Notification) {
-        setTextViewConstant(to: 0)
+    override func viewDidLayoutSubviews() {
+        collectionDelegate.frame = view.frame
     }
     
     // MARK: - Functions
@@ -169,7 +159,7 @@ internal class SearchResultViewController: UIViewController {
         collectionView.collectionViewLayout.invalidateLayout()
         for visibleCell in collectionView.visibleCells {
             if let workspaceCell = visibleCell as? WorkspaceCollectionViewCell {
-                workspaceCell.invalidateLayout()
+                workspaceCell.updateLayout()
             }
         }
     }
@@ -181,9 +171,7 @@ internal class SearchResultViewController: UIViewController {
         }
     }
     
-    /**
-     This private method sets the constraints for different size classes and devices.
-     */
+    /// This private method sets the constraints for different size classes and devices.
     private func setConstraints() {
         sharedConstraints.append(contentsOf: [
             collectionView.topAnchor.constraint(equalTo: view.topAnchor),
@@ -239,5 +227,18 @@ internal class SearchResultViewController: UIViewController {
         default:
             return
         }
+    }
+    
+    // MARK: - Objective-C Functions
+    
+    @objc func keyboardWillShow(_ notification: Notification) {
+        if let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
+            let height = keyboardFrame.cgRectValue.height
+            setTextViewConstant(to: -height)
+        }
+    }
+    
+    @objc func keyboardWillHide(_ notification: Notification) {
+        setTextViewConstant(to: 0)
     }
 }

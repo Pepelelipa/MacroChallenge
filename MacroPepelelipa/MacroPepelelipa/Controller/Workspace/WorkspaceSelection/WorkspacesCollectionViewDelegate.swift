@@ -15,6 +15,7 @@ internal class WorkspacesCollectionViewDelegate: NSObject,
     // MARK: - Variables and Constants
     
     private var didSelectCell: ((WorkspaceCollectionViewCell) -> Void)?
+    internal var frame: CGRect = CGRect()
     
     // MARK: - Initializers
     
@@ -35,44 +36,18 @@ internal class WorkspacesCollectionViewDelegate: NSObject,
     }
     
     // MARK: - UICollectionViewDelegateFlowLayout functions
-
+    
     internal func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let width: CGFloat
-        let height: CGFloat
-        let isLandscape = UIDevice.current.orientation.isActuallyLandscape
-        if UIDevice.current.userInterfaceIdiom == .pad {
-            if collectionView.isEditing {
-                width = collectionView.bounds.width/2.1
-                height = 90
-            } else if isLandscape {
-                width = collectionView.bounds.width/2 - 25
-                height = width/1.6
-            } else {
-                width = collectionView.bounds.width/2.1
-                height = width/1.5
-            }
-        } else {
-            if collectionView.isEditing {
-                width = collectionView.bounds.width
-                height = 70
-            } else if isLandscape {
-                width = collectionView.bounds.width/2.1
-                height = width/1.45
-            } else {
-                width = collectionView.bounds.width
-                height = width/1.45
-            }
-        }
-        return CGSize(width: width, height: height)
+        return ItemSizeHelper.workspaceItemSize(at: collectionView, for: frame)
     }
-
+    
     internal func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        if UIDevice.current.userInterfaceIdiom == .pad {
+        if UIDevice.current.userInterfaceIdiom == .pad || UIDevice.current.userInterfaceIdiom == .mac {
             return 50
         }
         return 20
     }
-
+    
     internal func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return .init(top: 0, left: 0, bottom: 0, right: 0)
     }

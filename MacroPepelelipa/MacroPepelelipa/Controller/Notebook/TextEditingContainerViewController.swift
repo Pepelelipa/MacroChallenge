@@ -17,6 +17,28 @@ internal class TextEditingContainerViewController: UIViewController,
     
     // MARK: - Variables and Constants
     
+    internal static let deleteCommand: UIKeyCommand = {
+        let command = UIKeyCommand(title: "Delete note".localized(),
+                                   image: nil,
+                                   action: #selector(deleteNote),
+                                   input: "\u{8}",
+                                   modifierFlags: .command,
+                                   propertyList: nil)
+        command.discoverabilityTitle = "Delete note".localized()
+        return command
+    }()
+    
+    internal static let newNoteCommand: UIKeyCommand = {
+        let command = UIKeyCommand(title: "New note".localized(),
+                                   image: nil,
+                                   action: #selector(createNote),
+                                   input: "N",
+                                   modifierFlags: .command,
+                                   propertyList: nil)
+        command.discoverabilityTitle = "New note".localized()
+        return command
+    }()
+    
     private var movement: CGFloat?
     private var isShowingIndex: Bool = false
     private var centerViewController: NotesPageViewController?
@@ -28,6 +50,16 @@ internal class TextEditingContainerViewController: UIViewController,
         let item = UIBarButtonItem(ofType: .index, 
                                    target: self, 
                                    action: #selector(presentNotebookIndex))
+        
+        item.accessibilityLabel = "Index button label".localized()
+        item.accessibilityHint = "Index button hint".localized()
+        
+        return item
+    }()
+    
+    private lazy var presentTipButton: UIBarButtonItem = {
+        let item = UIBarButtonItem(image: UIImage(systemName: "info.circle"), style: .plain, target: self, action: #selector(presentTip))
+
         return item
     }()
     
@@ -35,6 +67,9 @@ internal class TextEditingContainerViewController: UIViewController,
         let item = UIBarButtonItem(ofType: .done,
                                    target: self,
                                    action: #selector(closeKeyboard))
+        
+        item.accessibilityLabel = "Done".localized()
+        item.accessibilityHint = "End editing hint".localized()
         
         return item
     }()
@@ -86,20 +121,14 @@ internal class TextEditingContainerViewController: UIViewController,
         self.init(centerViewController: centerViewController)
     }
     
-    public override var keyCommands: [UIKeyCommand]? {
-        return [
-            UIKeyCommand(title: "Bold", image: nil,
-                         action: #selector(notesViewController?.textView.toggleBoldface(_:)),
-                         input: "b", modifierFlags: .command,
-                         propertyList: nil, alternates: [],
-                         discoverabilityTitle: "Text Editing VC", attributes: .hidden, state: .mixed)
-        ]
-    }
-    
     // MARK: - Override functions
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        addKeyCommand(TextEditingContainerViewController.deleteCommand)
+        addKeyCommand(TextEditingContainerViewController.newNoteCommand)
+        
         if let centerViewController = self.centerViewController {
             showCenterViewController(centerViewController)
         } else {
@@ -107,9 +136,9 @@ internal class TextEditingContainerViewController: UIViewController,
         }
 
         if (try? notesViewController?.note?.getNotebook().getWorkspace().isEnabled) ?? false {
-            navigationItem.rightBarButtonItems = [notebookIndexButton]
+            navigationItem.rightBarButtonItems = [notebookIndexButton, presentTipButton]
         } else {
-            navigationItem.rightBarButtonItems = [notebookIndexButton]
+            navigationItem.rightBarButtonItems = [notebookIndexButton, presentTipButton]
         }
         navigationItem.largeTitleDisplayMode = .never
         navigationItem.titleView = markupNavigationView
@@ -231,7 +260,7 @@ internal class TextEditingContainerViewController: UIViewController,
                                                                           size: .init(width: 380, height: 110))
 
         markupContainerViewController.modalPresentationStyle = .popover
-        markupContainerViewController.popoverPresentationController?.sourceView = markupNavigationView.barButtonItems[4]
+        markupContainerViewController.popoverPresentationController?.sourceView = markupNavigationView.barButtonItems[.format]
 
         present(markupContainerViewController, animated: true)
     }
@@ -272,21 +301,31 @@ internal class TextEditingContainerViewController: UIViewController,
         }
     }
 
-    internal func presentPicker() {
-        guard let noteController = centerViewController?.viewControllers?.first as? NotesViewController else {
-            return
-        }
-        
-        noteController.presentPicker()
-    }
-
     internal func changeTextViewInput(isCustom: Bool) {
         if let noteController = centerViewController?.viewControllers?.first as? NotesViewController {
             noteController.changeTextViewInput(isCustom: isCustom)
         }
     }
     
+    /// This method presentes the photo picker for iOS and iPadOS
+    func presentPhotoPicker() {
+        (centerViewController?.viewControllers?.first as? NotesViewController)?.presentPhotoPicker()
+    }
+    
+    /// This method presentes the camera picker for iOS and iPadOS
+    func presentCameraPicker() {
+        (centerViewController?.viewControllers?.first as? NotesViewController)?.presentCameraPicker()
+    }
+    
     // MARK: - IBActions functions
+    
+    @IBAction private func createNote() {
+        self.centerViewController?.createNote()
+    }
+    
+    @IBAction private func deleteNote() {
+        self.centerViewController?.deleteNote()
+    }
     
     @IBAction private func presentMoreActions() {
         guard let pageViewController = centerViewController,
@@ -326,22 +365,42 @@ internal class TextEditingContainerViewController: UIViewController,
     ///This method checks if the notebook index is already appearing on screen or not. If it isn't appearing on screen, instaciates NotebookIndexViewController and peform an animation to show it. If it is appearing on screen, peform an animation to hide it.
     @IBAction private func presentNotebookIndex() {
         
-        if let rightViewController = rightViewController {
-            hideIndex(rightViewController)
+        let isLandscape = UIDevice.current.orientation.isActuallyLandscape
         
-        } else if let notebook = centerViewController?.notebook {
-            showIndex(for: notebook)
-        
-        } else {
-            // Present error alert
-            let alertController = UIAlertController(
-                title: "Error presenting Notebook Index".localized(),
-                message: "The app could not present the Notebook Index".localized(),
-                preferredStyle: .alert)
-                .makeErrorMessage(with: "The app could not load the NotebookIndexViewController".localized())
+        if view.frame.width == UIScreen.main.bounds.width ||
+            (view.frame.width > UIScreen.main.bounds.width/2 && isLandscape) {
+            if let rightViewController = rightViewController {
+                hideIndex(rightViewController)
             
-            present(alertController, animated: true, completion: nil)
+            } else if let notebook = centerViewController?.notebook {
+                showIndex(for: notebook)
+            
+            } else {
+                // Present error alert
+                let alertController = UIAlertController(
+                    title: "Error presenting Notebook Index".localized(),
+                    message: "The app could not present the Notebook Index".localized(),
+                    preferredStyle: .alert)
+                    .makeErrorMessage(with: "The app could not load the NotebookIndexViewController".localized())
+                
+                present(alertController, animated: true, completion: nil)
+            }
+        } else {
+            if let presentNotebook = centerViewController?.notebook,
+               let index = centerViewController?.index,
+               let presentNote = centerViewController?.notes[index] {
+                
+                let notebookIndexViewController = NotebookIndexViewController(notebook: presentNotebook, 
+                                                                              note: presentNote)
+                notebookIndexViewController.observer = self
+                self.present(notebookIndexViewController, animated: true, completion: nil)
+            }
         }
+    }
+    
+    @IBAction private func presentTip() {
+        let tipViewController = TipViewController()
+        self.present(tipViewController, animated: true, completion: nil)
     }
     
     // This method is called when the UIBarButton for the done button is pressed and it closes the keyboard

@@ -24,6 +24,10 @@ internal class MarkdownContainerView: MarkdownFormatView, TextEditingDelegateObs
         let button = UIButton()
         button.tintColor = UIColor.placeholderColor
         button.setBackgroundImage(UIImage(systemName: "xmark.circle"), for: .normal)
+        button.accessibilityLabel = "Exit formatting label".localized()
+        if UIDevice.current.userInterfaceIdiom == .phone {
+            button.accessibilityHint = "Exit formatting hint".localized()            
+        }
         button.translatesAutoresizingMaskIntoConstraints = false
         button.addTarget(self, action: #selector(dismiss), for: .touchUpInside)
         return button
@@ -64,8 +68,8 @@ internal class MarkdownContainerView: MarkdownFormatView, TextEditingDelegateObs
         backgroundView.addSubview(dismissButton)
         backgroundView.addSubview(formatLabel)
         createConstraints()
-
-        (viewController?.textView.delegate as? AppMarkdownTextViewDelegate)?.addTextObserver(self)
+        
+        receiver?.delegate?.addTextObserver(self)
     }
     
     ///This method sets the constraints for the inner elements of the container view.
@@ -110,7 +114,7 @@ internal class MarkdownContainerView: MarkdownFormatView, TextEditingDelegateObs
     // MARK: - Functions
 
     @objc func dismiss() {
-        viewController?.changeTextViewInput(isCustom: false)
+        receiver?.changeTextViewInput(isCustom: false)
     }
     
     ///This method sets the contraints for the font selector buttons.

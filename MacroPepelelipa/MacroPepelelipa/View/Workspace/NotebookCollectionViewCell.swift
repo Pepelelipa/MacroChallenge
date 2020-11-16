@@ -23,6 +23,7 @@ internal class NotebookCollectionViewCell: UICollectionViewCell, EditableCollect
                 if (try? notebook?.getWorkspace().isEnabled) ?? false {
                     disclosureIndicator.isHidden = false
                     minusIndicator.isHidden = false
+                    lblName.accessibilityHint = "Edit notebook name hint".localized()
                 }
             } else {
                 layer.cornerRadius = 0
@@ -31,10 +32,13 @@ internal class NotebookCollectionViewCell: UICollectionViewCell, EditableCollect
                 NSLayoutConstraint.activate(notEditingConstraints)
                 minusIndicator.isHidden = true
                 disclosureIndicator.isHidden = true
+                lblName.accessibilityHint = "Long press hint".localized()
             }
         }
     }
+    
     internal var entityShouldBeDeleted: ((ObservableEntity) -> Void)?
+    
     internal var text: String? {
         get {
             return lblName.text
@@ -51,6 +55,12 @@ internal class NotebookCollectionViewCell: UICollectionViewCell, EditableCollect
                 if let colorName = self.notebook?.colorName,
                    let color = UIColor(named: colorName) {
                     self.notebookView.color = color
+                    self.lblName.accessibilityValue = String(format: "color notebook".localized(), colorName.localized())
+                }
+                
+                if let name = self.notebook?.name {
+                    self.minusIndicator.accessibilityHint = String(format: "Delete notebook hint".localized(), name)
+                    self.minusIndicator.accessibilityLabel = String(format: "Delete notebook label".localized(), name)
                 }
             }
         }
@@ -58,11 +68,14 @@ internal class NotebookCollectionViewCell: UICollectionViewCell, EditableCollect
 
     private let lblName: UILabel = {
         let lbl = UILabel(frame: .zero)
-        lbl.numberOfLines = 0
+        lbl.numberOfLines = 2
+        lbl.adjustsFontSizeToFitWidth = true
         lbl.textColor = UIColor.titleColor ?? .black
         lbl.font = UIFont.defaultHeader.toStyle(.h3)
         lbl.textAlignment = .left
         lbl.translatesAutoresizingMaskIntoConstraints = false
+        
+        lbl.accessibilityHint = "Long press hint".localized()
 
         return lbl
     }()
@@ -72,6 +85,8 @@ internal class NotebookCollectionViewCell: UICollectionViewCell, EditableCollect
         imageView.tintColor = .actionColor
         imageView.isHidden = true
 
+        imageView.isAccessibilityElement = false
+        
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
@@ -100,8 +115,8 @@ internal class NotebookCollectionViewCell: UICollectionViewCell, EditableCollect
             notebookView.centerXAnchor.constraint(equalTo: centerXAnchor),
             notebookView.topAnchor.constraint(equalTo: topAnchor),
             notebookView.widthAnchor.constraint(equalTo: widthAnchor),
-            notebookView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.8),
-            lblName.centerYAnchor.constraint(equalTo: notebookView.bottomAnchor, constant: 20),
+            notebookView.heightAnchor.constraint(equalTo: widthAnchor, multiplier: 1.25),
+            lblName.topAnchor.constraint(equalTo: notebookView.bottomAnchor, constant: 10),
             lblName.leadingAnchor.constraint(equalTo: notebookView.leadingAnchor),
             lblName.trailingAnchor.constraint(equalTo: trailingAnchor)
         ]
@@ -162,6 +177,8 @@ internal class NotebookCollectionViewCell: UICollectionViewCell, EditableCollect
     internal func setNotebook(_ notebook: NotebookEntity) {
         self.notebook = notebook
     }
+    
+    // MARK: - Objective-C Functions
 
     @objc internal func deleteTap() {
         if let notebook = notebook {

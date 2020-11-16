@@ -1,0 +1,42 @@
+{
+  "images" : [
+    {
+      "filename" : "Format English Light.pdf",
+      "idiom" : "universal"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "Format English Dark.pdf",
+      "idiom" : "universal"
+    },
+    {
+      "filename" : "Format Portuguese Light.pdf",
+      "idiom" : "universal",
+      "locale" : "pt-BR"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "Format Portuguese Dark.pdf",
+      "idiom" : "universal",
+      "locale" : "pt-BR"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  },
+  "properties" : {
+    "localizable" : true,
+    "preserves-vector-representation" : true
+  }
+}

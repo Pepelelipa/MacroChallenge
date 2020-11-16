@@ -16,8 +16,10 @@
 "Start writing here" = "Não esquece de colocar o que tá acontecendo na sua aula, enquanto você tá jogando joguinho...";
 "Your Title" = "Vem aqui colocar o seu título!";
 "Format" = "Formatação";
+"New workspace" = "Nova coleção";
 "New workspace name" = "Nome da nova coleção";
 "Create new workspace" = "Criar nova coleção";
+"New notebook" = "Novo caderno";
 "New notebook name" = "Nome do novo caderno";
 "Create new notebook" = "Criar novo caderno";
 "Done" = "OK";
@@ -123,7 +125,166 @@
 "Save Notebook" = "Salvar Caderno";
 "Edit Workspace" = "Editar Coleção";
 "Edit Notebook" = "Editar Caderno";
+"Edit" = "Editar";
+"Find" = "Buscar";
+"New note" = "Nova nota";
+"Delete note" = "Excluir nota";
+"Import image" = "Importar imagem";
+"Import" = "Importar";
+"Export note as PDF" = "Exportar nota como PDF";
+"Export" = "Exportar";
+"An error has occurred while exporting the PDF" = "Um erro ocorreu ao exportar o PDF";
+"The app could not export the file as a PDF" = "O aplicativo não pôde exportar o arquivo como PDF";
+"Error writing data to the designed url" = "Erro ao transcrever dados para o URL designada";
+"Export notebook as PDF" = "Exportar caderno como PDF";
+
+// MARK: - Accessibility
+
+"Editing enabled" = "Edição habilitada";
+"Editing disabled" = "Edição desabilitada";
+
+"Long press hint" = "Toque duas vezes e segure para mais opções";
+
+"Edit workspaces hint" = "Ative o botão para editar suas coleções";
+"Edit workspaces label" = "Editar: habilita o modo de edição para todas as suas coleções";
+
+"Add workspace hint" = "Ative o botão para adicionar uma nova coleção";
+"Add workspace label" = "Adicionar uma nova coleção";
+
+"Delete workspace hint" = "Ative o botão para excluir a coleção %@";
+"Delete workspace label" = "Excluir a coleção %@";
+
+"Edit workspace name hint" = "Toque duas vezes para editar o nome desta coleção";
+
+"Add notebook hint" = "Ative o botão para adicionar um novo caderno";
+"Add notebook label" = "Adicionar um novo caderno";
+
+"color notebook" = "Caderno %@";
+
+"Edit notebooks hint" = "Ative o botão para editar os cadernos nesta coleção";
+"Edit notebooks label" = "Editar: habilita o modo de edição para todos os cadernos nesta coleção";
+
+"Delete notebook hint" = "Ative o botão para excluir o caderno %@";
+"Delete notebook label" = "Excluir o caderno %@";
+
+"Edit notebook name hint" = "Toque duas vezes para editar as informações deste caderno";
+
+"Note title" = "Título da nota";
+"Note title hint" = "Insira o título da nota neste campo de texto";
+
+"Index" = "Sumário";
+"Index button label" = "Sumário do caderno %@";
+"Index button hint" = "Toque duas vezes para ir para o sumário deste caderno";
+
+"Delete note label" = "Apagar nota";
+"Delete note hint" = "Toque duas vezes para apagar a nota";
+
+"Add image label" = "Adicionar imagem";
+"Add image hint" = "Toque duas vezes para adicionar uma imagem à nota";
+"Add from camera label" = "Tire uma foto";
+"Add from camera hint" = "Toque duas vezes para tirar uma foto para a sua nota";
+"Add from library label" = "Adicione uma foto da biblioteca";
+"Add from library hint" = "Toque duas vezes para escolher uma foto de sua galeria";
+
+"Share note label" = "Compartilhar nota";
+"Share note hint" = "Toque duas vezes para compartilhar esta nota";
+
+"New note label" = "Escrever nova nota";
+"New note hint" = "Toque duas vezes para adicionar uma nova nota no final deste caderno";
+
+"Dismiss pop-up label" = "Fechar pop-up";
+"Dismiss collection pop-up hint" = "Toque duas vezes para sair do pop-up de criação de uma nova coleção";
+"Dismiss notebook pop-up hint" = "Toque duas vezes para sair do pop-up de criação de um novo caderno";
+"Dismiss note pop-up hint" = "Toque duas vezes para sair do pop-up de criação de uma nova nota";
+
+"Index hint" = "Toque duas vezes para ir para a nota %@";
+
+"Selected" = "Selecionada";
+
+"Text box hint" = "Toque duas vezes para adicionar uma caixa de texto à sua nota";
+
+"Format hint" = "Toque duas vezes para começar a formatar seu texto";
+
+"Exit formatting label" = "Sair da formatação";
+"Exit formatting hint" = "Toque duas vezes para sair da formatação e retornar à digitação";
+
+"Color selector" = "Seletor de côr";
+"Color selector hint" = "Toque duas vezes para mudar a cor de texto para %@";
+
+"Bold" = "Negrito";
+"Italic" = "Itálico";
+"Highlight" = "Destaque";
+
+"Format hint" = "Toque duas vezes para formatar o texto com negrito, itálico, marca-texto, cor e fonte";
+
+"Merriweather" = "Méuriwédêr";
+"Open Sans" = "Oupen Sans";
+"Dancing" = "Déncin script";
+"Font hint" = "Toque duas vezes para mudar a fonte do texto para %@";
+"Serif" = "Serifada";
+"Sans-serif" = "Não serifada";
+"Cursive" = "Cursiva";
+
+"List label" = "Crie listas";
+"List hint" = "Toque duas vezes para criar listas não númericas e númericas";
+
+"Paragraph hint" = "Toque duas vezes para trocar o tipo de parágrafo";
+
+"End editing hint" = "Double tap to end editing";
+
+"Filter Workspaces Hint" = "Mostrando cadernos e workspaces da pesquisa";
+"Filter Notebooks Hint" = "Mostrando os cadernos da pesquisa";
+
+// MARK: - Colors
+
+"Text body color" = "Cor de corpo de texto";
+"nb0" = "Azul Aero";
+"nb1" = "Jeans Azul";
+"nb2" = "Azul Centáurea";
+"nb3" = "Verdete";
+"nb4" = "Alga Marinha";
+"nb5" = "Rainha Azul";
+"nb6" = "Verde Floresta";
+"nb7" = "Meio Verde";
+"nb8" = "Samabaia Verde";
+"nb9" = "Ouro";
+"nb10" = "Calêndula";
+"nb11" = "Amarelo Alaranjado";
+"nb12" = "Rosa Congo";
+"nb13" = "Mandarim";
+"nb14" = "Difusa";
+"nb15" = "Vermelho RYB";
+"nb16" = "Vermelho Sangue";
+"nb17" = "Vermelho Internacional";
+"nb18" = "Violeta";
+"nb19" = "Fúcsia";
+"nb20" = "Azul liberdade";
+"nb21" = "Azul cadete";
+"nb22" = "Azul sombra";
+"nb23" = "Fígado escuro";
 "Library" = "Biblioteca";
 "Camera" = "Câmera";
 "Tip for transcripting text" = "Dica: você consegue transcrever texto de imagem.";
 "Choose your image" = "Escolha a sua imagem";
+"Bold" = "Negrito";
+"Italic" = "Italico";
+"Highlighted" = "Marca Texto";
+"Underline" = "Sublinhado";
+"Bold explanation" = "**seu texto**";
+"Italic explanation" = "*seu texto*";
+"Highlighted explanation" = "::seu texto::";
+"Underline explanation" = "~~seu texto~~";
+"Settings Bar" = "Barra de Configurações";
+"InputView explanation" = "Você também pode acessar as mesmas opções através da Barra de Configuração, localizado na parte inferior da tela.";
+"Tips" = "Dicas";
+"List style" = "Estilo de lista";
+"Paragraph style" = "Estilo de parágrafo";
+"Import image" = "Importar imagem";
+"Add text box" = "Adicionar caixa de texto";
+"Bullet list" = "Lista de tópicos";
+"Numeric list" = "Lista numérica";
+"First Header" = "Primeiro cabeçalho";
+"Second Header" = "Segundo cabeçalho";
+"Third Header" = "Terceiro cabeçalho";
+"Paragraph" = "Parágrafo";
+
