@@ -105,6 +105,7 @@ internal class MarkdownFormatView: UIView, MarkdownObserver {
             )
             newButton.translatesAutoresizingMaskIntoConstraints = false
             newButton.addTarget(self, action: #selector(changeFont(_:)), for: .touchUpInside)
+            newButton.titleLabel?.adjustsFontSizeToFitWidth = true
             buttons[font.value] = newButton
         }
         
@@ -202,7 +203,7 @@ internal class MarkdownFormatView: UIView, MarkdownObserver {
         NSLayoutConstraint.activate([
             merriweather.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 16),
             dancing.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -16),
-            openSans.leadingAnchor.constraint(equalTo: merriweather.trailingAnchor, constant: 6)
+            openSans.leadingAnchor.constraint(equalTo: merriweather.trailingAnchor, constant: 15)
         ])
         
         for (key, selector) in fontSelector {
