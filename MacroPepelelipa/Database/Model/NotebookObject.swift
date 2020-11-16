@@ -133,6 +133,7 @@ internal class NotebookObject: NotebookEntity, CloudKitObjectWrapper {
         notifyObservers()
     }
     private func notifyObservers() {
+        workspace?.internalObjectsChanged()
         observers.forEach({ $0.entityDidChangeTo(self) })
     }
 }
