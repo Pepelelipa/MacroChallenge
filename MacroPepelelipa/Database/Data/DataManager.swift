@@ -14,7 +14,7 @@ public enum ObservableCreationType {
 }
 
 public class DataManager {
-    private lazy var dataSynchroninzer = DataSynchronizer(coreDataController: coreDataController, cloudKitController: cloudKitController, conflictHandler: {self.conflictHandler})
+    private lazy var dataSynchroninzer = DataSynchronizer(coreDataController: coreDataController, cloudKitController: cloudKitController, conflictHandler: { self.conflictHandler })
     private let coreDataController = CoreDataController()
     private let cloudKitController = CloudKitDataController()
     public var conflictHandler: ConflictHandler = DefaultConflictHandler()
@@ -62,7 +62,11 @@ public class DataManager {
         cloudKitController.fetchWorkspaces { (answer) in
             switch answer {
             case .successfulWith(let result as [CloudKitWorkspace]):
+                let count = workspaceObjects.count
                 self.fixDifferences(differentEntities: self.dataSynchroninzer.syncWorkspaces(&workspaceObjects, ckWorkspaces: result))
+                for i in count ..< workspaceObjects.count {
+                    self.notifyCreation(workspaceObjects[i], type: .workspace)
+                }
             case .fail(let error, _):
                 self.conflictHandler.errDidOccur(err: error)
             default:
@@ -72,49 +76,6 @@ public class DataManager {
         return workspaceObjects
     }
 
-    private func createReferencesIfNeeded(on workspaces: inout [WorkspaceObject], ckWorkspaces: [CloudKitWorkspace]) {
-
-    }
-
-    private func findDifferences(workspaces: [WorkspaceObject]) -> [PersistentEntity] {
-        //Checking for different entities(one to one not to replace a whole workspace in CloudKit, taking longer but saving request data)
-        var differentEntities: [PersistentEntity] = []
-        for workspaceObject in workspaces {
-            for notebookObject in workspaceObject.notebooks {
-                for noteObject in notebookObject.notes {
-                    for textBoxObject in noteObject.textBoxes {
-                        if let textBoxObject = textBoxObject as? TextBoxObject,
-                           let ckObject = textBoxObject.cloudKitTextBox,
-                           !(ckObject == textBoxObject.coreDataTextBox) {
-                            differentEntities.append(textBoxObject)
-                        }
-                    }
-                    for imageBoxObject in noteObject.images {
-                        if let imageBoxObject = imageBoxObject as? ImageBoxObject,
-                           let ckObject = imageBoxObject.cloudKitImageBox,
-                           !(ckObject == imageBoxObject.coreDataImageBox) {
-                            differentEntities.append(imageBoxObject)
-                        }
-                    }
-                    if let noteObject = notebookObject as? NoteObject,
-                       let ckObject = noteObject.cloudKitNote,
-                       !(ckObject == noteObject.coreDataNote) {
-                        differentEntities.append(noteObject)
-                    }
-                }
-                if let notebookObject = notebookObject as? NotebookObject,
-                   let ckObject = notebookObject.cloudKitNotebook,
-                   !(ckObject == notebookObject.coreDataNotebook) {
-                    differentEntities.append(notebookObject)
-                }
-            }
-            if let ckObject = workspaceObject.cloudKitWorkspace,
-               !(ckObject == workspaceObject.coreDataWorkspace) {
-                differentEntities.append(workspaceObject)
-            }
-        }
-        return differentEntities
-    }
     private func fixDifferences(differentEntities: [PersistentEntity]) {
         if differentEntities.isEmpty {
             return
@@ -253,7 +214,7 @@ public class DataManager {
         try coreDataController.deleteNotebook(notebookObject.coreDataNotebook)
         try notebookObject.removeReferences()
         if let ckNotebook = notebookObject.cloudKitNotebook {
-            cloudKitController.deleteNotebook(ckNotebook)
+            try cloudKitController.deleteNotebook(ckNotebook)
         }
         notifyDeletion(notebook, type: .notebook)
     }
@@ -297,7 +258,7 @@ public class DataManager {
         try coreDataController.deleteNote(noteObject.coreDataNote)
         try noteObject.removeReferences()
         if let ckNote = noteObject.cloudKitNote {
-            cloudKitController.deleteNote(ckNote)
+            try cloudKitController.deleteNote(ckNote)
         }
         notifyDeletion(note, type: .note)
     }
@@ -335,7 +296,7 @@ public class DataManager {
         try coreDataController.deleteTextBox(textBoxObject.coreDataTextBox)
         try textBoxObject.removeReferences()
         if let ckTextBox = textBoxObject.cloudKitTextBox {
-            cloudKitController.deleteTextBox(ckTextBox)
+            try cloudKitController.deleteTextBox(ckTextBox)
         }
     }
 
@@ -374,7 +335,7 @@ public class DataManager {
         try coreDataController.deleteImageBox(imageBoxObject.coreDataImageBox)
         try imageBoxObject.removeReferences()
         if let ckImageBox = imageBoxObject.cloudKitImageBox {
-            cloudKitController.deleteImageBox(ckImageBox)
+            try cloudKitController.deleteImageBox(ckImageBox)
         }
     }
 

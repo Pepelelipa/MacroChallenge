@@ -98,9 +98,12 @@ internal class CloudKitDataController {
      Deletes a notebook from CloudKit
      - Parameter notebook: Notebook to be deleted.
      */
-    internal func deleteNotebook(_ notebook: CloudKitNotebook) {
-        notebook.workspace?.value?.removeNotebook(notebook)
-        CloudKitDataConnector.deleteData(database: .Private, entitiesToDelete: [notebook])
+    internal func deleteNotebook(_ notebook: CloudKitNotebook) throws {
+        guard let workspace = notebook.workspace?.value else {
+            throw WorkspaceError.workspaceWasNull
+        }
+        workspace.removeNotebook(notebook)
+        saveData(entitiesToSave: [workspace], entitiesToDelete: [notebook])
     }
 
     // MARK: Note
@@ -154,9 +157,12 @@ internal class CloudKitDataController {
      Deletes a note from CloudKit
      - Parameter note: Note to be deleted.
      */
-    internal func deleteNote(_ note: CloudKitNote) {
-        note.notebook?.value?.removeNote(note)
-        CloudKitDataConnector.deleteData(database: .Private, entitiesToDelete: [note])
+    internal func deleteNote(_ note: CloudKitNote) throws {
+        guard let notebook = note.notebook?.value else {
+            throw NotebookError.notebookWasNull
+        }
+        notebook.removeNote(note)
+        saveData(entitiesToSave: [notebook], entitiesToDelete: [note])
     }
 
     // MARK: TextBox
@@ -198,9 +204,12 @@ internal class CloudKitDataController {
      Deletes a TextBox from CloudKit
      - Parameter textBox: TextBox to be deleted.
      */
-    internal func deleteTextBox(_ textBox: CloudKitTextBox) {
-        textBox.note?.value?.removeTextBox(textBox)
-        CloudKitDataConnector.deleteData(database: .Private, entitiesToDelete: [textBox])
+    internal func deleteTextBox(_ textBox: CloudKitTextBox) throws {
+        guard let note = textBox.note?.value else {
+            throw NoteError.noteWasNull
+        }
+        note.removeTextBox(textBox)
+        saveData(entitiesToSave: [note], entitiesToDelete: [textBox])
     }
 
     // MARK: ImageBox
@@ -242,9 +251,12 @@ internal class CloudKitDataController {
      Deletes a ImageBox from CloudKit
      - Parameter imageBox: ImageBox to be deleted.
      */
-    internal func deleteImageBox(_ imageBox: CloudKitImageBox) {
-        imageBox.note?.value?.removeImageBox(imageBox)
-        CloudKitDataConnector.deleteData(database: .Private, entitiesToDelete: [imageBox])
+    internal func deleteImageBox(_ imageBox: CloudKitImageBox) throws {
+        guard let note = imageBox.note?.value else {
+            throw NoteError.noteWasNull
+        }
+        note.removeImageBox(imageBox)
+        saveData(entitiesToSave: [note], entitiesToDelete: [imageBox])
     }
 
     // MARK: Saving

@@ -121,6 +121,7 @@ internal class CoreDataController {
 
             notebook.id = id
             notebook <- ckNotebook
+            notebook.workspace = workspace
 
             if let notes = ckNotebook.notes?.references {
                 for note in notes {
@@ -179,6 +180,7 @@ internal class CoreDataController {
 
             note.id = id
             note <- ckNote
+            note.notebook = notebook
 
             if let textBoxes = ckNote.textBoxes?.references {
                 for textBox in textBoxes {
@@ -243,6 +245,7 @@ internal class CoreDataController {
 
             textBox.id = id
             textBox <- ckTextBox
+            textBox.note = note
 
             try saveContext()
 
@@ -296,6 +299,7 @@ internal class CoreDataController {
             
             imageBox.id = id
             imageBox <- ckImageBox
+            imageBox.note = note
 
             try saveContext()
 
