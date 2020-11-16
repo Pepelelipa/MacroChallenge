@@ -126,7 +126,7 @@ internal class DataSynchronizer {
         //Each value that hasn't been removed doesn't have an online version, so create a CloudKit version
         for remainingResult in notebooks.values {
             do {
-                if let workspace = try workspaces.first(where: { try $0.getID().uuidString == remainingResult.0.id?.uuidString })?.cloudKitWorkspace {
+                if let workspace = try workspaces.first(where: { try $0.getID().uuidString == remainingResult.0.workspace?.id?.uuidString })?.cloudKitWorkspace {
                     remainingResult.1.cloudKitNotebook = self.cloudKitController.createNotebook(from: remainingResult.0, in: workspace)
                 } else {
                     conflictHandler().errDidOccur(err: WorkspaceError.workspaceWasNull)
@@ -207,7 +207,7 @@ internal class DataSynchronizer {
         //Each value that hasn't been removed doesn't have an online version, so create a CloudKit version
         for remainingResult in notes.values {
             do {
-                if let notebook = try notebooks.first(where: { try $0.getID().uuidString == remainingResult.0.id?.uuidString })?.cloudKitNotebook {
+                if let notebook = try notebooks.first(where: { try $0.getID().uuidString == remainingResult.0.notebook?.id?.uuidString })?.cloudKitNotebook {
                     remainingResult.1.cloudKitNote = self.cloudKitController.createNote(from: remainingResult.0, in: notebook)
                 } else {
                     conflictHandler().errDidOccur(err: NotebookError.notebookWasNull)
@@ -275,7 +275,7 @@ internal class DataSynchronizer {
         //Each value that hasn't been removed doesn't have an online version, so create a CloudKit version
         for remainingResult in textBoxes.values {
             do {
-                if let note = try notes.first(where: { try $0.getID().uuidString == remainingResult.0.id?.uuidString })?.cloudKitNote {
+                if let note = try notes.first(where: { try $0.getID().uuidString == remainingResult.0.note?.id?.uuidString })?.cloudKitNote {
                     remainingResult.1.cloudKitTextBox = self.cloudKitController.createTextBox(from: remainingResult.0, in: note)
                 } else {
                     conflictHandler().errDidOccur(err: NoteError.noteWasNull)
