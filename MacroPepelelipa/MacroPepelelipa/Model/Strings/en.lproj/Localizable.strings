@@ -108,17 +108,10 @@
 "Your first workspace" = "Tutorials";
 "Your first notebook" = "First notebook";
 "Welcome Note" = "Welcome Note";
-"Onboard intro" = "Purple Notebook is an app designed to be efficient and clean for students who need to take notes during classes.\nIt's really easy to learn how to use Purple Notebook. Let's dive in a quick tour.";
-"Workspace text" = "As you first open the app, you see your Workspaces. This is where your notebooks will be.\n\nTo create a Workspace simply tap on add, in the top right corner of your screen.\nTo delete, simply tap and hold into the desired Workspace and confirm the action.
-";
-"Notebook text" = "Within each workspace you possess many notebooks, in which you can have a lot of notes.\n\nTo create a notebook simply tap on add, in the top right corner of your screen.\nTo delete, tap and hold into the desired Notebook and confirm the action.";
 "Note Taking" = "Note Taking";
 "Writing" = "Writing";
-"Writing text" = "Just tap anywhere in the note to begin your text. If you're familiar to markdown, you can use the common shortcuts. If you're a new comer, our right side of the tool bar has got you covered! Try each one of them :)";
 "Floating Boxes" = "Floating Boxes";
-"Floating boxes text" = "If you want to create a floating box on your note, simply tap the Text Box or Image Box button.\nIf you'd like to delete it, long press it and confirm the action. Give it a try :)";
 "Markdown" = "Markdown";
-"Markdown text" = "As an app designed to be efficient, Purple Notebook allows you to use markdown to take notes during classes. It's a quick and powerful way to edit text while typing. Our Markdown Editor has a lot of tools to improve your text, including **Bold**, *Italic* and ::Highlight::.  If you wanna add lists, simply choose between numeric and bullet using 1. or * respectively.";
 "Search" = "Search";
 "Save workspace" = "Save workspace";
 "Save notebook" = "Save notebook";
