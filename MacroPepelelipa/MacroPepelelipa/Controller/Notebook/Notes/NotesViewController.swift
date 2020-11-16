@@ -11,7 +11,10 @@ import UIKit
 import Database
 import PhotosUI
 import MarkdownText
+
+#if targetEnvironment(macCatalyst)
 import AppKit
+#endif
 
 internal class NotesViewController: UIViewController, 
                                     TextEditingDelegateObserver,
@@ -774,7 +777,7 @@ internal class NotesViewController: UIViewController,
         }
     }
     
-    @available(macCatalyst 14, *)
+    #if targetEnvironment(macCatalyst)
     @IBAction private func importImage() {
         let documentPicker = UIDocumentPickerViewController(forOpeningContentTypes: [.image])
         documentPicker.delegate = documentPickerDelegate
@@ -788,7 +791,6 @@ internal class NotesViewController: UIViewController,
      - Parameter pdfData: The data to be writen into PDF.
      - Parameter title: The file title.
      */
-    @available(macCatalyst 14, *)
     private func exportPDF(_ pdfData: Data, title: String) {
         let fileManager = FileManager.default
         
@@ -808,7 +810,6 @@ internal class NotesViewController: UIViewController,
         }
     }
     
-    @available(macCatalyst 14, *)
     @IBAction private func exportNote() {
         guard let note = note else {
             return
@@ -827,11 +828,11 @@ internal class NotesViewController: UIViewController,
         exportPDF(pdfData, title: title)
     }
     
-    @available(macCatalyst 14, *)
     @IBAction private func exportNotebook() {
         guard let notebook = notebook else {
             return
         }
         exportPDF(notebook.createFullDocument(), title: notebook.name)
     }
+    #endif
 }

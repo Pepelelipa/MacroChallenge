@@ -3,6 +3,16 @@
     {
       "filename" : "Group 171.pdf",
       "idiom" : "universal"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "Italic tip dark.pdf",
+      "idiom" : "universal"
     }
   ],
   "info" : {
