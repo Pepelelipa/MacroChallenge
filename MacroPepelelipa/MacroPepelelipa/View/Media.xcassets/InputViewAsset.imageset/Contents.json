@@ -11,24 +11,8 @@
           "value" : "dark"
         }
       ],
-      "filename" : "Format English Dark-2.pdf",
+      "filename" : "Format English Dark.pdf",
       "idiom" : "universal"
-    },
-    {
-      "filename" : "Format English Light-1.pdf",
-      "idiom" : "universal",
-      "locale" : "en"
-    },
-    {
-      "appearances" : [
-        {
-          "appearance" : "luminosity",
-          "value" : "dark"
-        }
-      ],
-      "filename" : "Format English Dark-1.pdf",
-      "idiom" : "universal",
-      "locale" : "en"
     },
     {
       "filename" : "Format Portuguese Light.pdf",
