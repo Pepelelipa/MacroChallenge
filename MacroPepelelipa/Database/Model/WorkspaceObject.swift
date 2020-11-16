@@ -89,7 +89,6 @@ internal class WorkspaceObject: WorkspaceEntity, CloudKitObjectWrapper {
 
     internal func getSavable() -> [PersistentEntity] {
         var children: [PersistentEntity] = [self]
-        children.append(contentsOf: notebooks)
         if let notebooks = notebooks as? [NotebookObject] {
             for notebook in notebooks {
                 children.append(contentsOf: notebook.getSavable())

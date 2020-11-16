@@ -95,21 +95,13 @@ extension Note {
         lhs.text = (rhs.text.value ?? NSData()) as Data
     }
     static func == (lhs: Note, rhs: CloudKitNote) -> Bool {
-        let nsTitle: NSData?
-        if let title = lhs.title {
-            nsTitle = NSData(data: title)
-        } else {
-            nsTitle = nil
-        }
-        let title = nsTitle == rhs.title.value
+        let lTitle = lhs.title?.toAttributedString()
+        let rTitle = (rhs.title.value as Data?)?.toAttributedString()
+        let title = lTitle == rTitle
 
-        let nsText: NSData?
-        if let text = lhs.text {
-            nsText = NSData(data: text)
-        } else {
-            nsText = nil
-        }
-        let text = nsText == rhs.title.value
+        let lText = lhs.text?.toAttributedString()
+        let rText = (rhs.text.value as Data?)?.toAttributedString()
+        let text = lText == rText
 
         return title && text
     }
@@ -127,21 +119,13 @@ extension CloudKitNote {
         lhs.text.value = NSData(data: rhs.text ?? Data())
     }
     static func == (lhs: CloudKitNote, rhs: Note) -> Bool {
-        let nsTitle: NSData?
-        if let title = rhs.title {
-            nsTitle = NSData(data: title)
-        } else {
-            nsTitle = nil
-        }
-        let title = lhs.title.value == nsTitle
+        let lTitle = (lhs.title.value as Data?)?.toAttributedString()
+        let rTitle = rhs.title?.toAttributedString()
+        let title = lTitle == rTitle
 
-        let nsText: NSData?
-        if let text = rhs.text {
-            nsText = NSData(data: text)
-        } else {
-            nsText = nil
-        }
-        let text = lhs.title.value == nsText
+        let lText = (lhs.text.value as Data?)?.toAttributedString()
+        let rText = rhs.text?.toAttributedString()
+        let text = lText == rText
 
         return title && text
     }
@@ -163,13 +147,9 @@ extension TextBox {
         lhs.z = Float(rhs.z.value ?? .leastNonzeroMagnitude)
     }
     static func == (lhs: TextBox, rhs: CloudKitTextBox) -> Bool {
-        let nsText: NSData?
-        if let text = lhs.text {
-            nsText = NSData(data: text)
-        } else {
-            nsText = nil
-        }
-        let text = nsText == rhs.text.value
+        let lText = lhs.text?.toAttributedString()
+        let rText = (rhs.text.value as Data?)?.toAttributedString()
+        let text = lText == rText
 
         let width = lhs.width == Float(rhs.width.value ?? .leastNonzeroMagnitude)
         let height = lhs.height == Float(rhs.height.value ?? .leastNonzeroMagnitude)
@@ -197,13 +177,9 @@ extension CloudKitTextBox {
         lhs.z.value = Double(rhs.z)
     }
     static func == (lhs: CloudKitTextBox, rhs: TextBox) -> Bool {
-        let nsText: NSData?
-        if let text = rhs.text {
-            nsText = NSData(data: text)
-        } else {
-            nsText = nil
-        }
-        let text = lhs.text.value == nsText
+        let lText = (lhs.text.value as Data?)?.toAttributedString()
+        let rText = rhs.text?.toAttributedString()
+        let text = lText == rText
 
         let width = Float(lhs.width.value ?? .leastNonzeroMagnitude) == rhs.width
         let height = Float(lhs.height.value ?? .leastNonzeroMagnitude) == rhs.height

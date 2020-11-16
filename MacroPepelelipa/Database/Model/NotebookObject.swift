@@ -107,7 +107,6 @@ internal class NotebookObject: NotebookEntity, CloudKitObjectWrapper {
 
     internal func getSavable() -> [PersistentEntity] {
         var children: [PersistentEntity] = [self]
-        children.append(contentsOf: notes)
         if let notes = notes as? [NoteObject] {
             for note in notes {
                 children.append(contentsOf: note.getSavable())
