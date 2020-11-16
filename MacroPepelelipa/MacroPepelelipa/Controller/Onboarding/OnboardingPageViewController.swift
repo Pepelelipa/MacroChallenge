@@ -12,6 +12,8 @@ class OnboardingPageViewController: UIPageViewController {
     
     // MARK: - Variables and Constants
     
+    private lazy var onboardingPageViewDataSource = OnboardingPageViewControllerDataSource(pages: pages)
+    
     private lazy var pageControl: UIPageControl = {
         let pg = UIPageControl(frame: .zero)
     
@@ -61,7 +63,21 @@ class OnboardingPageViewController: UIPageViewController {
         return pg
     }()
     
-    private var pages = [UIViewController]()
+    private lazy var pages: [UIViewController] = {
+        var pg = [UIViewController]()
+        let titles = ["Organisation title".localized(), "Text title".localized(), "Markdown title".localized(), "Devices title".localized(), "Transcript title".localized()]
+        
+        let subtitles = ["Organisation subtitle".localized(), "Text subtitle".localized(), "Markdown subtitle".localized(), "Devices subtitle".localized(), "Transcript subtitle".localized()]
+        
+        let images = ["Workspace Image".localized(), "Format Image".localized(), "Markdown Image".localized(), "Devices Image", "Transcript Image".localized()]
+        
+        for i in 0 ..< titles.count {
+            let page = OnboardingViewController(title: titles[i], subtitle: subtitles[i], imageName: images[i])
+            pg.append(page)
+        }
+        
+        return pg
+    }()
     
     // MARK: - Initializer
     
@@ -78,7 +94,7 @@ class OnboardingPageViewController: UIPageViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.dataSource = self
+        self.dataSource = onboardingPageViewDataSource
         self.delegate = self
     
         self.navigationController?.navigationBar.isTranslucent = true
@@ -86,7 +102,6 @@ class OnboardingPageViewController: UIPageViewController {
         self.navigationItem.rightBarButtonItem = skipButton
         
         let initialPage = 0
-        setViews()
         setViewControllers([pages[initialPage]], direction: .forward, animated: true, completion: nil)
         
         pageControl.numberOfPages = self.pages.count
@@ -112,23 +127,6 @@ class OnboardingPageViewController: UIPageViewController {
     }
     
     // MARK: - Functions
-    
-    /**
-    Creating the views for each page in the page view controller
-     */
-    private func setViews() {
-        let titles = ["Organisation title".localized(), "Text title".localized(), "Markdown title".localized(), "Devices title".localized(), "Transcript title".localized()]
-        
-        let subtitles = ["Organisation subtitle".localized(), "Text subtitle".localized(), "Markdown subtitle".localized(), "Devices subtitle".localized(), "Transcript subtitle".localized()]
-        
-        let images = ["Workspace Image".localized(), "Format Image".localized(), "Markdown Image".localized(), "Devices Image", "Transcript Image".localized()]
-        
-        for i in 0 ..< titles.count {
-            let page = OnboardingViewController(title: titles[i], subtitle: subtitles[i], imageName: images[i])
-            pages.append(page)
-        }
-        
-    }
     
     /**
     Adding the constraints to the page control inside the view.
@@ -177,32 +175,4 @@ extension OnboardingPageViewController: UIPageViewControllerDelegate {
             backgroundButtonView.isHidden = true
         }
     }
-}
-
-extension OnboardingPageViewController: UIPageViewControllerDataSource {
-    func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
-        
-        if let viewControllerIndex = self.pages.firstIndex(of: viewController) {
-            if viewControllerIndex == 0 {
-                return self.pages.last
-            } else {
-                return self.pages[viewControllerIndex - 1]
-            }
-        }
-        return nil
-    }
-    
-    func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
-        
-        if let viewControllerIndex = self.pages.firstIndex(of: viewController) {
-            if viewControllerIndex < self.pages.count - 1 {
-                return self.pages[viewControllerIndex + 1]
-            } else {
-                return self.pages.first
-            }
-        }
-        return nil
-        
-    }
-    
 }

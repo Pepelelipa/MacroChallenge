@@ -8,7 +8,7 @@
 
 import UIKit
 
-class OnboardingPageViewControllerDelegate: NSObject,  UIPageViewControllerDelegate {
+class OnboardingPageViewControllerDelegate: NSObject, UIPageViewControllerDelegate {
 //    func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
 //        if let viewControllers = pageViewController.viewControllers {
 //            if let viewControllerIndex = self.pages.firstIndex(of: viewControllers[0]) {
