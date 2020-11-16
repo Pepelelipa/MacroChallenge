@@ -147,7 +147,7 @@ internal class NotebooksSelectionViewController: UIViewController {
         
         setConstraints()
         NSLayoutConstraint.activate(sharedConstraints)
-        if UIDevice.current.userInterfaceIdiom != .pad && UIDevice.current.userInterfaceIdiom != .mac  {
+        if UIDevice.current.userInterfaceIdiom != .pad && UIDevice.current.userInterfaceIdiom != .mac {
             layoutTrait(traitCollection: UIScreen.main.traitCollection)
         }
 
@@ -177,7 +177,7 @@ internal class NotebooksSelectionViewController: UIViewController {
     }
     
     override func viewDidLayoutSubviews() {
-        if UIDevice.current.userInterfaceIdiom == .pad || UIDevice.current.userInterfaceIdiom == .mac  {
+        if UIDevice.current.userInterfaceIdiom == .pad || UIDevice.current.userInterfaceIdiom == .mac {
             updateConstraintsForIpad()
         }
         collectionDelegate.frame = view.frame
@@ -458,7 +458,7 @@ internal class NotebooksSelectionViewController: UIViewController {
             alertController.addAction(editAction)
         }
 
-        if UIDevice.current.userInterfaceIdiom == .pad || UIDevice.current.userInterfaceIdiom == .mac  {
+        if UIDevice.current.userInterfaceIdiom == .pad || UIDevice.current.userInterfaceIdiom == .mac {
             alertController.popoverPresentationController?.sourceView = cell
         }
         self.present(alertController, animated: true, completion: nil)

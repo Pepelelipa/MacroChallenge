@@ -38,7 +38,6 @@ internal class NotebooksCollectionViewDelegate: NSObject,
     // MARK: - UICollectionViewDelegateFlowLayout functions
     
     internal func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        
         return ItemSizeHelper.notebookItemSize(at: collectionView, for: frame)
     }
 

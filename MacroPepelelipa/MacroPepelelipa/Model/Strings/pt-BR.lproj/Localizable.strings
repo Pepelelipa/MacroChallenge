@@ -129,6 +129,14 @@
 "Find" = "Buscar";
 "New note" = "Nova nota";
 "Delete note" = "Excluir nota";
+"Import image" = "Importar imagem";
+"Import" = "Importar";
+"Export note as PDF" = "Exportar nota como PDF";
+"Export" = "Exportar";
+"An error has occurred while exporting the PDF" = "Um erro ocorreu ao exportar o PDF";
+"The app could not export the file as a PDF" = "O aplicativo não pôde exportar o arquivo como PDF";
+"Error writing data to the designed url" = "Erro ao transcrever dados para o URL designada";
+"Export notebook as PDF" = "Exportar caderno como PDF";
 
 // MARK: - Accessibility
 

@@ -145,8 +145,6 @@ internal class AddNotebookViewController: UIViewController {
         ]
     }()
     
-    
-    
     // MARK: - Initializers
     
     internal init(workspace: WorkspaceEntity?) {
