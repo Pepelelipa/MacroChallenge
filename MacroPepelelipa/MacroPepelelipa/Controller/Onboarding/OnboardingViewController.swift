@@ -55,6 +55,11 @@ class OnboardingViewController: UIViewController {
     private var subtitle: String?
     private var imageName: String?
     
+    private var sharedConstraints: [NSLayoutConstraint] = []
+    private var landscapeiPhoneConstraints: [NSLayoutConstraint] = []
+    private var portraitiPhoneConstraints: [NSLayoutConstraint] = []
+    private var landscapeiPadConstraints: [NSLayoutConstraint] = []
+    
     // MARK: - Initializers
     
     internal init(title: String, subtitle: String, imageName: String) {
@@ -81,6 +86,30 @@ class OnboardingViewController: UIViewController {
         view.backgroundColor = UIColor.formatColor
         
         setConstraints()
+        NSLayoutConstraint.activate(sharedConstraints)
+        if UIDevice.current.userInterfaceIdiom != .pad && UIDevice.current.userInterfaceIdiom != .mac {
+            updateConstraintsForiPhone()
+        }
+        
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        if !sharedConstraints[0].isActive {
+            NSLayoutConstraint.activate(sharedConstraints)
+        }
+        
+        if UIDevice.current.userInterfaceIdiom == .phone {
+            updateConstraintsForiPhone()
+        } else {
+            updateConstraintsForiPad()
+        }
+        
+    }
+    
+    override func viewDidLayoutSubviews() {
+        if UIDevice.current.userInterfaceIdiom == .pad || UIDevice.current.userInterfaceIdiom == .mac {
+            updateConstraintsForiPad()
+        }
     }
     
     // MARK: - Functions
@@ -90,26 +119,28 @@ class OnboardingViewController: UIViewController {
      */
     private func setConstraints() {
         
-        let orientation = UIApplication.shared.windows.first?.windowScene?.interfaceOrientation
-    
-        if orientation == .portrait {
-            NSLayoutConstraint.activate([
-                imageView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.8),
-                imageView.heightAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.6),
+        landscapeiPhoneConstraints.append(contentsOf: [
+            imageView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.8),
+            imageView.heightAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.2),
                 
-                subtitleLabel.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -150)
-            ])
-        } else {
-            NSLayoutConstraint.activate([
-                imageView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.8),
-                imageView.heightAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.2),
-                
-                subtitleLabel.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -80)
-            ])
-        }
+            subtitleLabel.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -80)
+        ])
         
-        NSLayoutConstraint.activate([
+        landscapeiPadConstraints.append(contentsOf: [
+            imageView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.9),
+            imageView.heightAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.5),
+                
+            subtitleLabel.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -100)
+        ])
+        
+        portraitiPhoneConstraints.append(contentsOf: [
+            imageView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.8),
+            imageView.heightAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.6),
             
+            subtitleLabel.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -150)
+        ])
+        
+        sharedConstraints.append(contentsOf: [
             imageView.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -50),
             imageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             
@@ -119,7 +150,52 @@ class OnboardingViewController: UIViewController {
             titleLabel.bottomAnchor.constraint(equalTo: subtitleLabel.topAnchor, constant: -20),
             titleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             titleLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20)
-            
         ])
+    }
+    
+    /**
+     This method updates the view's constraints for an iPhone based on a trait collection.
+     - Parameter traitCollection: The UITraitCollection that will be used as reference to layout the constraints.
+     */
+    private func updateConstraintsForiPhone() {
+        var activate = [NSLayoutConstraint]()
+        var deactivate = [NSLayoutConstraint]()
+        
+        let isLandscape = UIDevice.current.orientation.isActuallyLandscape
+        
+        if isLandscape {
+            deactivate.append(contentsOf: portraitiPhoneConstraints[0].isActive ? portraitiPhoneConstraints : [])
+            activate.append(contentsOf: landscapeiPhoneConstraints)
+        } else {
+            deactivate.append(contentsOf: landscapeiPhoneConstraints[0].isActive ? landscapeiPhoneConstraints : [])
+            activate.append(contentsOf: portraitiPhoneConstraints)
+        }
+        
+        NSLayoutConstraint.deactivate(deactivate)
+        NSLayoutConstraint.activate(activate)
+    }
+    
+    /**
+     This method updates the view's constraints for an iPhone based on a trait collection.
+     - Parameter traitCollection: The UITraitCollection that will be used as reference to layout the constraints.
+     */
+    private func updateConstraintsForiPad() {
+        var activate = [NSLayoutConstraint]()
+        var deactivate = [NSLayoutConstraint]()
+        
+        let isLandscape = UIDevice.current.orientation.isActuallyLandscape
+        
+        if isLandscape {
+            deactivate.append(contentsOf: portraitiPhoneConstraints[0].isActive ? portraitiPhoneConstraints : [])
+            deactivate.append(contentsOf: landscapeiPhoneConstraints[0].isActive ? landscapeiPadConstraints : [])
+            activate.append(contentsOf: landscapeiPadConstraints)
+        } else {
+            deactivate.append(contentsOf: landscapeiPhoneConstraints[0].isActive ? landscapeiPhoneConstraints : [])
+            deactivate.append(contentsOf: landscapeiPadConstraints[0].isActive ? landscapeiPadConstraints : [])
+            activate.append(contentsOf: portraitiPhoneConstraints)
+        }
+        
+        NSLayoutConstraint.deactivate(deactivate)
+        NSLayoutConstraint.activate(activate)
     }
 }
