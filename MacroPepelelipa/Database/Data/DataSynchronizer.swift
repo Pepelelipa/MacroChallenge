@@ -56,6 +56,9 @@ internal class DataSynchronizer {
                     let coreDataWorkspace = try self.coreDataController.createWorkspace(from: ckWorkspace)
                     let newWorkspace = WorkspaceObject(from: coreDataWorkspace, and: ckWorkspace)
                     objects.append(newWorkspace)
+                    if let notebooks = newWorkspace.notebooks as? [NotebookObject] {
+                        notebookObjects.append(contentsOf: notebooks)
+                    }
                 } catch {
                     conflictHandler().errDidOccur(err: error)
                 }
@@ -108,6 +111,9 @@ internal class DataSynchronizer {
                         let coreDataNotebook = try self.coreDataController.createNotebook(from: ckNotebook, in: workspaceObject.coreDataWorkspace)
                         let newNotebook = NotebookObject(in: workspaceObject, from: coreDataNotebook, and: ckNotebook)
                         objects.append(newNotebook)
+                        if let notes = newNotebook.notes as? [NoteObject] {
+                            noteObjects.append(contentsOf: notes)
+                        }
                     } else {
                         conflictHandler().errDidOccur(err: WorkspaceError.workspaceWasNull)
                     }
@@ -183,6 +189,12 @@ internal class DataSynchronizer {
                         let coreDataNote = try self.coreDataController.createNote(from: ckNote, in: notebookObject.coreDataNotebook)
                         let newNote = NoteObject(in: notebookObject, from: coreDataNote, and: ckNote)
                         objects.append(newNote)
+                        if let textBoxes = newNote.textBoxes as? [TextBoxObject] {
+                            textBoxObjects.append(contentsOf: textBoxes)
+                        }
+                        if let imageBoxes = newNote.images as? [ImageBoxObject] {
+                            imageBoxObjects.append(contentsOf: imageBoxes)
+                        }
                     } else {
                         conflictHandler().errDidOccur(err: NotebookError.notebookWasNull)
                     }
