@@ -247,6 +247,7 @@ internal class NotebooksSelectionViewController: UIViewController, EntityObserve
         } else {
             navigationItem.leftItemsSupplementBackButton = false
             navigationItem.leftBarButtonItem = nil
+            setEditing(false, animated: true)
         }
     }
     

@@ -352,6 +352,7 @@ internal class WorkspaceSelectionViewController: UIViewController,
             navigationItem.leftBarButtonItem?.accessibilityValue = "Editing disabled".localized()
         } else {
             navigationItem.leftBarButtonItem = nil
+            setEditing(false, animated: true)
         }
     }
 
