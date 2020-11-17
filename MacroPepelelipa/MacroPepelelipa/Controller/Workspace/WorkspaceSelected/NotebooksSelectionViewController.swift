@@ -9,7 +9,7 @@
 import UIKit
 import Database
 
-internal class NotebooksSelectionViewController: UIViewController {
+internal class NotebooksSelectionViewController: UIViewController, EntityObserver {
     
     // MARK: - Variables and Constants
     
@@ -150,14 +150,9 @@ internal class NotebooksSelectionViewController: UIViewController {
         if UIDevice.current.userInterfaceIdiom != .pad && UIDevice.current.userInterfaceIdiom != .mac {
             layoutTrait(traitCollection: UIScreen.main.traitCollection)
         }
-
-        if !(collectionDataSource?.isEmpty() ?? true) && (workspace?.isEnabled ?? false) {
-            navigationItem.leftItemsSupplementBackButton = true
-            navigationItem.leftBarButtonItem = self.editButtonItem
-            navigationItem.leftBarButtonItem?.accessibilityHint = "Edit notebooks hint".localized()
-            navigationItem.leftBarButtonItem?.accessibilityLabel = "Edit notebooks label".localized()
-            navigationItem.leftBarButtonItem?.accessibilityValue = "Editing disabled".localized()
-        }
+        
+        DataManager.shared().addCreationObserver(self, type: .notebook)
+        setEditButtonItem()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -169,6 +164,10 @@ internal class NotebooksSelectionViewController: UIViewController {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
             self.collectionView.collectionViewLayout.invalidateLayout()
         }
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        DataManager.shared().removeObserver(self)
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -238,6 +237,22 @@ internal class NotebooksSelectionViewController: UIViewController {
             emptyScreenView.heightAnchor.constraint(equalTo: self.view.heightAnchor, multiplier: 0.5),
             emptyScreenView.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 0.25)
         ])
+    }
+    
+    /// This method presents or hide the Edit button item at the navigation bar
+    private func setEditButtonItem() {
+        
+        if !(collectionDataSource?.isEmpty() ?? true) && (workspace?.isEnabled ?? false) {
+            navigationItem.leftItemsSupplementBackButton = true
+            navigationItem.leftBarButtonItem = self.editButtonItem
+            navigationItem.leftBarButtonItem?.accessibilityHint = "Edit notebooks hint".localized()
+            navigationItem.leftBarButtonItem?.accessibilityLabel = "Edit notebooks label".localized()
+            navigationItem.leftBarButtonItem?.accessibilityValue = "Editing disabled".localized()
+        } else {
+            navigationItem.leftItemsSupplementBackButton = false
+            navigationItem.leftBarButtonItem = nil
+            setEditing(false, animated: true)
+        }
     }
     
     /**
@@ -381,6 +396,16 @@ internal class NotebooksSelectionViewController: UIViewController {
         })
     }
     
+    // MARK: - EntityObserver functions
+    
+    internal func entityWasCreated(_ value: ObservableEntity) {
+        setEditButtonItem()
+    }
+    
+    internal func entityShouldDelete(_ value: ObservableEntity) {
+        setEditButtonItem()
+    }
+    
     // MARK: - IBActions functions
 
     @IBAction private func btnAddTap() {
@@ -403,7 +428,6 @@ internal class NotebooksSelectionViewController: UIViewController {
     
     /**
      This method handles the long press on a notebook, asking the user to delete it or not.
-     
      - Parameter gesture: The UILongPressGestureRecognizer containing the gesture.
      */
     @IBAction func handleLongPress(gesture: UILongPressGestureRecognizer) {
@@ -428,6 +452,7 @@ internal class NotebooksSelectionViewController: UIViewController {
     }
 
     private func deleteCell(cell: NotebookCollectionViewCell) {
+        
         guard let notebook = cell.notebook else {
             return
         }
