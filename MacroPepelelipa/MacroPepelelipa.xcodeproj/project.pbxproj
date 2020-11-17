@@ -142,6 +142,8 @@
 		D92593B3255B12D4000529B4 /* BoxViewInteractions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D92593B2255B12D4000529B4 /* BoxViewInteractions.swift */; };
 		D92593B7255B1579000529B4 /* BoxViewReceiver.swift in Sources */ = {isa = PBXBuildFile; fileRef = D92593B6255B1579000529B4 /* BoxViewReceiver.swift */; };
 		D96DAA09252F9F4B00552AB1 /* AddNewSpaceToolBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = D96DAA08252F9F4B00552AB1 /* AddNewSpaceToolBar.swift */; };
+		D973A0F52562EBDF0027A72D /* NoteAssignerResultsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D973A0F42562EBDF0027A72D /* NoteAssignerResultsTableViewCell.swift */; };
+		D973A0F925630D8D0027A72D /* NoteAssignerNotebookObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = D973A0F825630D8D0027A72D /* NoteAssignerNotebookObserver.swift */; };
 		D97EE7AC254B554F00A68B06 /* SearchResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D97EE7A7254B554F00A68B06 /* SearchResultViewController.swift */; };
 		D97EE7AD254B554F00A68B06 /* SearchResultCollectionViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D97EE7A8254B554F00A68B06 /* SearchResultCollectionViewDelegate.swift */; };
 		D97EE7AE254B554F00A68B06 /* CustomUISearchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D97EE7A9254B554F00A68B06 /* CustomUISearchController.swift */; };
@@ -157,6 +159,8 @@
 		D9D433A3255C820E006E540E /* NoteAssignerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D433A2255C820E006E540E /* NoteAssignerViewController.swift */; };
 		D9D433AB255F0379006E540E /* NoteAssignerObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D433AA255F0378006E540E /* NoteAssignerObserver.swift */; };
 		D9D433AF255F0708006E540E /* NoteAssignerResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D433AE255F0708006E540E /* NoteAssignerResultsViewController.swift */; };
+		D9D433B3255F0A6C006E540E /* NoteAssignerResultsTableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D433B2255F0A6C006E540E /* NoteAssignerResultsTableViewDataSource.swift */; };
+		D9D433B7255F13CF006E540E /* NoteAssignerResultsTableViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D433B6255F13CF006E540E /* NoteAssignerResultsTableViewDelegate.swift */; };
 		D9D87534251BAA6700B842C8 /* MarkdownTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D87533251BAA6700B842C8 /* MarkdownTextField.swift */; };
 		D9D87538251BB26500B842C8 /* MarkdownToolBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D87537251BB26500B842C8 /* MarkdownToolBar.swift */; };
 		D9D87544251BD39F00B842C8 /* PhotoEditingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D87543251BD39F00B842C8 /* PhotoEditingViewController.swift */; };
@@ -370,6 +374,8 @@
 		D92593B2255B12D4000529B4 /* BoxViewInteractions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoxViewInteractions.swift; sourceTree = "<group>"; };
 		D92593B6255B1579000529B4 /* BoxViewReceiver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoxViewReceiver.swift; sourceTree = "<group>"; };
 		D96DAA08252F9F4B00552AB1 /* AddNewSpaceToolBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewSpaceToolBar.swift; sourceTree = "<group>"; };
+		D973A0F42562EBDF0027A72D /* NoteAssignerResultsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteAssignerResultsTableViewCell.swift; sourceTree = "<group>"; };
+		D973A0F825630D8D0027A72D /* NoteAssignerNotebookObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteAssignerNotebookObserver.swift; sourceTree = "<group>"; };
 		D97EE7A7254B554F00A68B06 /* SearchResultViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchResultViewController.swift; sourceTree = "<group>"; };
 		D97EE7A8254B554F00A68B06 /* SearchResultCollectionViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchResultCollectionViewDelegate.swift; sourceTree = "<group>"; };
 		D97EE7A9254B554F00A68B06 /* CustomUISearchController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomUISearchController.swift; sourceTree = "<group>"; };
@@ -385,6 +391,8 @@
 		D9D433A2255C820E006E540E /* NoteAssignerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteAssignerViewController.swift; sourceTree = "<group>"; };
 		D9D433AA255F0378006E540E /* NoteAssignerObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteAssignerObserver.swift; sourceTree = "<group>"; };
 		D9D433AE255F0708006E540E /* NoteAssignerResultsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteAssignerResultsViewController.swift; sourceTree = "<group>"; };
+		D9D433B2255F0A6C006E540E /* NoteAssignerResultsTableViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteAssignerResultsTableViewDataSource.swift; sourceTree = "<group>"; };
+		D9D433B6255F13CF006E540E /* NoteAssignerResultsTableViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteAssignerResultsTableViewDelegate.swift; sourceTree = "<group>"; };
 		D9D87533251BAA6700B842C8 /* MarkdownTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkdownTextField.swift; sourceTree = "<group>"; };
 		D9D87537251BB26500B842C8 /* MarkdownToolBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkdownToolBar.swift; sourceTree = "<group>"; };
 		D9D87543251BD39F00B842C8 /* PhotoEditingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoEditingViewController.swift; sourceTree = "<group>"; };
@@ -886,6 +894,7 @@
 				D9F4A9BC2527D0A600BFDC19 /* MarkupToolBarObserver.swift */,
 				D9F04BEF25378236001C6551 /* AddNoteObserver.swift */,
 				A71E2C202538EF51000DA164 /* NotesPageViewControllerDataSource.swift */,
+				D9D433B2255F0A6C006E540E /* NoteAssignerResultsTableViewDataSource.swift */,
 			);
 			path = Notes;
 			sourceTree = "<group>";
@@ -930,6 +939,7 @@
 			children = (
 				D925934D255986F1000529B4 /* InputViewTipsStack.swift */,
 				A7C057C425420F260023A370 /* NotesToolbar.swift */,
+				D973A0F42562EBDF0027A72D /* NoteAssignerResultsTableViewCell.swift */,
 			);
 			path = Notes;
 			sourceTree = "<group>";
@@ -951,6 +961,7 @@
 				D92593982559E53C000529B4 /* MarkdownFormatViewReceiver.swift */,
 				D92593B6255B1579000529B4 /* BoxViewReceiver.swift */,
 				D9D433AA255F0378006E540E /* NoteAssignerObserver.swift */,
+				D973A0F825630D8D0027A72D /* NoteAssignerNotebookObserver.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -1011,6 +1022,7 @@
 				D9D43394255C6DCB006E540E /* LooseNoteViewController.swift */,
 				D9D433A2255C820E006E540E /* NoteAssignerViewController.swift */,
 				D9D433AE255F0708006E540E /* NoteAssignerResultsViewController.swift */,
+				D9D433B6255F13CF006E540E /* NoteAssignerResultsTableViewDelegate.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -1395,6 +1407,7 @@
 				02207A392523A5970001FD7E /* WorkspacesCollectionViewDataSource.swift in Sources */,
 				D9F4A9AB25277A6B00BFDC19 /* CGRectExtension.swift in Sources */,
 				024C5BBC252E41EE009549CE /* ColorSelectionCollectionViewCell.swift in Sources */,
+				D9D433B3255F0A6C006E540E /* NoteAssignerResultsTableViewDataSource.swift in Sources */,
 				D925934E255986F1000529B4 /* InputViewTipsStack.swift in Sources */,
 				D9D43395255C6DCB006E540E /* LooseNoteViewController.swift in Sources */,
 				1E6E148C252E33E700383E10 /* MarkdownBarConfiguration.swift in Sources */,
@@ -1458,15 +1471,18 @@
 				1E1D9CD22549EB2D00E2D7A7 /* NotebookEntityToPDFExtension.swift in Sources */,
 				0230E078253A3CED009C5A76 /* UIDeviceOrientation.swift in Sources */,
 				D9D433AB255F0379006E540E /* NoteAssignerObserver.swift in Sources */,
+				D973A0F52562EBDF0027A72D /* NoteAssignerResultsTableViewCell.swift in Sources */,
 				D9D87538251BB26500B842C8 /* MarkdownToolBar.swift in Sources */,
 				02207A3E2523AB160001FD7E /* WorkspaceCollectionViewCell.swift in Sources */,
 				D9F04BEC25377D5E001C6551 /* AddNoteViewController.swift in Sources */,
 				D97EE7B7254B557A00A68B06 /* SearchResultCollectionViewDataSource.swift in Sources */,
 				A7BDD60F2514078600DDB6A0 /* NotebookIndexTableViewCell.swift in Sources */,
+				D973A0F925630D8D0027A72D /* NoteAssignerNotebookObserver.swift in Sources */,
 				A72942E7253A13D800C788EE /* ImageButtonObserver.swift in Sources */,
 				D925939A2559E53C000529B4 /* MarkdownFormatViewReceiver.swift in Sources */,
 				A7BDD5FF2513F83F00DDB6A0 /* IndexViewController.swift in Sources */,
 				D9BBA584252FAB28004B724F /* AddWorkspaceObserver.swift in Sources */,
+				D9D433B7255F13CF006E540E /* NoteAssignerResultsTableViewDelegate.swift in Sources */,
 				020FFA38252502E40095266D /* Colors.swift in Sources */,
 				D97EE7AD254B554F00A68B06 /* SearchResultCollectionViewDelegate.swift in Sources */,
 				D9D87534251BAA6700B842C8 /* MarkdownTextField.swift in Sources */,

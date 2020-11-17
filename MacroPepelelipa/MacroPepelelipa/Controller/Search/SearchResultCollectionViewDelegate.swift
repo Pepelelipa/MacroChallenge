@@ -16,8 +16,6 @@ internal class SearchResultCollectionViewDelegate: NSObject,
     // MARK: - Variables and Constants
     
     private var didSelectCell: ((UICollectionViewCell) -> Void)?
-    internal var numberOfFilteredWorkspaces: Int?
-    internal var numberOfFilteredNotebooks: Int?
     
     // MARK: - Initializers
     

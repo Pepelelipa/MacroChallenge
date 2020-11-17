@@ -86,6 +86,7 @@ internal class LooseNoteViewController: UIViewController,
         let item = UIBarButtonItem(ofType: .done,
                                    target: self,
                                    action: #selector(closeKeyboard))
+        item.tintColor = UIColor.actionColor
         return item
     }()
     
@@ -519,7 +520,7 @@ internal class LooseNoteViewController: UIViewController,
         let destination = NoteAssignerViewController(note: note, lastNotebook: notebook)
         destination.observer = self
         
-        self.navigationController?.present(destination, animated: true, completion: nil)
+        self.navigationController?.pushViewController(destination, animated: true)
     }
     
     @IBAction private func handleTap(_ gestureRecognizer: UITapGestureRecognizer) {

@@ -11,39 +11,29 @@ import UIKit
 import Database 
 import MarkdownText
 
-class NoteAssignerViewController: UIViewController {
+class NoteAssignerViewController: UIViewController, 
+                                  NoteAssignerNotebookObserver {
     
     internal weak var note: NoteEntity?
     
     internal weak var observer: NoteAssignerObserver?
     
-    private weak var lastNotebook: NotebookEntity? 
-    
-    private let backBtn: UIButton = {
-        let button = UIButton()
-        button.setTitle("Back".localized(), for: .normal)
-        button.setTitleColor(UIColor.actionColor, for: .normal)
-        button.titleLabel?.font = UIFont.defaultHeader.toStyle(.h3)
-        button.contentHorizontalAlignment = .left
-        button.translatesAutoresizingMaskIntoConstraints = false
-        
-        button.addTarget(self, action: #selector(dismissModal), for: .touchUpInside)
-                
-        return button
-    }()
-    
-    private let discardBtn: UIButton = {
-        let button = UIButton()
-        button.setTitle("Discard".localized(), for: .normal)
-        
-        button.setTitleColor(UIColor.notebookColors[23], for: .normal)
-        button.contentHorizontalAlignment = .right
-        button.titleLabel?.font = UIFont.defaultHeader.toStyle(.h3)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        
-        button.addTarget(self, action: #selector(discardNote), for: .touchUpInside)
-        
-        return button
+    private weak var lastNotebook: NotebookEntity? {
+        didSet {
+            notebookView.color = UIColor(named: lastNotebook?.colorName ?? "") ?? .black
+            
+            notebookNameLbl.text = lastNotebook?.name
+            do {
+                try workspaceNameLbl.text = lastNotebook?.getWorkspace().name
+            } catch {
+                fatalError()
+            }
+        }
+    }
+
+    private let discardBtn: UIBarButtonItem = {
+        let item = UIBarButtonItem(title: "Discard".localized(), style: .plain, target: self, action: #selector(changeNotebook))
+        return item
     }()
     
     private lazy var noteNameLbl: UILabel = {
@@ -140,6 +130,7 @@ class NoteAssignerViewController: UIViewController {
         let button = UIButton()
         button.setImage(UIImage(named: "ChooseAnotherNotebook"), for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
+        button.addTarget(self, action: #selector(changeNotebook), for: .touchUpInside)
         
         return button
     }()
@@ -149,22 +140,14 @@ class NoteAssignerViewController: UIViewController {
         button.setImage(UIImage(named: "AddToNotebook"), for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         
+        button.addTarget(self, action: #selector(addToNotebook), for: .touchUpInside)
+        
         return button
     }()
     
     private lazy var constraints: [NSLayoutConstraint] = {
         [
-            backBtn.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 16),
-            backBtn.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
-            backBtn.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 0.4),
-            backBtn.heightAnchor.constraint(equalToConstant: 10),
-            
-            discardBtn.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 16),
-            discardBtn.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
-            discardBtn.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 0.4),
-            discardBtn.heightAnchor.constraint(equalToConstant: 10),
-            
-            noteNameLbl.topAnchor.constraint(equalTo: backBtn.bottomAnchor, constant: 20),
+            noteNameLbl.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 20),
             noteNameLbl.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
             noteNameLbl.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
             noteNameLbl.heightAnchor.constraint(equalToConstant: 40),
@@ -186,7 +169,7 @@ class NoteAssignerViewController: UIViewController {
             
             notebookNameLbl.topAnchor.constraint(equalTo: notebookView.bottomAnchor, constant: 20),
             notebookNameLbl.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
-            notebookNameLbl.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 0.325),
+            notebookNameLbl.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 0.8),
             notebookNameLbl.heightAnchor.constraint(equalToConstant: 30),
             
             workspaceNameLbl.topAnchor.constraint(equalTo: notebookNameLbl.bottomAnchor, constant: 4),
@@ -209,10 +192,14 @@ class NoteAssignerViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.backgroundColor
+        navigationItem.rightBarButtonItems = [discardBtn]
         addSubsViews()
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        navigationItem.largeTitleDisplayMode = .never
+        navigationController?.navigationBar.tintColor = UIColor.actionColor
+        self.navigationController?.navigationBar.prefersLargeTitles = false
         NSLayoutConstraint.activate(constraints)
     }
     
@@ -229,8 +216,6 @@ class NoteAssignerViewController: UIViewController {
     }
     
     private func addSubsViews() {
-        self.view.addSubview(backBtn)
-        self.view.addSubview(discardBtn)
         self.view.addSubview(noteNameLbl)
         self.view.addSubview(saveExplanationLbl)
         self.view.addSubview(selectedNotebookLbl)
@@ -239,6 +224,10 @@ class NoteAssignerViewController: UIViewController {
         self.view.addSubview(workspaceNameLbl)
         self.view.addSubview(chooseAnotherNotebookBtn)
         self.view.addSubview(addToNotebookBtn)
+    }
+    
+    internal func selectedNotebook(notebook: NotebookEntity) {
+        self.lastNotebook = notebook
     }
     
     @IBAction func dismissModal() {
@@ -273,5 +262,18 @@ class NoteAssignerViewController: UIViewController {
         }
         alertControlller.modalPresentationStyle = .popover
         self.present(alertControlller, animated: true, completion: nil)
+    }
+    
+    @IBAction func addToNotebook() {
+        if let noteEntity = note, let notebookEntity = lastNotebook{
+            print("")
+        }
+    }
+    
+    @IBAction func changeNotebook() {
+        let destination = NoteAssignerResultsViewController()
+        destination.observer = self
+        
+        self.navigationController?.pushViewController(destination, animated: true)
     }
 }
