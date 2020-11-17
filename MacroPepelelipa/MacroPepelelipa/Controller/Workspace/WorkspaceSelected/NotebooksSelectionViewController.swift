@@ -155,21 +155,6 @@ internal class NotebooksSelectionViewController: UIViewController, EntityObserve
         setEditButtonItem()
     }
     
-    /// This method presents or hide the Edit button item at the navigation bar
-    private func setEditButtonItem() {
-        
-        if !(collectionDataSource?.isEmpty() ?? true) && (workspace?.isEnabled ?? false) {
-            navigationItem.leftItemsSupplementBackButton = true
-            navigationItem.leftBarButtonItem = self.editButtonItem
-            navigationItem.leftBarButtonItem?.accessibilityHint = "Edit notebooks hint".localized()
-            navigationItem.leftBarButtonItem?.accessibilityLabel = "Edit notebooks label".localized()
-            navigationItem.leftBarButtonItem?.accessibilityValue = "Editing disabled".localized()
-        } else {
-            navigationItem.leftItemsSupplementBackButton = false
-            navigationItem.leftBarButtonItem = nil
-        }
-    }
-    
     override func viewWillAppear(_ animated: Bool) {
         UIMenuSystem.main.setNeedsRebuild()
         navigationItem.largeTitleDisplayMode = .always
@@ -248,6 +233,21 @@ internal class NotebooksSelectionViewController: UIViewController, EntityObserve
             emptyScreenView.heightAnchor.constraint(equalTo: self.view.heightAnchor, multiplier: 0.5),
             emptyScreenView.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 0.25)
         ])
+    }
+    
+    /// This method presents or hide the Edit button item at the navigation bar
+    private func setEditButtonItem() {
+        
+        if !(collectionDataSource?.isEmpty() ?? true) && (workspace?.isEnabled ?? false) {
+            navigationItem.leftItemsSupplementBackButton = true
+            navigationItem.leftBarButtonItem = self.editButtonItem
+            navigationItem.leftBarButtonItem?.accessibilityHint = "Edit notebooks hint".localized()
+            navigationItem.leftBarButtonItem?.accessibilityLabel = "Edit notebooks label".localized()
+            navigationItem.leftBarButtonItem?.accessibilityValue = "Editing disabled".localized()
+        } else {
+            navigationItem.leftItemsSupplementBackButton = false
+            navigationItem.leftBarButtonItem = nil
+        }
     }
     
     /**

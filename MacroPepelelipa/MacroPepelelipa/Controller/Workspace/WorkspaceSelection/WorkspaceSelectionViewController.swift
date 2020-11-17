@@ -12,7 +12,8 @@ import StoreKit
 
 internal class WorkspaceSelectionViewController: UIViewController, 
                                                  UISearchResultsUpdating,
-                                                 UISearchBarDelegate {
+                                                 UISearchBarDelegate,
+                                                 EntityObserver {
 
     // MARK: - Variables and Constants
     
@@ -181,12 +182,9 @@ internal class WorkspaceSelectionViewController: UIViewController,
             UserDefaults.standard.setValue(time + 1, forKey: "numberOfTimes")
         }
         self.definesPresentationContext = true
-        if !collectionDataSource.isEmpty {
-            navigationItem.leftBarButtonItem = editButtonItem
-            navigationItem.leftBarButtonItem?.accessibilityHint = "Edit workspaces hint".localized()
-            navigationItem.leftBarButtonItem?.accessibilityLabel = "Edit workspaces label".localized()
-            navigationItem.leftBarButtonItem?.accessibilityValue = "Editing disabled".localized()
-        }
+        
+        DataManager.shared().addCreationObserver(self, type: .workspace)
+        setEditButtonItem()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -343,6 +341,19 @@ internal class WorkspaceSelectionViewController: UIViewController,
             emptyScreenView.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 0.25)
         ])
     }
+    
+    /// This method presents or hide the Edit button item at the navigation bar
+    private func setEditButtonItem() {
+        
+        if !collectionDataSource.isEmpty {
+            navigationItem.leftBarButtonItem = editButtonItem
+            navigationItem.leftBarButtonItem?.accessibilityHint = "Edit workspaces hint".localized()
+            navigationItem.leftBarButtonItem?.accessibilityLabel = "Edit workspaces label".localized()
+            navigationItem.leftBarButtonItem?.accessibilityValue = "Editing disabled".localized()
+        } else {
+            navigationItem.leftBarButtonItem = nil
+        }
+    }
 
     private func editWorkspace(_ workspace: WorkspaceEntity) {
         let workspaceEditingController = AddWorkspaceViewController()
@@ -467,6 +478,16 @@ internal class WorkspaceSelectionViewController: UIViewController,
                 self.emptyScreenView.isHidden = true
             }
         })
+    }
+    
+    // MARK: - EntityObserver functions
+    
+    internal func entityWasCreated(_ value: ObservableEntity) {
+        setEditButtonItem()
+    }
+    
+    internal func entityShouldDelete(_ value: ObservableEntity) {
+        setEditButtonItem()
     }
     
     // MARK: - IBActions functions
