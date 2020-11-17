@@ -169,10 +169,7 @@ internal class WorkspaceSelectionViewController: UIViewController,
         ]
 
         let time = UserDefaults.standard.integer(forKey: "numberOfTimes")
-        if time == 0 && collectionDataSource.isEmpty {
-            createOnboarding()
-            UserDefaults.standard.setValue(time + 1, forKey: "numberOfTimes")
-        } else if time == 8 {
+        if time == 8 {
             if let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
                 #if !DEBUG && !targetEnvironment(macCatalyst)
                 SKStoreReviewController.requestReview(in: scene)
@@ -259,46 +256,6 @@ internal class WorkspaceSelectionViewController: UIViewController,
         if let text = searchBar.text {
             filterObserver?.filterObjects(text, filterCategory: filterCategory)
             self.collectionView.reloadData()
-        }
-    }
-    
-    // MARK: - Functions
-
-    private func createOnboarding() {
-        do {
-            let workspace = try DataManager.shared().createWorkspace(named: "Your first workspace".localized())
-            workspace.isEnabled = false
-            let notebook = try DataManager.shared().createNotebook(in: workspace, named: "Your first notebook".localized(), colorName: "nb0")
-            let note = try DataManager.shared().createNote(in: notebook)
-            note.title = NSAttributedString(string: "Welcome Note".localized())
-            let parts: [NSAttributedString] = [
-                "Onboard intro".localized().toStyle(.paragraph),
-                "Workspaces".localized().toStyle(.h2),
-                "Workspace text".localized().toStyle(.paragraph),
-                "Notebooks".localized().toStyle(.h2),
-                "Notebook text".localized().toStyle(.paragraph),
-                "Note Taking".localized().toStyle(.h2),
-                "Writing".localized().toStyle(.h3),
-                "Writing text".localized().toStyle(.paragraph),
-                "Floating Boxes".localized().toStyle(.h3),
-                "Floating boxes text".localized().toStyle(.paragraph),
-                "Markdown".localized().toStyle(.h3),
-                "Markdown text".localized().toStyle(.paragraph)
-            ]
-            let text = NSMutableAttributedString()
-            for part in parts {
-                text.append(part)
-                text.append(NSAttributedString(string: "\n"))
-                text.append(NSAttributedString(string: "\n"))
-            }
-            note.text = text
-            try note.save()
-        } catch {
-            let alertController = UIAlertController(
-                title: "Unable to create onboarding".localized(),
-                message: "The app was unable to create an example workspace".localized(),
-                preferredStyle: .alert).makeErrorMessage(with: "Unable to create onboarding")
-            self.present(alertController, animated: true)
         }
     }
     

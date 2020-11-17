@@ -6,7 +6,7 @@
 //  Copyright © 2020 Pedro Giuliano Farina. All rights reserved.
 //
 
-public protocol WorkspaceEntity: class, ObservableEntity {
+public protocol WorkspaceEntity: ObservableEntity {
     var name: String { get set }
     var notebooks: [NotebookEntity] { get }
     var isEnabled: Bool { get set }

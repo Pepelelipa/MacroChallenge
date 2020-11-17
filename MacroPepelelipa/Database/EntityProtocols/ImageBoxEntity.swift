@@ -7,7 +7,7 @@
 //
 //swiftlint:disable identifier_name
 
-public protocol ImageBoxEntity: class {
+public protocol ImageBoxEntity: PersistentEntity {
     var imagePath: String { get set }
     var width: Float { get set }
     var height: Float { get set }
