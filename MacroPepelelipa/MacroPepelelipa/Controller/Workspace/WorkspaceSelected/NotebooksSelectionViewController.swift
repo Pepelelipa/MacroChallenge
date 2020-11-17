@@ -166,6 +166,10 @@ internal class NotebooksSelectionViewController: UIViewController, EntityObserve
         }
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        DataManager.shared().removeObserver(self)
+    }
+    
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
         collectionView.collectionViewLayout.invalidateLayout()
