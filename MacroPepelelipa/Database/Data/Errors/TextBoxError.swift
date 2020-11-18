@@ -8,4 +8,5 @@
 
 public enum TextBoxError: Error {
     case failedToParse
+    case textBoxWasNull
 }

@@ -6,7 +6,7 @@
 //  Copyright © 2020 Pedro Giuliano Farina. All rights reserved.
 //
 
-public protocol NoteEntity: class, ObservableEntity {
+public protocol NoteEntity: ObservableEntity {
     var title: NSAttributedString { get set }
     var text: NSAttributedString { get set }
     var images: [ImageBoxEntity] { get }

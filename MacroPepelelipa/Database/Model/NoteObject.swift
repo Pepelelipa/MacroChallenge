@@ -6,13 +6,15 @@
 //  Copyright © 2020 Pedro Giuliano Farina. All rights reserved.
 //
 
-internal class NoteObject: NoteEntity {
+import CloudKit
+
+internal class NoteObject: NoteEntity, CloudKitObjectWrapper {
 
     func getID() throws -> UUID {
-        if let id = coreDataObject.id {
+        if let id = coreDataNote.id {
             return id
         }
-        throw ObservableError.idWasNull
+        throw PersistentError.idWasNull
     }
 
     func getNotebook() throws -> NotebookEntity {
@@ -24,14 +26,26 @@ internal class NoteObject: NoteEntity {
     private weak var notebook: NotebookObject?
 
     public var title: NSAttributedString {
-        didSet {
-            coreDataObject.title = title.toData()
+        get {
+            return coreDataNote.title?.toAttributedString() ?? (cloudKitNote?.title.value as Data?)?.toAttributedString() ?? NSAttributedString()
+        }
+        set {
+            if let data = newValue.toData() {
+                coreDataNote.title = data
+                cloudKitNote?.title.value = NSData(data: data)
+            }
             notifyObservers()
         }
     }
     var text: NSAttributedString {
-        didSet {
-            coreDataObject.text = text.toData()
+        get {
+            return coreDataNote.text?.toAttributedString() ?? (cloudKitNote?.text.value as Data?)?.toAttributedString() ?? NSAttributedString()
+        }
+        set {
+            if let data = newValue.toData() {
+                coreDataNote.text = data
+                cloudKitNote?.text.value = NSData(data: data)
+            }
             notifyObservers()
         }
     }
@@ -49,24 +63,41 @@ internal class NoteObject: NoteEntity {
 
     private var observers: [EntityObserver] = []
 
-    internal let coreDataObject: Note
+    internal let coreDataNote: Note
+    internal var cloudKitNote: CloudKitNote? {
+        didSet {
+            textBoxes.forEach({ textBox in
+                let ckTextBox = cloudKitNote?.textBoxes?.references.first(where: { $0.id.value == (try? textBox.getID())?.uuidString })
+                (textBox as? TextBoxObject)?.cloudKitTextBox = ckTextBox
+            })
 
-    internal init(in notebook: NotebookObject, from note: Note) {
+            images.forEach({ imageBox in
+                let ckImageBox = cloudKitNote?.imageBoxes?.references.first(where: { $0.id.value == (try? imageBox.getID())?.uuidString })
+                (imageBox as? ImageBoxObject)?.cloudKitImageBox = ckImageBox
+            })
+        }
+    }
+    var cloudKitObject: CloudKitEntity? {
+        return cloudKitNote
+    }
+
+    internal init(in notebook: NotebookObject, from note: Note, and ckNote: CloudKitNote? = nil) {
+        self.cloudKitNote = ckNote
         self.notebook = notebook
-        self.coreDataObject = note
-        self.title = note.title?.toAttributedString() ?? NSAttributedString()
-        self.text = note.text?.toAttributedString() ?? NSAttributedString()
+        self.coreDataNote = note
         
         notebook.notes.append(self)
 
-        if let textBoxes = coreDataObject.textBoxes?.allObjects as? [TextBox] {
+        if let textBoxes = coreDataNote.textBoxes?.allObjects as? [TextBox] {
             textBoxes.forEach { (textBox) in
-                _ = TextBoxObject(in: self, coreDataObject: textBox)
+                let ckObject = ckNote?.textBoxes?.first(where: { $0.record["id"] == textBox.id?.uuidString }) as? CloudKitTextBox
+                _ = TextBoxObject(in: self, from: textBox, and: ckObject)
             }
         }
-        if let images = coreDataObject.images?.allObjects as? [ImageBox] {
+        if let images = coreDataNote.images?.allObjects as? [ImageBox] {
             images.forEach { (imageBox) in
-                _ = ImageBoxObject(in: self, coreDataObject: imageBox)
+                let ckObject = ckNote?.imageBoxes?.first(where: { $0.record["id"] == imageBox.id?.uuidString }) as? CloudKitImageBox
+                _ = ImageBoxObject(in: self, from: imageBox, and: ckObject)
             }
         }
     }
@@ -82,7 +113,15 @@ internal class NoteObject: NoteEntity {
     }
 
     func save() throws {
-        try DataManager.shared().saveObjects()
+        try DataManager.shared().saveObjects(getSavable())
+    }
+
+    internal func getSavable() -> [PersistentEntity] {
+        var children: [PersistentEntity] = [self]
+        children.append(contentsOf: textBoxes)
+        children.append(contentsOf: images)
+        
+        return children
     }
 
     internal func removeReferences() throws {
@@ -92,6 +131,9 @@ internal class NoteObject: NoteEntity {
         }
     }
 
+    internal func internalObjectsChanged() {
+        notifyObservers()
+    }
     private func notifyObservers() {
         observers.forEach({ $0.entityDidChangeTo(self) })
     }

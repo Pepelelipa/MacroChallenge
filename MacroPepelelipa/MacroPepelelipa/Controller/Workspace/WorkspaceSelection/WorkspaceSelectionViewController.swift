@@ -12,7 +12,8 @@ import StoreKit
 
 internal class WorkspaceSelectionViewController: UIViewController, 
                                                  UISearchResultsUpdating,
-                                                 UISearchBarDelegate {
+                                                 UISearchBarDelegate,
+                                                 EntityObserver {
 
     // MARK: - Variables and Constants
     
@@ -177,10 +178,7 @@ internal class WorkspaceSelectionViewController: UIViewController,
         ]
 
         let time = UserDefaults.standard.integer(forKey: "numberOfTimes")
-        if time == 0 && collectionDataSource.isEmpty {
-            createOnboarding()
-            UserDefaults.standard.setValue(time + 1, forKey: "numberOfTimes")
-        } else if time == 8 {
+        if time == 8 {
             if let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
                 #if !DEBUG && !targetEnvironment(macCatalyst)
                 SKStoreReviewController.requestReview(in: scene)
@@ -190,12 +188,9 @@ internal class WorkspaceSelectionViewController: UIViewController,
             UserDefaults.standard.setValue(time + 1, forKey: "numberOfTimes")
         }
         self.definesPresentationContext = true
-        if !collectionDataSource.isEmpty {
-            navigationItem.leftBarButtonItem = editButtonItem
-            navigationItem.leftBarButtonItem?.accessibilityHint = "Edit workspaces hint".localized()
-            navigationItem.leftBarButtonItem?.accessibilityLabel = "Edit workspaces label".localized()
-            navigationItem.leftBarButtonItem?.accessibilityValue = "Editing disabled".localized()
-        }
+        
+        DataManager.shared().addCreationObserver(self, type: .workspace)
+        setEditButtonItem()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -206,6 +201,10 @@ internal class WorkspaceSelectionViewController: UIViewController,
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
             self.invalidateLayout()
         }
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        DataManager.shared().removeObserver(self)
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -269,46 +268,6 @@ internal class WorkspaceSelectionViewController: UIViewController,
         }
     }
     
-    // MARK: - Functions
-
-    private func createOnboarding() {
-        do {
-            let workspace = try DataManager.shared().createWorkspace(named: "Your first workspace".localized())
-            workspace.isEnabled = false
-            let notebook = try DataManager.shared().createNotebook(in: workspace, named: "Your first notebook".localized(), colorName: "nb0")
-            let note = try DataManager.shared().createNote(in: notebook)
-            note.title = NSAttributedString(string: "Welcome Note".localized())
-            let parts: [NSAttributedString] = [
-                "Onboard intro".localized().toStyle(.paragraph),
-                "Workspaces".localized().toStyle(.h2),
-                "Workspace text".localized().toStyle(.paragraph),
-                "Notebooks".localized().toStyle(.h2),
-                "Notebook text".localized().toStyle(.paragraph),
-                "Note Taking".localized().toStyle(.h2),
-                "Writing".localized().toStyle(.h3),
-                "Writing text".localized().toStyle(.paragraph),
-                "Floating Boxes".localized().toStyle(.h3),
-                "Floating boxes text".localized().toStyle(.paragraph),
-                "Markdown".localized().toStyle(.h3),
-                "Markdown text".localized().toStyle(.paragraph)
-            ]
-            let text = NSMutableAttributedString()
-            for part in parts {
-                text.append(part)
-                text.append(NSAttributedString(string: "\n"))
-                text.append(NSAttributedString(string: "\n"))
-            }
-            note.text = text
-            try note.save()
-        } catch {
-            let alertController = UIAlertController(
-                title: "Unable to create onboarding".localized(),
-                message: "The app was unable to create an example workspace".localized(),
-                preferredStyle: .alert).makeErrorMessage(with: "Unable to create onboarding")
-            self.present(alertController, animated: true)
-        }
-    }
-    
     private func invalidateLayout() {
         collectionView.collectionViewLayout.invalidateLayout()
         for visibleCell in collectionView.visibleCells {
@@ -351,6 +310,20 @@ internal class WorkspaceSelectionViewController: UIViewController,
             emptyScreenView.heightAnchor.constraint(equalTo: self.view.heightAnchor, multiplier: 0.5),
             emptyScreenView.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 0.25)
         ])
+    }
+    
+    /// This method presents or hide the Edit button item at the navigation bar
+    private func setEditButtonItem() {
+        
+        if !collectionDataSource.isEmpty {
+            navigationItem.leftBarButtonItem = editButtonItem
+            navigationItem.leftBarButtonItem?.accessibilityHint = "Edit workspaces hint".localized()
+            navigationItem.leftBarButtonItem?.accessibilityLabel = "Edit workspaces label".localized()
+            navigationItem.leftBarButtonItem?.accessibilityValue = "Editing disabled".localized()
+        } else {
+            navigationItem.leftBarButtonItem = nil
+            setEditing(false, animated: true)
+        }
     }
 
     private func editWorkspace(_ workspace: WorkspaceEntity) {
@@ -476,6 +449,16 @@ internal class WorkspaceSelectionViewController: UIViewController,
                 self.emptyScreenView.isHidden = true
             }
         })
+    }
+    
+    // MARK: - EntityObserver functions
+    
+    internal func entityWasCreated(_ value: ObservableEntity) {
+        setEditButtonItem()
+    }
+    
+    internal func entityShouldDelete(_ value: ObservableEntity) {
+        setEditButtonItem()
     }
     
     // MARK: - IBActions functions
