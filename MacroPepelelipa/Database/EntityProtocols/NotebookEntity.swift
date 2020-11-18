@@ -6,7 +6,7 @@
 //  Copyright © 2020 Pedro Giuliano Farina. All rights reserved.
 //
 
-public protocol NotebookEntity: class, ObservableEntity {
+public protocol NotebookEntity: ObservableEntity {
     var name: String { get set }
     var colorName: String { get set }
     var notes: [NoteEntity] { get }

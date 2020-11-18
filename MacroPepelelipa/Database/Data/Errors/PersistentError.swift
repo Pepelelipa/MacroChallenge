@@ -6,6 +6,6 @@
 //  Copyright © 2020 Pedro Giuliano Farina. All rights reserved.
 //
 
-public enum ObservableError: Error {
+public enum PersistentError: Error {
     case idWasNull
 }

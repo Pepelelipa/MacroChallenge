@@ -108,21 +108,29 @@
 "Your first workspace" = "Tutorials";
 "Your first notebook" = "First notebook";
 "Welcome Note" = "Welcome Note";
-"Onboard intro" = "Purple Notebook is an app designed to be efficient and clean for students who need to take notes during classes.\nIt's really easy to learn how to use Purple Notebook. Let's dive in a quick tour.";
-"Workspace text" = "As you first open the app, you see your Workspaces. This is where your notebooks will be.\n\nTo create a Workspace simply tap on add, in the top right corner of your screen.\nTo delete, simply tap and hold into the desired Workspace and confirm the action.
-";
-"Notebook text" = "Within each workspace you possess many notebooks, in which you can have a lot of notes.\n\nTo create a notebook simply tap on add, in the top right corner of your screen.\nTo delete, tap and hold into the desired Notebook and confirm the action.";
 "Note Taking" = "Note Taking";
 "Writing" = "Writing";
-"Writing text" = "Just tap anywhere in the note to begin your text. If you're familiar to markdown, you can use the common shortcuts. If you're a new comer, our right side of the tool bar has got you covered! Try each one of them :)";
 "Floating Boxes" = "Floating Boxes";
-"Floating boxes text" = "If you want to create a floating box on your note, simply tap the Text Box or Image Box button.\nIf you'd like to delete it, long press it and confirm the action. Give it a try :)";
 "Markdown" = "Markdown";
-"Markdown text" = "As an app designed to be efficient, Purple Notebook allows you to use markdown to take notes during classes. It's a quick and powerful way to edit text while typing. Our Markdown Editor has a lot of tools to improve your text, including **Bold**, *Italic* and ::Highlight::.  If you wanna add lists, simply choose between numeric and bullet using 1. or * respectively.";
 "Search" = "Search";
 "Save workspace" = "Save workspace";
 "Save notebook" = "Save notebook";
 "Edit" = "Edit";
+"Skip" = "Skip";
+
+"Organisation title" = "Organisation";
+"Text title" = "Text Editing";
+"Markdown title" = "Markdown";
+"Devices title" = "Devices";
+"Transcript title" = "Text Transcription";
+
+"Organisation subtitle" = "Create a shelf to keep your notebooks and, inside your notebook, create your notes!";
+"Text subtitle" = "Use our toolbar to change the color, size, highlight and font of your text! Place lists, text boxes and images.";
+"Markdown subtitle" = "Use our markdown to make bold, italic, underline and highlight!";
+"Devices subtitle" = "You can use our app to sync your data on your iPhone, iPad and your Mac!";
+"Transcript subtitle" = "And you know that picture of your teachers notes you took during class? Add it here to have the text transcribed!";
+
+"Begin" = "Begin";
 "Find" = "Find";
 "New note" = "New note";
 "Delete note" = "Delete note";
@@ -227,10 +235,15 @@
 
 "Paragraph hint" = "Double tap to change the paragraph type";
 
-"End editing hint" = "Toque duas vezes para finalizar edição";
+"End editing hint" = "Double tap to finish editing";
 
 "Filter Workspaces Hint" = "Showing all notebooks and workspaces from search";
 "Filter Notebooks Hint" = "Showing notebooks from search";
+
+"Skip hint" = "Double tap to skip the onboarding";
+
+"Onboarding label" = "Go to onboarding";
+"Onboarding hint" = "Double tap to go back to the onboarding";
 
 // MARK: - Colors
 
@@ -284,3 +297,10 @@
 "Second Header" = "Second Header";
 "Third Header" = "Third Header";
 "Paragraph" = "Paragraph";
+
+// MARK: - Images
+
+"Workspace Image" = "Workspace Image English";
+"Format Image" = "Format Image English";
+"Transcript Image" = "Transcript Image English";
+"Markdown Image" = "Markdown Image English";

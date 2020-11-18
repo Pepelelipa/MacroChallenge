@@ -184,7 +184,6 @@ internal class WorkspaceCollectionViewCell: UICollectionViewCell, EditableCollec
     }
     
     private func setupWorkspaceView() {
-        
         workspaceNotebooksConstraints = []
         
         workspaceView.removeFromSuperview()

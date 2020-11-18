@@ -1,8 +1,8 @@
 //
 //  ImageBox+CoreDataProperties.swift
-//  Database
+//  MacroPepelelipa
 //
-//  Created by Pedro Giuliano Farina on 08/10/20.
+//  Created by Pedro Giuliano Farina on 10/11/20.
 //  Copyright © 2020 Pedro Giuliano Farina. All rights reserved.
 //
 //
@@ -10,6 +10,7 @@
 
 import Foundation
 import CoreData
+
 
 extension ImageBox {
 
@@ -23,6 +24,7 @@ extension ImageBox {
     @NSManaged public var x: Float
     @NSManaged public var y: Float
     @NSManaged public var z: Float
+    @NSManaged public var id: UUID?
     @NSManaged public var note: Note?
 
 }

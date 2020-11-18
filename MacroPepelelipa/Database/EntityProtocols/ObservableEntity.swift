@@ -7,7 +7,6 @@
 //
 
 public protocol ObservableEntity: ModifiableEntity {
-    func getID() throws -> UUID
     func addObserver(_ observer: EntityObserver)
     func removeObserver(_ observer: EntityObserver)
 }

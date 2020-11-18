@@ -7,7 +7,7 @@
 //
 //swiftlint:disable identifier_name
 
-public protocol TextBoxEntity: class {
+public protocol TextBoxEntity: PersistentEntity {
     var text: NSAttributedString { get set }
     var width: Float { get set }
     var height: Float { get set }

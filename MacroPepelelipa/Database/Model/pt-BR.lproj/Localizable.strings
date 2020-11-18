@@ -1,0 +1,11 @@
+/* 
+  Localizable.strings
+  MacroPepelelipa
+
+  Created by Pedro Giuliano Farina on 06/11/20.
+  Copyright © 2020 Pedro Giuliano Farina. All rights reserved.
+*/
+
+"Couldn't complete fetch:" = "Não foi possível buscar os dados:";
+"Couldn't delete object in iCloud:" = "Não foi possível deletar o objeto:";
+"Couldn't save object in iCloud:" = "Não foi possível salvar o objeto:";
