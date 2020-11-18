@@ -128,8 +128,12 @@ class OnboardingPageViewController: UIPageViewController {
     @objc func openWorkspace(sender: UITapGestureRecognizer) {
         let view = WorkspaceSelectionViewController()
         view.modalPresentationStyle = .fullScreen
-        self.navigationController?.setViewControllers([view], animated: true)
-        self.navigationController?.popToRootViewController(animated: true)
+        if let navControl = self.navigationController {
+            navControl.setViewControllers([view], animated: true)
+            navControl.popToRootViewController(animated: true)
+        } else {
+            self.dismiss(animated: true)
+        }
     }
     
     /**
