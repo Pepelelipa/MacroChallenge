@@ -180,7 +180,7 @@ public class DataManager {
         }
 
         try coreDataController.deleteWorkspace(workspaceObject.coreDataWorkspace)
-        try workspaceObject.removeReferences()
+        workspaceObject.removeReferences()
         if let ckWorkspace = workspaceObject.cloudKitWorkspace {
             cloudKitController.deleteWorkspace(ckWorkspace)
         }
@@ -226,7 +226,7 @@ public class DataManager {
         }
 
         try coreDataController.deleteNotebook(notebookObject.coreDataNotebook)
-        try notebookObject.removeReferences()
+        notebookObject.removeReferences()
         if let ckNotebook = notebookObject.cloudKitNotebook {
             try cloudKitController.deleteNotebook(ckNotebook)
         }
@@ -270,7 +270,7 @@ public class DataManager {
         }
 
         try coreDataController.deleteNote(noteObject.coreDataNote)
-        try noteObject.removeReferences()
+        noteObject.removeReferences()
         if let ckNote = noteObject.cloudKitNote {
             try cloudKitController.deleteNote(ckNote)
         }
@@ -308,7 +308,7 @@ public class DataManager {
         }
 
         try coreDataController.deleteTextBox(textBoxObject.coreDataTextBox)
-        try textBoxObject.removeReferences()
+        textBoxObject.removeReferences()
         if let ckTextBox = textBoxObject.cloudKitTextBox {
             try cloudKitController.deleteTextBox(ckTextBox)
         }
@@ -347,7 +347,7 @@ public class DataManager {
         _ = try? FileHelper.deleteImage(fileName: imageBox.imagePath)
 
         try coreDataController.deleteImageBox(imageBoxObject.coreDataImageBox)
-        try imageBoxObject.removeReferences()
+        imageBoxObject.removeReferences()
         if let ckImageBox = imageBoxObject.cloudKitImageBox {
             try cloudKitController.deleteImageBox(ckImageBox)
         }

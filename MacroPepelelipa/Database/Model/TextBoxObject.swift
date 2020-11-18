@@ -97,7 +97,7 @@ internal class TextBoxObject: TextBoxEntity, CloudKitObjectWrapper {
         return cloudKitTextBox
     }
 
-    internal func removeReferences() throws {
+    internal func removeReferences() {
         if let note = self.note,
            let index = note.textBoxes.firstIndex(where: { $0 === self }) {
             note.textBoxes.remove(at: index)

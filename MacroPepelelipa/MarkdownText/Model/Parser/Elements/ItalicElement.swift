@@ -14,7 +14,7 @@ internal struct ItalicElement: MarkdownElement {
         try NSRegularExpression(pattern: ItalicElement.regex, options: [])
     }
 
-    func match(_ match: NSTextCheckingResult, attributedString: NSMutableAttributedString) -> ([NSRange], ListStyle?) {
+    func match(_ match: NSTextCheckingResult, attributedString: NSMutableAttributedString) -> ([NSRange], Any?) {
         // deleting trailing markdown
         attributedString.deleteCharacters(in: match.range(at: 4))
         // setting bold

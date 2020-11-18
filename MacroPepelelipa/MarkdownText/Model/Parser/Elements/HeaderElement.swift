@@ -14,16 +14,10 @@ internal struct HeaderElement: MarkdownElement {
         try NSRegularExpression(pattern: HeaderElement.regex, options: [])
     }
 
-    func match(_ match: NSTextCheckingResult, attributedString: NSMutableAttributedString) -> ([NSRange], ListStyle?) {
-        let range = match.range(at: 2)
-        let deletionRange = match.range(at: 1)
-        attributedString.enumerateAttribute(.font, in: range, options: .longestEffectiveRangeNotRequired, using: { (font, range, _) in
-            if let font = font as? UIFont, let style = FontStyle(rawValue: deletionRange.length) {
-                attributedString.addAttribute(.font, value: font.toStyle(style), range: range)
-            }
-        })
-        attributedString.deleteCharacters(in: match.range(at: 1))
+    func match(_ match: NSTextCheckingResult, attributedString: NSMutableAttributedString) -> ([NSRange], Any?) {
+        let deletionRange = match.range(at: 0)
+        attributedString.deleteCharacters(in: deletionRange)
 
-        return ([match.range(at: 1)], nil)
+        return ([deletionRange], FontStyle(rawValue: match.range(at: 1).length))
     }
 }

@@ -98,10 +98,10 @@ internal class WorkspaceObject: WorkspaceEntity, CloudKitObjectWrapper {
         return children
     }
 
-    internal func removeReferences() throws {
+    internal func removeReferences() {
         for notebook in notebooks {
             if let notebook = notebook as? NotebookObject {
-                try notebook.removeReferences()
+                notebook.removeReferences()
             }
         }
     }

@@ -248,10 +248,13 @@ internal class NotesViewController: UIViewController,
         }
         
         if note?.title.string != "" {
-            self.textField.attributedText = note?.title
+            self.textField.attributedText = note?.title.replaceColors(with: [.titleColor ?? .black])
         }
         if note?.text.string != "" {
-            self.textView.attributedText = note?.text
+            self.textView.attributedText = note?.text.replaceColors(with: [
+                                                                        UIColor.bodyColor ?? .black,
+                                                                        UIColor.notebookColors[4],
+                                                                        UIColor.notebookColors[14]])
         }
         for textBox in note?.textBoxes ?? [] {
             addTextBox(with: textBox)
