@@ -71,7 +71,6 @@
 		02398A792551F775009BFC32 /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02398A782551F775009BFC32 /* Fonts.swift */; };
 		02398A882551F878009BFC32 /* Font Style Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02398A872551F878009BFC32 /* Font Style Extension.swift */; };
 		02398A962551FE8E009BFC32 /* PersistentError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02398A952551FE8E009BFC32 /* PersistentError.swift */; };
-		02458EDC2525094C00466BFF /* WorkspaceCellNotebookCollectionViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02458EDB2525094C00466BFF /* WorkspaceCellNotebookCollectionViewDelegate.swift */; };
 		0247F78D25115BAA00405A61 /* NotebooksSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0247F78C25115BAA00405A61 /* NotebooksSelectionViewController.swift */; };
 		024C5BB3252E41D8009549CE /* AddNotebookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 024C5BB1252E41D8009549CE /* AddNotebookViewController.swift */; };
 		024C5BB4252E41D8009549CE /* ColorSelectionCollectionViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 024C5BB2252E41D8009549CE /* ColorSelectionCollectionViewDelegate.swift */; };
@@ -314,7 +313,6 @@
 		02398A782551F775009BFC32 /* Fonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
 		02398A872551F878009BFC32 /* Font Style Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Font Style Extension.swift"; sourceTree = "<group>"; };
 		02398A952551FE8E009BFC32 /* PersistentError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistentError.swift; sourceTree = "<group>"; };
-		02458EDB2525094C00466BFF /* WorkspaceCellNotebookCollectionViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkspaceCellNotebookCollectionViewDelegate.swift; sourceTree = "<group>"; };
 		0247F78C25115BAA00405A61 /* NotebooksSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotebooksSelectionViewController.swift; sourceTree = "<group>"; };
 		024C5BB1252E41D8009549CE /* AddNotebookViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddNotebookViewController.swift; sourceTree = "<group>"; };
 		024C5BB2252E41D8009549CE /* ColorSelectionCollectionViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorSelectionCollectionViewDelegate.swift; sourceTree = "<group>"; };

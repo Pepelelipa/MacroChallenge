@@ -18,7 +18,7 @@ public protocol ConflictHandler {
 
 internal struct DefaultConflictHandler: ConflictHandler {
     public func errDidOccur(err: Error) {
-        #if DEBUGs
+        #if DEBUG
         fatalError(err.localizedDescription)
         #else
         NSLog(err.localizedDescription)
