@@ -14,13 +14,11 @@ class OnboardingPageViewController: UIPageViewController {
     
     private lazy var onboardingPageViewDataSource = OnboardingPageViewControllerDataSource(pages: pages)
     
-    private lazy var onboardingPageViewDelegeta = OnboardingPageViewControllerDelegate(pages: pages) { [unowned self] (currentPage) in
-        self.pageControl.currentPage = currentPage
-        
-        if currentPage == 4 {
-            self.startButton.isHidden = false
-        } else {
-            self.startButton.isHidden = true
+    private lazy var onboardingPageViewDelegeta = OnboardingPageViewControllerDelegate() {
+        if let viewController = self.viewControllers?.first,
+           let index = self.onboardingPageViewDataSource.indexFor(viewController) {
+            self.pageControl.currentPage = index
+            self.startButton.isHidden = index != 4
         }
     }
     
@@ -29,7 +27,7 @@ class OnboardingPageViewController: UIPageViewController {
     
         pg.currentPageIndicatorTintColor = UIColor.actionColor
         pg.pageIndicatorTintColor = UIColor.toolsColor
-        pg.addTarget(self, action: #selector(pageChanged), for: .valueChanged)
+        pg.addTarget(self, action: #selector(pgControlValueChanged(_:)), for: .valueChanged)
         
         pg.translatesAutoresizingMaskIntoConstraints = false
         
@@ -67,9 +65,9 @@ class OnboardingPageViewController: UIPageViewController {
     
     private lazy var pages: [UIViewController] = {
         var pg = [UIViewController]()
-        let titles = ["Organisation title".localized(), "Text title".localized(), "Markdown title".localized(), "Devices title".localized(), "Transcript title".localized()]
+        let titles = ["Organization title".localized(), "Text title".localized(), "Markdown title".localized(), "Devices title".localized(), "Transcript title".localized()]
         
-        let subtitles = ["Organisation subtitle".localized(), "Text subtitle".localized(), "Markdown subtitle".localized(), "Devices subtitle".localized(), "Transcript subtitle".localized()]
+        let subtitles = ["Organization subtitle".localized(), "Text subtitle".localized(), "Markdown subtitle".localized(), "Devices subtitle".localized(), "Transcript subtitle".localized()]
         
         let images = ["Workspace Image".localized(), "Format Image".localized(), "Markdown Image".localized(), "Devices Image", "Transcript Image".localized()]
         
@@ -137,16 +135,18 @@ class OnboardingPageViewController: UIPageViewController {
     /**
      This is where the page changes in regard to the pressing of the buttons in the page control.
      */
-    @objc func pageChanged() {
-        
-        for i in 0 ..< pages.count {
-            if pageControl.currentPage == i {
-                setViewControllers([pages[i]], direction: .forward, animated: true, completion: nil)
-            }
+    @objc func pgControlValueChanged(_ sender: UIPageControl) {
+        var direction: UIPageViewController.NavigationDirection?
+        if let viewController = viewControllers?.first,
+           let index = pages.firstIndex(of: viewController) {
+            direction = sender.currentPage > index ? .forward : .reverse
         }
+        setViewControllers([pages[sender.currentPage]], direction: direction ?? .forward, animated: true)
         
-        if pageControl.currentPage == 4 {
+        if sender.currentPage == 4 {
             self.startButton.isHidden = false
+        } else {
+            self.startButton.isHidden = true
         }
     }
     
