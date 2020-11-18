@@ -38,6 +38,8 @@ internal class MarkdownContainerView: MarkdownFormatView, TextEditingDelegateObs
         fmtLabel.text = "Format".localized()
         fmtLabel.font = fmtLabel.font.withSize(22)
         fmtLabel.textColor = UIColor.bodyColor
+        fmtLabel.adjustsFontSizeToFitWidth = true
+        fmtLabel.baselineAdjustment = .alignCenters
         fmtLabel.translatesAutoresizingMaskIntoConstraints = false
         return fmtLabel
     }()
@@ -52,16 +54,13 @@ internal class MarkdownContainerView: MarkdownFormatView, TextEditingDelegateObs
     override func addSelectors() {
         self.backgroundColor = UIColor.backgroundColor
         self.addSubview(backgroundView)
+        self.addSubview(fontStackView)
         
         for (_, selector) in colorSelector {
             backgroundView.addSubview(selector)
         }
-        
+
         for (_, selector) in formatSelector {
-            backgroundView.addSubview(selector)
-        }
-        
-        for (_, selector) in fontSelector {
             backgroundView.addSubview(selector)
         }
         
@@ -81,21 +80,25 @@ internal class MarkdownContainerView: MarkdownFormatView, TextEditingDelegateObs
         NSLayoutConstraint.activate([
             backgroundView.topAnchor.constraint(equalTo: self.topAnchor, constant: 16),
             backgroundView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 16),
-            backgroundView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -16),
+            backgroundView.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor, constant: -10),
             backgroundView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -16)
         ])
         
         NSLayoutConstraint.activate([
             formatLabel.topAnchor.constraint(equalTo: backgroundView.topAnchor, constant: 16),
-            formatLabel.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor, constant: 16),
+            formatLabel.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor, constant: 20),
             formatLabel.widthAnchor.constraint(equalTo: backgroundView.widthAnchor, multiplier: 0.5)
         ])
         
         NSLayoutConstraint.activate([
             dismissButton.topAnchor.constraint(equalTo: backgroundView.topAnchor, constant: 16),
-            dismissButton.trailingAnchor.constraint(equalTo: backgroundView.trailingAnchor, constant: -16),
+            dismissButton.trailingAnchor.constraint(equalTo: backgroundView.trailingAnchor, constant: -20),
             dismissButton.widthAnchor.constraint(equalTo: backgroundView.heightAnchor, multiplier: 0.15),
             dismissButton.heightAnchor.constraint(equalTo: backgroundView.heightAnchor, multiplier: 0.15)
+        ])
+        
+        NSLayoutConstraint.activate([
+            fontStackView.centerXAnchor.constraint(equalTo: self.centerXAnchor)
         ])
         
         setFontSelectorConstraints()
@@ -118,21 +121,25 @@ internal class MarkdownContainerView: MarkdownFormatView, TextEditingDelegateObs
     }
     
     ///This method sets the contraints for the font selector buttons.
-    private func setFontSelectorConstraints() {
-        guard let merriweather = fontSelector[.merriweather], let openSans = fontSelector[.openSans], let dancing = fontSelector[.dancingScript] else {
+    override internal func setFontSelectorConstraints() {
+        guard let merriweather = fontSelector[.merriweather],
+              let openSans = fontSelector[.openSans],
+              let dancing = fontSelector[.dancingScript] else {
             return
         }
         
         NSLayoutConstraint.activate([
-            merriweather.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor, constant: 16),
-            dancing.trailingAnchor.constraint(equalTo: backgroundView.trailingAnchor, constant: -16),
-            openSans.leadingAnchor.constraint(equalTo: merriweather.trailingAnchor, constant: 15)
+            merriweather.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor, constant: 10),
+            openSans.leadingAnchor.constraint(equalTo: merriweather.trailingAnchor),
+            dancing.leadingAnchor.constraint(equalTo: openSans.trailingAnchor),
+            dancing.trailingAnchor.constraint(equalTo: backgroundView.trailingAnchor, constant: -10),
+            merriweather.widthAnchor.constraint(equalTo: backgroundView.widthAnchor, multiplier: 0.33),
+            openSans.widthAnchor.constraint(equalTo: backgroundView.widthAnchor, multiplier: 0.4)
         ])
         
-        for (key, selector) in fontSelector {
+        for (_, selector) in fontSelector {
             NSLayoutConstraint.activate([
-                selector.bottomAnchor.constraint(equalTo: backgroundView.bottomAnchor, constant: -16),
-                selector.widthAnchor.constraint(equalTo: backgroundView.widthAnchor, multiplier: key == .merriweather ? 0.35 : 0.25)
+                selector.bottomAnchor.constraint(equalTo: backgroundView.bottomAnchor, constant: -16)
             ])
         }
     }
@@ -144,11 +151,10 @@ internal class MarkdownContainerView: MarkdownFormatView, TextEditingDelegateObs
         }
         
         NSLayoutConstraint.activate([
-            black.topAnchor.constraint(greaterThanOrEqualTo: formatLabel.bottomAnchor, constant: 10),
-            black.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor, constant: 16),
-            black.bottomAnchor.constraint(greaterThanOrEqualTo: merriweather.topAnchor, constant: -16),
-            black.heightAnchor.constraint(equalTo: backgroundView.heightAnchor, multiplier: 0.15),
-            black.widthAnchor.constraint(equalTo: backgroundView.heightAnchor, multiplier: 0.15)
+            black.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor, constant: 20),
+            black.bottomAnchor.constraint(equalTo: merriweather.topAnchor, constant: -10),
+            black.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.12),
+            black.widthAnchor.constraint(equalTo: black.heightAnchor)
         ])
         
         for (key, selector) in colorSelector where key != .black {
@@ -158,7 +164,6 @@ internal class MarkdownContainerView: MarkdownFormatView, TextEditingDelegateObs
             }
             
             NSLayoutConstraint.activate([
-                selector.topAnchor.constraint(equalTo: black.topAnchor),
                 selector.leadingAnchor.constraint(equalTo: lastSelector.trailingAnchor, constant: 10),
                 selector.bottomAnchor.constraint(equalTo: black.bottomAnchor),
                 selector.heightAnchor.constraint(equalTo: black.heightAnchor),
@@ -174,11 +179,11 @@ internal class MarkdownContainerView: MarkdownFormatView, TextEditingDelegateObs
         }
         
         NSLayoutConstraint.activate([
-            italic.topAnchor.constraint(greaterThanOrEqualTo: formatLabel.bottomAnchor, constant: 10),
-            italic.trailingAnchor.constraint(equalTo: backgroundView.trailingAnchor, constant: -16),
-            italic.bottomAnchor.constraint(greaterThanOrEqualTo: dancingScript.topAnchor, constant: -16),
-            italic.heightAnchor.constraint(equalTo: backgroundView.heightAnchor, multiplier: 0.15),
-            italic.widthAnchor.constraint(equalTo: backgroundView.heightAnchor, multiplier: 0.12)
+            italic.trailingAnchor.constraint(equalTo: backgroundView.trailingAnchor, constant: -20),
+            italic.bottomAnchor.constraint(equalTo: dancingScript.topAnchor, constant: -10),
+            italic.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.12),
+            italic.widthAnchor.constraint(equalTo: italic.heightAnchor, multiplier: 0.7)
+            
         ])
         
         for (key, selector) in formatSelector where key != .italic {
@@ -186,20 +191,15 @@ internal class MarkdownContainerView: MarkdownFormatView, TextEditingDelegateObs
             
             if key == .highlight {
                 lastSelector = bold
-                NSLayoutConstraint.activate([
-                    selector.widthAnchor.constraint(equalTo: backgroundView.heightAnchor, multiplier: 0.15)
-                ])
+                selector.widthAnchor.constraint(equalTo: italic.heightAnchor).isActive = true
             } else {
-                NSLayoutConstraint.activate([
-                    selector.widthAnchor.constraint(equalTo: italic.widthAnchor)
-                ])
+                selector.widthAnchor.constraint(equalTo: italic.widthAnchor).isActive = true
             }
             
             NSLayoutConstraint.activate([
-                selector.topAnchor.constraint(equalTo: italic.topAnchor),
                 selector.trailingAnchor.constraint(equalTo: lastSelector.leadingAnchor, constant: -16),
                 selector.bottomAnchor.constraint(equalTo: italic.bottomAnchor),
-                selector.heightAnchor.constraint(equalTo: backgroundView.heightAnchor, multiplier: 0.15)
+                selector.heightAnchor.constraint(equalTo: italic.heightAnchor)
             ])
         }
     }
@@ -212,8 +212,8 @@ internal class MarkdownContainerView: MarkdownFormatView, TextEditingDelegateObs
         let shadowColor = #colorLiteral(red: 0.05490196078, green: 0.01568627451, blue: 0.07843137255, alpha: 1)
         backgroundView.layer.shadowColor = shadowColor.cgColor
         backgroundView.layer.shadowOpacity = 0.16
-        backgroundView.layer.shadowOffset = CGSize(width: 0, height: 4)
-        backgroundView.layer.shadowRadius = 12
+        backgroundView.layer.shadowOffset = CGSize(width: 0, height: 0)
+        backgroundView.layer.shadowRadius = 20
         backgroundView.layer.masksToBounds = false
 
         backgroundView.layer.shadowPath = UIBezierPath(rect: backgroundView.bounds).cgPath
