@@ -124,7 +124,7 @@ internal class NoteObject: NoteEntity, CloudKitObjectWrapper {
         return children
     }
 
-    internal func removeReferences() throws {
+    internal func removeReferences() {
         if let notebook = self.notebook,
            let index = notebook.notes.firstIndex(where: { $0 === self }) {
             notebook.notes.remove(at: index)

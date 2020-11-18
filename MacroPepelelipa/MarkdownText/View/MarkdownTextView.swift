@@ -328,6 +328,7 @@ public class MarkdownTextView: UITextView {
 
         attributedText = mutableString
         selectedRange.location = max(0, location - range.length)
+        delegate?.textViewDidChange?(self)
     }
 
     // MARK: List Function
