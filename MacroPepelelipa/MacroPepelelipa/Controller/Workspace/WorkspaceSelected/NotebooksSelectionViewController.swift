@@ -161,9 +161,8 @@ internal class NotebooksSelectionViewController: UIViewController, EntityObserve
         navigationController?.navigationBar.isTranslucent = true
         navigationController?.navigationBar.backgroundColor = .clear
         self.navigationController?.navigationBar.prefersLargeTitles = true
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-            self.collectionView.collectionViewLayout.invalidateLayout()
-        }
+        collectionDelegate.frame = view.frame
+        collectionView.collectionViewLayout.invalidateLayout()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -172,6 +171,7 @@ internal class NotebooksSelectionViewController: UIViewController, EntityObserve
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
+        collectionDelegate.frame = CGRect(origin: view.frame.origin, size: size)
         collectionView.collectionViewLayout.invalidateLayout()
     }
     
@@ -179,7 +179,6 @@ internal class NotebooksSelectionViewController: UIViewController, EntityObserve
         if UIDevice.current.userInterfaceIdiom == .pad || UIDevice.current.userInterfaceIdiom == .mac {
             updateConstraintsForIpad()
         }
-        collectionDelegate.frame = view.frame
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {

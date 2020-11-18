@@ -10,8 +10,6 @@ import UIKit
 
 internal struct ItemSizeHelper {
     
-    static private let isLandscape = UIDevice.current.orientation.isActuallyLandscape
-    
     /**
      This method sets the size for workspace items at a collectionView.
      - Parameter collectionView: the presented collectionView.
@@ -19,6 +17,7 @@ internal struct ItemSizeHelper {
      - Returns the size for the collectionView items.
      */
     static internal func workspaceItemSize(at collectionView: UICollectionView, for frame: CGRect) -> CGSize {
+        let isLandscape = UIDevice.current.orientation.isActuallyLandscape
         let width: CGFloat
         let height: CGFloat
         
@@ -112,6 +111,7 @@ internal struct ItemSizeHelper {
      - Returns the size for the collectionView items.
      */
     static internal func notebookItemSize(at collectionView: UICollectionView, for frame: CGRect) -> CGSize {
+        let isLandscape = UIDevice.current.orientation.isActuallyLandscape
         let width: CGFloat
         let height: CGFloat
         

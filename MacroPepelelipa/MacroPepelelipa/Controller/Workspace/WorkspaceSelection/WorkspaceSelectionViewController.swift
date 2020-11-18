@@ -198,9 +198,8 @@ internal class WorkspaceSelectionViewController: UIViewController,
         navigationItem.largeTitleDisplayMode = .always
         self.navigationController?.navigationBar.prefersLargeTitles = true
         super.viewWillAppear(animated)
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-            self.invalidateLayout()
-        }
+        collectionDelegate.frame = view.frame
+        collectionView.collectionViewLayout.invalidateLayout()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -209,6 +208,8 @@ internal class WorkspaceSelectionViewController: UIViewController,
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
+        collectionDelegate.frame = CGRect(origin: view.frame.origin, size: size)
+        collectionView.collectionViewLayout.invalidateLayout()
         invalidateLayout()
     }
     
