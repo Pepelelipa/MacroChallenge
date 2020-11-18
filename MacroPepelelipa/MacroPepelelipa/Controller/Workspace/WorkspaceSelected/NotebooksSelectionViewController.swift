@@ -161,7 +161,6 @@ internal class NotebooksSelectionViewController: UIViewController, EntityObserve
         navigationController?.navigationBar.isTranslucent = true
         navigationController?.navigationBar.backgroundColor = .clear
         self.navigationController?.navigationBar.prefersLargeTitles = true
-        
         collectionDelegate.frame = view.frame
         collectionView.collectionViewLayout.invalidateLayout()
     }
