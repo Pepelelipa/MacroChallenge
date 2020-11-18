@@ -117,6 +117,15 @@ internal class WorkspaceSelectionViewController: UIViewController,
         return item
     }()
     
+    private lazy var onboardingButton: UIBarButtonItem = {
+        let item = UIBarButtonItem(ofType: .info, target: self, action: #selector(openOnboarding))
+        item.isAccessibilityElement = true
+        item.accessibilityLabel = "Onboarding label".localized()
+        item.accessibilityHint = "Onboarding hint".localized()
+        
+        return item
+    }()
+    
     private lazy var emptyScreenView: EmptyScreenView = {
         let view = EmptyScreenView(
             frame: .zero,
@@ -145,7 +154,7 @@ internal class WorkspaceSelectionViewController: UIViewController,
         addKeyCommand(WorkspaceSelectionViewController.findCommand)
         
         view.backgroundColor = .rootColor
-        navigationItem.rightBarButtonItem = btnAdd
+        navigationItem.rightBarButtonItems = [btnAdd, onboardingButton]
         navigationItem.largeTitleDisplayMode = .always
         navigationItem.title = "Workspaces".localized()
         view.addSubview(collectionView)
@@ -454,6 +463,14 @@ internal class WorkspaceSelectionViewController: UIViewController,
     }
     
     // MARK: - IBActions functions
+    
+    /**
+     This method opens the onboarding screen once the user clicks on the information button.
+     */
+    @IBAction func openOnboarding() {
+        let onboardingViewController = OnboardingPageViewController()
+        self.present(onboardingViewController, animated: true, completion: nil)
+    }
     
     /// Makes the search controller first responder
     @IBAction func startSearch() {
