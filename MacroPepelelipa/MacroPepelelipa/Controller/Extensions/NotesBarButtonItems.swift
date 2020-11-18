@@ -13,6 +13,7 @@ internal enum BarButtonItemType {
     case addNote
     case moreActions
     case done
+    case info
 }
 
 extension UIBarButtonItem {
@@ -35,6 +36,8 @@ extension UIBarButtonItem {
             self.image = UIImage(systemName: "ellipsis.circle")
         case .done:
             self.title = "Done".localized()
+        case .info:
+            self.image = UIImage(systemName: "info.circle")
         }
         
         self.style = .plain

@@ -120,6 +120,21 @@
 "Edit Workspace" = "Editar Coleção";
 "Edit Notebook" = "Editar Caderno";
 "Edit" = "Editar";
+"Skip" = "Pular";
+
+"Organisation title" = "Organização";
+"Text title" = "Edição do Texto";
+"Markdown title" = "Markdown";
+"Devices title" = "Dispositivos";
+"Transcript title" = "Transcrição de Texto";
+
+"Organisation subtitle" = "Crie uma estante para guardar seus cadernos e dentro dos cadernos, crie as suas notas!";
+"Text subtitle" = "Use a nossa barra de configurações para trocar a cor, tamanho, destaque e fonte de seu texto! Coloque listas, caixas de texto e imagens.";
+"Markdown subtitle" = "Utilize o nosso markdown para fazer negrito, itálico, sublinhado e marca-texto!";
+"Devices subtitle" = "Você pode utilizar o nosso aplicativo com sincronização dos seus dados no iPhone, iPad e no seu Mac!";
+"Transcript subtitle" = "E sabe aquela sua foto da lousa do professor? Adiciona ela aqui para ter o texto transcrito!";
+
+"Begin" = "Iniciar";
 "Find" = "Buscar";
 "New note" = "Nova nota";
 "Delete note" = "Excluir nota";
@@ -224,10 +239,15 @@
 
 "Paragraph hint" = "Toque duas vezes para trocar o tipo de parágrafo";
 
-"End editing hint" = "Double tap to end editing";
+"End editing hint" = "Toque duas vezes para terminar a edição";
 
 "Filter Workspaces Hint" = "Mostrando cadernos e workspaces da pesquisa";
 "Filter Notebooks Hint" = "Mostrando os cadernos da pesquisa";
+
+"Skip hint" = "Toque duas vezes para pular o onboarding";
+
+"Onboarding label" = "Vá para o tutorial";
+"Onboarding hint" = "Clique duas vezes para abrir o tutorial";
 
 // MARK: - Colors
 
@@ -282,3 +302,9 @@
 "Third Header" = "Terceiro cabeçalho";
 "Paragraph" = "Parágrafo";
 
+// MARK: - Images
+
+"Workspace Image" = "Workspace Image Portuguese";
+"Format Image" = "Format Image Portuguese";
+"Transcript Image" = "Transcript Image Portuguese";
+"Markdown Image" = "Markdown Image Portuguese";
