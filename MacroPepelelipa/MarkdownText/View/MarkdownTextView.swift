@@ -448,7 +448,7 @@ public class MarkdownTextView: UITextView {
                 var occurrenceString: NSAttributedString
 
                 //Get all characters that has kern
-                while range.location + range.length < string.length - 1,
+                while range.location + range.length < string.length,
                       string.attributedSubstring(from: NSRange(location: readingLocation, length: range.length + 1)).hasKern(at: range.length) {
                     range.length += 1
                 }
