@@ -13,6 +13,8 @@ import Database
 internal class NoteAssignerResultsViewController: UIViewController,
                                                   UISearchResultsUpdating {
     
+    // MARK: - Variables and Constants
+
     private var isSearchBarEmpty: Bool {
         return searchController.searchBar.text?.isEmpty ?? true
     }
@@ -66,6 +68,7 @@ internal class NoteAssignerResultsViewController: UIViewController,
         ]
     }()
     
+    // MARK: - UISearchResultsUpdating Methos
     func updateSearchResults(for searchController: UISearchController) {
         let searchBar = searchController.searchBar
         if let text = searchBar.text {
@@ -76,6 +79,9 @@ internal class NoteAssignerResultsViewController: UIViewController,
         filterObserver?.isFiltering(value)
         tableView.reloadData()
     }
+    
+    // MARK: - Override Methos
+
     
     override func viewDidLoad() {
         super.viewDidLoad()

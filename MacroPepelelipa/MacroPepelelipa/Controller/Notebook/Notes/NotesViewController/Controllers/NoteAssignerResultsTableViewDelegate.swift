@@ -27,9 +27,6 @@ internal class NoteAssignerResultsTableViewDelegate: NSObject,
                 message: "The database could not fetch the workspace".localized(),
                 preferredStyle: .alert)
                 .makeErrorMessage(with: "The Workspaces could not be fetched".localized())
-//            if let viewController = viewController {
-//                viewController.present(alertController, animated: true, completion: nil)
-//            }
             return []
         }
     }()

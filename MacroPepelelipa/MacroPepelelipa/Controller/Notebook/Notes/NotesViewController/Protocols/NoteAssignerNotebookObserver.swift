@@ -10,5 +10,10 @@ import Foundation
 import Database
 
 protocol NoteAssignerNotebookObserver: class {
+    /**
+     Pass the chosen notebook     
+     - Parameters
+        - notebook: The selected Notebook.
+     */
     func selectedNotebook(notebook: NotebookEntity) 
 }
