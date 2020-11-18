@@ -105,6 +105,7 @@ internal class MarkdownFormatView: UIView, MarkdownObserver {
             )
             newButton.translatesAutoresizingMaskIntoConstraints = false
             newButton.addTarget(self, action: #selector(changeFont(_:)), for: .touchUpInside)
+            newButton.titleLabel?.adjustsFontSizeToFitWidth = true
             buttons[font.value] = newButton
         }
         
@@ -129,6 +130,26 @@ internal class MarkdownFormatView: UIView, MarkdownObserver {
         }
         
         return buttons
+    }()
+    
+    internal private(set) lazy var fontStackView: UIStackView = {
+        let stack = UIStackView(frame: .zero)
+        
+        stack.axis = .horizontal
+        stack.alignment = .fill
+        stack.distribution = .fill
+        
+        if let merriweather = fontSelector[.merriweather],
+           let openSans = fontSelector[.openSans],
+           let dancing = fontSelector[.dancingScript] {
+            stack.addArrangedSubview(merriweather)
+            stack.addArrangedSubview(openSans)
+            stack.addArrangedSubview(dancing)
+        }
+        
+        stack.translatesAutoresizingMaskIntoConstraints = false
+        
+        return stack
     }()
     
     // MARK: - Initializers
@@ -194,21 +215,25 @@ internal class MarkdownFormatView: UIView, MarkdownObserver {
     }
     
     ///This method sets the contraints for the font selector buttons.
-    private func setFontSelectorConstraints() {
-        guard let merriweather = fontSelector[.merriweather], let openSans = fontSelector[.openSans], let dancing = fontSelector[.dancingScript] else {
+    internal func setFontSelectorConstraints() {
+        guard let merriweather = fontSelector[.merriweather],
+              let openSans = fontSelector[.openSans],
+              let dancing = fontSelector[.dancingScript] else {
             return
         }
         
         NSLayoutConstraint.activate([
             merriweather.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 16),
+            openSans.leadingAnchor.constraint(equalTo: merriweather.trailingAnchor),
+            dancing.leadingAnchor.constraint(equalTo: openSans.trailingAnchor),
             dancing.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -16),
-            openSans.leadingAnchor.constraint(equalTo: merriweather.trailingAnchor, constant: 6)
+            merriweather.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 0.33),
+            openSans.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 0.4)
         ])
         
-        for (key, selector) in fontSelector {
+        for (_, selector) in fontSelector {
             NSLayoutConstraint.activate([
-                selector.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -16),
-                selector.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: key == .merriweather ? 0.35 : 0.25)
+                selector.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -16)
             ])
         }
     }
@@ -281,6 +306,8 @@ internal class MarkdownFormatView: UIView, MarkdownObserver {
     
     ///This method adds subviews to the view.
     internal func addSelectors() {
+        self.addSubview(fontStackView)
+        
         for (_, selector) in colorSelector {
             addSubview(selector)
         }

@@ -257,10 +257,14 @@ internal class TextEditingContainerViewController: UIViewController,
 
         let markupContainerViewController = MarkupContainerViewController(owner: textView,
                                                                           viewController: notesViewController,
-                                                                          size: .init(width: 380, height: 110))
+                                                                          size: .init(width: 400, height: 110))
 
         markupContainerViewController.modalPresentationStyle = .popover
         markupContainerViewController.popoverPresentationController?.sourceView = markupNavigationView.barButtonItems[.format]
+        
+        if let textView = notesViewController?.textView {
+            markupContainerViewController.popoverPresentationController?.passthroughViews = [textView]
+        }
 
         present(markupContainerViewController, animated: true)
     }
