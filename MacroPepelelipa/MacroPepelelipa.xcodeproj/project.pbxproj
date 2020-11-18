@@ -144,6 +144,7 @@
 		D96DAA09252F9F4B00552AB1 /* AddNewSpaceToolBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = D96DAA08252F9F4B00552AB1 /* AddNewSpaceToolBar.swift */; };
 		D973A0F52562EBDF0027A72D /* NoteAssignerResultsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D973A0F42562EBDF0027A72D /* NoteAssignerResultsTableViewCell.swift */; };
 		D973A0F925630D8D0027A72D /* NoteAssignerNotebookObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = D973A0F825630D8D0027A72D /* NoteAssignerNotebookObserver.swift */; };
+		D973A0FF2565912C0027A72D /* NoteAssignerResultsCustomHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D973A0FE2565912A0027A72D /* NoteAssignerResultsCustomHeader.swift */; };
 		D97EE7AC254B554F00A68B06 /* SearchResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D97EE7A7254B554F00A68B06 /* SearchResultViewController.swift */; };
 		D97EE7AD254B554F00A68B06 /* SearchResultCollectionViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D97EE7A8254B554F00A68B06 /* SearchResultCollectionViewDelegate.swift */; };
 		D97EE7AE254B554F00A68B06 /* CustomUISearchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D97EE7A9254B554F00A68B06 /* CustomUISearchController.swift */; };
@@ -376,6 +377,7 @@
 		D96DAA08252F9F4B00552AB1 /* AddNewSpaceToolBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewSpaceToolBar.swift; sourceTree = "<group>"; };
 		D973A0F42562EBDF0027A72D /* NoteAssignerResultsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteAssignerResultsTableViewCell.swift; sourceTree = "<group>"; };
 		D973A0F825630D8D0027A72D /* NoteAssignerNotebookObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteAssignerNotebookObserver.swift; sourceTree = "<group>"; };
+		D973A0FE2565912A0027A72D /* NoteAssignerResultsCustomHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteAssignerResultsCustomHeader.swift; sourceTree = "<group>"; };
 		D97EE7A7254B554F00A68B06 /* SearchResultViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchResultViewController.swift; sourceTree = "<group>"; };
 		D97EE7A8254B554F00A68B06 /* SearchResultCollectionViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchResultCollectionViewDelegate.swift; sourceTree = "<group>"; };
 		D97EE7A9254B554F00A68B06 /* CustomUISearchController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomUISearchController.swift; sourceTree = "<group>"; };
@@ -940,6 +942,7 @@
 				D925934D255986F1000529B4 /* InputViewTipsStack.swift */,
 				A7C057C425420F260023A370 /* NotesToolbar.swift */,
 				D973A0F42562EBDF0027A72D /* NoteAssignerResultsTableViewCell.swift */,
+				D973A0FE2565912A0027A72D /* NoteAssignerResultsCustomHeader.swift */,
 			);
 			path = Notes;
 			sourceTree = "<group>";
@@ -1397,6 +1400,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D973A0FF2565912C0027A72D /* NoteAssignerResultsCustomHeader.swift in Sources */,
 				D92593992559E53C000529B4 /* ResizeHandleReceiver.swift in Sources */,
 				025C015625379C6D009923B2 /* FileHelper.swift in Sources */,
 				D9F4A9BD2527D0A600BFDC19 /* MarkupToolBarObserver.swift in Sources */,

@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import Database
 
 internal class NoteAssignerResultsTableViewDelegate: NSObject,
                                                  UITableViewDelegate {
@@ -16,17 +17,41 @@ internal class NoteAssignerResultsTableViewDelegate: NSObject,
     
     private var didSelectCell: ((UITableViewCell) -> Void)?
     
+    private lazy var workspaces: [WorkspaceEntity] = {
+        do {
+            let workspaces = try Database.DataManager.shared().fetchWorkspaces()
+            return workspaces
+        } catch {
+            let alertController = UIAlertController(
+                title: "Error fetching the workspaces".localized(),
+                message: "The database could not fetch the workspace".localized(),
+                preferredStyle: .alert)
+                .makeErrorMessage(with: "The Workspaces could not be fetched".localized())
+//            if let viewController = viewController {
+//                viewController.present(alertController, animated: true, completion: nil)
+//            }
+            return []
+        }
+    }()
+
     // MARK: - Initializers
     
     internal init(_ didSelectCell: @escaping (UITableViewCell) -> Void) {
         self.didSelectCell = didSelectCell
     }
     
-    // MARK: - UICollectionViewDelegate functions
+    // MARK: - UITableViewDelegate functions
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let cell = tableView.cellForRow(at: indexPath) {
             didSelectCell?(cell)
         }
     }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let view = tableView.dequeueReusableHeaderFooterView(withIdentifier: NoteAssignerResultsCustomHeader.cellID()) as? NoteAssignerResultsCustomHeader
+        view?.title.text = workspaces[section].name
+        return view
+    }
+    
 }

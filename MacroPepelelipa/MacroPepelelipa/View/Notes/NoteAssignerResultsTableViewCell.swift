@@ -23,9 +23,16 @@ internal class NoteAssignerResultsTableViewCell: UITableViewCell {
     private var isSelectedImageView: UIImageView = {
         let imageView = UIImageView(image: UIImage(named: "NoteAssignerCellCheck"))
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.alpha = 0
         
         return imageView
+    }()
+    
+    private var isSelectedbackgroundView: UIView = {
+        let backgroundView = UIView()
+        backgroundView.backgroundColor = UIColor.backgroundColor
+        backgroundView.layer.cornerRadius = 10
+        
+        return backgroundView
     }()
     
     private lazy var notebookName: UILabel = {
@@ -62,12 +69,13 @@ internal class NoteAssignerResultsTableViewCell: UITableViewCell {
         self.backgroundColor = UIColor.rootColor
         self.contentView.layer.cornerRadius = 10
         self.addSubview(isSelectedImageView)
+        self.selectedBackgroundView = isSelectedbackgroundView
+        
         NSLayoutConstraint.activate(cellConstraints)
     }
     
-    override func layoutMarginsDidChange() {
-        super.layoutMarginsDidChange()
-        self.layoutMargins = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     override func layoutSubviews() {    
@@ -76,8 +84,8 @@ internal class NoteAssignerResultsTableViewCell: UITableViewCell {
         contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8))
     }
     
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+    override func setSelected(_ selected: Bool, animated: Bool) {
+        isSelectedImageView.isHidden = !selected
     }
     
     internal class func cellID() -> String {

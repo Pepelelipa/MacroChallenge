@@ -11,7 +11,7 @@ import UIKit
 
 internal class CustomUISearchController: UISearchController {
     
-    internal init(searchResultsController: UIViewController, owner: UISearchResultsUpdating, placeHolder: String) {
+    internal init(searchResultsController: UIViewController?, owner: UISearchResultsUpdating, placeHolder: String) {
         super.init(searchResultsController: searchResultsController)
         
         self.searchResultsUpdater = owner

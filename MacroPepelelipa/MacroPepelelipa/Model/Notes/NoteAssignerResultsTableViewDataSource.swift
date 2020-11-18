@@ -24,7 +24,7 @@ internal class NoteAssignerResultsTableViewDataSource: NSObject,
     private var filteredNotebooks = [NotebookEntity]()
     private var isFiltering: Bool = false
 
-//    private let tableView: (() -> UITableView)?
+    private let tableView: (() -> UITableView)?
     
     private weak var viewController: UIViewController?
     
@@ -56,26 +56,50 @@ internal class NoteAssignerResultsTableViewDataSource: NSObject,
 
     // MARK: - Initializers
     
-    internal init(viewController: UIViewController? = nil) {
+    internal init(viewController: UIViewController? = nil, tableView: @escaping (() -> UITableView)) {
         self.viewController = viewController
-//        self.tableView = tableView
+        self.tableView = tableView
         super.init()
-        setFilterWorkspaceObserver()
+        setFilterObserver()
     }
     
     // MARK: - UITableViewDataSource functions
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return workspaces[section].notebooks.count
+        if isFiltering {
+            let currentWorkspace = workspaces[section]
+            let output = filteredNotebooks.map { 
+                if let workspace = try? $0.getWorkspace(), workspace === currentWorkspace {
+                    return 1 
+                } else {
+                    return 0 
+                }
+            } as [Int]
+            
+            return output.reduce(0, +)
+        } else {
+            return workspaces[section].notebooks.count
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let workspace = workspaces[indexPath.section]
-        let notebook = workspace.notebooks[indexPath.row]
-        let cell = NoteAssignerResultsTableViewCell(notebook: notebook)
-                
-        return cell
+        if isFiltering {
+            let currentWorkspace = workspaces[indexPath.section]
+            if let index = filteredNotebooks.firstIndex(where: { (try? $0.getWorkspace()) === currentWorkspace }) {
+                let notebook = filteredNotebooks[index]
+                filteredNotebooks.remove(at: index)
+                let cell = NoteAssignerResultsTableViewCell(notebook: notebook)
+                return cell
+            }
+            return UITableViewCell()
+        } else {
+            let workspace = workspaces[indexPath.section]
+            let notebook = workspace.notebooks[indexPath.row]
+            let cell = NoteAssignerResultsTableViewCell(notebook: notebook)
+                    
+            return cell
+        }
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -88,9 +112,9 @@ internal class NoteAssignerResultsTableViewDataSource: NSObject,
     
     // MARK: - Internal functions
     
-    internal func setFilterWorkspaceObserver() {
-        if let workspaceSelectionController = viewController as? WorkspaceSelectionViewController {
-            workspaceSelectionController.filterObserver = self
+    internal func setFilterObserver() {
+        if let noteAssignerViewController = viewController as? NoteAssignerResultsViewController {
+            noteAssignerViewController.filterObserver = self
         }
     }
    
@@ -104,22 +128,12 @@ internal class NoteAssignerResultsTableViewDataSource: NSObject,
         
         switch categoryFlag {
         case .all:
-            filteredWorkspaces = workspaces.filter({ (workspace) -> Bool in
-                return workspace.name.lowercased().contains(searchText.lowercased())
-            })
             filteredNotebooks = notebooks.filter({ (notebook) -> Bool in
                 return notebook.name.lowercased().contains(searchText.lowercased())
             })
-        case .workspaces:
-            filteredWorkspaces = workspaces.filter({ (workspace) -> Bool in
-                return workspace.name.lowercased().contains(searchText.lowercased())
-            })
-            filteredNotebooks = []
-        case .notebook: 
-            filteredNotebooks = notebooks.filter({ (notebook) -> Bool in
-                return notebook.name.lowercased().contains(searchText.lowercased())
-            })
+        default: 
             filteredWorkspaces = []
+            filteredNotebooks = []
         }
     }
     

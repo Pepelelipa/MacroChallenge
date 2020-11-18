@@ -11,8 +11,17 @@ import UIKit
 import Database
 
 internal class NoteAssignerResultsViewController: UIViewController,
-                                                  UISearchResultsUpdating,
-                                                  UISearchBarDelegate {
+                                                  UISearchResultsUpdating {
+    
+    private var isSearchBarEmpty: Bool {
+        return searchController.searchBar.text?.isEmpty ?? true
+    }
+    
+    private lazy var searchController: CustomUISearchController = {
+        let searchController = CustomUISearchController(searchResultsController: nil, owner: self, placeHolder: "Search".localized())
+        searchController.searchBar.scopeButtonTitles = nil
+        return searchController
+    }()
     
     internal weak var filterObserver: SearchBarObserver?
     internal weak var notebookReference: NotebookEntity?
@@ -29,6 +38,7 @@ internal class NoteAssignerResultsViewController: UIViewController,
         tableView.dataSource = tableViewDataSource
         
         tableView.register(NoteAssignerResultsTableViewCell.self, forCellReuseIdentifier: NoteAssignerResultsTableViewCell.cellID())
+        tableView.register(NoteAssignerResultsCustomHeader.self, forHeaderFooterViewReuseIdentifier: NoteAssignerResultsCustomHeader.cellID())
         
         return tableView
     }()
@@ -43,7 +53,9 @@ internal class NoteAssignerResultsViewController: UIViewController,
         } 
     }   
     
-    private lazy var tableViewDataSource = NoteAssignerResultsTableViewDataSource(viewController: self)
+    private lazy var tableViewDataSource = NoteAssignerResultsTableViewDataSource(viewController: self, tableView: {
+        self.tableView
+    })
     
     private lazy var constraints: [NSLayoutConstraint] = {
         [
@@ -54,31 +66,22 @@ internal class NoteAssignerResultsViewController: UIViewController,
         ]
     }()
     
-    private var isSearchBarEmpty: Bool {
-        return searchController.searchBar.text?.isEmpty ?? true
-    }
-    
-    private lazy var searchController: CustomUISearchController = {
-        let searchController = CustomUISearchController(searchResultsController: self, owner: self, placeHolder: "Search".localized())
-        searchController.searchBar.delegate = self
-        return searchController
-    }()
-    
     func updateSearchResults(for searchController: UISearchController) {
         let searchBar = searchController.searchBar
         if let text = searchBar.text {
             filterObserver?.filterObjects(text, filterCategory: .all)
         }
         let value = searchController.isActive && !isSearchBarEmpty
-        searchController.showsSearchResultsController = true
+        searchController.showsSearchResultsController = false
         filterObserver?.isFiltering(value)
-//        searchResultController.collectionView.reloadData()
+        tableView.reloadData()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.rootColor
         self.view.addSubview(tableView)
+        navigationItem.searchController = searchController
     }
     
     override func viewWillAppear(_ animated: Bool) {
