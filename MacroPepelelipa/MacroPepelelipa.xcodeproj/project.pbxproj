@@ -71,7 +71,6 @@
 		02398A792551F775009BFC32 /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02398A782551F775009BFC32 /* Fonts.swift */; };
 		02398A882551F878009BFC32 /* Font Style Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02398A872551F878009BFC32 /* Font Style Extension.swift */; };
 		02398A962551FE8E009BFC32 /* PersistentError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02398A952551FE8E009BFC32 /* PersistentError.swift */; };
-		02458EDC2525094C00466BFF /* WorkspaceCellNotebookCollectionViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02458EDB2525094C00466BFF /* WorkspaceCellNotebookCollectionViewDelegate.swift */; };
 		0247F78D25115BAA00405A61 /* NotebooksSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0247F78C25115BAA00405A61 /* NotebooksSelectionViewController.swift */; };
 		024C5BB3252E41D8009549CE /* AddNotebookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 024C5BB1252E41D8009549CE /* AddNotebookViewController.swift */; };
 		024C5BB4252E41D8009549CE /* ColorSelectionCollectionViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 024C5BB2252E41D8009549CE /* ColorSelectionCollectionViewDelegate.swift */; };
@@ -140,6 +139,7 @@
 		1EE652C2252504400015E3D4 /* MarkdownContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EE652C1252504400015E3D4 /* MarkdownContainerView.swift */; };
 		1EE652C72525049E0015E3D4 /* MarkdownToggleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EE652C62525049E0015E3D4 /* MarkdownToggleButton.swift */; };
 		1EFA49CE252D15C500602904 /* MarkdownNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EFA49CD252D15C500602904 /* MarkdownNavigationView.swift */; };
+		A7026CDF25659B2400B8FC78 /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C21B33254B55BB0061CCBA /* Font.swift */; };
 		A71E2C1D2538EEB8000DA164 /* NotesPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71E2C1B2538EEB8000DA164 /* NotesPageViewController.swift */; };
 		A71E2C1E2538EEB8000DA164 /* NotesPageViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71E2C1C2538EEB8000DA164 /* NotesPageViewControllerDelegate.swift */; };
 		A71E2C212538EF51000DA164 /* NotesPageViewControllerDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71E2C202538EF51000DA164 /* NotesPageViewControllerDataSource.swift */; };
@@ -314,7 +314,6 @@
 		02398A782551F775009BFC32 /* Fonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
 		02398A872551F878009BFC32 /* Font Style Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Font Style Extension.swift"; sourceTree = "<group>"; };
 		02398A952551FE8E009BFC32 /* PersistentError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistentError.swift; sourceTree = "<group>"; };
-		02458EDB2525094C00466BFF /* WorkspaceCellNotebookCollectionViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkspaceCellNotebookCollectionViewDelegate.swift; sourceTree = "<group>"; };
 		0247F78C25115BAA00405A61 /* NotebooksSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotebooksSelectionViewController.swift; sourceTree = "<group>"; };
 		024C5BB1252E41D8009549CE /* AddNotebookViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddNotebookViewController.swift; sourceTree = "<group>"; };
 		024C5BB2252E41D8009549CE /* ColorSelectionCollectionViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorSelectionCollectionViewDelegate.swift; sourceTree = "<group>"; };
@@ -1437,6 +1436,7 @@
 				02A75293252E5282006D37B5 /* NSPersistantContainer.swift in Sources */,
 				02110789252F86E60009D4E1 /* WorkspaceError.swift in Sources */,
 				02077735251D192D00D97B5A /* ImageBoxEntity.swift in Sources */,
+				A7026CDF25659B2400B8FC78 /* Font.swift in Sources */,
 				022832D9252E547200DDD46B /* DataModel.xcdatamodeld in Sources */,
 				0292CE10255B273B00D05CA2 /* CloudKitObject.swift in Sources */,
 				022832F7252E603800DDD46B /* EntityObserver.swift in Sources */,
