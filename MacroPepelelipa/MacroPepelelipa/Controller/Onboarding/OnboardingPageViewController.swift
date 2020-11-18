@@ -14,7 +14,7 @@ class OnboardingPageViewController: UIPageViewController {
     
     private lazy var onboardingPageViewDataSource = OnboardingPageViewControllerDataSource(pages: pages)
     
-    private lazy var onboardingPageViewDelegeta = OnboardingPageViewControllerDelegate() {
+    private lazy var onboardingPageViewDelegeta = OnboardingPageViewControllerDelegate {
         if let viewController = self.viewControllers?.first,
            let index = self.onboardingPageViewDataSource.indexFor(viewController) {
             self.pageControl.currentPage = index
