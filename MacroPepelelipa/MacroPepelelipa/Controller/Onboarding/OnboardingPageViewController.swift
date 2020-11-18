@@ -86,7 +86,7 @@ class OnboardingPageViewController: UIPageViewController {
     }
     
     required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        super.init(transitionStyle: .scroll, navigationOrientation: .horizontal, options: .none)
     }
     
     // MARK: - Override functions
