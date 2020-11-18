@@ -195,10 +195,7 @@ public class MarkdownTextView: UITextView {
 
     ///Inserts text in text view
     public override func insertText(_ text: String) {
-        guard text != " " else {
-            super.insertText(text)
-            return
-        }
+        let space = (text == " " && attributedText.smallAroundSample(1, location: selectedRange.location).0.string != "#")
         let mutableString = NSMutableAttributedString(attributedString: attributedText)
 
         let location = selectedRange.location
@@ -239,8 +236,10 @@ public class MarkdownTextView: UITextView {
             } else {
                 writeAction()
             }
+        } else if space {
+            super.insertText(text)
         } else {
-            writeAction()
+            writeAction()  
         }
 
         let aroundSample = attributedText.smallAroundSample(100, location: selectedRange.location)
