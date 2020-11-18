@@ -51,4 +51,12 @@ internal class NoteAssignerResultsTableViewDelegate: NSObject,
         return view
     }
     
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        60
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return CGFloat(80)
+    }
+    
 }

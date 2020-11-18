@@ -67,7 +67,7 @@ internal class NoteAssignerResultsTableViewDataSource: NSObject,
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if isFiltering {
-            let currentWorkspace = workspaces[section]
+            let currentWorkspace = filteredWorkspaces[section]
             let output = filteredNotebooks.map { 
                 if let workspace = try? $0.getWorkspace(), workspace === currentWorkspace {
                     return 1 

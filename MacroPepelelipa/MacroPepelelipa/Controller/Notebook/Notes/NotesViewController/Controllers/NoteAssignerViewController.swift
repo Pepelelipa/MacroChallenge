@@ -69,7 +69,7 @@ class NoteAssignerViewController: UIViewController,
         let label = UILabel()
         
         label.text = "Selected Notebook".localized()
-        label.font = UIFont.defaultFont.toStyle(.h3)
+        label.font = UIFont.defaultFont.toStyle(.h2)
         label.tintColor = UIColor.titleColor
         label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -180,7 +180,7 @@ class NoteAssignerViewController: UIViewController,
             notebookNameLbl.topAnchor.constraint(equalTo: notebookView.bottomAnchor, constant: 20),
             notebookNameLbl.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
             notebookNameLbl.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 0.8),
-            notebookNameLbl.heightAnchor.constraint(equalToConstant: 30),
+            notebookNameLbl.heightAnchor.constraint(equalToConstant: 40),
             
             workspaceNameLbl.topAnchor.constraint(equalTo: notebookNameLbl.bottomAnchor, constant: 4),
             workspaceNameLbl.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
