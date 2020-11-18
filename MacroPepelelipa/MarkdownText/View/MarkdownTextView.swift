@@ -5,7 +5,7 @@
 //  Created by Pedro Giuliano Farina on 03/11/20.
 //  Copyright © 2020 Pedro Giuliano Farina. All rights reserved.
 //
-//swiftlint:disable function_body_length
+//swiftlint:disable function_body_length cyclomatic_complexity
 
 import UIKit
 
@@ -195,6 +195,10 @@ public class MarkdownTextView: UITextView {
 
     ///Inserts text in text view
     public override func insertText(_ text: String) {
+        guard text != " " else {
+            super.insertText(text)
+            return
+        }
         let mutableString = NSMutableAttributedString(attributedString: attributedText)
 
         let location = selectedRange.location
