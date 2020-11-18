@@ -80,4 +80,25 @@ internal extension UIColor {
     static let highlightColor: UIColor? = {
         UIColor(named: "Highlight")
     }()
+
+    func compareRGB(_ color: UIColor) -> Bool {
+        let lightColor = resolvedColor(with: UITraitCollection(userInterfaceStyle: .light))
+        let darkColor = resolvedColor(with: UITraitCollection(userInterfaceStyle: .dark))
+
+        if let rgbLight = lightColor.cgColor.components,
+           let rgbDark = darkColor.cgColor.components,
+           let rgbColor = color.cgColor.components {
+            var validation = true
+            for i in 0 ..< 4 {
+                let comparativeValue = rgbColor[i]
+                if abs(rgbDark[i] - comparativeValue) > 0.1 && abs(rgbLight[i] - comparativeValue) > 0.1 {
+                    validation = false
+                    break
+                }
+            }
+            return validation
+        } else {
+            return false
+        }
+    }
 }
