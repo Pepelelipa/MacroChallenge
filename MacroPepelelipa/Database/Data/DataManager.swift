@@ -260,7 +260,8 @@ public class DataManager {
      - Throws: Throws if fails to parse notebook to NotebookObject or fails to create in CoreData.
      */
     public func createLooseNote() throws -> NoteEntity {
-        let cdNote = try coreDataController.createNote(in: nil)
+        let id = UUID()
+        let cdNote = try coreDataController.createNote(in: nil, id: id)
         let noteObject = NoteObject(in: nil, from: cdNote)
         defer {
             notifyCreation(noteObject, type: .note)
