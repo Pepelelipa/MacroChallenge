@@ -202,6 +202,9 @@ public class MarkdownTextView: UITextView {
         mutableString.deleteCharacters(in: selectedRange)
 
         let writeAction = {
+            if text.suffix(1) == "\n" {
+                self.activeFont = self.activeFont.toStyle(.paragraph)
+            }
             let newString = NSAttributedString(string: text, attributes: self.activeAttributes)
             mutableString.insert(newString, at: location)
 
