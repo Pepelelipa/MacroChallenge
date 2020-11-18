@@ -255,8 +255,10 @@ public class MarkdownTextView: UITextView {
             mutableString.replaceCharacters(in: initialRange, with: newMutableString)
             changeTextPreservingRange(to: mutableString)
             selectedRange.location = newLocation + aroundSample.1.location
-            if let list = parseResult.1 {
+            if let list = parseResult.1 as? ListStyle {
                 addList(list)
+            } else if let headerStyle = parseResult.1 as? FontStyle {
+                activeFont = activeFont.toStyle(headerStyle)
             }
         }
 

@@ -14,8 +14,8 @@ internal struct BulletListElement: MarkdownElement {
         return try NSRegularExpression(pattern: BulletListElement.regex, options: .anchorsMatchLines)
     }
 
-    func match(_ match: NSTextCheckingResult, attributedString: NSMutableAttributedString) -> ([NSRange], ListStyle?) {
+    func match(_ match: NSTextCheckingResult, attributedString: NSMutableAttributedString) -> ([NSRange], Any?) {
         attributedString.deleteCharacters(in: match.range(at: 1))
-        return ([match.range(at: 1)], .bullet)
+        return ([match.range(at: 1)], ListStyle.numeric)
     }
 }
