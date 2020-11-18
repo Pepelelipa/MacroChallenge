@@ -110,9 +110,11 @@ internal class SearchResultCollectionViewDataSource: NSObject,
                         
             if isFiltering {
                 workspaceCell.setWorkspace(filteredWorkspaces[indexPath.row], viewController: viewController)
+                workspaceCell.isEditing = collectionView.isEditing
                 return workspaceCell
             } else {
                 workspaceCell.setWorkspace(workspaces[indexPath.row], viewController: viewController)
+                workspaceCell.isEditing = collectionView.isEditing
                 return workspaceCell
             } 
         case 1:

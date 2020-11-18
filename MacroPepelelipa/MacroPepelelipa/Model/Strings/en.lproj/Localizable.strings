@@ -16,8 +16,10 @@
 "Start writing here" = "Do not forget to copy what is happening in your class, while you are playing a little game...";
 "Your Title" = "Your Title";
 "Format" = "Format";
+"New workspace" = "New workspace";
 "New workspace name" = "New workspace name";
 "Create new workspace" = "Create new workspace";
+"New notebook" = "New notebook";
 "New notebook name" = "New notebook name";
 "Create new notebook" = "Create new notebook";
 "Done" = "Done";
@@ -106,21 +108,170 @@
 "Your first workspace" = "Tutorials";
 "Your first notebook" = "First notebook";
 "Welcome Note" = "Welcome Note";
-"Onboard intro" = "Purple Notebook is an app designed to be efficient and clean for students who need to take notes during classes.\nIt's really easy to learn how to use Purple Notebook. Let's dive in a quick tour.";
-"Workspace text" = "As you first open the app, you see your Workspaces. This is where your notebooks will be.\n\nTo create a Workspace simply tap on add, in the top right corner of your screen.\nTo delete, simply tap and hold into the desired Workspace and confirm the action.
-";
-"Notebook text" = "Within each workspace you possess many notebooks, in which you can have a lot of notes.\n\nTo create a notebook simply tap on add, in the top right corner of your screen.\nTo delete, tap and hold into the desired Notebook and confirm the action.";
 "Note Taking" = "Note Taking";
 "Writing" = "Writing";
-"Writing text" = "Just tap anywhere in the note to begin your text. If you're familiar to markdown, you can use the common shortcuts. If you're a new comer, our right side of the tool bar has got you covered! Try each one of them :)";
 "Floating Boxes" = "Floating Boxes";
-"Floating boxes text" = "If you want to create a floating box on your note, simply tap the Text Box or Image Box button.\nIf you'd like to delete it, long press it and confirm the action. Give it a try :)";
 "Markdown" = "Markdown";
-"Markdown text" = "As an app designed to be efficient, Purple Notebook allows you to use markdown to take notes during classes. It's a quick and powerful way to edit text while typing. Our Markdown Editor has a lot of tools to improve your text, including **Bold**, *Italic* and ::Highlight::.  If you wanna add lists, simply choose between numeric and bullet using 1. or * respectively.";
 "Search" = "Search";
 "Save workspace" = "Save workspace";
 "Save notebook" = "Save notebook";
 "Edit" = "Edit";
+"Skip" = "Skip";
+
+"Organisation title" = "Organisation";
+"Text title" = "Text Editing";
+"Markdown title" = "Markdown";
+"Devices title" = "Devices";
+"Transcript title" = "Text Transcription";
+
+"Organisation subtitle" = "Create a shelf to keep your notebooks and, inside your notebook, create your notes!";
+"Text subtitle" = "Use our toolbar to change the color, size, highlight and font of your text! Place lists, text boxes and images.";
+"Markdown subtitle" = "Use our markdown to make bold, italic, underline and highlight!";
+"Devices subtitle" = "You can use our app to sync your data on your iPhone, iPad and your Mac!";
+"Transcript subtitle" = "And you know that picture of your teachers notes you took during class? Add it here to have the text transcribed!";
+
+"Begin" = "Begin";
+"Find" = "Find";
+"New note" = "New note";
+"Delete note" = "Delete note";
+"Import image" = "Import image";
+"Import" = "Import";
+"Export note as PDF" = "Export note as PDF";
+"Export" = "Export";
+"An error has occurred while exporting the PDF" = "An error has occurred while exporting the PDF";
+"The app could not export the file as a PDF" = "The app could not export the file as a PDF";
+"Error writing data to the designed url" = "Error writing data to the designed url";
+"Export notebook as PDF" = "Export notebook as PDF";
+
+
+// MARK: - Accessibility
+
+"Editing enabled" = "Editing enabled";
+"Editing disabled" = "Editing disabled";
+
+"Long press hint" = "Double tap and hold for more options";
+
+"Edit workspaces hint" = "Activate button to edit your workspaces";
+"Edit workspaces label" = "Edit: enables editing mode for all of your workspaces";
+
+"Add workspace hint" = "Activate button to add a new workspace";
+"Add workspace label" = "Add a new workspace";
+
+"Delete workspace hint" = "Activate button to delete the %@ workspace";
+"Delete workspace label" = "Delete %@ workspace";
+
+"Edit workspace name hint" = "Double tap edit this workspace's name";
+
+"Add notebook hint" = "Activate button to add a new notebook";
+"Add notebook label" = "Add a new notebook";
+
+"color notebook" = "%@ notebook";
+
+"Edit notebooks hint" = "Activate button to edit the notebooks in this workspace";
+"Edit notebooks label" = "Edit: enables editing mode for all notebooks in this workspace";
+
+"Delete notebook hint" = "Activate button to delete the %@ notebook";
+"Delete notebook label" = "Delete %@ notebook";
+
+"Edit notebook name hint" = "Double tap edit this notebook's information";
+
+"Note title" = "Note's title";
+"Note title hint" = "Insert the note's title in this text field";
+
+"Index" = "Index";
+"Index button label" = "%@ notebook's index";
+"Index button hint" = "Double tap to go to this notebook's index";
+
+"Delete note label" = "Delete note";
+"Delete note hint" = "Double tap to delete this note";
+
+"Add image label" = "Add image";
+"Add image hint" = "Double tap to add an image to the note";
+"Add from camera label" = "Take a photo";
+"Add from camera hint" = "Double tap to take a photo for your note";
+"Add from library label" = "Add photo from library";
+"Add from library hint" = "Double tap to choose a photo from your library";
+
+"Share note label" = "Share note";
+"Share note hint" = "Double tap to share this note";
+
+"New note label" = "Write a new note";
+"New note hint" = "Double tap to add a new note at the end of this notebook";
+
+"Dismiss pop-up label" = "Dismiss pop-up";
+"Dismiss collection pop-up hint" = "Double tap to exit the create new workspace pop-up";
+"Dismiss notebook pop-up hint" = "Double tap to exit the create new notebook pop-up";
+"Dismiss note pop-up hint" = "Double tap to exit the create note pop-up";
+
+"Index hint" = "Double tap to go to the note %@";
+
+"Selected" = "Selected";
+
+"Text box hint" = "Double tap to add a text box to your note";
+
+"Format hint" = "Double tap to start formatting your text";
+
+"Exit formatting label" = "Exit formatting";
+"Exit formatting hint" = "Double tap to exit formatting and return to typing";
+
+"Color selector" = "Color selector";
+"Color selector hint" = "Double tap to change text color to %@";
+
+"Bold" = "Bold";
+"Italic" = "Italic";
+"Highlight" = "Highlight";
+"Format hint" = "Double tap to format the text with bold, italic, highlight, color and font";
+
+"Merriweather" = "Merriweather";
+"Open Sans" = "Open Sans";
+"Dancing" = "Dancing script";
+"Font hint" = "Double tap to change text font to %@";
+"Serif" = "Serif";
+"Sans-serif" = "Sans-serif";
+"Cursive" = "Cursive";
+
+"List label" = "Make lists";
+"List hint" = "Double tap to create bulleted and numeric lists";
+
+"Paragraph hint" = "Double tap to change the paragraph type";
+
+"End editing hint" = "Double tap to finish editing";
+
+"Filter Workspaces Hint" = "Showing all notebooks and workspaces from search";
+"Filter Notebooks Hint" = "Showing notebooks from search";
+
+"Skip hint" = "Double tap to skip the onboarding";
+
+"Onboarding label" = "Go to onboarding";
+"Onboarding hint" = "Double tap to go back to the onboarding";
+
+// MARK: - Colors
+
+"Text body color" = "Text body color";
+"nb0" = "Aero Blue";
+"nb1" = "Blue Jeans";
+"nb2" = "Cornflower Blue";
+"nb3" = "Verdigris";
+"nb4" = "Seaweed";
+"nb5" = "Queen Blue";
+"nb6" = "Forest Green";
+"nb7" = "Middle Green";
+"nb8" = "Fern Green";
+"nb9" = "Gold";
+"nb10" = "Marigold";
+"nb11" = "Yellow orange";
+"nb12" = "Congo pink";
+"nb13" = "Mandarin";
+"nb14" = "Fuzzy";
+"nb15" = "Red RYB";
+"nb16" = "Blood red";
+"nb17" = "International Red";
+"nb18" = "Violet";
+"nb19" = "Fuchsia";
+"nb20" = "Liberty Blue";
+"nb21" = "Cadet blue";
+"nb22" = "Shadow blue";
+"nb23" = "Dark liver";
 "Library" = "Library";
 "Camera" = "Camera";
 "Tip for transcripting text" = "Tip: you can transcript text from an image.";
@@ -149,3 +300,20 @@
 "The app was unable to get the notebooks from a workspace" = "The app was unable to get the notebooks from a workspace";
 "Unable to get the last notebook" = "Unable to get the last notebook";
 "The app was unable to get the notebook from UserDefaults" = "The app was unable to get the notebook from UserDefaults";
+"List style" = "List style";
+"Paragraph style" = "Paragraph style";
+"Import image" = "Import image";
+"Add text box" = "Add text box";
+"Bullet list" = "Bullet list";
+"Numeric list" = "Numeric list";
+"First Header" = "First Header";
+"Second Header" = "Second Header";
+"Third Header" = "Third Header";
+"Paragraph" = "Paragraph";
+
+// MARK: - Images
+
+"Workspace Image" = "Workspace Image English";
+"Format Image" = "Format Image English";
+"Transcript Image" = "Transcript Image English";
+"Markdown Image" = "Markdown Image English";

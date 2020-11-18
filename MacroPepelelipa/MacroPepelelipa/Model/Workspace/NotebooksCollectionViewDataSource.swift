@@ -74,7 +74,6 @@ internal class NotebooksCollectionViewDataSource: NSObject,
         let notebook = notebooks[indexPath.row]
         cell.setNotebook(notebook)
         cell.isEditing = collectionView.isEditing
-
         if let editableCollection = collectionView as? EditableCollectionView {
             cell.entityShouldBeDeleted = editableCollection.entityShouldBeDeleted
         }

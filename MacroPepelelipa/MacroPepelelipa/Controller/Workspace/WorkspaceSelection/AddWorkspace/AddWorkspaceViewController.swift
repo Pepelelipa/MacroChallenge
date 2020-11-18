@@ -31,6 +31,7 @@ internal class AddWorkspaceViewController: UIViewController, AddWorkspaceObserve
         let txtName = UITextField()
         txtName.translatesAutoresizingMaskIntoConstraints = false
         txtName.placeholder = "New workspace name".localized()
+        txtName.adjustsFontSizeToFitWidth = true
         txtName.borderStyle = .none
         txtName.font = UIFont.defaultHeader.toStyle(.h3)
         txtName.tintColor = .actionColor
@@ -47,6 +48,8 @@ internal class AddWorkspaceViewController: UIViewController, AddWorkspaceObserve
         button.setBackgroundImage(UIImage(systemName: "xmark.circle"), for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.addTarget(self, action: #selector(dismissPopUpView), for: .touchUpInside)
+        button.accessibilityLabel = "Dismiss pop-up label".localized()
+        button.accessibilityHint = "Dismiss collection pop-up hint".localized()
         return button
     }()
     

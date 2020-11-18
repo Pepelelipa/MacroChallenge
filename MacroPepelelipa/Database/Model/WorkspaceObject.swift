@@ -6,25 +6,35 @@
 //  Copyright © 2020 Pedro Giuliano Farina. All rights reserved.
 //
 
-internal class WorkspaceObject: WorkspaceEntity {
+import CloudKit
+
+internal class WorkspaceObject: WorkspaceEntity, CloudKitObjectWrapper {
 
     func getID() throws -> UUID {
-        if let id = coreDataObject.id {
+        if let id = coreDataWorkspace.id {
             return id
         }
-        throw ObservableError.idWasNull
+        throw PersistentError.idWasNull
     }
 
     public var name: String {
-        didSet {
-            coreDataObject.name = name
+        get {
+            return coreDataWorkspace.name ?? cloudKitWorkspace?.name.value ?? ""
+        }
+        set {
+            coreDataWorkspace.name = newValue
+            cloudKitWorkspace?.name.value = newValue
             notifyObservers()
         }
     }
 
     public var isEnabled: Bool {
-        didSet {
-            coreDataObject.isEnabled = isEnabled
+        get {
+            return coreDataWorkspace.isEnabled
+        }
+        set {
+            coreDataWorkspace.isEnabled = newValue
+            cloudKitWorkspace?.isEnabled.value = newValue ? 1 : 0
             notifyObservers()
         }
     }
@@ -37,16 +47,28 @@ internal class WorkspaceObject: WorkspaceEntity {
     
     private var observers: [EntityObserver] = []
 
-    internal let coreDataObject: Workspace
+    internal let coreDataWorkspace: Workspace
+    internal var cloudKitWorkspace: CloudKitWorkspace? {
+        didSet {
+            notebooks.forEach({ notebook in
+                let ckNotebook = cloudKitWorkspace?.notebooks?.references.first(where: { $0.id.value == (try? notebook.getID())?.uuidString })
+                (notebook as? NotebookObject)?.cloudKitNotebook = ckNotebook
+            })
+        }
+    }
 
-    internal init(from workspace: Workspace) {
-        self.coreDataObject = workspace
-        self.name = workspace.name ?? ""
-        self.isEnabled = workspace.isEnabled
+    internal var cloudKitObject: CloudKitEntity? {
+        return cloudKitWorkspace
+    }
+
+    internal init(from workspace: Workspace, and ckWorkspace: CloudKitWorkspace? = nil) {
+        self.cloudKitWorkspace = ckWorkspace
+        self.coreDataWorkspace = workspace
         
-        if let notebooks = coreDataObject.notebooks?.array as? [Notebook] {
+        if let notebooks = coreDataWorkspace.notebooks?.array as? [Notebook] {
             notebooks.forEach { (notebook) in
-                _ = NotebookObject(in: self, from: notebook)
+                let ckObject = ckWorkspace?.notebooks?.first(where: { $0.record["id"] == notebook.id?.uuidString }) as? CloudKitNotebook
+                _ = NotebookObject(in: self, from: notebook, and: ckObject)
             }
         }
     }
@@ -62,7 +84,18 @@ internal class WorkspaceObject: WorkspaceEntity {
     }
 
     func save() throws {
-        try DataManager.shared().saveObjects()
+        try DataManager.shared().saveObjects(getSavable())
+    }
+
+    internal func getSavable() -> [PersistentEntity] {
+        var children: [PersistentEntity] = [self]
+        if let notebooks = notebooks as? [NotebookObject] {
+            for notebook in notebooks {
+                children.append(contentsOf: notebook.getSavable())
+            }
+        }
+        
+        return children
     }
 
     internal func removeReferences() {
@@ -73,6 +106,9 @@ internal class WorkspaceObject: WorkspaceEntity {
         }
     }
 
+    internal func internalObjectsChanged() {
+        notifyObservers()
+    }
     private func notifyObservers() {
         observers.forEach({ $0.entityDidChangeTo(self) })
     }

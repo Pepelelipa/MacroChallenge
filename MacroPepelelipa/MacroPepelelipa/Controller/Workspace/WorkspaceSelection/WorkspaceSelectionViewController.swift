@@ -12,9 +12,32 @@ import StoreKit
 
 internal class WorkspaceSelectionViewController: UIViewController, 
                                                  UISearchResultsUpdating,
-                                                 UISearchBarDelegate {
+                                                 UISearchBarDelegate,
+                                                 EntityObserver {
 
     // MARK: - Variables and Constants
+    
+    internal static let newWorspaceCommand: UIKeyCommand = {
+        let command = UIKeyCommand(title: "New workspace".localized(),
+                     image: nil,
+                     action: #selector(btnAddTap),
+                     input: "N",
+                     modifierFlags: .command,
+                     propertyList: nil)
+        command.discoverabilityTitle = "New workspace".localized()
+        return command
+    }()
+    
+    internal static let findCommand: UIKeyCommand = {
+        let command = UIKeyCommand(title: "Find".localized(),
+                     image: nil,
+                     action: #selector(startSearch),
+                     input: "F",
+                     modifierFlags: .command,
+                     propertyList: nil)
+        command.discoverabilityTitle = "Find".localized()
+        return command
+    }()
     
     internal weak var filterObserver: SearchBarObserver?
     
@@ -43,8 +66,8 @@ internal class WorkspaceSelectionViewController: UIViewController,
         collectionView.backgroundColor = view.backgroundColor
         collectionView.showsVerticalScrollIndicator = false
         collectionView.allowsSelection = true
-        collectionView.allowsSelectionDuringEditing = true
         collectionView.allowsMultipleSelection = false
+        collectionView.allowsSelectionDuringEditing = true
         collectionView.contentInset = UIEdgeInsets(top: 20, left: 0, bottom: 20, right: 0)
         collectionView.delegate = collectionDelegate
         collectionView.dataSource = collectionDataSource
@@ -75,7 +98,7 @@ internal class WorkspaceSelectionViewController: UIViewController,
             self.present(alertController, animated: true, completion: nil)
             return
         }
-
+        
         if !self.collectionView.isEditing {
             let notebooksSelectionView = NotebooksSelectionViewController(workspace: workspace)
             self.navigationController?.pushViewController(notebooksSelectionView, animated: true)
@@ -88,6 +111,9 @@ internal class WorkspaceSelectionViewController: UIViewController,
 
     private lazy var btnAdd: UIBarButtonItem = {
         let item = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(btnAddTap))
+        item.isAccessibilityElement = true
+        item.accessibilityHint = "Add workspace hint".localized()
+        item.accessibilityLabel = "Add workspace label".localized()
         return item
     }()
     
@@ -106,6 +132,15 @@ internal class WorkspaceSelectionViewController: UIViewController,
         let command = UIKeyCommand(input: "F", modifierFlags: .command, action: #selector(startSearch))
         command.discoverabilityTitle = "Find".localized()
         return command
+    }()
+
+    private lazy var onboardingButton: UIBarButtonItem = {
+        let item = UIBarButtonItem(ofType: .info, target: self, action: #selector(openOnboarding))
+        item.isAccessibilityElement = true
+        item.accessibilityLabel = "Onboarding label".localized()
+        item.accessibilityHint = "Onboarding hint".localized()
+        
+        return item
     }()
     
     private lazy var emptyScreenView: EmptyScreenView = {
@@ -132,11 +167,12 @@ internal class WorkspaceSelectionViewController: UIViewController,
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        addKeyCommand(newWorspaceCommand)
-        addKeyCommand(findCommand)
+        addKeyCommand(WorkspaceSelectionViewController.newWorspaceCommand)
+        addKeyCommand(WorkspaceSelectionViewController.findCommand)
         
         view.backgroundColor = .rootColor
-        navigationItem.rightBarButtonItems = [btnAdd, btnAddLooseNote]
+        navigationItem.rightBarButtonItems = [btnAdd, btnAddLooseNote, onboardingButton]
+
         navigationItem.largeTitleDisplayMode = .always
         navigationItem.title = "Workspaces".localized()
         view.addSubview(collectionView)
@@ -160,10 +196,7 @@ internal class WorkspaceSelectionViewController: UIViewController,
         ]
 
         let time = UserDefaults.standard.integer(forKey: "numberOfTimes")
-        if time == 0 && collectionDataSource.isEmpty {
-            createOnboarding()
-            UserDefaults.standard.setValue(time + 1, forKey: "numberOfTimes")
-        } else if time == 8 {
+        if time == 8 {
             if let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
                 #if !DEBUG && !targetEnvironment(macCatalyst)
                 SKStoreReviewController.requestReview(in: scene)
@@ -173,29 +206,36 @@ internal class WorkspaceSelectionViewController: UIViewController,
             UserDefaults.standard.setValue(time + 1, forKey: "numberOfTimes")
         }
         self.definesPresentationContext = true
-        if !collectionDataSource.isEmpty {
-            navigationItem.leftBarButtonItem = editButtonItem
-        }
+        
+        DataManager.shared().addCreationObserver(self, type: .workspace)
+        setEditButtonItem()
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        UIMenuSystem.main.setNeedsRebuild()
         navigationItem.largeTitleDisplayMode = .always
         self.navigationController?.navigationBar.prefersLargeTitles = true
         super.viewWillAppear(animated)
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-            self.invalidateLayout()
-        }
+        collectionDelegate.frame = view.frame
+        collectionView.collectionViewLayout.invalidateLayout()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        DataManager.shared().removeObserver(self)
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
+        collectionDelegate.frame = CGRect(origin: view.frame.origin, size: size)
+        collectionView.collectionViewLayout.invalidateLayout()
         invalidateLayout()
     }
     
     override func viewDidLayoutSubviews() {
-        if UIDevice.current.userInterfaceIdiom == .pad {
+        if UIDevice.current.userInterfaceIdiom == .pad || UIDevice.current.userInterfaceIdiom == .mac {
             updateConstraintsForIpad()
         }
+        collectionDelegate.frame = view.frame
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -210,6 +250,12 @@ internal class WorkspaceSelectionViewController: UIViewController,
     override func setEditing(_ editing: Bool, animated: Bool) {
         super.setEditing(editing, animated: animated)
         collectionView.setEditing(editing)
+        
+        if editing {
+            navigationItem.leftBarButtonItem?.accessibilityValue = "Editing enabled".localized()
+        } else {
+            navigationItem.leftBarButtonItem?.accessibilityValue = "Editing disabled".localized()
+        }
     }
     
     // MARK: - UISearchResultsUpdating Functions
@@ -241,58 +287,16 @@ internal class WorkspaceSelectionViewController: UIViewController,
         }
     }
     
-    // MARK: - Functions
-
-    private func createOnboarding() {
-        do {
-            let workspace = try DataManager.shared().createWorkspace(named: "Your first workspace".localized())
-            workspace.isEnabled = false
-            let notebook = try DataManager.shared().createNotebook(in: workspace, named: "Your first notebook".localized(), colorName: "nb0")
-            let note = try DataManager.shared().createNote(in: notebook)
-            note.title = NSAttributedString(string: "Welcome Note".localized())
-            let parts: [NSAttributedString] = [
-                "Onboard intro".localized().toStyle(.paragraph),
-                "Workspaces".localized().toStyle(.h2),
-                "Workspace text".localized().toStyle(.paragraph),
-                "Notebooks".localized().toStyle(.h2),
-                "Notebook text".localized().toStyle(.paragraph),
-                "Note Taking".localized().toStyle(.h2),
-                "Writing".localized().toStyle(.h3),
-                "Writing text".localized().toStyle(.paragraph),
-                "Floating Boxes".localized().toStyle(.h3),
-                "Floating boxes text".localized().toStyle(.paragraph),
-                "Markdown".localized().toStyle(.h3),
-                "Markdown text".localized().toStyle(.paragraph)
-            ]
-            let text = NSMutableAttributedString()
-            for part in parts {
-                text.append(part)
-                text.append(NSAttributedString(string: "\n"))
-                text.append(NSAttributedString(string: "\n"))
-            }
-            note.text = text
-            try note.save()
-        } catch {
-            let alertController = UIAlertController(
-                title: "Unable to create onboarding".localized(),
-                message: "The app was unable to create an example workspace".localized(),
-                preferredStyle: .alert).makeErrorMessage(with: "Unable to create onboarding")
-            self.present(alertController, animated: true)
-        }
-    }
-    
     private func invalidateLayout() {
         collectionView.collectionViewLayout.invalidateLayout()
         for visibleCell in collectionView.visibleCells {
             if let cell = visibleCell as? WorkspaceCollectionViewCell {
-                cell.invalidateLayout()
+                cell.updateLayout()
             }
         }
     }
 
-    /**
-     This private method sets the constraints for different size classes and devices.
-     */
+    ///This private method sets the constraints for different size classes and devices.
     private func setConstraints() {
         sharedConstraints.append(contentsOf: [
             collectionView.topAnchor.constraint(equalTo: view.topAnchor),
@@ -325,6 +329,20 @@ internal class WorkspaceSelectionViewController: UIViewController,
             emptyScreenView.heightAnchor.constraint(equalTo: self.view.heightAnchor, multiplier: 0.5),
             emptyScreenView.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 0.25)
         ])
+    }
+    
+    /// This method presents or hide the Edit button item at the navigation bar
+    private func setEditButtonItem() {
+        
+        if !collectionDataSource.isEmpty {
+            navigationItem.leftBarButtonItem = editButtonItem
+            navigationItem.leftBarButtonItem?.accessibilityHint = "Edit workspaces hint".localized()
+            navigationItem.leftBarButtonItem?.accessibilityLabel = "Edit workspaces label".localized()
+            navigationItem.leftBarButtonItem?.accessibilityValue = "Editing disabled".localized()
+        } else {
+            navigationItem.leftBarButtonItem = nil
+            setEditing(false, animated: true)
+        }
     }
 
     private func editWorkspace(_ workspace: WorkspaceEntity) {
@@ -376,21 +394,59 @@ internal class WorkspaceSelectionViewController: UIViewController,
         NSLayoutConstraint.activate(activate)
     }
     
-    /**
-     This method updates the view's constraints for an iPad based on the device orientation.
-     */
+    /// This method updates the view's constraints for an iPad based on the device orientation.
     private func updateConstraintsForIpad() {
         var activate = [NSLayoutConstraint]()
         var deactivate = [NSLayoutConstraint]()
         
-        let orientation = UIApplication.shared.windows.first?.windowScene?.interfaceOrientation
+        let isLandscape = UIDevice.current.orientation.isActuallyLandscape
         
-        if orientation == .portrait || orientation == .portraitUpsideDown {
-            deactivate.append(contentsOf: regularConstraints[0].isActive ? regularConstraints : [])
-            activate.append(contentsOf: regularCompactConstraints)
+        if isLandscape {
+            
+            if view.frame.width+5 == UIScreen.main.bounds.width/2 {
+                // Multitasking half screen
+                deactivate.append(contentsOf: regularConstraints[0].isActive ? regularConstraints : [])
+                deactivate.append(contentsOf: regularCompactConstraints[0].isActive ? regularCompactConstraints : [])
+                activate.append(contentsOf: compactRegularConstraints)
+                
+            } else if view.frame.width < UIScreen.main.bounds.width/2 {
+                // Multitasking less than half screen
+                deactivate.append(contentsOf: regularConstraints[0].isActive ? regularConstraints : [])
+                deactivate.append(contentsOf: regularCompactConstraints[0].isActive ? regularCompactConstraints : [])
+                activate.append(contentsOf: compactRegularConstraints)
+                
+            } else if view.frame.width == UIScreen.main.bounds.width {
+                // Full screen
+                deactivate.append(contentsOf: compactRegularConstraints[0].isActive ? compactRegularConstraints : [])
+                deactivate.append(contentsOf: regularCompactConstraints[0].isActive ? regularCompactConstraints : [])
+                activate.append(contentsOf: regularConstraints)
+                
+            } else {
+                // Multitasking more than half screen
+                deactivate.append(contentsOf: compactRegularConstraints[0].isActive ? compactRegularConstraints : [])
+                deactivate.append(contentsOf: regularConstraints[0].isActive ? regularConstraints : [])
+                activate.append(contentsOf: regularCompactConstraints)
+            }
+            
         } else {
-            deactivate.append(contentsOf: regularCompactConstraints[0].isActive ? regularCompactConstraints : [])
-            activate.append(contentsOf: regularConstraints)
+            
+            if view.frame.width < UIScreen.main.bounds.width/2 {
+                // Multitasking less than half screen
+                deactivate.append(contentsOf: regularConstraints[0].isActive ? regularConstraints : [])
+                deactivate.append(contentsOf: regularCompactConstraints[0].isActive ? regularCompactConstraints : [])
+                activate.append(contentsOf: compactRegularConstraints)
+            
+            } else if view.frame.width == UIScreen.main.bounds.width {
+                // Full screen
+                deactivate.append(contentsOf: compactRegularConstraints[0].isActive ? compactRegularConstraints : [])
+                deactivate.append(contentsOf: regularConstraints[0].isActive ? regularConstraints : [])
+                activate.append(contentsOf: regularCompactConstraints)
+            } else {
+                // Multitasking more than half screen
+                deactivate.append(contentsOf: regularConstraints[0].isActive ? regularConstraints : [])
+                deactivate.append(contentsOf: regularCompactConstraints[0].isActive ? regularCompactConstraints : [])
+                activate.append(contentsOf: compactRegularConstraints)
+            }
         }
         
         NSLayoutConstraint.deactivate(deactivate)
@@ -414,7 +470,25 @@ internal class WorkspaceSelectionViewController: UIViewController,
         })
     }
     
+    // MARK: - EntityObserver functions
+    
+    internal func entityWasCreated(_ value: ObservableEntity) {
+        setEditButtonItem()
+    }
+    
+    internal func entityShouldDelete(_ value: ObservableEntity) {
+        setEditButtonItem()
+    }
+    
     // MARK: - IBActions functions
+    
+    /**
+     This method opens the onboarding screen once the user clicks on the information button.
+     */
+    @IBAction func openOnboarding() {
+        let onboardingViewController = OnboardingPageViewController()
+        self.present(onboardingViewController, animated: true, completion: nil)
+    }
     
     /// Makes the search controller first responder
     @IBAction func startSearch() {
@@ -460,7 +534,6 @@ internal class WorkspaceSelectionViewController: UIViewController,
     
     /**
      This method handles the long press on a workspace, asking the user to delete it or not.
-     
      - Parameter gesture: The UILongPressGestureRecognizer containing the gesture.
      */
     @IBAction func handleLongPress(gesture: UILongPressGestureRecognizer) {
@@ -505,9 +578,8 @@ internal class WorkspaceSelectionViewController: UIViewController,
             alertController.addAction(editAction)
         }
 
-        if UIDevice.current.userInterfaceIdiom == .pad {
+        if UIDevice.current.userInterfaceIdiom == .pad || UIDevice.current.userInterfaceIdiom == .mac {
             alertController.popoverPresentationController?.sourceView = cell
-            alertController.popoverPresentationController?.sourceRect = cell.frame
         }
         self.present(alertController, animated: true, completion: nil)
     }
