@@ -252,6 +252,9 @@
 
 "Skip hint" = "Toque duas vezes para pular o onboarding";
 
+"Onboarding label" = "Vá para o tutorial";
+"Onboarding hint" = "Clique duas vezes para abrir o tutorial";
+
 // MARK: - Colors
 
 "Text body color" = "Cor de corpo de texto";

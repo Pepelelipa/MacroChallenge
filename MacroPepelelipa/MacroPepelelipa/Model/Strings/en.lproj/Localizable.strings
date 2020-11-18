@@ -249,6 +249,9 @@
 
 "Skip hint" = "Double tap to skip the onboarding";
 
+"Onboarding label" = "Go to onboarding";
+"Onboarding hint" = "Double tap to go back to the onboarding";
+
 // MARK: - Colors
 
 "Text body color" = "Text body color";
