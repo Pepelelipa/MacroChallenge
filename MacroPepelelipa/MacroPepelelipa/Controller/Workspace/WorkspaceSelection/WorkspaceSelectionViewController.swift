@@ -440,8 +440,12 @@ internal class WorkspaceSelectionViewController: UIViewController,
         do {
             looseNote = try DataManager.shared().createLooseNote()
         } catch {
-            //TODO
-            print(error.localizedDescription)
+            let alertController = UIAlertController(
+                title: "Failed to create Loose Note".localized(),
+                message: "The database could not create the Loose Note".localized(),
+                preferredStyle: .alert)
+                .makeErrorMessage(with: "The Loose Note could not be created".localized())
+            self.present(alertController, animated: true, completion: nil)
         }
         
         if let note = looseNote {

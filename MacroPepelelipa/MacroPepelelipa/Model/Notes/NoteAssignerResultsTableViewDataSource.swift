@@ -85,14 +85,11 @@ internal class NoteAssignerResultsTableViewDataSource: NSObject,
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         if isFiltering {
-            let currentWorkspace = workspaces[indexPath.section]
-            if let index = filteredNotebooks.firstIndex(where: { (try? $0.getWorkspace()) === currentWorkspace }) {
-                let notebook = filteredNotebooks[index]
-                filteredNotebooks.remove(at: index)
-                let cell = NoteAssignerResultsTableViewCell(notebook: notebook)
-                return cell
-            }
-            return UITableViewCell()
+            let workspace = filteredWorkspaces[indexPath.section]
+            let notebook = workspace.notebooks[indexPath.row]
+            let cell = NoteAssignerResultsTableViewCell(notebook: notebook)
+                    
+            return cell
         } else {
             let workspace = workspaces[indexPath.section]
             let notebook = workspace.notebooks[indexPath.row]
@@ -103,11 +100,19 @@ internal class NoteAssignerResultsTableViewDataSource: NSObject,
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return workspaces.count
+        if isFiltering {
+            return filteredWorkspaces.count
+        } else {
+            return workspaces.count
+        }
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return workspaces[section].name
+        if isFiltering {
+            return filteredWorkspaces[section].name
+        } else {
+            return workspaces[section].name
+        }
     }
     
     // MARK: - Internal functions
@@ -116,6 +121,28 @@ internal class NoteAssignerResultsTableViewDataSource: NSObject,
         if let noteAssignerViewController = viewController as? NoteAssignerResultsViewController {
             noteAssignerViewController.filterObserver = self
         }
+    }
+    
+    internal func setFilterWorkspace(by selectedNotebooks: [NotebookEntity]) {
+        var selectedWorkspaces = [WorkspaceEntity]()
+        for notebook in selectedNotebooks {
+            do {
+                if !selectedWorkspaces.contains(where: { 
+                    $0 === (try? notebook.getWorkspace())
+                }) {
+                    selectedWorkspaces.append(try notebook.getWorkspace()) 
+                }
+            } catch {
+                let alertController = UIAlertController(
+                    title: "Unable to get notebooks".localized(),
+                    message: "The app was unable to get the notebooks from a workspace".localized(),
+                    preferredStyle: .alert).makeErrorMessage(with: "Unable to get notebooks")
+                if let viewController = viewController {
+                    viewController.present(alertController, animated: true)
+                }
+            }
+        }
+        filteredWorkspaces = selectedWorkspaces
     }
    
     // MARK: - FilterObserver functions
@@ -131,6 +158,7 @@ internal class NoteAssignerResultsTableViewDataSource: NSObject,
             filteredNotebooks = notebooks.filter({ (notebook) -> Bool in
                 return notebook.name.lowercased().contains(searchText.lowercased())
             })
+            setFilterWorkspace(by: filteredNotebooks)
         default: 
             filteredWorkspaces = []
             filteredNotebooks = []

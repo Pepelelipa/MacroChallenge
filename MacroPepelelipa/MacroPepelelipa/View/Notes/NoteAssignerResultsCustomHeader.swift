@@ -28,8 +28,12 @@ class NoteAssignerResultsCustomHeader: UITableViewHeaderFooterView {
         configureContents()
     }
     
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+    internal required convenience init?(coder: NSCoder) {
+        guard let reuseIdentifier = coder.decodeObject(forKey: "reuseIdentifier") as? String? else {
+            self.init(reuseIdentifier: nil)
+            return 
+        }
+        self.init(reuseIdentifier: reuseIdentifier)
     }
     
     func configureContents() {

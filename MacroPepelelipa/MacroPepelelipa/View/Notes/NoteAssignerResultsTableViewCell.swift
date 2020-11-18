@@ -74,8 +74,11 @@ internal class NoteAssignerResultsTableViewCell: UITableViewCell {
         NSLayoutConstraint.activate(cellConstraints)
     }
     
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+    internal required convenience init?(coder: NSCoder) {
+        guard let notebook = coder.decodeObject(forKey: "notebook") as? NotebookEntity else {
+            return nil
+        }
+        self.init(notebook: notebook)
     }
     
     override func layoutSubviews() {    

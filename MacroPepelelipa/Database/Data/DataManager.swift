@@ -57,7 +57,7 @@ public class DataManager {
         return WorkspaceObject(from: guardedWorkspace)
     }
     
-    public func fetchNotebook(id: String) throws -> (WorkspaceEntity? ,NotebookEntity?) {
+    public func fetchNotebook(id: String) throws -> (WorkspaceEntity?, NotebookEntity?) {
         let cdNotebook = try coreDataController.fetchNotebook(id: id)
         guard let guardedNotebook = cdNotebook, let guardedWorkspace = guardedNotebook.workspace else {
             return (nil, nil)

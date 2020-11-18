@@ -144,4 +144,10 @@
 "Save Explanation" = "Para salvar esta nota precisamos adiciona-la à uma coleção e à um caderno.";
 "Selected Notebook" = "Caderno selecionado";
 "Delete Note confirmation" = "Tem certeza que deseja deletar a nota?";
-
+"Failed to create Loose Note" = "Falhou ao criar uma nota solta";
+"The database could not create the Loose Note" = "A data base não foi capaz de criar uma nota solta";
+"The Loose Note could not be created" = "A nota solta não pode ser criada";
+"Unable to get notebooks" = "Não foi possível acessar os cadernos";
+"The app was unable to get the notebooks from a workspace" = "O não foi capaz de acessar os cadernos de uma coleção";
+"Unable to get the last notebook" = "Não foi possível acessar o ultimo caderno";
+"The app was unable to get the notebook from UserDefaults" = "The app was unable to get the notebook from UserDefaults";

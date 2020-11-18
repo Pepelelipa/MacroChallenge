@@ -141,5 +141,11 @@
 "Discard" = "Discard";
 "Save Explanation" = "To save this note, we need to add it to a collection and notebook.";
 "Selected Notebook" = "Selected Notebook";
-"Delete Note confirmation" = "
-Are you sure you want to delete this note?";
+"Delete Note confirmation" = "Are you sure you want to delete this note?";
+"Failed to create Loose Note" = "Failed to create Loose Note";
+"The database could not create the Loose Note" = "The database could not create the Loose Note";
+"The Loose Note could not be created" = "The Loose Note could not be created";
+"Unable to get notebooks" = "Unable to get notebooks";
+"The app was unable to get the notebooks from a workspace" = "The app was unable to get the notebooks from a workspace";
+"Unable to get the last notebook" = "Unable to get the last notebook";
+"The app was unable to get the notebook from UserDefaults" = "The app was unable to get the notebook from UserDefaults";

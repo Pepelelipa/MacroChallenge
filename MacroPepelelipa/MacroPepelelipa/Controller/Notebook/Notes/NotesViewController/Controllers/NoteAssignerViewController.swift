@@ -26,7 +26,12 @@ class NoteAssignerViewController: UIViewController,
             do {
                 try workspaceNameLbl.text = lastNotebook?.getWorkspace().name
             } catch {
-                fatalError()
+                let alertController = UIAlertController(
+                    title: "Unable to get the last notebook".localized(),
+                    message: "The app was unable to get the notebook from UserDefaults".localized(),
+                    preferredStyle: .alert).makeErrorMessage(with: "Unable to get the last notebook")
+               
+                self.present(alertController, animated: true)
             }
         }
     }
@@ -115,7 +120,12 @@ class NoteAssignerViewController: UIViewController,
                 text.addAttribute(NSAttributedString.Key.paragraphStyle, value: paragraphStyle, range: NSRange(location: 0, length: text.length))
                 label.attributedText = text
             } catch {
-                fatalError()
+                let alertController = UIAlertController(
+                    title: "Unable to get the last notebook".localized(),
+                    message: "The app was unable to get the notebook from UserDefaults".localized(),
+                    preferredStyle: .alert).makeErrorMessage(with: "Unable to get the last notebook")
+               
+                self.present(alertController, animated: true)
             }
         }
         
@@ -211,8 +221,14 @@ class NoteAssignerViewController: UIViewController,
         self.lastNotebook = lastNotebook
     }
     
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+    internal required convenience init?(coder: NSCoder) {
+        guard let note = coder.decodeObject(forKey: "note") as? NoteEntity, 
+              let lastNotebook = coder.decodeObject(forKey: "lastNotebook") as? NotebookEntity?
+        else {
+            self.init(note: nil, lastNotebook: nil)
+            return
+        }
+        self.init(note: note, lastNotebook: lastNotebook)
     }
     
     private func addSubsViews() {
