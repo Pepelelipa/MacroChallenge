@@ -243,7 +243,6 @@ public class DataManager {
             throw NotebookError.failedToParse
         }
 
-
         try coreDataController.deleteNotebook(notebookObject.coreDataNotebook)
         notebookObject.removeReferences()
         if let ckNotebook = notebookObject.cloudKitNotebook {
@@ -255,9 +254,9 @@ public class DataManager {
     // MARK: Note
 
     /**
-     Creates a loose note into the Database
+     Creates a loose note into CoreData
      - Parameter notebook: To what notebook it belongs.
-     - Throws: Throws if fails to parse notebook to NotebookObject or fails to create in CoreData.
+     - Throws: Throws if fails to parse notebook to NotebookObject.
      */
     public func createLooseNote() throws -> NoteEntity {
         let id = UUID()
@@ -268,6 +267,33 @@ public class DataManager {
         }
 
         return noteObject
+    }
+
+    /**
+     Assigns a loose note to a notebook
+     - Parameter note: The note to be saved.
+     - Parameter notebook: The notebook to be assigned on.
+     - Throws Throws if fails parsing notebook to NotebookObject, note to NoteObject. Also fails if there's not CloudKit Notebook, fails to get the id of note or if fails saving.
+     */
+    public func assignLooseNote(_ note: NoteEntity, to notebook: NotebookEntity) throws {
+        guard let notebookObject = notebook as? NotebookObject else {
+            throw NotebookError.failedToParse
+        }
+        guard let noteObject = note as? NoteObject else {
+            throw NoteError.failedToParse
+        }
+        guard let ckNotebook = notebookObject.cloudKitNotebook else {
+            throw NotebookError.notebookWasNull
+        }
+        let ckNote = cloudKitController.createNote(in: ckNotebook, id: try note.getID())
+        ckNote <- noteObject.coreDataNote
+        ckNote.setNotebook(ckNotebook)
+        ckNotebook.appendNote(ckNote)
+
+        noteObject.cloudKitNote = ckNote
+
+        noteObject.setNotebook(notebookObject)
+        try note.save()
     }
 
     /**
