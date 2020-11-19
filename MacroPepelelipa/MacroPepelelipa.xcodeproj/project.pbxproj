@@ -139,6 +139,7 @@
 		1EE652C2252504400015E3D4 /* MarkdownContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EE652C1252504400015E3D4 /* MarkdownContainerView.swift */; };
 		1EE652C72525049E0015E3D4 /* MarkdownToggleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EE652C62525049E0015E3D4 /* MarkdownToggleButton.swift */; };
 		1EFA49CE252D15C500602904 /* MarkdownNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EFA49CD252D15C500602904 /* MarkdownNavigationView.swift */; };
+		1EFAB3AC2566EB84006C6C84 /* WorkspaceSelectionTouchBarDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EFAB3AB2566EB84006C6C84 /* WorkspaceSelectionTouchBarDelegate.swift */; };
 		A71E2C1D2538EEB8000DA164 /* NotesPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71E2C1B2538EEB8000DA164 /* NotesPageViewController.swift */; };
 		A71E2C1E2538EEB8000DA164 /* NotesPageViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71E2C1C2538EEB8000DA164 /* NotesPageViewControllerDelegate.swift */; };
 		A71E2C212538EF51000DA164 /* NotesPageViewControllerDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71E2C202538EF51000DA164 /* NotesPageViewControllerDataSource.swift */; };
@@ -382,6 +383,7 @@
 		1EE652C1252504400015E3D4 /* MarkdownContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkdownContainerView.swift; sourceTree = "<group>"; };
 		1EE652C62525049E0015E3D4 /* MarkdownToggleButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkdownToggleButton.swift; sourceTree = "<group>"; };
 		1EFA49CD252D15C500602904 /* MarkdownNavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkdownNavigationView.swift; sourceTree = "<group>"; };
+		1EFAB3AB2566EB84006C6C84 /* WorkspaceSelectionTouchBarDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkspaceSelectionTouchBarDelegate.swift; sourceTree = "<group>"; };
 		A71E2C1B2538EEB8000DA164 /* NotesPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotesPageViewController.swift; sourceTree = "<group>"; };
 		A71E2C1C2538EEB8000DA164 /* NotesPageViewControllerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotesPageViewControllerDelegate.swift; sourceTree = "<group>"; };
 		A71E2C202538EF51000DA164 /* NotesPageViewControllerDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NotesPageViewControllerDataSource.swift; path = MacroPepelelipa/Model/Notes/NotesPageViewControllerDataSource.swift; sourceTree = SOURCE_ROOT; };
@@ -769,6 +771,7 @@
 				02695ECC25279E96007D60C3 /* AddWorkspace */,
 				02E5A22B25239E36009DFFB5 /* WorkspaceSelectionViewController.swift */,
 				02CD7CA02523B48900A140A3 /* WorkspacesCollectionViewDelegate.swift */,
+				1EFAB3AB2566EB84006C6C84 /* WorkspaceSelectionTouchBarDelegate.swift */,
 			);
 			path = WorkspaceSelection;
 			sourceTree = "<group>";
@@ -1569,6 +1572,7 @@
 				A7FC9BF4255F2C7900330283 /* ItemSizeHelper.swift in Sources */,
 				D925939A2559E53C000529B4 /* MarkdownFormatViewReceiver.swift in Sources */,
 				A7BDD5FF2513F83F00DDB6A0 /* IndexViewController.swift in Sources */,
+				1EFAB3AC2566EB84006C6C84 /* WorkspaceSelectionTouchBarDelegate.swift in Sources */,
 				D9BBA584252FAB28004B724F /* AddWorkspaceObserver.swift in Sources */,
 				020FFA38252502E40095266D /* Colors.swift in Sources */,
 				D97EE7AD254B554F00A68B06 /* SearchResultCollectionViewDelegate.swift in Sources */,

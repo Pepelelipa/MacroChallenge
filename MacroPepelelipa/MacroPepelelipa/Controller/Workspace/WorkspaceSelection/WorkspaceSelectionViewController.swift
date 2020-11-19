@@ -87,7 +87,7 @@ internal class WorkspaceSelectionViewController: UIViewController,
         return collectionView
     }()
     
-    private lazy var collectionDelegate = WorkspacesCollectionViewDelegate { [unowned self] (selectedCell) in
+    internal lazy var collectionDelegate = WorkspacesCollectionViewDelegate { [unowned self] (selectedCell) in
         guard let workspace = selectedCell.workspace else {
             let alertController = UIAlertController(
                 title: "Could not open this workspace".localized(),
@@ -144,6 +144,9 @@ internal class WorkspaceSelectionViewController: UIViewController,
         
         return view
     }()
+    
+    @available (OSX 10.12.1, *)
+    internal let workspaceTouchBarDelegate = WorkspaceSelectionTouchBarDelegate()
     
     // MARK: - Override functions
     
@@ -238,6 +241,11 @@ internal class WorkspaceSelectionViewController: UIViewController,
         } else {
             navigationItem.leftBarButtonItem?.accessibilityValue = "Editing disabled".localized()
         }
+    }
+    
+    @available (OSX 10.12.1, *)
+    override func makeTouchBar() -> NSTouchBar? {
+        return workspaceTouchBarDelegate.makeTouchBar()
     }
     
     // MARK: - UISearchResultsUpdating Functions
@@ -542,3 +550,20 @@ internal class WorkspaceSelectionViewController: UIViewController,
         self.present(alertController, animated: true, completion: nil)
     }
 }
+
+//@available(OSX 10.12.1, *)
+//extension WorkspaceSelectionViewController: NSTouchBarDelegate {
+//    override func makeTouchBar() -> NSTouchBar? {
+//        
+//        let touchBar = NSTouchBar()
+//        touchBar.delegate = self
+//        
+//        touchBar.customizationIdentifier = "workspaceTouchBar"
+//        
+////        touchBar.defaultItemIdentifiers
+//        
+////        touchBar.customizationAllowedItemIdentifiers = [.infoLabelItem]
+//        return touchBar
+//      }
+//    
+//}
