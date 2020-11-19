@@ -53,6 +53,4 @@ internal class NoteAssignerResultsTableViewDelegate: NSObject,
     func noteAssignerFilteredWorkspaces(workspaces: [WorkspaceEntity]) {
         self.workspaces = workspaces
     }
-    
-    
 }

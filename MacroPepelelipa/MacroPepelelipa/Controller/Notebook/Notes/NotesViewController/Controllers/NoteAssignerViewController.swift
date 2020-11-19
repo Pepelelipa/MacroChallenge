@@ -44,7 +44,7 @@ class NoteAssignerViewController: UIViewController,
     private lazy var noteNameLbl: UILabel = {
         let label = UILabel()
         
-        label.text = note?.title.string
+        label.text = note?.title.string ?? ""
         label.font = UIFont.defaultFont.toStyle(.h1)
         label.tintColor = UIColor.titleColor
         label.numberOfLines = 0
