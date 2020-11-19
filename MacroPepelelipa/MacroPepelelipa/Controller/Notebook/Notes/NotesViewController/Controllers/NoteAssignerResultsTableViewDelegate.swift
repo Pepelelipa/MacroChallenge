@@ -11,25 +11,14 @@ import UIKit
 import Database
 
 internal class NoteAssignerResultsTableViewDelegate: NSObject,
-                                                 UITableViewDelegate {
+                                                 UITableViewDelegate,
+                                                 NoteAssignerResultsDataObserver {
     
     // MARK: - Variables and Constants
     
     private var didSelectCell: ((UITableViewCell) -> Void)?
     
-    private lazy var workspaces: [WorkspaceEntity] = {
-        do {
-            let workspaces = try Database.DataManager.shared().fetchWorkspaces()
-            return workspaces
-        } catch {
-            let alertController = UIAlertController(
-                title: "Error fetching the workspaces".localized(),
-                message: "The database could not fetch the workspace".localized(),
-                preferredStyle: .alert)
-                .makeErrorMessage(with: "The Workspaces could not be fetched".localized())
-            return []
-        }
-    }()
+    private var workspaces = [WorkspaceEntity]()
 
     // MARK: - Initializers
     
@@ -58,5 +47,12 @@ internal class NoteAssignerResultsTableViewDelegate: NSObject,
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return CGFloat(80)
     }
+    
+    // MARK: - NoteAssignerResultsDataObserver Functions
+
+    func noteAssignerFilteredWorkspaces(workspaces: [WorkspaceEntity]) {
+        self.workspaces = workspaces
+    }
+    
     
 }

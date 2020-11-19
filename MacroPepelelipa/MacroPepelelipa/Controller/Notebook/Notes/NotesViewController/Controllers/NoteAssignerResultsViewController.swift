@@ -45,15 +45,19 @@ internal class NoteAssignerResultsViewController: UIViewController,
         return tableView
     }()
     
-    private lazy var tableViewDelegate = NoteAssignerResultsTableViewDelegate { [unowned self] selectedCell in
-        if let notebookCell = selectedCell as? NoteAssignerResultsTableViewCell {
-            guard let notebook = notebookCell.notebook else {
-                return
+    private lazy var tableViewDelegate: NoteAssignerResultsTableViewDelegate = {
+        let delegate = NoteAssignerResultsTableViewDelegate { [unowned self] selectedCell in
+            if let notebookCell = selectedCell as? NoteAssignerResultsTableViewCell {
+                guard let notebook = notebookCell.notebook else {
+                    return
+                }
+                self.observer?.selectedNotebook(notebook: notebook)
+                self.notebookReference = notebook
             }
-            self.observer?.selectedNotebook(notebook: notebook)
-            self.notebookReference = notebook
-        } 
-    }   
+        }
+        tableViewDataSource.noteAssignerDataObserver = delegate
+        return delegate
+    }()
     
     private lazy var tableViewDataSource = NoteAssignerResultsTableViewDataSource(viewController: self, tableView: {
         self.tableView
@@ -82,7 +86,6 @@ internal class NoteAssignerResultsViewController: UIViewController,
     
     // MARK: - Override Methos
 
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.rootColor

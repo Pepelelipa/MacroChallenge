@@ -184,6 +184,7 @@
 		D9CE2D5F2565C06E00DF4D2A /* NoteAssignerResultsCustomHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9CE2D5D2565C06E00DF4D2A /* NoteAssignerResultsCustomHeader.swift */; };
 		D9CE2D602565C06E00DF4D2A /* NoteAssignerResultsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9CE2D5E2565C06E00DF4D2A /* NoteAssignerResultsTableViewCell.swift */; };
 		D9CE2D662565C08E00DF4D2A /* NoteAssignerResultsTableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9CE2D652565C08E00DF4D2A /* NoteAssignerResultsTableViewDataSource.swift */; };
+		D9CE2D702566E96900DF4D2A /* NoteAssignerResultsDataObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9CE2D6F2566E96900DF4D2A /* NoteAssignerResultsDataObserver.swift */; };
 		D9D87534251BAA6700B842C8 /* MarkdownTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D87533251BAA6700B842C8 /* MarkdownTextField.swift */; };
 		D9D87538251BB26500B842C8 /* MarkdownToolBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D87537251BB26500B842C8 /* MarkdownToolBar.swift */; };
 		D9D87544251BD39F00B842C8 /* PhotoEditingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D87543251BD39F00B842C8 /* PhotoEditingViewController.swift */; };
@@ -442,6 +443,7 @@
 		D9CE2D5D2565C06E00DF4D2A /* NoteAssignerResultsCustomHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoteAssignerResultsCustomHeader.swift; sourceTree = "<group>"; };
 		D9CE2D5E2565C06E00DF4D2A /* NoteAssignerResultsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoteAssignerResultsTableViewCell.swift; sourceTree = "<group>"; };
 		D9CE2D652565C08E00DF4D2A /* NoteAssignerResultsTableViewDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoteAssignerResultsTableViewDataSource.swift; sourceTree = "<group>"; };
+		D9CE2D6F2566E96900DF4D2A /* NoteAssignerResultsDataObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteAssignerResultsDataObserver.swift; sourceTree = "<group>"; };
 		D9D87533251BAA6700B842C8 /* MarkdownTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkdownTextField.swift; sourceTree = "<group>"; };
 		D9D87537251BB26500B842C8 /* MarkdownToolBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkdownToolBar.swift; sourceTree = "<group>"; };
 		D9D87543251BD39F00B842C8 /* PhotoEditingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoEditingViewController.swift; sourceTree = "<group>"; };
@@ -1164,6 +1166,7 @@
 				D9CE2D3F2565C00A00DF4D2A /* ResizeHandleReceiver.swift */,
 				D9CE2D402565C00A00DF4D2A /* NoteAssignerNotebookObserver.swift */,
 				D9CE2D412565C00A00DF4D2A /* MarkdownFormatViewReceiver.swift */,
+				D9CE2D6F2566E96900DF4D2A /* NoteAssignerResultsDataObserver.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -1567,6 +1570,7 @@
 				D9CE2D5F2565C06E00DF4D2A /* NoteAssignerResultsCustomHeader.swift in Sources */,
 				D925934E255986F1000529B4 /* InputViewTipsStack.swift in Sources */,
 				1E6E148C252E33E700383E10 /* MarkdownBarConfiguration.swift in Sources */,
+				D9CE2D702566E96900DF4D2A /* NoteAssignerResultsDataObserver.swift in Sources */,
 				D9F4A9AE25277AC900BFDC19 /* TextBoxView.swift in Sources */,
 				02AD78F625475C7300C87D2B /* EditableCollectionViewCell.swift in Sources */,
 				0247F78D25115BAA00405A61 /* NotebooksSelectionViewController.swift in Sources */,

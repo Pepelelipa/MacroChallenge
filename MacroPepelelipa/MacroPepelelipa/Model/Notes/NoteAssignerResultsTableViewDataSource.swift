@@ -53,6 +53,8 @@ internal class NoteAssignerResultsTableViewDataSource: NSObject,
         }
         return notebooksArray
     }()
+    
+    internal weak var noteAssignerDataObserver: NoteAssignerResultsDataObserver?
 
     // MARK: - Initializers
     
@@ -108,19 +110,13 @@ internal class NoteAssignerResultsTableViewDataSource: NSObject,
     
     func numberOfSections(in tableView: UITableView) -> Int {
         if isFiltering {
+            noteAssignerDataObserver?.noteAssignerFilteredWorkspaces(workspaces: filteredWorkspaces)
             return filteredWorkspaces.count
         } else {
+            noteAssignerDataObserver?.noteAssignerFilteredWorkspaces(workspaces: workspaces)
             return workspaces.count
         }
     }
-    
-//    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-//        if isFiltering {
-//            return filteredWorkspaces[section].name
-//        } else {
-//            return workspaces[section].name
-//        }
-//    }
     
     // MARK: - Internal functions
     
