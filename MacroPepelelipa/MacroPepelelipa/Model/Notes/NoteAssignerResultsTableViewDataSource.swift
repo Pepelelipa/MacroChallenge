@@ -85,9 +85,16 @@ internal class NoteAssignerResultsTableViewDataSource: NSObject,
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         if isFiltering {
-            let workspace = filteredWorkspaces[indexPath.section]
-            let notebook = workspace.notebooks[indexPath.row]
-            let cell = NoteAssignerResultsTableViewCell(notebook: notebook)
+            let currentWorkspace = filteredWorkspaces[indexPath.section]
+            var selectedNotebooks = [NotebookEntity]()
+            let notebooks = currentWorkspace.notebooks
+            
+            for filteredNotebook in filteredNotebooks {
+                let output = notebooks.filter({ filteredNotebook === $0 })
+                selectedNotebooks.append(contentsOf: output)
+            }
+            
+            let cell = NoteAssignerResultsTableViewCell(notebook: selectedNotebooks[indexPath.row])
                     
             return cell
         } else {
@@ -107,13 +114,13 @@ internal class NoteAssignerResultsTableViewDataSource: NSObject,
         }
     }
     
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        if isFiltering {
-            return filteredWorkspaces[section].name
-        } else {
-            return workspaces[section].name
-        }
-    }
+//    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+//        if isFiltering {
+//            return filteredWorkspaces[section].name
+//        } else {
+//            return workspaces[section].name
+//        }
+//    }
     
     // MARK: - Internal functions
     

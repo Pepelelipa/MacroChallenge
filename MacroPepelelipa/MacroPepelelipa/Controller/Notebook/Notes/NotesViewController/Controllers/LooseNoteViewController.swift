@@ -27,7 +27,6 @@ internal class LooseNoteViewController: UIViewController,
     
     private let screenSize = UIScreen.main.bounds
     
-    internal var shouldSave: Bool = true
     internal var textBoxes: Set<TextBoxView> = []  
     internal var imageBoxes: Set<ImageBoxView> = []
     internal var imgeButtonObserver: ImageButtonObserver?
@@ -227,9 +226,6 @@ internal class LooseNoteViewController: UIViewController,
     }
 
     override func viewWillDisappear(_ animated: Bool) {
-        if shouldSave {
-            noteContentHandler.saveNote(note: &note, textField: textField, textView: textView, textBoxes: textBoxes, imageBoxes: imageBoxes)
-        }
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.largeTitleDisplayMode = .automatic
     }
@@ -413,7 +409,6 @@ internal class LooseNoteViewController: UIViewController,
         DispatchQueue.main.async {
             self.imgeButtonObserver?.showImageButton()
         }
-        noteContentHandler.saveNote(note: &note, textField: textField, textView: textView, textBoxes: textBoxes, imageBoxes: imageBoxes)
     }
     
     // MARK: - MarkupToolBarObserver functions

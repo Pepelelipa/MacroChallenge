@@ -13,7 +13,7 @@ class NoteAssignerResultsCustomHeader: UITableViewHeaderFooterView {
         
     internal var title: UILabel = {
         let label = UILabel()  
-        label.font = UIFont.defaultFont.toStyle(.paragraph)
+        label.font = UIFont.defaultFont.toStyle(.h1)
         label.tintColor = UIColor.red
         label.text = "OIEEEE"
         label.numberOfLines = 0
@@ -45,7 +45,7 @@ class NoteAssignerResultsCustomHeader: UITableViewHeaderFooterView {
             title.heightAnchor.constraint(equalToConstant: 40),
             title.widthAnchor.constraint(equalToConstant: 200),
             title.topAnchor.constraint(equalTo: contentView.topAnchor),
-            title.leadingAnchor.constraint(equalTo: contentView.trailingAnchor)
+            title.leadingAnchor.constraint(equalTo: contentView.leadingAnchor)
         ])
     }
     
