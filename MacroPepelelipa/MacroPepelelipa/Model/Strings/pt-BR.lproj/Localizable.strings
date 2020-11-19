@@ -146,6 +146,9 @@
 "The app could not export the file as a PDF" = "O aplicativo não pôde exportar o arquivo como PDF";
 "Error writing data to the designed url" = "Erro ao transcrever dados para o URL designada";
 "Export notebook as PDF" = "Exportar caderno como PDF";
+"Could note assign the note to the notebook" = "Não foi possível atribuir a nota ao caderno";
+"The app could not assign the note to the notebook" = "O Aplicativo não foi capaz de atribuir a nota ao caderno";
+"An error occurred while the application was trying to assign the note to the notebook" = "Um erro ocorreu enquanto o aplicativo tentava atribuir a nota ao caderno";
 
 // MARK: - Accessibility
 

@@ -281,8 +281,19 @@ class NoteAssignerViewController: UIViewController,
     }
     
     @IBAction func addToNotebook() {
-        if let noteEntity = note, let notebookEntity = lastNotebook{
-            print("")
+        if let noteEntity = note, let notebookEntity = lastNotebook {
+            do {
+                try DataManager.shared().assignLooseNote(noteEntity, to: notebookEntity)
+                self.dismiss(animated: true, completion: nil)
+                observer?.dismissLosseNoteViewController()
+            } catch {
+                let alertController = UIAlertController(
+                    title: "Could note assign the note to the notebook".localized(),
+                    message: "The app could not assign the note to the notebook".localized() + noteEntity.title.string,
+                    preferredStyle: .alert)
+                    .makeErrorMessage(with: "An error occurred while the application was trying to assign the note to the notebook".localized())
+                self.present(alertController, animated: true, completion: nil)
+            }
         }
     }
     
