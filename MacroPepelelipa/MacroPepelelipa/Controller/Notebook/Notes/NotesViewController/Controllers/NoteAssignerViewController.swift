@@ -185,12 +185,12 @@ class NoteAssignerViewController: UIViewController,
             chooseAnotherNotebookBtn.topAnchor.constraint(equalTo: workspaceNameLbl.bottomAnchor, constant: 14),
             chooseAnotherNotebookBtn.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
             chooseAnotherNotebookBtn.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 0.677),
-            chooseAnotherNotebookBtn.heightAnchor.constraint(equalTo: chooseAnotherNotebookBtn.widthAnchor, multiplier: 0.1574),
+            chooseAnotherNotebookBtn.heightAnchor.constraint(equalToConstant: 50),
             
-            addToNotebookBtn.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: -32),
+            addToNotebookBtn.topAnchor.constraint(equalTo: chooseAnotherNotebookBtn.bottomAnchor, constant: 24),
             addToNotebookBtn.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
             addToNotebookBtn.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 0.677),
-            addToNotebookBtn.heightAnchor.constraint(equalTo: addToNotebookBtn.widthAnchor, multiplier: 0.1574)
+            addToNotebookBtn.heightAnchor.constraint(equalToConstant: 50)
         ] 
     }()
     
@@ -203,14 +203,35 @@ class NoteAssignerViewController: UIViewController,
         ]
     }()
     
-    private lazy var iPadConstraints: [NSLayoutConstraint] = {
+    private lazy var iPadConstraintsOnLandscape: [NSLayoutConstraint] = {
         [
             notebookView.topAnchor.constraint(equalTo: selectedNotebookLbl.bottomAnchor, constant: 60),
             notebookView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
-            notebookView.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 0.2),
+            notebookView.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 0.1),
             notebookView.heightAnchor.constraint(equalTo: notebookView.widthAnchor, multiplier: 1.312)
         ]
     }()
+    
+    private lazy var iPadConstraintsOnPortrait: [NSLayoutConstraint] = {
+        [
+            notebookView.topAnchor.constraint(equalTo: selectedNotebookLbl.bottomAnchor, constant: 60),
+            notebookView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+            notebookView.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 0.18),
+            notebookView.heightAnchor.constraint(equalTo: notebookView.widthAnchor, multiplier: 1.312)
+        ]
+    }()
+    
+    private lazy var macConstraints: [NSLayoutConstraint] = {
+        [
+            notebookView.topAnchor.constraint(equalTo: selectedNotebookLbl.bottomAnchor, constant: 60),
+            notebookView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+            notebookView.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 0.12),
+            notebookView.heightAnchor.constraint(equalTo: notebookView.widthAnchor, multiplier: 1.312)
+        ]
+    }()
+    
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -224,13 +245,35 @@ class NoteAssignerViewController: UIViewController,
         navigationController?.navigationBar.tintColor = UIColor.actionColor
         self.navigationController?.navigationBar.prefersLargeTitles = false
         NSLayoutConstraint.activate(constraints)
+        
+        guard let orientation = UIApplication.shared.windows.first?.windowScene?.interfaceOrientation else {
+            return
+        }
+        
         if UIDevice.current.userInterfaceIdiom == .phone {
             NSLayoutConstraint.activate(iPhoneConstraints)
+        } else if UIDevice.current.userInterfaceIdiom == .mac {
+            NSLayoutConstraint.activate(macConstraints)
+        } else if orientation.isLandscape, UIDevice.current.userInterfaceIdiom == .pad {
+            NSLayoutConstraint.activate(iPadConstraintsOnLandscape)
         } else {
-            NSLayoutConstraint.activate(iPadConstraints)
+            NSLayoutConstraint.activate(self.iPadConstraintsOnPortrait)
         }
     }
     
+    override func viewDidLayoutSubviews() {
+        guard let orientation = UIApplication.shared.windows.first?.windowScene?.interfaceOrientation else {
+            return
+        }
+        if orientation.isLandscape, UIDevice.current.userInterfaceIdiom == .pad {
+            NSLayoutConstraint.deactivate(self.iPadConstraintsOnPortrait)
+            NSLayoutConstraint.activate(self.iPadConstraintsOnLandscape)
+        } else if UIDevice.current.userInterfaceIdiom == .pad {
+            NSLayoutConstraint.deactivate(self.iPadConstraintsOnLandscape)
+            NSLayoutConstraint.activate(self.iPadConstraintsOnPortrait)
+        }
+    }
+        
     init(note: NoteEntity?, lastNotebook: NotebookEntity?) {
         self.note = note
         
