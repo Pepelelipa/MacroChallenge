@@ -36,25 +36,16 @@ class WorkspaceSelectionTouchBarDelegate: NSObject, NSTouchBarDelegate {
     func touchBar(_ touchBar: NSTouchBar, makeItemForIdentifier identifier: NSTouchBarItem.Identifier) -> NSTouchBarItem? {
         switch identifier {
         case .search:
-//            let item = NSCustomTouchBarItem(identifier: identifier)
-            let item = NSButtonTouchBarItem(identifier: identifier)
-            item.image = UIImage(systemName: "magnifyingglass")
-            item.action = #selector(search)
+            let item = NSButtonTouchBarItem(identifier: identifier, title: "", image: UIImage(systemName: "magnifyingglass") ?? UIImage(), target: self, action: #selector(search))
             return item
         case .add:
-            let item = NSButtonTouchBarItem(identifier: identifier)
-            item.image = UIImage(systemName: "plus")
-            item.action = #selector(addWorkspace)
+            let item = NSButtonTouchBarItem(identifier: identifier, title: "", image: UIImage(systemName: "plus") ?? UIImage(), target: self, action: #selector(addWorkspace))
             return item
         case .edit:
-            let item = NSButtonTouchBarItem(identifier: identifier)
-            item.title = "Edit"
-            item.action = #selector(editWorkspaces)
+            let item = NSButtonTouchBarItem(identifier: identifier, title: "Edit", image: UIImage(), target: self, action: #selector(editWorkspaces))
             return item
         case .info:
-            let item = NSButtonTouchBarItem(identifier: identifier)
-            item.image = UIImage(systemName: "info")
-            item.action = #selector(openOnboarding)
+            let item = NSButtonTouchBarItem(identifier: identifier, title: "", image: UIImage(systemName: "info") ?? UIImage(), target: self, action: #selector(openOnboarding))
             return item
         default:
             return nil
@@ -62,19 +53,24 @@ class WorkspaceSelectionTouchBarDelegate: NSObject, NSTouchBarDelegate {
     }
     
     @objc func search() {
-        print("Search action")
+        workspaceSelectionController?.startSearch()
     }
     
     @objc func addWorkspace() {
-        print("Add workspace action")
+        let destination = AddWorkspaceViewController()
+        destination.isModalInPresentation = true
+        destination.modalTransitionStyle = .crossDissolve
+        destination.modalPresentationStyle = .overFullScreen
+        
+//        self.
     }
     
     @objc func editWorkspaces() {
-        print("Edit workspace action")
+        workspaceSelectionController?.setEditButtonItem()
     }
     
     @objc func openOnboarding() {
-        print("Open onboarding action")
+        workspaceSelectionController?.openOnboarding()
     }
 }
 #endif

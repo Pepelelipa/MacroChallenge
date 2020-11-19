@@ -322,7 +322,7 @@ internal class WorkspaceSelectionViewController: UIViewController,
     }
     
     /// This method presents or hide the Edit button item at the navigation bar
-    private func setEditButtonItem() {
+    internal func setEditButtonItem() {
         
         if !collectionDataSource.isEmpty {
             navigationItem.leftBarButtonItem = editButtonItem
@@ -550,20 +550,3 @@ internal class WorkspaceSelectionViewController: UIViewController,
         self.present(alertController, animated: true, completion: nil)
     }
 }
-
-//@available(OSX 10.12.1, *)
-//extension WorkspaceSelectionViewController: NSTouchBarDelegate {
-//    override func makeTouchBar() -> NSTouchBar? {
-//        
-//        let touchBar = NSTouchBar()
-//        touchBar.delegate = self
-//        
-//        touchBar.customizationIdentifier = "workspaceTouchBar"
-//        
-////        touchBar.defaultItemIdentifiers
-//        
-////        touchBar.customizationAllowedItemIdentifiers = [.infoLabelItem]
-//        return touchBar
-//      }
-//    
-//}
