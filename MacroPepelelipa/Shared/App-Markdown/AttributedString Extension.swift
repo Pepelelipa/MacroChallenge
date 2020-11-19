@@ -19,4 +19,39 @@ internal extension NSAttributedString {
         mutableString.addAttribute(attribute.0, value: attribute.1, range: range)
         return mutableString
     }
+
+    func replaceColors(with colors: [UIColor]) -> NSAttributedString {
+        let mutableString = NSMutableAttributedString(attributedString: self)
+        mutableString.enumerateAttribute(.foregroundColor, in: NSRange(location: 0, length: length), options: .longestEffectiveRangeNotRequired) { (color, range, _) in
+            if let color = color as? UIColor {
+                var newColor: UIColor?
+                for i in 0 ..< colors.count {
+                    if colors[i].compareRGB(color) {
+                        newColor = colors[i]
+                        break
+                    }
+                }
+                if let newColor = newColor {
+                    mutableString.addAttribute(.foregroundColor, value: newColor, range: range)
+                }
+            }
+        }
+
+        mutableString.enumerateAttribute(.backgroundColor, in: NSRange(location: 0, length: length), options: .longestEffectiveRangeNotRequired) { (color, range, _) in
+            if let color = color as? UIColor {
+                var newColor: UIColor?
+                for i in 0 ..< colors.count {
+                    if colors[i].compareRGB(color) {
+                        newColor = colors[i]
+                        break
+                    }
+                }
+                if let newColor = newColor {
+                    mutableString.addAttribute(.backgroundColor, value: newColor, range: range)
+                }
+            }
+        }
+
+        return mutableString
+    }
 }
