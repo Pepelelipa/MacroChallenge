@@ -62,7 +62,6 @@ class WorkspaceSelectionTouchBarDelegate: NSObject, NSTouchBarDelegate {
         destination.modalTransitionStyle = .crossDissolve
         destination.modalPresentationStyle = .overFullScreen
         
-//        self.
     }
     
     @objc func editWorkspaces() {
