@@ -253,12 +253,6 @@ internal class NotesViewController: UIViewController,
                                                                         UIColor.notebookColors[4],
                                                                         UIColor.notebookColors[14]])
         }
-        for textBox in note?.textBoxes ?? [] {
-            addTextBox(with: textBox)
-        }
-        for imageBox in note?.images ?? [] {
-            addImageBox(with: imageBox)
-        }
         updateExclusionPaths()
         
         if !((try? notebook?.getWorkspace().isEnabled) ?? false) {
