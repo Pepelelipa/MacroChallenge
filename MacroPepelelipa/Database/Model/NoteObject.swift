@@ -104,7 +104,7 @@ internal class NoteObject: NoteEntity, CloudKitObjectWrapper {
         }
     }
 
-    func setNotebook(_ notebook: NotebookObject) {
+    internal func setNotebook(_ notebook: NotebookObject) {
         removeReferences()
         self.notebook = notebook
         notebook.notes.append(self)
