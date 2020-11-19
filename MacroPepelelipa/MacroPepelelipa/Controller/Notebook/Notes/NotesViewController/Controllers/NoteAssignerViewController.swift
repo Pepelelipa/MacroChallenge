@@ -36,8 +36,8 @@ class NoteAssignerViewController: UIViewController,
         }
     }
 
-    private let discardBtn: UIBarButtonItem = {
-        let item = UIBarButtonItem(title: "Discard".localized(), style: .plain, target: self, action: #selector(changeNotebook))
+    private lazy var discardBtn: UIBarButtonItem = {
+        let item = UIBarButtonItem(title: "Discard".localized(), style: .plain, target: self, action: #selector(discardNote))
         return item
     }()
     
@@ -202,7 +202,7 @@ class NoteAssignerViewController: UIViewController,
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.backgroundColor
-        navigationItem.rightBarButtonItems = [discardBtn]
+        navigationItem.rightBarButtonItem = discardBtn
         addSubsViews()
     }
     
