@@ -5,7 +5,7 @@
 //  Created by Pedro Giuliano Farina on 03/11/20.
 //  Copyright © 2020 Pedro Giuliano Farina. All rights reserved.
 //
-//swiftlint:disable function_body_length
+//swiftlint:disable function_body_length cyclomatic_complexity
 
 import UIKit
 
@@ -195,6 +195,7 @@ public class MarkdownTextView: UITextView {
 
     ///Inserts text in text view
     public override func insertText(_ text: String) {
+        let space = (text == " " && attributedText.smallAroundSample(1, location: selectedRange.location).0.string != "#")
         let mutableString = NSMutableAttributedString(attributedString: attributedText)
 
         let location = selectedRange.location
@@ -202,6 +203,9 @@ public class MarkdownTextView: UITextView {
         mutableString.deleteCharacters(in: selectedRange)
 
         let writeAction = {
+            if text.suffix(1) == "\n" {
+                self.activeFont = self.activeFont.toStyle(.paragraph)
+            }
             let newString = NSAttributedString(string: text, attributes: self.activeAttributes)
             mutableString.insert(newString, at: location)
 
@@ -232,8 +236,10 @@ public class MarkdownTextView: UITextView {
             } else {
                 writeAction()
             }
+        } else if space {
+            super.insertText(text)
         } else {
-            writeAction()
+            writeAction()  
         }
 
         let aroundSample = attributedText.smallAroundSample(100, location: selectedRange.location)
@@ -255,8 +261,10 @@ public class MarkdownTextView: UITextView {
             mutableString.replaceCharacters(in: initialRange, with: newMutableString)
             changeTextPreservingRange(to: mutableString)
             selectedRange.location = newLocation + aroundSample.1.location
-            if let list = parseResult.1 {
+            if let list = parseResult.1 as? ListStyle {
                 addList(list)
+            } else if let headerStyle = parseResult.1 as? FontStyle {
+                activeFont = activeFont.toStyle(headerStyle)
             }
         }
 
@@ -320,6 +328,7 @@ public class MarkdownTextView: UITextView {
 
         attributedText = mutableString
         selectedRange.location = max(0, location - range.length)
+        delegate?.textViewDidChange?(self)
     }
 
     // MARK: List Function
@@ -439,7 +448,7 @@ public class MarkdownTextView: UITextView {
                 var occurrenceString: NSAttributedString
 
                 //Get all characters that has kern
-                while range.location + range.length < string.length - 1,
+                while range.location + range.length < string.length,
                       string.attributedSubstring(from: NSRange(location: readingLocation, length: range.length + 1)).hasKern(at: range.length) {
                     range.length += 1
                 }

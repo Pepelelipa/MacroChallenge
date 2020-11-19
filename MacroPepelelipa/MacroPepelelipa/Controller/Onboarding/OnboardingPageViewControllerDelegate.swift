@@ -9,26 +9,18 @@
 import UIKit
 
 class OnboardingPageViewControllerDelegate: NSObject, UIPageViewControllerDelegate {
-    
-    // MARK: - Variables and Constants
-    
-    private var pages: [UIViewController]?
-    private var currentPage: ((Int) -> Void)?
-    
+
+
+    private let didFinishAnimation: (() -> Void)?
+
     // MARK: - Initializers
-    
-    internal init(pages: [UIViewController], _ currentPage: @escaping (Int) -> Void) {
-        self.pages = pages
-        self.currentPage = currentPage
+    internal init(didFinishAnimation: @escaping () -> Void) {
+        self.didFinishAnimation = didFinishAnimation
+        super.init()
     }
-    
+
     // MARK: - UIPageViewControllerDelegate Functions
-    
     func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
-        if let viewControllers = pageViewController.viewControllers {
-            if let pages = pages, let viewControllerIndex = pages.firstIndex(of: viewControllers[0]) {
-                currentPage?(viewControllerIndex)
-            }
-        }
+        didFinishAnimation?()
     }
 }

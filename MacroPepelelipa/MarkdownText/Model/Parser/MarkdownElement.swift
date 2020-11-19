@@ -11,15 +11,15 @@ import Foundation
 internal protocol MarkdownElement {
     func regularExpression() throws -> NSRegularExpression
     ///Parses the attributed text and returns how many characters were consumed
-    func parse(_ attributedString: NSMutableAttributedString) -> ([NSRange], ListStyle?)
+    func parse(_ attributedString: NSMutableAttributedString) -> ([NSRange], Any?)
     ///Matches the attributed text and returns how many characters were consumed
-    func match(_ match: NSTextCheckingResult, attributedString: NSMutableAttributedString) -> ([NSRange], ListStyle?)
+    func match(_ match: NSTextCheckingResult, attributedString: NSMutableAttributedString) -> ([NSRange], Any?)
 }
 
 internal extension MarkdownElement {
-    func parse(_ attributedString: NSMutableAttributedString) -> ([NSRange], ListStyle?) {
+    func parse(_ attributedString: NSMutableAttributedString) -> ([NSRange], Any?) {
         var consumedCharacters: [NSRange] = []
-        var list: ListStyle?
+        var returnResult: Any?
         var location = 0
         do {
             let regex = try regularExpression()
@@ -32,14 +32,14 @@ internal extension MarkdownElement {
             ) {
                 let oldLength = attributedString.length
                 let result = match(regexMatch, attributedString: attributedString)
-                if let resultList = result.1 {
-                    list = resultList
+                if let matchReturnResult = result.1 {
+                    returnResult = matchReturnResult
                 }
                 consumedCharacters.append(contentsOf: result.0)
                 let newLength = attributedString.length
                 location = regexMatch.range.location + regexMatch.range.length + newLength - oldLength
             }
         } catch { }
-        return (consumedCharacters, list)
+        return (consumedCharacters, returnResult)
     }
 }

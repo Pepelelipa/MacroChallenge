@@ -61,7 +61,6 @@
 		02398A172551E994009BFC32 /* BulletListElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02398A162551E994009BFC32 /* BulletListElement.swift */; };
 		02398A1B2551E9AF009BFC32 /* NumericListElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02398A1A2551E9AF009BFC32 /* NumericListElement.swift */; };
 		02398A1F2551E9C8009BFC32 /* ListStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02398A1E2551E9C8009BFC32 /* ListStyle.swift */; };
-		02398A232551EA1E009BFC32 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 020FFA37252502E30095266D /* Colors.swift */; };
 		02398A2A2551EAB8009BFC32 /* NSAttributedString Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02398A292551EAB8009BFC32 /* NSAttributedString Extension.swift */; };
 		02398A342551EB88009BFC32 /* MarkdownTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02398A332551EB88009BFC32 /* MarkdownTextView.swift */; };
 		02398A382551EB9C009BFC32 /* MarkdownTextViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02398A372551EB9C009BFC32 /* MarkdownTextViewDelegate.swift */; };
@@ -103,6 +102,7 @@
 		02AC9ADA251BF35200A067D0 /* NotebooksCollectionViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02AC9AD9251BF35200A067D0 /* NotebooksCollectionViewDelegate.swift */; };
 		02AD78F225475C5800C87D2B /* EditableCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02AD78F125475C5800C87D2B /* EditableCollectionView.swift */; };
 		02AD78F625475C7300C87D2B /* EditableCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02AD78F525475C7300C87D2B /* EditableCollectionViewCell.swift */; };
+		02B1670D2565907100372EBB /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 020FFA37252502E30095266D /* Colors.swift */; };
 		02C21B34254B55BB0061CCBA /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C21B33254B55BB0061CCBA /* Font.swift */; };
 		02C3F61D255C70F00069670D /* Conflict Handler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C3F61C255C70F00069670D /* Conflict Handler.swift */; };
 		02CB8B50255C7A9000C0C04E /* CoreData-CloudKit Operators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02CB8B4F255C7A9000C0C04E /* CoreData-CloudKit Operators.swift */; };
@@ -1468,7 +1468,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				02398A342551EB88009BFC32 /* MarkdownTextView.swift in Sources */,
-				02398A232551EA1E009BFC32 /* Colors.swift in Sources */,
 				02398A132551E97C009BFC32 /* HeaderElement.swift in Sources */,
 				02398A1B2551E9AF009BFC32 /* NumericListElement.swift in Sources */,
 				E4C3DB7025534F300058985A /* App Database String Extension.swift in Sources */,
@@ -1480,6 +1479,7 @@
 				02398A0F2551E95B009BFC32 /* HighlightElement.swift in Sources */,
 				023989FC2551E8C1009BFC32 /* MarkdownElement.swift in Sources */,
 				02398A072551E92E009BFC32 /* ItalicElement.swift in Sources */,
+				02B1670D2565907100372EBB /* Colors.swift in Sources */,
 				02398A882551F878009BFC32 /* Font Style Extension.swift in Sources */,
 				02398A0B2551E94E009BFC32 /* UnderlineElement.swift in Sources */,
 				02398A1F2551E9C8009BFC32 /* ListStyle.swift in Sources */,
@@ -1724,7 +1724,7 @@
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 7;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = X54K5PJVGU;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -1754,7 +1754,7 @@
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 7;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = X54K5PJVGU;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -1784,7 +1784,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 7;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = X54K5PJVGU;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -1816,7 +1816,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 7;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = X54K5PJVGU;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -1966,7 +1966,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = MacroPepelelipa/MacroPepelelipa.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 7;
 				DEVELOPMENT_TEAM = X54K5PJVGU;
 				INFOPLIST_FILE = MacroPepelelipa/Info.plist;
 				"IPHONEOS_DEPLOYMENT_TARGET[sdk=macosx*]" = 14.2;
@@ -1989,7 +1989,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = MacroPepelelipa/MacroPepelelipa.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 7;
 				DEVELOPMENT_TEAM = X54K5PJVGU;
 				INFOPLIST_FILE = MacroPepelelipa/Info.plist;
 				"IPHONEOS_DEPLOYMENT_TARGET[sdk=macosx*]" = 14.2;

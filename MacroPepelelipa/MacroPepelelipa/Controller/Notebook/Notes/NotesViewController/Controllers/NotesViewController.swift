@@ -243,7 +243,22 @@ internal class NotesViewController: UIViewController,
         self.view.backgroundColor = .backgroundColor
         
         notesControllerConfiguration.configureNotesViewControllerContent(textView: textView, textField: textField, note: note, keyboardToolbar: keyboardToolbar)
-        
+
+        if note?.title.string != "" {
+            self.textField.attributedText = note?.title.replaceColors(with: [.titleColor ?? .black])
+        }
+        if note?.text.string != "" {
+            self.textView.attributedText = note?.text.replaceColors(with: [
+                                                                        UIColor.bodyColor ?? .black,
+                                                                        UIColor.notebookColors[4],
+                                                                        UIColor.notebookColors[14]])
+        }
+        for textBox in note?.textBoxes ?? [] {
+            addTextBox(with: textBox)
+        }
+        for imageBox in note?.images ?? [] {
+            addImageBox(with: imageBox)
+        }
         updateExclusionPaths()
         
         if !((try? notebook?.getWorkspace().isEnabled) ?? false) {
