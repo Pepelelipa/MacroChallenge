@@ -171,12 +171,7 @@ class NoteAssignerViewController: UIViewController,
             selectedNotebookLbl.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
             selectedNotebookLbl.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
             selectedNotebookLbl.heightAnchor.constraint(equalToConstant: 40),
-            
-            notebookView.topAnchor.constraint(equalTo: selectedNotebookLbl.bottomAnchor, constant: 14),
-            notebookView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
-            notebookView.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 0.325),
-            notebookView.heightAnchor.constraint(equalTo: notebookView.widthAnchor, multiplier: 1.312),
-            
+        
             notebookNameLbl.topAnchor.constraint(equalTo: notebookView.bottomAnchor, constant: 20),
             notebookNameLbl.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
             notebookNameLbl.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 0.8),
@@ -199,6 +194,24 @@ class NoteAssignerViewController: UIViewController,
         ] 
     }()
     
+    private lazy var iPhoneConstraints: [NSLayoutConstraint] = {
+        [
+            notebookView.topAnchor.constraint(equalTo: selectedNotebookLbl.bottomAnchor, constant: 14),
+            notebookView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+            notebookView.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 0.325),
+            notebookView.heightAnchor.constraint(equalTo: notebookView.widthAnchor, multiplier: 1.312)
+        ]
+    }()
+    
+    private lazy var iPadConstraints: [NSLayoutConstraint] = {
+        [
+            notebookView.topAnchor.constraint(equalTo: selectedNotebookLbl.bottomAnchor, constant: 60),
+            notebookView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+            notebookView.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 0.2),
+            notebookView.heightAnchor.constraint(equalTo: notebookView.widthAnchor, multiplier: 1.312)
+        ]
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.backgroundColor
@@ -211,6 +224,11 @@ class NoteAssignerViewController: UIViewController,
         navigationController?.navigationBar.tintColor = UIColor.actionColor
         self.navigationController?.navigationBar.prefersLargeTitles = false
         NSLayoutConstraint.activate(constraints)
+        if UIDevice.current.userInterfaceIdiom == .phone {
+            NSLayoutConstraint.activate(iPhoneConstraints)
+        } else {
+            NSLayoutConstraint.activate(iPadConstraints)
+        }
     }
     
     init(note: NoteEntity?, lastNotebook: NotebookEntity?) {
