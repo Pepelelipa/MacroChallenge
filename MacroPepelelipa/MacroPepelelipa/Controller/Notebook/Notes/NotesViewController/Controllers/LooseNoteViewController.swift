@@ -226,7 +226,6 @@ internal class LooseNoteViewController: UIViewController,
     }
 
     override func viewWillDisappear(_ animated: Bool) {
-        noteContentHandler.saveNote(note: &note, textField: textField, textView: textView, textBoxes: textBoxes, imageBoxes: imageBoxes)
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.largeTitleDisplayMode = .automatic
     }
@@ -410,7 +409,6 @@ internal class LooseNoteViewController: UIViewController,
         DispatchQueue.main.async {
             self.imgeButtonObserver?.showImageButton()
         }
-        noteContentHandler.saveNote(note: &note, textField: textField, textView: textView, textBoxes: textBoxes, imageBoxes: imageBoxes)
     }
     
     // MARK: - MarkupToolBarObserver functions
