@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 import Database
 
 protocol NoteAssignerNotebookObserver: class {
@@ -15,5 +16,5 @@ protocol NoteAssignerNotebookObserver: class {
      - Parameters
         - notebook: The selected Notebook.
      */
-    func selectedNotebook(notebook: NotebookEntity) 
+    func selectedNotebook(notebook: NotebookEntity, controller: UIViewController?) 
 }

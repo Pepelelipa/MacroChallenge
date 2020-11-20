@@ -523,7 +523,7 @@ internal class WorkspaceSelectionViewController: UIViewController,
         }
         
         if let note = looseNote {
-            let destination = UINavigationController(rootViewController: LooseNoteViewController(note: note, notebook: collectionDataSource.getLastNotebook()))
+            let destination = UINavigationController(rootViewController: LooseNoteViewController(note: note, notebook: collectionDataSource.getLastNotebook(), workspaces: { self.collectionDataSource.workspaces }))
             destination.isModalInPresentation = true
             destination.modalTransitionStyle = .crossDissolve
             destination.modalPresentationStyle = .overFullScreen

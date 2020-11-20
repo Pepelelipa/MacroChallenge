@@ -28,22 +28,7 @@ internal class NoteAssignerResultsTableViewDataSource: NSObject,
     
     private weak var viewController: UIViewController?
     
-    private lazy var workspaces: [WorkspaceEntity] = {
-        do {
-            let workspaces = try Database.DataManager.shared().fetchWorkspaces()
-            return workspaces
-        } catch {
-            let alertController = UIAlertController(
-                title: "Error fetching the workspaces".localized(),
-                message: "The database could not fetch the workspace".localized(),
-                preferredStyle: .alert)
-                .makeErrorMessage(with: "The Workspaces could not be fetched".localized())
-            if let viewController = viewController {
-                viewController.present(alertController, animated: true, completion: nil)
-            }
-            return []
-        }
-    }()
+    private var workspaces: [WorkspaceEntity]
     
     private lazy var notebooks: [NotebookEntity] = {
         var notebooksArray = [NotebookEntity]()
@@ -58,7 +43,8 @@ internal class NoteAssignerResultsTableViewDataSource: NSObject,
 
     // MARK: - Initializers
     
-    internal init(viewController: UIViewController? = nil, tableView: @escaping (() -> UITableView)) {
+    internal init(workspaces: [WorkspaceEntity], viewController: UIViewController? = nil, tableView: @escaping (() -> UITableView)) {
+        self.workspaces = workspaces
         self.viewController = viewController
         self.tableView = tableView
         super.init()

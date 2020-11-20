@@ -18,6 +18,8 @@ class NoteAssignerViewController: UIViewController,
     
     internal weak var observer: NoteAssignerObserver?
     
+    private var workspaces: () -> ([WorkspaceEntity])
+    
     private weak var lastNotebook: NotebookEntity? {
         didSet {
             notebookView.color = UIColor(named: lastNotebook?.colorName ?? "") ?? .black
@@ -230,9 +232,6 @@ class NoteAssignerViewController: UIViewController,
         ]
     }()
     
-    
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.backgroundColor
@@ -274,8 +273,9 @@ class NoteAssignerViewController: UIViewController,
         }
     }
         
-    init(note: NoteEntity?, lastNotebook: NotebookEntity?) {
+    init(note: NoteEntity?, lastNotebook: NotebookEntity?, workspaces: @escaping () -> [WorkspaceEntity]) {
         self.note = note
+        self.workspaces = workspaces
         
         super.init(nibName: nil, bundle: nil)
         
@@ -284,12 +284,12 @@ class NoteAssignerViewController: UIViewController,
     
     internal required convenience init?(coder: NSCoder) {
         guard let note = coder.decodeObject(forKey: "note") as? NoteEntity, 
-              let lastNotebook = coder.decodeObject(forKey: "lastNotebook") as? NotebookEntity?
+              let lastNotebook = coder.decodeObject(forKey: "lastNotebook") as? NotebookEntity?,
+              let workspaces = coder.decodeObject(forKey: "workspaces") as? () -> ([WorkspaceEntity])
         else {
-            self.init(note: nil, lastNotebook: nil)
-            return
+            return nil
         }
-        self.init(note: note, lastNotebook: lastNotebook)
+        self.init(note: note, lastNotebook: lastNotebook, workspaces: workspaces)
     }
     
     private func addSubsViews() {
@@ -303,8 +303,9 @@ class NoteAssignerViewController: UIViewController,
         self.view.addSubview(addToNotebookBtn)
     }
     
-    internal func selectedNotebook(notebook: NotebookEntity) {
+    internal func selectedNotebook(notebook: NotebookEntity, controller: UIViewController?) {
         self.lastNotebook = notebook
+        controller?.navigationController?.popViewController(animated: true)
     }
     
     @IBAction func dismissModal() {
@@ -323,8 +324,8 @@ class NoteAssignerViewController: UIViewController,
                         if let noteEntity = self.note {
                             do {
                                 try DataManager.shared().deleteNote(noteEntity)
-                                observer?.dismissLosseNoteViewController()
                                 self.dismiss(animated: true, completion: nil)
+                                observer?.dismissLosseNoteViewController()
                             } catch {
                                 let alertController = UIAlertController(
                                     title: "Could not delete this note".localized(),
@@ -359,7 +360,7 @@ class NoteAssignerViewController: UIViewController,
     }
     
     @IBAction func changeNotebook() {
-        let destination = NoteAssignerResultsViewController()
+        let destination = NoteAssignerResultsViewController(workspaces: workspaces)
         destination.observer = self
         
         self.navigationController?.pushViewController(destination, animated: true)

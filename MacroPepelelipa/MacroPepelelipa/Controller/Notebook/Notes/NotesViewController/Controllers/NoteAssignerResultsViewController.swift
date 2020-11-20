@@ -19,6 +19,8 @@ internal class NoteAssignerResultsViewController: UIViewController,
         return searchController.searchBar.text?.isEmpty ?? true
     }
     
+    private var workspaces: () -> [WorkspaceEntity]
+    
     private lazy var searchController: CustomUISearchController = {
         let searchController = CustomUISearchController(searchResultsController: nil, owner: self, placeHolder: "Search".localized())
         searchController.searchBar.scopeButtonTitles = nil
@@ -51,7 +53,7 @@ internal class NoteAssignerResultsViewController: UIViewController,
                 guard let notebook = notebookCell.notebook else {
                     return
                 }
-                self.observer?.selectedNotebook(notebook: notebook)
+                self.observer?.selectedNotebook(notebook: notebook, controller: self)
                 self.notebookReference = notebook
             }
         }
@@ -59,7 +61,7 @@ internal class NoteAssignerResultsViewController: UIViewController,
         return delegate
     }()
     
-    private lazy var tableViewDataSource = NoteAssignerResultsTableViewDataSource(viewController: self, tableView: {
+    private lazy var tableViewDataSource = NoteAssignerResultsTableViewDataSource(workspaces: workspaces(), viewController: self, tableView: {
         self.tableView
     })
     
@@ -82,6 +84,16 @@ internal class NoteAssignerResultsViewController: UIViewController,
         searchController.showsSearchResultsController = false
         filterObserver?.isFiltering(value)
         tableView.reloadData()
+    }
+    
+    init(workspaces: @escaping () -> [WorkspaceEntity]) {
+        self.workspaces = workspaces
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    // TODO
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     // MARK: - Override Methos

@@ -24,6 +24,7 @@ internal class LooseNoteViewController: UIViewController,
     private var resizeHandles = [ResizeHandleView]()
     private var initialCenter = CGPoint()
     private var exclusionPaths: [UIBezierPath] = []
+    private var workspaces: () -> [WorkspaceEntity]
     
     private let screenSize = UIScreen.main.bounds
     
@@ -164,18 +165,20 @@ internal class LooseNoteViewController: UIViewController,
     
     // MARK: - Initializers
     
-    internal init(note: NoteEntity, notebook: NotebookEntity? = nil) {
+    internal init(note: NoteEntity, notebook: NotebookEntity? = nil, workspaces: @escaping () -> [WorkspaceEntity]) {
         self.note = note
         self.notebook = notebook
-        
+        self.workspaces = workspaces
         super.init(nibName: nil, bundle: nil)
     }
 
     internal required convenience init?(coder: NSCoder) {
-        guard let note = coder.decodeObject(forKey: "note") as? NoteEntity else {
+        guard let note = coder.decodeObject(forKey: "note") as? NoteEntity,
+              let workspaces = coder.decodeObject(forKey: "workspaces") as? () -> [WorkspaceEntity]
+              else {
             return nil
         }
-        self.init(note: note, notebook: coder.decodeObject(forKey: "notebook") as? NotebookEntity)
+        self.init(note: note, notebook: coder.decodeObject(forKey: "notebook") as? NotebookEntity, workspaces: workspaces)
     }
 
     // MARK: - Override functions
@@ -501,7 +504,7 @@ internal class LooseNoteViewController: UIViewController,
     }
     
     @IBAction func addToNotebook() {
-        let destination = NoteAssignerViewController(note: note, lastNotebook: notebook)
+        let destination = NoteAssignerViewController(note: note, lastNotebook: notebook, workspaces: workspaces)
         destination.observer = self
         noteContentHandler.saveNote(note: &note, textField: textField, textView: textView, textBoxes: textBoxes, imageBoxes: imageBoxes)
         

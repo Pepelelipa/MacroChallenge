@@ -22,7 +22,7 @@ internal class WorkspacesCollectionViewDataSource: NSObject,
     private let collectionView: (() -> UICollectionView)?
     private weak var viewController: UIViewController?
     
-    internal lazy var workspaces: [WorkspaceEntity] = {
+    internal private(set) lazy var workspaces: [WorkspaceEntity] = {
         do {
             let workspaces = try Database.DataManager.shared().fetchWorkspaces()
             for workspace in workspaces {
