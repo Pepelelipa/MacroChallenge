@@ -23,6 +23,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if let dancingScript = UIFont.dancingScript {
             Fonts.availableFonts.append(dancingScript)
         }
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { (granted, _) in
+            print(granted)
+            CKSubscriptionController.createWorkspaceSubscription()
+        }
+        application.registerForRemoteNotifications()
         return true
     }
 
@@ -35,6 +40,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, supportedInterfaceOrientationsFor window: UIWindow?) -> UIInterfaceOrientationMask {
         return self.orientationLock
+    }
+
+    // MARK: Notifications
+    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+        print("Recebeu!")
+        if let notification = CKNotification(fromRemoteNotificationDictionary: userInfo) {
+
+        }
     }
     
     // MARK: - Menus
