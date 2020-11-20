@@ -325,7 +325,7 @@ class NoteAssignerViewController: UIViewController,
                             do {
                                 try DataManager.shared().deleteNote(noteEntity)
                                 self.dismiss(animated: true, completion: nil)
-                                observer?.dismissLosseNoteViewController()
+                                observer?.dismissLooseNoteViewController()
                             } catch {
                                 let alertController = UIAlertController(
                                     title: "Could not delete this note".localized(),
@@ -347,7 +347,7 @@ class NoteAssignerViewController: UIViewController,
             do {
                 try DataManager.shared().assignLooseNote(noteEntity, to: notebookEntity)
                 self.dismiss(animated: true, completion: nil)
-                observer?.dismissLosseNoteViewController()
+                observer?.dismissLooseNoteViewController()
             } catch {
                 let alertController = UIAlertController(
                     title: "Could note assign the note to the notebook".localized(),

@@ -151,24 +151,6 @@ public class DataManager {
         }
     }
     
-    public func fetchWorkspace(id: String) throws -> WorkspaceEntity? {
-        let cdWorkspace = try coreDataController.fetchWorkspace(id: id)
-        guard let guardedWorkspace = cdWorkspace else {
-            return nil
-        }
-        return WorkspaceObject(from: guardedWorkspace)
-    }
-    
-    public func fetchNotebook(id: String) throws -> (WorkspaceEntity?, NotebookEntity?) {
-        let cdNotebook = try coreDataController.fetchNotebook(id: id)
-        guard let guardedNotebook = cdNotebook, let guardedWorkspace = guardedNotebook.workspace else {
-            return (nil, nil)
-        }
-        let workspaceObject = WorkspaceObject(from: guardedWorkspace)
-        let notebookObject = workspaceObject.notebooks.first(where: { (try? $0.getID())?.uuidString == cdNotebook?.id?.uuidString })
-        return (workspaceObject, notebookObject)
-    }
-    
     /**
      Creates a Workspace into the Database
      - Parameter name: The workspace's  name.

@@ -28,22 +28,6 @@ internal class CoreDataController {
     internal func fetchWorkspaces() throws -> [Workspace] {
         return try context.fetch(Workspace.fetchRequest())
     }
-    
-    internal func fetchWorkspace(id: String) throws -> Workspace? {
-        let workspaceFetchRequest = NSFetchRequest<Workspace>(entityName: "Workspace")
-        let predicate = NSPredicate(format: "id == %@", id)
-        workspaceFetchRequest.predicate = predicate
-        
-        return try context.fetch(workspaceFetchRequest).first
-    }
-    
-    internal func fetchNotebook(id: String) throws -> Notebook? {
-        let notebookFetchRequest = NSFetchRequest<Notebook>(entityName: "Notebook")
-        let predicate = NSPredicate(format: "id == %@", id)
-        notebookFetchRequest.predicate = predicate
-        
-        return try context.fetch(notebookFetchRequest).first
-    }
 
     // MARK: Workspace
     /**

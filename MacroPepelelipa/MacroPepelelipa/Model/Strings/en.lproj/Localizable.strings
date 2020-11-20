@@ -91,7 +91,7 @@
 "Error retriving notebook" = "Error retriving notebook";
 "The app could not retrieve a notebook" = "The app could not retrieve a notebook";
 "A notebook could not be retrieved" = "A notebook could not be retrieved";
-"Note do not exist" = "Note do not exist";
+"Note does not exist" = "Note does not exist";
 "The app could not safe unwrap the view controller note" = "The app could not safe unwrap the view controller note";
 "Failed to load the Note" = "Failed to load the Note";
 "Failed to create a Image Box" = "Failed to create a Image Box";

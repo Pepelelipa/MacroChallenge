@@ -67,7 +67,7 @@ internal class BoxViewInteractions {
             do {
                 guard let image = image else {
                     let alertController = UIAlertController(
-                        title: "Note do not exist".localized(),
+                        title: "Note does not exist".localized(),
                         message: "The app could not safe unwrap the view controller note".localized(),
                         preferredStyle: .alert)
                         .makeErrorMessage(with: "Failed to load the Note".localized())

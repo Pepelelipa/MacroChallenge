@@ -9,5 +9,5 @@
 import Foundation
 
 protocol NoteAssignerObserver: class {
-    func dismissLosseNoteViewController()
+    func dismissLooseNoteViewController()
 }

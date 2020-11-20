@@ -370,7 +370,7 @@ internal class NotesViewController: UIViewController,
     internal func createImageBox(image: UIImage?) {
         guard let note = note else {
             let alertController = UIAlertController(
-                title: "Note do not exist".localized(),
+                title: "Note does not exist".localized(),
                 message: "The app could not safe unwrap the view controller note".localized(),
                 preferredStyle: .alert)
                 .makeErrorMessage(with: "Failed to load the Note".localized())
@@ -488,7 +488,7 @@ internal class NotesViewController: UIViewController,
 
         guard let note = note else { 
             let alertController = UIAlertController(
-                title: "Note do not exist".localized(),
+                title: "Note does not exist".localized(),
                 message: "The app could not safe unwrap the view controller note".localized(),
                 preferredStyle: .alert)
                 .makeErrorMessage(with: "Failed to load the Note".localized())
