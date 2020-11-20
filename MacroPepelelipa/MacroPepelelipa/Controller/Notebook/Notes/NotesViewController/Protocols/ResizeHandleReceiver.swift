@@ -15,5 +15,4 @@ internal protocol ResizeHandleReceiver: class {
     var textView: MarkdownTextView { get }
     func uptadeResizeHandles()
     func updateExclusionPaths()
-    
 }

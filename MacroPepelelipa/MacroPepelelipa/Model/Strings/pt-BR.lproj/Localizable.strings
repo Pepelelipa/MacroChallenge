@@ -91,7 +91,7 @@
 "Error retriving notebook" = "Erro ao recuperar um caderno";
 "The app could not retrieve a notebook" = "O App não foi capaz de recuperar um caderno";
 "A notebook could not be retrieved" = "Um caderno não pode ser recuperado";
-"Note do not exist" = "A nota não existe";
+"Note does not exist" = "A nota não existe";
 "The app could not safe unwrap the view controller note" = "O app não conseguiu verificar a existencia da nota";
 "Failed to load the Note" = "Falha ao carregar a nota";
 "Failed to create a Text Box" = "Falha ao criar uma caixa de texto";
@@ -146,6 +146,9 @@
 "The app could not export the file as a PDF" = "O aplicativo não pôde exportar o arquivo como PDF";
 "Error writing data to the designed url" = "Erro ao transcrever dados para o URL designada";
 "Export notebook as PDF" = "Exportar caderno como PDF";
+"Could note assign the note to the notebook" = "Não foi possível atribuir a nota ao caderno";
+"The app could not assign the note to the notebook" = "O Aplicativo não foi capaz de atribuir a nota ao caderno";
+"An error occurred while the application was trying to assign the note to the notebook" = "Um erro ocorreu enquanto o aplicativo tentava atribuir a nota ao caderno";
 
 // MARK: - Accessibility
 
@@ -291,6 +294,19 @@
 "Settings Bar" = "Barra de Configurações";
 "InputView explanation" = "Você também pode acessar as mesmas opções através da Barra de Configuração, localizado na parte inferior da tela.";
 "Tips" = "Dicas";
+"Finish" = "Finalizar";
+"Back" = "Voltar";
+"Discard" = "Descartar";
+"Save Explanation" = "Para salvar esta nota precisamos adiciona-la à uma coleção e à um caderno.";
+"Selected Notebook" = "Caderno selecionado";
+"Delete Note confirmation" = "Tem certeza que deseja deletar a nota?";
+"Failed to create Loose Note" = "Falhou ao criar uma nota solta";
+"The database could not create the Loose Note" = "A data base não foi capaz de criar uma nota solta";
+"The Loose Note could not be created" = "A nota solta não pode ser criada";
+"Unable to get notebooks" = "Não foi possível acessar os cadernos";
+"The app was unable to get the notebooks from a workspace" = "O não foi capaz de acessar os cadernos de uma coleção";
+"Unable to get the last notebook" = "Não foi possível acessar o ultimo caderno";
+"The app was unable to get the notebook from UserDefaults" = "The app was unable to get the notebook from UserDefaults";
 "List style" = "Estilo de lista";
 "Paragraph style" = "Estilo de parágrafo";
 "Import image" = "Importar imagem";
@@ -308,3 +324,4 @@
 "Format Image" = "Format Image Portuguese";
 "Transcript Image" = "Transcript Image Portuguese";
 "Markdown Image" = "Markdown Image Portuguese";
+

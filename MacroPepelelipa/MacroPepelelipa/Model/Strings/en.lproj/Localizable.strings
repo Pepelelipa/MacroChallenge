@@ -91,7 +91,7 @@
 "Error retriving notebook" = "Error retriving notebook";
 "The app could not retrieve a notebook" = "The app could not retrieve a notebook";
 "A notebook could not be retrieved" = "A notebook could not be retrieved";
-"Note do not exist" = "Note do not exist";
+"Note does not exist" = "Note does not exist";
 "The app could not safe unwrap the view controller note" = "The app could not safe unwrap the view controller note";
 "Failed to load the Note" = "Failed to load the Note";
 "Failed to create a Image Box" = "Failed to create a Image Box";
@@ -142,6 +142,9 @@
 "The app could not export the file as a PDF" = "The app could not export the file as a PDF";
 "Error writing data to the designed url" = "Error writing data to the designed url";
 "Export notebook as PDF" = "Export notebook as PDF";
+"Could note assign the note to the notebook" = "Could note assign the note to the notebook";
+"The app could not assign the note to the notebook" = "The app could not assign the note to the notebook";
+"An error occurred while the application was trying to assign the note to the notebook" = "An error occurred while the application was trying to assign the note to the notebook";
 
 
 // MARK: - Accessibility
@@ -287,6 +290,19 @@
 "Settings Bar" = "Settings Bar";
 "InputView explanation" = "You can also access the same options through the Configuration Bar, located at the bottom of the screen.";
 "Tips" = "Tips";
+"Finish" = "Finish";
+"Back" = "Back";
+"Discard" = "Discard";
+"Save Explanation" = "To save this note, we need to add it to a collection and notebook.";
+"Selected Notebook" = "Selected Notebook";
+"Delete Note confirmation" = "Are you sure you want to delete this note?";
+"Failed to create Loose Note" = "Failed to create Loose Note";
+"The database could not create the Loose Note" = "The database could not create the Loose Note";
+"The Loose Note could not be created" = "The Loose Note could not be created";
+"Unable to get notebooks" = "Unable to get notebooks";
+"The app was unable to get the notebooks from a workspace" = "The app was unable to get the notebooks from a workspace";
+"Unable to get the last notebook" = "Unable to get the last notebook";
+"The app was unable to get the notebook from UserDefaults" = "The app was unable to get the notebook from UserDefaults";
 "List style" = "List style";
 "Paragraph style" = "Paragraph style";
 "Import image" = "Import image";

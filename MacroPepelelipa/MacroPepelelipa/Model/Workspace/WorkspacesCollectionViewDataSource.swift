@@ -22,7 +22,7 @@ internal class WorkspacesCollectionViewDataSource: NSObject,
     private let collectionView: (() -> UICollectionView)?
     private weak var viewController: UIViewController?
     
-    internal lazy var workspaces: [WorkspaceEntity] = {
+    internal private(set) lazy var workspaces: [WorkspaceEntity] = {
         do {
             let workspaces = try Database.DataManager.shared().fetchWorkspaces()
             for workspace in workspaces {
@@ -87,6 +87,16 @@ internal class WorkspacesCollectionViewDataSource: NSObject,
             cell.entityShouldBeDeleted = editableCollection.entityShouldBeDeleted
         }
         return cell
+    }
+    
+    internal func getLastNotebook() -> NotebookEntity? {
+        let defaults = UserDefaults.standard 
+        
+        let identifier = defaults.object(forKey: "LastNotebookID") as? String ?? String()
+        var notebooks = [NotebookEntity]()
+        workspaces.forEach({ notebooks.append(contentsOf: $0.notebooks) })
+        
+        return notebooks.first(where: { (try? $0.getID())?.uuidString == identifier })
     }
     
     // MARK: - EntityObserver functions

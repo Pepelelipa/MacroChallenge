@@ -153,7 +153,7 @@ internal class CoreDataController {
      - Parameter notebook: To what notebook it belongs.
      - Throws: Throws if fails to parse object to Note or the context saving is unsuccessful.
      */
-    internal func createNote(in notebook: Notebook, id: UUID) throws -> Note {
+    internal func createNote(in notebook: Notebook?, id: UUID) throws -> Note {
         guard let note = NSEntityDescription.insertNewObject(forEntityName: "Note", into: context) as? Note else {
             throw CoreDataError.failedToParseObject
         }
