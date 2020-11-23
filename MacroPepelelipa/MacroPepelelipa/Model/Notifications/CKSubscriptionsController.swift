@@ -12,7 +12,7 @@ internal class CKSubscriptionController {
     private static let container = CKContainer.init(identifier: "iCloud.Pepelelipa")
 
     private static var database: CKDatabase {
-        return container.publicCloudDatabase
+        return container.privateCloudDatabase
     }
 
     internal static func createWorkspaceSubscription(errorHandler: @escaping (Error?) -> Void) {
