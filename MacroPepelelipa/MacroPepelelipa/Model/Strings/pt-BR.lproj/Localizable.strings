@@ -152,6 +152,26 @@
 
 "Untitled" = "Sem título";
 
+"Error in Workspace" = "Erro na Coleção";
+"Error in Notebook" = "Erro no Caderno";
+"Error in Note" = "Erro na Nota";
+"Error in Persistent Container" = "Erro Objeto de Persistencia de Dados";
+"Error with Text Box" = "Erro com a Caixa de Texto";
+"Error with Image Box" = "Erro com a Caixa de Imagem";
+"Error with Cloud Database" = "Erro com a base de dados na Nuvem";
+
+"Workspace was Null" = "A Coleção era Nula";
+"Notebook was Null" = "O Caderno era Nulo";
+"Note was Null" = "A Nota era Nula";
+"ID was Null" = "O ID era Nulo";
+"Text Box was Null" = "A Caixa de Texto era Nula";
+"Image Box was Null" = "A Caixa de Imagem era Nula";
+"Open Settings" = "Abrir as Configurações";
+
+"Failed to Fetch" = "Falha ao Buscar os Objetos da base de dados";
+"Failed to Parse" = "Falha ao dar Parse no Objeto";
+
+
 // MARK: - Accessibility
 
 "Editing enabled" = "Edição habilitada";

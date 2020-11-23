@@ -67,69 +67,69 @@ internal final class ConflictHandlerObject: ConflictHandler {
     }
     
     private func workspaceErrorHandling(error: WorkspaceError) {
-        let title: String = "Error in Workspace"
+        let title: String = "Error in Workspace".localized()
 
         switch error {
         case .failedToFetch:
-            presentAlertController(title: title, message: "Failed to Fetch")
+            presentAlertController(title: title, message: "Failed to Fetch".localized())
         case .failedToParse:
-            presentAlertController(title: title, message: "Failed to Parse")
+            presentAlertController(title: title, message: "Failed to Parse".localized())
         case .workspaceWasNull:
-            presentAlertController(title: title, message: "Workspace was Null")
+            presentAlertController(title: title, message: "Workspace was Null".localized())
         }
     }
     
     private func notebookErrorHandling(error: NotebookError) {
-        let title: String = "Error in Notebook"
+        let title: String = "Error in Notebook".localized()
         switch error {
         case .failedToParse:
-            presentAlertController(title: title, message: "Failed to Parse")
+            presentAlertController(title: title, message: "Failed to Parse".localized())
         case .notebookWasNull:
-            presentAlertController(title: title, message: "Notebook was Null")
+            presentAlertController(title: title, message: "Notebook was Null".localized())
         }
     }
     
     private func noteErrorHandling(error: NoteError) {
-        let title: String = "Error in Note"
+        let title: String = "Error in Note".localized()
         switch error {
         case .failedToParse:
-            presentAlertController(title: title, message: "Failed to Parse")
+            presentAlertController(title: title, message: "Failed to Parse".localized())
         case .noteWasNull:
-            presentAlertController(title: title, message: "Note was Null")
+            presentAlertController(title: title, message: "Note was Null".localized())
         }
     }
     
     private func persistentContainerErrorHandling(error: PersistentError) {
-        let title: String = "Error in Persistent Container"
-        presentAlertController(title: title, message: "ID was Null")
+        let title: String = "Error in Persistent Container".localized()
+        presentAlertController(title: title, message: "ID was Null".localized())
     }
     
     private func textBoxErrorHandling(error: TextBoxError) {
-        let title: String = "Error with Text Box"
+        let title: String = "Error with Text Box".localized()
         switch error {
         case .failedToParse:
-            presentAlertController(title: title, message: "Failed to Parse")
+            presentAlertController(title: title, message: "Failed to Parse".localized())
         case .textBoxWasNull:
-            presentAlertController(title: title, message: "Text Box was Null")
+            presentAlertController(title: title, message: "Text Box was Null".localized())
         }
     }
     
     private func imageBoxErrorHandling(error: ImageBoxError) {
-        let title: String = "Error with Image Box"
+        let title: String = "Error with Image Box".localized()
         switch error {
         case .failedToParse:
-            presentAlertController(title: title, message: "Failed to Parse")
+            presentAlertController(title: title, message: "Failed to Parse".localized())
         case .imageBoxWasNull:
-            presentAlertController(title: title, message: "Image Box was Null")
+            presentAlertController(title: title, message: "Image Box was Null".localized())
         }
     }
     
     private func cloudKitErrorHandling(error: CKError) {
-        let title: String = "Error with Cloud Database"
+        let title: String = "Error with Cloud Database".localized()
         DispatchQueue.main.async { 
             let alertController = UIAlertController(title: title, message: error.localizedDescription, preferredStyle: .alert).makeErrorMessage(with: error.localizedDescription)
             if error.errorCode == 9 {
-                let settingsAction = UIAlertAction(title: "Settings", style: .default) { _ in 
+                let settingsAction = UIAlertAction(title: "Open Settings".localized(), style: .default) { _ in 
                     guard let settingsUrl = URL(string: UIApplication.openSettingsURLString) else {
                         return
                     }
