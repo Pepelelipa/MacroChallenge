@@ -21,16 +21,16 @@ internal class MarkdownParser {
         NumericListElement()
     ]
     ///Parses and returns how many characters were consumed
-    internal static func parse(_ textToParse: NSMutableAttributedString) -> ([NSRange], ListStyle?) {
+    internal static func parse(_ textToParse: NSMutableAttributedString) -> ([NSRange], Any?) {
         var consumedCharacters: [NSRange] = []
-        var list: ListStyle?
+        var returnResult: Any?
         elements.forEach { (element) in
             let result = element.parse(textToParse)
-            if let resultList = result.1 {
-                list = resultList
+            if let parseResult = result.1 {
+                returnResult = parseResult
             }
             consumedCharacters.append(contentsOf: result.0)
         }
-        return (consumedCharacters, list)
+        return (consumedCharacters, returnResult)
     }
 }

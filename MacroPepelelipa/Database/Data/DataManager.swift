@@ -150,7 +150,7 @@ public class DataManager {
             }
         }
     }
-
+    
     /**
      Creates a Workspace into the Database
      - Parameter name: The workspace's  name.
@@ -178,9 +178,9 @@ public class DataManager {
         guard let workspaceObject = workspace as? WorkspaceObject else {
             throw WorkspaceError.failedToParse
         }
-
+        
         try coreDataController.deleteWorkspace(workspaceObject.coreDataWorkspace)
-        try workspaceObject.removeReferences()
+        workspaceObject.removeReferences()
         if let ckWorkspace = workspaceObject.cloudKitWorkspace {
             cloudKitController.deleteWorkspace(ckWorkspace)
         }
@@ -226,7 +226,7 @@ public class DataManager {
         }
 
         try coreDataController.deleteNotebook(notebookObject.coreDataNotebook)
-        try notebookObject.removeReferences()
+        notebookObject.removeReferences()
         if let ckNotebook = notebookObject.cloudKitNotebook {
             try cloudKitController.deleteNotebook(ckNotebook)
         }
@@ -234,6 +234,50 @@ public class DataManager {
     }
 
     // MARK: Note
+
+    /**
+     Creates a loose note into CoreData
+     - Parameter notebook: To what notebook it belongs.
+     - Throws: Throws if fails to parse notebook to NotebookObject.
+     */
+    public func createLooseNote() throws -> NoteEntity {
+        let id = UUID()
+        let cdNote = try coreDataController.createNote(in: nil, id: id)
+        let noteObject = NoteObject(in: nil, from: cdNote)
+        defer {
+            notifyCreation(noteObject, type: .note)
+        }
+
+        return noteObject
+    }
+
+    /**
+     Assigns a loose note to a notebook
+     - Parameter note: The note to be saved.
+     - Parameter notebook: The notebook to be assigned on.
+     - Throws Throws if fails parsing notebook to NotebookObject, note to NoteObject. Also fails if there's not CloudKit Notebook, fails to get the id of note or if fails saving.
+     */
+    public func assignLooseNote(_ note: NoteEntity, to notebook: NotebookEntity) throws {
+        guard let notebookObject = notebook as? NotebookObject else {
+            throw NotebookError.failedToParse
+        }
+        guard let noteObject = note as? NoteObject else {
+            throw NoteError.failedToParse
+        }
+        guard let ckNotebook = notebookObject.cloudKitNotebook else {
+            throw NotebookError.notebookWasNull
+        }
+        let ckNote = cloudKitController.createNote(in: ckNotebook, id: try note.getID())
+        ckNote <- noteObject.coreDataNote
+        ckNote.setNotebook(ckNotebook)
+        ckNotebook.appendNote(ckNote)
+
+        noteObject.cloudKitNote = ckNote
+
+        noteObject.setNotebook(notebookObject)
+        try note.save()
+    }
+
     /**
      Creates a Note into the Database
      - Parameter notebook: To what notebook it belongs.
@@ -270,7 +314,7 @@ public class DataManager {
         }
 
         try coreDataController.deleteNote(noteObject.coreDataNote)
-        try noteObject.removeReferences()
+        noteObject.removeReferences()
         if let ckNote = noteObject.cloudKitNote {
             try cloudKitController.deleteNote(ckNote)
         }
@@ -308,7 +352,7 @@ public class DataManager {
         }
 
         try coreDataController.deleteTextBox(textBoxObject.coreDataTextBox)
-        try textBoxObject.removeReferences()
+        textBoxObject.removeReferences()
         if let ckTextBox = textBoxObject.cloudKitTextBox {
             try cloudKitController.deleteTextBox(ckTextBox)
         }
@@ -347,7 +391,7 @@ public class DataManager {
         _ = try? FileHelper.deleteImage(fileName: imageBox.imagePath)
 
         try coreDataController.deleteImageBox(imageBoxObject.coreDataImageBox)
-        try imageBoxObject.removeReferences()
+        imageBoxObject.removeReferences()
         if let ckImageBox = imageBoxObject.cloudKitImageBox {
             try cloudKitController.deleteImageBox(ckImageBox)
         }

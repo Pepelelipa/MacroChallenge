@@ -16,6 +16,7 @@ internal class SearchResultCollectionViewDelegate: NSObject,
     // MARK: - Variables and Constants
     
     private var didSelectCell: ((UICollectionViewCell) -> Void)?
+
     internal var frame: CGRect = CGRect()
     
     // MARK: - Initializers

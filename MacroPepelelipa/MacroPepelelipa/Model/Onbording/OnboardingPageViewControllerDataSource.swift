@@ -8,40 +8,47 @@
 
 import UIKit
 
-class OnboardingPageViewControllerDataSource: NSObject, UIPageViewControllerDataSource {
+internal class OnboardingPageViewControllerDataSource: NSObject, UIPageViewControllerDataSource {
     
     // MARK: - Variables and Constants
     
-    private var pages: [UIViewController]?
+    private var pages: [UIViewController]
     
     // MARK: - Initializers
     
     internal init(pages: [UIViewController]) {
         self.pages = pages
     }
+
+    internal func indexFor(_ viewController: UIViewController) -> Int? {
+        return pages.firstIndex(of: viewController)
+    }
+
+    internal func viewControllerFor(_ index: Int) -> UIViewController? {
+        if index > -1 && index < pages.count {
+            return pages[index]
+        }
+        return nil
+    }
     
     // MARK: - UIPageViewControllerDataSource Functions
-    
-    func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
-        
-        if let pages = self.pages,
-           let viewControllerIndex = pages.firstIndex(of: viewController) {
+    internal func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
+        if let viewControllerIndex = pages.firstIndex(of: viewController) {
             if viewControllerIndex == 0 {
-                return pages.last
+                return nil
             } else {
                 return pages[viewControllerIndex - 1]
             }
         }
         return nil
     }
-    
-    func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
 
-        if let pages = self.pages, let viewControllerIndex = pages.firstIndex(of: viewController) {
+    internal func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
+        if let viewControllerIndex = pages.firstIndex(of: viewController) {
             if viewControllerIndex < pages.count - 1 {
                 return pages[viewControllerIndex + 1]
             } else {
-                return pages.first
+                return nil
             }
         }
         return nil

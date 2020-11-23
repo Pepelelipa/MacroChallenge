@@ -81,13 +81,15 @@ internal class NoteObject: NoteEntity, CloudKitObjectWrapper {
         return cloudKitNote
     }
 
-    internal init(in notebook: NotebookObject, from note: Note, and ckNote: CloudKitNote? = nil) {
+    internal init(in notebook: NotebookObject?, from note: Note, and ckNote: CloudKitNote? = nil) {
         self.cloudKitNote = ckNote
         self.notebook = notebook
         self.coreDataNote = note
         
-        notebook.notes.append(self)
-
+        if let notebook = notebook {
+            notebook.notes.append(self)    
+        }
+        
         if let textBoxes = coreDataNote.textBoxes?.allObjects as? [TextBox] {
             textBoxes.forEach { (textBox) in
                 let ckObject = ckNote?.textBoxes?.first(where: { $0.record["id"] == textBox.id?.uuidString }) as? CloudKitTextBox
@@ -100,6 +102,12 @@ internal class NoteObject: NoteEntity, CloudKitObjectWrapper {
                 _ = ImageBoxObject(in: self, from: imageBox, and: ckObject)
             }
         }
+    }
+
+    internal func setNotebook(_ notebook: NotebookObject) {
+        removeReferences()
+        self.notebook = notebook
+        notebook.notes.append(self)
     }
 
     func addObserver(_ observer: EntityObserver) {
@@ -124,7 +132,7 @@ internal class NoteObject: NoteEntity, CloudKitObjectWrapper {
         return children
     }
 
-    internal func removeReferences() throws {
+    internal func removeReferences() {
         if let notebook = self.notebook,
            let index = notebook.notes.firstIndex(where: { $0 === self }) {
             notebook.notes.remove(at: index)

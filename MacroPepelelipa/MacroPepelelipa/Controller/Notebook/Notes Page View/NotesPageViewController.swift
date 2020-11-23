@@ -77,11 +77,19 @@ internal class NotesPageViewController: UIPageViewController,
         do {
             self.notebook = try notes[0].getNotebook()
             
+            if let guardedNotebook = notebook {
+                let defaults = UserDefaults.standard
+
+                let notebookID = try guardedNotebook.getID().uuidString
+                defaults.setValue(notebookID, forKey: "LastNotebookID")
+            }
+            
             if let name = notebook?.name {
                 self.notebookIndexButton.accessibilityLabel = String(format: "Index button label".localized(), name)
             } else {
                 self.notebookIndexButton.accessibilityLabel = "Index".localized()
             }
+            
         } catch {
             let alertController = UIAlertController(
                 title: "Error retriving notebook".localized(),
