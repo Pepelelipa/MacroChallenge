@@ -8,6 +8,7 @@
 
 import UIKit
 import MarkdownText
+import Database
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -23,6 +24,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if let dancingScript = UIFont.dancingScript {
             Fonts.availableFonts.append(dancingScript)
         }
+                
+        DataManager.shared().conflictHandler = ConflictHandlerObject()
+        
         return true
     }
 
