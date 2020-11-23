@@ -32,6 +32,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window = UIWindow(windowScene: scene)
         window?.rootViewController = navController
         window?.makeKeyAndVisible()
+        
+        if UIDevice.current.userInterfaceIdiom == .mac {
+            scene.sizeRestrictions?.minimumSize = CGSize(width: UIScreen.main.bounds.width/2, height: UIScreen.main.bounds.height/2)
+        }
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

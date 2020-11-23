@@ -37,6 +37,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         CKSubscriptionController.createTextBoxSubscription(errorHandler: errorHandling)
         CKSubscriptionController.createImageBoxSubscription(errorHandler: errorHandling)
         application.registerForRemoteNotifications()
+        
         return true
     }
 
