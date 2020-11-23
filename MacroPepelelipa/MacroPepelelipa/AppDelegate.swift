@@ -25,8 +25,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if let dancingScript = UIFont.dancingScript {
             Fonts.availableFonts.append(dancingScript)
         }
-                
-        DataManager.shared().conflictHandler = ConflictHandlerObject()
         
         let errorHandling: (Error?) -> Void = {
             if ($0 as? CKError)?.errorCode != 15, let error = $0 as? CKError {
@@ -40,6 +38,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         CKSubscriptionController.createTextBoxSubscription(errorHandler: errorHandling)
         CKSubscriptionController.createImageBoxSubscription(errorHandler: errorHandling)
         application.registerForRemoteNotifications()
+        
+        DataManager.shared().conflictHandler = ConflictHandlerObject()
         
         return true
     }

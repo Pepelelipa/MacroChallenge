@@ -126,19 +126,23 @@ internal final class ConflictHandlerObject: ConflictHandler {
     
     private func cloudKitErrorHandling(error: CKError) {
         let title: String = "Error with Cloud Database"
-        let alertController = UIAlertController(title: title, message: error.localizedDescription, preferredStyle: .alert).makeErrorMessage(with: error.localizedDescription)
-        let settingsAction = UIAlertAction(title: "Settings", style: .default) { _ in 
-            guard let settingsUrl = URL(string: UIApplication.openSettingsURLString) else {
-                return
+        DispatchQueue.main.async { 
+            let alertController = UIAlertController(title: title, message: error.localizedDescription, preferredStyle: .alert).makeErrorMessage(with: error.localizedDescription)
+            if error.errorCode == 9 {
+                let settingsAction = UIAlertAction(title: "Settings", style: .default) { _ in 
+                    guard let settingsUrl = URL(string: UIApplication.openSettingsURLString) else {
+                        return
+                    }
+                    
+                    if UIApplication.shared.canOpenURL(settingsUrl) {
+                        UIApplication.shared.open(settingsUrl, completionHandler: nil)
+                    }
+                }
+                
+                alertController.addAction(settingsAction)
             }
-            
-            if UIApplication.shared.canOpenURL(settingsUrl) {
-                UIApplication.shared.open(settingsUrl, completionHandler: nil)
-            }
+            self.controller?.present(alertController, animated: true, completion: nil)
         }
-        
-        alertController.addAction(settingsAction)
-        controller?.present(alertController, animated: true, completion: nil)
     }
     
     private func presentAlertController(title: String, message: String) {
