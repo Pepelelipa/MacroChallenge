@@ -55,14 +55,6 @@ internal class NotebookObject: NotebookEntity, CloudKitObjectWrapper {
     public var indexes: [NotebookIndexEntity] {
         var indexes: [NotebookIndexObject] = []
         
-        let fontSize: CGFloat
-        
-        if UIDevice.current.userInterfaceIdiom == .phone {
-            fontSize = 26
-        } else {
-            fontSize = 32
-        }
-        
         for note in notes {
             indexes.append(NotebookIndexObject(index: note.title.string, note: note, isTitle: true))
             
@@ -73,7 +65,7 @@ internal class NotebookObject: NotebookEntity, CloudKitObjectWrapper {
                                          options: .longestEffectiveRangeNotRequired) { (font, range, _) in
                 
                 if let font = font as? UIFont, 
-                   font.pointSize == fontSize {
+                   font.pointSize == 32 || font.pointSize == 26 {
                     let text = note.text.attributedSubstring(from: range)
                     let headers = text.string.components(separatedBy: "\n")
                     

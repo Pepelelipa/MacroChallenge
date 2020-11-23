@@ -80,8 +80,8 @@ internal class NotebookIndexViewController: UIViewController {
             lblSubject.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.08),
 
             tableView.topAnchor.constraint(equalTo: lblSubject.bottomAnchor, constant: 40),
-            tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 5),
+            tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
             tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ]
     }()

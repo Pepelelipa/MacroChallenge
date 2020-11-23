@@ -19,6 +19,7 @@ internal class NotebookIndexTableViewCell: UITableViewCell {
         let lbl = UILabel(frame: .zero)
         lbl.translatesAutoresizingMaskIntoConstraints = false
         lbl.font = UIFont.defaultHeader.toStyle(.h2)
+        lbl.adjustsFontSizeToFitWidth = true
 
         return lbl
     }()
