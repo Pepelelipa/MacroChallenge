@@ -202,7 +202,7 @@ internal class AddNoteViewController: UIViewController, AddNoteObserver {
                     return
                 }
                 let note = try DataManager.shared().createNote(in: guardedNotebook)
-                note.title = NSAttributedString(string: text)
+                note.title = text.toStyle(font: .defaultHeader, .h1)
                 try note.save()
             } catch {
                 let alertController = UIAlertController(
