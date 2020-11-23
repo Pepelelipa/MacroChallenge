@@ -150,6 +150,8 @@
 "The app could not assign the note to the notebook" = "O Aplicativo não foi capaz de atribuir a nota ao caderno";
 "An error occurred while the application was trying to assign the note to the notebook" = "Um erro ocorreu enquanto o aplicativo tentava atribuir a nota ao caderno";
 
+"Untitled" = "Sem título";
+
 // MARK: - Accessibility
 
 "Editing enabled" = "Edição habilitada";
