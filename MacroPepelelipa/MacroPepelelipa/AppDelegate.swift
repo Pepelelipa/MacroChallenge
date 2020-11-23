@@ -25,8 +25,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if let dancingScript = UIFont.dancingScript {
             Fonts.availableFonts.append(dancingScript)
         }
-
-        let errorHandling: (Error?) -> Void = { print($0) }
+        let errorHandling: (Error?) -> Void = {
+            if ($0 as? CKError)?.errorCode != 15 {
+                //Rethrow to Guedes' error handling
+            }
+        }
 
         CKSubscriptionController.createWorkspaceSubscription(errorHandler: errorHandling)
         CKSubscriptionController.createNotebookSubscription(errorHandler: errorHandling)
@@ -49,7 +52,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     // MARK: Notifications
-    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
         if let notification = CKNotification(fromRemoteNotificationDictionary: userInfo) as? CKQueryNotification {
             do {
                 try DataManager.shared().handleNotification(notification)

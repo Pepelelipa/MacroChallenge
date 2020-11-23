@@ -12,7 +12,7 @@ internal class CKSubscriptionController {
     private static let container = CKContainer.init(identifier: "iCloud.Pepelelipa")
 
     private static var database: CKDatabase {
-        return container.privateCloudDatabase
+        return container.publicCloudDatabase
     }
 
     internal static func createWorkspaceSubscription(errorHandler: @escaping (Error?) -> Void) {
@@ -92,21 +92,6 @@ internal class CKSubscriptionController {
         subscription.notificationInfo = info
         database.save(subscription) { (_, error) in
             errorHandler(error)
-        }
-    }
-
-    internal static func delete(id: String) {
-        container.publicCloudDatabase.delete(withSubscriptionID: id) { (_, error) in
-            print(error)
-        }
-    }
-    internal static func delete() {
-        container.publicCloudDatabase.fetchAllSubscriptions { (subscriptions, _) in
-            for subs in subscriptions ?? [] {
-                container.publicCloudDatabase.delete(withSubscriptionID: subs.subscriptionID) { (_, error) in
-                    print(error)
-                }
-            }
         }
     }
 }
