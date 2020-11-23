@@ -67,7 +67,14 @@ internal class NotebookIndexTableViewCell: UITableViewCell {
         
         contentView.addSubview(selectedView)
         contentView.addSubview(lessonLbl)
-        indexText = index.index
+        
+        var title = index.index
+        
+        if title == "" {
+            title = "Sem título".localized()
+        }
+        
+        indexText = title
         setupConstraints()
     }
 
