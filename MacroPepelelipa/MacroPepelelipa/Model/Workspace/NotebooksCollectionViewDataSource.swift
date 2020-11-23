@@ -105,10 +105,9 @@ internal class NotebooksCollectionViewDataSource: NSObject,
         }
     }
 
-    internal func entityWithIDShouldDelete(_ value: String) -> ObservableEntity? {
+    internal func getEntityWithID(_ value: String) -> ObservableEntity? {
         if let index = notebooks.firstIndex(where: { (try? $0.getID())?.uuidString == value }) {
             let notebook = notebooks[index]
-            deleteWithIndex(index)
             return notebook
         }
         return nil

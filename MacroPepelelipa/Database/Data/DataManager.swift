@@ -45,39 +45,40 @@ public class DataManager {
             observers.remove(at: index)
         }
     }
-
     private func notifyCreation(_ entity: ObservableEntity, type: ObservableCreationType) {
         for observer in observers where observer.1 == type {
             observer.0.entityWasCreated(entity)
         }
     }
-    private func notifyDeletionID(_ id: String, type: ObservableCreationType) {
-        var deleted = false
-        for observer in observers where observer.1 == type {
-            let result = observer.0.entityWithIDShouldDelete(id)
-            if !deleted {
-                if let workspace = result as? WorkspaceObject {
-                    do {
-                        try deleteWorkspace(workspace)
-                        deleted = true
-                    } catch { }
-                } else if let notebook = result as? NotebookObject {
-                    do {
-                        try deleteNotebook(notebook)
-                        deleted = true
-                    } catch { }
-                } else if let note = result as? NoteObject {
-                    do {
-                        try deleteNote(note)
-                        deleted = true
-                    } catch { }
-                }
-            }
-        }
-    }
     private func notifyDeletion(_ entity: ObservableEntity, type: ObservableCreationType) {
         for observer in observers where observer.1 == type {
             observer.0.entityShouldDelete(entity)
+        }
+    }
+
+    private func getObservableWithID(_ id: String, type: ObservableCreationType) -> ObservableEntity? {
+        for observer in observers where observer.1 == type {
+            if let result = observer.0.getEntityWithID(id) {
+                return result
+            }
+        }
+        return nil
+    }
+    private func deleteObservableWithID(_ id: String, type: ObservableCreationType) {
+        if let result = getObservableWithID(id, type: type) {
+            if let workspace = result as? WorkspaceObject {
+                do {
+                    try deleteWorkspace(workspace)
+                } catch { }
+            } else if let notebook = result as? NotebookObject {
+                do {
+                    try deleteNotebook(notebook)
+                } catch { }
+            } else if let note = result as? NoteObject {
+                do {
+                    try deleteNote(note)
+                } catch { }
+            }
         }
     }
 
@@ -184,15 +185,15 @@ public class DataManager {
         switch notification.category {
         case "workspaceNotification":
             if notification.queryNotificationReason == .recordDeleted {
-                notifyDeletionID(id, type: .workspace)
+                deleteObservableWithID(id, type: .workspace)
             }
         case "notebookNotification":
             if notification.queryNotificationReason == .recordDeleted {
-                notifyDeletionID(id, type: .notebook)
+                deleteObservableWithID(id, type: .notebook)
             }
         case "noteNotification":
             if notification.queryNotificationReason == .recordDeleted {
-                notifyDeletionID(id, type: .note)
+                deleteObservableWithID(id, type: .note)
             }
         case "textBoxNotification":
             if notification.queryNotificationReason == .recordDeleted {

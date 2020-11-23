@@ -66,11 +66,9 @@ internal class NotesPageViewControllerDataSource: NSObject,
         }
     }
 
-    internal func entityWithIDShouldDelete(_ value: String) -> ObservableEntity? {
+    internal func getEntityWithID(_ value: String) -> ObservableEntity? {
         if let index = self.notesEntities?.firstIndex(where: { (try? $0.getID())?.uuidString == value }),
            let note = self.notesEntities?[index] {
-            self.notesEntities?[index].removeObserver(self)
-            self.notesEntities?.remove(at: index)
             return note
         }
         return nil

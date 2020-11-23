@@ -405,7 +405,7 @@ internal class NotebooksSelectionViewController: UIViewController, EntityObserve
         setEditButtonItem()
     }
 
-    internal func entityWithIDShouldDelete(_ value: String) -> ObservableEntity? {
+    internal func getEntityWithID(_ value: String) -> ObservableEntity? {
         setEditButtonItem()
         return nil
     }

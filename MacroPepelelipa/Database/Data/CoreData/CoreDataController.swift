@@ -30,30 +30,6 @@ internal class CoreDataController {
         return try context.fetch(Workspace.fetchRequest())
     }
 
-    internal func fetchWorkspace(id: String) throws -> Workspace? {
-        let workspaceFetchRequest: NSFetchRequest<Workspace> = Workspace.fetchRequest()
-        let predicate = NSPredicate(format: "id == %@", id)
-        workspaceFetchRequest.predicate = predicate
-
-        return try context.fetch(workspaceFetchRequest).first
-    }
-
-    internal func fetchNotebook(id: String) throws -> Notebook? {
-        let notebookFetchRequest: NSFetchRequest<Notebook> = Notebook.fetchRequest()
-        let predicate = NSPredicate(format: "id == %@", id)
-        notebookFetchRequest.predicate = predicate
-
-        return try context.fetch(notebookFetchRequest).first
-    }
-
-    internal func fetchNote(id: String) throws -> Note? {
-        let noteFetchRequest: NSFetchRequest<Note> = Note.fetchRequest()
-        let predicate = NSPredicate(format: "id == %@", id)
-        noteFetchRequest.predicate = predicate
-
-        return try context.fetch(noteFetchRequest).first
-    }
-
     internal func fetchTextBox(id: String) throws -> TextBox? {
         let textBoxFetchRequest: NSFetchRequest<TextBox> = TextBox.fetchRequest()
         let predicate = NSPredicate(format: "id == %@", id)
@@ -69,7 +45,6 @@ internal class CoreDataController {
 
         return try context.fetch(imageBoxFetchRequest).first
     }
-
 
     // MARK: Workspace
     /**
