@@ -16,6 +16,6 @@ internal struct BulletListElement: MarkdownElement {
 
     func match(_ match: NSTextCheckingResult, attributedString: NSMutableAttributedString) -> ([NSRange], Any?) {
         attributedString.deleteCharacters(in: match.range(at: 1))
-        return ([match.range(at: 1)], ListStyle.numeric)
+        return ([match.range(at: 1)], ListStyle.bullet)
     }
 }
