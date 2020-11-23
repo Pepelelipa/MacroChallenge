@@ -24,9 +24,26 @@ internal class CoreDataController {
     ///Context of our CoreData
     private lazy var context: NSManagedObjectContext = persistentContainer.viewContext
 
-    ///Fetches all workspaces
+    // MARK: Fetches
+    
     internal func fetchWorkspaces() throws -> [Workspace] {
         return try context.fetch(Workspace.fetchRequest())
+    }
+
+    internal func fetchTextBox(id: String) throws -> TextBox? {
+        let textBoxFetchRequest: NSFetchRequest<TextBox> = TextBox.fetchRequest()
+        let predicate = NSPredicate(format: "id == %@", id)
+        textBoxFetchRequest.predicate = predicate
+
+        return try context.fetch(textBoxFetchRequest).first
+    }
+
+    internal func fetchImageBox(id: String) throws -> ImageBox? {
+        let imageBoxFetchRequest: NSFetchRequest<ImageBox> = ImageBox.fetchRequest()
+        let predicate = NSPredicate(format: "id == %@", id)
+        imageBoxFetchRequest.predicate = predicate
+
+        return try context.fetch(imageBoxFetchRequest).first
     }
 
     // MARK: Workspace

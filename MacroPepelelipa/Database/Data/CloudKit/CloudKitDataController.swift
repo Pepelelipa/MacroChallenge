@@ -49,7 +49,7 @@ internal class CloudKitDataController {
      - Parameter workspace: Workspace to be deleted.
      */
     internal func deleteWorkspace(_ workspace: CloudKitWorkspace) {
-        CloudKitDataConnector.deleteData(database: .Private, entitiesToDelete: [workspace])
+        CloudKitDataConnector.deleteData(database: database, entitiesToDelete: [workspace])
     }
 
     // MARK: Notebook
@@ -261,7 +261,7 @@ internal class CloudKitDataController {
 
     // MARK: Saving
     private func saveData(entitiesToSave: [CloudKitEntity] = [], entitiesToDelete: [CloudKitEntity] = []) {
-        CloudKitDataConnector.saveData(database: .Private, entitiesToSave: entitiesToSave, entitiesToDelete: entitiesToDelete)
+        CloudKitDataConnector.saveData(database: database, entitiesToSave: entitiesToSave, entitiesToDelete: entitiesToDelete)
         savingQueue.removeAll()
     }
 

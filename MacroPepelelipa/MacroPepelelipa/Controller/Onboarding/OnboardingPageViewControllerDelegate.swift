@@ -10,7 +10,6 @@ import UIKit
 
 class OnboardingPageViewControllerDelegate: NSObject, UIPageViewControllerDelegate {
 
-
     private let didFinishAnimation: (() -> Void)?
 
     // MARK: - Initializers

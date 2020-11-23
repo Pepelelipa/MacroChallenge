@@ -9,6 +9,7 @@
 import UIKit
 import MarkdownText
 import Database
+import CloudKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -27,6 +28,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 
         DataManager.shared().conflictHandler = ConflictHandlerObject()
         
+        let errorHandling: (Error?) -> Void = {
+            if ($0 as? CKError)?.errorCode != 15, let error = $0 as? CKError {
+                ConflictHandlerObject().errDidOccur(err: error)
+            }
+        }
+
+        CKSubscriptionController.createWorkspaceSubscription(errorHandler: errorHandling)
+        CKSubscriptionController.createNotebookSubscription(errorHandler: errorHandling)
+        CKSubscriptionController.createNoteSubscription(errorHandler: errorHandling)
+        CKSubscriptionController.createTextBoxSubscription(errorHandler: errorHandling)
+        CKSubscriptionController.createImageBoxSubscription(errorHandler: errorHandling)
+        application.registerForRemoteNotifications()
+        
         return true
     }
 
@@ -39,6 +53,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, supportedInterfaceOrientationsFor window: UIWindow?) -> UIInterfaceOrientationMask {
         return self.orientationLock
+    }
+
+    // MARK: Notifications
+    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+        if let notification = CKNotification(fromRemoteNotificationDictionary: userInfo) as? CKQueryNotification {
+            do {
+                try DataManager.shared().handleNotification(notification)
+                completionHandler(.newData)
+            } catch {
+                completionHandler(.failed)
+            }
+        } else {
+            completionHandler(.noData)
+        }
     }
     
     // MARK: - Menus

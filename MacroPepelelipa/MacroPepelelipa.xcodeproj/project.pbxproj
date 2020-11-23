@@ -79,6 +79,7 @@
 		026821A22541F5B300CDC7AF /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 026821A42541F5B300CDC7AF /* InfoPlist.strings */; };
 		02695ECE25279EAE007D60C3 /* AddWorkspaceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02695ECD25279EAE007D60C3 /* AddWorkspaceViewController.swift */; };
 		026D4C7E251D1A8E00CBED5A /* App Database String Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 020E22242513F10800A93EAB /* App Database String Extension.swift */; };
+		02759BC225685D11008319FA /* CKSubscriptionsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02759BC125685D11008319FA /* CKSubscriptionsController.swift */; };
 		027D5931251E8213007BDD8C /* NotebookIndexEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 027D5930251E8213007BDD8C /* NotebookIndexEntity.swift */; };
 		0282EB71253A2E9E009CB4AC /* FileHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 025C015525379C6D009923B2 /* FileHelper.swift */; };
 		02870891254A207A0075235D /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02870890254A207A0075235D /* Extensions.swift */; };
@@ -138,6 +139,7 @@
 		1EE652C2252504400015E3D4 /* MarkdownContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EE652C1252504400015E3D4 /* MarkdownContainerView.swift */; };
 		1EE652C72525049E0015E3D4 /* MarkdownToggleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EE652C62525049E0015E3D4 /* MarkdownToggleButton.swift */; };
 		1EFA49CE252D15C500602904 /* MarkdownNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EFA49CD252D15C500602904 /* MarkdownNavigationView.swift */; };
+		A7026CDF25659B2400B8FC78 /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C21B33254B55BB0061CCBA /* Font.swift */; };
 		A71E2C1D2538EEB8000DA164 /* NotesPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71E2C1B2538EEB8000DA164 /* NotesPageViewController.swift */; };
 		A71E2C1E2538EEB8000DA164 /* NotesPageViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71E2C1C2538EEB8000DA164 /* NotesPageViewControllerDelegate.swift */; };
 		A71E2C212538EF51000DA164 /* NotesPageViewControllerDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71E2C202538EF51000DA164 /* NotesPageViewControllerDataSource.swift */; };
@@ -338,6 +340,7 @@
 		026821A32541F5B300CDC7AF /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		026821A62541F5B700CDC7AF /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		02695ECD25279EAE007D60C3 /* AddWorkspaceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddWorkspaceViewController.swift; sourceTree = "<group>"; };
+		02759BC125685D11008319FA /* CKSubscriptionsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CKSubscriptionsController.swift; sourceTree = "<group>"; };
 		027D5930251E8213007BDD8C /* NotebookIndexEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotebookIndexEntity.swift; sourceTree = "<group>"; };
 		02870890254A207A0075235D /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		02919F4125531B1E00C03E27 /* MarkdownTextViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarkdownTextViewDelegate.swift; sourceTree = "<group>"; };
@@ -794,6 +797,14 @@
 			path = Shared;
 			sourceTree = "<group>";
 		};
+		02759BC025685C12008319FA /* Notifications */ = {
+			isa = PBXGroup;
+			children = (
+				02759BC125685D11008319FA /* CKSubscriptionsController.swift */,
+			);
+			path = Notifications;
+			sourceTree = "<group>";
+		};
 		0292F5EA252508C300AFB495 /* WorkspaceSelection */ = {
 			isa = PBXGroup;
 			children = (
@@ -968,6 +979,7 @@
 		02DD0A1125114E9D00B6696B /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				02759BC025685C12008319FA /* Notifications */,
 				1E91D360255F30A0002FA8F1 /* Onbording */,
 				02919F4725531BFA00C03E27 /* App String Extensions.swift */,
 				D97EE7B3254B557A00A68B06 /* Search */,
@@ -1515,6 +1527,7 @@
 				02A75293252E5282006D37B5 /* NSPersistantContainer.swift in Sources */,
 				02110789252F86E60009D4E1 /* WorkspaceError.swift in Sources */,
 				02077735251D192D00D97B5A /* ImageBoxEntity.swift in Sources */,
+				A7026CDF25659B2400B8FC78 /* Font.swift in Sources */,
 				022832D9252E547200DDD46B /* DataModel.xcdatamodeld in Sources */,
 				0292CE10255B273B00D05CA2 /* CloudKitObject.swift in Sources */,
 				022832F7252E603800DDD46B /* EntityObserver.swift in Sources */,
@@ -1580,6 +1593,7 @@
 				024C5BBC252E41EE009549CE /* ColorSelectionCollectionViewCell.swift in Sources */,
 				D9CE2D5F2565C06E00DF4D2A /* NoteAssignerResultsCustomHeader.swift in Sources */,
 				D925934E255986F1000529B4 /* InputViewTipsStack.swift in Sources */,
+				02759BC225685D11008319FA /* CKSubscriptionsController.swift in Sources */,
 				1E6E148C252E33E700383E10 /* MarkdownBarConfiguration.swift in Sources */,
 				D9CE2D702566E96900DF4D2A /* NoteAssignerResultsDataObserver.swift in Sources */,
 				D9F4A9AE25277AC900BFDC19 /* TextBoxView.swift in Sources */,

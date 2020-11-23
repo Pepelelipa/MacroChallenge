@@ -122,11 +122,22 @@ internal class WorkspacesCollectionViewDataSource: NSObject,
     internal func entityShouldDelete(_ value: ObservableEntity) {
         if let workspace = value as? WorkspaceEntity,
            let index = workspaces.firstIndex(where: { $0 === workspace }) {
-            workspace.removeObserver(self)
-            workspaces.remove(at: index)
-            self.collectionView?().deleteItems(at: [IndexPath(item: index, section: 0)])
+            deleteWithIndex(index)
         }
+    }
 
+    internal func getEntityWithID(_ value: String) -> ObservableEntity? {
+        if let index = workspaces.firstIndex(where: { (try? $0.getID())?.uuidString == value }) {
+            let workspace = workspaces[index]
+            return workspace
+        }
+        return nil
+    }
+
+    private func deleteWithIndex(_ index: Int) {
+        workspaces[index].removeObserver(self)
+        workspaces.remove(at: index)
+        self.collectionView?().deleteItems(at: [IndexPath(item: index, section: 0)])
         guard let viewController = viewController as? WorkspaceSelectionViewController else {
             return
         }
