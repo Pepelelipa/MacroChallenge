@@ -71,7 +71,7 @@ internal class NotebookIndexTableViewCell: UITableViewCell {
         var title = index.index
         
         if title == "" {
-            title = "Sem título".localized()
+            title = "Untitled".localized()
         }
         
         indexText = title
