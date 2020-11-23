@@ -146,8 +146,10 @@ internal final class ConflictHandlerObject: ConflictHandler {
     }
     
     private func presentAlertController(title: String, message: String) {
-        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert).makeErrorMessage(with: message)
-        
-        controller?.present(alertController, animated: true, completion: nil)
+        DispatchQueue.main.async {
+            let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert).makeErrorMessage(with: message)
+            
+            self.controller?.present(alertController, animated: true, completion: nil)
+        }
     }
 }
