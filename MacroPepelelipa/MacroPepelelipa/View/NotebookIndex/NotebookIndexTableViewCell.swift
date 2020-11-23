@@ -19,6 +19,7 @@ internal class NotebookIndexTableViewCell: UITableViewCell {
         let lbl = UILabel(frame: .zero)
         lbl.translatesAutoresizingMaskIntoConstraints = false
         lbl.font = UIFont.defaultHeader.toStyle(.h2)
+        lbl.adjustsFontSizeToFitWidth = true
 
         return lbl
     }()
@@ -66,7 +67,14 @@ internal class NotebookIndexTableViewCell: UITableViewCell {
         
         contentView.addSubview(selectedView)
         contentView.addSubview(lessonLbl)
-        indexText = index.index
+        
+        var title = index.index
+        
+        if title == "" {
+            title = "Untitled".localized()
+        }
+        
+        indexText = title
         setupConstraints()
     }
 

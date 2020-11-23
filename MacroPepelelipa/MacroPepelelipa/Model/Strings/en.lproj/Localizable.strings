@@ -146,6 +146,8 @@
 "The app could not assign the note to the notebook" = "The app could not assign the note to the notebook";
 "An error occurred while the application was trying to assign the note to the notebook" = "An error occurred while the application was trying to assign the note to the notebook";
 
+"Untitled" = "Untitled";
+
 
 // MARK: - Accessibility
 
