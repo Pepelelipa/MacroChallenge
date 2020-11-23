@@ -7,6 +7,8 @@
 //
 //swiftlint:disable cyclomatic_complexity function_body_length
 
+import CloudKit
+
 public enum ObservableCreationType {
     case workspace
     case notebook
@@ -43,7 +45,6 @@ public class DataManager {
             observers.remove(at: index)
         }
     }
-
     private func notifyCreation(_ entity: ObservableEntity, type: ObservableCreationType) {
         for observer in observers where observer.1 == type {
             observer.0.entityWasCreated(entity)
@@ -52,6 +53,26 @@ public class DataManager {
     private func notifyDeletion(_ entity: ObservableEntity, type: ObservableCreationType) {
         for observer in observers where observer.1 == type {
             observer.0.entityShouldDelete(entity)
+        }
+    }
+
+    private func getObservableWithID(_ id: String, type: ObservableCreationType) -> ObservableEntity? {
+        for observer in observers where observer.1 == type {
+            if let result = observer.0.getEntityWithID(id) {
+                return result
+            }
+        }
+        return nil
+    }
+    private func deleteObservableWithID(_ id: String, type: ObservableCreationType) throws {
+        if let result = getObservableWithID(id, type: type) {
+            if let workspace = result as? WorkspaceObject {
+                try deleteWorkspace(workspace)
+            } else if let notebook = result as? NotebookObject {
+                try deleteNotebook(notebook)
+            } else if let note = result as? NoteObject {
+                try deleteNote(note)
+            }
         }
     }
 
@@ -148,6 +169,44 @@ public class DataManager {
                     }
                 }
             }
+        }
+    }
+
+    public func handleNotification(_ notification: CKQueryNotification) throws {
+        guard let id = notification.recordFields?["id"] as? String else {
+            throw PersistentError.idWasNull
+        }
+        switch notification.category {
+        case "workspaceNotification":
+            if notification.queryNotificationReason == .recordDeleted {
+                try deleteObservableWithID(id, type: .workspace)
+            }
+        case "notebookNotification":
+            if notification.queryNotificationReason == .recordDeleted {
+                try deleteObservableWithID(id, type: .notebook)
+            }
+        case "noteNotification":
+            if notification.queryNotificationReason == .recordDeleted {
+                try deleteObservableWithID(id, type: .note)
+            }
+        case "textBoxNotification":
+            if notification.queryNotificationReason == .recordDeleted {
+                if let textBox = try coreDataController.fetchTextBox(id: id) {
+                    try coreDataController.deleteTextBox(textBox)
+                } else {
+                    throw TextBoxError.textBoxWasNull
+                }
+            }
+        case "imagBoxNotification":
+            if notification.queryNotificationReason == .recordDeleted {
+                if let imageBox = try coreDataController.fetchImageBox(id: id) {
+                    try coreDataController.deleteImageBox(imageBox)
+                } else {
+                    throw ImageBoxError.imageBoxWasNull
+                }
+            }
+        default:
+            break
         }
     }
     
