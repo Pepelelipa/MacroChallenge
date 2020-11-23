@@ -65,5 +65,13 @@ internal class NotesPageViewControllerDataSource: NSObject,
             self.notesEntities?.remove(at: index)
         }
     }
+
+    internal func getEntityWithID(_ value: String) -> ObservableEntity? {
+        if let index = self.notesEntities?.firstIndex(where: { (try? $0.getID())?.uuidString == value }),
+           let note = self.notesEntities?[index] {
+            return note
+        }
+        return nil
+    }
     
  }

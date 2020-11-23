@@ -101,11 +101,22 @@ internal class NotebooksCollectionViewDataSource: NSObject,
     internal func entityShouldDelete(_ value: ObservableEntity) {
         if let notebook = value as? NotebookEntity,
            let index = notebooks.firstIndex(where: { $0 === notebook }) {
-            notebook.removeObserver(self)
-            notebooks.remove(at: index)
-            self.collectionView?().deleteItems(at: [IndexPath(item: index, section: 0)])
+            deleteWithIndex(index)
         }
+    }
 
+    internal func getEntityWithID(_ value: String) -> ObservableEntity? {
+        if let index = notebooks.firstIndex(where: { (try? $0.getID())?.uuidString == value }) {
+            let notebook = notebooks[index]
+            return notebook
+        }
+        return nil
+    }
+
+    private func deleteWithIndex(_ index: Int) {
+        notebooks[index].removeObserver(self)
+        notebooks.remove(at: index)
+        self.collectionView?().deleteItems(at: [IndexPath(item: index, section: 0)])
         guard let viewController = viewController as? NotebooksSelectionViewController else {
             return
         }
