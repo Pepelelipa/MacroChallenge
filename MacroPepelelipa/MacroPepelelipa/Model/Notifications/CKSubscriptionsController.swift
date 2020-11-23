@@ -65,7 +65,7 @@ internal class CKSubscriptionController {
 
     internal static func createTextBoxSubscription(errorHandler: @escaping (Error?) -> Void) {
         let predicate = NSPredicate(value: true)
-        let subscription = CKQuerySubscription(recordType: "TextBox", predicate: predicate, options: [.firesOnRecordCreation, .firesOnRecordDeletion, .firesOnRecordUpdate])
+        let subscription = CKQuerySubscription(recordType: "TextBox", predicate: predicate, options: [.firesOnRecordDeletion])
         let info = CKSubscription.NotificationInfo()
         info.category = "textBoxNotification"
         info.desiredKeys = ["id"]
@@ -81,7 +81,7 @@ internal class CKSubscriptionController {
 
     internal static func createImageBoxSubscription(errorHandler: @escaping (Error?) -> Void) {
         let predicate = NSPredicate(value: true)
-        let subscription = CKQuerySubscription(recordType: "ImageBox", predicate: predicate, options: [.firesOnRecordCreation, .firesOnRecordDeletion, .firesOnRecordUpdate])
+        let subscription = CKQuerySubscription(recordType: "ImageBox", predicate: predicate, options:  .firesOnRecordDeletion])
         let info = CKSubscription.NotificationInfo()
         info.category = "imageBoxNotification"
         info.desiredKeys = ["id"]
