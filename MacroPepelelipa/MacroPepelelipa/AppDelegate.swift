@@ -8,6 +8,8 @@
 
 import UIKit
 import MarkdownText
+import Database
+import CloudKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -23,10 +25,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if let dancingScript = UIFont.dancingScript {
             Fonts.availableFonts.append(dancingScript)
         }
-        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { (granted, _) in
-            print(granted)
-            CKSubscriptionController.createWorkspaceSubscription()
-        }
+
+        let errorHandling: (Error?) -> Void = { print($0) }
+
+        CKSubscriptionController.createWorkspaceSubscription(errorHandler: errorHandling)
+        CKSubscriptionController.createNotebookSubscription(errorHandler: errorHandling)
+        CKSubscriptionController.createNoteSubscription(errorHandler: errorHandling)
+        CKSubscriptionController.createTextBoxSubscription(errorHandler: errorHandling)
+        CKSubscriptionController.createImageBoxSubscription(errorHandler: errorHandling)
         application.registerForRemoteNotifications()
         return true
     }
@@ -44,9 +50,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     // MARK: Notifications
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
-        print("Recebeu!")
-        if let notification = CKNotification(fromRemoteNotificationDictionary: userInfo) {
-
+        if let notification = CKNotification(fromRemoteNotificationDictionary: userInfo) as? CKQueryNotification {
+            do {
+                try DataManager.shared().handleNotification(notification)
+                completionHandler(.newData)
+            } catch {
+                completionHandler(.failed)
+            }
+        } else {
+            completionHandler(.noData)
         }
     }
     

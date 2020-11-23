@@ -24,10 +24,52 @@ internal class CoreDataController {
     ///Context of our CoreData
     private lazy var context: NSManagedObjectContext = persistentContainer.viewContext
 
-    ///Fetches all workspaces
+    // MARK: Fetches
+    
     internal func fetchWorkspaces() throws -> [Workspace] {
         return try context.fetch(Workspace.fetchRequest())
     }
+
+    internal func fetchWorkspace(id: String) throws -> Workspace? {
+        let workspaceFetchRequest: NSFetchRequest<Workspace> = Workspace.fetchRequest()
+        let predicate = NSPredicate(format: "id == %@", id)
+        workspaceFetchRequest.predicate = predicate
+
+        return try context.fetch(workspaceFetchRequest).first
+    }
+
+    internal func fetchNotebook(id: String) throws -> Notebook? {
+        let notebookFetchRequest: NSFetchRequest<Notebook> = Notebook.fetchRequest()
+        let predicate = NSPredicate(format: "id == %@", id)
+        notebookFetchRequest.predicate = predicate
+
+        return try context.fetch(notebookFetchRequest).first
+    }
+
+    internal func fetchNote(id: String) throws -> Note? {
+        let noteFetchRequest: NSFetchRequest<Note> = Note.fetchRequest()
+        let predicate = NSPredicate(format: "id == %@", id)
+        noteFetchRequest.predicate = predicate
+
+        return try context.fetch(noteFetchRequest).first
+    }
+
+    internal func fetchTextBox(id: String) throws -> TextBox? {
+        let textBoxFetchRequest: NSFetchRequest<TextBox> = TextBox.fetchRequest()
+        let predicate = NSPredicate(format: "id == %@", id)
+        textBoxFetchRequest.predicate = predicate
+
+        return try context.fetch(textBoxFetchRequest).first
+    }
+
+    internal func fetchImageBox(id: String) throws -> ImageBox? {
+        let imageBoxFetchRequest: NSFetchRequest<ImageBox> = ImageBox.fetchRequest()
+        let predicate = NSPredicate(format: "id == %@", id)
+        imageBoxFetchRequest.predicate = predicate
+
+        return try context.fetch(imageBoxFetchRequest).first
+    }
+
 
     // MARK: Workspace
     /**

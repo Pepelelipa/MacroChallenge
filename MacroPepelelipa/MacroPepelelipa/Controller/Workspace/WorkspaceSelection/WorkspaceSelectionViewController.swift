@@ -479,6 +479,10 @@ internal class WorkspaceSelectionViewController: UIViewController,
     internal func entityShouldDelete(_ value: ObservableEntity) {
         setEditButtonItem()
     }
+
+    internal func entityWithIDShouldDelete(_ value: String) {
+        setEditButtonItem()
+    }
     
     // MARK: - IBActions functions
     
