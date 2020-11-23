@@ -10,7 +10,7 @@ public protocol EntityObserver: class {
     func entityWasCreated(_ value: ObservableEntity)
     func entityDidChangeTo(_ value: ObservableEntity)
     func entityShouldDelete(_ value: ObservableEntity)
-    func entityWithIDShouldDelete(_ value: String)
+    func entityWithIDShouldDelete(_ value: String) -> ObservableEntity?
 }
 
 public extension EntityObserver {

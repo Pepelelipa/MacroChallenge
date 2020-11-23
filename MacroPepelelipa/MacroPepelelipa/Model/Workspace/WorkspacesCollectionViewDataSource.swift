@@ -126,10 +126,13 @@ internal class WorkspacesCollectionViewDataSource: NSObject,
         }
     }
 
-    internal func entityWithIDShouldDelete(_ value: String) {
+    internal func entityWithIDShouldDelete(_ value: String) -> ObservableEntity? {
         if let index = workspaces.firstIndex(where: { (try? $0.getID())?.uuidString == value }) {
+            let workspace = workspaces[index]
             deleteWithIndex(index)
+            return workspace
         }
+        return nil
     }
 
     private func deleteWithIndex(_ index: Int) {

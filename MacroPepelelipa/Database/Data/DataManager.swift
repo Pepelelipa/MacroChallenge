@@ -52,8 +52,27 @@ public class DataManager {
         }
     }
     private func notifyDeletionID(_ id: String, type: ObservableCreationType) {
+        var deleted = false
         for observer in observers where observer.1 == type {
-            observer.0.entityWithIDShouldDelete(id)
+            let result = observer.0.entityWithIDShouldDelete(id)
+            if !deleted {
+                if let workspace = result as? WorkspaceObject {
+                    do {
+                        try deleteWorkspace(workspace)
+                        deleted = true
+                    } catch { }
+                } else if let notebook = result as? NotebookObject {
+                    do {
+                        try deleteNotebook(notebook)
+                        deleted = true
+                    } catch { }
+                } else if let note = result as? NoteObject {
+                    do {
+                        try deleteNote(note)
+                        deleted = true
+                    } catch { }
+                }
+            }
         }
     }
     private func notifyDeletion(_ entity: ObservableEntity, type: ObservableCreationType) {
@@ -165,30 +184,15 @@ public class DataManager {
         switch notification.category {
         case "workspaceNotification":
             if notification.queryNotificationReason == .recordDeleted {
-                if let workspace = try coreDataController.fetchWorkspace(id: id) {
-                    try coreDataController.deleteWorkspace(workspace)
-                    notifyDeletionID(id, type: .workspace)
-                } else {
-                    throw WorkspaceError.workspaceWasNull
-                }
+                notifyDeletionID(id, type: .workspace)
             }
         case "notebookNotification":
             if notification.queryNotificationReason == .recordDeleted {
-                if let notebook = try coreDataController.fetchNotebook(id: id) {
-                    try coreDataController.deleteNotebook(notebook)
-                    notifyDeletionID(id, type: .notebook)
-                } else {
-                    throw NotebookError.notebookWasNull
-                }
+                notifyDeletionID(id, type: .notebook)
             }
         case "noteNotification":
             if notification.queryNotificationReason == .recordDeleted {
-                if let note = try coreDataController.fetchNote(id: id) {
-                    try coreDataController.deleteNote(note)
-                    notifyDeletionID(id, type: .note)
-                } else {
-                    throw NoteError.noteWasNull
-                }
+                notifyDeletionID(id, type: .note)
             }
         case "textBoxNotification":
             if notification.queryNotificationReason == .recordDeleted {
@@ -198,7 +202,6 @@ public class DataManager {
                     throw TextBoxError.textBoxWasNull
                 }
             }
-            break
         case "imagBoxNotification":
             if notification.queryNotificationReason == .recordDeleted {
                 if let imageBox = try coreDataController.fetchImageBox(id: id) {
@@ -207,7 +210,6 @@ public class DataManager {
                     throw ImageBoxError.imageBoxWasNull
                 }
             }
-            break
         default:
             break
         }

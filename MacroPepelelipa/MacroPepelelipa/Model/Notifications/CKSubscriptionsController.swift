@@ -17,10 +17,10 @@ internal class CKSubscriptionController {
 
     internal static func createWorkspaceSubscription(errorHandler: @escaping (Error?) -> Void) {
         let predicate = NSPredicate(value: true)
-        let subscription = CKQuerySubscription(recordType: "Workspace", predicate: predicate, options: [.firesOnRecordCreation, .firesOnRecordDeletion, .firesOnRecordUpdate])
+        let subscription = CKQuerySubscription(recordType: "Workspace", predicate: predicate, options: [.firesOnRecordDeletion])
         let info = CKSubscription.NotificationInfo()
         info.category = "workspaceNotification"
-        info.desiredKeys = ["id", "isEnabled", "name"]
+        info.desiredKeys = ["id"]
         info.soundName = nil
         info.shouldBadge = false
         info.shouldSendContentAvailable = true
@@ -33,10 +33,10 @@ internal class CKSubscriptionController {
 
     internal static func createNotebookSubscription(errorHandler: @escaping (Error?) -> Void) {
         let predicate = NSPredicate(value: true)
-        let subscription = CKQuerySubscription(recordType: "Notebook", predicate: predicate, options: [.firesOnRecordCreation, .firesOnRecordDeletion, .firesOnRecordUpdate])
+        let subscription = CKQuerySubscription(recordType: "Notebook", predicate: predicate, options: [.firesOnRecordDeletion])
         let info = CKSubscription.NotificationInfo()
         info.category = "notebookNotification"
-        info.desiredKeys = ["id", "name", "colorName"]
+        info.desiredKeys = ["id"]
         info.soundName = nil
         info.shouldBadge = false
         info.shouldSendContentAvailable = true
@@ -49,10 +49,10 @@ internal class CKSubscriptionController {
 
     internal static func createNoteSubscription(errorHandler: @escaping (Error?) -> Void) {
         let predicate = NSPredicate(value: true)
-        let subscription = CKQuerySubscription(recordType: "Note", predicate: predicate, options: [.firesOnRecordCreation, .firesOnRecordDeletion, .firesOnRecordUpdate])
+        let subscription = CKQuerySubscription(recordType: "Note", predicate: predicate, options: [.firesOnRecordDeletion])
         let info = CKSubscription.NotificationInfo()
         info.category = "noteNotification"
-        info.desiredKeys = ["id", "text", "title"]
+        info.desiredKeys = ["id"]
         info.soundName = nil
         info.shouldBadge = false
         info.shouldSendContentAvailable = true
@@ -98,6 +98,15 @@ internal class CKSubscriptionController {
     internal static func delete(id: String) {
         container.publicCloudDatabase.delete(withSubscriptionID: id) { (_, error) in
             print(error)
+        }
+    }
+    internal static func delete() {
+        container.publicCloudDatabase.fetchAllSubscriptions { (subscriptions, _) in
+            for subs in subscriptions ?? [] {
+                container.publicCloudDatabase.delete(withSubscriptionID: subs.subscriptionID) { (_, error) in
+                    print(error)
+                }
+            }
         }
     }
 }
