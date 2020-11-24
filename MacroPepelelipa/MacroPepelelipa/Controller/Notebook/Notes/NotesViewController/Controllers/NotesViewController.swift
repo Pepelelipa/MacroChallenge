@@ -96,6 +96,7 @@ internal class NotesViewController: UIViewController,
         textField.delegate = self.textFieldDelegate
         textField.accessibilityLabel = "Note title".localized()
         textField.accessibilityHint = "Note title hint".localized()
+        textField.adjustsFontSizeToFitWidth = true
         return textField
     }()
     
@@ -115,7 +116,7 @@ internal class NotesViewController: UIViewController,
             textField.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
             textField.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
             textField.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
-            textField.heightAnchor.constraint(equalToConstant: 30),
+            textField.heightAnchor.constraint(equalToConstant: 40),
             
             textView.topAnchor.constraint(equalTo: self.textField.bottomAnchor, constant: 20),
             textView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
@@ -654,7 +655,7 @@ internal class NotesViewController: UIViewController,
     }
     
     #if targetEnvironment(macCatalyst)
-    @IBAction private func importImage() {
+    @IBAction internal func importImage() {
         let documentPicker = UIDocumentPickerViewController(forOpeningContentTypes: [.image])
         documentPicker.delegate = documentPickerDelegate
         documentPicker.allowsMultipleSelection = false
@@ -686,7 +687,7 @@ internal class NotesViewController: UIViewController,
         }
     }
     
-    @IBAction private func exportNote() {
+    @IBAction internal func exportNote() {
         guard let note = note else {
             return
         }
@@ -704,7 +705,7 @@ internal class NotesViewController: UIViewController,
         exportPDF(pdfData, title: title)
     }
     
-    @IBAction private func exportNotebook() {
+    @IBAction internal func exportNotebook() {
         guard let notebook = notebook else {
             return
         }

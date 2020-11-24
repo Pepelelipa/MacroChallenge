@@ -14,9 +14,11 @@ internal protocol MarkupToolBarObserver: class {
     func changeTextViewInput(isCustom: Bool)
     func presentPhotoPicker()
     func presentCameraPicker()
+    func importImage()
     func openPopOver()
 }
 
 extension MarkupToolBarObserver {
     func openPopOver() {}
+    func importImage() {} 
 }

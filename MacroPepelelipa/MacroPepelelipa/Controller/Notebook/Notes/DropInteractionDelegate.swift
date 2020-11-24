@@ -35,10 +35,7 @@ internal class DropInteractionDelegate: NSObject, UIDropInteractionDelegate {
             }
             
             for image in images {
-                #if !targetEnvironment(macCatalyst)
-                    viewController.addMedia(from: image)
-                #endif
-                // TODO: enable drop interaction for mac 
+                viewController.addMedia(from: image)
             }
         }
         

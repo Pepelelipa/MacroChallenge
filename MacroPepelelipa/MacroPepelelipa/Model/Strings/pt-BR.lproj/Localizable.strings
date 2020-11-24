@@ -13,8 +13,8 @@
 "Notebook" = "Caderno";
 "Notebooks" = "Cadernos";
 "Note" = "Nota";
-"Start writing here" = "Não esquece de colocar o que tá acontecendo na sua aula, enquanto você tá jogando joguinho...";
-"Your Title" = "Vem aqui colocar o seu título!";
+"Start writing here" = "Anote aqui o que você está pensando 🏎";
+"Your Title" = "Seu título";
 "Format" = "Formatação";
 "New workspace" = "Nova estante";
 "New workspace name" = "Nome da nova estante";
@@ -170,6 +170,9 @@
 
 "Failed to Fetch" = "Falha ao buscar os objetos da base de dados";
 "Failed to Parse" = "Falha ao converter um objeto";
+
+"Primary vision language" = "pt-BR";
+"Secondary vision language" = "en-US";
 
 
 // MARK: - Accessibility

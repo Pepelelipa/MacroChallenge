@@ -13,7 +13,7 @@
 "Notebook" = "Notebook";
 "Notebooks" = "Notebooks";
 "Note" = "Note";
-"Start writing here" = "Don't forget to pay attention to class while playing...";
+"Start writing here" = "A penny for your thoughts 🏎";
 "Your Title" = "Your Title";
 "Format" = "Format";
 "New workspace" = "New shelf";
@@ -214,6 +214,8 @@
 "Add from camera hint" = "Double tap to take a photo for your note";
 "Add from library label" = "Add photo from library";
 "Add from library hint" = "Double tap to choose a photo from your library";
+"Add from Finder label" = "Add photo from Finder";
+"Add from Finder hint" = "Double tap to choose a photo from Finder";
 
 "Share note label" = "Share note";
 "Share note hint" = "Double tap to share this note";
@@ -267,6 +269,9 @@
 
 "Onboarding label" = "Go to onboarding";
 "Onboarding hint" = "Double tap to go back to the onboarding";
+
+"Primary vision language" = "en-US";
+"Secondary vision language" = "pt-BR";
 
 // MARK: - Colors
 
