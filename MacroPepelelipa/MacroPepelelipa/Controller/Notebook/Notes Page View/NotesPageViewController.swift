@@ -160,6 +160,18 @@ internal class NotesPageViewController: UIPageViewController,
             }
         }
         
+        #if targetEnvironment(macCatalyst)
+        notesToolbar.shareFileTriggered = { identifier in
+            switch identifier {
+            case .init("note"):
+                (self.viewControllers?.first as? NotesViewController)?.exportNote()
+            case .init("notebook"):
+                (self.viewControllers?.first as? NotesViewController)?.exportNotebook()
+            default:
+                break
+            }
+        }
+        #else
         notesToolbar.shareNoteTriggered = { sender in
             guard let userNotebook = self.notebook else {
                 return
@@ -170,6 +182,7 @@ internal class NotesPageViewController: UIPageViewController,
             activityVC.popoverPresentationController?.barButtonItem = sender
             self.present(activityVC, animated: true, completion: nil)
         }
+        #endif
         
         notesToolbar.newNoteTriggered = {
             self.createNote()
