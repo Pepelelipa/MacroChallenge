@@ -122,31 +122,4 @@ internal class NotebookIndexViewController: UIViewController {
     override func viewWillLayoutSubviews() {
         NSLayoutConstraint.activate(constraints)
     }
-    
-    // MARK: - IBActions functions
-    
-    /**
-     This method handles the press on the share button, asking the user what to do with the notebook.
-     - Parameter sender: The UIButton that sends the action.
-     */
-    @IBAction func shareButtonTap(_ sender: UIButton) {
-        guard let notebook = self.notebook else {
-            return
-        }
-        
-        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet).makeDeleteConfirmation(dataType: .notebook, deletionHandler: { _ in
-            do {
-                try DataManager.shared().deleteNotebook(notebook)
-            } catch {
-                let alertController = UIAlertController(
-                    title: "Could not delete this notebook".localized(),
-                    message: "The app could not delete the notebook".localized() + notebook.name,
-                    preferredStyle: .alert)
-                    .makeErrorMessage(with: "An error occurred while deleting this instance on the database".localized())
-                self.present(alertController, animated: true, completion: nil)
-            }
-        })
-        
-        self.present(alertController, animated: true, completion: nil)
-    }
 }
