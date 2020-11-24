@@ -144,6 +144,7 @@ internal class TextEditingContainerViewController: UIViewController,
         navigationItem.largeTitleDisplayMode = .never
         navigationItem.titleView = markupNavigationView
         navigationItem.titleView?.backgroundColor = .clear
+        navigationController?.navigationBar.barTintColor = .backgroundColor
         view.backgroundColor = .rootColor
         
         #if targetEnvironment(macCatalyst)
