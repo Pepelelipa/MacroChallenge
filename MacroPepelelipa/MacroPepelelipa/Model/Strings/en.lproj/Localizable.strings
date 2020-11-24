@@ -148,24 +148,24 @@
 
 "Untitled" = "Untitled";
 
-"Error in Workspace" = "Oops, Workspace Error";
-"Error in Notebook" = "Oops, Notebook Error";
-"Error in Note" = "Oops, Note Error";
-"Error in Persistent Container" = "Oops, Persistent Object Error";
-"Error with Text Box" = "Oops, Text Box Error";
-"Error with Image Box" = "Oops, Image Box Error";
-"Error with Cloud Database" = "Oops, Connectivity Error";
+"Error in Workspace" = "Oops, shelf error";
+"Error in Notebook" = "Oops, notebook error";
+"Error in Note" = "Oops, note error";
+"Error in Persistent Container" = "Oops, object error";
+"Error with Text Box" = "Oops, text box error";
+"Error with Image Box" = "Oops, image box error";
+"Error with Cloud Database" = "Oops, connectivity error";
 
-"Workspace was Null" = "Workspace was Null";
-"Notebook was Null" = "Notebook was Null";
-"Note was Null" = "Note was Null";
-"ID was Null" = "ID was Null";
-"Text Box was Null" = "Text Box was Null";
-"Image Box was Null" = "Image Box was Null";
+"Workspace was Null" = "Shelf was null";
+"Notebook was Null" = "Notebook was null";
+"Note was Null" = "Note was null";
+"ID was Null" = "ID was null";
+"Text Box was Null" = "Text Box was null";
+"Image Box was Null" = "Image Box was null";
 "Open Settings" = "Open Settings";
 
-"Failed to Fetch" = "Failed to Fetch";
-"Failed to Parse" = "Failed to Parse";
+"Failed to Fetch" = "Failed to fetch objects";
+"Failed to Parse" = "Failed to parse objects";
 
 // MARK: - Accessibility
 

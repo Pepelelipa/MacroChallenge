@@ -152,24 +152,24 @@
 
 "Untitled" = "Sem título";
 
-"Error in Workspace" = "Oops, Erro com a  Coleção";
-"Error in Notebook" = "Oops, Erro com o Caderno";
-"Error in Note" = "Oops, Erro na Nota";
-"Error in Persistent Container" = "Oops, Erro no Objeto de Persistencia de Dados";
-"Error with Text Box" = "Oops, Erro com a Caixa de Texto";
-"Error with Image Box" = "Oops, Erro com a Caixa de Imagem";
-"Error with Cloud Database" = "Oops, Erro de Conectividade";
+"Error in Workspace" = "Oops, erro com a estante";
+"Error in Notebook" = "Oops, erro com o caderno";
+"Error in Note" = "Oops, erro na note";
+"Error in Persistent Container" = "Oops, erro no objeto";
+"Error with Text Box" = "Oops, erro com a caixa de texto";
+"Error with Image Box" = "Oops, erro com a caixa de imagem";
+"Error with Cloud Database" = "Oops, erro de conectividade";
 
-"Workspace was Null" = "A Coleção era Nula";
-"Notebook was Null" = "O Caderno era Nulo";
-"Note was Null" = "A Nota era Nula";
-"ID was Null" = "O ID era Nulo";
-"Text Box was Null" = "A Caixa de Texto era Nula";
-"Image Box was Null" = "A Caixa de Imagem era Nula";
+"Workspace was Null" = "A estante era nula";
+"Notebook was Null" = "O caderno era nulo";
+"Note was Null" = "A nota era nula";
+"ID was Null" = "O ID era nulo";
+"Text Box was Null" = "A caixa de texto era nula";
+"Image Box was Null" = "A caixa de imagem era nula";
 "Open Settings" = "Abrir as Configurações";
 
-"Failed to Fetch" = "Falha ao Buscar os Objetos da base de dados";
-"Failed to Parse" = "Falha ao dar Parse no Objeto";
+"Failed to Fetch" = "Falha ao buscar os objetos da base de dados";
+"Failed to Parse" = "Falha ao converter um objeto";
 
 
 // MARK: - Accessibility
