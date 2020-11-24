@@ -6,8 +6,8 @@
   Copyright © 2020 Pedro Giuliano Farina. All rights reserved.
 */
 
-"Workspace" = "Coleção";
-"Workspaces" = "Coleções";
+"Workspace" = "Estante";
+"Workspaces" = "Estantes";
 "Subject" = "Matéria";
 "Lesson" = "Aula";
 "Notebook" = "Caderno";
@@ -16,9 +16,9 @@
 "Start writing here" = "Não esquece de colocar o que tá acontecendo na sua aula, enquanto você tá jogando joguinho...";
 "Your Title" = "Vem aqui colocar o seu título!";
 "Format" = "Formatação";
-"New workspace" = "Nova coleção";
-"New workspace name" = "Nome da nova coleção";
-"Create new workspace" = "Criar nova coleção";
+"New workspace" = "Nova estante";
+"New workspace name" = "Nome da nova estante";
+"Create new workspace" = "Criar nova estante";
 "New notebook" = "Novo caderno";
 "New notebook name" = "Nome do novo caderno";
 "Create new notebook" = "Criar novo caderno";
@@ -26,15 +26,15 @@
 "Could not open this notebook" = "Não foi possível abrir este caderno";
 "The app could not load this notebook" = "O aplicativo não pôde carregar este caderno";
 "The notebook collection view cell did not have a notebook" = "A célula desse caderno na collection view não possuía um caderno";
-"Could not open this workspace" = "Não foi possível abrir esta coleção";
-"The app could not load this workspace" = "O aplicativo não pôde carregar esta coleção de cadernos";
-"The workspace cell did not have a workspace" = "A célula dessa coleção não continha uma coleção";
-"Error presenting a workspace" = "Erro ao exibir as coleções";
-"The app could not present a workspace" = "O aplicativo não pôde exibir uma coleção";
-"A workspace cell could not be loaded" = "Uma célula da coleção não pôde ser carregada";
+"Could not open this workspace" = "Não foi possível abrir esta estante";
+"The app could not load this workspace" = "O aplicativo não pôde carregar esta estante de cadernos";
+"The workspace cell did not have a workspace" = "A célula dessa estante não continha uma estante";
+"Error presenting a workspace" = "Erro ao exibir as estantes";
+"The app could not present a workspace" = "O aplicativo não pôde exibir uma estante";
+"A workspace cell could not be loaded" = "Uma célula da estante não pôde ser carregada";
 "Error presenting a notebook" = "Erro ao exibir um caderno";
 "The app could not present a notebook" = "O aplicativo não pôde exibir um caderno";
-"A notebook cell could not be loaded in a workspace" = "Uma célula de um caderno não pôde ser carregada em uma coleção";
+"A notebook cell could not be loaded in a workspace" = "Uma célula de um caderno não pôde ser carregada em uma estante";
 "Could not open this note" = "Não foi possível abrir esta nota";
 "The app could not open the selected note" = "O aplicativo não pôde abrir a nota selecionada";
 "The index did not have a note" = "O índice não tinha uma nota";
@@ -58,12 +58,12 @@
 "Could not delete this notebook" = "Não foi possível excluir este caderno";
 "The app could not delete the notebook" = "O aplicativo não conseguiu excluir o caderno";
 "An error occurred while deleting this instance on the database" = "Um erro ocorreu ao deletar esta intância na database";
-"Could not delete this workspace" = "Não foi possível excluir esta coleção";
-"The app could not delete the workspace" = "O aplicativo não conseguiu excluir a coleção";
+"Could not delete this workspace" = "Não foi possível excluir esta estante";
+"The app could not delete the workspace" = "O aplicativo não conseguiu excluir a estante";
 "Delete" = "Excluir";
 "Cancel" = "Cancelar";
 "Delete Notebook confirmation" = "Tem certeza que deseja deletar o caderno?";
-"Delete Workspace confirmation" = "Tem certeza que deseja deletar a coleção?";
+"Delete Workspace confirmation" = "Tem certeza que deseja deletar a estante?";
 "Warning" = "Não sera possível desfazer a exclusão!";
 "Error creating the notebook" = "Erro ao criar um caderno";
 "The database could not create the notebook" = "A data-base não foi capaz de criar um novo caderno";
@@ -74,15 +74,15 @@
 "Error creating a new Note" = "Erro ao criar uma nova nota";
 "The database could not create a new Note" = "A data-base não foi capaz de criar uma nova nota";
 "A new Note could not be created" = "Uma nova nota não pode ser criada";
-"Error creating the workspace" = "Erro ao criar uma coleção";
-"The database could not create the workspace" = "A data-base não foi capaz de salvar a coleção";
-"A new Workspace could not be created" = "Uma nova coleção não pode ser criada";
-"Error fetching the workspaces" = "Erro ao buscar as coleções";
-"The database could not fetch the workspace" = "A data-base não foi capaz de buscar as coleções";
-"The Workspaces could not be fetched" = "As coleções não puderam ser buscadas";
-"No workspace" = "Você não tem nenhuma coleção. Que tal criar uma para começar?";
-"Create workspace" = "Criar coleção";
-"No notebook" = "Você não tem nenhum caderno nesta coleção. Crie um para começar!";
+"Error creating the workspace" = "Erro ao criar uma estante";
+"The database could not create the workspace" = "A data-base não foi capaz de salvar a estante";
+"A new Workspace could not be created" = "Uma nova estante não pode ser criada";
+"Error fetching the workspaces" = "Erro ao buscar as estantes";
+"The database could not fetch the workspace" = "A data-base não foi capaz de buscar as estantes";
+"The Workspaces could not be fetched" = "As estantes não puderam ser buscadas";
+"No workspace" = "Você não tem nenhuma estante. Que tal criar uma para começar?";
+"Create workspace" = "Criar estante";
+"No notebook" = "Você não tem nenhum caderno nesta estante. Crie um para começar!";
 "Create notebook" = "Criar caderno";
 "Image or text?" = "Imagem ou texto?";
 "Import the media as an image or as a text transcription (Beta version)" = "Importar a mídia como imagem ou transcrição do texto (Versão beta)";
@@ -115,9 +115,9 @@
 "Floating Boxes" = "Caixas Flutuantes";
 "Markdown" = "Markdown";
 "Search" = "Buscar";
-"Save Workspace" = "Salvar coleção";
+"Save Workspace" = "Salvar Estante";
 "Save Notebook" = "Salvar Caderno";
-"Edit Workspace" = "Editar Coleção";
+"Edit Workspace" = "Editar Estante";
 "Edit Notebook" = "Editar Caderno";
 "Edit" = "Editar";
 "Skip" = "Pular";
@@ -159,24 +159,24 @@
 
 "Long press hint" = "Toque duas vezes e segure para mais opções";
 
-"Edit workspaces hint" = "Ative o botão para editar suas coleções";
-"Edit workspaces label" = "Editar: habilita o modo de edição para todas as suas coleções";
+"Edit workspaces hint" = "Ative o botão para editar suas estantes";
+"Edit workspaces label" = "Editar: habilita o modo de edição para todas as suas estantes";
 
-"Add workspace hint" = "Ative o botão para adicionar uma nova coleção";
-"Add workspace label" = "Adicionar uma nova coleção";
+"Add workspace hint" = "Ative o botão para adicionar uma nova estante";
+"Add workspace label" = "Adicionar uma nova estante";
 
-"Delete workspace hint" = "Ative o botão para excluir a coleção %@";
-"Delete workspace label" = "Excluir a coleção %@";
+"Delete workspace hint" = "Ative o botão para excluir a estante %@";
+"Delete workspace label" = "Excluir a estante %@";
 
-"Edit workspace name hint" = "Toque duas vezes para editar o nome desta coleção";
+"Edit workspace name hint" = "Toque duas vezes para editar o nome desta estante";
 
 "Add notebook hint" = "Ative o botão para adicionar um novo caderno";
 "Add notebook label" = "Adicionar um novo caderno";
 
 "color notebook" = "Caderno %@";
 
-"Edit notebooks hint" = "Ative o botão para editar os cadernos nesta coleção";
-"Edit notebooks label" = "Editar: habilita o modo de edição para todos os cadernos nesta coleção";
+"Edit notebooks hint" = "Ative o botão para editar os cadernos nesta estante";
+"Edit notebooks label" = "Editar: habilita o modo de edição para todos os cadernos nesta estante";
 
 "Delete notebook hint" = "Ative o botão para excluir o caderno %@";
 "Delete notebook label" = "Excluir o caderno %@";
@@ -207,7 +207,7 @@
 "New note hint" = "Toque duas vezes para adicionar uma nova nota no final deste caderno";
 
 "Dismiss pop-up label" = "Fechar pop-up";
-"Dismiss collection pop-up hint" = "Toque duas vezes para sair do pop-up de criação de uma nova coleção";
+"Dismiss collection pop-up hint" = "Toque duas vezes para sair do pop-up de criação de uma nova estante";
 "Dismiss notebook pop-up hint" = "Toque duas vezes para sair do pop-up de criação de um novo caderno";
 "Dismiss note pop-up hint" = "Toque duas vezes para sair do pop-up de criação de uma nova nota";
 
@@ -299,14 +299,14 @@
 "Finish" = "Finalizar";
 "Back" = "Voltar";
 "Discard" = "Descartar";
-"Save Explanation" = "Para salvar esta nota precisamos adiciona-la à uma coleção e à um caderno.";
+"Save Explanation" = "Para salvar esta nota precisamos adiciona-la à uma estante e à um caderno.";
 "Selected Notebook" = "Caderno selecionado";
 "Delete Note confirmation" = "Tem certeza que deseja deletar a nota?";
 "Failed to create Loose Note" = "Falhou ao criar uma nota solta";
 "The database could not create the Loose Note" = "A data base não foi capaz de criar uma nota solta";
 "The Loose Note could not be created" = "A nota solta não pode ser criada";
 "Unable to get notebooks" = "Não foi possível acessar os cadernos";
-"The app was unable to get the notebooks from a workspace" = "O não foi capaz de acessar os cadernos de uma coleção";
+"The app was unable to get the notebooks from a workspace" = "O não foi capaz de acessar os cadernos de uma estante";
 "Unable to get the last notebook" = "Não foi possível acessar o ultimo caderno";
 "The app was unable to get the notebook from UserDefaults" = "The app was unable to get the notebook from UserDefaults";
 "List style" = "Estilo de lista";
