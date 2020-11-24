@@ -14,8 +14,13 @@ internal class NotesToolbar: UIToolbar {
     
     internal var deleteNoteTriggered: (() -> Void)?
     internal var addImageTriggered: ((UIAction.Identifier) -> Void)?
-    internal var shareNoteTriggered: ((UIBarButtonItem) -> Void)?
     internal var newNoteTriggered: (() -> Void)?
+    
+    #if targetEnvironment(macCatalyst)
+    internal var shareFileTriggered: ((UIAction.Identifier) -> Void)?
+    #else
+    internal var shareNoteTriggered: ((UIBarButtonItem) -> Void)?
+    #endif
     
     internal lazy var deleteNoteButton: UIBarButtonItem = {
         let button = UIBarButtonItem(barButtonSystemItem: .trash, 
@@ -40,8 +45,8 @@ internal class NotesToolbar: UIToolbar {
             UIAction(title: "Camera".localized(), 
                      image: UIImage(systemName: "camera"), 
                      identifier: .init("camera"), 
-                     state: .off, handler: 
-                        addImage(action:)),
+                     state: .off,
+                     handler: addImage(action:)),
             UIAction(title: "Library".localized(), 
                      image: UIImage(systemName: "photo.on.rectangle"), 
                      identifier: .init("library"), 
@@ -63,10 +68,28 @@ internal class NotesToolbar: UIToolbar {
         let button = UIBarButtonItem(image: UIImage(systemName: "square.and.arrow.up"), 
                                      style: .plain, 
                                      target: self, 
-                                     action: #selector(shareNote))
+                                     action: nil)
         
         button.accessibilityLabel = "Share note label".localized()
         button.accessibilityHint = "Share note hint".localized()
+        
+        if UIDevice.current.userInterfaceIdiom == .mac {
+            let actions = [
+                UIAction(title: "Export note as PDF".localized(),
+                         image: UIImage(systemName: "doc"),
+                         identifier: .init("note"),
+                         state: .off,
+                         handler: shareFile(_:)),
+                UIAction(title: "Export notebook as PDF".localized(),
+                         image: UIImage(systemName: "book.closed"),
+                         identifier: .init("notebook"),
+                         state: .off,
+                         handler: shareFile(_:))
+            ]
+            button.menu = UIMenu(title: "Export".localized(), identifier: .share, children: actions)
+        } else {
+            button.action = #selector(shareNote)
+        }
         
         return button
     }()
@@ -126,7 +149,15 @@ internal class NotesToolbar: UIToolbar {
     }
     
     @IBAction private func shareNote(_ sender: UIBarButtonItem) {
+        #if !targetEnvironment(macCatalyst)
         shareNoteTriggered?(sender)
+        #endif
+    }
+    
+    @IBAction private func shareFile(_ action: UIAction) {
+        #if targetEnvironment(macCatalyst)
+        shareFileTriggered?(action.identifier)
+        #endif
     }
     
     @IBAction private func newNote() {
