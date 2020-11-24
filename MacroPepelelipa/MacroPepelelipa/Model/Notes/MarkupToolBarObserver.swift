@@ -20,4 +20,5 @@ internal protocol MarkupToolBarObserver: class {
 
 extension MarkupToolBarObserver {
     func openPopOver() {}
+    func importImage() {} 
 }

@@ -324,7 +324,9 @@ internal class TextEditingContainerViewController: UIViewController,
     
     /// This method presentes the file handler for macOS
     internal func importImage() {
+        #if targetEnvironment(macCatalyst)
         (centerViewController?.viewControllers?.first as? NotesViewController)?.importImage()
+        #endif
     }
     
     // MARK: - IBActions functions

@@ -289,7 +289,6 @@ internal class LooseNoteViewController: UIViewController,
         documentPicker.modalPresentationStyle = .automatic
         present(documentPicker, animated: true, completion: nil)
     }
-    #endif
     
     /// This method adds a image box or a transcripted text from selected image in a text box to the current note
     internal func addMedia(from image: UIImage) {
@@ -318,6 +317,7 @@ internal class LooseNoteViewController: UIViewController,
             self.present(alert, animated: true, completion: nil)
         }
     }
+    #endif
     
     ///Uptade the resize handle position and the border of the text box.
     internal func uptadeResizeHandles() {

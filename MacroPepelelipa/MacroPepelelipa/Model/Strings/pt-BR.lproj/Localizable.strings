@@ -171,6 +171,9 @@
 "Failed to Fetch" = "Falha ao buscar os objetos da base de dados";
 "Failed to Parse" = "Falha ao converter um objeto";
 
+"Primary vision language" = "pt-BR";
+"Secondary vision language" = "en-US";
+
 
 // MARK: - Accessibility
 
