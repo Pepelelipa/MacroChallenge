@@ -30,7 +30,7 @@ class NotesViewControllerConfiguration {
             textField.attributedText = note?.title
         }
         if note?.text.string != "" {
-            textView.attributedText = note?.text
+            textView.setText(note?.text.replaceColors())
         }
         for textBox in note?.textBoxes ?? [] {
             boxViewReceiver?.addTextBox(with: textBox)

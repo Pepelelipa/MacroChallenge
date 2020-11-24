@@ -246,7 +246,7 @@ internal class LooseNoteViewController: UIViewController,
     internal func showImagePickerController(sourceType: UIImagePickerController.SourceType) {
         let imagePickerController = UIImagePickerController()
         imagePickerController.delegate = imagePickerDelegate
-        imagePickerController.allowsEditing = true
+        imagePickerController.allowsEditing = false
         imagePickerController.sourceType = sourceType
         
         present(imagePickerController, animated: true, completion: nil)
@@ -342,7 +342,7 @@ internal class LooseNoteViewController: UIViewController,
 
         let textBox = TextBoxView(textBoxEntity: textBoxEntity, owner: textView)
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-            textBox.markupTextView.attributedText = textBoxEntity.text
+            textBox.markupTextView.setText(textBoxEntity.text.replaceColors())
         }
         textBox.addGestureRecognizer(tapGesture)
         textBox.addGestureRecognizer(doubleTapGesture)
