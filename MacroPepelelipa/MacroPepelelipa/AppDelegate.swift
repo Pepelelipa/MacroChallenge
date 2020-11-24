@@ -25,9 +25,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if let dancingScript = UIFont.dancingScript {
             Fonts.availableFonts.append(dancingScript)
         }
+        
         let errorHandling: (Error?) -> Void = {
-            if ($0 as? CKError)?.errorCode != 15 {
-                //Rethrow to Guedes' error handling
+            if ($0 as? CKError)?.errorCode != 15, let error = $0 {
+                ConflictHandlerObject().errDidOccur(err: error)
             }
         }
 
@@ -37,6 +38,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         CKSubscriptionController.createTextBoxSubscription(errorHandler: errorHandling)
         CKSubscriptionController.createImageBoxSubscription(errorHandler: errorHandling)
         application.registerForRemoteNotifications()
+        
+        DataManager.shared().conflictHandler = ConflictHandlerObject()
+        
         return true
     }
 

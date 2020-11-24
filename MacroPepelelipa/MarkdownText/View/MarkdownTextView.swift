@@ -195,7 +195,8 @@ public class MarkdownTextView: UITextView {
 
     ///Inserts text in text view
     public override func insertText(_ text: String) {
-        let space = (text == " " && attributedText.smallAroundSample(1, location: selectedRange.location).0.string != "#")
+        let backText = attributedText.smallBackwardSample(1, location: selectedRange.location).string
+        let space = (text == " " && backText != "#" && backText != "-" && backText != ".")
         let mutableString = NSMutableAttributedString(attributedString: attributedText)
 
         let location = selectedRange.location
