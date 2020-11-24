@@ -338,6 +338,7 @@ class NoteAssignerViewController: UIViewController,
                 }
                 self.present(deleteAlertController, animated: true, completion: nil)
         }
+        alertControlller.popoverPresentationController?.barButtonItem = discardBtn
         alertControlller.modalPresentationStyle = .popover
         self.present(alertControlller, animated: true, completion: nil)
     }
