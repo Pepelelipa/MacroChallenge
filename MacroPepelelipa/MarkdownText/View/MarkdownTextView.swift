@@ -151,6 +151,7 @@ public class MarkdownTextView: UITextView {
     }
 
     public private(set) var animator: UIDynamicAnimator?
+    public internal(set) var isShowingPlaceholder: Bool = true
 
     // MARK: - Initializers
 
@@ -162,6 +163,11 @@ public class MarkdownTextView: UITextView {
     public required init?(coder: NSCoder) {
         super.init(coder: coder)
         setup()
+    }
+
+    public func setText(_ attributedText: NSAttributedString?) {
+        isShowingPlaceholder = false
+        self.attributedText = attributedText
     }
 
     private func setup() {
@@ -195,6 +201,7 @@ public class MarkdownTextView: UITextView {
 
     ///Inserts text in text view
     public override func insertText(_ text: String) {
+        isShowingPlaceholder = false
         let backText = attributedText.smallBackwardSample(1, location: selectedRange.location).string
         let space = (text == " " && backText != "#" && backText != "-" && backText != ".")
         let mutableString = NSMutableAttributedString(attributedString: attributedText)
@@ -341,7 +348,7 @@ public class MarkdownTextView: UITextView {
      */
     public func addList(_ type: ListStyle, at location: Int? = nil) {
         //Checkin not placeholder
-        if textColor == .placeholderColor {
+        if isShowingPlaceholder {
             return
         }
         //Where to start

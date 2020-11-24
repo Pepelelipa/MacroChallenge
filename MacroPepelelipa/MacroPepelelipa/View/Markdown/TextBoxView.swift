@@ -52,7 +52,7 @@ internal class TextBoxView: UIView, BoxView {
 
         super.init(frame: frame)
         
-        markupTextView.attributedText = textBoxEntity.text
+        markupTextView.setText(textBoxEntity.text.replaceColors())
         self.addSubview(markupTextView)
         self.markupTextView.font = UIFont(name: self.markupTextView.font?.fontName ?? "", size: 16)
         

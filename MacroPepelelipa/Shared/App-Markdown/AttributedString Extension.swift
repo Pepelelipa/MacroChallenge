@@ -20,7 +20,7 @@ internal extension NSAttributedString {
         return mutableString
     }
 
-    func replaceColors(with colors: [UIColor]) -> NSAttributedString {
+    func replaceColors(with colors: [UIColor] = [UIColor.bodyColor ?? .black, UIColor.notebookColors[4], UIColor.notebookColors[14]]) -> NSAttributedString {
         let mutableString = NSMutableAttributedString(attributedString: self)
         mutableString.enumerateAttribute(.foregroundColor, in: NSRange(location: 0, length: length), options: .longestEffectiveRangeNotRequired) { (color, range, _) in
             if let color = color as? UIColor {

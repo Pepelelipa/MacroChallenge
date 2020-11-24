@@ -249,10 +249,7 @@ internal class NotesViewController: UIViewController,
             self.textField.attributedText = note?.title.replaceColors(with: [.titleColor ?? .black])
         }
         if note?.text.string != "" {
-            self.textView.attributedText = note?.text.replaceColors(with: [
-                                                                        UIColor.bodyColor ?? .black,
-                                                                        UIColor.notebookColors[4],
-                                                                        UIColor.notebookColors[14]])
+            self.textView.setText(note?.text.replaceColors())
         }
         updateExclusionPaths()
         
@@ -356,7 +353,7 @@ internal class NotesViewController: UIViewController,
         
         let textBox = TextBoxView(textBoxEntity: textBoxEntity, owner: textView)
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-            textBox.markupTextView.attributedText = textBoxEntity.text
+            textBox.markupTextView.attributedText = textBoxEntity.text.replaceColors()
         }
         textBox.addGestureRecognizer(tapGesture)
         textBox.addGestureRecognizer(doubleTapGesture)

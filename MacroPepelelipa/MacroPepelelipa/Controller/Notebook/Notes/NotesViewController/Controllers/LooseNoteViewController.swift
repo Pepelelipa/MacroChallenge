@@ -342,7 +342,7 @@ internal class LooseNoteViewController: UIViewController,
 
         let textBox = TextBoxView(textBoxEntity: textBoxEntity, owner: textView)
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-            textBox.markupTextView.attributedText = textBoxEntity.text
+            textBox.markupTextView.setText(textBoxEntity.text.replaceColors())
         }
         textBox.addGestureRecognizer(tapGesture)
         textBox.addGestureRecognizer(doubleTapGesture)
