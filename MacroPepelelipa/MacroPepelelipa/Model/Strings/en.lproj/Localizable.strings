@@ -6,35 +6,35 @@
   Copyright © 2020 Pedro Giuliano Farina. All rights reserved.
 */
 
-"Workspace" = "Workspace";
-"Workspaces" = "Workspaces";
+"Workspace" = "Shelf";
+"Workspaces" = "Shelves";
 "Subject" = "Subject";
 "Lesson" = "Lesson";
 "Notebook" = "Notebook";
 "Notebooks" = "Notebooks";
 "Note" = "Note";
-"Start writing here" = "Do not forget to copy what is happening in your class, while you are playing a little game...";
+"Start writing here" = "Don't forget to pay attention to class while playing...";
 "Your Title" = "Your Title";
 "Format" = "Format";
-"New workspace" = "New workspace";
-"New workspace name" = "New workspace name";
-"Create new workspace" = "Create new workspace";
+"New workspace" = "New shelf";
+"New workspace name" = "New shelf's name";
+"Create new workspace" = "Create new shelf";
 "New notebook" = "New notebook";
-"New notebook name" = "New notebook name";
+"New notebook name" = "New notebook's name";
 "Create new notebook" = "Create new notebook";
 "Done" = "Done";
 "Could not open this notebook" = "Could not open this notebook";
 "The app could not load this notebook" = "The app could not load this notebook";
 "The notebook collection view cell did not have a notebook" = "The notebook collection view cell did not have a notebook";
-"Could not open this workspace" = "Could not open this workspace";
-"The app could not load this workspace" = "The app could not load this workspace";
-"The workspace cell did not have a workspace" = "The workspace cell did not have a workspace";
-"Error presenting a workspace" = "Error presenting a workspace";
-"The app could not present a workspace" = "The app could not present a workspace";
-"A workspace cell could not be loaded" = "A workspace cell could not be loaded";
+"Could not open this workspace" = "Could not open this shelf";
+"The app could not load this workspace" = "The app could not load this shelf";
+"The workspace cell did not have a workspace" = "The shelf cell did not have a shelf";
+"Error presenting a workspace" = "Error presenting a shelf";
+"The app could not present a workspace" = "The app could not present a shelf";
+"A workspace cell could not be loaded" = "A shelf cell could not be loaded";
 "Error presenting a notebook" = "Error presenting a notebook";
 "The app could not present a notebook" = "The app could not present a notebook";
-"A notebook cell could not be loaded in a workspace" = "A notebook cell could not be loaded in a workspace";
+"A notebook cell could not be loaded in a workspace" = "A notebook cell could not be loaded in a shelf";
 "Could not open this note" = "Could not open this note";
 "The app could not open the selected note" = "The app could not open the selected note";
 "The index did not have a note" = "The index did not have a note";
@@ -43,7 +43,7 @@
 "The app could not load the selected image" = "The app could not load the selected image";
 "Error creating new notebook" = "Error creating new notebook";
 "The app could not retrieve the necessary information" = "The app could not retrieve the necessary information";
-"Not possible to retrieve a workspace or notebook name in notebook creation" = "Not possible to retrieve a workspace or notebook name in notebook creation";
+"Not possible to retrieve a workspace or notebook name in notebook creation" = "Not possible to retrieve a shelf or notebook name in notebook creation";
 "Error presenting notebook creation" = "Error presenting notebook creation";
 "The app could not present a color" = "The app could not present a color";
 "A color cell could not be loaded in the creation of a notebook" = "A color cell could not be loaded in the creation of a notebook";
@@ -58,12 +58,12 @@
 "Could not delete this notebook" = "Could not delete this notebook";
 "The app could not delete the notebook" = "The app could not delete the notebook";
 "An error occurred while deleting this instance on the database" = "An error occurred while deleting this instance on the database";
-"Could not delete this workspace" = "Could not delete this workspace";
-"The app could not delete the workspace" = "The app could not delete the workspace";
+"Could not delete this workspace" = "Could not delete this shelf";
+"The app could not delete the workspace" = "The app could not delete the shelf";
 "Delete" = "Delete";
 "Cancel" = "Cancel";
-"Delete Notebook confirmation" = "Are you sure you want to delete the notebook?";
-"Delete Workspace confirmation" = "Are you sure you want to delete the Workspace?";
+"Delete Notebook confirmation" = "Are you sure you want to delete this notebook?";
+"Delete Workspace confirmation" = "Are you sure you want to delete this shelf?";
 "Warning" = "You will not be able to undo the deletion!";
 "Error creating the notebook" = "Error creating the notebook";
 "The database could not create the notebook" = "The database could not create the notebook";
@@ -74,15 +74,15 @@
 "Error creating a new Note" = "Error creating new Note";
 "The database could not create a new Note" = "The database could not create a new Note";
 "A new Note could not be created" = "A new Note could not be created";
-"Error creating the workspace" = "Error creating the workspace";
-"The database could not create the workspace" = "The database could not create the workspace";
-"A new Workspace could not be created" = "A new Workspace could not be created";
-"Error fetching the workspaces" = "Error fetching the workspaces";
-"The database could not fetch the workspace" = "The database could not fetch the workspace";
-"The Workspaces could not be fetched" = "The Workspaces could not be fetched";
-"No workspace" = "You don't have any workspaces. How about creating one to begin with?";
-"Create workspace" = "Create workspace";
-"No notebook" = "You don't have any notebooks in this workspace. Create a new one to begin with!";
+"Error creating the workspace" = "Error creating shelf";
+"The database could not create the workspace" = "The database could not create the shelf";
+"A new Workspace could not be created" = "A new shelf could not be created";
+"Error fetching the workspaces" = "Error fetching the shelves";
+"The database could not fetch the workspace" = "The database could not fetch the shelf";
+"The Workspaces could not be fetched" = "The shelves could not be fetched";
+"No workspace" = "You don't have any shelves yet. How about creating one to begin with?";
+"Create workspace" = "Create shelf";
+"No notebook" = "You don't have any notebooks in this shelf. Create a new one to begin with!";
 "Create notebook" = "Create notebook";
 "Image or text?" = "Image or text?";
 "Import the media as an image or as a text transcription (Beta version)" = "Import the media as an image or as a text transcription (Beta version)";
@@ -113,7 +113,7 @@
 "Floating Boxes" = "Floating Boxes";
 "Markdown" = "Markdown";
 "Search" = "Search";
-"Save workspace" = "Save workspace";
+"Save workspace" = "Save shelf";
 "Save notebook" = "Save notebook";
 "Edit" = "Edit";
 "Skip" = "Skip";
@@ -148,24 +148,24 @@
 
 "Untitled" = "Untitled";
 
-"Error in Workspace" = "Oops, Workspace Error";
-"Error in Notebook" = "Oops, Notebook Error";
-"Error in Note" = "Oops, Note Error";
-"Error in Persistent Container" = "Oops, Persistent Object Error";
-"Error with Text Box" = "Oops, Text Box Error";
-"Error with Image Box" = "Oops, Image Box Error";
-"Error with Cloud Database" = "Oops, Connectivity Error";
+"Error in Workspace" = "Oops, shelf error";
+"Error in Notebook" = "Oops, notebook error";
+"Error in Note" = "Oops, note error";
+"Error in Persistent Container" = "Oops, object error";
+"Error with Text Box" = "Oops, text box error";
+"Error with Image Box" = "Oops, image box error";
+"Error with Cloud Database" = "Oops, connectivity error";
 
-"Workspace was Null" = "Workspace was Null";
-"Notebook was Null" = "Notebook was Null";
-"Note was Null" = "Note was Null";
-"ID was Null" = "ID was Null";
-"Text Box was Null" = "Text Box was Null";
-"Image Box was Null" = "Image Box was Null";
+"Workspace was Null" = "Shelf was null";
+"Notebook was Null" = "Notebook was null";
+"Note was Null" = "Note was null";
+"ID was Null" = "ID was null";
+"Text Box was Null" = "Text Box was null";
+"Image Box was Null" = "Image Box was null";
 "Open Settings" = "Open Settings";
 
-"Failed to Fetch" = "Failed to Fetch";
-"Failed to Parse" = "Failed to Parse";
+"Failed to Fetch" = "Failed to fetch objects";
+"Failed to Parse" = "Failed to parse objects";
 
 // MARK: - Accessibility
 
@@ -174,24 +174,24 @@
 
 "Long press hint" = "Double tap and hold for more options";
 
-"Edit workspaces hint" = "Activate button to edit your workspaces";
-"Edit workspaces label" = "Edit: enables editing mode for all of your workspaces";
+"Edit workspaces hint" = "Activate button to edit your shelves";
+"Edit workspaces label" = "Edit: enables editing mode for all of your shelves";
 
-"Add workspace hint" = "Activate button to add a new workspace";
-"Add workspace label" = "Add a new workspace";
+"Add workspace hint" = "Activate button to add a new shelf";
+"Add workspace label" = "Add a new shelf";
 
-"Delete workspace hint" = "Activate button to delete the %@ workspace";
-"Delete workspace label" = "Delete %@ workspace";
+"Delete workspace hint" = "Activate button to delete the %@ shelf";
+"Delete workspace label" = "Delete %@ shelf";
 
-"Edit workspace name hint" = "Double tap edit this workspace's name";
+"Edit workspace name hint" = "Double tap edit this shelf's name";
 
 "Add notebook hint" = "Activate button to add a new notebook";
 "Add notebook label" = "Add a new notebook";
 
 "color notebook" = "%@ notebook";
 
-"Edit notebooks hint" = "Activate button to edit the notebooks in this workspace";
-"Edit notebooks label" = "Edit: enables editing mode for all notebooks in this workspace";
+"Edit notebooks hint" = "Activate button to edit the notebooks in this shelf";
+"Edit notebooks label" = "Edit: enables editing mode for all notebooks in this shelf";
 
 "Delete notebook hint" = "Activate button to delete the %@ notebook";
 "Delete notebook label" = "Delete %@ notebook";
@@ -222,7 +222,7 @@
 "New note hint" = "Double tap to add a new note at the end of this notebook";
 
 "Dismiss pop-up label" = "Dismiss pop-up";
-"Dismiss collection pop-up hint" = "Double tap to exit the create new workspace pop-up";
+"Dismiss collection pop-up hint" = "Double tap to exit the create new shelf pop-up";
 "Dismiss notebook pop-up hint" = "Double tap to exit the create new notebook pop-up";
 "Dismiss note pop-up hint" = "Double tap to exit the create note pop-up";
 
@@ -260,7 +260,7 @@
 
 "End editing hint" = "Double tap to finish editing";
 
-"Filter Workspaces Hint" = "Showing all notebooks and workspaces from search";
+"Filter Workspaces Hint" = "Showing all notebooks and shelves from search";
 "Filter Notebooks Hint" = "Showing notebooks from search";
 
 "Skip hint" = "Double tap to skip the onboarding";
@@ -320,7 +320,7 @@
 "The database could not create the Loose Note" = "The database could not create the Loose Note";
 "The Loose Note could not be created" = "The Loose Note could not be created";
 "Unable to get notebooks" = "Unable to get notebooks";
-"The app was unable to get the notebooks from a workspace" = "The app was unable to get the notebooks from a workspace";
+"The app was unable to get the notebooks from a workspace" = "The app was unable to get the notebooks from a shelf";
 "Unable to get the last notebook" = "Unable to get the last notebook";
 "The app was unable to get the notebook from UserDefaults" = "The app was unable to get the notebook from UserDefaults";
 "List style" = "List style";
