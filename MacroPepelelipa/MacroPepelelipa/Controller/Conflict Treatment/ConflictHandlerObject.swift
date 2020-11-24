@@ -39,29 +39,17 @@ internal final class ConflictHandlerObject: ConflictHandler {
         
         if let error = err as? WorkspaceError {
             workspaceErrorHandling(error: error)
-        }
-        
-        if let error = err as? NotebookError {
+        } else if let error = err as? NotebookError {
             notebookErrorHandling(error: error)
-        }
-        
-        if let error = err as? NoteError {
+        } else if let error = err as? NoteError {
             noteErrorHandling(error: error)
-        }
-        
-        if let error = err as? PersistentError {
+        } else if let error = err as? PersistentError {
             persistentContainerErrorHandling(error: error)
-        }
-        
-        if let error = err as? TextBoxError {
+        } else if let error = err as? TextBoxError {
             textBoxErrorHandling(error: error)
-        }
-        
-        if let error = err as? ImageBoxError {
+        } else if let error = err as? ImageBoxError {
             imageBoxErrorHandling(error: error)
-        }
-        
-        if let error = err as? CKError {
+        } else if let error = err as? CKError {
             cloudKitErrorHandling(error: error)
         }
     }
