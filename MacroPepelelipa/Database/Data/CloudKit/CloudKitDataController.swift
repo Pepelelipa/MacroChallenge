@@ -417,7 +417,7 @@ internal class CloudKitDataController {
 
     internal func fetchTextBoxes(_ completionHandler: ((DataFetchAnswer) -> Void)? = nil) {
 
-        CloudKitDataConnector.fetch(recordType: CloudKitImageBox.recordType, database: database) { answer in
+        CloudKitDataConnector.fetch(recordType: CloudKitTextBox.recordType, database: database) { answer in
             completionHandler?(answer)
         }
     }
