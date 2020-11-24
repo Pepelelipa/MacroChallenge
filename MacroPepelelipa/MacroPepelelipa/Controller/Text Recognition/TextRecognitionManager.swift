@@ -19,7 +19,7 @@ internal class TextRecognitionManager {
     
     private lazy var textRecognitionRequest: VNRecognizeTextRequest = {
         let textRecognition = VNRecognizeTextRequest(completionHandler: recognizeTextHandler)
-        textRecognition.recognitionLanguages = ["pt-BR", "en-US"]
+        textRecognition.recognitionLanguages = ["Primary vision language".localized(), "Secondary vision language".localized()]
         textRecognition.usesLanguageCorrection = true
         textRecognition.recognitionLevel = .accurate
         textRecognition.usesCPUOnly = true
