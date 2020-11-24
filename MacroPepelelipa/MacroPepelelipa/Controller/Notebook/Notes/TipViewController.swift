@@ -235,10 +235,17 @@ internal class TipViewController: UIViewController {
         view.addSubview(tipTitle)
         
         self.view.backgroundColor = .backgroundColor
+        
+        self.navigationItem.title = "Tips".localized()
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(dismissViewController))
+        self.navigationItem.rightBarButtonItem?.tintColor = UIColor.actionColor
     }
     
     override func viewWillAppear(_ animated: Bool) {
         NSLayoutConstraint.activate(constraints)
     }
     
+    @IBAction private func dismissViewController() {
+        self.dismiss(animated: true, completion: nil)
+    }
 }
