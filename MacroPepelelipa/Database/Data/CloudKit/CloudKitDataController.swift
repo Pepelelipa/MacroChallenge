@@ -281,7 +281,7 @@ internal class CloudKitDataController {
                 }
 
                 //Fetching all notebooks of workspaces
-                self.fetchNotebooks(of: workspaceResults) { answer in
+                self.fetchNotebooks() { answer in
                     switch answer {
                     case .successfulWith(let notebooks as [CloudKitNotebook]):
                         for notebook in notebooks {
@@ -305,15 +305,10 @@ internal class CloudKitDataController {
         }
     }
 
-    internal func fetchNotebooks(of workspaces: [CKRecord], _ completionHandler: ((DataFetchAnswer) -> Void)? = nil ) {
+    internal func fetchNotebooks(_ completionHandler: ((DataFetchAnswer) -> Void)? = nil ) {
         //Getting all references of notebooks in workspaces
-        var notebookReferences: [CKRecord.Reference] = []
-        for workspace in workspaces {
-            if let notebooks = workspace.value(forKey: "notebooks") as? [CKRecord.Reference] {
-                notebookReferences.append(contentsOf: notebooks)
-            }
-        }
-        CloudKitDataConnector.fetch(references: notebookReferences, recordType: CloudKitNotebook.recordType, database: database) { answer in
+        
+        CloudKitDataConnector.fetch(recordType: CloudKitNotebook.recordType, database: database) { answer in
             switch answer {
             case .successful(let notebooksResults):
                 if notebooksResults.isEmpty {
@@ -327,7 +322,7 @@ internal class CloudKitDataController {
                 }
 
                 //Fetching all notes of notebooks
-                self.fetchNotes(of: notebooksResults) { answer in
+                self.fetchNotes() { answer in
                     switch answer {
                     case .successfulWith(let notes as [CloudKitNote]):
                         for note in notes {
@@ -351,16 +346,9 @@ internal class CloudKitDataController {
         }
     }
 
-    internal func fetchNotes(of notebooks: [CKRecord], _ completionHandler: ((DataFetchAnswer) -> Void)? = nil ) {
-        //Getting all references of notes in notebooks
-        var notesReferences: [CKRecord.Reference] = []
-        for notebook in notebooks {
-            if let notes = notebook.value(forKey: "notes") as? [CKRecord.Reference] {
-                notesReferences.append(contentsOf: notes)
-            }
-        }
+    internal func fetchNotes(_ completionHandler: ((DataFetchAnswer) -> Void)? = nil ) {
 
-        CloudKitDataConnector.fetch(references: notesReferences, recordType: CloudKitNote.recordType, database: database) { answer in
+        CloudKitDataConnector.fetch(recordType: CloudKitNote.recordType, database: database) { answer in
             switch answer {
             case .successful(let noteResults):
                 //Creating all the notes
@@ -385,7 +373,7 @@ internal class CloudKitDataController {
                 }
 
                 //Fetching all text boxes of notes
-                self.fetchTextBoxes(of: noteResults) { answer in
+                self.fetchTextBoxes() { answer in
                     switch answer {
                     case .successful(let results):
                         for result in results {
@@ -403,7 +391,7 @@ internal class CloudKitDataController {
                     }
                 }
                 //Fetching all image boxes of notes
-                self.fetchImageBoxes(of: noteResults) { answer in
+                self.fetchImageBoxes() { answer in
                     switch answer {
                     case .successful(let results):
                         for result in results {
@@ -427,28 +415,16 @@ internal class CloudKitDataController {
         }
     }
 
-    internal func fetchTextBoxes(of notes: [CKRecord], _ completionHandler: ((DataFetchAnswer) -> Void)? = nil) {
-        var textBoxesReferences: [CKRecord.Reference] = []
-        for note in notes {
-            if let imageBoxes = note.value(forKey: "textBoxes") as? [CKRecord.Reference] {
-                textBoxesReferences.append(contentsOf: imageBoxes)
-            }
-        }
+    internal func fetchTextBoxes(_ completionHandler: ((DataFetchAnswer) -> Void)? = nil) {
 
-        CloudKitDataConnector.fetch(references: textBoxesReferences, recordType: CloudKitImageBox.recordType, database: database) { answer in
+        CloudKitDataConnector.fetch(recordType: CloudKitImageBox.recordType, database: database) { answer in
             completionHandler?(answer)
         }
     }
 
-    internal func fetchImageBoxes(of notes: [CKRecord], _ completionHandler: ((DataFetchAnswer) -> Void)? = nil) {
-        var imageBoxesReferences: [CKRecord.Reference] = []
-        for note in notes {
-            if let imageBoxes = note.value(forKey: "imageBoxes") as? [CKRecord.Reference] {
-                imageBoxesReferences.append(contentsOf: imageBoxes)
-            }
-        }
+    internal func fetchImageBoxes(_ completionHandler: ((DataFetchAnswer) -> Void)? = nil) {
 
-        CloudKitDataConnector.fetch(references: imageBoxesReferences, recordType: CloudKitImageBox.recordType, database: database) { answer in
+        CloudKitDataConnector.fetch(recordType: CloudKitImageBox.recordType, database: database) { answer in
             completionHandler?(answer)
         }
     }
