@@ -510,12 +510,16 @@ internal class LooseNoteViewController: UIViewController,
         self.showImagePickerController(sourceType: .camera)
         #endif
     }
-    
-    func importImage() {
-        #if targetEnvironment(macCatalyst)
-        self.importImage()
-        #endif
+
+    #if targetEnvironment(macCatalyst)
+    internal func importImage() {
+        let documentPicker = UIDocumentPickerViewController(forOpeningContentTypes: [.image])
+        documentPicker.delegate = documentPickerDelegate
+        documentPicker.allowsMultipleSelection = false
+        documentPicker.modalPresentationStyle = .automatic
+        present(documentPicker, animated: true, completion: nil)
     }
+    #endif
     
     // MARK: - Uptade exclusion path frames
     
