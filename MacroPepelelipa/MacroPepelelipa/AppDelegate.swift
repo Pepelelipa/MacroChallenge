@@ -27,8 +27,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         
         let errorHandling: (Error?) -> Void = {
-            if ($0 as? CKError)?.errorCode != 15 {
-                ConflictHandlerObject().errDidOccur(err: $0)
+            if ($0 as? CKError)?.errorCode != 15, let error = $0 {
+                ConflictHandlerObject().errDidOccur(err: error)
             }
         }
 

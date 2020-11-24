@@ -148,13 +148,13 @@
 
 "Untitled" = "Untitled";
 
-"Error in Workspace" = "Error in Workspace";
-"Error in Notebook" = "Error in Notebook";
-"Error in Note" = "Error in Note";
-"Error in Persistent Container" = "Error in Persistent Container";
-"Error with Text Box" = "Error with Text Box";
-"Error with Image Box" = "Error with Image Box";
-"Error with Cloud Database" = "Error with Cloud Database";
+"Error in Workspace" = "Oops, Workspace Error";
+"Error in Notebook" = "Oops, Notebook Error";
+"Error in Note" = "Oops, Note Error";
+"Error in Persistent Container" = "Oops, Persistent Object Error";
+"Error with Text Box" = "Oops, Text Box Error";
+"Error with Image Box" = "Oops, Image Box Error";
+"Error with Cloud Database" = "Oops, Connectivity Error";
 
 "Workspace was Null" = "Workspace was Null";
 "Notebook was Null" = "Notebook was Null";
