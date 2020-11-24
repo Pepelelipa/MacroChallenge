@@ -148,6 +148,24 @@
 
 "Untitled" = "Untitled";
 
+"Error in Workspace" = "Oops, Workspace Error";
+"Error in Notebook" = "Oops, Notebook Error";
+"Error in Note" = "Oops, Note Error";
+"Error in Persistent Container" = "Oops, Persistent Object Error";
+"Error with Text Box" = "Oops, Text Box Error";
+"Error with Image Box" = "Oops, Image Box Error";
+"Error with Cloud Database" = "Oops, Connectivity Error";
+
+"Workspace was Null" = "Workspace was Null";
+"Notebook was Null" = "Notebook was Null";
+"Note was Null" = "Note was Null";
+"ID was Null" = "ID was Null";
+"Text Box was Null" = "Text Box was Null";
+"Image Box was Null" = "Image Box was Null";
+"Open Settings" = "Open Settings";
+
+"Failed to Fetch" = "Failed to Fetch";
+"Failed to Parse" = "Failed to Parse";
 
 // MARK: - Accessibility
 
