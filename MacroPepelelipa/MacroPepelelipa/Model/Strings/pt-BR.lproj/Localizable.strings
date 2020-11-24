@@ -96,7 +96,7 @@
 "Failed to load the Note" = "Falha ao carregar a nota";
 "Failed to create a Text Box" = "Falha ao criar uma caixa de texto";
 "The app could not create a Text Box" = "O app não foi capaz de criar uma caixa de texto";
-"Failed to create a Image Box" = "Falha ao criar uma caixa com uma image";
+"Failed to create a Image Box" = "Falha ao criar uma caixa com uma imagem";
 "The app could not create a Image Box" = "O app não foi capaz de criar uma caixa com uma image";
 "Create new Note" = "Criar nova nota";
 "Delete Image Box confirmation" = "Tem certeza que deseja deletar a caixa de imagem?";
