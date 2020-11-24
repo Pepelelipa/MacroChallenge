@@ -252,7 +252,6 @@ internal class LooseNoteViewController: UIViewController,
         present(imagePickerController, animated: true, completion: nil)
     }
     
-    
     /// This method adds a image box or a transcripted text from selected image in a text box to the current note
     internal func addMedia(from image: UIImage) {
         DispatchQueue.main.async {

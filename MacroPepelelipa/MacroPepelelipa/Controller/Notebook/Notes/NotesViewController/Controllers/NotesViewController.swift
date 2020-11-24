@@ -686,7 +686,7 @@ internal class NotesViewController: UIViewController,
         }
     }
     
-    @IBAction private func exportNote() {
+    @IBAction internal func exportNote() {
         guard let note = note else {
             return
         }
@@ -704,7 +704,7 @@ internal class NotesViewController: UIViewController,
         exportPDF(pdfData, title: title)
     }
     
-    @IBAction private func exportNotebook() {
+    @IBAction internal func exportNotebook() {
         guard let notebook = notebook else {
             return
         }
