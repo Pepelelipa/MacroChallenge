@@ -15,6 +15,7 @@ internal class TextEditingContainerViewController: UIViewController,
                                                    IndexObserver, 
                                                    MarkupToolBarObserver {
     
+    
     // MARK: - Variables and Constants
     
     internal static let deleteCommand: UIKeyCommand = {
@@ -312,13 +313,18 @@ internal class TextEditingContainerViewController: UIViewController,
     }
     
     /// This method presentes the photo picker for iOS and iPadOS
-    func presentPhotoPicker() {
+    internal func presentPhotoPicker() {
         (centerViewController?.viewControllers?.first as? NotesViewController)?.presentPhotoPicker()
     }
     
     /// This method presentes the camera picker for iOS and iPadOS
-    func presentCameraPicker() {
+    internal func presentCameraPicker() {
         (centerViewController?.viewControllers?.first as? NotesViewController)?.presentCameraPicker()
+    }
+    
+    /// This method presentes the file handler for macOS
+    internal func importImage() {
+        (centerViewController?.viewControllers?.first as? NotesViewController)?.importImage()
     }
     
     // MARK: - IBActions functions

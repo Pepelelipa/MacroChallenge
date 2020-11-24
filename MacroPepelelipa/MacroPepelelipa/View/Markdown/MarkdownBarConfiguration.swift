@@ -146,8 +146,12 @@ internal class MarkdownBarConfiguration {
         paragraphButton.menu = setupMenu(for: .paragraph)
         paragraphButton.showsMenuAsPrimaryAction = true
         
-        imageGalleryButton.menu = setupMenu(for: .image)
-        imageGalleryButton.showsMenuAsPrimaryAction = true
+        if UIDevice.current.userInterfaceIdiom == .mac {
+            imageGalleryButton.addTarget(self, action: #selector(importImage), for: .touchUpInside)
+        } else {
+            imageGalleryButton.menu = setupMenu(for: .image)
+            imageGalleryButton.showsMenuAsPrimaryAction = true
+        }
         
         listButton.accessibilityLabel = "List label".localized()
         listButton.accessibilityHint = "List hint".localized()
@@ -204,19 +208,6 @@ internal class MarkdownBarConfiguration {
     // MARK: - Action functions
     
     /**
-     In this funcion, we toggle the color of the button when the button is selected.
-     - Parameter sender: The UIButton.
-     */
-    @objc internal func toogleButton(_ sender: UIButton) {
-        sender.isSelected.toggle()
-        if sender.isSelected {
-            sender.tintColor = UIColor.actionColor
-        } else {
-            sender.tintColor = UIColor.placeholderColor
-        }
-    }
-    
-    /**
      This function executes an action, using the UIAction's identifier to determine the type of list to be added.
      - Parameter action: The UIAction that will be analysed.
      */
@@ -269,8 +260,8 @@ internal class MarkdownBarConfiguration {
         }
     }
     
-    @objc internal func addTextBox() {
-        observer?.createTextBox(transcription: nil)
+    @objc private func importImage() {
+        observer?.importImage()
     }
     
     @objc private func openEditTextContainer() {
@@ -279,5 +270,22 @@ internal class MarkdownBarConfiguration {
         } else if UIDevice.current.userInterfaceIdiom == .pad || UIDevice.current.userInterfaceIdiom == .mac {
             observer?.openPopOver()
         }
+    }
+    
+    /**
+     In this funcion, we toggle the color of the button when the button is selected.
+     - Parameter sender: The UIButton.
+     */
+    @objc internal func toogleButton(_ sender: UIButton) {
+        sender.isSelected.toggle()
+        if sender.isSelected {
+            sender.tintColor = UIColor.actionColor
+        } else {
+            sender.tintColor = UIColor.placeholderColor
+        }
+    }
+    
+    @objc internal func addTextBox() {
+        observer?.createTextBox(transcription: nil)
     }
 }

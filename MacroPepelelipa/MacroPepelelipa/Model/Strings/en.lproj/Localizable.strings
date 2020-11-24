@@ -214,6 +214,8 @@
 "Add from camera hint" = "Double tap to take a photo for your note";
 "Add from library label" = "Add photo from library";
 "Add from library hint" = "Double tap to choose a photo from your library";
+"Add from Finder label" = "Add photo from Finder";
+"Add from Finder hint" = "Double tap to choose a photo from Finder";
 
 "Share note label" = "Share note";
 "Share note hint" = "Double tap to share this note";

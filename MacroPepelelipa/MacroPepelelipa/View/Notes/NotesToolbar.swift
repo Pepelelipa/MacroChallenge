@@ -37,8 +37,16 @@ internal class NotesToolbar: UIToolbar {
         button.accessibilityHint = "Add image hint".localized()
         
         let actions = [
-            UIAction(title: "Camera".localized(), image: UIImage(systemName: "camera"), identifier: .init("camera"), state: .off, handler: addImage(action:)),
-            UIAction(title: "Library".localized(), image: UIImage(systemName: "photo.on.rectangle"), identifier: .init("library"), state: .off, handler: addImage(action:))
+            UIAction(title: "Camera".localized(), 
+                     image: UIImage(systemName: "camera"), 
+                     identifier: .init("camera"), 
+                     state: .off, handler: 
+                        addImage(action:)),
+            UIAction(title: "Library".localized(), 
+                     image: UIImage(systemName: "photo.on.rectangle"), 
+                     identifier: .init("library"), 
+                     state: .off, 
+                     handler: addImage(action:))
         ]
         
         actions[0].accessibilityLabel = "Add from camera label".localized()
