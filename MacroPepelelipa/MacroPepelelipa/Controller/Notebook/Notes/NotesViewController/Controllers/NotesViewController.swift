@@ -654,7 +654,7 @@ internal class NotesViewController: UIViewController,
     }
     
     #if targetEnvironment(macCatalyst)
-    @IBAction private func importImage() {
+    @IBAction internal func importImage() {
         let documentPicker = UIDocumentPickerViewController(forOpeningContentTypes: [.image])
         documentPicker.delegate = documentPickerDelegate
         documentPicker.allowsMultipleSelection = false
