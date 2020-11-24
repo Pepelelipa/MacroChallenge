@@ -22,7 +22,8 @@ internal class TextRecognitionManager {
         textRecognition.recognitionLanguages = ["Primary vision language".localized(), "Secondary vision language".localized()]
         textRecognition.usesLanguageCorrection = true
         textRecognition.recognitionLevel = .accurate
-        textRecognition.usesCPUOnly = true
+        textRecognition.usesCPUOnly = false
+        textRecognition.revision = VNRecognizeTextRequestRevision2
         return textRecognition
     }()
     
@@ -69,7 +70,7 @@ internal class TextRecognitionManager {
             for observation in results {
                 transcript.append(observation.topCandidates(1)[0].string)
                 if observation != results.last {
-                    transcript.append("\n")
+                    transcript.append(" ")
                 }
             }
             resultTextRecognition = transcript
