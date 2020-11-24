@@ -96,6 +96,7 @@ internal class NotesViewController: UIViewController,
         textField.delegate = self.textFieldDelegate
         textField.accessibilityLabel = "Note title".localized()
         textField.accessibilityHint = "Note title hint".localized()
+        textField.adjustsFontSizeToFitWidth = true
         return textField
     }()
     
@@ -115,7 +116,7 @@ internal class NotesViewController: UIViewController,
             textField.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
             textField.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
             textField.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
-            textField.heightAnchor.constraint(equalToConstant: 30),
+            textField.heightAnchor.constraint(equalToConstant: 40),
             
             textView.topAnchor.constraint(equalTo: self.textField.bottomAnchor, constant: 20),
             textView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
