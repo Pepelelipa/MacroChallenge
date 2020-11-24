@@ -66,7 +66,7 @@ internal class LooseNoteViewController: UIViewController,
             textField.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
             textField.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
             textField.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
-            textField.heightAnchor.constraint(equalToConstant: 30),
+            textField.heightAnchor.constraint(equalToConstant: 40),
             
             textView.topAnchor.constraint(equalTo: self.textField.bottomAnchor, constant: 20),
             textView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
@@ -161,6 +161,12 @@ internal class LooseNoteViewController: UIViewController,
             self.addMedia(from: image)
         }
     }
+    #else
+    private lazy var documentPickerDelegate: DocumentPickerDelegate = {
+        return DocumentPickerDelegate { image in
+            self.addMedia(from: image)
+        }
+    }()
     #endif
     
     // MARK: - Initializers
@@ -251,6 +257,44 @@ internal class LooseNoteViewController: UIViewController,
         DispatchQueue.main.async {
             let alert = UIAlertController(title: "Image or text?".localized(), 
                                           message: "Import the media as an image or as a text transcription (Beta version)".localized(), 
+                                          preferredStyle: .alert)
+            
+            let importImageAction = UIAlertAction(title: "Image".localized(), style: .default) { (_) in
+                self.createImageBox(image: image)
+            }
+            
+            let importTextAction = UIAlertAction(title: "Text".localized(), style: .default) { (_) in
+                
+                let textRecognition = TextRecognitionManager()
+                let transcription = textRecognition.imageRequest(toImage: image)
+                
+                self.textView.insertText("\n\"\(transcription)\"\n")
+            }
+            
+            alert.view.tintColor = .actionColor
+            
+            alert.addAction(importImageAction)
+            alert.addAction(importTextAction)
+            
+            self.present(alert, animated: true, completion: nil)
+        }
+    }
+    #endif
+    
+    #if targetEnvironment(macCatalyst)
+    @IBAction private func importImagFromFinder() {
+        let documentPicker = UIDocumentPickerViewController(forOpeningContentTypes: [.image])
+        documentPicker.delegate = documentPickerDelegate
+        documentPicker.allowsMultipleSelection = false
+        documentPicker.modalPresentationStyle = .automatic
+        present(documentPicker, animated: true, completion: nil)
+    }
+    
+    /// This method adds a image box or a transcripted text from selected image in a text box to the current note
+    internal func addMedia(from image: UIImage) {
+        DispatchQueue.main.async {
+            let alert = UIAlertController(title: "Image or text?".localized(),
+                                          message: "Import the media as an image or as a text transcription (Beta version)".localized(),
                                           preferredStyle: .alert)
             
             let importImageAction = UIAlertAction(title: "Image".localized(), style: .default) { (_) in
@@ -464,6 +508,12 @@ internal class LooseNoteViewController: UIViewController,
     internal func presentCameraPicker() {
         #if !targetEnvironment(macCatalyst)
         self.showImagePickerController(sourceType: .camera)
+        #endif
+    }
+    
+    func importImage() {
+        #if targetEnvironment(macCatalyst)
+        self.importImage()
         #endif
     }
     
