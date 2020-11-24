@@ -52,4 +52,8 @@ internal class MarkupContainerViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         formatView?.setCornerRadius()
     }
+    
+    override func viewWillLayoutSubviews() {
+        formatView?.setCornerRadius()
+    }
 }
