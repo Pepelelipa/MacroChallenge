@@ -7,3 +7,4 @@
 */
 "CFBundleDisplayName" = "Caderno Roxo";
 "CFBundleName" = "Caderno Roxo";
+"NSCameraUsageDescription" = "Sua camera é usada para tirar fotos para adicionar a suas notas";
