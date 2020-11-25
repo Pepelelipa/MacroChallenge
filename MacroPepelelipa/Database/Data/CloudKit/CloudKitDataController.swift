@@ -5,7 +5,7 @@
 //  Created by Pedro Giuliano Farina on 09/11/20.
 //  Copyright © 2020 Pedro Giuliano Farina. All rights reserved.
 //
-//swiftlint:disable cyclomatic_complexity function_body_length
+//swiftlint:disable cyclomatic_complexity
 
 import CloudKit
 
@@ -281,7 +281,7 @@ internal class CloudKitDataController {
                 }
 
                 //Fetching all notebooks of workspaces
-                self.fetchNotebooks() { answer in
+                self.fetchNotebooks { answer in
                     switch answer {
                     case .successfulWith(let notebooks as [CloudKitNotebook]):
                         for notebook in notebooks {
@@ -322,7 +322,7 @@ internal class CloudKitDataController {
                 }
 
                 //Fetching all notes of notebooks
-                self.fetchNotes() { answer in
+                self.fetchNotes { answer in
                     switch answer {
                     case .successfulWith(let notes as [CloudKitNote]):
                         for note in notes {
@@ -373,7 +373,7 @@ internal class CloudKitDataController {
                 }
 
                 //Fetching all text boxes of notes
-                self.fetchTextBoxes() { answer in
+                self.fetchTextBoxes { answer in
                     switch answer {
                     case .successful(let results):
                         for result in results {
@@ -391,7 +391,7 @@ internal class CloudKitDataController {
                     }
                 }
                 //Fetching all image boxes of notes
-                self.fetchImageBoxes() { answer in
+                self.fetchImageBoxes { answer in
                     switch answer {
                     case .successful(let results):
                         for result in results {

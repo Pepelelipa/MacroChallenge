@@ -96,7 +96,7 @@ internal class LooseNoteViewController: UIViewController,
         delegate?.addTextObserver(self)
         markdownTextView.markdownDelegate = delegate
         markdownTextView.contentInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
-        markdownTextView.placeholder = "Start writing here".localized()
+        markdownTextView.placeholder = "Placeholder\(Int.random(in: 0...15))".localized()
         return markdownTextView
     }()
     
