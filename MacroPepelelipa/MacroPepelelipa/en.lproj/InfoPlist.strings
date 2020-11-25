@@ -7,3 +7,4 @@
 */
 "CFBundleDisplayName" = "Purple Notebook";
 "CFBundleName" = "Purple Notebook";
+"NSCameraUsageDescription" = "Your camera is used to take pictures to add in your notes";
