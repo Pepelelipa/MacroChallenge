@@ -334,8 +334,8 @@ internal class NotesPageViewController: UIPageViewController,
     
     @IBAction private func presentTip() {
         if self.notebook != nil {
-            let tipViewController = TipViewController()
-            self.present(tipViewController, animated: true, completion: nil)
+            let tipNaviationController = UINavigationController(rootViewController: TipViewController())
+            self.present(tipNaviationController, animated: true, completion: nil)
         }
     }
     

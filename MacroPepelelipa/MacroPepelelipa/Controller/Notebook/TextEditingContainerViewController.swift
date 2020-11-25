@@ -14,8 +14,7 @@ import PhotosUI
 internal class TextEditingContainerViewController: UIViewController, 
                                                    IndexObserver, 
                                                    MarkupToolBarObserver {
-    
-    
+
     // MARK: - Variables and Constants
     
     internal static let deleteCommand: UIKeyCommand = {
@@ -377,8 +376,8 @@ internal class TextEditingContainerViewController: UIViewController,
     }
     
     @IBAction private func presentTip() {
-        let tipViewController = TipViewController()
-        self.present(tipViewController, animated: true, completion: nil)
+        let tipNaviationController = UINavigationController(rootViewController: TipViewController())
+        self.present(tipNaviationController, animated: true, completion: nil)
     }
     
     // This method is called when the UIBarButton for the done button is pressed and it closes the keyboard
