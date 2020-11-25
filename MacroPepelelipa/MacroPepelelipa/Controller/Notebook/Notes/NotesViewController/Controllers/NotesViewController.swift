@@ -295,7 +295,6 @@ internal class NotesViewController: UIViewController,
     internal func showImagePickerController(sourceType: UIImagePickerController.SourceType) {
         let imagePickerController = UIImagePickerController()
         imagePickerController.delegate = imagePickerDelegate
-        imagePickerController.allowsEditing = false
         imagePickerController.sourceType = sourceType
         
         present(imagePickerController, animated: true, completion: nil)
