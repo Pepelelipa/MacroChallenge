@@ -91,9 +91,11 @@ internal class NoteAssignerResultsViewController: UIViewController,
         super.init(nibName: nil, bundle: nil)
     }
     
-    // TODO
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+    required convenience init?(coder: NSCoder) {
+        guard let workspaces = coder.decodeObject(forKey: "workspaces") as? () -> [WorkspaceEntity] else {
+            return nil
+        }
+        self.init(workspaces: workspaces)
     }
     
     // MARK: - Override Methos
