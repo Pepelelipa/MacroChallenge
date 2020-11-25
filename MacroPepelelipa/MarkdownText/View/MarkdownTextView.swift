@@ -14,7 +14,7 @@ public class MarkdownTextView: UITextView {
     // MARK: - Variables and Constants
     public var placeholder: String? {
         didSet {
-            if textColor == .placeholderColor {
+            if isShowingPlaceholder {
                 attributedText = placeholder?.toPlaceholder()
             }
         }
@@ -166,8 +166,14 @@ public class MarkdownTextView: UITextView {
     }
 
     public func setText(_ attributedText: NSAttributedString?) {
-        isShowingPlaceholder = false
-        self.attributedText = attributedText
+        if let text = attributedText,
+           text.string != "" {
+            isShowingPlaceholder = false
+            self.attributedText = attributedText
+        } else if self.attributedText.string == "" {
+            isShowingPlaceholder = true
+            self.attributedText = placeholder?.toPlaceholder()
+        }
     }
 
     private func setup() {
@@ -175,7 +181,6 @@ public class MarkdownTextView: UITextView {
         self.delegate = markdownDelegate
         self.translatesAutoresizingMaskIntoConstraints = false
         self.backgroundColor = .backgroundColor
-        self.textColor = .placeholderColor
         self.tintColor = .actionColor
         color = .bodyColor ?? .black
         isHighlighted = false
