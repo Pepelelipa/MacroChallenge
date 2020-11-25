@@ -14,8 +14,8 @@
 "Notebooks" = "Cadernos";
 "Note" = "Nota";
 "Placeholder0" = "Anote aqui o que você está pensando";
-"Placeholder1" = "O que vamos escrever hoje?";
-"Placeholder2" = "Anotações, formatação de texto, imagis e anotações.";
+"Placeholder1" = "Eu entendi essa referência.";
+"Placeholder2" = "Anotações, formatação de texto, imagens e anotações.";
 "Placeholder3" = "Que o markdown esteja com você!";
 "Placeholder4" = "Cara, eu to tão na sua.";
 "Placeholder5" = "Oi meu nome é caderno roxo e tenho 1 avaliação de patrimonio liquido...";
@@ -24,6 +24,11 @@
 "Placeholder8" = "Certamente não é um placeholder.";
 "Placeholder9" = "Pra onde vamos assim arrumados?";
 "Placeholder10" = "Tenha um ótimo dia!";
+"Placeholder11" = "Anotações são como cebolas! Cebolas tem camadas, as anotações tem camadas.";
+"Placeholder12" = "As vezes no silencio da noite. Eu fico imaginando anotações."
+"Placeholder13" = "Açaí, rolimã, zum de tesouro um ímã.";
+"Placeholder14" = "Nada de capas! Só as do nosso caderno";
+"Placeholder15" = "Esse é meu segredo capitão, eu estou sempre anotando.";
 "Your Title" = "Seu título";
 "Format" = "Formatação";
 "New workspace" = "Nova estante";

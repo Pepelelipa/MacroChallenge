@@ -26,7 +26,7 @@ internal class NoteContentHandler {
             if textField.text?.replacingOccurrences(of: " ", with: "") != "" {
                 note.title = textField.attributedText ?? NSAttributedString()
             }
-            if textView.text?.replacingOccurrences(of: " ", with: "") != "" {
+            if !textView.isShowingPlaceholder && textView.text?.replacingOccurrences(of: " ", with: "") != "" {
                 note.text = textView.attributedText ?? NSAttributedString()
             }
             for textBox in textBoxes where textBox.frame.origin.x != 0 && textBox.frame.origin.y != 0 {
