@@ -26,9 +26,13 @@ internal class NoteContentHandler {
             if textField.text?.replacingOccurrences(of: " ", with: "") != "" {
                 note.title = textField.attributedText ?? NSAttributedString()
             }
-            if !textView.isShowingPlaceholder && textView.text?.replacingOccurrences(of: " ", with: "") != "" {
+
+            if textView.text.replacingOccurrences(of: " ", with: "") != "" && !textView.isShowingPlaceholder {
                 note.text = textView.attributedText ?? NSAttributedString()
+            } else {
+                note.text = NSAttributedString()
             }
+
             for textBox in textBoxes where textBox.frame.origin.x != 0 && textBox.frame.origin.y != 0 {
                 if let entity = note.textBoxes.first(where: { $0 === textBox.entity }) {
                     entity.text = textBox.markupTextView.attributedText
