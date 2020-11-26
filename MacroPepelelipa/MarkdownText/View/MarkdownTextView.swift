@@ -245,7 +245,10 @@ public class MarkdownTextView: UITextView {
                 writeAction()
             }
         } else if space {
+            let activeAttributes = self.activeAttributes
             super.insertText(text)
+            self.activeAttributes = activeAttributes
+            return
         } else {
             writeAction()  
         }
