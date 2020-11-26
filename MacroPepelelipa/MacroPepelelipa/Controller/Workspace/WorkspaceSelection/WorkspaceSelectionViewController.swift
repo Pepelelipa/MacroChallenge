@@ -198,7 +198,7 @@ internal class WorkspaceSelectionViewController: UIViewController,
         let time = UserDefaults.standard.integer(forKey: "numberOfTimes")
         if time == 8 {
             if let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
-                #if !DEBUG && !targetEnvironment(macCatalyst)
+                #if !DEBUG
                 SKStoreReviewController.requestReview(in: scene)
                 #endif
             }
@@ -528,7 +528,8 @@ internal class WorkspaceSelectionViewController: UIViewController,
         }
         
         if let note = looseNote {
-            let destination = UINavigationController(rootViewController: LooseNoteViewController(note: note, notebook: collectionDataSource.getLastNotebook(), workspaces: { self.collectionDataSource.workspaces }))
+            let looseNoteViewController = LooseNoteViewController(note: note, notebook: collectionDataSource.getLastNotebook(), workspaces: { self.collectionDataSource.workspaces })
+            let destination = UINavigationController(rootViewController: looseNoteViewController)
             destination.isModalInPresentation = true
             destination.modalTransitionStyle = .crossDissolve
             destination.modalPresentationStyle = .overFullScreen

@@ -13,7 +13,22 @@
 "Notebook" = "Notebook";
 "Notebooks" = "Notebooks";
 "Note" = "Note";
-"Start writing here" = "A penny for your thoughts 🏎";
+"Placeholder0" = "A penny for your thoughts.";
+"Placeholder1" = "Gotta write fast!🏎";
+"Placeholder2" = "Speak 'purple' and write.";
+"Placeholder3" = "May the markdown be with you!";
+"Placeholder4" = "Let's learn together!😁";
+"Placeholder5" = "It's raining text! Hallelujah.";
+"Placeholder6" = "One note to rule them all.";
+"Placeholder7" = "If you're curious about the markdown, check the info button.";
+"Placeholder8" = "This is totally not a placeholder.";
+"Placeholder9" = "Wow, looking good today!";
+"Placeholder10" = "Hope you're having a good day :)";
+"Placeholder11" = "Here comes the notes (doo-doo-doo).";
+"Placeholder12" = "You shall pass!";
+"Placeholder13" = "I'll be there for you when the tests starts to pour.";
+"Placeholder14" = "All I want for christmas is a good review.";
+"Placeholder15" = "I wrote so hard, and got this far. And in the end I'm gonna have a good note.";
 "Your Title" = "Your Title";
 "Format" = "Format";
 "New workspace" = "New shelf";
@@ -127,7 +142,7 @@
 "Organization subtitle" = "Create a shelf to keep your notebooks and, inside your notebook, create your notes!";
 "Text subtitle" = "Use our toolbar to change the color, size, highlight and font of your text! Place lists, text boxes and images.";
 "Markdown subtitle" = "Use our markdown to make bold, italic, underline and highlight!";
-"Devices subtitle" = "You can use our app to sync your data on your iPhone, iPad and your Mac!";
+"Devices subtitle" = "We use iCloud to sync your data, so you can use our app on your iPhone, iPad and Mac!";
 "Transcript subtitle" = "And you know that picture of your teachers notes you took during class? Add it here to have the text transcribed!";
 
 "Begin" = "Begin";

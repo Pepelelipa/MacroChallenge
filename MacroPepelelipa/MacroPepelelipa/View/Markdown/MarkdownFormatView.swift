@@ -409,6 +409,7 @@ internal class MarkdownFormatView: UIView, MarkdownObserver {
             }
             textView?.setFont(to: newFont)
         }
+        updateSelectors()
     }
     
     /**
