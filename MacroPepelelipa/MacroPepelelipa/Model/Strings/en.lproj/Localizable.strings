@@ -167,6 +167,8 @@
 "Failed to Fetch" = "Failed to fetch objects";
 "Failed to Parse" = "Failed to parse objects";
 
+"All" = "All";
+
 // MARK: - Accessibility
 
 "Editing enabled" = "Editing enabled";

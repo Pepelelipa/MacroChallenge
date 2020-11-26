@@ -17,7 +17,7 @@ internal enum SearchResultEnum: CaseIterable {
     var rawValue: String {
         switch self {
         case .all:
-            return "All"
+            return "All".localized()
         case .notebook:
             return "Notebooks".localized()
         case .workspaces:
