@@ -43,6 +43,17 @@ class OnboardingPageViewController: UIPageViewController {
         
         return btn
     }()
+
+    private lazy var dismissButton: UIButton = {
+        let button = UIButton()
+        button.tintColor = UIColor.placeholderColor
+        button.setBackgroundImage(UIImage(systemName: "xmark.circle"), for: .normal)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.addTarget(self, action: #selector(dismiss(_:)), for: .touchUpInside)
+        button.accessibilityLabel = "Dismiss pop-up label".localized()
+        button.accessibilityHint = "Dismiss collection pop-up hint".localized()
+        return button
+    }()
     
     private lazy var startButton: UIButton = {
         let button = UIButton(frame: .zero)
@@ -96,10 +107,14 @@ class OnboardingPageViewController: UIPageViewController {
         
         self.dataSource = onboardingPageViewDataSource
         self.delegate = onboardingPageViewDelegeta
-    
-        self.navigationController?.navigationBar.isTranslucent = true
-        self.navigationController?.navigationBar.backgroundColor = .clear
-        self.navigationItem.rightBarButtonItem = skipButton
+
+        if navigationController == nil {
+            view.addSubview(dismissButton)
+        } else {
+            self.navigationController?.navigationBar.isTranslucent = true
+            self.navigationController?.navigationBar.backgroundColor = .clear
+            self.navigationItem.rightBarButtonItem = skipButton
+        }
         
         let initialPage = 0
         setViewControllers([pages[initialPage]], direction: .forward, animated: true, completion: nil)
@@ -120,15 +135,19 @@ class OnboardingPageViewController: UIPageViewController {
     }
     
     // MARK: - @objc functions
+
+    @objc func dismiss(_ sender: UIButton) {
+        self.dismiss(animated: true)
+    }
     
     /**
      In this function the app opens the workspace once the user has tapped the currect button
      - Parameter sender: UITapGesturRecognizer
      */
     @objc func openWorkspace(sender: UITapGestureRecognizer) {
-        let view = WorkspaceSelectionViewController()
-        view.modalPresentationStyle = .fullScreen
         if let navControl = self.navigationController {
+            let view = WorkspaceSelectionViewController()
+            view.modalPresentationStyle = .fullScreen
             navControl.setViewControllers([view], animated: true)
             navControl.popToRootViewController(animated: true)
         } else {
@@ -176,7 +195,12 @@ class OnboardingPageViewController: UIPageViewController {
         NSLayoutConstraint.activate([
             pageControl.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -20),
             pageControl.heightAnchor.constraint(equalToConstant: 20),
-            pageControl.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+            pageControl.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+
+            dismissButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 20),
+            dismissButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            dismissButton.widthAnchor.constraint(equalToConstant: 35),
+            dismissButton.heightAnchor.constraint(equalToConstant: 35)
         ])
     }
     
