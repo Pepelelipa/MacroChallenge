@@ -107,10 +107,11 @@ class OnboardingPageViewController: UIPageViewController {
         
         self.dataSource = onboardingPageViewDataSource
         self.delegate = onboardingPageViewDelegeta
+        
+        view.addSubview(dismissButton)
 
-        if navigationController == nil {
-            view.addSubview(dismissButton)
-        } else {
+        if navigationController != nil {
+            dismissButton.isHidden = true
             self.navigationController?.navigationBar.isTranslucent = true
             self.navigationController?.navigationBar.backgroundColor = .clear
             self.navigationItem.rightBarButtonItem = skipButton
