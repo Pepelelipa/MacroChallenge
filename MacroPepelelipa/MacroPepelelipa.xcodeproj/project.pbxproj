@@ -143,7 +143,6 @@
 		A71E2C1D2538EEB8000DA164 /* NotesPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71E2C1B2538EEB8000DA164 /* NotesPageViewController.swift */; };
 		A71E2C1E2538EEB8000DA164 /* NotesPageViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71E2C1C2538EEB8000DA164 /* NotesPageViewControllerDelegate.swift */; };
 		A71E2C212538EF51000DA164 /* NotesPageViewControllerDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71E2C202538EF51000DA164 /* NotesPageViewControllerDataSource.swift */; };
-		A72942E7253A13D800C788EE /* ImageButtonObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = A72942E6253A13D800C788EE /* ImageButtonObserver.swift */; };
 		A731AA7425372F9C00624131 /* IndexObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = A731AA7325372F9C00624131 /* IndexObserver.swift */; };
 		A731AA7F25374A8A00624131 /* TextEditingContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A731AA7E25374A8A00624131 /* TextEditingContainerViewController.swift */; };
 		A73C94BA253F84E8004EFA4F /* PhotoPickerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A73C94B9253F84E8004EFA4F /* PhotoPickerDelegate.swift */; };
@@ -403,7 +402,6 @@
 		A71E2C1B2538EEB8000DA164 /* NotesPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotesPageViewController.swift; sourceTree = "<group>"; };
 		A71E2C1C2538EEB8000DA164 /* NotesPageViewControllerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotesPageViewControllerDelegate.swift; sourceTree = "<group>"; };
 		A71E2C202538EF51000DA164 /* NotesPageViewControllerDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NotesPageViewControllerDataSource.swift; path = MacroPepelelipa/Model/Notes/NotesPageViewControllerDataSource.swift; sourceTree = SOURCE_ROOT; };
-		A72942E6253A13D800C788EE /* ImageButtonObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageButtonObserver.swift; sourceTree = "<group>"; };
 		A731AA7325372F9C00624131 /* IndexObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = IndexObserver.swift; path = "MacroPepelelipa/Controller/Notebook/Notebook Index/IndexObserver.swift"; sourceTree = SOURCE_ROOT; };
 		A731AA7E25374A8A00624131 /* TextEditingContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextEditingContainerViewController.swift; sourceTree = "<group>"; };
 		A73C94B6253F7E4C004EFA4F /* MacroPepelelipa.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MacroPepelelipa.entitlements; sourceTree = "<group>"; };
@@ -778,7 +776,6 @@
 				D9F04BEB25377D5D001C6551 /* AddNoteViewController.swift */,
 				1E9EF4AC2522609400CC623B /* MarkupTextFieldDelegate.swift */,
 				1E9290C0252FA68600E8B142 /* MarkupContainerViewController.swift */,
-				A72942E6253A13D800C788EE /* ImageButtonObserver.swift */,
 				A73C94B9253F84E8004EFA4F /* PhotoPickerDelegate.swift */,
 				1EDCF73E25533FB8008A950F /* ImagePickerDelegate.swift */,
 				E40A7DFD2559B6D600D81087 /* DropInteractionDelegate.swift */,
@@ -1671,7 +1668,6 @@
 				D9F04BEC25377D5E001C6551 /* AddNoteViewController.swift in Sources */,
 				D97EE7B7254B557A00A68B06 /* SearchResultCollectionViewDataSource.swift in Sources */,
 				A7BDD60F2514078600DDB6A0 /* NotebookIndexTableViewCell.swift in Sources */,
-				A72942E7253A13D800C788EE /* ImageButtonObserver.swift in Sources */,
 				D9CE2D492565C00A00DF4D2A /* NoteAssignerViewController.swift in Sources */,
 				1E477550255F008600E3B141 /* OnboardingViewController.swift in Sources */,
 				A7FC9BF4255F2C7900330283 /* ItemSizeHelper.swift in Sources */,

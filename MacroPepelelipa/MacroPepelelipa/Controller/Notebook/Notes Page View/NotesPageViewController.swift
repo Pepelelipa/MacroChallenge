@@ -10,8 +10,7 @@ import UIKit
 import Database
 
 internal class NotesPageViewController: UIPageViewController, 
-                                        IndexObserver,
-                                        ImageButtonObserver {
+                                        IndexObserver {
     
     // MARK: - Variables and Constants
     
@@ -263,7 +262,6 @@ internal class NotesPageViewController: UIPageViewController,
         }
         
         viewControllers.append(notesViewController)
-        notesViewController.imgeButtonObserver = self
         
         if index + 1 < notes.count {
             viewControllers.append(NotesViewController(note: notes[index+1]))
@@ -307,16 +305,6 @@ internal class NotesPageViewController: UIPageViewController,
     
     internal func didChangeIndex(to note: NoteEntity) {
         setNotesViewControllers(for: NotesViewController(note: note))
-    }
-    
-    // MARK: - ImageButtonObserver functions
-    
-    internal func showImageButton() {
-        self.notesToolbar.isHidden = false
-    }
-    
-    internal func hideImageButton() {
-        self.notesToolbar.isHidden = true
     }
     
     // MARK: - IBActions functions
