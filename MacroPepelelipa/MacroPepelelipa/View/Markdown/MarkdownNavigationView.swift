@@ -12,7 +12,6 @@ internal class MarkdownNavigationView: UIView {
     
     // MARK: - Variables and Constants
     
-    private var navigationItem: UINavigationItem?
     private weak var markupBarConfiguration: MarkdownBarConfiguration?
     private static var paragraphButton: UIBarButtonItem?
     
