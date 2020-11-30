@@ -61,7 +61,7 @@ internal class NoteObject: NoteEntity, CloudKitObjectWrapper {
         }
     }
 
-    private var observers: [EntityObserver] = []
+    private var observers: [EntityObserverReference] = []
 
     internal let coreDataNote: Note
     internal var cloudKitNote: CloudKitNote? {
@@ -111,11 +111,12 @@ internal class NoteObject: NoteEntity, CloudKitObjectWrapper {
     }
 
     func addObserver(_ observer: EntityObserver) {
-        observers.append(observer)
+        let reference = EntityObserverReference(value: observer)
+        observers.append(reference)
     }
 
     func removeObserver(_ observer: EntityObserver) {
-        if let index = observers.firstIndex(where: { $0 === observer }) {
+        if let index = observers.firstIndex(where: { $0.value === observer }) {
             observers.remove(at: index)
         }
     }
@@ -143,6 +144,7 @@ internal class NoteObject: NoteEntity, CloudKitObjectWrapper {
         notifyObservers()
     }
     private func notifyObservers() {
-        observers.forEach({ $0.entityDidChangeTo(self) })
+        observers.forEach({ $0.value?.entityDidChangeTo(self) })
+        observers.removeAll(where: { $0.value == nil })
     }
 }

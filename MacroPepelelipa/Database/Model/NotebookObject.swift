@@ -79,7 +79,7 @@ internal class NotebookObject: NotebookEntity, CloudKitObjectWrapper {
         return indexes
     }
 
-    private var observers: [EntityObserver] = []
+    private var observers: [EntityObserverReference] = []
 
     internal let coreDataNotebook: Notebook
     internal var cloudKitNotebook: CloudKitNotebook? {
@@ -110,11 +110,12 @@ internal class NotebookObject: NotebookEntity, CloudKitObjectWrapper {
     }
 
     func addObserver(_ observer: EntityObserver) {
-        observers.append(observer)
+        let reference = EntityObserverReference(value: observer)
+        observers.append(reference)
     }
 
     func removeObserver(_ observer: EntityObserver) {
-        if let index = observers.firstIndex(where: { $0 === observer }) {
+        if let index = observers.firstIndex(where: { $0.value === observer }) {
             observers.remove(at: index)
         }
     }
@@ -151,6 +152,7 @@ internal class NotebookObject: NotebookEntity, CloudKitObjectWrapper {
     }
     private func notifyObservers() {
         workspace?.internalObjectsChanged()
-        observers.forEach({ $0.entityDidChangeTo(self) })
+        observers.forEach({ $0.value?.entityDidChangeTo(self) })
+        observers.removeAll(where: { $0.value == nil })
     }
 }

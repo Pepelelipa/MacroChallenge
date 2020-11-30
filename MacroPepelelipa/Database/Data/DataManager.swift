@@ -36,29 +36,32 @@ public class DataManager {
         CloudKitDataConnector.saveData(database: .Private, entitiesToSave: cloudKitEntities)
     }
 
-    private var observers: [(EntityObserver, ObservableCreationType)] = []
+    private var observers: [(EntityObserverReference, ObservableCreationType)] = []
     public func addCreationObserver(_ observer: EntityObserver, type: ObservableCreationType) {
-        observers.append((observer, type))
+        let reference = EntityObserverReference(value: observer)
+        observers.append((reference, type))
     }
     public func removeObserver(_ observer: EntityObserver) {
-        if let index = observers.firstIndex(where: { $0.0 === observer }) {
+        if let index = observers.firstIndex(where: { $0.0.value === observer }) {
             observers.remove(at: index)
         }
     }
     private func notifyCreation(_ entity: ObservableEntity, type: ObservableCreationType) {
         for observer in observers where observer.1 == type {
-            observer.0.entityWasCreated(entity)
+            observer.0.value?.entityWasCreated(entity)
         }
+        observers.removeAll(where: { $0.0.value == nil })
     }
     private func notifyDeletion(_ entity: ObservableEntity, type: ObservableCreationType) {
         for observer in observers where observer.1 == type {
-            observer.0.entityShouldDelete(entity)
+            observer.0.value?.entityShouldDelete(entity)
         }
+        observers.removeAll(where: { $0.0.value == nil })
     }
 
     private func getObservableWithID(_ id: String, type: ObservableCreationType) -> ObservableEntity? {
         for observer in observers where observer.1 == type {
-            if let result = observer.0.getEntityWithID(id) {
+            if let result = observer.0.value?.getEntityWithID(id) {
                 return result
             }
         }
