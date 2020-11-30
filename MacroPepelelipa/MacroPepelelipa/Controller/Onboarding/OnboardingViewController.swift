@@ -120,7 +120,7 @@ class OnboardingViewController: UIViewController {
     private func setConstraints() {
         
         landscapeiPhoneConstraints.append(contentsOf: [
-            imageView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.8),
+            imageView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.6),
             imageView.heightAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.2),
                 
             subtitleLabel.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -80)
@@ -134,7 +134,7 @@ class OnboardingViewController: UIViewController {
         ])
         
         portraitiPhoneConstraints.append(contentsOf: [
-            imageView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.8),
+            imageView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.6),
             imageView.heightAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.6),
             
             subtitleLabel.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -150)
@@ -144,11 +144,11 @@ class OnboardingViewController: UIViewController {
             imageView.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -50),
             imageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             
-            subtitleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            subtitleLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
             subtitleLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -30),
             
             titleLabel.bottomAnchor.constraint(equalTo: subtitleLabel.topAnchor, constant: -20),
-            titleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            titleLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
             titleLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20)
         ])
     }
