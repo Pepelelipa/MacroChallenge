@@ -219,6 +219,8 @@
 		E4026286252FAC7800BCDD93 /* DancingScript-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E4026284252FAC7800BCDD93 /* DancingScript-Bold.ttf */; };
 		E4026287252FAC7800BCDD93 /* DancingScript-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E4026285252FAC7800BCDD93 /* DancingScript-Regular.ttf */; };
 		E40A7DFE2559B6D600D81087 /* DropInteractionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E40A7DFD2559B6D600D81087 /* DropInteractionDelegate.swift */; };
+		E40A9B8425758D7700C8BA82 /* TextEditingDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E40A9B8325758D7700C8BA82 /* TextEditingDelegate.swift */; };
+		E40A9B88257594B500C8BA82 /* MarkupToolBarDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E40A9B87257594B500C8BA82 /* MarkupToolBarDelegate.swift */; };
 		E41209532538C1020088AC26 /* EmptyScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E41209522538C1020088AC26 /* EmptyScreenView.swift */; };
 		E42FC8372530EF78004E81C9 /* MarkdownFormatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E42FC8362530EF78004E81C9 /* MarkdownFormatView.swift */; };
 		E4714A99255F077E007AE0D6 /* DocumentPickerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4714A98255F077E007AE0D6 /* DocumentPickerDelegate.swift */; };
@@ -479,6 +481,8 @@
 		E4026284252FAC7800BCDD93 /* DancingScript-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "DancingScript-Bold.ttf"; sourceTree = "<group>"; };
 		E4026285252FAC7800BCDD93 /* DancingScript-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "DancingScript-Regular.ttf"; sourceTree = "<group>"; };
 		E40A7DFD2559B6D600D81087 /* DropInteractionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropInteractionDelegate.swift; sourceTree = "<group>"; };
+		E40A9B8325758D7700C8BA82 /* TextEditingDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextEditingDelegate.swift; sourceTree = "<group>"; };
+		E40A9B87257594B500C8BA82 /* MarkupToolBarDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkupToolBarDelegate.swift; sourceTree = "<group>"; };
 		E41209522538C1020088AC26 /* EmptyScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyScreenView.swift; sourceTree = "<group>"; };
 		E42FC8362530EF78004E81C9 /* MarkdownFormatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkdownFormatView.swift; sourceTree = "<group>"; };
 		E4714A98255F077E007AE0D6 /* DocumentPickerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentPickerDelegate.swift; sourceTree = "<group>"; };
@@ -1166,6 +1170,8 @@
 				D9CE2D392565C00A00DF4D2A /* NoteAssignerResultsTableViewDelegate.swift */,
 				D9CE2D3A2565C00A00DF4D2A /* NoteAssignerViewController.swift */,
 				D9CE2D3B2565C00A00DF4D2A /* NotesViewController.swift */,
+				E40A9B8325758D7700C8BA82 /* TextEditingDelegate.swift */,
+				E40A9B87257594B500C8BA82 /* MarkupToolBarDelegate.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -1657,6 +1663,7 @@
 				A7BDD60A251406D900DDB6A0 /* TableViewDataSource.swift in Sources */,
 				D9F4A9AA25277A6B00BFDC19 /* ResizeHandleView.swift in Sources */,
 				A792F03A25279E8400AB1766 /* NotebookIndexTableViewDelegate.swift in Sources */,
+				E40A9B8425758D7700C8BA82 /* TextEditingDelegate.swift in Sources */,
 				D9CE2D4A2565C00A00DF4D2A /* NotesViewController.swift in Sources */,
 				1E1D9CD22549EB2D00E2D7A7 /* NotebookEntityToPDFExtension.swift in Sources */,
 				0230E078253A3CED009C5A76 /* UIDeviceOrientation.swift in Sources */,
@@ -1678,6 +1685,7 @@
 				D97EE7AD254B554F00A68B06 /* SearchResultCollectionViewDelegate.swift in Sources */,
 				D9D87534251BAA6700B842C8 /* MarkdownTextField.swift in Sources */,
 				A71E2C1E2538EEB8000DA164 /* NotesPageViewControllerDelegate.swift in Sources */,
+				E40A9B88257594B500C8BA82 /* MarkupToolBarDelegate.swift in Sources */,
 				E42FC8372530EF78004E81C9 /* MarkdownFormatView.swift in Sources */,
 				1E91D362255F30B5002FA8F1 /* OnboardingPageViewControllerDataSource.swift in Sources */,
 				1E47C56C254377BE00535DDD /* NoteEntityToPDFExtension.swift in Sources */,

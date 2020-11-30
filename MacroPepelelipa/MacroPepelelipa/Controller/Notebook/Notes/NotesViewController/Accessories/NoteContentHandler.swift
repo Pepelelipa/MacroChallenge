@@ -14,7 +14,7 @@ internal class NoteContentHandler {
     
     private weak var owner: UIViewController?
     
-    internal init(owner: UIViewController) {
+    internal init(owner: UIViewController? = nil) {
         self.owner = owner
     }
     

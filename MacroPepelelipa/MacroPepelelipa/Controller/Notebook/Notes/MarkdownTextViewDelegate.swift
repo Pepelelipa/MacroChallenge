@@ -14,10 +14,13 @@ internal protocol MarkdownObserver: class {
 }
 
 internal class AppMarkdownTextViewDelegate: MarkdownTextViewDelegate {
+    
     private var markdownObservers: [MarkdownObserver] = []
+    
     internal func addMarkdownObserver(_ observer: MarkdownObserver) {
         markdownObservers.append(observer)
     }
+    
     internal func removeMarkdownObserver(_ observer: MarkdownObserver) {
         if let index = markdownObservers.firstIndex(where: { $0 === observer }) {
             markdownObservers.remove(at: index)
@@ -25,9 +28,11 @@ internal class AppMarkdownTextViewDelegate: MarkdownTextViewDelegate {
     }
 
     private var textObservers: [TextEditingDelegateObserver] = []
+    
     internal func addTextObserver(_ observer: TextEditingDelegateObserver) {
         textObservers.append(observer)
     }
+    
     internal func removeTextObserver(_ observer: TextEditingDelegateObserver) {
         if let index = textObservers.firstIndex(where: { $0 === observer }) {
             textObservers.remove(at: index)

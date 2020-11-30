@@ -17,7 +17,6 @@ import AppKit
 #endif
 
 internal class NotesViewController: UIViewController, 
-                                    TextEditingDelegateObserver,
                                     MarkupToolBarObserver,
                                     MarkdownFormatViewReceiver,
                                     ResizeHandleReceiver,
@@ -69,7 +68,11 @@ internal class NotesViewController: UIViewController,
     }()
     #endif
     
-    private var resizeHandles = [ResizeHandleView]()
+    private lazy var textEditingDelegate = TextEditingDelegate(textBoxes: self.textBoxes, imageBoxes: self.imageBoxes, resizeHandleViews: self.resizeHandleViews) {
+        self.noteContentHandler.saveNote(note: &self.note, textField: self.textField, textView: self.textView, textBoxes: self.textBoxes, imageBoxes: self.imageBoxes)
+    }
+    
+    private var resizeHandleViews = [ResizeHandleView]()
     private var initialCenter = CGPoint()
     private var exclusionPaths: [UIBezierPath] = []
     private let screenSize = UIScreen.main.bounds
@@ -101,7 +104,7 @@ internal class NotesViewController: UIViewController,
     
     private lazy var textFieldDelegate: MarkupTextFieldDelegate = {
         let delegate = MarkupTextFieldDelegate()
-        delegate.observer = self
+        delegate.observer = self.textEditingDelegate
         return delegate
     }()
     
@@ -125,9 +128,9 @@ internal class NotesViewController: UIViewController,
     }()
     
     internal private(set) lazy var textView: MarkdownTextView = {
-        let  markdownTextView = MarkdownTextView(frame: .zero)
+        let markdownTextView = MarkdownTextView(frame: .zero)
         self.delegate = AppMarkdownTextViewDelegate()
-        delegate?.addTextObserver(self)
+        delegate?.addTextObserver(self.textEditingDelegate)
         markdownTextView.markdownDelegate = delegate
         markdownTextView.contentInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
         markdownTextView.placeholder = "Placeholder\(Int.random(in: 0...15))".localized()
@@ -197,10 +200,6 @@ internal class NotesViewController: UIViewController,
             
             self.present(alertController, animated: true, completion: nil)
         }
-    }
-    
-    deinit {
-        //        textViewDelegate.removeObserver(self)
     }
     
     internal required convenience init?(coder: NSCoder) {
@@ -330,7 +329,7 @@ internal class NotesViewController: UIViewController,
     
     ///Uptade the resize handle position and the border of the text box.
     internal func uptadeResizeHandles() {
-        resizeHandles.forEach { (handle) in
+        resizeHandleViews.forEach { (handle) in
             handle.updatePosition()
         }
         textBoxes.forEach { (textBox) in
@@ -400,7 +399,7 @@ internal class NotesViewController: UIViewController,
     
     ///Updates the position of the resize handles.
     internal func updateResizeHandles() {
-        resizeHandles.forEach { (resizeHandle) in
+        resizeHandleViews.forEach { (resizeHandle) in
             resizeHandle.updatePosition()
         }
     }
@@ -431,31 +430,6 @@ internal class NotesViewController: UIViewController,
      */
     internal func insertText(_ text: String) {
         self.textView.insertText("\n" + text + "\n")
-    }
-    
-    // MARK: - TextEditingDelegateObserver functions
-    
-    func textEditingDidBegin() {
-        DispatchQueue.main.async {
-            self.textBoxes.forEach { (textBox) in
-                textBox.state = .idle
-                textBox.markupTextView.isUserInteractionEnabled = false
-            }
-            self.imageBoxes.forEach { (imageBox) in
-                imageBox.state = .idle
-            }
-            
-            if !self.resizeHandles.isEmpty {
-                self.resizeHandles.forEach { (resizeHandle) in
-                    resizeHandle.removeFromSuperview()
-                }
-            }
-        }
-    }
-    
-    func textEditingDidEnd() {
-        
-        noteContentHandler.saveNote(note: &note, textField: textField, textView: textView, textBoxes: textBoxes, imageBoxes: imageBoxes)
     }
     
     // MARK: - MarkupToolBarObserver functions
@@ -545,7 +519,7 @@ internal class NotesViewController: UIViewController,
     @IBAction private func handleTap(_ gestureRecognizer: UITapGestureRecognizer) {
         if let boxView = gestureRecognizer.view as? BoxView {
             boxView.state = .editing
-            resizeHandleFunctions.placeResizeHandles(boxView: boxView, resizeHandles: &resizeHandles)
+            resizeHandleFunctions.placeResizeHandles(boxView: boxView, resizeHandles: &resizeHandleViews)
             boxView.owner.endEditing(true)
         } 
     }
@@ -592,7 +566,7 @@ internal class NotesViewController: UIViewController,
                                                                 do {
                                                                     boxView.removeFromSuperview()
                                                                     self.imageBoxes.remove(boxView)
-                                                                    self.resizeHandleFunctions.cleanResizeHandles(resizeHandles: &self.resizeHandles)
+                                                                    self.resizeHandleFunctions.cleanResizeHandles(resizeHandles: &self.resizeHandleViews)
                                                                     self.updateExclusionPaths()
                                                                     try DataManager.shared().deleteImageBox(entity)
                                                                 } catch {
@@ -626,7 +600,7 @@ internal class NotesViewController: UIViewController,
                                                                 do {
                                                                     boxView.removeFromSuperview()
                                                                     self.textBoxes.remove(boxView)
-                                                                    self.resizeHandleFunctions.cleanResizeHandles(resizeHandles: &self.resizeHandles)
+                                                                    self.resizeHandleFunctions.cleanResizeHandles(resizeHandles: &self.resizeHandleViews)
                                                                     self.updateExclusionPaths()
                                                                     try DataManager.shared().deleteTextBox(entity)
                                                                 } catch {
