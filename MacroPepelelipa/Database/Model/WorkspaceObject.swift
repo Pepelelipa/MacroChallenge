@@ -45,7 +45,7 @@ internal class WorkspaceObject: WorkspaceEntity, CloudKitObjectWrapper {
         }
     }
     
-    private var observers: [EntityObserver] = []
+    private var observers: [EntityObserverReference] = []
 
     internal let coreDataWorkspace: Workspace
     internal var cloudKitWorkspace: CloudKitWorkspace? {
@@ -74,11 +74,12 @@ internal class WorkspaceObject: WorkspaceEntity, CloudKitObjectWrapper {
     }
 
     func addObserver(_ observer: EntityObserver) {
-        observers.append(observer)
+        let reference = EntityObserverReference(value: observer)
+        observers.append(reference)
     }
 
     func removeObserver(_ observer: EntityObserver) {
-        if let index = observers.firstIndex(where: { $0 === observer }) {
+        if let index = observers.firstIndex(where: { $0.value === observer }) {
             observers.remove(at: index)
         }
     }
@@ -110,6 +111,7 @@ internal class WorkspaceObject: WorkspaceEntity, CloudKitObjectWrapper {
         notifyObservers()
     }
     private func notifyObservers() {
-        observers.forEach({ $0.entityDidChangeTo(self) })
+        observers.forEach({ $0.value?.entityDidChangeTo(self) })
+        observers.removeAll(where: { $0.value == nil })
     }
 }

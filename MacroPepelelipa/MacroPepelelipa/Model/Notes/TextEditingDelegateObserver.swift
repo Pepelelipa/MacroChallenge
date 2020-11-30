@@ -17,6 +17,10 @@ internal protocol TextEditingDelegateObserver: class {
     func textEditingDidEnd()
 }
 
+internal struct TextEditingDelegateObserverReference {
+    weak var value: TextEditingDelegateObserver?
+}
+
 extension TextEditingDelegateObserver {
     func textEditingDidBegin() {}
     func textEditingDidEnd() {}
