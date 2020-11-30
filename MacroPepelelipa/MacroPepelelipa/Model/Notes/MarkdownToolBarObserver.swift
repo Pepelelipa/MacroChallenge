@@ -9,16 +9,15 @@
 import UIKit
 import Database
 
-internal protocol MarkupToolBarObserver: class {
+internal protocol MarkdownToolBarObserver: class {
     func createTextBox(transcription: String?)
-    func changeTextViewInput(isCustom: Bool)
     func presentPhotoPicker()
     func presentCameraPicker()
     func importImage()
     func openPopOver()
 }
 
-extension MarkupToolBarObserver {
+extension MarkdownToolBarObserver {
     func openPopOver() {}
     func importImage() {} 
 }

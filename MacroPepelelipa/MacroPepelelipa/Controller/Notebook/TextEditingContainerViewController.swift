@@ -13,7 +13,7 @@ import PhotosUI
 
 internal class TextEditingContainerViewController: UIViewController, 
                                                    IndexObserver, 
-                                                   MarkupToolBarObserver {
+                                                   MarkdownToolBarObserver {
 
     // MARK: - Variables and Constants
     
@@ -81,7 +81,7 @@ internal class TextEditingContainerViewController: UIViewController,
             fatalError("Controller not found")
         }
         let mrkConf = MarkdownBarConfiguration(owner: textView)
-        mrkConf.observer = self
+//        mrkConf.observer = self
         return mrkConf
     }()
     
@@ -257,7 +257,7 @@ internal class TextEditingContainerViewController: UIViewController,
         }
 
         let markupContainerViewController = MarkupContainerViewController(owner: textView,
-                                                                          viewController: notesViewController,
+                                                                          formattingDelegate: nil,
                                                                           size: .init(width: 400, height: 110))
 
         markupContainerViewController.modalPresentationStyle = .popover
@@ -299,27 +299,27 @@ internal class TextEditingContainerViewController: UIViewController,
     }
     
     // MARK: - MarkupToolBarObserver functions
-    
+    // TODO: refactor
     internal func createTextBox(transcription: String?) {
         if let noteController = centerViewController?.viewControllers?.first as? NotesViewController {
-            noteController.createTextBox(transcription: transcription)
+//            noteController.createTextBox(transcription: transcription)
         }
     }
 
     internal func changeTextViewInput(isCustom: Bool) {
         if let noteController = centerViewController?.viewControllers?.first as? NotesViewController {
-            noteController.changeTextViewInput(isCustom: isCustom)
+//            noteController.changeTextViewInput(isCustom: isCustom)
         }
     }
     
     /// This method presentes the photo picker for iOS and iPadOS
     internal func presentPhotoPicker() {
-        (centerViewController?.viewControllers?.first as? NotesViewController)?.presentPhotoPicker()
+//        (centerViewController?.viewControllers?.first as? NotesViewController)?.presentPhotoPicker()
     }
     
     /// This method presentes the camera picker for iOS and iPadOS
     internal func presentCameraPicker() {
-        (centerViewController?.viewControllers?.first as? NotesViewController)?.presentCameraPicker()
+//        (centerViewController?.viewControllers?.first as? NotesViewController)?.presentCameraPicker()
     }
     
     /// This method presentes the file handler for macOS

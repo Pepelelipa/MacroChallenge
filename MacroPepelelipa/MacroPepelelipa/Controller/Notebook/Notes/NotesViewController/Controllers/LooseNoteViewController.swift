@@ -13,12 +13,12 @@ import MarkdownText
 
 internal class LooseNoteViewController: UIViewController, 
                                     TextEditingDelegateObserver,
-                                    MarkupToolBarObserver,
+                                    MarkdownToolBarObserver,
                                     MarkdownFormatViewReceiver,
                                     ResizeHandleReceiver,
                                     BoxViewReceiver,
                                     NoteAssignerObserver {
-    
+        
     // MARK: - Variables and Constants
         
     private var resizeHandles = [ResizeHandleView]()
@@ -37,7 +37,7 @@ internal class LooseNoteViewController: UIViewController,
     internal private(set) weak var notebook: NotebookEntity?
     
     private lazy var resizeHandleFunctions = ResizeHandleFunctions(owner: self)
-    private lazy var boxViewInteractions = BoxViewInteractions(resizeHandleReceiver: self, boxViewReceiver: self, owner: self)
+    private lazy var formattingDelegate = FormattingDelegate(resizeHandleReceiver: self, boxViewReceiver: self, owner: self, note: note)
     private lazy var noteContentHandler = NoteContentHandler(owner: self)
     private lazy var notesControllerConfiguration = NotesViewControllerConfiguration(boxViewReceiver: self)
     
@@ -101,7 +101,7 @@ internal class LooseNoteViewController: UIViewController,
     
     internal lazy var markupConfig: MarkdownBarConfiguration = {
         let mrkConf = MarkdownBarConfiguration(owner: textView)
-        mrkConf.observer = self
+//        mrkConf.observer = self
         return mrkConf
     }()
     
@@ -354,17 +354,7 @@ internal class LooseNoteViewController: UIViewController,
     
     ///Creates an Image Box
     internal func createImageBox(image: UIImage?) {
-        guard let note = note else {
-            let alertController = UIAlertController(
-                title: "Note does not exist".localized(),
-                message: "The app could not safe unwrap the view controller note".localized(),
-                preferredStyle: .alert)
-                .makeErrorMessage(with: "Failed to load the Note".localized())
-
-            self.present(alertController, animated: true, completion: nil)
-            return
-        }
-        boxViewInteractions.createImageBox(image: image, note: note)
+        formattingDelegate.createImageBox(image: image)
     }
 
     ///Adds an Image Box
@@ -452,6 +442,8 @@ internal class LooseNoteViewController: UIViewController,
     
     // MARK: - MarkupToolBarObserver functions
     
+    func createTextBox(transcription: String?) {}
+    
     /**
      This method changes de main input view based on it being custom or not.
      - Parameter isCustom: A boolean indicating if the input view will be a custom view or not.
@@ -466,21 +458,6 @@ internal class LooseNoteViewController: UIViewController,
         keyboardToolbar.isHidden.toggle()
         markupContainerView.isHidden.toggle()
         textView.reloadInputViews()
-    }
-    
-    ///Creates a TextBox
-    internal func createTextBox(transcription: String? = nil) {
-        guard let note = note else {
-            let alertController = UIAlertController(
-                title: "Note does not exist".localized(),
-                message: "The app could not safe unwrap the view controller note".localized(),
-                preferredStyle: .alert)
-                .makeErrorMessage(with: "Failed to load the Note".localized())
-
-            self.present(alertController, animated: true, completion: nil)
-            return
-        }
-        boxViewInteractions.createTextBox(transcription: transcription, note: note)
     }
     
     /// This method presentes the photo picker for iOS and iPadOS
@@ -583,7 +560,7 @@ internal class LooseNoteViewController: UIViewController,
             }
             if gestureRecognizer.state != .cancelled {
                 let newCenter = CGPoint(x: initialCenter.x + translation.x, y: initialCenter.y + translation.y)
-                boxViewInteractions.moveBoxView(boxView: boxView, by: newCenter)
+                formattingDelegate.moveBoxView(boxView: boxView, by: newCenter)
             } else {
                 boxView.center = initialCenter
             }

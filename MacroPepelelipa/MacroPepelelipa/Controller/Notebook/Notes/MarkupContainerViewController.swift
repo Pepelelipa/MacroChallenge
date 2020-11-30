@@ -13,22 +13,22 @@ internal class MarkupContainerViewController: UIViewController {
     
     // MARK: - Variables and Constants
     
-    private weak var viewController: NotesViewController?
+    private weak var formattingDelegate: FormattingDelegate?
     private weak var textView: MarkdownTextView?
     
     internal private(set) lazy var formatView: MarkdownFormatView? = {
-        guard let textView = self.textView, let viewController = self.viewController else {
+        guard let textView = self.textView, let formattingDelegate = self.formattingDelegate else {
             return nil
         }
         
-        return MarkdownFormatView(frame: CGRect(x: 0, y: 0, width: preferredContentSize.width, height: preferredContentSize.height), owner: textView, receiver: viewController)
+        return MarkdownFormatView(frame: CGRect(x: 0, y: 0, width: preferredContentSize.width, height: preferredContentSize.height), owner: textView, receiver: formattingDelegate)
     }()
     
     // MARK: - Initializers
 
-    internal init(owner: MarkdownTextView? = nil, viewController: NotesViewController? = nil, size: CGSize) {
+    internal init(owner: MarkdownTextView? = nil, formattingDelegate: FormattingDelegate? = nil, size: CGSize) {
         super.init(nibName: nil, bundle: nil)
-        self.viewController = viewController
+        self.formattingDelegate = formattingDelegate
         self.textView = owner
         self.preferredContentSize = size
     }

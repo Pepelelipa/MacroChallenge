@@ -169,7 +169,7 @@
 		D996CEC3252FA608009D31F8 /* AddNewSpaceTextFieldDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D996CEC2252FA608009D31F8 /* AddNewSpaceTextFieldDelegate.swift */; };
 		D9BBA584252FAB28004B724F /* AddWorkspaceObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BBA583252FAB28004B724F /* AddWorkspaceObserver.swift */; };
 		D9CE2D422565C00A00DF4D2A /* NoteContentHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9CE2D322565C00A00DF4D2A /* NoteContentHandler.swift */; };
-		D9CE2D432565C00A00DF4D2A /* BoxViewInteractions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9CE2D332565C00A00DF4D2A /* BoxViewInteractions.swift */; };
+		D9CE2D432565C00A00DF4D2A /* FormattingDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9CE2D332565C00A00DF4D2A /* FormattingDelegate.swift */; };
 		D9CE2D442565C00A00DF4D2A /* ResizeHandleFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9CE2D342565C00A00DF4D2A /* ResizeHandleFunctions.swift */; };
 		D9CE2D452565C00A00DF4D2A /* NotesViewControllerConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9CE2D352565C00A00DF4D2A /* NotesViewControllerConfiguration.swift */; };
 		D9CE2D462565C00A00DF4D2A /* NoteAssignerResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9CE2D372565C00A00DF4D2A /* NoteAssignerResultsViewController.swift */; };
@@ -199,7 +199,7 @@
 		D9F4A9AA25277A6B00BFDC19 /* ResizeHandleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9F4A9A625277A6A00BFDC19 /* ResizeHandleView.swift */; };
 		D9F4A9AB25277A6B00BFDC19 /* CGRectExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9F4A9A725277A6A00BFDC19 /* CGRectExtension.swift */; };
 		D9F4A9AE25277AC900BFDC19 /* TextBoxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9F4A9AD25277AC900BFDC19 /* TextBoxView.swift */; };
-		D9F4A9BD2527D0A600BFDC19 /* MarkupToolBarObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9F4A9BC2527D0A600BFDC19 /* MarkupToolBarObserver.swift */; };
+		D9F4A9BD2527D0A600BFDC19 /* MarkdownToolBarObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9F4A9BC2527D0A600BFDC19 /* MarkdownToolBarObserver.swift */; };
 		E4017A8D252CEA9B00ABB87C /* AlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4017A8C252CEA9B00ABB87C /* AlertController.swift */; };
 		E40220D0253A1ED7009C08C4 /* DarkModeIcon-Small.png in Resources */ = {isa = PBXBuildFile; fileRef = E40220C1253A1ED6009C08C4 /* DarkModeIcon-Small.png */; };
 		E40220D1253A1ED7009C08C4 /* DarkModeIcon-76@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E40220C2253A1ED6009C08C4 /* DarkModeIcon-76@2x.png */; };
@@ -220,7 +220,6 @@
 		E4026287252FAC7800BCDD93 /* DancingScript-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E4026285252FAC7800BCDD93 /* DancingScript-Regular.ttf */; };
 		E40A7DFE2559B6D600D81087 /* DropInteractionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E40A7DFD2559B6D600D81087 /* DropInteractionDelegate.swift */; };
 		E40A9B8425758D7700C8BA82 /* TextEditingDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E40A9B8325758D7700C8BA82 /* TextEditingDelegate.swift */; };
-		E40A9B88257594B500C8BA82 /* MarkupToolBarDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E40A9B87257594B500C8BA82 /* MarkupToolBarDelegate.swift */; };
 		E41209532538C1020088AC26 /* EmptyScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E41209522538C1020088AC26 /* EmptyScreenView.swift */; };
 		E42FC8372530EF78004E81C9 /* MarkdownFormatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E42FC8362530EF78004E81C9 /* MarkdownFormatView.swift */; };
 		E4714A99255F077E007AE0D6 /* DocumentPickerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4714A98255F077E007AE0D6 /* DocumentPickerDelegate.swift */; };
@@ -431,7 +430,7 @@
 		D996CEC2252FA608009D31F8 /* AddNewSpaceTextFieldDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddNewSpaceTextFieldDelegate.swift; sourceTree = "<group>"; };
 		D9BBA583252FAB28004B724F /* AddWorkspaceObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddWorkspaceObserver.swift; sourceTree = "<group>"; };
 		D9CE2D322565C00A00DF4D2A /* NoteContentHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoteContentHandler.swift; sourceTree = "<group>"; };
-		D9CE2D332565C00A00DF4D2A /* BoxViewInteractions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoxViewInteractions.swift; sourceTree = "<group>"; };
+		D9CE2D332565C00A00DF4D2A /* FormattingDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormattingDelegate.swift; sourceTree = "<group>"; };
 		D9CE2D342565C00A00DF4D2A /* ResizeHandleFunctions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResizeHandleFunctions.swift; sourceTree = "<group>"; };
 		D9CE2D352565C00A00DF4D2A /* NotesViewControllerConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotesViewControllerConfiguration.swift; sourceTree = "<group>"; };
 		D9CE2D372565C00A00DF4D2A /* NoteAssignerResultsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoteAssignerResultsViewController.swift; sourceTree = "<group>"; };
@@ -461,7 +460,7 @@
 		D9F4A9A625277A6A00BFDC19 /* ResizeHandleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResizeHandleView.swift; sourceTree = "<group>"; };
 		D9F4A9A725277A6A00BFDC19 /* CGRectExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGRectExtension.swift; sourceTree = "<group>"; };
 		D9F4A9AD25277AC900BFDC19 /* TextBoxView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextBoxView.swift; sourceTree = "<group>"; };
-		D9F4A9BC2527D0A600BFDC19 /* MarkupToolBarObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkupToolBarObserver.swift; sourceTree = "<group>"; };
+		D9F4A9BC2527D0A600BFDC19 /* MarkdownToolBarObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkdownToolBarObserver.swift; sourceTree = "<group>"; };
 		E4017A8C252CEA9B00ABB87C /* AlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertController.swift; sourceTree = "<group>"; };
 		E40220C1253A1ED6009C08C4 /* DarkModeIcon-Small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "DarkModeIcon-Small.png"; sourceTree = "<group>"; };
 		E40220C2253A1ED6009C08C4 /* DarkModeIcon-76@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "DarkModeIcon-76@2x.png"; sourceTree = "<group>"; };
@@ -482,7 +481,6 @@
 		E4026285252FAC7800BCDD93 /* DancingScript-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "DancingScript-Regular.ttf"; sourceTree = "<group>"; };
 		E40A7DFD2559B6D600D81087 /* DropInteractionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropInteractionDelegate.swift; sourceTree = "<group>"; };
 		E40A9B8325758D7700C8BA82 /* TextEditingDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextEditingDelegate.swift; sourceTree = "<group>"; };
-		E40A9B87257594B500C8BA82 /* MarkupToolBarDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkupToolBarDelegate.swift; sourceTree = "<group>"; };
 		E41209522538C1020088AC26 /* EmptyScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyScreenView.swift; sourceTree = "<group>"; };
 		E42FC8362530EF78004E81C9 /* MarkdownFormatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkdownFormatView.swift; sourceTree = "<group>"; };
 		E4714A98255F077E007AE0D6 /* DocumentPickerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentPickerDelegate.swift; sourceTree = "<group>"; };
@@ -1050,7 +1048,7 @@
 				D9F4A9A325277A6A00BFDC19 /* Resize */,
 				D9F4A9A025277A6000BFDC19 /* BoxView.swift */,
 				1E9EF4A825225B9B00CC623B /* TextEditingDelegateObserver.swift */,
-				D9F4A9BC2527D0A600BFDC19 /* MarkupToolBarObserver.swift */,
+				D9F4A9BC2527D0A600BFDC19 /* MarkdownToolBarObserver.swift */,
 				D9F04BEF25378236001C6551 /* AddNoteObserver.swift */,
 				A71E2C202538EF51000DA164 /* NotesPageViewControllerDataSource.swift */,
 			);
@@ -1155,7 +1153,7 @@
 			isa = PBXGroup;
 			children = (
 				D9CE2D322565C00A00DF4D2A /* NoteContentHandler.swift */,
-				D9CE2D332565C00A00DF4D2A /* BoxViewInteractions.swift */,
+				D9CE2D332565C00A00DF4D2A /* FormattingDelegate.swift */,
 				D9CE2D342565C00A00DF4D2A /* ResizeHandleFunctions.swift */,
 				D9CE2D352565C00A00DF4D2A /* NotesViewControllerConfiguration.swift */,
 			);
@@ -1171,7 +1169,6 @@
 				D9CE2D3A2565C00A00DF4D2A /* NoteAssignerViewController.swift */,
 				D9CE2D3B2565C00A00DF4D2A /* NotesViewController.swift */,
 				E40A9B8325758D7700C8BA82 /* TextEditingDelegate.swift */,
-				E40A9B87257594B500C8BA82 /* MarkupToolBarDelegate.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -1588,7 +1585,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				025C015625379C6D009923B2 /* FileHelper.swift in Sources */,
-				D9F4A9BD2527D0A600BFDC19 /* MarkupToolBarObserver.swift in Sources */,
+				D9F4A9BD2527D0A600BFDC19 /* MarkdownToolBarObserver.swift in Sources */,
 				02ECA43C2512ABD100E68588 /* NotebookCollectionViewCell.swift in Sources */,
 				A7C057C525420F260023A370 /* NotesToolbar.swift in Sources */,
 				02207A392523A5970001FD7E /* WorkspacesCollectionViewDataSource.swift in Sources */,
@@ -1635,7 +1632,7 @@
 				E40A7DFE2559B6D600D81087 /* DropInteractionDelegate.swift in Sources */,
 				02A8BCEC2512A453006B685E /* NotebooksCollectionViewDataSource.swift in Sources */,
 				D9CE2D4E2565C00A00DF4D2A /* NoteAssignerNotebookObserver.swift in Sources */,
-				D9CE2D432565C00A00DF4D2A /* BoxViewInteractions.swift in Sources */,
+				D9CE2D432565C00A00DF4D2A /* FormattingDelegate.swift in Sources */,
 				A731AA7425372F9C00624131 /* IndexObserver.swift in Sources */,
 				02DD09FE25114D6200B6696B /* SceneDelegate.swift in Sources */,
 				1E9EF4AD2522609400CC623B /* MarkupTextFieldDelegate.swift in Sources */,
@@ -1685,7 +1682,6 @@
 				D97EE7AD254B554F00A68B06 /* SearchResultCollectionViewDelegate.swift in Sources */,
 				D9D87534251BAA6700B842C8 /* MarkdownTextField.swift in Sources */,
 				A71E2C1E2538EEB8000DA164 /* NotesPageViewControllerDelegate.swift in Sources */,
-				E40A9B88257594B500C8BA82 /* MarkupToolBarDelegate.swift in Sources */,
 				E42FC8372530EF78004E81C9 /* MarkdownFormatView.swift in Sources */,
 				1E91D362255F30B5002FA8F1 /* OnboardingPageViewControllerDataSource.swift in Sources */,
 				1E47C56C254377BE00535DDD /* NoteEntityToPDFExtension.swift in Sources */,

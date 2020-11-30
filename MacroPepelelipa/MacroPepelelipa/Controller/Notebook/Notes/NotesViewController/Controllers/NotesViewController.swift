@@ -17,8 +17,6 @@ import AppKit
 #endif
 
 internal class NotesViewController: UIViewController, 
-                                    MarkupToolBarObserver,
-                                    MarkdownFormatViewReceiver,
                                     ResizeHandleReceiver,
                                     BoxViewReceiver {
     
@@ -87,7 +85,7 @@ internal class NotesViewController: UIViewController,
     internal private(set) weak var notebook: NotebookEntity?
     
     private lazy var resizeHandleFunctions = ResizeHandleFunctions(owner: self)
-    private lazy var boxViewInteractions = BoxViewInteractions(resizeHandleReceiver: self, boxViewReceiver: self, owner: self)
+    private lazy var formattingDelegate = FormattingDelegate(resizeHandleReceiver: self, boxViewReceiver: self, owner: self, note: self.note)
     private lazy var noteContentHandler = NoteContentHandler(owner: self)
     private lazy var notesControllerConfiguration = NotesViewControllerConfiguration(boxViewReceiver: self)
     
@@ -140,14 +138,14 @@ internal class NotesViewController: UIViewController,
     
     internal lazy var markupConfig: MarkdownBarConfiguration = {
         let mrkConf = MarkdownBarConfiguration(owner: textView)
-        mrkConf.observer = self
+        mrkConf.observer = formattingDelegate
         return mrkConf
     }()
     
     internal private(set) lazy var markupContainerView: MarkdownContainerView = {
         let height: CGFloat = screenSize.height/4
         
-        let container = MarkdownContainerView(frame: CGRect(x: 0, y: 0, width: screenSize.width, height: height), owner: self.textView, receiver: self)
+        let container = MarkdownContainerView(frame: CGRect(x: 0, y: 0, width: screenSize.width, height: height), owner: self.textView, receiver: formattingDelegate)
         
         container.autoresizingMask = []
         container.isHidden = true
@@ -363,16 +361,7 @@ internal class NotesViewController: UIViewController,
     
     ///Creates an Image Box
     internal func createImageBox(image: UIImage?) {
-        guard let note = note else {
-            let alertController = UIAlertController(
-                title: "Note does not exist".localized(),
-                message: "The app could not safe unwrap the view controller note".localized(),
-                preferredStyle: .alert)
-                .makeErrorMessage(with: "Failed to load the Note".localized())
-            self.present(alertController, animated: true, completion: nil)
-            return
-        }
-        boxViewInteractions.createImageBox(image: image, note: note)
+        formattingDelegate.createImageBox(image: image)
     }
     
     ///Adds an Image Box
@@ -431,14 +420,8 @@ internal class NotesViewController: UIViewController,
     internal func insertText(_ text: String) {
         self.textView.insertText("\n" + text + "\n")
     }
-    
-    // MARK: - MarkupToolBarObserver functions
-    
-    /**
-     This method changes de main input view based on it being custom or not.
-     - Parameter isCustom: A boolean indicating if the input view will be a custom view or not.
-     */
-    internal func changeTextViewInput(isCustom: Bool) {
+        
+    internal func toggleInputView(_ isCustom: Bool) {
         if isCustom == true {
             textView.inputView = markupContainerView
         } else {
@@ -448,42 +431,6 @@ internal class NotesViewController: UIViewController,
         keyboardToolbar.isHidden.toggle()
         markupContainerView.isHidden.toggle()
         textView.reloadInputViews()
-    }
-    
-    ///Creates a TextBox
-    internal func createTextBox(transcription: String? = nil) {
-
-        guard let note = note else { 
-            let alertController = UIAlertController(
-                title: "Note does not exist".localized(),
-                message: "The app could not safe unwrap the view controller note".localized(),
-                preferredStyle: .alert)
-                .makeErrorMessage(with: "Failed to load the Note".localized())
-
-            self.present(alertController, animated: true, completion: nil)
-            return
-        }
-        boxViewInteractions.createTextBox(transcription: transcription, note: note)
-    }
-    
-    /// This method presentes the photo picker for iOS and iPadOS
-    internal func presentPhotoPicker() {
-        #if !targetEnvironment(macCatalyst)
-        var config = PHPickerConfiguration()
-        config.filter = .images
-        
-        let picker = PHPickerViewController(configuration: config)
-        picker.delegate = photoPickerDelegate
-        
-        self.present(picker, animated: true, completion: nil)
-        #endif
-    }
-    
-    /// This method presentes the camera picker for iOS and iPadOS
-    internal func presentCameraPicker() {
-        #if !targetEnvironment(macCatalyst)
-        self.showImagePickerController(sourceType: .camera)
-        #endif
     }
     
     // MARK: - Uptade exclusion path frames
@@ -542,7 +489,7 @@ internal class NotesViewController: UIViewController,
             }
             if gestureRecognizer.state != .cancelled {
                 let newCenter = CGPoint(x: initialCenter.x + translation.x, y: initialCenter.y + translation.y)
-                boxViewInteractions.moveBoxView(boxView: boxView, by: newCenter)
+                formattingDelegate.moveBoxView(boxView: boxView, by: newCenter)
             } else {
                 boxView.center = initialCenter
             }

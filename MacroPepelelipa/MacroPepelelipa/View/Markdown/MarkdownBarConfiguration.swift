@@ -25,7 +25,7 @@ internal class MarkdownBarConfiguration {
     private weak var textView: MarkdownTextView?
     private weak var markupViewController: MarkupContainerViewController?
     
-    internal weak var observer: MarkupToolBarObserver?
+    internal weak var observer: FormattingDelegate?
     
     // MARK: - Initializers
     internal init(owner: MarkdownTextView) {

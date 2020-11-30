@@ -10,16 +10,21 @@ import Foundation
 import UIKit
 import Database
 
-internal class BoxViewInteractions {
+internal class FormattingDelegate: NSObject, MarkdownToolBarObserver, MarkdownFormatViewReceiver {
     
     private weak var resizeHandleReceiver: ResizeHandleReceiver?
     private weak var boxViewReceiver: BoxViewReceiver?
     private weak var owner: UIViewController?
+    private var note: NoteEntity?
     
-    internal init(resizeHandleReceiver: ResizeHandleReceiver, boxViewReceiver: BoxViewReceiver, owner: UIViewController) {
+    // TODO: set delegate
+    internal var delegate: AppMarkdownTextViewDelegate?
+    
+    internal init(resizeHandleReceiver: ResizeHandleReceiver, boxViewReceiver: BoxViewReceiver, owner: UIViewController? = nil, note: NoteEntity?) {
         self.resizeHandleReceiver = resizeHandleReceiver 
         self.boxViewReceiver = boxViewReceiver
         self.owner = owner
+        self.note = note
     }
     
     /**
@@ -35,8 +40,8 @@ internal class BoxViewInteractions {
     }
     
     ///Creates a TextBox
-    internal func createTextBox(transcription: String? = nil, note: NoteEntity) {
-        if let owner = owner {
+    internal func createTextBox(transcription: String? = nil) {
+        if let owner = owner, let note = note {
             do {
                 let textBoxEntity = try DataManager.shared().createTextBox(in: note)
                 textBoxEntity.x = Float(owner.view.frame.width/2)
@@ -62,8 +67,8 @@ internal class BoxViewInteractions {
     }
     
     ///Creates an Image Box
-    internal func createImageBox(image: UIImage?, note: NoteEntity) {
-        if let owner = owner { 
+    internal func createImageBox(image: UIImage?) {
+        if let owner = owner, let note = note {
             do {
                 guard let image = image else {
                     let alertController = UIAlertController(
@@ -95,4 +100,27 @@ internal class BoxViewInteractions {
             }
         }
     }
+    
+    func changeTextViewInput(isCustom: Bool) {
+        (owner as? NotesViewController)?.toggleInputView(isCustom)
+    }
+    
+    func presentPhotoPicker() {
+        #if !targetEnvironment(macCatalyst)
+        var config = PHPickerConfiguration()
+        config.filter = .images
+        
+        let picker = PHPickerViewController(configuration: config)
+        picker.delegate = photoPickerDelegate
+        
+        owner.present(picker, animated: true, completion: nil)
+        #endif
+    }
+    
+    func presentCameraPicker() {
+        #if !targetEnvironment(macCatalyst)
+        (owner as? NotesViewController)?.showImagePickerController(sourceType: .camera)
+        #endif
+    }
+    
 }
