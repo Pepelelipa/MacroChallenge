@@ -18,3 +18,8 @@ public extension EntityObserver {
     func entityDidChangeTo(_ value: ObservableEntity) {}
     func entityShouldDelete(_ value: ObservableEntity) {}
 }
+
+
+internal struct EntityObserverReference {
+    weak var value: EntityObserver?
+}

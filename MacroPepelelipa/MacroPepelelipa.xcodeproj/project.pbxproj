@@ -670,6 +670,7 @@
 		023989E72551E726009BFC32 /* App-Database */ = {
 			isa = PBXGroup;
 			children = (
+				02C21B33254B55BB0061CCBA /* Font.swift */,
 				025C015525379C6D009923B2 /* FileHelper.swift */,
 				020E22242513F10800A93EAB /* App Database String Extension.swift */,
 			);
@@ -679,7 +680,6 @@
 		023989EE2551E756009BFC32 /* All */ = {
 			isa = PBXGroup;
 			children = (
-				02C21B33254B55BB0061CCBA /* Font.swift */,
 			);
 			path = All;
 			sourceTree = "<group>";
