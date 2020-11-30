@@ -77,7 +77,6 @@ internal class NotesViewController: UIViewController,
     internal var shouldSave: Bool = true
     internal var textBoxes: Set<TextBoxView> = []  
     internal var imageBoxes: Set<ImageBoxView> = []
-    internal var imgeButtonObserver: ImageButtonObserver?
     internal lazy var receiverView: UIView = self.view
     
     internal weak var note: NoteEntity?
@@ -445,7 +444,6 @@ internal class NotesViewController: UIViewController,
             self.imageBoxes.forEach { (imageBox) in
                 imageBox.state = .idle
             }
-            self.imgeButtonObserver?.hideImageButton()
             
             if !self.resizeHandles.isEmpty {
                 self.resizeHandles.forEach { (resizeHandle) in
@@ -456,9 +454,7 @@ internal class NotesViewController: UIViewController,
     }
     
     func textEditingDidEnd() {
-        DispatchQueue.main.async {
-            self.imgeButtonObserver?.showImageButton()
-        }
+        
         noteContentHandler.saveNote(note: &note, textField: textField, textView: textView, textBoxes: textBoxes, imageBoxes: imageBoxes)
     }
     

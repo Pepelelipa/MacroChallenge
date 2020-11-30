@@ -28,9 +28,8 @@ internal class LooseNoteViewController: UIViewController,
     
     private let screenSize = UIScreen.main.bounds
     
-    internal var textBoxes: Set<TextBoxView> = []  
+    internal var textBoxes: Set<TextBoxView> = []
     internal var imageBoxes: Set<ImageBoxView> = []
-    internal var imgeButtonObserver: ImageButtonObserver?
     internal lazy var receiverView: UIView = self.view
 
     internal var note: NoteEntity?
@@ -442,19 +441,12 @@ internal class LooseNoteViewController: UIViewController,
             self.imageBoxes.forEach { (imageBox) in
                 imageBox.state = .idle
             }
-            self.imgeButtonObserver?.hideImageButton()
             
             if !self.resizeHandles.isEmpty {
                 self.resizeHandles.forEach { (resizeHandle) in
                     resizeHandle.removeFromSuperview()
                 }
             }
-        }
-    }
-    
-    func textEditingDidEnd() {
-        DispatchQueue.main.async {
-            self.imgeButtonObserver?.showImageButton()
         }
     }
     
