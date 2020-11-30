@@ -54,6 +54,10 @@ internal final class ConflictHandlerObject: ConflictHandler {
         }
     }
     
+    internal func genericErrorHandling(title: String, message: String) {
+        presentAlertController(title: title, message: message)
+    }
+    
     private func workspaceErrorHandling(error: WorkspaceError) {
         let title: String = "Error in Workspace".localized()
 
