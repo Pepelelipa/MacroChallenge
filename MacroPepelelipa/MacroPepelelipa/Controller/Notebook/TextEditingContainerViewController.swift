@@ -142,13 +142,13 @@ internal class TextEditingContainerViewController: UIViewController,
         }
         navigationItem.largeTitleDisplayMode = .never
         navigationItem.titleView = markupNavigationView
-        navigationItem.titleView?.backgroundColor = .clear
+        navigationItem.titleView?.backgroundColor = .backgroundColor
         navigationController?.navigationBar.barTintColor = .backgroundColor
         view.backgroundColor = .rootColor
         
         #if targetEnvironment(macCatalyst)
         navigationController?.navigationBar.isTranslucent = false
-        navigationController?.navigationBar.backgroundColor = .white
+        navigationController?.navigationBar.backgroundColor = UIColor.backgroundColor
         #endif
         
         NotificationCenter.default.addObserver(
