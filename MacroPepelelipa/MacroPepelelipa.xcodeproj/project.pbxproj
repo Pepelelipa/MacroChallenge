@@ -677,13 +677,6 @@
 			path = "App-Database";
 			sourceTree = "<group>";
 		};
-		023989EE2551E756009BFC32 /* All */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = All;
-			sourceTree = "<group>";
-		};
 		023989F62551E878009BFC32 /* Parser */ = {
 			isa = PBXGroup;
 			children = (
@@ -791,7 +784,6 @@
 		026D4C7C251D1A6E00CBED5A /* Shared */ = {
 			isa = PBXGroup;
 			children = (
-				023989EE2551E756009BFC32 /* All */,
 				023989E72551E726009BFC32 /* App-Database */,
 				02398A222551E9E5009BFC32 /* App-Markdown */,
 			);
