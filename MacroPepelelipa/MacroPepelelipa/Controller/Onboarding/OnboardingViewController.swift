@@ -127,7 +127,7 @@ class OnboardingViewController: UIViewController {
         ])
         
         landscapeiPadConstraints.append(contentsOf: [
-            imageView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.9),
+            imageView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.6),
             imageView.heightAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.5),
                 
             subtitleLabel.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -100)
