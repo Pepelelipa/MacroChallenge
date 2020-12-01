@@ -185,7 +185,7 @@ class OnboardingPageViewController: UIPageViewController {
     
         if orientation == .portrait {
             NSLayoutConstraint.activate([
-                pageControl.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -60)
+                pageControl.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -40)
             ])
         } else {
             NSLayoutConstraint.activate([
@@ -210,11 +210,22 @@ class OnboardingPageViewController: UIPageViewController {
      */
     private func setButtonConstraints() {
         
+        let orientation = UIApplication.shared.windows.first?.windowScene?.interfaceOrientation
+    
+        if orientation == .portrait {
+            NSLayoutConstraint.activate([
+                startButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -40)
+            ])
+        } else {
+            NSLayoutConstraint.activate([
+                startButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -30)
+            ])
+        }
+        
         NSLayoutConstraint.activate([
             startButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             startButton.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.8),
-            startButton.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.06),
-            startButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -50)
+            startButton.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.06)
         ])
     }
 }

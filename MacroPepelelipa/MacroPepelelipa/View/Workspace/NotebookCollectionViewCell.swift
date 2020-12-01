@@ -92,11 +92,11 @@ internal class NotebookCollectionViewCell: UICollectionViewCell, EditableCollect
     }()
     
     private lazy var notebookView: NotebookView = {
-        let notebook = NotebookView(frame: .zero)
-        if let color = UIColor(named: self.notebook?.colorName ?? "") {
-            notebook.color = color
+        let notebookView = NotebookView(frame: .zero)
+        if let notebookObject = self.notebook, let color = UIColor(named: notebookObject.colorName) {
+            notebookView.color = color
         }
-        return notebook
+        return notebookView
     }()
 
     private lazy var editingConstraints: [NSLayoutConstraint] = {
