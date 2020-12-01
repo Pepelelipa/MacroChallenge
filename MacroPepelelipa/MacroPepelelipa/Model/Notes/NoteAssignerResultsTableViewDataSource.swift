@@ -122,13 +122,9 @@ internal class NoteAssignerResultsTableViewDataSource: NSObject,
                     selectedWorkspaces.append(try notebook.getWorkspace()) 
                 }
             } catch {
-                let alertController = UIAlertController(
-                    title: "Unable to get notebooks".localized(),
-                    message: "The app was unable to get the notebooks from a workspace".localized(),
-                    preferredStyle: .alert).makeErrorMessage(with: "Unable to get notebooks")
-                if let viewController = viewController {
-                    viewController.present(alertController, animated: true)
-                }
+                let title = "Unable to get notebooks".localized()
+                let message = "The app was unable to get the notebooks from a workspace".localized()
+                ConflictHandlerObject().genericErrorHandling(title: title, message: message)
             }
         }
         filteredWorkspaces = selectedWorkspaces

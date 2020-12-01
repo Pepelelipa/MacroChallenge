@@ -62,13 +62,9 @@ internal class NotebooksCollectionViewDataSource: NSObject,
         guard let cell = collectionView.dequeueReusableCell(
                 withReuseIdentifier: NotebookCollectionViewCell.cellID(), for: indexPath)
                 as? NotebookCollectionViewCell else {
-            let alertController = UIAlertController(
-                title: "Error presenting a notebook".localized(),
-                message: "The app could not present a notebook".localized(),
-                preferredStyle: .alert)
-                .makeErrorMessage(with: "A notebook cell could not be loaded in a workspace".localized())
-            
-            viewController?.present(alertController, animated: true, completion: nil)    
+            let titlte = "Error presenting a notebook".localized() 
+            let message = "A notebook cell could not be loaded in a workspace".localized()
+            ConflictHandlerObject().genericErrorHandling(title: titlte, message: message)
             return UICollectionViewCell()
         }
         let notebook = notebooks[indexPath.row]

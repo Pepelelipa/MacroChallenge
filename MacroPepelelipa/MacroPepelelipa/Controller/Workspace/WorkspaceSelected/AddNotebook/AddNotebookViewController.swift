@@ -23,7 +23,7 @@ internal class AddNotebookViewController: UIViewController {
     private var popupViewViewConstraints: [NSLayoutConstraint] = []
     
     private lazy var keyboardToolBar = AddNewSpaceToolBar(frame: .zero, owner: txtName)
-    private lazy var collectionViewDataSource = ColorSelectionCollectionViewDataSource(viewController: self)
+    private lazy var collectionViewDataSource = ColorSelectionCollectionViewDataSource()
     private lazy var gestureDelegate: GestureDelegate = GestureDelegate(popup: popupView, textField: txtName)
     
     private lazy var popupView: UIView = {
@@ -257,14 +257,11 @@ internal class AddNotebookViewController: UIViewController {
     @IBAction func btnConfirmTap() {
         guard let workspace = workspace, let text = txtName.text,
               let notebookColorName = UIColor.notebookColorName(of: notebookView.color) else {
-            let alertController = UIAlertController(
-                title: "Error creating new notebook".localized(),
-                message: "The app could not retrieve the necessary information".localized(),
-                preferredStyle: .alert)
-                .makeErrorMessage(with: "Not possible to retrieve a workspace or notebook name in notebook creation".localized())
-
-            present(alertController, animated: true, completion: nil)
             
+            let title = "Error creating new notebook".localized()
+            let message = "Not possible to retrieve a workspace or notebook name in notebook creation".localized()
+            
+            ConflictHandlerObject().genericErrorHandling(title: title, message: message)
             self.dismiss(animated: true) { 
                 if self.txtName.isEditing {
                     self.txtName.endEditing(true)
@@ -281,12 +278,10 @@ internal class AddNotebookViewController: UIViewController {
                 _ = try DataManager.shared().createNotebook(in: workspace, named: text, colorName: notebookColorName)
             }
         } catch {
-            let alertController = UIAlertController(
-                title: "Error creating the notebook".localized(),
-                message: "The database could not create the notebook".localized(),
-                preferredStyle: .alert)
-                .makeErrorMessage(with: "A new Notebook could not be created".localized())
-            self.present(alertController, animated: true, completion: nil)
+            
+            let title = "Error creating the notebook".localized()
+            let message = "A new Notebook could not be created".localized()
+            ConflictHandlerObject().genericErrorHandling(title: title, message: message)
         }
         
         self.dismiss(animated: true) { 

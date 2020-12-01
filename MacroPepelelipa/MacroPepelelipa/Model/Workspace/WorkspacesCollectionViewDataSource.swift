@@ -30,14 +30,9 @@ internal class WorkspacesCollectionViewDataSource: NSObject,
             }
             return workspaces
         } catch {
-            let alertController = UIAlertController(
-                title: "Error fetching the workspaces".localized(),
-                message: "The database could not fetch the workspace".localized(),
-                preferredStyle: .alert)
-                .makeErrorMessage(with: "The Workspaces could not be fetched".localized())
-            if let viewController = viewController {
-                viewController.present(alertController, animated: true, completion: nil)
-            }
+            let title = "Error fetching the workspaces".localized() 
+            let message = "The Workspaces could not be fetched".localized()
+            ConflictHandlerObject().genericErrorHandling(title: title, message: message)
             return []
         }
     }()
@@ -70,13 +65,9 @@ internal class WorkspacesCollectionViewDataSource: NSObject,
         guard let cell = collectionView.dequeueReusableCell(
                 withReuseIdentifier: WorkspaceCollectionViewCell.cellID(), for: indexPath)
                 as? WorkspaceCollectionViewCell else {
-            let alertController = UIAlertController(
-                title: "Error presenting a workspace".localized(),
-                message: "The app could not present a workspace".localized(),
-                preferredStyle: .alert)
-                .makeErrorMessage(with: "A workspace cell could not be loaded".localized())
-            
-            viewController?.present(alertController, animated: true, completion: nil)
+            let title = "Error presenting a workspace".localized() 
+            let message = "A workspace cell could not be loaded".localized()
+            ConflictHandlerObject().genericErrorHandling(title: title, message: message)
             return UICollectionViewCell()
         }
         

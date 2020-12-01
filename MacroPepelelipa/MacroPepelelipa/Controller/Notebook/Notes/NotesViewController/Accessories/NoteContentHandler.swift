@@ -12,12 +12,6 @@ import MarkdownText
 
 internal class NoteContentHandler {
     
-    private weak var owner: UIViewController?
-    
-    internal init(owner: UIViewController) {
-        self.owner = owner
-    }
-    
     internal func saveNote(note: inout NoteEntity?, textField: MarkdownTextField, textView: MarkdownTextView, textBoxes: Set<TextBoxView>, imageBoxes: Set<ImageBoxView>) {
         do {
             guard let note = note else {
@@ -55,12 +49,9 @@ internal class NoteContentHandler {
             }
             try note.save()
         } catch {
-            let alertController = UIAlertController(
-                title: "Error saving the notebook".localized(),
-                message: "The database could not save the notebook".localized(),
-                preferredStyle: .alert)
-                .makeErrorMessage(with: "The Notebook could not be saved".localized())
-            owner?.present(alertController, animated: true, completion: nil)
+            let title = "Error saving the notebook".localized()
+            let message = "The Notebook could not be saved".localized()
+            ConflictHandlerObject().genericErrorHandling(title: title, message: message)
         }
     }
 }

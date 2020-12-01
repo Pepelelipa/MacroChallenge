@@ -28,12 +28,10 @@ class NoteAssignerViewController: UIViewController,
             do {
                 try workspaceNameLbl.text = lastNotebook?.getWorkspace().name
             } catch {
-                let alertController = UIAlertController(
-                    title: "Unable to get the last notebook".localized(),
-                    message: "The app was unable to get the notebook from UserDefaults".localized(),
-                    preferredStyle: .alert).makeErrorMessage(with: "Unable to get the last notebook")
-               
-                self.present(alertController, animated: true)
+                let title = "Unable to get the last notebook".localized()
+                let message = "The app was unable to get the notebook from UserDefaults".localized()
+                
+                ConflictHandlerObject().genericErrorHandling(title: title, message: message)
             }
         }
     }
@@ -122,12 +120,10 @@ class NoteAssignerViewController: UIViewController,
                 text.addAttribute(NSAttributedString.Key.paragraphStyle, value: paragraphStyle, range: NSRange(location: 0, length: text.length))
                 label.attributedText = text
             } catch {
-                let alertController = UIAlertController(
-                    title: "Unable to get the last notebook".localized(),
-                    message: "The app was unable to get the notebook from UserDefaults".localized(),
-                    preferredStyle: .alert).makeErrorMessage(with: "Unable to get the last notebook")
-               
-                self.present(alertController, animated: true)
+                let title = "Unable to get the last notebook".localized()
+                let message = "The app was unable to get the notebook from UserDefaults".localized()
+                
+                ConflictHandlerObject().genericErrorHandling(title: title, message: message)
             }
         }
         
@@ -327,12 +323,10 @@ class NoteAssignerViewController: UIViewController,
                                 self.dismiss(animated: true, completion: nil)
                                 observer?.dismissLooseNoteViewController()
                             } catch {
-                                let alertController = UIAlertController(
-                                    title: "Could not delete this note".localized(),
-                                    message: "The app could not delete the note".localized() + noteEntity.title.string,
-                                    preferredStyle: .alert)
-                                    .makeErrorMessage(with: "An error occurred while deleting this instance on the database".localized())
-                                self.present(alertController, animated: true, completion: nil)
+                                let title = "Could not delete this note".localized()
+                                let message = "An error occurred while deleting this instance on the database".localized()
+                                
+                                ConflictHandlerObject().genericErrorHandling(title: title, message: message)
                             }
                         }
                 }
@@ -350,12 +344,10 @@ class NoteAssignerViewController: UIViewController,
                 self.dismiss(animated: true, completion: nil)
                 observer?.dismissLooseNoteViewController()
             } catch {
-                let alertController = UIAlertController(
-                    title: "Could note assign the note to the notebook".localized(),
-                    message: "The app could not assign the note to the notebook".localized() + noteEntity.title.string,
-                    preferredStyle: .alert)
-                    .makeErrorMessage(with: "An error occurred while the application was trying to assign the note to the notebook".localized())
-                self.present(alertController, animated: true, completion: nil)
+                let title = "Could note assign the note to the notebook".localized()
+                let message = "The app could not assign the note to the notebook".localized() + noteEntity.title.string
+                
+                ConflictHandlerObject().genericErrorHandling(title: title, message: message)
             }
         }
     }

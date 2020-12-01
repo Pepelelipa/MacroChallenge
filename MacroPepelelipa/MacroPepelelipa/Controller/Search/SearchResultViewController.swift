@@ -209,21 +209,13 @@ internal class SearchResultViewController: UIViewController {
         
         switch type {
         case .notebook:
-            let alertController = UIAlertController(
-               title: "Could not open this notebook".localized(),
-               message: "The app could not load this notebook".localized(),
-               preferredStyle: .alert)
-               .makeErrorMessage(with: "The notebook collection view cell did not have a notebook".localized())
-           
-           self.present(alertController, animated: true, completion: nil)
+            let title = "Could not open this notebook".localized()
+            let message = "The notebook collection view cell did not have a notebook".localized()
+            ConflictHandlerObject().genericErrorHandling(title: title, message: message)           
         case .workspaces:
-            let alertController = UIAlertController(
-                title: "Could not open this workspace".localized(),
-                message: "The app could not load this workspace".localized(),
-                preferredStyle: .alert)
-                .makeErrorMessage(with: "The workspace cell did not have a workspace".localized())
-            
-            self.present(alertController, animated: true, completion: nil)
+            let title = "Could not open this workspace".localized()
+            let message = "The workspace cell did not have a workspace".localized()
+            ConflictHandlerObject().genericErrorHandling(title: title, message: message)    
         default:
             return
         }

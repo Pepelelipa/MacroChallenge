@@ -85,8 +85,8 @@ internal class NotesViewController: UIViewController,
     internal private(set) weak var notebook: NotebookEntity?
     
     private lazy var resizeHandleFunctions = ResizeHandleFunctions(owner: self)
-    private lazy var boxViewInteractions = BoxViewInteractions(resizeHandleReceiver: self, boxViewReceiver: self, owner: self)
-    private lazy var noteContentHandler = NoteContentHandler(owner: self)
+    private lazy var boxViewInteractions = BoxViewInteractions(resizeHandleReceiver: self, boxViewReceiver: self, center: Float(self.view.frame.width/2))
+    private lazy var noteContentHandler = NoteContentHandler()
     private lazy var notesControllerConfiguration = NotesViewControllerConfiguration(boxViewReceiver: self)
     
     private lazy var textViewBottomConstraint = textView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20)
@@ -158,14 +158,10 @@ internal class NotesViewController: UIViewController,
     #if !targetEnvironment(macCatalyst)
     internal lazy var photoPickerDelegate = PhotoPickerDelegate { (image, error) in
         if let error = error {
-            let alertController = UIAlertController(
-                title: "Error presenting Photo Library".localized(),
-                message: "The app could not present the Photo Library".localized(),
-                preferredStyle: .alert)
-                .makeErrorMessage(with: "The app could not load the native Image Picker Controller".localized())
-            DispatchQueue.main.async {
-                self.present(alertController, animated: true, completion: nil)
-            }
+            let title = "Error presenting Photo Library".localized()
+            let message = "The app could not present the Photo Library".localized()
+            
+            ConflictHandlerObject().genericErrorHandling(title: title, message: message)
             NSLog("Error requesting -> \(error)")
             return
         }
@@ -190,13 +186,10 @@ internal class NotesViewController: UIViewController,
         do {
             self.notebook = try note.getNotebook()
         } catch {
-            let alertController = UIAlertController(
-                title: "Error retriving notebook".localized(),
-                message: "The app could not retrieve a notebook".localized(),
-                preferredStyle: .alert)
-                .makeErrorMessage(with: "A notebook could not be retrieved".localized())
+            let title = "Error retriving notebook".localized()
+            let message = "The app could not retrieve a notebook".localized()
             
-            self.present(alertController, animated: true, completion: nil)
+            ConflictHandlerObject().genericErrorHandling(title: title, message: message)
         }
     }
     
@@ -366,12 +359,10 @@ internal class NotesViewController: UIViewController,
     ///Creates an Image Box
     internal func createImageBox(image: UIImage?) {
         guard let note = note else {
-            let alertController = UIAlertController(
-                title: "Note does not exist".localized(),
-                message: "The app could not safe unwrap the view controller note".localized(),
-                preferredStyle: .alert)
-                .makeErrorMessage(with: "Failed to load the Note".localized())
-            self.present(alertController, animated: true, completion: nil)
+            let title = "Note does not exist".localized()
+            let message = "Failed to load the Note".localized()
+            
+            ConflictHandlerObject().genericErrorHandling(title: title, message: message)
             return
         }
         boxViewInteractions.createImageBox(image: image, note: note)
@@ -484,13 +475,10 @@ internal class NotesViewController: UIViewController,
     internal func createTextBox(transcription: String? = nil) {
 
         guard let note = note else { 
-            let alertController = UIAlertController(
-                title: "Note does not exist".localized(),
-                message: "The app could not safe unwrap the view controller note".localized(),
-                preferredStyle: .alert)
-                .makeErrorMessage(with: "Failed to load the Note".localized())
-
-            self.present(alertController, animated: true, completion: nil)
+            let title = "Note does not exist".localized()
+            let message = "Failed to load the Note".localized()
+            
+            ConflictHandlerObject().genericErrorHandling(title: title, message: message)
             return
         }
         boxViewInteractions.createTextBox(transcription: transcription, note: note)
@@ -600,12 +588,10 @@ internal class NotesViewController: UIViewController,
                                                                     self.updateExclusionPaths()
                                                                     try DataManager.shared().deleteImageBox(entity)
                                                                 } catch {
-                                                                    let alertController = UIAlertController(
-                                                                        title: "Could not delete this Image Box".localized(),
-                                                                        message: "The app could not delete the image box".localized(),
-                                                                        preferredStyle: .alert)
-                                                                        .makeErrorMessage(with: "An error occurred while deleting this instance on the database".localized())
-                                                                    self.present(alertController, animated: true, completion: nil)
+                                                                    let title = "Could not delete this Image Box".localized()
+                                                                    let message = "An error occurred while deleting this instance on the database".localized()
+                                                                    
+                                                                    ConflictHandlerObject().genericErrorHandling(title: title, message: message)
                                                                 }
                                                               })
                 self.present(deleteAlertController, animated: true, completion: nil)
@@ -634,12 +620,10 @@ internal class NotesViewController: UIViewController,
                                                                     self.updateExclusionPaths()
                                                                     try DataManager.shared().deleteTextBox(entity)
                                                                 } catch {
-                                                                    let alertController = UIAlertController(
-                                                                        title: "Could not delete this Text Box".localized(),
-                                                                        message: "The app could not delete the text box".localized(),
-                                                                        preferredStyle: .alert)
-                                                                        .makeErrorMessage(with: "An error occurred while deleting this instance on the database".localized())
-                                                                    self.present(alertController, animated: true, completion: nil)
+                                                                    let title = "Could not delete this Text Box".localized()
+                                                                    let message = "An error occurred while deleting this instance on the database".localized()
+                                                                    
+                                                                    ConflictHandlerObject().genericErrorHandling(title: title, message: message)
                                                                 }
                                                               })
                 self.present(deleteAlertController, animated: true, completion: nil)
@@ -674,12 +658,10 @@ internal class NotesViewController: UIViewController,
             let controller = UIDocumentPickerViewController(forExporting: [fileURL])
             present(controller, animated: true)
         } catch {
-            let alertController = UIAlertController(
-                title: "An error has occurred while exporting the PDF".localized(),
-                message: "The app could not export the file as a PDF".localized(),
-                preferredStyle: .alert)
-                .makeErrorMessage(with: "Error writing data to the designed url".localized())
-            self.present(alertController, animated: true)
+            let title = "An error has occurred while exporting the PDF".localized()
+            let message = "The app could not export the file as a PDF".localized()
+            
+            ConflictHandlerObject().genericErrorHandling(title: title, message: message)
         }
     }
     

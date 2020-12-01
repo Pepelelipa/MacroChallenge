@@ -11,17 +11,9 @@ import UIKit
 internal class ColorSelectionCollectionViewDataSource: NSObject, UICollectionViewDataSource {
     
     // MARK: - Variables and Constants
-
-    private weak var viewController: UIViewController?
     
     private var colors: [UIColor] {
         UIColor.notebookColors
-    }
-    
-    // MARK: - Initializers
-    
-    init(viewController: UIViewController? = nil) {
-        self.viewController = viewController
     }
     
     // MARK: - UICollectionViewDataSource functions
@@ -34,13 +26,9 @@ internal class ColorSelectionCollectionViewDataSource: NSObject, UICollectionVie
         guard let cell = collectionView.dequeueReusableCell(
                 withReuseIdentifier: ColorSelectionCollectionViewCell.cellID(), for: indexPath)
                 as? ColorSelectionCollectionViewCell else {
-            let alertController = UIAlertController(
-                title: "Error presenting notebook creation".localized(),
-                message: "The app could not present a color".localized(),
-                preferredStyle: .alert)
-                .makeErrorMessage(with: "A color cell could not be loaded in the creation of a notebook".localized())
-
-            viewController?.present(alertController, animated: true, completion: nil)
+            let title = "Error presenting notebook creation".localized()
+            let message = "A color cell could not be loaded in the creation of a notebook".localized()
+            ConflictHandlerObject().genericErrorHandling(title: title, message: message)
             return UICollectionViewCell()
         }
         cell.color = colors[indexPath.row]

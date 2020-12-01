@@ -205,12 +205,10 @@ internal class AddNoteViewController: UIViewController, AddNoteObserver {
                 note.title = text.toStyle(font: .defaultHeader, .h1)
                 try note.save()
             } catch {
-                let alertController = UIAlertController(
-                    title: "Error creating a new Note".localized(),
-                    message: "The database could not create a new Note".localized(),
-                    preferredStyle: .alert)
-                    .makeErrorMessage(with: "A new Note could not be created".localized())
-                self.present(alertController, animated: true, completion: nil)
+                let title = "Error creating a new Note".localized()
+                let message = "A new Note could not be created".localized()
+                
+                ConflictHandlerObject().genericErrorHandling(title: title, message: message)
             }
             
             self.dismiss(animated: true) { 

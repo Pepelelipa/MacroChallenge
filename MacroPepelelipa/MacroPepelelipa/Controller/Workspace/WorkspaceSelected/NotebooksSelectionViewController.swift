@@ -98,7 +98,9 @@ internal class NotebooksSelectionViewController: UIViewController, EntityObserve
                     do {
                         note = try DataManager.shared().createNote(in: notebook)
                     } catch {
-                        self.presentErrorAlert()
+                        let title = "Could not open this notebook".localized()
+                        let message = "The app could not load this notebook".localized()
+                        ConflictHandlerObject().genericErrorHandling(title: title, message: message)
                     }
                 }
 
@@ -107,7 +109,9 @@ internal class NotebooksSelectionViewController: UIViewController, EntityObserve
                 self.editNotebook(notebook)
             }
         } else {
-            self.presentErrorAlert()
+            let title = "Could not open this notebook".localized()
+            let message = "The app could not load this notebook".localized()
+            ConflictHandlerObject().genericErrorHandling(title: title, message: message)
         }
     }
     
@@ -353,17 +357,6 @@ internal class NotebooksSelectionViewController: UIViewController, EntityObserve
         NSLayoutConstraint.activate(activate)
     }
     
-    private func presentErrorAlert() {
-        
-         let alertController = UIAlertController(
-            title: "Could not open this notebook".localized(),
-            message: "The app could not load this notebook".localized(),
-            preferredStyle: .alert)
-            .makeErrorMessage(with: "The notebook collection view cell did not have a notebook".localized())
-        
-        self.present(alertController, animated: true, completion: nil)
-    }
-    
     private func presentDestination(for device: UIUserInterfaceIdiom, notebook: NotebookEntity) {
         
         let notesPageViewController = NotesPageViewController(notes: notebook.notes)
@@ -460,20 +453,18 @@ internal class NotebooksSelectionViewController: UIViewController, EntityObserve
         guard let notebook = cell.notebook else {
             return
         }
-
+        
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet).makeDeleteConfirmation(dataType: .notebook, deletionHandler: { [weak self] _ in
             let deleteAlertController = UIAlertController(title: "Delete Notebook confirmation".localized(),
                                                           message: "Warning".localized(),
-                                                          preferredStyle: .alert).makeDeleteConfirmation(dataType: .notebook, deletionHandler: { [weak self] _ in
+                                                          preferredStyle: .alert).makeDeleteConfirmation(dataType: .notebook, deletionHandler: { _ in
                                                             do {
                                                                 try DataManager.shared().deleteNotebook(notebook)
                                                             } catch {
-                                                                let alertController = UIAlertController(
-                                                                    title: "Could not delete this notebook".localized(),
-                                                                    message: "The app could not delete the notebook".localized() + notebook.name,
-                                                                    preferredStyle: .alert)
-                                                                    .makeErrorMessage(with: "An error occurred while deleting this instance on the database".localized())
-                                                                self?.present(alertController, animated: true, completion: nil)
+                                                                let title = "Could not delete this notebook".localized()
+                                                                let message = "An error occurred while deleting this instance on the database".localized()
+                                                                
+                                                                ConflictHandlerObject().genericErrorHandling(title: title, message: message)
                                                             }
                                                           })
             self?.present(deleteAlertController, animated: true, completion: nil)

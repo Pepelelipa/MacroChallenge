@@ -14,12 +14,12 @@ internal class BoxViewInteractions {
     
     private weak var resizeHandleReceiver: ResizeHandleReceiver?
     private weak var boxViewReceiver: BoxViewReceiver?
-    private weak var owner: UIViewController?
+    private var center: Float
     
-    internal init(resizeHandleReceiver: ResizeHandleReceiver, boxViewReceiver: BoxViewReceiver, owner: UIViewController) {
+    internal init(resizeHandleReceiver: ResizeHandleReceiver, boxViewReceiver: BoxViewReceiver, center: Float) {
         self.resizeHandleReceiver = resizeHandleReceiver 
         self.boxViewReceiver = boxViewReceiver
-        self.owner = owner
+        self.center = center
     }
     
     /**
@@ -36,63 +36,51 @@ internal class BoxViewInteractions {
     
     ///Creates a TextBox
     internal func createTextBox(transcription: String? = nil, note: NoteEntity) {
-        if let owner = owner {
-            do {
-                let textBoxEntity = try DataManager.shared().createTextBox(in: note)
-                textBoxEntity.x = Float(owner.view.frame.width/2)
-                textBoxEntity.y = 10
-                textBoxEntity.height = 40
-                textBoxEntity.width = 140
-                if let transcriptedText = transcription {
-                    textBoxEntity.text = transcriptedText.toStyle(.paragraph)
-                } else {
-                    textBoxEntity.text = "Text".localized().toStyle(.paragraph)
-                }
-                boxViewReceiver?.addTextBox(with: textBoxEntity)
-            } catch {
-                let alertController = UIAlertController(
-                    title: "Failed to create a Text Box".localized(),
-                    message: "The app could not create a Text Box".localized(),
-                    preferredStyle: .alert)
-                    .makeErrorMessage(with: "Failed to create a Text Box".localized())
-
-                owner.present(alertController, animated: true, completion: nil)
+        do {
+            let textBoxEntity = try DataManager.shared().createTextBox(in: note)
+            textBoxEntity.x = center
+            textBoxEntity.y = 10
+            textBoxEntity.height = 40
+            textBoxEntity.width = 140
+            if let transcriptedText = transcription {
+                textBoxEntity.text = transcriptedText.toStyle(.paragraph)
+            } else {
+                textBoxEntity.text = "Text".localized().toStyle(.paragraph)
             }
+            boxViewReceiver?.addTextBox(with: textBoxEntity)
+        } catch {
+            let title = "Failed to create a Text Box".localized()
+            let message = "Failed to create a Text Box".localized()
+            
+            ConflictHandlerObject().genericErrorHandling(title: title, message: message)
         }
+        
     }
     
     ///Creates an Image Box
     internal func createImageBox(image: UIImage?, note: NoteEntity) {
-        if let owner = owner { 
-            do {
-                guard let image = image else {
-                    let alertController = UIAlertController(
-                        title: "Note does not exist".localized(),
-                        message: "The app could not safe unwrap the view controller note".localized(),
-                        preferredStyle: .alert)
-                        .makeErrorMessage(with: "Failed to load the Note".localized())
-                    
-                    owner.present(alertController, animated: true, completion: nil)
-                    return
-                }
+        do {
+            guard let image = image else {
+                let title = "Note does not exist".localized()
+                let message = "Failed to load the Note".localized()
                 
-                let path = try FileHelper.saveToFiles(image: image)
-                let imageBoxEntity = try DataManager.shared().createImageBox(in: note, at: path)
-                imageBoxEntity.x = Float(owner.view.frame.width/2)
-                imageBoxEntity.y = 10
-                imageBoxEntity.width = 150
-                imageBoxEntity.height = 150
-                
-                boxViewReceiver?.addImageBox(with: imageBoxEntity)
-            } catch {
-                let alertController = UIAlertController(
-                    title: "Failed to create a Image Box".localized(),
-                    message: "The app could not create a Image Box".localized(),
-                    preferredStyle: .alert)
-                    .makeErrorMessage(with: "Failed to create a Image Box".localized())
-                
-                owner.present(alertController, animated: true, completion: nil)
+                ConflictHandlerObject().genericErrorHandling(title: title, message: message)
+                return
             }
+            
+            let path = try FileHelper.saveToFiles(image: image)
+            let imageBoxEntity = try DataManager.shared().createImageBox(in: note, at: path)
+            imageBoxEntity.x = center
+            imageBoxEntity.y = 10
+            imageBoxEntity.width = 150
+            imageBoxEntity.height = 150
+            
+            boxViewReceiver?.addImageBox(with: imageBoxEntity)
+        } catch {
+            let title = "Failed to create a Image Box".localized()
+            let message = "Failed to create a Image Box".localized()
+            
+            ConflictHandlerObject().genericErrorHandling(title: title, message: message)
         }
     }
 }

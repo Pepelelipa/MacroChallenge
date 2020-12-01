@@ -191,6 +191,10 @@
 
 "All" = "Todos";
 
+"Unable to access the View Controller" = "Incapaz de acessar a View Controller";
+"Controller not found" = "A Controller não foi encontrada";
+
+
 
 // MARK: - Accessibility
 
