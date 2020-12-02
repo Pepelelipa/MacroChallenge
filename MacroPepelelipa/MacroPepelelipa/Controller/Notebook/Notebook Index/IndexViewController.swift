@@ -56,13 +56,10 @@ internal class NotebookIndexViewController: UIViewController {
             self.dismiss(animated: true, completion: nil)
             
         } else {
-            let alertController = UIAlertController(
-                title: "Could not open this note".localized(),
-                message: "The app could not open the selected note".localized(),
-                preferredStyle: .alert)
-                .makeErrorMessage(with: "The index did not have a note".localized())
+            let title = "Could not open this note".localized()
+            let message = "The index did not have a note".localized()
             
-            self.present(alertController, animated: true, completion: nil)
+            ConflictHandlerObject().genericErrorHandling(title: title, message: message)
         }
     }
 

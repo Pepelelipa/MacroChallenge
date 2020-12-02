@@ -89,13 +89,9 @@ internal class WorkspaceSelectionViewController: UIViewController,
     
     private lazy var collectionDelegate = WorkspacesCollectionViewDelegate { [unowned self] (selectedCell) in
         guard let workspace = selectedCell.workspace else {
-            let alertController = UIAlertController(
-                title: "Could not open this workspace".localized(),
-                message: "The app could not load this workspace".localized(),
-                preferredStyle: .alert)
-                .makeErrorMessage(with: "The workspace cell did not have a workspace".localized())
-            
-            self.present(alertController, animated: true, completion: nil)
+            let title = "Could not open this workspace".localized() 
+            let message = "The workspace cell did not have a workspace".localized()
+            ConflictHandlerObject().genericErrorHandling(title: title, message: message)
             return
         }
         
@@ -519,12 +515,9 @@ internal class WorkspaceSelectionViewController: UIViewController,
         do {
             looseNote = try DataManager.shared().createLooseNote()
         } catch {
-            let alertController = UIAlertController(
-                title: "Failed to create Loose Note".localized(),
-                message: "The database could not create the Loose Note".localized(),
-                preferredStyle: .alert)
-                .makeErrorMessage(with: "The Loose Note could not be created".localized())
-            self.present(alertController, animated: true, completion: nil)
+            let title = "Failed to create Loose Note".localized()
+            let message = "The database could not create the Loose Note".localized()
+            ConflictHandlerObject().genericErrorHandling(title: title, message: message)
         }
         
         if let note = looseNote {
@@ -561,16 +554,14 @@ internal class WorkspaceSelectionViewController: UIViewController,
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet).makeDeleteConfirmation(dataType: .workspace, deletionHandler: { [weak self] _ in
             let deleteAlertController = UIAlertController(title: "Delete Workspace confirmation".localized(),
                                                           message: "Warning".localized(),
-                                                          preferredStyle: .alert).makeDeleteConfirmation(dataType: .workspace, deletionHandler: { [weak self] _ in
+                                                          preferredStyle: .alert).makeDeleteConfirmation(dataType: .workspace, deletionHandler: { _ in
                                                             do {
                                                                 try DataManager.shared().deleteWorkspace(workspace)
                                                             } catch {
-                                                                let alertController = UIAlertController(
-                                                                    title: "Could not delete this workspace".localized(),
-                                                                    message: "The app could not delete the workspace".localized() + workspace.name,
-                                                                    preferredStyle: .alert)
-                                                                    .makeErrorMessage(with: "An error occurred while deleting this instance on the database".localized())
-                                                                self?.present(alertController, animated: true, completion: nil)
+                                                                let title = "Could not delete this workspace".localized()
+                                                                let message = "An error occurred while deleting this instance on the database".localized()
+                                                                
+                                                                ConflictHandlerObject().genericErrorHandling(title: title, message: message)
                                                             }
                                                           })
             self?.present(deleteAlertController, animated: true, completion: nil)

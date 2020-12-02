@@ -174,12 +174,9 @@ internal class AddWorkspaceViewController: UIViewController, AddWorkspaceObserve
                     _ = try DataManager.shared().createWorkspace(named: text)
                 }
             } catch {
-                let alertController = UIAlertController(
-                    title: "Error creating the workspace".localized(),
-                    message: "The database could not create the workspace".localized(),
-                    preferredStyle: .alert)
-                    .makeErrorMessage(with: "A new Workspace could not be created".localized())
-                self.present(alertController, animated: true, completion: nil)
+                let title = "Error creating the workspace".localized()
+                let message = "A new Workspace could not be created".localized()
+                ConflictHandlerObject().genericErrorHandling(title: title, message: message)
             }
             
             self.dismiss(animated: true) { 

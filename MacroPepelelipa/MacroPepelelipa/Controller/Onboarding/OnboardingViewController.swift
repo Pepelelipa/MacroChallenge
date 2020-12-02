@@ -70,8 +70,13 @@ class OnboardingViewController: UIViewController {
         self.imageName = imageName
     }
     
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+    required convenience init?(coder: NSCoder) {
+        guard let title = coder.decodeObject(forKey: "title") as? String,
+              let subtitle = coder.decodeObject(forKey: "subtitle") as? String,
+              let imageName = coder.decodeObject(forKey: "imageName") as? String else {
+                    return nil
+            }
+        self.init(title: title, subtitle: subtitle, imageName: imageName)
     }
     
     // MARK: - Override functions

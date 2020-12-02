@@ -35,14 +35,9 @@ internal class SearchResultCollectionViewDataSource: NSObject,
             let workspaces = try Database.DataManager.shared().fetchWorkspaces()
             return workspaces
         } catch {
-            let alertController = UIAlertController(
-                title: "Error fetching the workspaces".localized(),
-                message: "The database could not fetch the workspace".localized(),
-                preferredStyle: .alert)
-                .makeErrorMessage(with: "The Workspaces could not be fetched".localized())
-            if let viewController = viewController {
-                viewController.present(alertController, animated: true, completion: nil)
-            }
+            let title = "Error fetching the workspaces".localized()
+            let message = "The Workspaces could not be fetched".localized()
+            ConflictHandlerObject().genericErrorHandling(title: title, message: message)
             return []
         }
     }()
@@ -98,13 +93,9 @@ internal class SearchResultCollectionViewDataSource: NSObject,
             guard let workspaceCell = collectionView.dequeueReusableCell(
                     withReuseIdentifier: WorkspaceCollectionViewCell.cellID(), for: indexPath)
                     as? WorkspaceCollectionViewCell else {
-                let alertController = UIAlertController(
-                    title: "Error presenting a workspace".localized(),
-                    message: "The app could not present a workspace".localized(),
-                    preferredStyle: .alert)
-                    .makeErrorMessage(with: "A workspace cell could not be loaded".localized())
-                
-                viewController?.present(alertController, animated: true, completion: nil)
+                let title = "Error presenting a workspace".localized()
+                let message = "A workspace cell could not be loaded".localized()
+                ConflictHandlerObject().genericErrorHandling(title: title, message: message)
                 return UICollectionViewCell()
             }
                         
@@ -122,13 +113,9 @@ internal class SearchResultCollectionViewDataSource: NSObject,
             guard let notebookCell = collectionView.dequeueReusableCell(
                     withReuseIdentifier: NotebookCollectionViewCell.cellID(), for: indexPath)
                     as? NotebookCollectionViewCell else {
-                let alertController = UIAlertController(
-                    title: "Error presenting a notebook".localized(),
-                    message: "The app could not present a notebook".localized(),
-                    preferredStyle: .alert)
-                    .makeErrorMessage(with: "A notebook cell could not be loaded in a workspace".localized())
-                
-                viewController?.present(alertController, animated: true, completion: nil)    
+                let title = "Error presenting a notebook".localized()
+                let message = "A notebook cell could not be loaded in a workspace".localized()
+                ConflictHandlerObject().genericErrorHandling(title: title, message: message) 
                 return UICollectionViewCell()
             }
             

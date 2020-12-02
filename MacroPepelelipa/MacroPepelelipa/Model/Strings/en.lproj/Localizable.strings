@@ -184,6 +184,9 @@
 
 "All" = "All";
 
+"Unable to access the View Controller" = "Unable to access the View Controller";
+"Controller not found" = "Controller not found";
+
 // MARK: - Accessibility
 
 "Editing enabled" = "Editing enabled";

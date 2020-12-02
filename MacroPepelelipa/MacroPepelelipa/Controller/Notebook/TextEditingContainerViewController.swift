@@ -353,14 +353,9 @@ internal class TextEditingContainerViewController: UIViewController,
                 showIndex(for: notebook)
             
             } else {
-                // Present error alert
-                let alertController = UIAlertController(
-                    title: "Error presenting Notebook Index".localized(),
-                    message: "The app could not present the Notebook Index".localized(),
-                    preferredStyle: .alert)
-                    .makeErrorMessage(with: "The app could not load the NotebookIndexViewController".localized())
-                
-                present(alertController, animated: true, completion: nil)
+                let title = "Error presenting Notebook Index".localized()
+                let message = "The app could not load the NotebookIndexViewController".localized()
+                ConflictHandlerObject().genericErrorHandling(title: title, message: message)
             }
         } else {
             if let presentNotebook = centerViewController?.notebook,

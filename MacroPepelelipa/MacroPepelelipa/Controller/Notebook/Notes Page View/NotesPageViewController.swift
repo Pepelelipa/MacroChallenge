@@ -90,13 +90,10 @@ internal class NotesPageViewController: UIPageViewController,
             }
             
         } catch {
-            let alertController = UIAlertController(
-                title: "Error retriving notebook".localized(),
-                message: "The app could not retrieve a notebook".localized(),
-                preferredStyle: .alert)
-                .makeErrorMessage(with: "A notebook could not be retrieved".localized())
-
-            self.present(alertController, animated: true, completion: nil)
+            let title = "Error retriving notebook".localized()
+            let message = "A notebook could not be retrieved".localized()
+            
+            ConflictHandlerObject().genericErrorHandling(title: title, message: message)
         }
     }
     
@@ -227,12 +224,9 @@ internal class NotesPageViewController: UIPageViewController,
                         self.navigationController?.popViewController(animated: true)
                     }
                 } catch {
-                    let alertController = UIAlertController(
-                        title: "Could not delete this note".localized(),
-                        message: "The app could not delete the note".localized() + note.title.string,
-                        preferredStyle: .alert)
-                        .makeErrorMessage(with: "An error occurred while deleting this instance on the database".localized())
-                    self.present(alertController, animated: true, completion: nil)
+                    let title = "Could not delete this note".localized()
+                    let message = "An error occurred while deleting this instance on the database".localized()
+                    ConflictHandlerObject().genericErrorHandling(title: title, message: message)
                 }
             }
             self.present(deleteAlertController, animated: true, completion: nil)
