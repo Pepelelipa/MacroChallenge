@@ -43,7 +43,6 @@ internal class MarkdownToolBar: UIToolbar {
     private func setUpButtons() {
         
         guard let barButtonItems = markupBarConfiguration?.setUpButtons(),
-              let textBox = barButtonItems[.textBox],
               let image = barButtonItems[.image],
               let format = barButtonItems[.format],
               let list = barButtonItems[.list],
@@ -53,10 +52,7 @@ internal class MarkdownToolBar: UIToolbar {
 
         let flexible = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         
-        self.items = [flexible, textBox, flexible, image]
-        for _ in 0...9 {
-            self.items?.append(flexible)
-        }
+        self.items = [flexible, image, flexible]
         
         self.items?.append(format)
         self.items?.append(flexible)

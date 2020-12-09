@@ -14,7 +14,6 @@ internal enum BarButtonType: String {
     case list = "List style"
     case paragraph = "Paragraph style"
     case image = "Import image"
-    case textBox = "Add text box"
     case format = "Format"
 }
 
@@ -86,10 +85,6 @@ internal class MarkdownBarConfiguration {
         barButtonItems[.list] = listButton
         barButtonItems[.paragraph] = paragraphButton
         barButtonItems[.image] = imageGalleryButton
-        
-        let textBoxButton = createBarButtonItem(imageName: "textbox", systemImage: true, objcFunc: #selector(addTextBox))
-        textBoxButton.accessibilityHint = "Text box hint".localized()
-        barButtonItems[.textBox] = textBoxButton
         
         let paintbrushButton = createBarButtonItem(imageName: "paintbrush", systemImage: true, objcFunc: #selector(openEditTextContainer))
         paintbrushButton.accessibilityLabel = "Format".localized()
@@ -164,10 +159,7 @@ internal class MarkdownBarConfiguration {
         buttons[.list] = listButton
         buttons[.paragraph] = paragraphButton
         buttons[.image] = imageGalleryButton
-        
-        let textBoxButton = createButton(imageName: "textbox", systemImage: true, objcFunc: #selector(addTextBox))
-        textBoxButton.accessibilityHint = "Text box hint".localized()
-        buttons[.textBox] = textBoxButton
+
         
         let paintbrushButton = createButton(imageName: "paintbrush", systemImage: true, objcFunc: #selector(openEditTextContainer))
         paintbrushButton.accessibilityLabel = "Format".localized()
@@ -283,9 +275,5 @@ internal class MarkdownBarConfiguration {
         } else {
             sender.tintColor = UIColor.placeholderColor
         }
-    }
-    
-    @objc internal func addTextBox() {
-        observer?.createTextBox(transcription: nil)
     }
 }

@@ -206,6 +206,13 @@ public class MarkdownTextView: UITextView {
 
     ///Inserts text in text view
     public override func insertText(_ text: String) {
+        if text != "" {
+            if isShowingPlaceholder {
+                self.text = ""
+            }
+        } else {
+            return
+        }
         isShowingPlaceholder = false
         let backText = attributedText.smallBackwardSample(1, location: selectedRange.location).string
         let space = (text == " " && backText != "#" && backText != "-" && backText != ".")
