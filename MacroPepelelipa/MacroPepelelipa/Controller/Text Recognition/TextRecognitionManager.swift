@@ -23,7 +23,6 @@ internal class TextRecognitionManager {
         textRecognition.usesLanguageCorrection = true
         textRecognition.recognitionLevel = .accurate
         textRecognition.usesCPUOnly = false
-        textRecognition.revision = VNRecognizeTextRequestRevision2
         return textRecognition
     }()
     
