@@ -59,8 +59,7 @@ internal class MarkdownNavigationView: UIView {
             ])
         }
         
-        guard let textBox = barButtonItems[.textBox],
-              let image = barButtonItems[.image],
+        guard let image = barButtonItems[.image],
               let format = barButtonItems[.format],
               let list = barButtonItems[.list],
               let paragraph = barButtonItems[.paragraph] else {
@@ -68,8 +67,7 @@ internal class MarkdownNavigationView: UIView {
         }
         
         NSLayoutConstraint.activate([
-            textBox.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 10),
-            image.leadingAnchor.constraint(equalTo: textBox.trailingAnchor, constant: 10),
+            image.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 10),
             format.leadingAnchor.constraint(equalTo: image.trailingAnchor, constant: 10),
             list.leadingAnchor.constraint(equalTo: format.trailingAnchor, constant: 10),
             paragraph.leadingAnchor.constraint(equalTo: list.trailingAnchor, constant: 10),
