@@ -187,6 +187,8 @@
 "Unable to access the View Controller" = "Unable to access the View Controller";
 "Controller not found" = "Controller not found";
 
+
+
 // MARK: - Accessibility
 
 "Editing enabled" = "Editing enabled";
@@ -338,7 +340,7 @@
 "Finish" = "Finish";
 "Back" = "Back";
 "Discard" = "Discard";
-"Save Explanation" = "To save this note, we need to add it to a collection and notebook.";
+"ExplanationForSaving" = "To save this note, we need to add it to a collection and notebook.";
 "Selected Notebook" = "Selected Notebook";
 "Delete Note confirmation" = "Are you sure you want to delete this note?";
 "Failed to create Loose Note" = "Failed to create Loose Note";

@@ -343,7 +343,7 @@
 "Finish" = "Finalizar";
 "Back" = "Voltar";
 "Discard" = "Descartar";
-"Save Explanation" = "Para salvar esta nota precisamos adiciona-la à uma estante e à um caderno.";
+"ExplanationForSaving" = "Para salvar esta nota precisamos adiciona-la à uma estante e à um caderno.";
 "Selected Notebook" = "Caderno selecionado";
 "Delete Note confirmation" = "Tem certeza que deseja deletar a nota?";
 "Failed to create Loose Note" = "Falhou ao criar uma nota solta";

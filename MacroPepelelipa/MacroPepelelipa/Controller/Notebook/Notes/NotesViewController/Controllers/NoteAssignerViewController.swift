@@ -56,7 +56,7 @@ class NoteAssignerViewController: UIViewController,
     private let saveExplanationLbl: UILabel = {
         let label = UILabel()
         
-        label.text = "Save Explanation".localized()
+        label.text = "ExplanationForSaving".localized()
         label.font = UIFont.defaultFont.toStyle(.paragraph)
         label.tintColor = UIColor.titleColor
         label.numberOfLines = 0
