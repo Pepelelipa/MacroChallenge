@@ -38,7 +38,7 @@ public class MarkdownTextView: UITextView {
     ///Sets font value as active and adds font to selection
     public func setFont(to font: UIFont) {
         activeFont = font
-        changeTextPreservingRange(to: attributedText.withExtraAttribute((.font, activeFont), in: selectedRange))
+        textStorage.addAttribute(.font, value: activeFont, range: selectedRange)
     }
 
     public internal(set) var isBold: Bool {
@@ -58,7 +58,7 @@ public class MarkdownTextView: UITextView {
     ///Sets bold value as active and adds/removes bold to selection
     public func setBold(_ value: Bool) {
         isBold = value
-        changeTextPreservingRange(to: attributedText.withExtraAttribute((.font, activeFont), in: selectedRange))
+        textStorage.addAttribute(.font, value: activeFont, range: selectedRange)
     }
 
     public internal(set) var isItalic: Bool {
@@ -78,7 +78,7 @@ public class MarkdownTextView: UITextView {
     ///Sets italic value as active and adds/removes italic to selection
     public func setItalic(_ value: Bool) {
         isItalic = value
-        changeTextPreservingRange(to: attributedText.withExtraAttribute((.font, activeFont), in: selectedRange))
+        textStorage.addAttribute(.font, value: activeFont, range: selectedRange)
     }
 
     public internal(set) var color: UIColor {
@@ -97,7 +97,7 @@ public class MarkdownTextView: UITextView {
     ///Sets color value as active and adds color to selection
     public func setColor(_ color: UIColor) {
         self.color = color
-        changeTextPreservingRange(to: attributedText.withExtraAttribute((.foregroundColor, color), in: selectedRange))
+        textStorage.addAttribute(.foregroundColor, value: color, range: selectedRange)
     }
 
     public internal(set) var isHighlighted: Bool {
@@ -123,7 +123,7 @@ public class MarkdownTextView: UITextView {
     public func setHighlighted(_ value: Bool) {
         isHighlighted = value
         if let backgroundColor = activeAttributes[.backgroundColor] as? UIColor {
-            changeTextPreservingRange(to: attributedText.withExtraAttribute((.backgroundColor, backgroundColor), in: selectedRange))
+            textStorage.addAttribute(.backgroundColor, value: backgroundColor, range: selectedRange)
         }
     }
 
@@ -144,9 +144,9 @@ public class MarkdownTextView: UITextView {
         isUnderlined = value
         if value {
             let underlineNumber = NSNumber.init(value: NSUnderlineStyle.single.rawValue)
-            changeTextPreservingRange(to: attributedText.withExtraAttribute((.underlineStyle, underlineNumber), in: selectedRange))
+            textStorage.addAttribute(.underlineStyle, value: underlineNumber, range: selectedRange)
         } else {
-            changeTextPreservingRange(to: attributedText.removeAttribute(.underlineStyle, in: selectedRange))
+            textStorage.removeAttribute(.underlineStyle, in: selectedRange)
         }
     }
 
@@ -196,14 +196,6 @@ public class MarkdownTextView: UITextView {
         }
     }
 
-    // MARK: - Text Functions
-
-    private func changeTextPreservingRange(to value: NSAttributedString) {
-        let range = selectedRange
-        attributedText = value
-        selectedRange = range
-    }
-
     ///Inserts text in text view
     public override func insertText(_ text: String) {
         if text != "" {
@@ -216,7 +208,7 @@ public class MarkdownTextView: UITextView {
         isShowingPlaceholder = false
         let backText = attributedText.smallBackwardSample(1, location: selectedRange.location).string
         let space = (text == " " && backText != "#" && backText != "-" && backText != ".")
-        let mutableString = NSMutableAttributedString(attributedString: attributedText)
+        let mutableString = textStorage
 
         let location = selectedRange.location
         //Delete any selected charactes
@@ -229,7 +221,6 @@ public class MarkdownTextView: UITextView {
             let newString = NSAttributedString(string: text, attributes: self.activeAttributes)
             mutableString.insert(newString, at: location)
 
-            self.attributedText = mutableString
             self.selectedRange.location = location + text.count
         }
 
@@ -282,7 +273,6 @@ public class MarkdownTextView: UITextView {
                 }
             }
             mutableString.replaceCharacters(in: initialRange, with: newMutableString)
-            changeTextPreservingRange(to: mutableString)
             selectedRange.location = newLocation + aroundSample.1.location
             if let list = parseResult.1 as? ListStyle {
                 addList(list)
@@ -418,7 +408,6 @@ public class MarkdownTextView: UITextView {
                 var occurrence = 0
                 readjustList(in: mutableString, nextLines: &listSlice, from: &backestLocation, currentOccurrence: &occurrence, toList: type)
 
-                changeTextPreservingRange(to: mutableString)
                 //Change location to final of the list due to complex math to get where it used to be
                 selectedRange.location = backestLocation
                 return
@@ -435,7 +424,7 @@ public class MarkdownTextView: UITextView {
 
         let position = targetLocation - lastLine.length
 
-        let mutableString = NSMutableAttributedString(attributedString: attributedText)
+        let mutableString = textStorage
         mutableString.insert(type.getAttributedString(occurrence: occurrence), at: position)
         let newLocation = selectedRange.location + (type == .numeric ? "\(occurrence)".count + 1 : 1)
 
@@ -450,7 +439,6 @@ public class MarkdownTextView: UITextView {
             readjustList(in: mutableString, nextLines: &forwardSlice, from: &readingLocation, currentOccurrence: &occurrence)
         }
 
-        changeTextPreservingRange(to: mutableString)
         selectedRange.location = newLocation
     }
 
