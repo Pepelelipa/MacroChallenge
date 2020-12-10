@@ -187,7 +187,8 @@
 "Unable to access the View Controller" = "Unable to access the View Controller";
 "Controller not found" = "Controller not found";
 
-
+"Choose another notebook" = "Choose another notebook";
+"Add to notebook" = "Add to notebook";
 
 // MARK: - Accessibility
 

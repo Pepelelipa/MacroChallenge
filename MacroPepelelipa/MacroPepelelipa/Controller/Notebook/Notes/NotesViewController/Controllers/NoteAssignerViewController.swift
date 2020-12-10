@@ -136,7 +136,15 @@ class NoteAssignerViewController: UIViewController,
     
     private let chooseAnotherNotebookBtn: UIButton = {
         let button = UIButton()
-        button.setImage(UIImage(named: "ChooseAnotherNotebook"), for: .normal)
+        let attributedText = "Choose another notebook".localized().toStyle(.paragraph)
+        
+        button.backgroundColor = UIColor.backgroundColor
+        button.layer.borderWidth = 3
+        button.layer.borderColor = UIColor.actionColor?.cgColor
+        button.setTitleColor(UIColor.actionColor, for: .normal)
+        button.setTitle("Choose another notebook".localized(), for: .normal)
+        button.titleLabel?.attributedText = attributedText
+        
         button.translatesAutoresizingMaskIntoConstraints = false
         button.addTarget(self, action: #selector(changeNotebook), for: .touchUpInside)
         
@@ -145,9 +153,14 @@ class NoteAssignerViewController: UIViewController,
     
     private let addToNotebookBtn: UIButton = {
         let button = UIButton()
-        button.setImage(UIImage(named: "AddToNotebook"), for: .normal)
-        button.translatesAutoresizingMaskIntoConstraints = false
+        let attributedText = "Add to notebook".localized().toStyle(.paragraph)
         
+        button.backgroundColor = UIColor.actionColor
+        button.setTitleColor(UIColor.backgroundColor, for: .normal)
+        button.setTitle("Add to notebook".localized(), for: .normal)
+        button.titleLabel?.attributedText = attributedText
+        
+        button.translatesAutoresizingMaskIntoConstraints = false
         button.addTarget(self, action: #selector(addToNotebook), for: .touchUpInside)
         
         return button
@@ -267,6 +280,9 @@ class NoteAssignerViewController: UIViewController,
             NSLayoutConstraint.deactivate(self.iPadConstraintsOnLandscape)
             NSLayoutConstraint.activate(self.iPadConstraintsOnPortrait)
         }
+        
+        chooseAnotherNotebookBtn.layer.cornerRadius = chooseAnotherNotebookBtn.frame.height / 2
+        addToNotebookBtn.layer.cornerRadius = addToNotebookBtn.frame.height / 2
     }
         
     init(note: NoteEntity?, lastNotebook: NotebookEntity?, workspaces: @escaping () -> [WorkspaceEntity]) {

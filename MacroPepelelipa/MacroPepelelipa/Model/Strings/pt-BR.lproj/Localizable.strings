@@ -194,7 +194,8 @@
 "Unable to access the View Controller" = "Incapaz de acessar a View Controller";
 "Controller not found" = "A Controller não foi encontrada";
 
-
+"Choose another notebook" = "Escolha outro caderno";
+"Add to notebook" = "Adicionar ao caderno";
 
 // MARK: - Accessibility
 
