@@ -146,7 +146,7 @@ public class MarkdownTextView: UITextView {
             let underlineNumber = NSNumber.init(value: NSUnderlineStyle.single.rawValue)
             textStorage.addAttribute(.underlineStyle, value: underlineNumber, range: selectedRange)
         } else {
-            textStorage.removeAttribute(.underlineStyle, in: selectedRange)
+            textStorage.removeAttribute(.underlineStyle, range: selectedRange)
         }
     }
 

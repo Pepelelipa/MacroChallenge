@@ -14,12 +14,6 @@ internal extension NSAttributedString {
         return [.font: Fonts.defaultTextFont.toStyle(style), .foregroundColor: UIColor.bodyColor ?? UIColor.black ]
     }
 
-    func removeAttribute(_ attributte: (NSAttributedString.Key), in range: NSRange) -> NSAttributedString {
-        let mutableString = NSMutableAttributedString(attributedString: self)
-        mutableString.removeAttribute(attributte, range: range)
-        return mutableString
-    }
-
     func getAttributeForKey(_ key: NSAttributedString.Key, at location: Int) -> Any? {
         return attributes(at: location, effectiveRange: nil).first(where: { $0.key == key })
     }
