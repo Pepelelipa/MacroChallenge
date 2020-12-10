@@ -10,6 +10,10 @@ import Foundation
 import UIKit
 import Database
 
+#if !targetEnvironment(macCatalyst)
+import PhotosUI
+#endif
+
 internal class FormattingDelegate: NSObject, MarkdownToolBarObserver, MarkdownFormatViewReceiver {
     
     private weak var resizeHandleReceiver: ResizeHandleReceiver?
@@ -17,7 +21,6 @@ internal class FormattingDelegate: NSObject, MarkdownToolBarObserver, MarkdownFo
     private weak var owner: UIViewController?
     private var note: NoteEntity?
     
-    // TODO: set delegate
     internal var delegate: AppMarkdownTextViewDelegate?
     
     internal init(resizeHandleReceiver: ResizeHandleReceiver, boxViewReceiver: BoxViewReceiver, owner: UIViewController? = nil, note: NoteEntity?) {
@@ -26,6 +29,32 @@ internal class FormattingDelegate: NSObject, MarkdownToolBarObserver, MarkdownFo
         self.owner = owner
         self.note = note
     }
+    
+    #if !targetEnvironment(macCatalyst)
+    internal lazy var photoPickerDelegate = PhotoPickerDelegate { (image, error) in
+        if let error = error {
+            let alertController = UIAlertController(
+                title: "Error presenting Photo Library".localized(),
+                message: "The app could not present the Photo Library".localized(),
+                preferredStyle: .alert)
+                .makeErrorMessage(with: "The app could not load the native Image Picker Controller".localized())
+            DispatchQueue.main.async {
+                self.present(alertController, animated: true, completion: nil)
+            }
+            NSLog("Error requesting -> \(error)")
+            return
+        }
+        if let image = image {
+            self.addMedia(from: image)
+        }
+    }
+    
+    internal lazy var imagePickerDelegate = ImagePickerDelegate { (image) in
+        if let image = image {
+            self.addMedia(from: image)
+        }
+    }
+    #endif
     
     /**
      Move the box view and uptade their resize handles position.
@@ -106,6 +135,7 @@ internal class FormattingDelegate: NSObject, MarkdownToolBarObserver, MarkdownFo
     }
     
     func presentPhotoPicker() {
+        
         #if !targetEnvironment(macCatalyst)
         var config = PHPickerConfiguration()
         config.filter = .images

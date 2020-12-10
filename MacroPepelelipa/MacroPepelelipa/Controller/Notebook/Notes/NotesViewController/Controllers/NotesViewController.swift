@@ -85,7 +85,8 @@ internal class NotesViewController: UIViewController,
     internal private(set) weak var notebook: NotebookEntity?
     
     private lazy var resizeHandleFunctions = ResizeHandleFunctions(owner: self)
-    private lazy var formattingDelegate = FormattingDelegate(resizeHandleReceiver: self, boxViewReceiver: self, owner: self, note: self.note)
+    internal private(set) lazy var formattingDelegate = FormattingDelegate(resizeHandleReceiver: self, boxViewReceiver: self, owner: self, note: self.note)
+    
     private lazy var noteContentHandler = NoteContentHandler(owner: self)
     private lazy var notesControllerConfiguration = NotesViewControllerConfiguration(boxViewReceiver: self)
     
@@ -130,6 +131,7 @@ internal class NotesViewController: UIViewController,
         self.delegate = AppMarkdownTextViewDelegate()
         delegate?.addTextObserver(self.textEditingDelegate)
         markdownTextView.markdownDelegate = delegate
+        formattingDelegate.delegate = delegate
         markdownTextView.contentInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
         markdownTextView.placeholder = "Placeholder\(Int.random(in: 0...15))".localized()
         markdownTextView.accessibilityLabel = "Note".localized()
@@ -154,32 +156,6 @@ internal class NotesViewController: UIViewController,
     }()
     
     private lazy var dropInteractionDelegate: DropInteractionDelegate = DropInteractionDelegate(viewController: self)
-    
-    #if !targetEnvironment(macCatalyst)
-    internal lazy var photoPickerDelegate = PhotoPickerDelegate { (image, error) in
-        if let error = error {
-            let alertController = UIAlertController(
-                title: "Error presenting Photo Library".localized(),
-                message: "The app could not present the Photo Library".localized(),
-                preferredStyle: .alert)
-                .makeErrorMessage(with: "The app could not load the native Image Picker Controller".localized())
-            DispatchQueue.main.async {
-                self.present(alertController, animated: true, completion: nil)
-            }
-            NSLog("Error requesting -> \(error)")
-            return
-        }
-        if let image = image {
-            self.addMedia(from: image)
-        }
-    }
-    
-    internal lazy var imagePickerDelegate = ImagePickerDelegate { (image) in
-        if let image = image {
-            self.addMedia(from: image)
-        }
-    }
-    #endif
     
     // MARK: - Initializers
     

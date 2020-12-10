@@ -147,16 +147,19 @@ internal class NotesPageViewController: UIPageViewController,
         notesToolbar.deleteNoteTriggered = {
             self.deleteNote()
         }
-        // TODO: refactor
 
         notesToolbar.addImageTriggered = { identifier in
+            
+            guard let notesViewController = self.viewControllers?.first as? NotesViewController else {
+                // TODO: preset alert to the user
+                return
+            }
+            
             switch identifier {
             case .init("camera"):
-                break
-//                (self.viewControllers?.first as? NotesViewController)?.presentCameraPicker()
+                notesViewController.formattingDelegate.presentCameraPicker()
             case .init("library"):
-                break
-//                (self.viewControllers?.first as? NotesViewController)?.presentPhotoPicker()
+                notesViewController.formattingDelegate.presentPhotoPicker()
             default:
                 break
             }

@@ -299,16 +299,18 @@ internal class TextEditingContainerViewController: UIViewController,
     }
     
     // MARK: - MarkupToolBarObserver functions
-    // TODO: refactor
+    // TODO: refactor this because we are exposing the entire NotesViewController
     internal func createTextBox(transcription: String?) {
         if let noteController = centerViewController?.viewControllers?.first as? NotesViewController {
-//            noteController.createTextBox(transcription: transcription)
+            
+            noteController.formattingDelegate.createTextBox(transcription: transcription)
         }
     }
 
     internal func changeTextViewInput(isCustom: Bool) {
         if let noteController = centerViewController?.viewControllers?.first as? NotesViewController {
-//            noteController.changeTextViewInput(isCustom: isCustom)
+            
+            noteController.formattingDelegate.changeTextViewInput(isCustom: isCustom)
         }
     }
     
