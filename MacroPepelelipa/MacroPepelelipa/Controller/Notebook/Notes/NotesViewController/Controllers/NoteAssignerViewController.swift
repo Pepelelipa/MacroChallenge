@@ -38,10 +38,7 @@ class NoteAssignerViewController: UIViewController,
         }
     }
 
-    private lazy var discardBtn: UIBarButtonItem = {
-        let item = UIBarButtonItem(title: "Discard".localized(), style: .plain, target: self, action: #selector(discardNote))
-        return item
-    }()
+    private lazy var discardBtn = UIBarButtonItem(title: "Discard".localized(), style: .plain, target: self, action: #selector(discardNote))
     
     private lazy var noteNameLbl: UILabel = {
         let label = UILabel()
