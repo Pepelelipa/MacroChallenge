@@ -24,7 +24,9 @@ class NoteAssignerViewController: UIViewController,
         didSet {
             notebookView.color = UIColor(named: lastNotebook?.colorName ?? "") ?? .black
             
-            notebookNameLbl.text = lastNotebook?.name
+            let title = lastNotebook?.name != "" ? lastNotebook?.name : "Untitled".localized()
+            notebookNameLbl.text = title
+            
             do {
                 try workspaceNameLbl.text = lastNotebook?.getWorkspace().name
             } catch {
