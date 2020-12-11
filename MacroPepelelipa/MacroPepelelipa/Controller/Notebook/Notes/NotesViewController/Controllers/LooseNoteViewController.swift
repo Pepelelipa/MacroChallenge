@@ -74,12 +74,7 @@ internal class LooseNoteViewController: UIViewController,
         ]
     }()
     
-    private lazy var btnAddLooseNote: UIBarButtonItem = {
-        let item = UIBarButtonItem(title: "Finish".localized(), style: .plain, target: self, action: #selector(addToNotebook))
-        item.tintColor = UIColor.actionColor
-        item.setTitleTextAttributes([NSAttributedString.Key.font: Fonts.defaultTextFont], for: .normal)
-        return item
-    }()
+    private lazy var btnAddLooseNote = UIBarButtonItem(title: "Finish".localized(), style: .plain, target: self, action: #selector(addToNotebook))
     
     private lazy var doneButton: UIBarButtonItem = {
         let item = UIBarButtonItem(ofType: .done,
@@ -223,9 +218,11 @@ internal class LooseNoteViewController: UIViewController,
     }
 
     override func viewWillAppear(_ animated: Bool) {
+        navigationItem.largeTitleDisplayMode = .never
+        navigationController?.navigationBar.tintColor = UIColor.actionColor
+        navigationController?.navigationBar.prefersLargeTitles = false
         navigationController?.navigationBar.isTranslucent = true
         navigationController?.navigationBar.backgroundColor = .clear
-        navigationItem.largeTitleDisplayMode = .never
         NSLayoutConstraint.activate(constraints)
     }
 

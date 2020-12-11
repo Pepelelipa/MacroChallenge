@@ -24,7 +24,9 @@ class NoteAssignerViewController: UIViewController,
         didSet {
             notebookView.color = UIColor(named: lastNotebook?.colorName ?? "") ?? .black
             
-            notebookNameLbl.text = lastNotebook?.name
+            let title = lastNotebook?.name != "" ? lastNotebook?.name : "Untitled".localized()
+            notebookNameLbl.text = title
+            
             do {
                 try workspaceNameLbl.text = lastNotebook?.getWorkspace().name
             } catch {
@@ -36,10 +38,7 @@ class NoteAssignerViewController: UIViewController,
         }
     }
 
-    private lazy var discardBtn: UIBarButtonItem = {
-        let item = UIBarButtonItem(title: "Discard".localized(), style: .plain, target: self, action: #selector(discardNote))
-        return item
-    }()
+    private lazy var discardBtn = UIBarButtonItem(title: "Discard".localized(), style: .plain, target: self, action: #selector(discardNote))
     
     private lazy var noteNameLbl: UILabel = {
         let label = UILabel()
@@ -138,6 +137,7 @@ class NoteAssignerViewController: UIViewController,
         let button = UIButton()
         let attributedText = "Choose another notebook".localized().toStyle(.paragraph)
         
+        button.titleLabel?.adjustsFontSizeToFitWidth = true
         button.backgroundColor = UIColor.backgroundColor
         button.layer.borderWidth = 3
         button.layer.borderColor = UIColor.actionColor?.cgColor
@@ -155,6 +155,7 @@ class NoteAssignerViewController: UIViewController,
         let button = UIButton()
         let attributedText = "Add to notebook".localized().toStyle(.paragraph)
         
+        button.titleLabel?.adjustsFontSizeToFitWidth = true
         button.backgroundColor = UIColor.actionColor
         button.setTitleColor(UIColor.backgroundColor, for: .normal)
         button.setTitle("Add to notebook".localized(), for: .normal)
@@ -251,7 +252,9 @@ class NoteAssignerViewController: UIViewController,
     override func viewWillAppear(_ animated: Bool) {
         navigationItem.largeTitleDisplayMode = .never
         navigationController?.navigationBar.tintColor = UIColor.actionColor
-        self.navigationController?.navigationBar.prefersLargeTitles = false
+        navigationController?.navigationBar.prefersLargeTitles = false
+        navigationController?.navigationBar.isTranslucent = true
+        navigationController?.navigationBar.backgroundColor = .clear
         NSLayoutConstraint.activate(constraints)
         
         guard let orientation = UIApplication.shared.windows.first?.windowScene?.interfaceOrientation else {
