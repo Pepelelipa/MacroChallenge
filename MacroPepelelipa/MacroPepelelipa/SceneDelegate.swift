@@ -40,6 +40,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
+        SceneDelegate.sensitiveContent?.saveStuff()
     }
 
     func sceneDidBecomeActive(_ scene: UIScene) {
