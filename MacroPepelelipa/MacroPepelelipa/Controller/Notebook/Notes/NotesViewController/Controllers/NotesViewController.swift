@@ -23,8 +23,14 @@ internal class NotesViewController: UIViewController,
                                     ResizeHandleReceiver,
                                     BoxViewReceiver,
                                     SensitiveContentController {
-    func saveStuff() {
+    var isSaving: Bool = false
+    func saveSensitiveContent() {
+        guard !isSaving else {
+            return
+        }
+        isSaving = true
         try? note?.save()
+        isSaving = false
     }
 
     

@@ -40,7 +40,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
-        SceneDelegate.sensitiveContent?.saveStuff()
+        SceneDelegate.sensitiveContent?.saveSensitiveContent()
     }
 
     func sceneDidBecomeActive(_ scene: UIScene) {
@@ -56,19 +56,19 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                 UserDefaults.standard.setValue(false, forKey: "isDarkMode")
             }
         }
-        SceneDelegate.sensitiveContent?.saveStuff()
+        SceneDelegate.sensitiveContent?.saveSensitiveContent()
     }
 
     func sceneWillResignActive(_ scene: UIScene) {
-        SceneDelegate.sensitiveContent?.saveStuff()
+        SceneDelegate.sensitiveContent?.saveSensitiveContent()
     }
 
     func sceneWillEnterForeground(_ scene: UIScene) {
-        SceneDelegate.sensitiveContent?.saveStuff()
+        SceneDelegate.sensitiveContent?.saveSensitiveContent()
     }
 
     func sceneDidEnterBackground(_ scene: UIScene) {
-        SceneDelegate.sensitiveContent?.saveStuff()
+        SceneDelegate.sensitiveContent?.saveSensitiveContent()
     }
     
     /**

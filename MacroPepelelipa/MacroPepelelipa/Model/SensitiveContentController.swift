@@ -9,5 +9,5 @@
 import UIKit
 
 internal protocol SensitiveContentController: UIViewController {
-    func saveStuff()
+    func saveSensitiveContent()
 }
