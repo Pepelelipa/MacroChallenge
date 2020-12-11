@@ -21,7 +21,12 @@ internal class NotesViewController: UIViewController,
                                     MarkupToolBarObserver,
                                     MarkdownFormatViewReceiver,
                                     ResizeHandleReceiver,
-                                    BoxViewReceiver {
+                                    BoxViewReceiver,
+                                    SensitiveContentController {
+    func saveStuff() {
+        try? note?.save()
+    }
+
     
     // MARK: - Variables and Constants
     
@@ -207,6 +212,8 @@ internal class NotesViewController: UIViewController,
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        SceneDelegate.sensitiveContent = self
         
         #if !targetEnvironment(macCatalyst)
         addKeyCommand(NotesViewController.boldfaceKeyCommand)
