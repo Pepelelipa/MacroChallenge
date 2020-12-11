@@ -12,6 +12,7 @@ import UIKit
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
+    weak static var sensitiveContent: SensitiveContentController?
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let scene = scene as? UIWindowScene else {
@@ -39,6 +40,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
+        SceneDelegate.sensitiveContent?.saveSensitiveContent()
     }
 
     func sceneDidBecomeActive(_ scene: UIScene) {
@@ -54,15 +56,19 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                 UserDefaults.standard.setValue(false, forKey: "isDarkMode")
             }
         }
+        SceneDelegate.sensitiveContent?.saveSensitiveContent()
     }
 
     func sceneWillResignActive(_ scene: UIScene) {
+        SceneDelegate.sensitiveContent?.saveSensitiveContent()
     }
 
     func sceneWillEnterForeground(_ scene: UIScene) {
+        SceneDelegate.sensitiveContent?.saveSensitiveContent()
     }
 
     func sceneDidEnterBackground(_ scene: UIScene) {
+        SceneDelegate.sensitiveContent?.saveSensitiveContent()
     }
     
     /**
