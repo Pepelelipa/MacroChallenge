@@ -138,6 +138,7 @@ class NoteAssignerViewController: UIViewController,
         let button = UIButton()
         let attributedText = "Choose another notebook".localized().toStyle(.paragraph)
         
+        button.titleLabel?.adjustsFontSizeToFitWidth = true
         button.backgroundColor = UIColor.backgroundColor
         button.layer.borderWidth = 3
         button.layer.borderColor = UIColor.actionColor?.cgColor
@@ -155,6 +156,7 @@ class NoteAssignerViewController: UIViewController,
         let button = UIButton()
         let attributedText = "Add to notebook".localized().toStyle(.paragraph)
         
+        button.titleLabel?.adjustsFontSizeToFitWidth = true
         button.backgroundColor = UIColor.actionColor
         button.setTitleColor(UIColor.backgroundColor, for: .normal)
         button.setTitle("Add to notebook".localized(), for: .normal)
