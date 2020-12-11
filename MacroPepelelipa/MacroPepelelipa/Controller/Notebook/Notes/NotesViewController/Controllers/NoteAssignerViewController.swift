@@ -250,9 +250,6 @@ class NoteAssignerViewController: UIViewController,
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        navigationItem.largeTitleDisplayMode = .never
-        navigationController?.navigationBar.tintColor = UIColor.actionColor
-        self.navigationController?.navigationBar.prefersLargeTitles = false
         NSLayoutConstraint.activate(constraints)
         
         guard let orientation = UIApplication.shared.windows.first?.windowScene?.interfaceOrientation else {

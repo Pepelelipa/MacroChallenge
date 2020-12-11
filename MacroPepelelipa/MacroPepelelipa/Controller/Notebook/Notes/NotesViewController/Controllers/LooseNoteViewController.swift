@@ -218,9 +218,11 @@ internal class LooseNoteViewController: UIViewController,
     }
 
     override func viewWillAppear(_ animated: Bool) {
+        navigationItem.largeTitleDisplayMode = .never
+        navigationController?.navigationBar.tintColor = UIColor.actionColor
+        navigationController?.navigationBar.prefersLargeTitles = false
         navigationController?.navigationBar.isTranslucent = true
         navigationController?.navigationBar.backgroundColor = .clear
-        navigationItem.largeTitleDisplayMode = .never
         NSLayoutConstraint.activate(constraints)
     }
 
