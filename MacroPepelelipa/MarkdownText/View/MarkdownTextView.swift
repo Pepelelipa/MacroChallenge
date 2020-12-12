@@ -340,6 +340,7 @@ public class MarkdownTextView: UITextView {
         mutableString.deleteCharacters(in: range)
 
         selectedRange.location = max(0, location - range.length)
+        selectedRange.length = 0
         delegate?.textViewDidChange?(self)
     }
 
