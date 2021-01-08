@@ -286,7 +286,7 @@ public class MarkdownTextView: UITextView {
 
     ///Deletes the range or the last character
     public override func deleteBackward() {
-        let mutableString = NSMutableAttributedString(attributedString: attributedText)
+        let mutableString = textStorage
         if mutableString.length == 0 {
             return
         }
@@ -339,8 +339,8 @@ public class MarkdownTextView: UITextView {
 
         mutableString.deleteCharacters(in: range)
 
-        attributedText = mutableString
         selectedRange.location = max(0, location - range.length)
+        selectedRange.length = 0
         delegate?.textViewDidChange?(self)
     }
 
@@ -370,7 +370,7 @@ public class MarkdownTextView: UITextView {
                 return
             } else {
                 //Replace all ocurrences of list
-                let mutableString = NSMutableAttributedString(attributedString: attributedText)
+                let mutableString = textStorage
                 var listSlice: [NSAttributedString] = []
                 var stillList = true
                 var backestLocation = targetLocation
