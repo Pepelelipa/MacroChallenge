@@ -290,7 +290,11 @@ internal class TextEditingContainerViewController: UIViewController,
         if let rightViewController = rightViewController,
            let centerViewController = centerViewController {
             
+            #if targetEnvironment(macCatalyst)
+            centerViewController.setNotesViewControllers(for: MacNotesViewController(note: note))
+            #else
             centerViewController.setNotesViewControllers(for: NotesViewController(note: note))
+            #endif
             
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) { 
                 self.hideIndex(rightViewController)

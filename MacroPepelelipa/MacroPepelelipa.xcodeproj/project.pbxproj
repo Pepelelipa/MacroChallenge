@@ -222,6 +222,7 @@
 		E40A7DFE2559B6D600D81087 /* DropInteractionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E40A7DFD2559B6D600D81087 /* DropInteractionDelegate.swift */; };
 		E41209532538C1020088AC26 /* EmptyScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E41209522538C1020088AC26 /* EmptyScreenView.swift */; };
 		E42FC8372530EF78004E81C9 /* MarkdownFormatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E42FC8362530EF78004E81C9 /* MarkdownFormatView.swift */; };
+		E44C188226002CDC005CCF40 /* MacNotesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E44C188126002CDC005CCF40 /* MacNotesViewController.swift */; };
 		E4714A99255F077E007AE0D6 /* DocumentPickerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4714A98255F077E007AE0D6 /* DocumentPickerDelegate.swift */; };
 		E4C3DB7025534F300058985A /* App Database String Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 020E22242513F10800A93EAB /* App Database String Extension.swift */; };
 		E4ED0FB0255C65DF002ADBF1 /* MenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4ED0FAF255C65DF002ADBF1 /* MenuController.swift */; };
@@ -483,6 +484,7 @@
 		E40A7DFD2559B6D600D81087 /* DropInteractionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropInteractionDelegate.swift; sourceTree = "<group>"; };
 		E41209522538C1020088AC26 /* EmptyScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyScreenView.swift; sourceTree = "<group>"; };
 		E42FC8362530EF78004E81C9 /* MarkdownFormatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkdownFormatView.swift; sourceTree = "<group>"; };
+		E44C188126002CDC005CCF40 /* MacNotesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacNotesViewController.swift; sourceTree = "<group>"; };
 		E4714A98255F077E007AE0D6 /* DocumentPickerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentPickerDelegate.swift; sourceTree = "<group>"; };
 		E4ED0FAF255C65DF002ADBF1 /* MenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuController.swift; sourceTree = "<group>"; };
 		E4F88C87252FA564003AD037 /* Merriweather-BoldItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Merriweather-BoldItalic.otf"; sourceTree = "<group>"; };
@@ -1169,6 +1171,7 @@
 				D9CE2D392565C00A00DF4D2A /* NoteAssignerResultsTableViewDelegate.swift */,
 				D9CE2D3A2565C00A00DF4D2A /* NoteAssignerViewController.swift */,
 				D9CE2D3B2565C00A00DF4D2A /* NotesViewController.swift */,
+				E44C188126002CDC005CCF40 /* MacNotesViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -1678,6 +1681,7 @@
 				D9CE2D422565C00A00DF4D2A /* NoteContentHandler.swift in Sources */,
 				A7BDD5FF2513F83F00DDB6A0 /* IndexViewController.swift in Sources */,
 				D9BBA584252FAB28004B724F /* AddWorkspaceObserver.swift in Sources */,
+				E44C188226002CDC005CCF40 /* MacNotesViewController.swift in Sources */,
 				020FFA38252502E40095266D /* Colors.swift in Sources */,
 				D97EE7AD254B554F00A68B06 /* SearchResultCollectionViewDelegate.swift in Sources */,
 				D9D87534251BAA6700B842C8 /* MarkdownTextField.swift in Sources */,
