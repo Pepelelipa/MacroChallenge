@@ -21,7 +21,7 @@ internal class MarkupContainerViewController: UIViewController {
             return nil
         }
         
-        return MarkdownFormatView(frame: CGRect(x: 0, y: 0, width: preferredContentSize.width, height: preferredContentSize.height), owner: textView, receiver: viewController)
+        return MarkdownFormatView(frame: CGRect(x: 0, y: 0, width: preferredContentSize.width, height: preferredContentSize.height), owner: textView, receiver: viewController.customView)
     }()
     
     // MARK: - Initializers

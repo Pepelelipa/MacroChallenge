@@ -77,7 +77,7 @@ internal class TextEditingContainerViewController: UIViewController,
     private lazy var notesViewController = centerViewController?.viewControllers?.first as? NotesViewController
     
     internal lazy var markupConfig: MarkdownBarConfiguration = {
-        guard let textView = notesViewController?.textView else {
+        guard let textView = notesViewController?.customView.textView else {
             fatalError("Controller not found")
         }
         let mrkConf = MarkdownBarConfiguration(owner: textView)
@@ -252,7 +252,7 @@ internal class TextEditingContainerViewController: UIViewController,
     
     ///This method opens the pop over when the button is pressed
     internal func openPopOver() {
-        guard let textView = notesViewController?.textView else {
+        guard let textView = notesViewController?.customView.textView else {
             return
         }
 
@@ -263,7 +263,7 @@ internal class TextEditingContainerViewController: UIViewController,
         markupContainerViewController.modalPresentationStyle = .popover
         markupContainerViewController.popoverPresentationController?.sourceView = markupNavigationView.barButtonItems[.format]
         
-        if let textView = notesViewController?.textView {
+        if let textView = notesViewController?.customView.textView {
             markupContainerViewController.popoverPresentationController?.passthroughViews = [textView]
         }
 

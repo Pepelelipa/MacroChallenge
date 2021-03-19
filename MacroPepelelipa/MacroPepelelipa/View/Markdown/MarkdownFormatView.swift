@@ -154,7 +154,7 @@ internal class MarkdownFormatView: UIView, MarkdownObserver {
     
     // MARK: - Initializers
     
-    internal init(frame: CGRect, owner: MarkdownTextView, receiver: MarkdownFormatViewReceiver) {
+    internal init(frame: CGRect, owner: MarkdownTextView, receiver: MarkdownFormatViewReceiver?) {
         super.init(frame: frame)
         self.textView = owner
         if let delegate = textView?.markdownDelegate as? AppMarkdownTextViewDelegate {

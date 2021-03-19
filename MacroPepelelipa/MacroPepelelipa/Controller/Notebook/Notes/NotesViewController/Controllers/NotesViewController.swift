@@ -12,23 +12,11 @@ import Database
 import PhotosUI
 import MarkdownText
 
-internal class NotesViewController: UIViewController, 
-                                    TextEditingDelegateObserver,
-                                    MarkupToolBarObserver,
-                                    MarkdownFormatViewReceiver,
-//                                    ResizeHandleReceiver,
-                                    BoxViewReceiver,
-                                    SensitiveContentController {
+internal class NotesViewController: UIViewController,
+                                    ResizeHandleReceiver,
+                                    BoxViewReceiver {
     
     var isSaving: Bool = false
-    func saveSensitiveContent() {
-        guard !isSaving else {
-            return
-        }
-        isSaving = true
-        try? note?.save()
-        isSaving = false
-    }
 
     // MARK: - Variables and Constants
     
@@ -68,33 +56,16 @@ internal class NotesViewController: UIViewController,
     internal var shouldSave: Bool = true
     internal var textBoxes: Set<TextBoxView> = []  
     internal var imageBoxes: Set<ImageBoxView> = []
-    internal lazy var receiverView: UIView = self.view
+    internal lazy var receiverView: UIView = self.customView
+    internal lazy var textView: MarkdownTextView = self.customView.textView
     
     internal weak var note: NoteEntity?
-    internal var delegate: AppMarkdownTextViewDelegate?
     internal private(set) weak var notebook: NotebookEntity?
     
-//    private lazy var resizeHandleFunctions = ResizeHandleFunctions(owner: self)
-//    private lazy var boxViewInteractions = BoxViewInteractions(resizeHandleReceiver: self, boxViewReceiver: self, center: Float(self.view.frame.width/2))
+    private lazy var resizeHandleFunctions = ResizeHandleFunctions(owner: self)
+    private lazy var boxViewInteractions = BoxViewInteractions(resizeHandleReceiver: self, boxViewReceiver: self, center: Float(self.view.frame.width/2))
     private lazy var noteContentHandler = NoteContentHandler()
     private lazy var notesControllerConfiguration = NotesViewControllerConfiguration(boxViewReceiver: self)
-    
-    
-    
-    
-    
-    private lazy var textFieldDelegate: MarkupTextFieldDelegate = {
-        let delegate = MarkupTextFieldDelegate()
-        delegate.observer = self
-        return delegate
-    }()
-    
-//    internal lazy var markupConfig: MarkdownBarConfiguration = {
-//        let mrkConf = MarkdownBarConfiguration(owner: customView.textView)
-//        mrkConf.observer = self
-//        return mrkConf
-//    }()
-    
     private lazy var dropInteractionDelegate: DropInteractionDelegate = DropInteractionDelegate(viewController: self)
     
     #if !targetEnvironment(macCatalyst)
@@ -183,12 +154,12 @@ internal class NotesViewController: UIViewController,
         view.addGestureRecognizer(tap)
         self.view.backgroundColor = .backgroundColor
         
-//        notesControllerConfiguration.configureNotesViewControllerContent(
-//            textView: customView.textView,
-//            textField: customView.textField,
-//            note: note,
-//            keyboardToolbar: customView.keyboardToolbar
-//        )
+        notesControllerConfiguration.configureNotesViewControllerContent(
+            textView: customView.textView,
+            textField: customView.textField,
+            note: note,
+            keyboardToolbar: customView.keyboardToolbar
+        )
 
         if note?.title.string != "" {
             customView.textField.attributedText = note?.title.replaceColors(with: [.titleColor ?? .black])
@@ -383,87 +354,6 @@ internal class NotesViewController: UIViewController,
         customView.textView.insertText("\n" + text + "\n")
     }
     
-    // MARK: - TextEditingDelegateObserver functions
-    
-    func textEditingDidBegin() {
-        DispatchQueue.main.async {
-            self.textBoxes.forEach { (textBox) in
-                textBox.state = .idle
-                textBox.markupTextView.isUserInteractionEnabled = false
-            }
-            self.imageBoxes.forEach { (imageBox) in
-                imageBox.state = .idle
-            }
-            
-            if !self.resizeHandles.isEmpty {
-                self.resizeHandles.forEach { (resizeHandle) in
-                    resizeHandle.removeFromSuperview()
-                }
-            }
-        }
-    }
-    
-    func textEditingDidEnd() {
-        noteContentHandler.saveNote(
-            note: &note,
-            textField: customView.textField,
-            textView: customView.textView,
-            textBoxes: textBoxes,
-            imageBoxes: imageBoxes
-        )
-    }
-    
-    // MARK: - MarkupToolBarObserver functions
-    
-    /**
-     This method changes de main input view based on it being custom or not.
-     - Parameter isCustom: A boolean indicating if the input view will be a custom view or not.
-     */
-    internal func changeTextViewInput(isCustom: Bool) {
-        if isCustom == true {
-//            customView.textView.inputView = customView.markupContainerView
-        } else {
-            customView.textView.inputView = nil
-        }
-        
-//        customView.keyboardToolbar.isHidden.toggle()
-//        customView.markupContainerView.isHidden.toggle()
-        customView.textView.reloadInputViews()
-    }
-    
-    ///Creates a TextBox
-    internal func createTextBox(transcription: String? = nil) {
-
-        guard let note = note else { 
-            let title = "Note does not exist".localized()
-            let message = "Failed to load the Note".localized()
-            
-            ConflictHandlerObject().genericErrorHandling(title: title, message: message)
-            return
-        }
-//        boxViewInteractions.createTextBox(transcription: transcription, note: note)
-    }
-    
-    /// This method presentes the photo picker for iOS and iPadOS
-    internal func presentPhotoPicker() {
-        #if !targetEnvironment(macCatalyst)
-        var config = PHPickerConfiguration()
-        config.filter = .images
-        
-        let picker = PHPickerViewController(configuration: config)
-        picker.delegate = photoPickerDelegate
-        
-        self.present(picker, animated: true, completion: nil)
-        #endif
-    }
-    
-    /// This method presentes the camera picker for iOS and iPadOS
-    internal func presentCameraPicker() {
-        #if !targetEnvironment(macCatalyst)
-        self.showImagePickerController(sourceType: .camera)
-        #endif
-    }
-    
     // MARK: - Uptade exclusion path frames
     
     internal func updateExclusionPaths() {
@@ -497,7 +387,7 @@ internal class NotesViewController: UIViewController,
     @IBAction private func handleTap(_ gestureRecognizer: UITapGestureRecognizer) {
         if let boxView = gestureRecognizer.view as? BoxView {
             boxView.state = .editing
-//            resizeHandleFunctions.placeResizeHandles(boxView: boxView, resizeHandles: &resizeHandles)
+            resizeHandleFunctions.placeResizeHandles(boxView: boxView, resizeHandles: &resizeHandles)
             boxView.owner.endEditing(true)
         } 
     }
@@ -520,7 +410,7 @@ internal class NotesViewController: UIViewController,
             }
             if gestureRecognizer.state != .cancelled {
                 let newCenter = CGPoint(x: initialCenter.x + translation.x, y: initialCenter.y + translation.y)
-//                boxViewInteractions.moveBoxView(boxView: boxView, by: newCenter)
+                boxViewInteractions.moveBoxView(boxView: boxView, by: newCenter)
             } else {
                 boxView.center = initialCenter
             }
@@ -544,7 +434,7 @@ internal class NotesViewController: UIViewController,
                                                                 do {
                                                                     boxView.removeFromSuperview()
                                                                     self.imageBoxes.remove(boxView)
-//                                                                    self.resizeHandleFunctions.cleanResizeHandles(resizeHandles: &self.resizeHandles)
+                                                                    self.resizeHandleFunctions.cleanResizeHandles(resizeHandles: &self.resizeHandles)
                                                                     self.updateExclusionPaths()
                                                                     try DataManager.shared().deleteImageBox(entity)
                                                                 } catch {
@@ -576,7 +466,7 @@ internal class NotesViewController: UIViewController,
                                                                 do {
                                                                     boxView.removeFromSuperview()
                                                                     self.textBoxes.remove(boxView)
-//                                                                    self.resizeHandleFunctions.cleanResizeHandles(resizeHandles: &self.resizeHandles)
+                                                                    self.resizeHandleFunctions.cleanResizeHandles(resizeHandles: &self.resizeHandles)
                                                                     self.updateExclusionPaths()
                                                                     try DataManager.shared().deleteTextBox(entity)
                                                                 } catch {
@@ -592,5 +482,91 @@ internal class NotesViewController: UIViewController,
             alertController.popoverPresentationController?.sourceView = boxView
             self.present(alertController, animated: true, completion: nil)
         }
+    }
+}
+
+
+// MARK: - TextEditingDelegateObserver functions
+extension NotesViewController: TextEditingDelegateObserver {
+    
+    func textEditingDidBegin() {
+        DispatchQueue.main.async {
+            self.textBoxes.forEach { (textBox) in
+                textBox.state = .idle
+                textBox.markupTextView.isUserInteractionEnabled = false
+            }
+            self.imageBoxes.forEach { (imageBox) in
+                imageBox.state = .idle
+            }
+            
+            if !self.resizeHandles.isEmpty {
+                self.resizeHandles.forEach { (resizeHandle) in
+                    resizeHandle.removeFromSuperview()
+                }
+            }
+        }
+    }
+    
+    func textEditingDidEnd() {
+        noteContentHandler.saveNote(
+            note: &note,
+            textField: customView.textField,
+            textView: customView.textView,
+            textBoxes: textBoxes,
+            imageBoxes: imageBoxes
+        )
+    }
+}
+
+// MARK: - MarkupToolBarObserver functions
+extension NotesViewController: MarkupToolBarObserver {
+    
+    internal func changeTextViewInput(isCustom: Bool) {
+        self.customView.changeTextViewInput(isCustom: isCustom)
+    }
+    
+    ///Creates a TextBox
+    internal func createTextBox(transcription: String? = nil) {
+
+        guard let note = note else {
+            let title = "Note does not exist".localized()
+            let message = "Failed to load the Note".localized()
+            
+            ConflictHandlerObject().genericErrorHandling(title: title, message: message)
+            return
+        }
+        boxViewInteractions.createTextBox(transcription: transcription, note: note)
+    }
+    
+    /// This method presentes the photo picker for iOS and iPadOS
+    internal func presentPhotoPicker() {
+        #if !targetEnvironment(macCatalyst)
+        var config = PHPickerConfiguration()
+        config.filter = .images
+        
+        let picker = PHPickerViewController(configuration: config)
+        picker.delegate = photoPickerDelegate
+        
+        self.present(picker, animated: true, completion: nil)
+        #endif
+    }
+    
+    /// This method presentes the camera picker for iOS and iPadOS
+    internal func presentCameraPicker() {
+        #if !targetEnvironment(macCatalyst)
+        self.showImagePickerController(sourceType: .camera)
+        #endif
+    }
+}
+
+// MARK: - SensitiveContentController
+extension NotesViewController: SensitiveContentController {
+    internal func saveSensitiveContent() {
+        guard !isSaving else {
+            return
+        }
+        isSaving = true
+        try? note?.save()
+        isSaving = false
     }
 }

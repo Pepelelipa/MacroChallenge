@@ -33,7 +33,7 @@ internal class LooseNoteViewController: UIViewController,
     internal lazy var receiverView: UIView = self.view
 
     internal var note: NoteEntity?
-    internal var delegate: AppMarkdownTextViewDelegate?
+    internal var markdownDelegate: AppMarkdownTextViewDelegate?
     internal private(set) weak var notebook: NotebookEntity?
     
     private lazy var resizeHandleFunctions = ResizeHandleFunctions(owner: self)
@@ -86,9 +86,9 @@ internal class LooseNoteViewController: UIViewController,
     
     internal private(set) lazy var textView: MarkdownTextView = {
         let  markdownTextView = MarkdownTextView(frame: .zero)
-        self.delegate = AppMarkdownTextViewDelegate()
-        delegate?.addTextObserver(self)
-        markdownTextView.markdownDelegate = delegate
+        self.markdownDelegate = AppMarkdownTextViewDelegate()
+        markdownDelegate?.addTextObserver(self)
+        markdownTextView.markdownDelegate = markdownDelegate
         markdownTextView.contentInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
         markdownTextView.placeholder = "Placeholder\(Int.random(in: 0...15))".localized()
         return markdownTextView

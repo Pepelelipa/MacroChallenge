@@ -9,17 +9,37 @@
 import UIKit
 import MarkdownText
 
-class NotesView: UIView {
+class NotesView: UIView, MarkdownFormatViewReceiver {
     
-    internal weak var formatViewReceiver: MarkdownFormatViewReceiver?
+    //    MARK: - Private properties
     
     private let screenSize = UIScreen.main.bounds
+    
+    private lazy var markdownConfiguration: MarkdownBarConfiguration = {
+        let configuration = MarkdownBarConfiguration(owner: self.textView)
+        configuration.observer = self.configurationObserver
+        return configuration
+    }()
+    
+    private lazy var textFieldDelegate: MarkupTextFieldDelegate = {
+        let delegate = MarkupTextFieldDelegate()
+        delegate.observer = textEditingObserver
+        return delegate
+    }()
+    
+    //    MARK: - Internal properties
+    
+    internal var markdownDelegate: AppMarkdownTextViewDelegate?
+    internal weak var formatViewReceiver: MarkdownFormatViewReceiver?
+    internal weak var configurationObserver: MarkupToolBarObserver?
+    internal weak var textEditingObserver: TextEditingDelegateObserver?
+    
 
     internal private(set) lazy var textViewBottomConstraint = textView.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor, constant: -20)
 
     internal private(set) lazy var textField: MarkdownTextField = {
         let textField = MarkdownTextField(frame: .zero, placeholder: "Your Title".localized(), paddingSpace: 4)
-//        textField.delegate = self.textFieldDelegate
+        textField.delegate = self.textFieldDelegate
         textField.accessibilityLabel = "Note title".localized()
         textField.accessibilityHint = "Note title hint".localized()
         textField.adjustsFontSizeToFitWidth = true
@@ -27,31 +47,34 @@ class NotesView: UIView {
     }()
     
     internal private(set) lazy var textView: MarkdownTextView = {
+        self.markdownDelegate = AppMarkdownTextViewDelegate()
+        if let observer = textEditingObserver {
+            self.markdownDelegate?.addTextObserver(observer)
+        }
+        
         let  markdownTextView = MarkdownTextView(frame: .zero)
-//        self.delegate = AppMarkdownTextViewDelegate()
-//        delegate?.addTextObserver(self)
-//        markdownTextView.markdownDelegate = delegate
+        markdownTextView.markdownDelegate = markdownDelegate
         markdownTextView.contentInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
         markdownTextView.placeholder = "Placeholder\(Int.random(in: 0...15))".localized()
         markdownTextView.accessibilityLabel = "Note".localized()
         return markdownTextView
     }()
     
-//    internal private(set) lazy var markupContainerView: MarkdownContainerView = {
-//        let height: CGFloat = screenSize.height/4
-//        
-//        let container = MarkdownContainerView(frame: CGRect(x: 0, y: 0, width: screenSize.width, height: height), owner: self.textView, receiver: formatViewReceiver)
-//        
-//        container.autoresizingMask = []
-//        container.isHidden = true
-//        
-//        return container
-//    }()
-//    
-//    private lazy var keyboardToolbar: MarkdownToolBar = {
-//        let toolBar = MarkdownToolBar(frame: .zero, configurations: markupConfig)
-//        return toolBar
-//    }()
+    internal private(set) lazy var markupContainerView: MarkdownContainerView = {
+        let height: CGFloat = screenSize.height/4
+        
+        let container = MarkdownContainerView(frame: CGRect(x: 0, y: 0, width: screenSize.width, height: height), owner: self.textView, receiver: formatViewReceiver)
+        
+        container.autoresizingMask = []
+        container.isHidden = true
+        
+        return container
+    }()
+    
+    internal lazy var keyboardToolbar: MarkdownToolBar = {
+        let toolBar = MarkdownToolBar(frame: .zero, configurations: markdownConfiguration)
+        return toolBar
+    }()
     
     internal private(set) lazy var customConstraints: [NSLayoutConstraint] = {
         [
@@ -67,10 +90,30 @@ class NotesView: UIView {
         ]
     }()
     
+    //    MARK: - Private methods
+
     private func addSubviews() {
         addSubview(textField)
         addSubview(textView)
-//        addSubview(markupContainerView)
+        addSubview(markupContainerView)
     }
     
+    //    MARK: - Internal methods
+    
+    /**
+     This method changes de main input view based on it being custom or not.
+     - Parameter isCustom: A boolean indicating if the input view will be a custom view or not.
+     */
+    internal func changeTextViewInput(isCustom: Bool) {
+        if isCustom == true {
+            self.textView.inputView = self.markupContainerView
+        } else {
+            self.textView.inputView = nil
+        }
+        
+        self.keyboardToolbar.isHidden.toggle()
+        self.markupContainerView.isHidden.toggle()
+        self.textView.reloadInputViews()
+    }
 }
+
