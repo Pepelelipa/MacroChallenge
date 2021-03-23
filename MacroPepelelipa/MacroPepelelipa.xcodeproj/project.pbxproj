@@ -140,6 +140,7 @@
 		1EE652C2252504400015E3D4 /* MarkdownContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EE652C1252504400015E3D4 /* MarkdownContainerView.swift */; };
 		1EE652C72525049E0015E3D4 /* MarkdownToggleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EE652C62525049E0015E3D4 /* MarkdownToggleButton.swift */; };
 		1EFA49CE252D15C500602904 /* MarkdownNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EFA49CD252D15C500602904 /* MarkdownNavigationView.swift */; };
+		5832E2F5260A86EF0003D783 /* MacLooseNoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5832E2F4260A86EF0003D783 /* MacLooseNoteViewController.swift */; };
 		A7026CDF25659B2400B8FC78 /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C21B33254B55BB0061CCBA /* Font.swift */; };
 		A71E2C1D2538EEB8000DA164 /* NotesPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71E2C1B2538EEB8000DA164 /* NotesPageViewController.swift */; };
 		A71E2C1E2538EEB8000DA164 /* NotesPageViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71E2C1C2538EEB8000DA164 /* NotesPageViewControllerDelegate.swift */; };
@@ -403,6 +404,7 @@
 		1EE652C1252504400015E3D4 /* MarkdownContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkdownContainerView.swift; sourceTree = "<group>"; };
 		1EE652C62525049E0015E3D4 /* MarkdownToggleButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkdownToggleButton.swift; sourceTree = "<group>"; };
 		1EFA49CD252D15C500602904 /* MarkdownNavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkdownNavigationView.swift; sourceTree = "<group>"; };
+		5832E2F4260A86EF0003D783 /* MacLooseNoteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacLooseNoteViewController.swift; sourceTree = "<group>"; };
 		A71E2C1B2538EEB8000DA164 /* NotesPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotesPageViewController.swift; sourceTree = "<group>"; };
 		A71E2C1C2538EEB8000DA164 /* NotesPageViewControllerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotesPageViewControllerDelegate.swift; sourceTree = "<group>"; };
 		A71E2C202538EF51000DA164 /* NotesPageViewControllerDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NotesPageViewControllerDataSource.swift; path = MacroPepelelipa/Model/Notes/NotesPageViewControllerDataSource.swift; sourceTree = SOURCE_ROOT; };
@@ -1175,6 +1177,7 @@
 				D9CE2D3A2565C00A00DF4D2A /* NoteAssignerViewController.swift */,
 				D9CE2D3B2565C00A00DF4D2A /* NotesViewController.swift */,
 				E44C188126002CDC005CCF40 /* MacNotesViewController.swift */,
+				5832E2F4260A86EF0003D783 /* MacLooseNoteViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -1646,6 +1649,7 @@
 				1EFA49CE252D15C500602904 /* MarkdownNavigationView.swift in Sources */,
 				D97EE7B6254B557A00A68B06 /* SearchResultEnum.swift in Sources */,
 				D9CE2D472565C00A00DF4D2A /* LooseNoteViewController.swift in Sources */,
+				5832E2F5260A86EF0003D783 /* MacLooseNoteViewController.swift in Sources */,
 				0285DF2125840E4F009CE5A9 /* SensitiveContentController.swift in Sources */,
 				1EE652C72525049E0015E3D4 /* MarkdownToggleButton.swift in Sources */,
 				02E4E99525266F3900290A39 /* NotebookView.swift in Sources */,
@@ -1764,7 +1768,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = X54K5PJVGU;
+				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -1795,7 +1799,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = X54K5PJVGU;
+				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -1826,7 +1830,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = X54K5PJVGU;
+				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -1859,7 +1863,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = X54K5PJVGU;
+				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -2009,7 +2013,7 @@
 				CODE_SIGN_ENTITLEMENTS = MacroPepelelipa/MacroPepelelipa.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 5HW626WUP4;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = MacroPepelelipa/Info.plist;
 				"IPHONEOS_DEPLOYMENT_TARGET[sdk=macosx*]" = 14.2;
 				LD_RUNPATH_SEARCH_PATHS = (
