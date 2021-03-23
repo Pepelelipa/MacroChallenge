@@ -60,13 +60,14 @@ internal class NotesViewController: UIViewController,
     internal var imageBoxes: Set<ImageBoxView> = []
     internal lazy var receiverView: UIView = self.customView
     internal lazy var textView: MarkdownTextView = self.customView.textView
+    internal private(set) lazy var noteContentHandler = NoteContentHandler()
+
     
     internal weak var note: NoteEntity?
-    internal private(set) weak var notebook: NotebookEntity?
+    internal weak var notebook: NotebookEntity?
     
     private lazy var resizeHandleFunctions = ResizeHandleFunctions(owner: self)
     private lazy var boxViewInteractions = BoxViewInteractions(resizeHandleReceiver: self, boxViewReceiver: self, center: Float(self.view.frame.width/2))
-    private lazy var noteContentHandler = NoteContentHandler()
     private lazy var notesControllerConfiguration = NotesViewControllerConfiguration(boxViewReceiver: self)
     private lazy var dropInteractionDelegate: DropInteractionDelegate = DropInteractionDelegate(viewController: self)
     
@@ -106,6 +107,12 @@ internal class NotesViewController: UIViewController,
             
             ConflictHandlerObject().genericErrorHandling(title: title, message: message)
         }
+    }
+    
+    internal init(looseNote: NoteEntity, notebook: NotebookEntity?) {
+        self.note = looseNote
+        self.notebook = notebook
+        super.init(nibName: nil, bundle: nil)
     }
     
     deinit {
