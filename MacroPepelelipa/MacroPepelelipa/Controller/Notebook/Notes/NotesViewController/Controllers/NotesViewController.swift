@@ -12,29 +12,24 @@ import Database
 import PhotosUI
 import MarkdownText
 
-#if targetEnvironment(macCatalyst)
-import AppKit
-#endif
-
-internal class NotesViewController: UIViewController, 
-                                    TextEditingDelegateObserver,
-                                    MarkupToolBarObserver,
-                                    MarkdownFormatViewReceiver,
+internal class NotesViewController: UIViewController,
                                     ResizeHandleReceiver,
-                                    BoxViewReceiver,
-                                    SensitiveContentController {
-    var isSaving: Bool = false
-    func saveSensitiveContent() {
-        guard !isSaving else {
-            return
-        }
-        isSaving = true
-        try? note?.save()
-        isSaving = false
-    }
-
+                                    BoxViewReceiver {
     
+    var isSaving: Bool = false
+
     // MARK: - Variables and Constants
+    
+    internal var customView: CustomView {
+        guard let customView = view as? CustomView else {
+            fatalError("Expected view to be of type \(CustomView.self) but got \(type(of: view)) instead")
+        }
+        customView.configurationObserver = self
+        customView.textEditingObserver = self
+        return customView
+    }
+    
+    typealias CustomView = NotesView
     
     #if !targetEnvironment(macCatalyst)
     private static let boldfaceKeyCommand: UIKeyCommand = {
@@ -54,115 +49,26 @@ internal class NotesViewController: UIViewController,
         command.discoverabilityTitle = "Underline".localized()
         return command
     }()
-    
-    #else
-    internal static let importCommand: UICommand = {
-        return UICommand(title: "Import image".localized(), image: nil, action: #selector(importImage), propertyList: nil, alternates: [], discoverabilityTitle: "Import image".localized())
-    }()
-    
-    internal static let exportNoteCommand: UICommand = {
-        return UICommand(title: "Export note as PDF".localized(), image: nil, action: #selector(exportNote), propertyList: nil, alternates: [], discoverabilityTitle: "Export note as PDF".localized())
-    }()
-
-    internal static let exportNotebookCommand: UICommand = {
-        return UICommand(title: "Export notebook as PDF".localized(),
-                         image: nil,
-                         action: #selector(exportNotebook),
-                         propertyList: nil,
-                         alternates: [],
-                         discoverabilityTitle: "Export notebook as PDF".localized())
-    }()
-    
-    private lazy var documentPickerDelegate: DocumentPickerDelegate = {
-        return DocumentPickerDelegate { image in
-            self.addMedia(from: image)
-        }
-    }()
     #endif
     
     private var resizeHandles = [ResizeHandleView]()
     private var initialCenter = CGPoint()
     private var exclusionPaths: [UIBezierPath] = []
-    private let screenSize = UIScreen.main.bounds
     
     internal var shouldSave: Bool = true
     internal var textBoxes: Set<TextBoxView> = []  
     internal var imageBoxes: Set<ImageBoxView> = []
-    internal lazy var receiverView: UIView = self.view
+    internal lazy var receiverView: UIView = self.customView
+    internal lazy var textView: MarkdownTextView = self.customView.textView
+    internal private(set) lazy var noteContentHandler = NoteContentHandler()
+
     
     internal weak var note: NoteEntity?
-    internal var delegate: AppMarkdownTextViewDelegate?
-    internal private(set) weak var notebook: NotebookEntity?
+    internal weak var notebook: NotebookEntity?
     
     private lazy var resizeHandleFunctions = ResizeHandleFunctions(owner: self)
     private lazy var boxViewInteractions = BoxViewInteractions(resizeHandleReceiver: self, boxViewReceiver: self, center: Float(self.view.frame.width/2))
-    private lazy var noteContentHandler = NoteContentHandler()
     private lazy var notesControllerConfiguration = NotesViewControllerConfiguration(boxViewReceiver: self)
-    
-    private lazy var textViewBottomConstraint = textView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20)
-    
-    private lazy var textField: MarkdownTextField = {
-        let textField = MarkdownTextField(frame: .zero, placeholder: "Your Title".localized(), paddingSpace: 4)
-        textField.delegate = self.textFieldDelegate
-        textField.accessibilityLabel = "Note title".localized()
-        textField.accessibilityHint = "Note title hint".localized()
-        textField.adjustsFontSizeToFitWidth = true
-        return textField
-    }()
-    
-    private lazy var textFieldDelegate: MarkupTextFieldDelegate = {
-        let delegate = MarkupTextFieldDelegate()
-        delegate.observer = self
-        return delegate
-    }()
-    
-    private lazy var keyboardToolbar: MarkdownToolBar = {
-        let toolBar = MarkdownToolBar(frame: .zero, configurations: markupConfig)
-        return toolBar
-    }()
-    
-    private lazy var constraints: [NSLayoutConstraint] = {
-        [
-            textField.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
-            textField.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
-            textField.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
-            textField.heightAnchor.constraint(equalToConstant: 40),
-            
-            textView.topAnchor.constraint(equalTo: self.textField.bottomAnchor, constant: 20),
-            textView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            textView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            textViewBottomConstraint
-        ]
-    }()
-    
-    internal private(set) lazy var textView: MarkdownTextView = {
-        let  markdownTextView = MarkdownTextView(frame: .zero)
-        self.delegate = AppMarkdownTextViewDelegate()
-        delegate?.addTextObserver(self)
-        markdownTextView.markdownDelegate = delegate
-        markdownTextView.contentInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
-        markdownTextView.placeholder = "Placeholder\(Int.random(in: 0...15))".localized()
-        markdownTextView.accessibilityLabel = "Note".localized()
-        return markdownTextView
-    }()
-    
-    internal lazy var markupConfig: MarkdownBarConfiguration = {
-        let mrkConf = MarkdownBarConfiguration(owner: textView)
-        mrkConf.observer = self
-        return mrkConf
-    }()
-    
-    internal private(set) lazy var markupContainerView: MarkdownContainerView = {
-        let height: CGFloat = screenSize.height/4
-        
-        let container = MarkdownContainerView(frame: CGRect(x: 0, y: 0, width: screenSize.width, height: height), owner: self.textView, receiver: self)
-        
-        container.autoresizingMask = []
-        container.isHidden = true
-        
-        return container
-    }()
-    
     private lazy var dropInteractionDelegate: DropInteractionDelegate = DropInteractionDelegate(viewController: self)
     
     #if !targetEnvironment(macCatalyst)
@@ -203,6 +109,12 @@ internal class NotesViewController: UIViewController,
         }
     }
     
+    internal init(looseNote: NoteEntity, notebook: NotebookEntity?) {
+        self.note = looseNote
+        self.notebook = notebook
+        super.init(nibName: nil, bundle: nil)
+    }
+    
     deinit {
         //        textViewDelegate.removeObserver(self)
     }
@@ -215,6 +127,12 @@ internal class NotesViewController: UIViewController,
     }
     
     // MARK: - Override functions
+    
+    override func loadView() {
+        let customView = CustomView()
+//        customView.delegate = self
+        view = customView
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -243,54 +161,62 @@ internal class NotesViewController: UIViewController,
         let tap = UITapGestureRecognizer(target: self, action: #selector(didTap))
         
         view.addGestureRecognizer(tap)
-        view.addSubview(markupContainerView)
-        view.addSubview(textField)
-        view.addSubview(textView)
         self.view.backgroundColor = .backgroundColor
         
-        notesControllerConfiguration.configureNotesViewControllerContent(textView: textView, textField: textField, note: note, keyboardToolbar: keyboardToolbar)
+        notesControllerConfiguration.configureNotesViewControllerContent(
+            textView: customView.textView,
+            textField: customView.textField,
+            note: note,
+            keyboardToolbar: customView.keyboardToolbar
+        )
 
         if note?.title.string != "" {
-            self.textField.attributedText = note?.title.replaceColors(with: [.titleColor ?? .black])
+            customView.textField.attributedText = note?.title.replaceColors(with: [.titleColor ?? .black])
         }
         if note?.text.string != "" {
-            self.textView.setText(note?.text.replaceColors())
+            customView.textView.setText(note?.text.replaceColors())
         }
         updateExclusionPaths()
         
         if !((try? notebook?.getWorkspace().isEnabled) ?? false) {
-            textView.isEditable = false
-            textView.inputAccessoryView = nil
+            customView.textView.isEditable = false
+            customView.textView.inputAccessoryView = nil
         }
         
         let dropInteraction = UIDropInteraction(delegate: dropInteractionDelegate)
-        textView.addInteraction(dropInteraction)
+        customView.textView.addInteraction(dropInteraction)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         UIMenuSystem.main.setNeedsRebuild()
         navigationItem.largeTitleDisplayMode = .never
-        NSLayoutConstraint.activate(constraints)
+        NSLayoutConstraint.activate(customView.customConstraints)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         if shouldSave {
-            noteContentHandler.saveNote(note: &note, textField: textField, textView: textView, textBoxes: textBoxes, imageBoxes: imageBoxes)
+            noteContentHandler.saveNote(
+                note: &note,
+                textField: customView.textField,
+                textView: customView.textView,
+                textBoxes: textBoxes,
+                imageBoxes: imageBoxes
+            )
         }
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.largeTitleDisplayMode = .automatic
     }
     
     override func toggleBoldface(_ sender: Any?) {
-        textView.toggleBoldface(sender)
+        customView.textView.toggleBoldface(sender)
     }
     
     override func toggleItalics(_ sender: Any?) {
-        textView.toggleItalics(sender)
+        customView.textView.toggleItalics(sender)
     }
     
     override func toggleUnderline(_ sender: Any?) {
-        textView.toggleUnderline(sender)
+        customView.textView.toggleUnderline(sender)
     }
     
     // MARK: - Functions
@@ -322,7 +248,7 @@ internal class NotesViewController: UIViewController,
                 let textRecognition = TextRecognitionManager()
                 let transcription = textRecognition.imageRequest(toImage: image)
                 
-                self.textView.insertText("\n\"\(transcription)\"\n")
+                self.customView.textView.insertText("\n\"\(transcription)\"\n")
             }
             
             alert.view.tintColor = .actionColor
@@ -355,7 +281,7 @@ internal class NotesViewController: UIViewController,
         let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePan(_:)))
         let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPressInTextBox(_:)))
         
-        let textBox = TextBoxView(textBoxEntity: textBoxEntity, owner: textView)
+        let textBox = TextBoxView(textBoxEntity: textBoxEntity, owner: customView.textView)
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
             textBox.markupTextView.attributedText = textBoxEntity.text.replaceColors()
         }
@@ -364,7 +290,7 @@ internal class NotesViewController: UIViewController,
         textBox.addGestureRecognizer(panGesture)
         textBox.addGestureRecognizer(longPressGesture)
         self.textBoxes.insert(textBox)
-        self.textView.addSubview(textBox)
+        customView.textView.addSubview(textBox)
         updateExclusionPaths()
     }
     
@@ -390,14 +316,14 @@ internal class NotesViewController: UIViewController,
         
         if let fileName = FileHelper.getFilePath(fileName: imageBoxEntity.imagePath) {
             let image = UIImage(contentsOfFile: fileName)
-            let imageBox = ImageBoxView(imageBoxEntity: imageBoxEntity, owner: textView, image: image)
+            let imageBox = ImageBoxView(imageBoxEntity: imageBoxEntity, owner: customView.textView, image: image)
             
             imageBox.addGestureRecognizer(tapGesture)
             imageBox.addGestureRecognizer(doubleTapGesture)
             imageBox.addGestureRecognizer(panGesture)
             imageBox.addGestureRecognizer(longPressGesture)
             self.imageBoxes.insert(imageBox)
-            self.textView.addSubview(imageBox)
+            customView.textView.addSubview(imageBox)
             updateExclusionPaths()
         }
     }
@@ -422,9 +348,9 @@ internal class NotesViewController: UIViewController,
     }
     
     private func setTextViewConstant(to value: CGFloat) {
-        textViewBottomConstraint.constant = value
+        customView.textViewBottomConstraint.constant = value
         UIView.animate(withDuration: 0.5) {
-            self.textView.layoutIfNeeded()
+            self.customView.textView.layoutIfNeeded()
         }
     }
     
@@ -434,83 +360,7 @@ internal class NotesViewController: UIViewController,
      - Parameter text: The string that will be added to the text view.
      */
     internal func insertText(_ text: String) {
-        self.textView.insertText("\n" + text + "\n")
-    }
-    
-    // MARK: - TextEditingDelegateObserver functions
-    
-    func textEditingDidBegin() {
-        DispatchQueue.main.async {
-            self.textBoxes.forEach { (textBox) in
-                textBox.state = .idle
-                textBox.markupTextView.isUserInteractionEnabled = false
-            }
-            self.imageBoxes.forEach { (imageBox) in
-                imageBox.state = .idle
-            }
-            
-            if !self.resizeHandles.isEmpty {
-                self.resizeHandles.forEach { (resizeHandle) in
-                    resizeHandle.removeFromSuperview()
-                }
-            }
-        }
-    }
-    
-    func textEditingDidEnd() {
-        
-        noteContentHandler.saveNote(note: &note, textField: textField, textView: textView, textBoxes: textBoxes, imageBoxes: imageBoxes)
-    }
-    
-    // MARK: - MarkupToolBarObserver functions
-    
-    /**
-     This method changes de main input view based on it being custom or not.
-     - Parameter isCustom: A boolean indicating if the input view will be a custom view or not.
-     */
-    internal func changeTextViewInput(isCustom: Bool) {
-        if isCustom == true {
-            textView.inputView = markupContainerView
-        } else {
-            textView.inputView = nil
-        }
-        
-        keyboardToolbar.isHidden.toggle()
-        markupContainerView.isHidden.toggle()
-        textView.reloadInputViews()
-    }
-    
-    ///Creates a TextBox
-    internal func createTextBox(transcription: String? = nil) {
-
-        guard let note = note else { 
-            let title = "Note does not exist".localized()
-            let message = "Failed to load the Note".localized()
-            
-            ConflictHandlerObject().genericErrorHandling(title: title, message: message)
-            return
-        }
-        boxViewInteractions.createTextBox(transcription: transcription, note: note)
-    }
-    
-    /// This method presentes the photo picker for iOS and iPadOS
-    internal func presentPhotoPicker() {
-        #if !targetEnvironment(macCatalyst)
-        var config = PHPickerConfiguration()
-        config.filter = .images
-        
-        let picker = PHPickerViewController(configuration: config)
-        picker.delegate = photoPickerDelegate
-        
-        self.present(picker, animated: true, completion: nil)
-        #endif
-    }
-    
-    /// This method presentes the camera picker for iOS and iPadOS
-    internal func presentCameraPicker() {
-        #if !targetEnvironment(macCatalyst)
-        self.showImagePickerController(sourceType: .camera)
-        #endif
+        customView.textView.insertText("\n" + text + "\n")
     }
     
     // MARK: - Uptade exclusion path frames
@@ -527,20 +377,20 @@ internal class NotesViewController: UIViewController,
             let path = UIBezierPath(rect: textBox.frame)
             exclusionPaths.append(path)
         }
-        self.textView.textContainer.exclusionPaths = exclusionPaths
+        customView.textView.textContainer.exclusionPaths = exclusionPaths
     }
     
     // MARK: - IBActions functions
     
     #if !targetEnvironment(macCatalyst)
     @IBAction private func toggleFormat(_ sender: UIKeyCommand) {
-        textView.toggleFormat(sender)
+        customView.textView.toggleFormat(sender)
     }
     #endif
     
     @IBAction func didTap() {
-        textField.resignFirstResponder()
-        textView.resignFirstResponder()
+        customView.textField.resignFirstResponder()
+        customView.textView.resignFirstResponder()
     }
     
     @IBAction private func handleTap(_ gestureRecognizer: UITapGestureRecognizer) {
@@ -563,7 +413,7 @@ internal class NotesViewController: UIViewController,
             return
         }
         if boxView.state == .editing {
-            let translation = gestureRecognizer.translation(in: self.textView)
+            let translation = gestureRecognizer.translation(in: customView.textView)
             if gestureRecognizer.state == .began {                
                 initialCenter = boxView.center
             }
@@ -642,61 +492,90 @@ internal class NotesViewController: UIViewController,
             self.present(alertController, animated: true, completion: nil)
         }
     }
+}
+
+
+// MARK: - TextEditingDelegateObserver functions
+extension NotesViewController: TextEditingDelegateObserver {
     
-    #if targetEnvironment(macCatalyst)
-    @IBAction internal func importImage() {
-        let documentPicker = UIDocumentPickerViewController(forOpeningContentTypes: [.image])
-        documentPicker.delegate = documentPickerDelegate
-        documentPicker.allowsMultipleSelection = false
-        documentPicker.modalPresentationStyle = .automatic
-        present(documentPicker, animated: true, completion: nil)
+    func textEditingDidBegin() {
+        DispatchQueue.main.async {
+            self.textBoxes.forEach { (textBox) in
+                textBox.state = .idle
+                textBox.markupTextView.isUserInteractionEnabled = false
+            }
+            self.imageBoxes.forEach { (imageBox) in
+                imageBox.state = .idle
+            }
+            
+            if !self.resizeHandles.isEmpty {
+                self.resizeHandles.forEach { (resizeHandle) in
+                    resizeHandle.removeFromSuperview()
+                }
+            }
+        }
     }
     
-    /**
-     This method exports an PDF from Data and a title.
-     - Parameter pdfData: The data to be writen into PDF.
-     - Parameter title: The file title.
-     */
-    private func exportPDF(_ pdfData: Data, title: String) {
-        let fileManager = FileManager.default
-        
-        do {
-            let fileURL = fileManager.temporaryDirectory.appendingPathComponent("\(title).pdf")
-            try pdfData.write(to: fileURL)
-            
-            let controller = UIDocumentPickerViewController(forExporting: [fileURL])
-            present(controller, animated: true)
-        } catch {
-            let title = "An error has occurred while exporting the PDF".localized()
-            let message = "The app could not export the file as a PDF".localized()
+    func textEditingDidEnd() {
+        noteContentHandler.saveNote(
+            note: &note,
+            textField: customView.textField,
+            textView: customView.textView,
+            textBoxes: textBoxes,
+            imageBoxes: imageBoxes
+        )
+    }
+}
+
+// MARK: - MarkupToolBarObserver functions
+extension NotesViewController: MarkupToolBarObserver {
+    
+    internal func changeTextViewInput(isCustom: Bool) {
+        self.customView.changeTextViewInput(isCustom: isCustom)
+    }
+    
+    ///Creates a TextBox
+    internal func createTextBox(transcription: String? = nil) {
+
+        guard let note = note else {
+            let title = "Note does not exist".localized()
+            let message = "Failed to load the Note".localized()
             
             ConflictHandlerObject().genericErrorHandling(title: title, message: message)
-        }
-    }
-    
-    @IBAction internal func exportNote() {
-        guard let note = note else {
             return
         }
-        let pdfData = note.createDocument()
-        
-        var title = note.title.string
-        if title.isEmpty {
-            var lenght = 10
-            if note.text.length < 10 {
-                lenght = note.text.length
-            }
-            title = note.text.attributedSubstring(from: NSRange(location: 0, length: lenght)).string
-        }
-        
-        exportPDF(pdfData, title: title)
+        boxViewInteractions.createTextBox(transcription: transcription, note: note)
     }
     
-    @IBAction internal func exportNotebook() {
-        guard let notebook = notebook else {
+    /// This method presentes the photo picker for iOS and iPadOS
+    internal func presentPhotoPicker() {
+        #if !targetEnvironment(macCatalyst)
+        var config = PHPickerConfiguration()
+        config.filter = .images
+        
+        let picker = PHPickerViewController(configuration: config)
+        picker.delegate = photoPickerDelegate
+        
+        self.present(picker, animated: true, completion: nil)
+        #endif
+    }
+    
+    /// This method presentes the camera picker for iOS and iPadOS
+    internal func presentCameraPicker() {
+        #if !targetEnvironment(macCatalyst)
+        self.showImagePickerController(sourceType: .camera)
+        #endif
+    }
+}
+
+// MARK: - SensitiveContentController
+extension NotesViewController: SensitiveContentController {
+    internal func saveSensitiveContent() {
+        guard !isSaving else {
             return
         }
-        exportPDF(notebook.createFullDocument(), title: notebook.name)
+        isSaving = true
+        try? note?.save()
+        isSaving = false
     }
-    #endif
 }

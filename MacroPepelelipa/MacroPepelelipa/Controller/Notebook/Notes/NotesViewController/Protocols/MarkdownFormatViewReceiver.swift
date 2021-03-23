@@ -11,5 +11,5 @@ import MarkdownText
 
 internal protocol MarkdownFormatViewReceiver: class {
     func changeTextViewInput(isCustom: Bool)
-    var delegate: AppMarkdownTextViewDelegate? { get set }
+    var markdownDelegate: AppMarkdownTextViewDelegate? { get set }
 }

@@ -68,7 +68,7 @@ internal class MarkdownContainerView: MarkdownFormatView, TextEditingDelegateObs
         backgroundView.addSubview(formatLabel)
         createConstraints()
         
-        receiver?.delegate?.addTextObserver(self)
+        receiver?.markdownDelegate?.addTextObserver(self)
     }
     
     ///This method sets the constraints for the inner elements of the container view.

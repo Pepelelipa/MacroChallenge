@@ -140,6 +140,7 @@
 		1EE652C2252504400015E3D4 /* MarkdownContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EE652C1252504400015E3D4 /* MarkdownContainerView.swift */; };
 		1EE652C72525049E0015E3D4 /* MarkdownToggleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EE652C62525049E0015E3D4 /* MarkdownToggleButton.swift */; };
 		1EFA49CE252D15C500602904 /* MarkdownNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EFA49CD252D15C500602904 /* MarkdownNavigationView.swift */; };
+		5832E2F5260A86EF0003D783 /* MacLooseNoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5832E2F4260A86EF0003D783 /* MacLooseNoteViewController.swift */; };
 		A7026CDF25659B2400B8FC78 /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C21B33254B55BB0061CCBA /* Font.swift */; };
 		A71E2C1D2538EEB8000DA164 /* NotesPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71E2C1B2538EEB8000DA164 /* NotesPageViewController.swift */; };
 		A71E2C1E2538EEB8000DA164 /* NotesPageViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71E2C1C2538EEB8000DA164 /* NotesPageViewControllerDelegate.swift */; };
@@ -222,6 +223,8 @@
 		E40A7DFE2559B6D600D81087 /* DropInteractionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E40A7DFD2559B6D600D81087 /* DropInteractionDelegate.swift */; };
 		E41209532538C1020088AC26 /* EmptyScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E41209522538C1020088AC26 /* EmptyScreenView.swift */; };
 		E42FC8372530EF78004E81C9 /* MarkdownFormatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E42FC8362530EF78004E81C9 /* MarkdownFormatView.swift */; };
+		E44C188226002CDC005CCF40 /* MacNotesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E44C188126002CDC005CCF40 /* MacNotesViewController.swift */; };
+		E44C1886260031A3005CCF40 /* NotesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E44C1885260031A3005CCF40 /* NotesView.swift */; };
 		E4714A99255F077E007AE0D6 /* DocumentPickerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4714A98255F077E007AE0D6 /* DocumentPickerDelegate.swift */; };
 		E4C3DB7025534F300058985A /* App Database String Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 020E22242513F10800A93EAB /* App Database String Extension.swift */; };
 		E4ED0FB0255C65DF002ADBF1 /* MenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4ED0FAF255C65DF002ADBF1 /* MenuController.swift */; };
@@ -401,6 +404,7 @@
 		1EE652C1252504400015E3D4 /* MarkdownContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkdownContainerView.swift; sourceTree = "<group>"; };
 		1EE652C62525049E0015E3D4 /* MarkdownToggleButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkdownToggleButton.swift; sourceTree = "<group>"; };
 		1EFA49CD252D15C500602904 /* MarkdownNavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkdownNavigationView.swift; sourceTree = "<group>"; };
+		5832E2F4260A86EF0003D783 /* MacLooseNoteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacLooseNoteViewController.swift; sourceTree = "<group>"; };
 		A71E2C1B2538EEB8000DA164 /* NotesPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotesPageViewController.swift; sourceTree = "<group>"; };
 		A71E2C1C2538EEB8000DA164 /* NotesPageViewControllerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotesPageViewControllerDelegate.swift; sourceTree = "<group>"; };
 		A71E2C202538EF51000DA164 /* NotesPageViewControllerDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NotesPageViewControllerDataSource.swift; path = MacroPepelelipa/Model/Notes/NotesPageViewControllerDataSource.swift; sourceTree = SOURCE_ROOT; };
@@ -483,6 +487,8 @@
 		E40A7DFD2559B6D600D81087 /* DropInteractionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropInteractionDelegate.swift; sourceTree = "<group>"; };
 		E41209522538C1020088AC26 /* EmptyScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyScreenView.swift; sourceTree = "<group>"; };
 		E42FC8362530EF78004E81C9 /* MarkdownFormatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkdownFormatView.swift; sourceTree = "<group>"; };
+		E44C188126002CDC005CCF40 /* MacNotesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacNotesViewController.swift; sourceTree = "<group>"; };
+		E44C1885260031A3005CCF40 /* NotesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesView.swift; sourceTree = "<group>"; };
 		E4714A98255F077E007AE0D6 /* DocumentPickerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentPickerDelegate.swift; sourceTree = "<group>"; };
 		E4ED0FAF255C65DF002ADBF1 /* MenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuController.swift; sourceTree = "<group>"; };
 		E4F88C87252FA564003AD037 /* Merriweather-BoldItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Merriweather-BoldItalic.otf"; sourceTree = "<group>"; };
@@ -1146,6 +1152,7 @@
 				D9CE2D312565C00A00DF4D2A /* Accessories */,
 				D9CE2D362565C00A00DF4D2A /* Controllers */,
 				D9CE2D3C2565C00A00DF4D2A /* Protocols */,
+				E44C1885260031A3005CCF40 /* NotesView.swift */,
 			);
 			path = NotesViewController;
 			sourceTree = "<group>";
@@ -1169,6 +1176,8 @@
 				D9CE2D392565C00A00DF4D2A /* NoteAssignerResultsTableViewDelegate.swift */,
 				D9CE2D3A2565C00A00DF4D2A /* NoteAssignerViewController.swift */,
 				D9CE2D3B2565C00A00DF4D2A /* NotesViewController.swift */,
+				E44C188126002CDC005CCF40 /* MacNotesViewController.swift */,
+				5832E2F4260A86EF0003D783 /* MacLooseNoteViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -1640,6 +1649,7 @@
 				1EFA49CE252D15C500602904 /* MarkdownNavigationView.swift in Sources */,
 				D97EE7B6254B557A00A68B06 /* SearchResultEnum.swift in Sources */,
 				D9CE2D472565C00A00DF4D2A /* LooseNoteViewController.swift in Sources */,
+				5832E2F5260A86EF0003D783 /* MacLooseNoteViewController.swift in Sources */,
 				0285DF2125840E4F009CE5A9 /* SensitiveContentController.swift in Sources */,
 				1EE652C72525049E0015E3D4 /* MarkdownToggleButton.swift in Sources */,
 				02E4E99525266F3900290A39 /* NotebookView.swift in Sources */,
@@ -1656,6 +1666,7 @@
 				024C5BB3252E41D8009549CE /* AddNotebookViewController.swift in Sources */,
 				02919F4225531B1F00C03E27 /* MarkdownTextViewDelegate.swift in Sources */,
 				D97EE7AE254B554F00A68B06 /* CustomUISearchController.swift in Sources */,
+				E44C1886260031A3005CCF40 /* NotesView.swift in Sources */,
 				A73C94BA253F84E8004EFA4F /* PhotoPickerDelegate.swift in Sources */,
 				1E91D35B255F307A002FA8F1 /* OnboardingPageViewControllerDelegate.swift in Sources */,
 				A7BDD60A251406D900DDB6A0 /* TableViewDataSource.swift in Sources */,
@@ -1678,6 +1689,7 @@
 				D9CE2D422565C00A00DF4D2A /* NoteContentHandler.swift in Sources */,
 				A7BDD5FF2513F83F00DDB6A0 /* IndexViewController.swift in Sources */,
 				D9BBA584252FAB28004B724F /* AddWorkspaceObserver.swift in Sources */,
+				E44C188226002CDC005CCF40 /* MacNotesViewController.swift in Sources */,
 				020FFA38252502E40095266D /* Colors.swift in Sources */,
 				D97EE7AD254B554F00A68B06 /* SearchResultCollectionViewDelegate.swift in Sources */,
 				D9D87534251BAA6700B842C8 /* MarkdownTextField.swift in Sources */,
@@ -1756,7 +1768,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = X54K5PJVGU;
+				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -1787,7 +1799,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = X54K5PJVGU;
+				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -1818,7 +1830,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = X54K5PJVGU;
+				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -1851,7 +1863,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = X54K5PJVGU;
+				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -2001,7 +2013,7 @@
 				CODE_SIGN_ENTITLEMENTS = MacroPepelelipa/MacroPepelelipa.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = X54K5PJVGU;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = MacroPepelelipa/Info.plist;
 				"IPHONEOS_DEPLOYMENT_TARGET[sdk=macosx*]" = 14.2;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -2025,7 +2037,7 @@
 				CODE_SIGN_ENTITLEMENTS = MacroPepelelipa/MacroPepelelipa.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = X54K5PJVGU;
+				DEVELOPMENT_TEAM = 5HW626WUP4;
 				INFOPLIST_FILE = MacroPepelelipa/Info.plist;
 				"IPHONEOS_DEPLOYMENT_TARGET[sdk=macosx*]" = 14.2;
 				LD_RUNPATH_SEARCH_PATHS = (

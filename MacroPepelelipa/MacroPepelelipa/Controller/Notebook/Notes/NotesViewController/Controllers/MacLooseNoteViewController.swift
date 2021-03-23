@@ -1,15 +1,16 @@
 //
-//  LooseNoteViewController.swift
+//  MacLooseNoteViewController.swift
 //  MacroPepelelipa
 //
-//  Created by Pedro Henrique Guedes Silveira on 11/11/20.
-//  Copyright © 2020 Pedro Giuliano Farina. All rights reserved.
+//  Created by Lia Kassardjian on 23/03/21.
+//  Copyright © 2021 Pedro Giuliano Farina. All rights reserved.
 //
 
+#if targetEnvironment(macCatalyst)
+import AppKit
 import UIKit
-import Database
 
-internal class LooseNoteViewController: NotesViewController, NoteAssignerObserver {
+class MacLooseNoteViewController: MacNotesViewController, NoteAssignerObserver {
     
     // MARK: - Variables and Constants
     private var workspaces: () -> [WorkspaceEntity]
@@ -86,3 +87,4 @@ internal class LooseNoteViewController: NotesViewController, NoteAssignerObserve
         self.navigationController?.pushViewController(destination, animated: true)
     }
 }
+#endif

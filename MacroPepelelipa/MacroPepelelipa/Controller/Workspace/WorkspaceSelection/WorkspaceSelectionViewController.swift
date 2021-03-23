@@ -521,12 +521,24 @@ internal class WorkspaceSelectionViewController: UIViewController,
         }
         
         if let note = looseNote {
-            let looseNoteViewController = LooseNoteViewController(note: note, notebook: collectionDataSource.getLastNotebook(), workspaces: { self.collectionDataSource.workspaces })
+            #if !targetEnvironment(macCatalyst)
+            let looseNoteViewController = LooseNoteViewController(
+                note: note,
+                notebook: collectionDataSource.getLastNotebook(),
+                workspaces: { self.collectionDataSource.workspaces }
+            )
+            #else
+            let looseNoteViewController = MacLooseNoteViewController(
+                note: note,
+                notebook: collectionDataSource.getLastNotebook(),
+                workspaces: { self.collectionDataSource.workspaces }
+            )
+            #endif
+            
             let destination = UINavigationController(rootViewController: looseNoteViewController)
             destination.isModalInPresentation = true
             destination.modalTransitionStyle = .crossDissolve
             destination.modalPresentationStyle = .overFullScreen
-            
             self.navigationController?.present(destination, animated: true, completion: nil)
         }
     }

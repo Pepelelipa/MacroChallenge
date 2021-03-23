@@ -162,7 +162,7 @@ internal class MenuController {
                       identifier: UIMenu.Identifier(NoteMenuId.importImage.rawValue),
                       options: [.displayInline],
                       children: [
-                        NotesViewController.importCommand
+                        MacNotesViewController.importCommand
                       ])
         #else
         return UIMenu()
@@ -180,8 +180,8 @@ internal class MenuController {
                       identifier: UIMenu.Identifier(NoteMenuId.export.rawValue),
                       options: [.displayInline],
                       children: [
-                        NotesViewController.exportNoteCommand,
-                        NotesViewController.exportNotebookCommand
+                        MacNotesViewController.exportNoteCommand,
+                        MacNotesViewController.exportNotebookCommand
                       ])
         #else
         return UIMenu()

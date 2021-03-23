@@ -71,7 +71,11 @@ internal class NotesPageViewController: UIPageViewController,
     internal init(notes: [NoteEntity]) {
         self.notes = notes
         super.init(transitionStyle: .scroll, navigationOrientation: .vertical, options: .none)
+        #if targetEnvironment(macCatalyst)
+        setNotesViewControllers(for: MacNotesViewController(note: notes[notes.count-1]))
+        #else
         setNotesViewControllers(for: NotesViewController(note: notes[notes.count-1]))
+        #endif
         
         do {
             self.notebook = try notes[0].getNotebook()
@@ -160,9 +164,9 @@ internal class NotesPageViewController: UIPageViewController,
         notesToolbar.shareFileTriggered = { identifier in
             switch identifier {
             case .init("note"):
-                (self.viewControllers?.first as? NotesViewController)?.exportNote()
+                (self.viewControllers?.first as? MacNotesViewController)?.exportNote()
             case .init("notebook"):
-                (self.viewControllers?.first as? NotesViewController)?.exportNotebook()
+                (self.viewControllers?.first as? MacNotesViewController)?.exportNotebook()
             default:
                 break
             }
@@ -252,13 +256,21 @@ internal class NotesPageViewController: UIPageViewController,
         var viewControllers: [NotesViewController] = []
         
         if index - 1 > -1 {
+            #if targetEnvironment(macCatalyst)
+            viewControllers.append(MacNotesViewController(note: notes[index-1]))
+            #else
             viewControllers.append(NotesViewController(note: notes[index-1]))
+            #endif
         }
         
         viewControllers.append(notesViewController)
         
         if index + 1 < notes.count {
+            #if targetEnvironment(macCatalyst)
+            viewControllers.append(MacNotesViewController(note: notes[index+1]))
+            #else
             viewControllers.append(NotesViewController(note: notes[index+1]))
+            #endif
         }
         
         self.notesViewControllers = viewControllers
@@ -276,7 +288,11 @@ internal class NotesPageViewController: UIPageViewController,
         if let updatedNotebook = notebook {
             notes = updatedNotebook.notes
             if let lastNote = notes.last {
+                #if targetEnvironment(macCatalyst)
+                setNotesViewControllers(for: MacNotesViewController(note: lastNote))
+                #else
                 setNotesViewControllers(for: NotesViewController(note: lastNote))
+                #endif
             }
         }
     }
@@ -298,7 +314,11 @@ internal class NotesPageViewController: UIPageViewController,
     // MARK: - IndexObserver functions
     
     internal func didChangeIndex(to note: NoteEntity) {
+        #if targetEnvironment(macCatalyst)
+        setNotesViewControllers(for: MacNotesViewController(note: note))
+        #else
         setNotesViewControllers(for: NotesViewController(note: note))
+        #endif
     }
     
     // MARK: - IBActions functions
