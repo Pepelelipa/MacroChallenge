@@ -11,6 +11,18 @@ import MarkdownText
 
 class NotesView: UIView, MarkdownFormatViewReceiver {
     
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        addSubviews()
+    }
+    
+    convenience required init?(coder: NSCoder) {
+        guard let frame = coder.decodeObject(forKey: "frame") as? CGRect else {
+            return nil
+        }
+        self.init(frame: frame)
+    }
+    
     //    MARK: - Private properties
     
     private let screenSize = UIScreen.main.bounds
@@ -30,11 +42,9 @@ class NotesView: UIView, MarkdownFormatViewReceiver {
     //    MARK: - Internal properties
     
     internal var markdownDelegate: AppMarkdownTextViewDelegate?
-    internal weak var formatViewReceiver: MarkdownFormatViewReceiver?
     internal weak var configurationObserver: MarkupToolBarObserver?
     internal weak var textEditingObserver: TextEditingDelegateObserver?
     
-
     internal private(set) lazy var textViewBottomConstraint = textView.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor, constant: -20)
 
     internal private(set) lazy var textField: MarkdownTextField = {
@@ -63,7 +73,7 @@ class NotesView: UIView, MarkdownFormatViewReceiver {
     internal private(set) lazy var markupContainerView: MarkdownContainerView = {
         let height: CGFloat = screenSize.height/4
         
-        let container = MarkdownContainerView(frame: CGRect(x: 0, y: 0, width: screenSize.width, height: height), owner: self.textView, receiver: formatViewReceiver)
+        let container = MarkdownContainerView(frame: CGRect(x: 0, y: 0, width: screenSize.width, height: height), owner: self.textView, receiver: self)
         
         container.autoresizingMask = []
         container.isHidden = true

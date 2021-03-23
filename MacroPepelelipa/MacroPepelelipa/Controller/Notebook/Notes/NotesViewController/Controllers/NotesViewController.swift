@@ -24,6 +24,8 @@ internal class NotesViewController: UIViewController,
         guard let customView = view as? CustomView else {
             fatalError("Expected view to be of type \(CustomView.self) but got \(type(of: view)) instead")
         }
+        customView.configurationObserver = self
+        customView.textEditingObserver = self
         return customView
     }
     
