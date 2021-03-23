@@ -303,7 +303,7 @@ internal class NotesViewController: UIViewController,
             ConflictHandlerObject().genericErrorHandling(title: title, message: message)
             return
         }
-//        boxViewInteractions.createImageBox(image: image, note: note)
+        boxViewInteractions.createImageBox(image: image, note: note)
     }
     
     ///Adds an Image Box
