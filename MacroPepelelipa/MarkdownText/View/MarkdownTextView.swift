@@ -177,6 +177,12 @@ public class MarkdownTextView: UITextView {
     }
 
     private func setup() {
+        self.smartQuotesType = .no
+        self.smartDashesType = .no
+        #if targetEnvironment(macCatalyst)
+        self.autocorrectionType = .no
+        self.spellCheckingType = .no
+        #endif
         self.markdownDelegate = MarkdownTextViewDelegate()
         self.delegate = markdownDelegate
         self.translatesAutoresizingMaskIntoConstraints = false
@@ -222,6 +228,7 @@ public class MarkdownTextView: UITextView {
             mutableString.insert(newString, at: location)
 
             self.selectedRange.location = location + text.count
+            self.selectedRange.length = 0
         }
 
         //if breaking line check for lists
@@ -247,7 +254,7 @@ public class MarkdownTextView: UITextView {
             } else {
                 writeAction()
             }
-        } else if space {
+        } else if space && selectedRange.length == 0 {
             let activeAttributes = self.activeAttributes
             super.insertText(text)
             self.activeAttributes = activeAttributes
