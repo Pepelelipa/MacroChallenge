@@ -9,6 +9,7 @@
 #if targetEnvironment(macCatalyst)
 import AppKit
 import UIKit
+import Database
 
 class MacLooseNoteViewController: MacNotesViewController, NoteAssignerObserver {
     
