@@ -62,7 +62,6 @@ internal class NotesViewController: UIViewController,
     internal lazy var textView: MarkdownTextView = self.customView.textView
     internal private(set) lazy var noteContentHandler = NoteContentHandler()
 
-    
     internal weak var note: NoteEntity?
     internal weak var notebook: NotebookEntity?
     
@@ -493,7 +492,6 @@ internal class NotesViewController: UIViewController,
         }
     }
 }
-
 
 // MARK: - TextEditingDelegateObserver functions
 extension NotesViewController: TextEditingDelegateObserver {

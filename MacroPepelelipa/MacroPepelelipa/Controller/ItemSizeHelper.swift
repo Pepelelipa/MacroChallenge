@@ -5,6 +5,7 @@
 //  Created by Leonardo Oliveira on 13/11/20.
 //  Copyright © 2020 Pedro Giuliano Farina. All rights reserved.
 //
+// swiftlint:disable cyclomatic_complexity
 
 import UIKit
 

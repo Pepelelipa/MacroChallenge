@@ -160,7 +160,6 @@ internal class MarkdownBarConfiguration {
         buttons[.paragraph] = paragraphButton
         buttons[.image] = imageGalleryButton
 
-        
         let paintbrushButton = createButton(imageName: "paintbrush", systemImage: true, objcFunc: #selector(openEditTextContainer))
         paintbrushButton.accessibilityLabel = "Format".localized()
         paintbrushButton.accessibilityLabel = "Format hint".localized()
