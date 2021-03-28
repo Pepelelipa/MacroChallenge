@@ -5,6 +5,7 @@
 //  Created by Pedro Giuliano Farina on 29/09/20.
 //  Copyright © 2020 Pedro Giuliano Farina. All rights reserved.
 //
+// swiftlint:disable function_body_length
 
 import UIKit
 import Database

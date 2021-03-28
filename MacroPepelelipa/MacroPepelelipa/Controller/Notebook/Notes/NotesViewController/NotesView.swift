@@ -23,7 +23,7 @@ class NotesView: UIView, MarkdownFormatViewReceiver {
         self.init(frame: frame)
     }
     
-    //    MARK: - Private properties
+    // MARK: - Private properties
     
     private let screenSize = UIScreen.main.bounds
     
@@ -39,7 +39,7 @@ class NotesView: UIView, MarkdownFormatViewReceiver {
         return delegate
     }()
     
-    //    MARK: - Internal properties
+    // MARK: - Internal properties
     
     internal var markdownDelegate: AppMarkdownTextViewDelegate?
     internal weak var configurationObserver: MarkupToolBarObserver?
@@ -100,7 +100,7 @@ class NotesView: UIView, MarkdownFormatViewReceiver {
         ]
     }()
     
-    //    MARK: - Private methods
+    // MARK: - Private methods
 
     private func addSubviews() {
         addSubview(textField)
@@ -108,7 +108,7 @@ class NotesView: UIView, MarkdownFormatViewReceiver {
         addSubview(markupContainerView)
     }
     
-    //    MARK: - Internal methods
+    // MARK: - Internal methods
     
     /**
      This method changes de main input view based on it being custom or not.
@@ -126,4 +126,3 @@ class NotesView: UIView, MarkdownFormatViewReceiver {
         self.textView.reloadInputViews()
     }
 }
-
