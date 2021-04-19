@@ -53,6 +53,46 @@ internal class LooseNoteViewController: NotesViewController, NoteAssignerObserve
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.rightBarButtonItems = [addNoteBarButton]
+        self.customView.notesToolbar.customizeButtons(with: false)
+        
+        self.setDeleteNoteButton {
+            let alertControlller = UIAlertController(
+                title: "Delete Note confirmation".localized(),
+                message: "Warning".localized(),
+                preferredStyle: .actionSheet).makeDeleteConfirmation(dataType: .note) { _ in
+                let deleteAlertController = UIAlertController(
+                    title: "Delete note confirmation".localized(),
+                    message: "Warning".localized(),
+                    preferredStyle: .alert).makeDeleteConfirmation(dataType: .note) { _ in
+                        self.dismiss(animated: true, completion: nil)
+                }
+                self.present(deleteAlertController, animated: true, completion: nil)
+            }
+            alertControlller.popoverPresentationController?.barButtonItem = self.customView.notesToolbar.deleteNoteButton
+            self.present(alertControlller, animated: true, completion: nil)
+        }
+        
+        self.setAddImageButton { (identifier) in
+            switch identifier {
+            case .init("camera"):
+                self.presentCameraPicker()
+            case .init("library"):
+                self.presentPhotoPicker()
+            default:
+                break
+            }
+        }
+        
+        self.setShareButton { (sender) in
+            guard let userNotebook = self.notebook else {
+                return
+            }
+            let objectsToShare: [Any] = [userNotebook.createFullDocument()]
+            let activityVC = UIActivityViewController(activityItems: objectsToShare, applicationActivities: nil)
+            
+            activityVC.popoverPresentationController?.barButtonItem = sender
+            self.present(activityVC, animated: true, completion: nil)
+        }
     }
 
     override func viewWillAppear(_ animated: Bool) {
