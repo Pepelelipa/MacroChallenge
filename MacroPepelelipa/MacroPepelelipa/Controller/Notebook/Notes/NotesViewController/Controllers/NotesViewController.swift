@@ -129,7 +129,6 @@ internal class NotesViewController: UIViewController,
     
     override func loadView() {
         let customView = CustomView()
-//        customView.delegate = self
         view = customView
     }
     

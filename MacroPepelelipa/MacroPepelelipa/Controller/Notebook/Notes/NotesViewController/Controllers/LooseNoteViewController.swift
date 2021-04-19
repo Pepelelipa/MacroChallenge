@@ -6,6 +6,7 @@
 //  Copyright © 2020 Pedro Giuliano Farina. All rights reserved.
 //
 
+#if !targetEnvironment(macCatalyst)
 import UIKit
 import Database
 
@@ -29,6 +30,18 @@ internal class LooseNoteViewController: NotesViewController, NoteAssignerObserve
                                    action: #selector(closeKeyboard))
         item.tintColor = UIColor.actionColor
         return item
+    }()
+    
+    internal lazy var markupConfig: MarkdownBarConfiguration = {
+        let mrkConf = MarkdownBarConfiguration(owner: self.customView.textView)
+        mrkConf.observer = self
+        return mrkConf
+    }()
+    
+    
+    private lazy var markupNavigationView: MarkdownNavigationView = {
+        let mrkView = MarkdownNavigationView(frame: .zero, configurations: markupConfig)
+        return mrkView
     }()
     
     // MARK: - Initializers
@@ -93,6 +106,11 @@ internal class LooseNoteViewController: NotesViewController, NoteAssignerObserve
             activityVC.popoverPresentationController?.barButtonItem = sender
             self.present(activityVC, animated: true, completion: nil)
         }
+        
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            navigationItem.largeTitleDisplayMode = .never
+            navigationItem.titleView = markupNavigationView
+        }
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -127,3 +145,4 @@ internal class LooseNoteViewController: NotesViewController, NoteAssignerObserve
         self.navigationController?.pushViewController(destination, animated: true)
     }
 }
+#endif

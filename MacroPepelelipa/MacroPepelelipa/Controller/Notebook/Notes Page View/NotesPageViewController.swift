@@ -117,6 +117,8 @@ internal class NotesPageViewController: UIPageViewController,
             name: UIResponder.keyboardWillHideNotification,
             object: nil
         )
+        
+        setupNotesToolbarActions()
     }
     
     // MARK: - Functions
@@ -150,9 +152,8 @@ internal class NotesPageViewController: UIPageViewController,
             }
         }
         
-        
         #if targetEnvironment(macCatalyst)
-        notesToolbar.shareFileTriggered = { identifier in
+        notesViewController.setShareButton { identifier in
             switch identifier {
             case .init("note"):
                 notesViewController.exportNote()

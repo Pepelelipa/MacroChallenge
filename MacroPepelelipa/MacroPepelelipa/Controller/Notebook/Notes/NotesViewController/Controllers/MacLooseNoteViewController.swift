@@ -33,6 +33,19 @@ class MacLooseNoteViewController: MacNotesViewController, NoteAssignerObserver {
         return item
     }()
     
+    internal lazy var markupConfig: MarkdownBarConfiguration = {
+        let mrkConf = MarkdownBarConfiguration(owner: self.customView.textView)
+        mrkConf.observer = self
+        return mrkConf
+    }()
+    
+    
+    private lazy var markupNavigationView: MarkdownNavigationView = {
+        let mrkView = MarkdownNavigationView(frame: .zero, configurations: markupConfig)
+        mrkView.backgroundColor = .clear
+        return mrkView
+    }()
+    
     // MARK: - Initializers
     
     internal init(note: NoteEntity, notebook: NotebookEntity? = nil, workspaces: @escaping () -> [WorkspaceEntity]) {
@@ -47,7 +60,13 @@ class MacLooseNoteViewController: MacNotesViewController, NoteAssignerObserver {
             return nil
         }
         self.init(note: note, notebook: coder.decodeObject(forKey: "notebook") as? NotebookEntity, workspaces: workspaces)
-        
+    }
+
+    // MARK: - Override functions
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        navigationItem.rightBarButtonItems = [addNoteBarButton]
         self.customView.notesToolbar.customizeButtons(with: false)
         
         self.setDeleteNoteButton {
@@ -78,7 +97,7 @@ class MacLooseNoteViewController: MacNotesViewController, NoteAssignerObserver {
             }
         }
         
-        self.shareFileTriggered = { (identifier) in
+        self.setShareButton { identifier in
             switch identifier {
             case .init("note"):
                 self.exportNote()
@@ -88,13 +107,9 @@ class MacLooseNoteViewController: MacNotesViewController, NoteAssignerObserver {
                 break
             }
         }
-    }
-
-    // MARK: - Override functions
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        navigationItem.rightBarButtonItems = [addNoteBarButton]
+        
+        navigationItem.largeTitleDisplayMode = .never
+        navigationItem.titleView = markupNavigationView
     }
 
     override func viewWillAppear(_ animated: Bool) {
