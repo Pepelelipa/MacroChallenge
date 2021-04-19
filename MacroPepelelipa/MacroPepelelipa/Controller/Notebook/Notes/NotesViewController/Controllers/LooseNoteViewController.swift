@@ -61,7 +61,7 @@ internal class LooseNoteViewController: NotesViewController, NoteAssignerObserve
                 message: "Warning".localized(),
                 preferredStyle: .actionSheet).makeDeleteConfirmation(dataType: .note) { _ in
                 let deleteAlertController = UIAlertController(
-                    title: "Delete note confirmation".localized(),
+                    title: "Delete Note confirmation".localized(),
                     message: "Warning".localized(),
                     preferredStyle: .alert).makeDeleteConfirmation(dataType: .note) { _ in
                         self.dismiss(animated: true, completion: nil)

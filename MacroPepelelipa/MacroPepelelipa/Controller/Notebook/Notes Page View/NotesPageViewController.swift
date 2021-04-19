@@ -119,22 +119,19 @@ internal class NotesPageViewController: UIPageViewController,
         )
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        setupNotesToolbarActions()
-    }
-    
     // MARK: - Functions
     
     ///This method configures que actions performed by the buttons at the notes toolbar 
     private func setupNotesToolbarActions() {
         
         #if targetEnvironment(macCatalyst)
-        guard let notesViewController = notesViewControllers[index] as? MacNotesViewController else {
+        guard let notesViewController = self.viewControllers?.first as? MacNotesViewController else {
             return
         }
         #else
-        let notesViewController = self.notesViewControllers[self.index]
+        guard let notesViewController = self.viewControllers?.first as? NotesViewController else {
+            return
+        }
         #endif
         
         
@@ -212,7 +209,7 @@ internal class NotesPageViewController: UIPageViewController,
             message: "Warning".localized(),
             preferredStyle: .actionSheet).makeDeleteConfirmation(dataType: .note) { _ in
             let deleteAlertController = UIAlertController(
-                title: "Delete note confirmation".localized(),
+                title: "Delete Note confirmation".localized(),
                 message: "Warning".localized(),
                 preferredStyle: .alert).makeDeleteConfirmation(dataType: .note) { _ in
                 do {
@@ -275,6 +272,8 @@ internal class NotesPageViewController: UIPageViewController,
         if let viewController = viewControllers.count > 2 ? notesViewControllers[1] : viewControllerToBePresented {
             setViewControllers([viewController], direction: .forward, animated: false)
         }
+        
+        setupNotesToolbarActions()
     }
     
     ///This method updates the current notes being displayed by the page view
