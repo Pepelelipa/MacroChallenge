@@ -362,6 +362,24 @@ internal class NotesViewController: UIViewController,
         customView.textView.insertText("\n" + text + "\n")
     }
     
+    internal func setDeleteNoteButton(_ action: @escaping () -> Void) {
+        self.customView.notesToolbar.deleteNoteTriggered = action
+    }
+    
+    internal func setAddImageButton(_ action: @escaping (UIAction.Identifier) -> Void) {
+        self.customView.notesToolbar.addImageTriggered = action
+    }
+    
+    #if !targetEnvironment(macCatalyst)
+    internal func setShareButton(_ action: @escaping (UIBarButtonItem) -> Void) {
+        self.customView.notesToolbar.shareNoteTriggered = action
+    }
+    #endif
+    
+    internal func setCreateButton(_ action: @escaping () -> Void) {
+        self.customView.notesToolbar.newNoteTriggered = action
+    }
+    
     // MARK: - Uptade exclusion path frames
     
     internal func updateExclusionPaths() {

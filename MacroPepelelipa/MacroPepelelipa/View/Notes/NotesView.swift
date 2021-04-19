@@ -9,7 +9,7 @@
 import UIKit
 import MarkdownText
 
-class NotesView: UIView, MarkdownFormatViewReceiver {
+internal class NotesView: UIView, MarkdownFormatViewReceiver {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -86,6 +86,12 @@ class NotesView: UIView, MarkdownFormatViewReceiver {
         return toolBar
     }()
     
+    internal lazy var notesToolbar: NotesToolbar = {
+        let toolbar = NotesToolbar(frame: .zero)
+        toolbar.translatesAutoresizingMaskIntoConstraints = false
+        return toolbar
+    }()
+    
     internal private(set) lazy var customConstraints: [NSLayoutConstraint] = {
         [
             textField.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 20),
@@ -96,7 +102,11 @@ class NotesView: UIView, MarkdownFormatViewReceiver {
             textView.topAnchor.constraint(equalTo: self.textField.bottomAnchor, constant: 20),
             textView.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor),
             textView.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor),
-            textViewBottomConstraint
+            textViewBottomConstraint,
+            
+            notesToolbar.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor),
+            notesToolbar.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor),
+            notesToolbar.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor)
         ]
     }()
     
@@ -106,6 +116,7 @@ class NotesView: UIView, MarkdownFormatViewReceiver {
         addSubview(textField)
         addSubview(textView)
         addSubview(markupContainerView)
+        addSubview(notesToolbar)
     }
     
     // MARK: - Internal methods

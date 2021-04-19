@@ -89,6 +89,10 @@ class MacNotesViewController: NotesViewController {
         }
         exportPDF(notebook.createFullDocument(), title: notebook.name)
     }
+    
+    internal func setShareButton(_ action: @escaping (UIAction.Identifier) -> Void) {
+        self.customView.notesToolbar.shareFileTriggered = action
+    }
 
 }
 #endif

@@ -1104,6 +1104,7 @@
 				D9CE2D5E2565C06E00DF4D2A /* NoteAssignerResultsTableViewCell.swift */,
 				D925934D255986F1000529B4 /* InputViewTipsStack.swift */,
 				A7C057C425420F260023A370 /* NotesToolbar.swift */,
+				E44C1885260031A3005CCF40 /* NotesView.swift */,
 			);
 			path = Notes;
 			sourceTree = "<group>";
@@ -1152,7 +1153,6 @@
 				D9CE2D312565C00A00DF4D2A /* Accessories */,
 				D9CE2D362565C00A00DF4D2A /* Controllers */,
 				D9CE2D3C2565C00A00DF4D2A /* Protocols */,
-				E44C1885260031A3005CCF40 /* NotesView.swift */,
 			);
 			path = NotesViewController;
 			sourceTree = "<group>";

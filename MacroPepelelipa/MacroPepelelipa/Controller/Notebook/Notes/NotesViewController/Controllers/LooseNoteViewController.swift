@@ -36,6 +36,7 @@ internal class LooseNoteViewController: NotesViewController, NoteAssignerObserve
     internal init(note: NoteEntity, notebook: NotebookEntity? = nil, workspaces: @escaping () -> [WorkspaceEntity]) {
         self.workspaces = workspaces
         super.init(looseNote: note, notebook: notebook)
+        print(self.customView.keyboardToolbar)
     }
 
     internal required convenience init?(coder: NSCoder) {
