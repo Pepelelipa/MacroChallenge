@@ -47,6 +47,47 @@ class MacLooseNoteViewController: MacNotesViewController, NoteAssignerObserver {
             return nil
         }
         self.init(note: note, notebook: coder.decodeObject(forKey: "notebook") as? NotebookEntity, workspaces: workspaces)
+        
+        self.customView.notesToolbar.customizeButtons(with: false)
+        
+        self.setDeleteNoteButton {
+            let alertControlller = UIAlertController(
+                title: "Delete Note confirmation".localized(),
+                message: "Warning".localized(),
+                preferredStyle: .actionSheet).makeDeleteConfirmation(dataType: .note) { _ in
+                let deleteAlertController = UIAlertController(
+                    title: "Delete note confirmation".localized(),
+                    message: "Warning".localized(),
+                    preferredStyle: .alert).makeDeleteConfirmation(dataType: .note) { _ in
+                        self.dismiss(animated: true, completion: nil)
+                }
+                self.present(deleteAlertController, animated: true, completion: nil)
+            }
+            alertControlller.popoverPresentationController?.barButtonItem = self.customView.notesToolbar.deleteNoteButton
+            self.present(alertControlller, animated: true, completion: nil)
+        }
+        
+        self.setAddImageButton { (identifier) in
+            switch identifier {
+            case .init("camera"):
+                self.presentCameraPicker()
+            case .init("library"):
+                self.presentPhotoPicker()
+            default:
+                break
+            }
+        }
+        
+        self.shareFileTriggered = { (identifier) in
+            switch identifier {
+            case .init("note"):
+                self.exportNote()
+            case .init("notebook"):
+                self.exportNotebook()
+            default:
+                break
+            }
+        }
     }
 
     // MARK: - Override functions
