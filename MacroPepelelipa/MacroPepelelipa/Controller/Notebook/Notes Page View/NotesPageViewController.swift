@@ -104,9 +104,7 @@ internal class NotesPageViewController: UIPageViewController,
         
         navigationItem.largeTitleDisplayMode = .never
         navigationItem.rightBarButtonItems = [notebookIndexButton, presentTipButton]
-        
-        setupNotesToolbarActions()
-        
+                
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(keyboardWillShow),
@@ -121,19 +119,22 @@ internal class NotesPageViewController: UIPageViewController,
         )
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        setupNotesToolbarActions()
+    }
+    
     // MARK: - Functions
     
     ///This method configures que actions performed by the buttons at the notes toolbar 
     private func setupNotesToolbarActions() {
         
         #if targetEnvironment(macCatalyst)
-        guard let notesViewController = self.viewControllers?.first as? MacNotesViewController else {
+        guard let notesViewController = notesViewControllers[index] as? MacNotesViewController else {
             return
         }
         #else
-        guard let notesViewController = self.viewControllers?.first as? NotesViewController else {
-            return
-        }
+        let notesViewController = self.notesViewControllers[self.index]
         #endif
         
         
@@ -228,7 +229,7 @@ internal class NotesPageViewController: UIPageViewController,
             }
             self.present(deleteAlertController, animated: true, completion: nil)
         }
-//        alertControlller.popoverPresentationController?.barButtonItem = notesToolbar.deleteNoteButton
+        alertControlller.popoverPresentationController?.barButtonItem = viewController.customView.notesToolbar.deleteNoteButton
         self.present(alertControlller, animated: true, completion: nil)
     }
     
