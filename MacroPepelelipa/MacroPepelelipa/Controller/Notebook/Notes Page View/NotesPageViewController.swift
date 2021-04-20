@@ -23,12 +23,6 @@ internal class NotesPageViewController: UIPageViewController,
     
     private lazy var noteDataSource = NotesPageViewControllerDataSource(notes: notes)
     
-    private lazy var notesToolbar: NotesToolbar = {
-        let toolbar = NotesToolbar(frame: .zero)
-        toolbar.translatesAutoresizingMaskIntoConstraints = false
-        return toolbar
-    }()
-    
     private lazy var noteDelegate = NotesPageViewControllerDelegate { [unowned self] (viewController) in 
         if let notesViewController = viewController as? NotesViewController {
             self.setNotesViewControllers(for: notesViewController)
@@ -56,14 +50,6 @@ internal class NotesPageViewController: UIPageViewController,
                                    target: self,
                                    action: #selector(closeKeyboard))
         return item
-    }()
-
-    private lazy var constraints: [NSLayoutConstraint] = {
-        [
-            notesToolbar.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            notesToolbar.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            notesToolbar.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
-        ]
     }()
     
     // MARK: - Initializers
@@ -114,14 +100,11 @@ internal class NotesPageViewController: UIPageViewController,
         self.dataSource = noteDataSource
         self.delegate = noteDelegate
         
-        view.addSubview(notesToolbar)
         view.backgroundColor = .rootColor
         
         navigationItem.largeTitleDisplayMode = .never
         navigationItem.rightBarButtonItems = [notebookIndexButton, presentTipButton]
-        
-        setupNotesToolbarActions()
-        
+                
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(keyboardWillShow),
@@ -134,10 +117,8 @@ internal class NotesPageViewController: UIPageViewController,
             name: UIResponder.keyboardWillHideNotification,
             object: nil
         )
-    }
-    
-    override func viewDidLayoutSubviews() {
-        NSLayoutConstraint.activate(constraints)
+        
+        setupNotesToolbarActions()
     }
     
     // MARK: - Functions
@@ -145,46 +126,57 @@ internal class NotesPageViewController: UIPageViewController,
     ///This method configures que actions performed by the buttons at the notes toolbar 
     private func setupNotesToolbarActions() {
         
-        notesToolbar.deleteNoteTriggered = {
+        #if targetEnvironment(macCatalyst)
+        guard let notesViewController = self.viewControllers?.first as? MacNotesViewController else {
+            return
+        }
+        #else
+        guard let notesViewController = self.viewControllers?.first as? NotesViewController else {
+            return
+        }
+        #endif
+        
+        
+        notesViewController.setDeleteNoteButton {
             self.deleteNote()
         }
         
-        notesToolbar.addImageTriggered = { identifier in
+        notesViewController.setAddImageButton { (identifier) in
             switch identifier {
             case .init("camera"):
-                (self.viewControllers?.first as? NotesViewController)?.presentCameraPicker()
+                notesViewController.presentCameraPicker()
             case .init("library"):
-                (self.viewControllers?.first as? NotesViewController)?.presentPhotoPicker()
+                notesViewController.presentPhotoPicker()
             default:
                 break
             }
         }
         
         #if targetEnvironment(macCatalyst)
-        notesToolbar.shareFileTriggered = { identifier in
+        notesViewController.setShareButton { identifier in
             switch identifier {
             case .init("note"):
-                (self.viewControllers?.first as? MacNotesViewController)?.exportNote()
+                notesViewController.exportNote()
             case .init("notebook"):
-                (self.viewControllers?.first as? MacNotesViewController)?.exportNotebook()
+                notesViewController.exportNotebook()
             default:
                 break
             }
         }
         #else
-        notesToolbar.shareNoteTriggered = { sender in
+        notesViewController.setShareButton { (sender) in
             guard let userNotebook = self.notebook else {
                 return
             }
             let objectsToShare: [Any] = [userNotebook.createFullDocument()]
             let activityVC = UIActivityViewController(activityItems: objectsToShare, applicationActivities: nil)
-
+            
             activityVC.popoverPresentationController?.barButtonItem = sender
             self.present(activityVC, animated: true, completion: nil)
         }
         #endif
         
-        notesToolbar.newNoteTriggered = {
+        notesViewController.setCreateButton {
             self.createNote()
         }
     }
@@ -218,7 +210,7 @@ internal class NotesPageViewController: UIPageViewController,
             message: "Warning".localized(),
             preferredStyle: .actionSheet).makeDeleteConfirmation(dataType: .note) { _ in
             let deleteAlertController = UIAlertController(
-                title: "Delete note confirmation".localized(),
+                title: "Delete Note confirmation".localized(),
                 message: "Warning".localized(),
                 preferredStyle: .alert).makeDeleteConfirmation(dataType: .note) { _ in
                 do {
@@ -235,7 +227,7 @@ internal class NotesPageViewController: UIPageViewController,
             }
             self.present(deleteAlertController, animated: true, completion: nil)
         }
-        alertControlller.popoverPresentationController?.barButtonItem = notesToolbar.deleteNoteButton
+        alertControlller.popoverPresentationController?.barButtonItem = viewController.customView.notesToolbar.deleteNoteButton
         self.present(alertControlller, animated: true, completion: nil)
     }
     
@@ -281,6 +273,8 @@ internal class NotesPageViewController: UIPageViewController,
         if let viewController = viewControllers.count > 2 ? notesViewControllers[1] : viewControllerToBePresented {
             setViewControllers([viewController], direction: .forward, animated: false)
         }
+        
+        setupNotesToolbarActions()
     }
     
     ///This method updates the current notes being displayed by the page view

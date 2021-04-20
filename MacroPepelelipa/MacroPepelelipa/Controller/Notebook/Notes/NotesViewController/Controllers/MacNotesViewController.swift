@@ -35,7 +35,7 @@ class MacNotesViewController: NotesViewController {
         }
     }()
     
-    @IBAction internal func importImage() {
+    @objc internal override func importImage() {
         let documentPicker = UIDocumentPickerViewController(forOpeningContentTypes: [.image])
         documentPicker.delegate = documentPickerDelegate
         documentPicker.allowsMultipleSelection = false
@@ -88,6 +88,10 @@ class MacNotesViewController: NotesViewController {
             return
         }
         exportPDF(notebook.createFullDocument(), title: notebook.name)
+    }
+    
+    internal func setShareButton(_ action: @escaping (UIAction.Identifier) -> Void) {
+        self.customView.notesToolbar.shareFileTriggered = action
     }
 
 }

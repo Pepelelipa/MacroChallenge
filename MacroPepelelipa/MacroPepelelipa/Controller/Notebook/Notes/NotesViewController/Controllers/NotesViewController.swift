@@ -129,7 +129,6 @@ internal class NotesViewController: UIViewController,
     
     override func loadView() {
         let customView = CustomView()
-//        customView.delegate = self
         view = customView
     }
     
@@ -362,6 +361,24 @@ internal class NotesViewController: UIViewController,
         customView.textView.insertText("\n" + text + "\n")
     }
     
+    internal func setDeleteNoteButton(_ action: @escaping () -> Void) {
+        self.customView.notesToolbar.deleteNoteTriggered = action
+    }
+    
+    internal func setAddImageButton(_ action: @escaping (UIAction.Identifier) -> Void) {
+        self.customView.notesToolbar.addImageTriggered = action
+    }
+    
+    #if !targetEnvironment(macCatalyst)
+    internal func setShareButton(_ action: @escaping (UIBarButtonItem) -> Void) {
+        self.customView.notesToolbar.shareNoteTriggered = action
+    }
+    #endif
+    
+    internal func setCreateButton(_ action: @escaping () -> Void) {
+        self.customView.notesToolbar.newNoteTriggered = action
+    }
+    
     // MARK: - Uptade exclusion path frames
     
     internal func updateExclusionPaths() {
@@ -564,6 +581,11 @@ extension NotesViewController: MarkupToolBarObserver {
         self.showImagePickerController(sourceType: .camera)
         #endif
     }
+    
+    ///This method opens the pop over when the button is pressed
+    @objc internal func openPopOver() {}
+    
+    @objc internal func importImage() {}
 }
 
 // MARK: - SensitiveContentController

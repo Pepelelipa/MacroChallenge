@@ -6,6 +6,7 @@
 //  Copyright © 2020 Pedro Giuliano Farina. All rights reserved.
 //
 
+#if !targetEnvironment(macCatalyst)
 import UIKit
 import Database
 
@@ -31,6 +32,18 @@ internal class LooseNoteViewController: NotesViewController, NoteAssignerObserve
         return item
     }()
     
+    internal lazy var markupConfig: MarkdownBarConfiguration = {
+        let mrkConf = MarkdownBarConfiguration(owner: self.customView.textView)
+        mrkConf.observer = self
+        return mrkConf
+    }()
+    
+    
+    private lazy var markupNavigationView: MarkdownNavigationView = {
+        let mrkView = MarkdownNavigationView(frame: .zero, configurations: markupConfig)
+        return mrkView
+    }()
+    
     // MARK: - Initializers
     
     internal init(note: NoteEntity, notebook: NotebookEntity? = nil, workspaces: @escaping () -> [WorkspaceEntity]) {
@@ -52,6 +65,52 @@ internal class LooseNoteViewController: NotesViewController, NoteAssignerObserve
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.rightBarButtonItems = [addNoteBarButton]
+        self.customView.textView.allowsEditingTextAttributes = true
+        self.customView.notesToolbar.customizeButtons(with: false)
+        
+        self.setDeleteNoteButton {
+            let alertControlller = UIAlertController(
+                title: "Delete Note confirmation".localized(),
+                message: "Warning".localized(),
+                preferredStyle: .actionSheet).makeDeleteConfirmation(dataType: .note) { _ in
+                let deleteAlertController = UIAlertController(
+                    title: "Delete Note confirmation".localized(),
+                    message: "Warning".localized(),
+                    preferredStyle: .alert).makeDeleteConfirmation(dataType: .note) { _ in
+                        self.dismiss(animated: true, completion: nil)
+                }
+                self.present(deleteAlertController, animated: true, completion: nil)
+            }
+            alertControlller.popoverPresentationController?.barButtonItem = self.customView.notesToolbar.deleteNoteButton
+            self.present(alertControlller, animated: true, completion: nil)
+        }
+        
+        self.setAddImageButton { (identifier) in
+            switch identifier {
+            case .init("camera"):
+                self.presentCameraPicker()
+            case .init("library"):
+                self.presentPhotoPicker()
+            default:
+                break
+            }
+        }
+        
+        self.setShareButton { (sender) in
+            guard let userNotebook = self.notebook else {
+                return
+            }
+            let objectsToShare: [Any] = [userNotebook.createFullDocument()]
+            let activityVC = UIActivityViewController(activityItems: objectsToShare, applicationActivities: nil)
+            
+            activityVC.popoverPresentationController?.barButtonItem = sender
+            self.present(activityVC, animated: true, completion: nil)
+        }
+        
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            navigationItem.largeTitleDisplayMode = .never
+            navigationItem.titleView = markupNavigationView
+        }
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -66,7 +125,7 @@ internal class LooseNoteViewController: NotesViewController, NoteAssignerObserve
     func dismissLooseNoteViewController() {
         self.navigationController?.popViewController(animated: true)
     }
-    
+        
     // MARK: - IBActions functions
     
     @IBAction private func closeKeyboard() {
@@ -85,4 +144,19 @@ internal class LooseNoteViewController: NotesViewController, NoteAssignerObserve
         )
         self.navigationController?.pushViewController(destination, animated: true)
     }
+
+// MARK: - MarkupToolBarObserver
+    
+    ///This method opens the pop over when the button is pressed
+    @objc internal override func openPopOver() {
+        let markupContainerViewController = MarkupContainerViewController(owner: self.customView.textView,
+                                                                          viewController: self,
+                                                                          size: .init(width: 400, height: 110))
+
+        markupContainerViewController.modalPresentationStyle = .popover
+        markupContainerViewController.popoverPresentationController?.sourceView = markupNavigationView.barButtonItems[.format]
+        markupContainerViewController.popoverPresentationController?.passthroughViews = [self.customView.textView]
+        present(markupContainerViewController, animated: true)
+    }
 }
+#endif
