@@ -581,6 +581,11 @@ extension NotesViewController: MarkupToolBarObserver {
         self.showImagePickerController(sourceType: .camera)
         #endif
     }
+    
+    ///This method opens the pop over when the button is pressed
+    @objc internal func openPopOver() {}
+    
+    @objc internal func importImage() {}
 }
 
 // MARK: - SensitiveContentController

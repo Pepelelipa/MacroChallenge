@@ -125,6 +125,20 @@ class MacLooseNoteViewController: MacNotesViewController, NoteAssignerObserver {
         self.navigationController?.popViewController(animated: true)
     }
     
+    // MARK: - MarkupToolBarObserver
+    
+    ///This method opens the pop over when the button is pressed
+    @objc internal override func openPopOver() {
+        let markupContainerViewController = MarkupContainerViewController(owner: self.customView.textView,
+                                                                          viewController: self,
+                                                                          size: .init(width: 400, height: 110))
+
+        markupContainerViewController.modalPresentationStyle = .popover
+        markupContainerViewController.popoverPresentationController?.sourceView = markupNavigationView.barButtonItems[.format]
+        markupContainerViewController.popoverPresentationController?.passthroughViews = [self.customView.textView]
+        present(markupContainerViewController, animated: true)
+    }
+    
     // MARK: - IBActions functions
     
     @IBAction private func closeKeyboard() {

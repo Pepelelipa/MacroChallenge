@@ -49,7 +49,6 @@ internal class LooseNoteViewController: NotesViewController, NoteAssignerObserve
     internal init(note: NoteEntity, notebook: NotebookEntity? = nil, workspaces: @escaping () -> [WorkspaceEntity]) {
         self.workspaces = workspaces
         super.init(looseNote: note, notebook: notebook)
-        print(self.customView.keyboardToolbar)
     }
 
     internal required convenience init?(coder: NSCoder) {
@@ -66,6 +65,7 @@ internal class LooseNoteViewController: NotesViewController, NoteAssignerObserve
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.rightBarButtonItems = [addNoteBarButton]
+        self.customView.textView.allowsEditingTextAttributes = true
         self.customView.notesToolbar.customizeButtons(with: false)
         
         self.setDeleteNoteButton {
@@ -125,7 +125,7 @@ internal class LooseNoteViewController: NotesViewController, NoteAssignerObserve
     func dismissLooseNoteViewController() {
         self.navigationController?.popViewController(animated: true)
     }
-    
+        
     // MARK: - IBActions functions
     
     @IBAction private func closeKeyboard() {
@@ -143,6 +143,20 @@ internal class LooseNoteViewController: NotesViewController, NoteAssignerObserve
             imageBoxes: imageBoxes
         )
         self.navigationController?.pushViewController(destination, animated: true)
+    }
+
+// MARK: - MarkupToolBarObserver
+    
+    ///This method opens the pop over when the button is pressed
+    @objc internal override func openPopOver() {
+        let markupContainerViewController = MarkupContainerViewController(owner: self.customView.textView,
+                                                                          viewController: self,
+                                                                          size: .init(width: 400, height: 110))
+
+        markupContainerViewController.modalPresentationStyle = .popover
+        markupContainerViewController.popoverPresentationController?.sourceView = markupNavigationView.barButtonItems[.format]
+        markupContainerViewController.popoverPresentationController?.passthroughViews = [self.customView.textView]
+        present(markupContainerViewController, animated: true)
     }
 }
 #endif

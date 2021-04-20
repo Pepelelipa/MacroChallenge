@@ -35,7 +35,7 @@ class MacNotesViewController: NotesViewController {
         }
     }()
     
-    @IBAction internal func importImage() {
+    @objc internal override func importImage() {
         let documentPicker = UIDocumentPickerViewController(forOpeningContentTypes: [.image])
         documentPicker.delegate = documentPickerDelegate
         documentPicker.allowsMultipleSelection = false
