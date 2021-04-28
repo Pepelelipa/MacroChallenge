@@ -110,7 +110,7 @@ internal class NotesToolbar: UIToolbar {
     internal override init(frame: CGRect) {
         super.init(frame: frame)
         
-        setUpButtons()
+        setUpButtons(true)
         
         self.sizeToFit()
         self.tintColor = .actionColor
@@ -127,15 +127,23 @@ internal class NotesToolbar: UIToolbar {
         self.init(frame: frame)
     }
     
-    private func setUpButtons() {
+    private func setUpButtons(_ hasNewNoteButton: Bool) {
         
         let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         
         if UIDevice.current.userInterfaceIdiom == .phone {
-            self.items = [deleteNoteButton, flexibleSpace, addImageButton, flexibleSpace, shareNoteButton, flexibleSpace, newNoteButton]
+            self.items = [deleteNoteButton, flexibleSpace, addImageButton, flexibleSpace, shareNoteButton]
         } else {
-            self.items = [deleteNoteButton, flexibleSpace, shareNoteButton, flexibleSpace, newNoteButton]
+            self.items = [deleteNoteButton, flexibleSpace, shareNoteButton]
         }
+        
+        if hasNewNoteButton {
+            self.items?.append(contentsOf: [flexibleSpace, newNoteButton])
+        }
+    }
+    
+    internal func customizeButtons(with newNoteButton: Bool) {
+        self.setUpButtons(newNoteButton)
     }
     
     // MARK: - IBActions Functions

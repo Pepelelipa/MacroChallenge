@@ -33,6 +33,19 @@ class MacLooseNoteViewController: MacNotesViewController, NoteAssignerObserver {
         return item
     }()
     
+    internal lazy var markupConfig: MarkdownBarConfiguration = {
+        let mrkConf = MarkdownBarConfiguration(owner: self.customView.textView)
+        mrkConf.observer = self
+        return mrkConf
+    }()
+    
+    
+    private lazy var markupNavigationView: MarkdownNavigationView = {
+        let mrkView = MarkdownNavigationView(frame: .zero, configurations: markupConfig)
+        mrkView.backgroundColor = .clear
+        return mrkView
+    }()
+    
     // MARK: - Initializers
     
     internal init(note: NoteEntity, notebook: NotebookEntity? = nil, workspaces: @escaping () -> [WorkspaceEntity]) {
@@ -54,6 +67,49 @@ class MacLooseNoteViewController: MacNotesViewController, NoteAssignerObserver {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.rightBarButtonItems = [addNoteBarButton]
+        self.customView.notesToolbar.customizeButtons(with: false)
+        
+        self.setDeleteNoteButton {
+            let alertControlller = UIAlertController(
+                title: "Delete Note confirmation".localized(),
+                message: "Warning".localized(),
+                preferredStyle: .actionSheet).makeDeleteConfirmation(dataType: .note) { _ in
+                let deleteAlertController = UIAlertController(
+                    title: "Delete note confirmation".localized(),
+                    message: "Warning".localized(),
+                    preferredStyle: .alert).makeDeleteConfirmation(dataType: .note) { _ in
+                        self.dismiss(animated: true, completion: nil)
+                }
+                self.present(deleteAlertController, animated: true, completion: nil)
+            }
+            alertControlller.popoverPresentationController?.barButtonItem = self.customView.notesToolbar.deleteNoteButton
+            self.present(alertControlller, animated: true, completion: nil)
+        }
+        
+        self.setAddImageButton { (identifier) in
+            switch identifier {
+            case .init("camera"):
+                self.presentCameraPicker()
+            case .init("library"):
+                self.presentPhotoPicker()
+            default:
+                break
+            }
+        }
+        
+        self.setShareButton { identifier in
+            switch identifier {
+            case .init("note"):
+                self.exportNote()
+            case .init("notebook"):
+                self.exportNotebook()
+            default:
+                break
+            }
+        }
+        
+        navigationItem.largeTitleDisplayMode = .never
+        navigationItem.titleView = markupNavigationView
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -67,6 +123,20 @@ class MacLooseNoteViewController: MacNotesViewController, NoteAssignerObserver {
     // MARK: - NoteAssignerObserver Method
     func dismissLooseNoteViewController() {
         self.navigationController?.popViewController(animated: true)
+    }
+    
+    // MARK: - MarkupToolBarObserver
+    
+    ///This method opens the pop over when the button is pressed
+    @objc internal override func openPopOver() {
+        let markupContainerViewController = MarkupContainerViewController(owner: self.customView.textView,
+                                                                          viewController: self,
+                                                                          size: .init(width: 400, height: 110))
+
+        markupContainerViewController.modalPresentationStyle = .popover
+        markupContainerViewController.popoverPresentationController?.sourceView = markupNavigationView.barButtonItems[.format]
+        markupContainerViewController.popoverPresentationController?.passthroughViews = [self.customView.textView]
+        present(markupContainerViewController, animated: true)
     }
     
     // MARK: - IBActions functions
