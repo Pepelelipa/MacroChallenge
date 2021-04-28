@@ -80,6 +80,7 @@ public class DataManager {
     public func fetchWorkspaces() throws -> [WorkspaceEntity] {
         let cdWorkspaces = try coreDataController.fetchWorkspaces()
         var workspaceObjects = cdWorkspaces.map({ WorkspaceObject(from: $0) })
+        #if !DEVELOP
         cloudKitController.fetchWorkspaces { (answer) in
             switch answer {
             case .successfulWith(let result as [CloudKitWorkspace]):
@@ -94,6 +95,7 @@ public class DataManager {
                 self.conflictHandler.errDidOccur(err: WorkspaceError.failedToFetch)
             }
         }
+        #endif
         return workspaceObjects
     }
 

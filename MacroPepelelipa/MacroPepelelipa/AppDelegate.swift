@@ -32,11 +32,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
 
+        #if !DEVELOP
         CKSubscriptionController.createWorkspaceSubscription(errorHandler: errorHandling)
         CKSubscriptionController.createNotebookSubscription(errorHandler: errorHandling)
         CKSubscriptionController.createNoteSubscription(errorHandler: errorHandling)
         CKSubscriptionController.createTextBoxSubscription(errorHandler: errorHandling)
         CKSubscriptionController.createImageBoxSubscription(errorHandler: errorHandling)
+        #endif
+        
         application.registerForRemoteNotifications()
         
         DataManager.shared().conflictHandler = ConflictHandlerObject()

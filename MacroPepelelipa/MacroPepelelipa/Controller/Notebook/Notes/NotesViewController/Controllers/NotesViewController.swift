@@ -577,3 +577,4 @@ extension NotesViewController: SensitiveContentController {
         isSaving = false
     }
 }
+
