@@ -62,7 +62,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
         if let notification = CKNotification(fromRemoteNotificationDictionary: userInfo) as? CKQueryNotification {
             do {
+                #if !DEVELOP
                 try DataManager.shared().handleNotification(notification)
+                #endif
                 completionHandler(.newData)
             } catch {
                 completionHandler(.failed)

@@ -16,7 +16,9 @@ public enum ObservableCreationType {
 }
 
 public class DataManager {
+    #if !DEVELOP
     private lazy var dataSynchroninzer = DataSynchronizer(coreDataController: coreDataController, cloudKitController: cloudKitController, conflictHandler: { self.conflictHandler })
+    #endif
     private let coreDataController = CoreDataController()
     private let cloudKitController = CloudKitDataController()
     public var conflictHandler: ConflictHandler = DefaultConflictHandler()
@@ -26,6 +28,7 @@ public class DataManager {
     internal func saveObjects(_ entities: [PersistentEntity]) throws {
         try coreDataController.saveContext()
 
+        #if !DEVELOP
         var cloudKitEntities: [CloudKitEntity] = []
         for persistentEntity in entities {
             if let wrapper = persistentEntity as? CloudKitObjectWrapper,
@@ -34,6 +37,7 @@ public class DataManager {
             }
         }
         CloudKitDataConnector.saveData(database: .Private, entitiesToSave: cloudKitEntities)
+        #endif
     }
 
     private var observers: [(EntityObserver, ObservableCreationType)] = []
@@ -174,6 +178,7 @@ public class DataManager {
         }
     }
 
+    #if !DEVELOP
     public func handleNotification(_ notification: CKQueryNotification) throws {
         guard let id = notification.recordFields?["id"] as? String else {
             throw PersistentError.idWasNull
@@ -211,7 +216,7 @@ public class DataManager {
             break
         }
     }
-    
+    #endif
     /**
      Creates a Workspace into the Database
      - Parameter name: The workspace's  name.
@@ -260,9 +265,13 @@ public class DataManager {
         guard let workspaceObject = workspace as? WorkspaceObject else {
             throw WorkspaceError.failedToParse
         }
+        #if DEVELOP
+        let ckWorkspace: CloudKitWorkspace? = nil
+        #else
         guard let ckWorkspace = workspaceObject.cloudKitWorkspace else {
             throw WorkspaceError.workspaceWasNull
         }
+        #endif
 
         let id = UUID()
         let cdNotebook = try coreDataController.createNotebook(in: workspaceObject.coreDataWorkspace, id: id, named: name, colorName: colorName)
@@ -329,9 +338,11 @@ public class DataManager {
             throw NotebookError.notebookWasNull
         }
         let ckNote = cloudKitController.createNote(in: ckNotebook, id: try note.getID())
+        #if !DEVELOP
         ckNote <- noteObject.coreDataNote
         ckNote.setNotebook(ckNotebook)
         ckNotebook.appendNote(ckNote)
+        #endif
 
         noteObject.cloudKitNote = ckNote
 
@@ -348,9 +359,13 @@ public class DataManager {
         guard let notebookObject = notebook as? NotebookObject else {
             throw NotebookError.failedToParse
         }
+        #if DEVELOP
+        let ckNotebook: CloudKitNotebook? = nil
+        #else
         guard let ckNotebook = notebookObject.cloudKitNotebook else {
             throw NotebookError.notebookWasNull
         }
+        #endif
 
         let id = UUID()
         let cdNote = try coreDataController.createNote(in: notebookObject.coreDataNotebook, id: id)
@@ -429,9 +444,13 @@ public class DataManager {
         guard let noteObject = note as? NoteObject else {
             throw NoteError.failedToParse
         }
+        #if DEVELOP
+        let ckNote: CloudKitNote? = nil
+        #else
         guard let ckNote = noteObject.cloudKitNote else {
             throw NoteError.noteWasNull
         }
+        #endif
 
         let id = UUID()
         let cdImageBox = try coreDataController.createImageBox(in: noteObject.coreDataNote, id: id, at: imagePath)

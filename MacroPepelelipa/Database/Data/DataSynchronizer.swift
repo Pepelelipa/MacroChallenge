@@ -7,6 +7,7 @@
 //
 //swiftlint:disable function_body_length cyclomatic_complexity
 
+#if !DEVELOP
 import Foundation
 
 internal class DataSynchronizer {
@@ -340,3 +341,4 @@ internal class DataSynchronizer {
         return differentEntities
     }
 }
+#endif
