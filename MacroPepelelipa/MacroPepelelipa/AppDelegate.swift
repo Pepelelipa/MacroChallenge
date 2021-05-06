@@ -32,11 +32,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
 
+        #if !DEVELOP
         CKSubscriptionController.createWorkspaceSubscription(errorHandler: errorHandling)
         CKSubscriptionController.createNotebookSubscription(errorHandler: errorHandling)
         CKSubscriptionController.createNoteSubscription(errorHandler: errorHandling)
         CKSubscriptionController.createTextBoxSubscription(errorHandler: errorHandling)
         CKSubscriptionController.createImageBoxSubscription(errorHandler: errorHandling)
+        #endif
+        
         application.registerForRemoteNotifications()
         
         DataManager.shared().conflictHandler = ConflictHandlerObject()
@@ -59,7 +62,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
         if let notification = CKNotification(fromRemoteNotificationDictionary: userInfo) as? CKQueryNotification {
             do {
+                #if !DEVELOP
                 try DataManager.shared().handleNotification(notification)
+                #endif
                 completionHandler(.newData)
             } catch {
                 completionHandler(.failed)

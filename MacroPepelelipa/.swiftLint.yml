@@ -2,6 +2,7 @@ disabled_rules:
  - trailing_whitespace
  - weak_delegate
  - type_name
+ - comment_spacing
 
 # rule identifiers to opt in
 opt_in_rules:

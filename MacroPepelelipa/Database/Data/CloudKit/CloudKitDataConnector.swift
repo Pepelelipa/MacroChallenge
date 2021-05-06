@@ -7,6 +7,7 @@
 //
 //swiftlint:disable identifier_name
 
+#if !DEVELOP
 import CloudKit
 
 internal enum DatabaseType {
@@ -137,3 +138,4 @@ internal class CloudKitDataConnector {
         }
     }
 }
+#endif

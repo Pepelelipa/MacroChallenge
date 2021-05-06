@@ -5,7 +5,7 @@
 //  Created by Pedro Giuliano Farina on 20/11/20.
 //  Copyright © 2020 Pedro Giuliano Farina. All rights reserved.
 //
-
+#if !DEVELOP
 import CloudKit
 
 internal class CKSubscriptionController {
@@ -95,3 +95,4 @@ internal class CKSubscriptionController {
         }
     }
 }
+#endif

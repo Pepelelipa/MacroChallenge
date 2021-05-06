@@ -6,7 +6,7 @@
 //  Copyright © 2020 Pedro Giuliano Farina. All rights reserved.
 //
 //swiftlint:disable cyclomatic_complexity
-
+#if !DEVELOP
 import CloudKit
 
 internal class CloudKitDataController {
@@ -429,3 +429,30 @@ internal class CloudKitDataController {
         }
     }
 }
+#else
+import CloudKit
+
+internal class CloudKitDataController {
+    internal func createWorkspace(named name: String, id: UUID) -> CloudKitWorkspace? { return nil }
+    internal func createWorkspace(from workspace: Workspace) -> CloudKitWorkspace? { return nil }
+    internal func deleteWorkspace(_ workspace: CloudKitWorkspace) {}
+    internal func createNotebook(in workspace: CloudKitWorkspace?, id: UUID, named name: String, colorName: String) -> CloudKitNotebook? { return nil }
+    internal func createNotebook(from notebook: Notebook, in ckWorkspace: CloudKitWorkspace?, shouldSave: Bool = true) -> CloudKitNotebook? { return nil }
+    internal func deleteNotebook(_ notebook: CloudKitNotebook) throws {}
+    internal func createNote(in notebook: CloudKitNotebook?, id: UUID) -> CloudKitNote? { return nil }
+    internal func createNote(from note: Note, in ckNotebook: CloudKitNotebook?, shouldSave: Bool = true) -> CloudKitNote? { return nil }
+    internal func deleteNote(_ note: CloudKitNote) throws {}
+    internal func createTextBox(in note: CloudKitNote?, id: UUID) -> CloudKitTextBox? { return nil }
+    internal func createTextBox(from textBox: TextBox, in ckNote: CloudKitNote?, shouldSave: Bool = true) -> CloudKitTextBox? { return nil }
+    internal func deleteTextBox(_ textBox: CloudKitTextBox) throws {}
+    internal func createImageBox(in note: CloudKitNote?, id: UUID, at imagePath: String) -> CloudKitImageBox? { return nil }
+    internal func createImageBox(from imageBox: ImageBox, in ckNote: CloudKitNote?, shouldSave: Bool = true) -> CloudKitImageBox? { return nil }
+    internal func deleteImageBox(_ imageBox: CloudKitImageBox) throws {}
+
+    internal func fetchWorkspaces(_ completionHandler: ((DataFetchAnswer) -> Void)? = nil ) {}
+    internal func fetchNotebooks(_ completionHandler: ((DataFetchAnswer) -> Void)? = nil ) {}
+    internal func fetchNotes(_ completionHandler: ((DataFetchAnswer) -> Void)? = nil ) {}
+    internal func fetchTextBoxes(_ completionHandler: ((DataFetchAnswer) -> Void)? = nil) {}
+    internal func fetchImageBoxes(_ completionHandler: ((DataFetchAnswer) -> Void)? = nil) {}
+}
+#endif
