@@ -103,7 +103,7 @@ internal class NotesViewController: UIViewController,
     // MARK: - Initializers
     
     internal init(note: NoteEntity) {
-        self.noteWrapper = NoteWrapper(value: note, weak: false)
+        self.noteWrapper = NoteWrapper(value: note, weak: true)
         super.init(nibName: nil, bundle: nil)
         
         do {
@@ -117,7 +117,7 @@ internal class NotesViewController: UIViewController,
     }
     
     internal init(looseNote: NoteEntity, notebook: NotebookEntity?) {
-        self.noteWrapper = NoteWrapper(value: looseNote, weak: true)
+        self.noteWrapper = NoteWrapper(value: looseNote, weak: false)
         self.notebook = notebook
         super.init(nibName: nil, bundle: nil)
     }
