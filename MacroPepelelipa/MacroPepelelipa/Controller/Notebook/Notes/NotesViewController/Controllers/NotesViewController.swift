@@ -62,8 +62,8 @@ internal class NotesViewController: UIViewController,
     internal lazy var textView: MarkdownTextView = self.customView.textView
     internal private(set) lazy var noteContentHandler = NoteContentHandler()
 
-    internal weak var note: NoteEntity?
-    internal weak var notebook: NotebookEntity?
+    internal var note: NoteEntity?
+    internal var notebook: NotebookEntity?
     
     private lazy var resizeHandleFunctions = ResizeHandleFunctions(owner: self)
     private lazy var boxViewInteractions = BoxViewInteractions(resizeHandleReceiver: self, boxViewReceiver: self, center: Float(self.view.frame.width/2))
@@ -176,10 +176,21 @@ internal class NotesViewController: UIViewController,
         }
         updateExclusionPaths()
         
-        if !((try? notebook?.getWorkspace().isEnabled) ?? false) {
-            customView.textView.isEditable = false
-            customView.textView.inputAccessoryView = nil
+        #if targetEnvironment(macCatalyst)
+        if !(self is MacLooseNoteViewController) {
+            if !((try? notebook?.getWorkspace().isEnabled) ?? false) {
+                customView.textView.isEditable = false
+                customView.textView.inputAccessoryView = nil
+            }
         }
+        #else
+        if !(self is LooseNoteViewController) {
+            if !((try? notebook?.getWorkspace().isEnabled) ?? false) {
+                customView.textView.isEditable = false
+                customView.textView.inputAccessoryView = nil
+            }
+        }
+        #endif
         
         let dropInteraction = UIDropInteraction(delegate: dropInteractionDelegate)
         customView.textView.addInteraction(dropInteraction)
@@ -599,4 +610,3 @@ extension NotesViewController: SensitiveContentController {
         isSaving = false
     }
 }
-

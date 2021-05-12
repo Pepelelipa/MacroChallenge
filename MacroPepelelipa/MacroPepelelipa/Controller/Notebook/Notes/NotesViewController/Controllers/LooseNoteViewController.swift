@@ -38,7 +38,6 @@ internal class LooseNoteViewController: NotesViewController, NoteAssignerObserve
         return mrkConf
     }()
     
-    
     private lazy var markupNavigationView: MarkdownNavigationView = {
         let mrkView = MarkdownNavigationView(frame: .zero, configurations: markupConfig)
         return mrkView
