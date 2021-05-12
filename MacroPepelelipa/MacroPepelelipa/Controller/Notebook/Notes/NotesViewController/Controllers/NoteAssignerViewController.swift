@@ -14,9 +14,13 @@ import MarkdownText
 class NoteAssignerViewController: UIViewController, 
                                   NoteAssignerNotebookObserver {
     
+    // MARK: - Internal properties
+    
     internal weak var note: NoteEntity?
     
     internal weak var observer: NoteAssignerObserver?
+    
+    // MARK: - Private properties
     
     private var workspaces: () -> ([WorkspaceEntity])
     
@@ -64,7 +68,7 @@ class NoteAssignerViewController: UIViewController,
         return label
     }()
     
-    private let  selectedNotebookLbl: UILabel  = {
+    private let selectedNotebookLbl: UILabel  = {
         let label = UILabel()
         
         label.text = "Selected Notebook".localized()
@@ -242,6 +246,8 @@ class NoteAssignerViewController: UIViewController,
         ]
     }()
     
+    // MARK: - View Controller Methods
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.backgroundColor
@@ -287,6 +293,8 @@ class NoteAssignerViewController: UIViewController,
         chooseAnotherNotebookBtn.layer.cornerRadius = chooseAnotherNotebookBtn.frame.height / 2
         addToNotebookBtn.layer.cornerRadius = addToNotebookBtn.frame.height / 2
     }
+    
+    // MARK: - Initializers
         
     init(note: NoteEntity?, lastNotebook: NotebookEntity?, workspaces: @escaping () -> [WorkspaceEntity]) {
         self.note = note
@@ -307,6 +315,8 @@ class NoteAssignerViewController: UIViewController,
         self.init(note: note, lastNotebook: lastNotebook, workspaces: workspaces)
     }
     
+    // MARK: - Private methods
+    
     private func addSubsViews() {
         self.view.addSubview(noteNameLbl)
         self.view.addSubview(saveExplanationLbl)
@@ -317,6 +327,8 @@ class NoteAssignerViewController: UIViewController,
         self.view.addSubview(chooseAnotherNotebookBtn)
         self.view.addSubview(addToNotebookBtn)
     }
+    
+    // MARK: - Internal methods
     
     internal func selectedNotebook(notebook: NotebookEntity, controller: UIViewController?) {
         self.lastNotebook = notebook
@@ -347,6 +359,9 @@ class NoteAssignerViewController: UIViewController,
                                 
                                 ConflictHandlerObject().genericErrorHandling(title: title, message: message)
                             }
+                        } else {
+                            self.dismiss(animated: true, completion: nil)
+                            observer?.dismissLooseNoteViewController()
                         }
                 }
                 self.present(deleteAlertController, animated: true, completion: nil)
