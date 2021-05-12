@@ -6,6 +6,6 @@
 //  Copyright © 2020 Pedro Giuliano Farina. All rights reserved.
 //
 
-public protocol PersistentEntity: class {
+public protocol PersistentEntity: AnyObject {
     func getID() throws -> UUID
 }

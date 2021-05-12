@@ -61,8 +61,16 @@ internal class NotesViewController: UIViewController,
     internal lazy var receiverView: UIView = self.customView
     internal lazy var textView: MarkdownTextView = self.customView.textView
     internal private(set) lazy var noteContentHandler = NoteContentHandler()
-
-    internal var note: NoteEntity?
+    
+    internal var noteWrapper: NoteWrapper
+    internal var note: NoteEntity? {
+        get {
+            noteWrapper.getValue()
+        }
+        set {
+            noteWrapper.setValueTo(newValue)
+        }
+    }
     internal var notebook: NotebookEntity?
     
     private lazy var resizeHandleFunctions = ResizeHandleFunctions(owner: self)
@@ -95,7 +103,7 @@ internal class NotesViewController: UIViewController,
     // MARK: - Initializers
     
     internal init(note: NoteEntity) {
-        self.note = note
+        self.noteWrapper = NoteWrapper(value: note, weak: false)
         super.init(nibName: nil, bundle: nil)
         
         do {
@@ -109,7 +117,7 @@ internal class NotesViewController: UIViewController,
     }
     
     internal init(looseNote: NoteEntity, notebook: NotebookEntity?) {
-        self.note = looseNote
+        self.noteWrapper = NoteWrapper(value: looseNote, weak: true)
         self.notebook = notebook
         super.init(nibName: nil, bundle: nil)
     }
