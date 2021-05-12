@@ -76,7 +76,19 @@ internal class LooseNoteViewController: NotesViewController, NoteAssignerObserve
                     title: "Delete Note confirmation".localized(),
                     message: "Warning".localized(),
                     preferredStyle: .alert).makeDeleteConfirmation(dataType: .note) { _ in
-                        self.dismiss(animated: true, completion: nil)
+                        if let noteEntity = self.note {
+                            do {
+                                try DataManager.shared().deleteNote(noteEntity)
+                                self.dismiss(animated: true, completion: nil)
+                            } catch {
+                                let title = "Could not delete this note".localized()
+                                let message = "An error occurred while deleting this instance on the database".localized()
+                                
+                                ConflictHandlerObject().genericErrorHandling(title: title, message: message)
+                            }
+                        } else {
+                            self.dismiss(animated: true, completion: nil)
+                        }
                 }
                 self.present(deleteAlertController, animated: true, completion: nil)
             }
