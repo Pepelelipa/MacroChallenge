@@ -83,7 +83,11 @@ internal class WorkspacesCollectionViewDataSource: NSObject,
         var notebooks = [NotebookEntity]()
         workspaces.forEach({ notebooks.append(contentsOf: $0.notebooks) })
         
-        return notebooks.first(where: { (try? $0.getID())?.uuidString == identifier })
+        if let lastEditedNotebook = notebooks.first(where: { (try? $0.getID())?.uuidString == identifier }) {
+            return lastEditedNotebook
+        }
+        
+        return notebooks.first
     }
     
     /**

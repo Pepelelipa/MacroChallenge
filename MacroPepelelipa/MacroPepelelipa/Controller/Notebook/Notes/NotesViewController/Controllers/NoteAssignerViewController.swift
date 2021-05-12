@@ -380,7 +380,7 @@ class NoteAssignerViewController: UIViewController,
             } catch {
                 let title = "Could note assign the note to the notebook".localized()
                 let message = "The app could not assign the note to the notebook".localized() + noteEntity.title.string
-                
+
                 ConflictHandlerObject().genericErrorHandling(title: title, message: message)
             }
         }
