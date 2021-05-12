@@ -141,6 +141,7 @@
 		1EE652C72525049E0015E3D4 /* MarkdownToggleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EE652C62525049E0015E3D4 /* MarkdownToggleButton.swift */; };
 		1EFA49CE252D15C500602904 /* MarkdownNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EFA49CD252D15C500602904 /* MarkdownNavigationView.swift */; };
 		5832E2F5260A86EF0003D783 /* MacLooseNoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5832E2F4260A86EF0003D783 /* MacLooseNoteViewController.swift */; };
+		8DDFEEAC264C55EC00AB9830 /* NoteWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDFEEAB264C55EC00AB9830 /* NoteWrapper.swift */; };
 		A7026CDF25659B2400B8FC78 /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C21B33254B55BB0061CCBA /* Font.swift */; };
 		A71E2C1D2538EEB8000DA164 /* NotesPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71E2C1B2538EEB8000DA164 /* NotesPageViewController.swift */; };
 		A71E2C1E2538EEB8000DA164 /* NotesPageViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71E2C1C2538EEB8000DA164 /* NotesPageViewControllerDelegate.swift */; };
@@ -406,6 +407,7 @@
 		1EFA49CD252D15C500602904 /* MarkdownNavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkdownNavigationView.swift; sourceTree = "<group>"; };
 		5832E2F4260A86EF0003D783 /* MacLooseNoteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacLooseNoteViewController.swift; sourceTree = "<group>"; };
 		58E145A32636F9EC0048C6AA /* MacroPepelelipaDevelop.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MacroPepelelipaDevelop.entitlements; sourceTree = "<group>"; };
+		8DDFEEAB264C55EC00AB9830 /* NoteWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteWrapper.swift; sourceTree = "<group>"; };
 		A71E2C1B2538EEB8000DA164 /* NotesPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotesPageViewController.swift; sourceTree = "<group>"; };
 		A71E2C1C2538EEB8000DA164 /* NotesPageViewControllerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotesPageViewControllerDelegate.swift; sourceTree = "<group>"; };
 		A71E2C202538EF51000DA164 /* NotesPageViewControllerDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NotesPageViewControllerDataSource.swift; path = MacroPepelelipa/Model/Notes/NotesPageViewControllerDataSource.swift; sourceTree = SOURCE_ROOT; };
@@ -996,6 +998,7 @@
 				0221BCF425115E150055A2E5 /* Workspace */,
 				A7BDD6082514066700DDB6A0 /* NotebookIndex */,
 				0285DF2025840E4F009CE5A9 /* SensitiveContentController.swift */,
+				8DDFEEAB264C55EC00AB9830 /* NoteWrapper.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1630,6 +1633,7 @@
 				024C5BB4252E41D8009549CE /* ColorSelectionCollectionViewDelegate.swift in Sources */,
 				02AD78F225475C5800C87D2B /* EditableCollectionView.swift in Sources */,
 				1E9EF4A925225B9B00CC623B /* TextEditingDelegateObserver.swift in Sources */,
+				8DDFEEAC264C55EC00AB9830 /* NoteWrapper.swift in Sources */,
 				D9CE2D4B2565C00A00DF4D2A /* NoteAssignerObserver.swift in Sources */,
 				02CD7CA12523B48900A140A3 /* WorkspacesCollectionViewDelegate.swift in Sources */,
 				02919F4825531BFA00C03E27 /* App String Extensions.swift in Sources */,
