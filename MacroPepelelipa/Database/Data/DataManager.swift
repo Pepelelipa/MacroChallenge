@@ -334,17 +334,17 @@ public class DataManager {
         guard let noteObject = note as? NoteObject else {
             throw NoteError.failedToParse
         }
+        
+        #if !DEVELOP
         guard let ckNotebook = notebookObject.cloudKitNotebook else {
             throw NotebookError.notebookWasNull
         }
         let ckNote = cloudKitController.createNote(in: ckNotebook, id: try note.getID())
-        #if !DEVELOP
         ckNote <- noteObject.coreDataNote
         ckNote.setNotebook(ckNotebook)
         ckNotebook.appendNote(ckNote)
-        #endif
-
         noteObject.cloudKitNote = ckNote
+        #endif
 
         noteObject.setNotebook(notebookObject)
         try note.save()

@@ -214,6 +214,7 @@ internal class WorkspaceSelectionViewController: UIViewController,
         super.viewWillAppear(animated)
         collectionDelegate.frame = view.frame
         collectionView.collectionViewLayout.invalidateLayout()
+        self.enableLooseNote(collectionDataSource.hasNotebooks())
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -464,6 +465,14 @@ internal class WorkspaceSelectionViewController: UIViewController,
                 self.emptyScreenView.isHidden = true
             }
         })
+    }
+    
+    /**
+     This method enables or disenables the button to add a Loose Note.
+     - Parameter shouldBeEnabled: A boolean indicating if the button should or not be enabled. It is true by default.
+     */
+    internal func enableLooseNote(_ shouldBeEnabled: Bool = true) {
+        self.btnAddLooseNote.isEnabled = shouldBeEnabled
     }
     
     // MARK: - EntityObserver functions

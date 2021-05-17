@@ -48,11 +48,7 @@ internal class WorkspacesCollectionViewDataSource: NSObject,
         guard let viewController = viewController as? WorkspaceSelectionViewController else {
             return
         }
-        if workspaces.isEmpty {
-            viewController.switchEmptyScreenView()
-        } else {
-            viewController.switchEmptyScreenView(shouldBeHidden: true)
-        }
+        viewController.switchEmptyScreenView(shouldBeHidden: !workspaces.isEmpty)
     }
     
     // MARK: - UICollectionViewDataSource functions
@@ -87,7 +83,22 @@ internal class WorkspacesCollectionViewDataSource: NSObject,
         var notebooks = [NotebookEntity]()
         workspaces.forEach({ notebooks.append(contentsOf: $0.notebooks) })
         
-        return notebooks.first(where: { (try? $0.getID())?.uuidString == identifier })
+        if let lastEditedNotebook = notebooks.first(where: { (try? $0.getID())?.uuidString == identifier }) {
+            return lastEditedNotebook
+        }
+        
+        return notebooks.first
+    }
+    
+    /**
+     This method checks if there are any notebooks in the workspaces.
+     - Returns: True if any notebooks were found, false if none was found.
+     */
+    internal func hasNotebooks() -> Bool {
+        for workspace in workspaces where !workspace.notebooks.isEmpty {
+            return true
+        }
+        return false
     }
     
     // MARK: - EntityObserver functions
@@ -134,6 +145,7 @@ internal class WorkspacesCollectionViewDataSource: NSObject,
         }
         if workspaces.isEmpty {
             viewController.switchEmptyScreenView()
+            viewController.enableLooseNote(false)
         }
     }
 }
