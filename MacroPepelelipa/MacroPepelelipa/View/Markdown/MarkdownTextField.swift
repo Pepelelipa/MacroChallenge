@@ -25,6 +25,11 @@ internal class MarkdownTextField: UITextField {
         
         self.translatesAutoresizingMaskIntoConstraints = false
         
+        #if targetEnvironment(macCatalyst)
+        self.autocorrectionType = .no
+        self.spellCheckingType = .no
+        #endif
+        
         addPaddingSpace(space: paddingSpace)
     }
     
