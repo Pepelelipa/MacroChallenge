@@ -67,6 +67,10 @@
 	<true/>
 	<key>NSCameraUsageDescription</key>
 	<string>Your camera is used to capture images for your notes</string>
+	<key>NSUserActivityTypes</key>
+	<array>
+		<string>ConfigurationIntent</string>
+	</array>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Merriweather-Regular.otf</string>

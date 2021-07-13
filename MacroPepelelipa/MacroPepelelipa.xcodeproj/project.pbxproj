@@ -158,6 +158,13 @@
 		A7C057C525420F260023A370 /* NotesToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7C057C425420F260023A370 /* NotesToolbar.swift */; };
 		A7FC9BF4255F2C7900330283 /* ItemSizeHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7FC9BF3255F2C7900330283 /* ItemSizeHelper.swift */; };
 		A7FD9B13253BACF500235D20 /* NotesPageViewObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7FD9B12253BACF500235D20 /* NotesPageViewObserver.swift */; };
+		BDA2D5B62698A17700319534 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BDA2D5B52698A17700319534 /* WidgetKit.framework */; };
+		BDA2D5B82698A17700319534 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BDA2D5B72698A17700319534 /* SwiftUI.framework */; };
+		BDA2D5BB2698A17700319534 /* WidgetExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDA2D5BA2698A17700319534 /* WidgetExtension.swift */; };
+		BDA2D5BE2698A17900319534 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BDA2D5BD2698A17900319534 /* Assets.xcassets */; };
+		BDA2D5C02698A17900319534 /* WidgetExtension.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = BDA2D5BC2698A17700319534 /* WidgetExtension.intentdefinition */; };
+		BDA2D5C12698A17900319534 /* WidgetExtension.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = BDA2D5BC2698A17700319534 /* WidgetExtension.intentdefinition */; };
+		BDA2D5C42698A17900319534 /* WidgetExtensionExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = BDA2D5B42698A17700319534 /* WidgetExtensionExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		D925934E255986F1000529B4 /* InputViewTipsStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = D925934D255986F1000529B4 /* InputViewTipsStack.swift */; };
 		D925935225598700000529B4 /* TipViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D925935125598700000529B4 /* TipViewController.swift */; };
 		D96DAA09252F9F4B00552AB1 /* AddNewSpaceToolBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = D96DAA08252F9F4B00552AB1 /* AddNewSpaceToolBar.swift */; };
@@ -253,6 +260,13 @@
 			remoteGlobalIDString = 029847ED251D13D1004E0B62;
 			remoteInfo = Database;
 		};
+		BDA2D5C22698A17900319534 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 02DD09F025114D6200B6696B /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = BDA2D5B32698A17700319534;
+			remoteInfo = WidgetExtensionExtension;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -266,6 +280,17 @@
 				029847F6251D13D1004E0B62 /* Database.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BDA2D5C62698A17900319534 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				BDA2D5C42698A17900319534 /* WidgetExtensionExtension.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
@@ -422,6 +447,14 @@
 		A7C057C425420F260023A370 /* NotesToolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesToolbar.swift; sourceTree = "<group>"; };
 		A7FC9BF3255F2C7900330283 /* ItemSizeHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemSizeHelper.swift; sourceTree = "<group>"; };
 		A7FD9B12253BACF500235D20 /* NotesPageViewObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesPageViewObserver.swift; sourceTree = "<group>"; };
+		BDA2D5B42698A17700319534 /* WidgetExtensionExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = WidgetExtensionExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		BDA2D5B52698A17700319534 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
+		BDA2D5B72698A17700319534 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
+		BDA2D5BA2698A17700319534 /* WidgetExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetExtension.swift; sourceTree = "<group>"; };
+		BDA2D5BC2698A17700319534 /* WidgetExtension.intentdefinition */ = {isa = PBXFileReference; lastKnownFileType = file.intentdefinition; path = WidgetExtension.intentdefinition; sourceTree = "<group>"; };
+		BDA2D5BD2698A17900319534 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		BDA2D5BF2698A17900319534 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BDA2D5C52698A17900319534 /* WidgetExtensionExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = WidgetExtensionExtension.entitlements; sourceTree = "<group>"; };
 		D925934D255986F1000529B4 /* InputViewTipsStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InputViewTipsStack.swift; sourceTree = "<group>"; };
 		D925935125598700000529B4 /* TipViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TipViewController.swift; sourceTree = "<group>"; };
 		D96DAA08252F9F4B00552AB1 /* AddNewSpaceToolBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewSpaceToolBar.swift; sourceTree = "<group>"; };
@@ -523,6 +556,15 @@
 				029EFC892555D87600361F29 /* CloudKit.framework in Frameworks */,
 				023989D02551E68F009BFC32 /* MarkdownText.framework in Frameworks */,
 				029847F5251D13D1004E0B62 /* Database.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BDA2D5B12698A17700319534 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BDA2D5B82698A17700319534 /* SwiftUI.framework in Frameworks */,
+				BDA2D5B62698A17700319534 /* WidgetKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -846,6 +888,8 @@
 			isa = PBXGroup;
 			children = (
 				029EFC882555D87600361F29 /* CloudKit.framework */,
+				BDA2D5B52698A17700319534 /* WidgetKit.framework */,
+				BDA2D5B72698A17700319534 /* SwiftUI.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -928,10 +972,12 @@
 		02DD09EF25114D6200B6696B = {
 			isa = PBXGroup;
 			children = (
+				BDA2D5C52698A17900319534 /* WidgetExtensionExtension.entitlements */,
 				026D4C7C251D1A6E00CBED5A /* Shared */,
 				02DD09FA25114D6200B6696B /* MacroPepelelipa */,
 				023989CA2551E68F009BFC32 /* MarkdownText */,
 				029847EF251D13D1004E0B62 /* Database */,
+				BDA2D5B92698A17700319534 /* WidgetExtension */,
 				02DD09F925114D6200B6696B /* Products */,
 				029EFC872555D87600361F29 /* Frameworks */,
 			);
@@ -943,6 +989,7 @@
 				02DD09F825114D6200B6696B /* MacroPepelelipa.app */,
 				029847EE251D13D1004E0B62 /* Database.framework */,
 				023989C92551E68F009BFC32 /* MarkdownText.framework */,
+				BDA2D5B42698A17700319534 /* WidgetExtensionExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1116,6 +1163,17 @@
 				A7FD9B12253BACF500235D20 /* NotesPageViewObserver.swift */,
 			);
 			path = "Notes Page View";
+			sourceTree = "<group>";
+		};
+		BDA2D5B92698A17700319534 /* WidgetExtension */ = {
+			isa = PBXGroup;
+			children = (
+				BDA2D5BA2698A17700319534 /* WidgetExtension.swift */,
+				BDA2D5BC2698A17700319534 /* WidgetExtension.intentdefinition */,
+				BDA2D5BD2698A17900319534 /* Assets.xcassets */,
+				BDA2D5BF2698A17900319534 /* Info.plist */,
+			);
+			path = WidgetExtension;
 			sourceTree = "<group>";
 		};
 		D97EE7A5254B554F00A68B06 /* Search */ = {
@@ -1363,17 +1421,36 @@
 				02DD09F625114D6200B6696B /* Resources */,
 				02DD0A0F25114DAB00B6696B /* ShellScript */,
 				029847F7251D13D1004E0B62 /* Embed Frameworks */,
+				BDA2D5C62698A17900319534 /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 				029847F4251D13D1004E0B62 /* PBXTargetDependency */,
 				023989CF2551E68F009BFC32 /* PBXTargetDependency */,
+				BDA2D5C32698A17900319534 /* PBXTargetDependency */,
 			);
 			name = MacroPepelelipa;
 			productName = MacroPepelelipa;
 			productReference = 02DD09F825114D6200B6696B /* MacroPepelelipa.app */;
 			productType = "com.apple.product-type.application";
+		};
+		BDA2D5B32698A17700319534 /* WidgetExtensionExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BDA2D5C92698A17A00319534 /* Build configuration list for PBXNativeTarget "WidgetExtensionExtension" */;
+			buildPhases = (
+				BDA2D5B02698A17700319534 /* Sources */,
+				BDA2D5B12698A17700319534 /* Frameworks */,
+				BDA2D5B22698A17700319534 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = WidgetExtensionExtension;
+			productName = WidgetExtensionExtension;
+			productReference = BDA2D5B42698A17700319534 /* WidgetExtensionExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
 		};
 /* End PBXNativeTarget section */
 
@@ -1381,7 +1458,7 @@
 		02DD09F025114D6200B6696B /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1160;
+				LastSwiftUpdateCheck = 1240;
 				LastUpgradeCheck = 1200;
 				ORGANIZATIONNAME = "Pedro Giuliano Farina";
 				TargetAttributes = {
@@ -1395,6 +1472,9 @@
 					};
 					02DD09F725114D6200B6696B = {
 						CreatedOnToolsVersion = 11.6;
+					};
+					BDA2D5B32698A17700319534 = {
+						CreatedOnToolsVersion = 12.4;
 					};
 				};
 			};
@@ -1415,6 +1495,7 @@
 				02DD09F725114D6200B6696B /* MacroPepelelipa */,
 				029847ED251D13D1004E0B62 /* Database */,
 				023989C82551E68F009BFC32 /* MarkdownText */,
+				BDA2D5B32698A17700319534 /* WidgetExtensionExtension */,
 			);
 		};
 /* End PBXProject section */
@@ -1472,6 +1553,14 @@
 				02DC77DB2553328000F0B4E4 /* Colors.xcassets in Resources */,
 				E40220D9253A1ED7009C08C4 /* DarkModeIcon-Small-40@3x.png in Resources */,
 				E40220D0253A1ED7009C08C4 /* DarkModeIcon-Small.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BDA2D5B22698A17700319534 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BDA2D5BE2698A17900319534 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1661,6 +1750,7 @@
 				A74D472425474A220038D388 /* GestureDelegate.swift in Sources */,
 				A77579EF2538C9CC00F4268C /* NotesBarButtonItems.swift in Sources */,
 				1E9290C1252FA68600E8B142 /* MarkupContainerViewController.swift in Sources */,
+				BDA2D5C12698A17900319534 /* WidgetExtension.intentdefinition in Sources */,
 				1EE652C2252504400015E3D4 /* MarkdownContainerView.swift in Sources */,
 				02695ECE25279EAE007D60C3 /* AddWorkspaceViewController.swift in Sources */,
 				024C5BB3252E41D8009549CE /* AddNotebookViewController.swift in Sources */,
@@ -1707,6 +1797,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		BDA2D5B02698A17700319534 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BDA2D5C02698A17900319534 /* WidgetExtension.intentdefinition in Sources */,
+				BDA2D5BB2698A17700319534 /* WidgetExtension.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -1719,6 +1818,11 @@
 			isa = PBXTargetDependency;
 			target = 029847ED251D13D1004E0B62 /* Database */;
 			targetProxy = 029847F3251D13D1004E0B62 /* PBXContainerItemProxy */;
+		};
+		BDA2D5C32698A17900319534 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = BDA2D5B32698A17700319534 /* WidgetExtensionExtension */;
+			targetProxy = BDA2D5C22698A17900319534 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -2053,6 +2157,54 @@
 			};
 			name = Release;
 		};
+		BDA2D5C72698A17900319534 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = WidgetExtensionExtension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = X54K5PJVGU;
+				INFOPLIST_FILE = WidgetExtension/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = PEPELELIPA.Macro.WidgetExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SUPPORTS_MACCATALYST = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		BDA2D5C82698A17900319534 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = WidgetExtensionExtension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = X54K5PJVGU;
+				INFOPLIST_FILE = WidgetExtension/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = PEPELELIPA.Macro.WidgetExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SUPPORTS_MACCATALYST = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -2088,6 +2240,15 @@
 			buildConfigurations = (
 				02DD0A0D25114D6700B6696B /* Debug */,
 				02DD0A0E25114D6700B6696B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		BDA2D5C92698A17A00319534 /* Build configuration list for PBXNativeTarget "WidgetExtensionExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BDA2D5C72698A17900319534 /* Debug */,
+				BDA2D5C82698A17900319534 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
