@@ -9,6 +9,43 @@
 import CoreData
 
 internal class CoreDataController {
+    
+    init() {
+        RemoteConfigManager.value(forKey: "deleteCoreDataDuplicates") { [self] answer in
+            if answer {
+                if let workspaces = try? context.fetch(Workspace.fetchRequest()) as? [Workspace] {
+                    let filteredDuplicates = Dictionary(grouping: workspaces, by: { $0.id?.uuidString ?? "" }).filter({ $1.count > 1 })
+                    for duplicate in filteredDuplicates {
+                        let duplicateArray = duplicate.value
+                        for i in 1 ..< duplicateArray.count {
+                            context.delete(duplicateArray[i])
+                        }
+                    }
+                }
+                
+                if let notebooks = try? context.fetch(Notebook.fetchRequest()) as? [Notebook] {
+                    let filteredDuplicates = Dictionary(grouping: notebooks, by: { $0.id?.uuidString ?? "" }).filter({ $1.count > 1 })
+                    for duplicate in filteredDuplicates {
+                        let duplicateArray = duplicate.value
+                        for i in 1 ..< duplicateArray.count {
+                            context.delete(duplicateArray[i])
+                        }
+                    }
+                }
+                
+                if let notes = try? context.fetch(Note.fetchRequest()) as? [Note] {
+                    let filteredDuplicates = Dictionary(grouping: notes, by: { $0.id?.uuidString ?? "" }).filter({ $1.count > 1 })
+                    for duplicate in filteredDuplicates {
+                        let duplicateArray = duplicate.value
+                        for i in 1 ..< duplicateArray.count {
+                            context.delete(duplicateArray[i])
+                        }
+                    }
+                }
+                try? context.save()
+            }
+        }
+    }
 
     ///Persistent container of our CoreData
     private lazy var persistentContainer: NSPersistentContainer = {

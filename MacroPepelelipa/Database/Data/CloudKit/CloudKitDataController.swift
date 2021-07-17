@@ -12,6 +12,53 @@ import CloudKit
 internal class CloudKitDataController {
     private let database: DatabaseType = .Private
     private var savingQueue: [CloudKitEntity] = []
+    
+    init() {
+        RemoteConfigManager.value(forKey: "deleteCloudKitDuplicates") { [self] answer in
+            CloudKitDataConnector.fetch(recordType: CloudKitWorkspace.recordType, database: database) { answer in
+                switch answer {
+                case .successful(let results):
+                    var filteredDuplicates = Dictionary(grouping: results, by: { ($0["id"] as? String) ?? "" })
+                    for key in filteredDuplicates.keys {
+                        var array = filteredDuplicates[key]
+                        array?.removeFirst()
+                        filteredDuplicates[key] = array
+                    }
+                    CloudKitDataConnector.deleteRecords(database: database, records: Array(filteredDuplicates.values.joined()))
+                default:
+                    break
+                }
+            }
+            CloudKitDataConnector.fetch(recordType: CloudKitNotebook.recordType, database: database) { answer in
+                switch answer {
+                case .successful(let results):
+                    var filteredDuplicates = Dictionary(grouping: results, by: { ($0["id"] as? String) ?? "" })
+                    for key in filteredDuplicates.keys {
+                        var array = filteredDuplicates[key]
+                        array?.removeFirst()
+                        filteredDuplicates[key] = array
+                    }
+                    CloudKitDataConnector.deleteRecords(database: database, records: Array(filteredDuplicates.values.joined()))
+                default:
+                    break
+                }
+            }
+            CloudKitDataConnector.fetch(recordType: CloudKitNote.recordType, database: database) { answer in
+                switch answer {
+                case .successful(let results):
+                    var filteredDuplicates = Dictionary(grouping: results, by: { ($0["id"] as? String) ?? "" })
+                    for key in filteredDuplicates.keys {
+                        var array = filteredDuplicates[key]
+                        array?.removeFirst()
+                        filteredDuplicates[key] = array
+                    }
+                    CloudKitDataConnector.deleteRecords(database: database, records: Array(filteredDuplicates.values.joined()))
+                default:
+                    break
+                }
+            }
+        }
+    }
 
     // MARK: Workspace
     /**
@@ -21,6 +68,7 @@ internal class CloudKitDataController {
      */
     internal func createWorkspace(named name: String, id: UUID) -> CloudKitWorkspace {
         let workspace = CloudKitWorkspace(named: name, id: id)
+        
         saveData(entitiesToSave: [workspace])
         return workspace
     }
@@ -266,22 +314,47 @@ internal class CloudKitDataController {
     }
 
     // MARK: Fetches
-    internal func fetchWorkspaces(_ completionHandler: ((DataFetchAnswer) -> Void)? = nil ) {
+    internal func fetchRemoteConfigs(_ completionHandler: @escaping ((Result<[CloudKitRemoteConfig], Error>) -> Void)) {
+        CloudKitDataConnector.fetch(recordType: CloudKitRemoteConfig.recordType, database: .Public) { answer in
+            switch answer {
+            case .successful(let remoteConfigResults):
+                completionHandler(.success(remoteConfigResults.map({ CloudKitRemoteConfig(from: $0) })))
+            case .successfulWith(_):
+                completionHandler(.failure(NSError(domain: "Unexpected Answer", code: Int(errSecInvalidValue))))
+            case .fail(let error, _):
+                completionHandler(.failure(error))
+            }
+        }
+    }
+    
+    internal func fetchWorkspaces(ignoreDuplicates: Bool, _ completionHandler: ((DataFetchAnswer) -> Void)? = nil) {
         CloudKitDataConnector.fetch(recordType: CloudKitWorkspace.recordType, database: database) { (answer) in
             switch answer {
             case .successful(let workspaceResults):
                 if workspaceResults.isEmpty {
                     completionHandler?(.successfulWith(result: [CloudKitWorkspace]()))
                 }
+                
+                var initialWorkspaces: [CKRecord] = []
+                
+                if ignoreDuplicates {
+                    for workspace in workspaceResults {
+                        if !initialWorkspaces.contains(where: { ($0.value(forKey: "id") as? String) == (workspace.value(forKey: "id") as? String) }) {
+                            initialWorkspaces.append(workspace)
+                        }
+                    }
+                } else {
+                    initialWorkspaces = workspaceResults
+                }
 
                 //Creating all workspaces
                 var workspaces: [CKRecord.ID: CloudKitWorkspace] = [:]
-                for workspaceRecord in workspaceResults {
+                for workspaceRecord in initialWorkspaces {
                     workspaces[workspaceRecord.recordID] = CloudKitWorkspace(from: workspaceRecord)
                 }
 
                 //Fetching all notebooks of workspaces
-                self.fetchNotebooks { answer in
+                self.fetchNotebooks(ignoreDuplicates: ignoreDuplicates) { answer in
                     switch answer {
                     case .successfulWith(let notebooks as [CloudKitNotebook]):
                         for notebook in notebooks {
@@ -305,7 +378,7 @@ internal class CloudKitDataController {
         }
     }
 
-    internal func fetchNotebooks(_ completionHandler: ((DataFetchAnswer) -> Void)? = nil ) {
+    internal func fetchNotebooks(ignoreDuplicates: Bool, _ completionHandler: ((DataFetchAnswer) -> Void)? = nil) {
         //Getting all references of notebooks in workspaces
         
         CloudKitDataConnector.fetch(recordType: CloudKitNotebook.recordType, database: database) { answer in
@@ -315,14 +388,27 @@ internal class CloudKitDataController {
                     completionHandler?(.successfulWith(result: [CloudKitNotebook]()))
                     return
                 }
+                
+                var initialNotebooks: [CKRecord] = []
+                if ignoreDuplicates {
+                    for notebook in notebooksResults {
+                        if !initialNotebooks.contains(where: { ($0.value(forKey: "id") as? String) == (notebook.value(forKey: "id") as? String) }) {
+                            initialNotebooks.append(notebook)
+                        }
+                    }
+                } else {
+                    initialNotebooks = notebooksResults
+                }
+                
+                
                 //Creating all notebooks
                 var notebooks: [CKRecord.ID: CloudKitNotebook] = [:]
-                for notebookRecord in notebooksResults {
+                for notebookRecord in initialNotebooks {
                     notebooks[notebookRecord.recordID] = CloudKitNotebook(from: notebookRecord)
                 }
 
                 //Fetching all notes of notebooks
-                self.fetchNotes { answer in
+                self.fetchNotes(ignoresDuplicates: ignoreDuplicates) { answer in
                     switch answer {
                     case .successfulWith(let notes as [CloudKitNote]):
                         for note in notes {
@@ -346,18 +432,30 @@ internal class CloudKitDataController {
         }
     }
 
-    internal func fetchNotes(_ completionHandler: ((DataFetchAnswer) -> Void)? = nil ) {
+    internal func fetchNotes(ignoresDuplicates: Bool, _ completionHandler: ((DataFetchAnswer) -> Void)? = nil ) {
 
         CloudKitDataConnector.fetch(recordType: CloudKitNote.recordType, database: database) { answer in
             switch answer {
             case .successful(let noteResults):
-                //Creating all the notes
                 if noteResults.isEmpty {
                     completionHandler?(.successfulWith(result: [CloudKitNote]()))
                     return
                 }
+                
+                var initialNotes: [CKRecord] = []
+                if ignoresDuplicates {
+                    for note in noteResults {
+                        if !initialNotes.contains(where: { ($0.value(forKey: "id") as? String) == (note.value(forKey: "id") as? String) }) {
+                            initialNotes.append(note)
+                        }
+                    }
+                } else {
+                    initialNotes = noteResults
+                }
+                
+                //Creating all the notes
                 var notes: [CKRecord.ID: CloudKitNote] = [:]
-                for noteRecord in noteResults {
+                for noteRecord in initialNotes {
                     notes[noteRecord.recordID] = CloudKitNote(from: noteRecord)
                 }
 

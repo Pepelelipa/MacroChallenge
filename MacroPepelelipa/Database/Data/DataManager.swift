@@ -85,18 +85,20 @@ public class DataManager {
         let cdWorkspaces = try coreDataController.fetchWorkspaces()
         var workspaceObjects = cdWorkspaces.map({ WorkspaceObject(from: $0) })
         #if !DEVELOP
-        cloudKitController.fetchWorkspaces { (answer) in
-            switch answer {
-            case .successfulWith(let result as [CloudKitWorkspace]):
-                let count = workspaceObjects.count
-                self.fixDifferences(differentEntities: self.dataSynchroninzer.syncWorkspaces(&workspaceObjects, ckWorkspaces: result))
-                for i in count ..< workspaceObjects.count {
-                    self.notifyCreation(workspaceObjects[i], type: .workspace)
+        RemoteConfigManager.value(forKey: "ignoreDuplicates") { ignoreDuplicates in
+            self.cloudKitController.fetchWorkspaces(ignoreDuplicates: ignoreDuplicates) { (answer) in
+                switch answer {
+                case .successfulWith(let result as [CloudKitWorkspace]):
+                    let count = workspaceObjects.count
+                    self.fixDifferences(differentEntities: self.dataSynchroninzer.syncWorkspaces(&workspaceObjects, ckWorkspaces: result))
+                    for i in count ..< workspaceObjects.count {
+                        self.notifyCreation(workspaceObjects[i], type: .workspace)
+                    }
+                case .fail(let error, _):
+                    self.conflictHandler.errDidOccur(err: error)
+                default:
+                    self.conflictHandler.errDidOccur(err: WorkspaceError.failedToFetch)
                 }
-            case .fail(let error, _):
-                self.conflictHandler.errDidOccur(err: error)
-            default:
-                self.conflictHandler.errDidOccur(err: WorkspaceError.failedToFetch)
             }
         }
         #endif
@@ -475,6 +477,10 @@ public class DataManager {
         if let ckImageBox = imageBoxObject.cloudKitImageBox {
             try cloudKitController.deleteImageBox(ckImageBox)
         }
+    }
+    
+    internal func fetchRemoveConfigs(completionHandler: @escaping (Result<[CloudKitRemoteConfig], Error>) -> Void) {
+        cloudKitController.fetchRemoteConfigs(completionHandler)
     }
 
     // MARK: Singleton Basic Properties

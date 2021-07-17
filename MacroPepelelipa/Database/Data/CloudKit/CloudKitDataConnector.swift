@@ -60,6 +60,11 @@ internal class CloudKitDataConnector {
     internal static func deleteData(database: DatabaseType, entitiesToDelete: [CloudKitEntity]) {
         saveData(database: database, entitiesToSave: [], entitiesToDelete: entitiesToDelete)
     }
+    internal static func deleteRecords(database: DatabaseType, records: [CKRecord]) {
+        let ids = records.map({ $0.recordID })
+        let operation = CKModifyRecordsOperation(recordIDsToDelete: ids)
+        database.value.add(operation)
+    }
 
     internal static func saveData(database: DatabaseType, entitiesToSave: [CloudKitEntity], entitiesToDelete: [CloudKitEntity]) {
 
