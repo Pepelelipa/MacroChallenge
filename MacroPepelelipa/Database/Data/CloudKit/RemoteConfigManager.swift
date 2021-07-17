@@ -25,7 +25,6 @@ public class RemoteConfigManager {
         DataManager.shared().fetchRemoveConfigs { result in
             if let answer = try? result.get() {
                 records = answer
-                
             }
             queue.sync {
                 isFetching = false
