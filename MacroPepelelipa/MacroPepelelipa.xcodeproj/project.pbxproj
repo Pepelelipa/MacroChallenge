@@ -141,6 +141,8 @@
 		1EE652C72525049E0015E3D4 /* MarkdownToggleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EE652C62525049E0015E3D4 /* MarkdownToggleButton.swift */; };
 		1EFA49CE252D15C500602904 /* MarkdownNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EFA49CD252D15C500602904 /* MarkdownNavigationView.swift */; };
 		5832E2F5260A86EF0003D783 /* MacLooseNoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5832E2F4260A86EF0003D783 /* MacLooseNoteViewController.swift */; };
+		8D9D10E326ADEDDD00171144 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 020FFA2B252501B20095266D /* Colors.xcassets */; };
+		8D9D10E426ADF0E500171144 /* App Database String Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 020E22242513F10800A93EAB /* App Database String Extension.swift */; };
 		8DDFEEAC264C55EC00AB9830 /* NoteWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDFEEAB264C55EC00AB9830 /* NoteWrapper.swift */; };
 		8DE23E1226ADE306001AD770 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DE23E1126ADE306001AD770 /* WidgetKit.framework */; };
 		8DE23E1426ADE306001AD770 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DE23E1326ADE306001AD770 /* SwiftUI.framework */; };
@@ -861,6 +863,7 @@
 		026D4C7C251D1A6E00CBED5A /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				020FFA2B252501B20095266D /* Colors.xcassets */,
 				023989EE2551E756009BFC32 /* All */,
 				023989E72551E726009BFC32 /* App-Database */,
 				02398A222551E9E5009BFC32 /* App-Markdown */,
@@ -1049,7 +1052,6 @@
 				A7BDD60D2514073E00DDB6A0 /* NotebookIndex */,
 				A7C057C325420EEC0023A370 /* Notes */,
 				020FFA2E252501D10095266D /* Media.xcassets */,
-				020FFA2B252501B20095266D /* Colors.xcassets */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1589,6 +1591,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8DE23E1926ADE308001AD770 /* Assets.xcassets in Resources */,
+				8D9D10E326ADEDDD00171144 /* Colors.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1829,6 +1832,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8D9D10E426ADF0E500171144 /* App Database String Extension.swift in Sources */,
 				8DE23E1726ADE306001AD770 /* PurpleWidgets.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
