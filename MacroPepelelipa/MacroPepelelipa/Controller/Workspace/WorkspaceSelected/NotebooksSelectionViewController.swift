@@ -8,6 +8,7 @@
 
 import UIKit
 import Database
+import WidgetKit
 
 internal class NotebooksSelectionViewController: UIViewController, EntityObserver {
     
@@ -358,7 +359,9 @@ internal class NotebooksSelectionViewController: UIViewController, EntityObserve
     }
     
     private func presentDestination(for device: UIUserInterfaceIdiom, notebook: NotebookEntity) {
-        
+        notebook.lastAccess = Date()
+        try? notebook.save()
+        WidgetCenter.shared.reloadTimelines(ofKind: "RecentNotebook")
         let notesPageViewController = NotesPageViewController(notes: notebook.notes)
         
         if device == .phone {

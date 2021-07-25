@@ -46,6 +46,14 @@ internal class NotebookObject: NotebookEntity, CloudKitObjectWrapper {
             notifyObservers()
         }
     }
+    public var lastAccess: Date? {
+        get {
+            return coreDataNotebook.lastAccess
+        }
+        set {
+            coreDataNotebook.lastAccess = lastAccess
+        }
+    }
 
     public internal(set) var notes: [NoteEntity] = [] {
         didSet {

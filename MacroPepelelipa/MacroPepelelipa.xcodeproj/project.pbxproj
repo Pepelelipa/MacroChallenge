@@ -143,6 +143,12 @@
 		5832E2F5260A86EF0003D783 /* MacLooseNoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5832E2F4260A86EF0003D783 /* MacLooseNoteViewController.swift */; };
 		8D9D10E326ADEDDD00171144 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 020FFA2B252501B20095266D /* Colors.xcassets */; };
 		8D9D10E426ADF0E500171144 /* App Database String Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 020E22242513F10800A93EAB /* App Database String Extension.swift */; };
+		8D9D10EC26ADFBA500171144 /* RecentNotebook.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9D10EB26ADFBA500171144 /* RecentNotebook.swift */; };
+		8D9D10EF26ADFBC700171144 /* RecentWorkspace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9D10EE26ADFBC700171144 /* RecentWorkspace.swift */; };
+		8D9D10F126ADFBCC00171144 /* RecentNote.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9D10F026ADFBCC00171144 /* RecentNote.swift */; };
+		8D9D10F426ADFC3800171144 /* RecentWorkspaceObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9D10F326ADFC3800171144 /* RecentWorkspaceObject.swift */; };
+		8D9D10F626ADFCCA00171144 /* RecentNotebookObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9D10F526ADFCCA00171144 /* RecentNotebookObject.swift */; };
+		8D9D10F826ADFCEF00171144 /* RecentNoteObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9D10F726ADFCEF00171144 /* RecentNoteObject.swift */; };
 		8DDFEEAC264C55EC00AB9830 /* NoteWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDFEEAB264C55EC00AB9830 /* NoteWrapper.swift */; };
 		8DE23E1226ADE306001AD770 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DE23E1126ADE306001AD770 /* WidgetKit.framework */; };
 		8DE23E1426ADE306001AD770 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DE23E1326ADE306001AD770 /* SwiftUI.framework */; };
@@ -453,6 +459,12 @@
 		1EFA49CD252D15C500602904 /* MarkdownNavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkdownNavigationView.swift; sourceTree = "<group>"; };
 		5832E2F4260A86EF0003D783 /* MacLooseNoteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacLooseNoteViewController.swift; sourceTree = "<group>"; };
 		58E145A32636F9EC0048C6AA /* MacroPepelelipaDevelop.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MacroPepelelipaDevelop.entitlements; sourceTree = "<group>"; };
+		8D9D10EB26ADFBA500171144 /* RecentNotebook.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentNotebook.swift; sourceTree = "<group>"; };
+		8D9D10EE26ADFBC700171144 /* RecentWorkspace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentWorkspace.swift; sourceTree = "<group>"; };
+		8D9D10F026ADFBCC00171144 /* RecentNote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentNote.swift; sourceTree = "<group>"; };
+		8D9D10F326ADFC3800171144 /* RecentWorkspaceObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentWorkspaceObject.swift; sourceTree = "<group>"; };
+		8D9D10F526ADFCCA00171144 /* RecentNotebookObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentNotebookObject.swift; sourceTree = "<group>"; };
+		8D9D10F726ADFCEF00171144 /* RecentNoteObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentNoteObject.swift; sourceTree = "<group>"; };
 		8DDFEEAB264C55EC00AB9830 /* NoteWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteWrapper.swift; sourceTree = "<group>"; };
 		8DE23E1026ADE306001AD770 /* PurpleWidgetsExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = PurpleWidgetsExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		8DE23E1126ADE306001AD770 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
@@ -600,6 +612,7 @@
 		02077727251D190800D97B5A /* EntityProtocols */ = {
 			isa = PBXGroup;
 			children = (
+				8D9D10ED26ADFBB700171144 /* RecentObjects */,
 				0292CE07255B24C200D05CA2 /* PersistentEntity.swift */,
 				022832FA252E6C4200DDD46B /* ObservableEntity.swift */,
 				02110792252F88540009D4E1 /* ModifiableEntity.swift */,
@@ -649,6 +662,7 @@
 		022832D5252E544B00DDD46B /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				8D9D10F226ADFC2700171144 /* RecentObjects */,
 				02110780252F82D10009D4E1 /* WorkspaceObject.swift */,
 				02110784252F85170009D4E1 /* NotebookObject.swift */,
 				0211078E252F87F10009D4E1 /* NoteObject.swift */,
@@ -1136,6 +1150,26 @@
 				A71E2C202538EF51000DA164 /* NotesPageViewControllerDataSource.swift */,
 			);
 			path = Notes;
+			sourceTree = "<group>";
+		};
+		8D9D10ED26ADFBB700171144 /* RecentObjects */ = {
+			isa = PBXGroup;
+			children = (
+				8D9D10EE26ADFBC700171144 /* RecentWorkspace.swift */,
+				8D9D10EB26ADFBA500171144 /* RecentNotebook.swift */,
+				8D9D10F026ADFBCC00171144 /* RecentNote.swift */,
+			);
+			path = RecentObjects;
+			sourceTree = "<group>";
+		};
+		8D9D10F226ADFC2700171144 /* RecentObjects */ = {
+			isa = PBXGroup;
+			children = (
+				8D9D10F326ADFC3800171144 /* RecentWorkspaceObject.swift */,
+				8D9D10F526ADFCCA00171144 /* RecentNotebookObject.swift */,
+				8D9D10F726ADFCEF00171144 /* RecentNoteObject.swift */,
+			);
+			path = RecentObjects;
 			sourceTree = "<group>";
 		};
 		8DE23E1526ADE306001AD770 /* PurpleWidgets */ = {
@@ -1679,14 +1713,19 @@
 				022832EA252E5CE900DDD46B /* ImageBox+CoreDataClass.swift in Sources */,
 				02077729251D191600D97B5A /* WorkspaceEntity.swift in Sources */,
 				022832EF252E5CE900DDD46B /* Notebook+CoreDataProperties.swift in Sources */,
+				8D9D10F626ADFCCA00171144 /* RecentNotebookObject.swift in Sources */,
 				0211079A252F89BB0009D4E1 /* NotebookIndexObject.swift in Sources */,
 				0211079E252F89F10009D4E1 /* TextBoxObject.swift in Sources */,
 				022832EB252E5CE900DDD46B /* ImageBox+CoreDataProperties.swift in Sources */,
 				022832FB252E6C4200DDD46B /* ObservableEntity.swift in Sources */,
 				02D20B5E2558DD9E00159AB0 /* CloudKitWorkspace.swift in Sources */,
+				8D9D10EC26ADFBA500171144 /* RecentNotebook.swift in Sources */,
 				02110797252F89530009D4E1 /* NotebookError.swift in Sources */,
 				02D20B702558E51700159AB0 /* CloudKitImageBox.swift in Sources */,
+				8D9D10F426ADFC3800171144 /* RecentWorkspaceObject.swift in Sources */,
+				8D9D10F126ADFBCC00171144 /* RecentNote.swift in Sources */,
 				02A75297252E5316006D37B5 /* CoreDataController.swift in Sources */,
+				8D9D10EF26ADFBC700171144 /* RecentWorkspace.swift in Sources */,
 				022832E9252E5CE900DDD46B /* TextBox+CoreDataProperties.swift in Sources */,
 				029EFCA12555DF2600361F29 /* DataFetchAnswer.swift in Sources */,
 				021107C8252FADE00009D4E1 /* ImageBoxError.swift in Sources */,
@@ -1706,6 +1745,7 @@
 				029EFCA62555DF6700361F29 /* CloudKitEntity.swift in Sources */,
 				0207772F251D192000D97B5A /* NoteEntity.swift in Sources */,
 				02398A962551FE8E009BFC32 /* PersistentError.swift in Sources */,
+				8D9D10F826ADFCEF00171144 /* RecentNoteObject.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2384,7 +2424,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = PEPELELIPA.Macro.PurpleWidgets;
+				PRODUCT_BUNDLE_IDENTIFIER = PEPELELIPA.Macro.develop;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SUPPORTS_MACCATALYST = YES;

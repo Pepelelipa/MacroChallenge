@@ -254,6 +254,10 @@ public class DataManager {
     }
 
     // MARK: Notebook
+    public func fetchLastUsedNotebooks(max: Int) throws -> [RecentNotebook] {
+        let cdNotebooks = try coreDataController.fetchLastUsedNotebooks(max: max)
+        return cdNotebooks.map({ RecentNotebookObject(with: $0) })
+    }
     /**
      Creates a Notebook into the Database
      - Parameter workspace: To what workspace it belongs.

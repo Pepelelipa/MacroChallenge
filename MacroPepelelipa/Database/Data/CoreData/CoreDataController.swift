@@ -29,6 +29,14 @@ internal class CoreDataController {
     internal func fetchWorkspaces() throws -> [Workspace] {
         return try context.fetch(Workspace.fetchRequest())
     }
+    
+    internal func fetchLastUsedNotebooks(max: Int) throws -> [Notebook] {
+        let fetch: NSFetchRequest<Notebook> = Notebook.fetchRequest()
+        let dateSort = NSSortDescriptor(key: "lastAccess", ascending: false)
+        fetch.fetchLimit = max
+        fetch.sortDescriptors = [dateSort]
+        return try context.fetch(fetch)
+    }
 
     internal func fetchTextBox(id: String) throws -> TextBox? {
         let textBoxFetchRequest: NSFetchRequest<TextBox> = TextBox.fetchRequest()
@@ -118,6 +126,7 @@ internal class CoreDataController {
         notebook.workspace = workspace
         notebook.name = name
         notebook.colorName = colorName
+        notebook.lastAccess = Date()
 
         try saveContext()
 

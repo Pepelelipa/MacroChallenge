@@ -11,6 +11,7 @@ public protocol NotebookEntity: ObservableEntity {
     var colorName: String { get set }
     var notes: [NoteEntity] { get }
     var indexes: [NotebookIndexEntity] { get }
+    var lastAccess: Date? { get set }
 
     func getWorkspace() throws -> WorkspaceEntity
 }

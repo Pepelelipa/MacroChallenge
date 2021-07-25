@@ -11,34 +11,38 @@ import SwiftUI
 import Database
 
 struct Provider: TimelineProvider {
-    func placeholder(in context: Context) -> SimpleEntry {
-        SimpleEntry(date: Date(), notebook: PreviewNotebook())
+    func placeholder(in context: Context) -> NotebookEntry {
+        NotebookEntry(date: Date(), notebook: PreviewNotebook())
     }
 
-    func getSnapshot(in context: Context, completion: @escaping (SimpleEntry) -> Void) {
-        let entry = SimpleEntry(date: Date(), notebook: PreviewNotebook())
+    func getSnapshot(in context: Context, completion: @escaping (NotebookEntry) -> Void) {
+        let entry: NotebookEntry
+        if !context.isPreview,
+           let notebook = try? DataManager.shared().fetchLastUsedNotebooks(max: 1).first {
+            entry = NotebookEntry(date: Date(), notebook: notebook)
+        } else {
+            entry = NotebookEntry(date: Date(), notebook: PreviewNotebook())
+        }
         completion(entry)
     }
 
     func getTimeline(in context: Context, completion: @escaping (Timeline<Entry>) -> Void) {
-        var entries: [SimpleEntry] = []
+        var entries: [NotebookEntry] = []
 
-        // Generate a timeline consisting of five entries an hour apart, starting from the current date.
-        let currentDate = Date()
-        for hourOffset in 0 ..< 5 {
-            let entryDate = Calendar.current.date(byAdding: .hour, value: hourOffset, to: currentDate)!
-            let entry = SimpleEntry(date: entryDate, notebook: PreviewNotebook())
-            entries.append(entry)
+        if let notebooks = try? DataManager.shared().fetchLastUsedNotebooks(max: 10) {
+            for notebook in notebooks {
+                entries.append(NotebookEntry(date: notebook.lastAccess ?? Date(), notebook: notebook))
+            }
         }
 
-        let timeline = Timeline(entries: entries, policy: .atEnd)
+        let timeline = Timeline(entries: entries, policy: .never)
         completion(timeline)
     }
 }
 
-struct SimpleEntry: TimelineEntry {
+struct NotebookEntry: TimelineEntry {
     let date: Date
-    let notebook: NotebookEntity
+    let notebook: RecentNotebook
     
     func nonOptionalWorkspaceName() -> String {
         (try? notebook.getWorkspace().name) ?? ""
@@ -87,31 +91,32 @@ struct PurpleWidgetsEntryView: View {
 }
 
 @main
-struct PurpleWidgets: Widget {
-    let kind: String = "PurpleWidgets"
+struct RecentNotebookWidget: Widget {
+    let kind: String = "RecentNotebook"
 
     var body: some WidgetConfiguration {
         StaticConfiguration(kind: kind, provider: Provider()) { entry in
             PurpleWidgetsEntryView(entry: entry)
         }
-        .configurationDisplayName("My Widget")
-        .description("This is an example widget.")
+        .configurationDisplayName("Recent Notebooks".localized())
+        .description("Quick access your recent notebooks.".localized())
+        .supportedFamilies([.systemMedium])
     }
 }
 
 struct PurpleWidgets_Previews: PreviewProvider {
     static var previews: some View {
-        PurpleWidgetsEntryView(entry: SimpleEntry(date: Date(), notebook: PreviewNotebook()))
+        PurpleWidgetsEntryView(entry: NotebookEntry(date: Date(), notebook: PreviewNotebook()))
             .previewContext(WidgetPreviewContext(family: .systemMedium))
     }
 }
 
-private class PreviewNote: NoteEntity {
-    var title: NSAttributedString = NSAttributedString(string: "Introduction to Swift")
+private class PreviewNote: RecentNote {
+    var title: NSAttributedString = NSAttributedString(string: "Introduction to Swift".localized())
     var text: NSAttributedString = NSAttributedString()
     var images: [ImageBoxEntity] = []
     var textBoxes: [TextBoxEntity] = []
-    func getNotebook() throws -> NotebookEntity {
+    func getNotebook() throws -> RecentNotebook {
         return PreviewNotebook()
     }
     
@@ -123,37 +128,23 @@ private class PreviewNote: NoteEntity {
     }
 }
 
-private class PreviewNotebook: NotebookEntity {
-    var name: String = "Computer Engineering"
+private class PreviewNotebook: RecentNotebook {
+    var name: String = "Computer Engineering".localized()
     var colorName: String = "nb1"
-    var notes: [NoteEntity] = [
+    var notes: [RecentNote] = [
         PreviewNote(),
         PreviewNote(),
         PreviewNote(),
         PreviewNote(),
         PreviewNote()
     ]
-    var indexes: [NotebookIndexEntity] = []
-    func getWorkspace() throws -> WorkspaceEntity {
+    var lastAccess: Date? = Date()
+    func getWorkspace() throws -> RecentWorkspace {
         return PreviewWorkspace()
-    }
-    func addObserver(_ observer: EntityObserver) { }
-    func removeObserver(_ observer: EntityObserver) { }
-    func save() throws { }
-    func getID() throws -> UUID {
-        return UUID()
     }
 }
 
-private class PreviewWorkspace: WorkspaceEntity {
-    var name: String = "College"
-    var notebooks: [NotebookEntity] = []
-    var isEnabled: Bool = false
-    
-    func addObserver(_ observer: EntityObserver) { }
-    func removeObserver(_ observer: EntityObserver) { }
-    func save() throws { }
-    func getID() throws -> UUID {
-        return UUID()
-    }
+private class PreviewWorkspace: RecentWorkspace {
+    var name: String = "College".localized()
+    var notebooks: [RecentNotebook] = []
 }
