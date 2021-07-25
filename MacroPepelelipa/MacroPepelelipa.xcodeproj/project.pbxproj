@@ -142,6 +142,14 @@
 		1EFA49CE252D15C500602904 /* MarkdownNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EFA49CD252D15C500602904 /* MarkdownNavigationView.swift */; };
 		5832E2F5260A86EF0003D783 /* MacLooseNoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5832E2F4260A86EF0003D783 /* MacLooseNoteViewController.swift */; };
 		8DDFEEAC264C55EC00AB9830 /* NoteWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDFEEAB264C55EC00AB9830 /* NoteWrapper.swift */; };
+		8DE23E1226ADE306001AD770 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DE23E1126ADE306001AD770 /* WidgetKit.framework */; };
+		8DE23E1426ADE306001AD770 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DE23E1326ADE306001AD770 /* SwiftUI.framework */; };
+		8DE23E1726ADE306001AD770 /* PurpleWidgets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DE23E1626ADE306001AD770 /* PurpleWidgets.swift */; };
+		8DE23E1926ADE308001AD770 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8DE23E1826ADE308001AD770 /* Assets.xcassets */; };
+		8DE23E1D26ADE308001AD770 /* PurpleWidgetsExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 8DE23E1026ADE306001AD770 /* PurpleWidgetsExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		8DE23E2526ADE345001AD770 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 029EFC882555D87600361F29 /* CloudKit.framework */; };
+		8DE23E2626ADE363001AD770 /* Database.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 029847EE251D13D1004E0B62 /* Database.framework */; };
+		8DE23E2726ADE363001AD770 /* Database.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 029847EE251D13D1004E0B62 /* Database.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		A7026CDF25659B2400B8FC78 /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C21B33254B55BB0061CCBA /* Font.swift */; };
 		A71E2C1D2538EEB8000DA164 /* NotesPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71E2C1B2538EEB8000DA164 /* NotesPageViewController.swift */; };
 		A71E2C1E2538EEB8000DA164 /* NotesPageViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71E2C1C2538EEB8000DA164 /* NotesPageViewControllerDelegate.swift */; };
@@ -254,6 +262,20 @@
 			remoteGlobalIDString = 029847ED251D13D1004E0B62;
 			remoteInfo = Database;
 		};
+		8DE23E1B26ADE308001AD770 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 02DD09F025114D6200B6696B /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8DE23E0F26ADE306001AD770;
+			remoteInfo = PurpleWidgetsExtension;
+		};
+		8DE23E2826ADE363001AD770 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 02DD09F025114D6200B6696B /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 029847ED251D13D1004E0B62;
+			remoteInfo = Database;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -265,6 +287,28 @@
 			files = (
 				023989D12551E68F009BFC32 /* MarkdownText.framework in Embed Frameworks */,
 				029847F6251D13D1004E0B62 /* Database.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8DE23E2326ADE308001AD770 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				8DE23E1D26ADE308001AD770 /* PurpleWidgetsExtension.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8DE23E2A26ADE363001AD770 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				8DE23E2726ADE363001AD770 /* Database.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -408,6 +452,14 @@
 		5832E2F4260A86EF0003D783 /* MacLooseNoteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacLooseNoteViewController.swift; sourceTree = "<group>"; };
 		58E145A32636F9EC0048C6AA /* MacroPepelelipaDevelop.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MacroPepelelipaDevelop.entitlements; sourceTree = "<group>"; };
 		8DDFEEAB264C55EC00AB9830 /* NoteWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteWrapper.swift; sourceTree = "<group>"; };
+		8DE23E1026ADE306001AD770 /* PurpleWidgetsExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = PurpleWidgetsExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		8DE23E1126ADE306001AD770 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
+		8DE23E1326ADE306001AD770 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
+		8DE23E1626ADE306001AD770 /* PurpleWidgets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurpleWidgets.swift; sourceTree = "<group>"; };
+		8DE23E1826ADE308001AD770 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		8DE23E1A26ADE308001AD770 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8DE23E1E26ADE308001AD770 /* PurpleWidgetsExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PurpleWidgetsExtension.entitlements; sourceTree = "<group>"; };
+		8DE23E2426ADE33B001AD770 /* PurpleWidgetsExtensionRelease.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PurpleWidgetsExtensionRelease.entitlements; sourceTree = "<group>"; };
 		A71E2C1B2538EEB8000DA164 /* NotesPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotesPageViewController.swift; sourceTree = "<group>"; };
 		A71E2C1C2538EEB8000DA164 /* NotesPageViewControllerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotesPageViewControllerDelegate.swift; sourceTree = "<group>"; };
 		A71E2C202538EF51000DA164 /* NotesPageViewControllerDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NotesPageViewControllerDataSource.swift; path = MacroPepelelipa/Model/Notes/NotesPageViewControllerDataSource.swift; sourceTree = SOURCE_ROOT; };
@@ -526,6 +578,17 @@
 				029EFC892555D87600361F29 /* CloudKit.framework in Frameworks */,
 				023989D02551E68F009BFC32 /* MarkdownText.framework in Frameworks */,
 				029847F5251D13D1004E0B62 /* Database.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8DE23E0D26ADE306001AD770 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8DE23E2526ADE345001AD770 /* CloudKit.framework in Frameworks */,
+				8DE23E1426ADE306001AD770 /* SwiftUI.framework in Frameworks */,
+				8DE23E1226ADE306001AD770 /* WidgetKit.framework in Frameworks */,
+				8DE23E2626ADE363001AD770 /* Database.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -849,6 +912,8 @@
 			isa = PBXGroup;
 			children = (
 				029EFC882555D87600361F29 /* CloudKit.framework */,
+				8DE23E1126ADE306001AD770 /* WidgetKit.framework */,
+				8DE23E1326ADE306001AD770 /* SwiftUI.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -931,10 +996,13 @@
 		02DD09EF25114D6200B6696B = {
 			isa = PBXGroup;
 			children = (
+				8DE23E2426ADE33B001AD770 /* PurpleWidgetsExtensionRelease.entitlements */,
+				8DE23E1E26ADE308001AD770 /* PurpleWidgetsExtension.entitlements */,
 				026D4C7C251D1A6E00CBED5A /* Shared */,
 				02DD09FA25114D6200B6696B /* MacroPepelelipa */,
 				023989CA2551E68F009BFC32 /* MarkdownText */,
 				029847EF251D13D1004E0B62 /* Database */,
+				8DE23E1526ADE306001AD770 /* PurpleWidgets */,
 				02DD09F925114D6200B6696B /* Products */,
 				029EFC872555D87600361F29 /* Frameworks */,
 			);
@@ -946,6 +1014,7 @@
 				02DD09F825114D6200B6696B /* MacroPepelelipa.app */,
 				029847EE251D13D1004E0B62 /* Database.framework */,
 				023989C92551E68F009BFC32 /* MarkdownText.framework */,
+				8DE23E1026ADE306001AD770 /* PurpleWidgetsExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1065,6 +1134,16 @@
 				A71E2C202538EF51000DA164 /* NotesPageViewControllerDataSource.swift */,
 			);
 			path = Notes;
+			sourceTree = "<group>";
+		};
+		8DE23E1526ADE306001AD770 /* PurpleWidgets */ = {
+			isa = PBXGroup;
+			children = (
+				8DE23E1626ADE306001AD770 /* PurpleWidgets.swift */,
+				8DE23E1826ADE308001AD770 /* Assets.xcassets */,
+				8DE23E1A26ADE308001AD770 /* Info.plist */,
+			);
+			path = PurpleWidgets;
 			sourceTree = "<group>";
 		};
 		A7BC781C253A2925006489CF /* Text Recognition */ = {
@@ -1368,17 +1447,38 @@
 				02DD09F625114D6200B6696B /* Resources */,
 				02DD0A0F25114DAB00B6696B /* ShellScript */,
 				029847F7251D13D1004E0B62 /* Embed Frameworks */,
+				8DE23E2326ADE308001AD770 /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 				029847F4251D13D1004E0B62 /* PBXTargetDependency */,
 				023989CF2551E68F009BFC32 /* PBXTargetDependency */,
+				8DE23E1C26ADE308001AD770 /* PBXTargetDependency */,
 			);
 			name = MacroPepelelipa;
 			productName = MacroPepelelipa;
 			productReference = 02DD09F825114D6200B6696B /* MacroPepelelipa.app */;
 			productType = "com.apple.product-type.application";
+		};
+		8DE23E0F26ADE306001AD770 /* PurpleWidgetsExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8DE23E1F26ADE308001AD770 /* Build configuration list for PBXNativeTarget "PurpleWidgetsExtension" */;
+			buildPhases = (
+				8DE23E0C26ADE306001AD770 /* Sources */,
+				8DE23E0D26ADE306001AD770 /* Frameworks */,
+				8DE23E0E26ADE306001AD770 /* Resources */,
+				8DE23E2A26ADE363001AD770 /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				8DE23E2926ADE363001AD770 /* PBXTargetDependency */,
+			);
+			name = PurpleWidgetsExtension;
+			productName = PurpleWidgetsExtension;
+			productReference = 8DE23E1026ADE306001AD770 /* PurpleWidgetsExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
 		};
 /* End PBXNativeTarget section */
 
@@ -1386,7 +1486,7 @@
 		02DD09F025114D6200B6696B /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1160;
+				LastSwiftUpdateCheck = 1250;
 				LastUpgradeCheck = 1200;
 				ORGANIZATIONNAME = "Pedro Giuliano Farina";
 				TargetAttributes = {
@@ -1400,6 +1500,9 @@
 					};
 					02DD09F725114D6200B6696B = {
 						CreatedOnToolsVersion = 11.6;
+					};
+					8DE23E0F26ADE306001AD770 = {
+						CreatedOnToolsVersion = 12.5.1;
 					};
 				};
 			};
@@ -1420,6 +1523,7 @@
 				02DD09F725114D6200B6696B /* MacroPepelelipa */,
 				029847ED251D13D1004E0B62 /* Database */,
 				023989C82551E68F009BFC32 /* MarkdownText */,
+				8DE23E0F26ADE306001AD770 /* PurpleWidgetsExtension */,
 			);
 		};
 /* End PBXProject section */
@@ -1477,6 +1581,14 @@
 				02DC77DB2553328000F0B4E4 /* Colors.xcassets in Resources */,
 				E40220D9253A1ED7009C08C4 /* DarkModeIcon-Small-40@3x.png in Resources */,
 				E40220D0253A1ED7009C08C4 /* DarkModeIcon-Small.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8DE23E0E26ADE306001AD770 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8DE23E1926ADE308001AD770 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1713,6 +1825,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		8DE23E0C26ADE306001AD770 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8DE23E1726ADE306001AD770 /* PurpleWidgets.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -1725,6 +1845,16 @@
 			isa = PBXTargetDependency;
 			target = 029847ED251D13D1004E0B62 /* Database */;
 			targetProxy = 029847F3251D13D1004E0B62 /* PBXContainerItemProxy */;
+		};
+		8DE23E1C26ADE308001AD770 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8DE23E0F26ADE306001AD770 /* PurpleWidgetsExtension */;
+			targetProxy = 8DE23E1B26ADE308001AD770 /* PBXContainerItemProxy */;
+		};
+		8DE23E2926ADE363001AD770 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 029847ED251D13D1004E0B62 /* Database */;
+			targetProxy = 8DE23E2826ADE363001AD770 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -2045,7 +2175,7 @@
 				CODE_SIGN_ENTITLEMENTS = MacroPepelelipa/MacroPepelelipa.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 6YYZ79V57N;
+				DEVELOPMENT_TEAM = X54K5PJVGU;
 				INFOPLIST_FILE = MacroPepelelipa/Info.plist;
 				"IPHONEOS_DEPLOYMENT_TARGET[sdk=macosx*]" = 14.2;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -2211,6 +2341,78 @@
 			};
 			name = Develop;
 		};
+		8DE23E2026ADE308001AD770 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = PurpleWidgetsExtension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 6YYZ79V57N;
+				INFOPLIST_FILE = PurpleWidgets/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = PEPELELIPA.Macro.PurpleWidgets;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SUPPORTS_MACCATALYST = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		8DE23E2126ADE308001AD770 /* Develop */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = PurpleWidgetsExtension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = BVZY57RJZG;
+				INFOPLIST_FILE = PurpleWidgets/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = PEPELELIPA.Macro.PurpleWidgets;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SUPPORTS_MACCATALYST = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Develop;
+		};
+		8DE23E2226ADE308001AD770 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = PurpleWidgetsExtensionRelease.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = X54K5PJVGU;
+				INFOPLIST_FILE = PurpleWidgets/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = PEPELELIPA.Macro.PurpleWidgets;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SUPPORTS_MACCATALYST = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -2250,6 +2452,16 @@
 				02DD0A0D25114D6700B6696B /* Debug */,
 				58E145A02636F9C00048C6AA /* Develop */,
 				02DD0A0E25114D6700B6696B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		8DE23E1F26ADE308001AD770 /* Build configuration list for PBXNativeTarget "PurpleWidgetsExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8DE23E2026ADE308001AD770 /* Debug */,
+				8DE23E2126ADE308001AD770 /* Develop */,
+				8DE23E2226ADE308001AD770 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
