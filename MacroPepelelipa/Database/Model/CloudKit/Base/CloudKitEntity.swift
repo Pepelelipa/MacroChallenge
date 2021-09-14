@@ -8,7 +8,7 @@
 
 import CloudKit
 
-internal protocol CloudKitEntity: class {
+internal protocol CloudKitEntity: AnyObject {
     static var recordType: String { get }
     var record: CKRecord { get }
 }
