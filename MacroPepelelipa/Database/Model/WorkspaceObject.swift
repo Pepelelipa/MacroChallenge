@@ -6,9 +6,7 @@
 //  Copyright © 2020 Pedro Giuliano Farina. All rights reserved.
 //
 
-import CloudKit
-
-internal class WorkspaceObject: WorkspaceEntity, CloudKitObjectWrapper {
+internal class WorkspaceObject: WorkspaceEntity {
 
     func getID() throws -> UUID {
         if let id = coreDataWorkspace.id {
@@ -19,11 +17,10 @@ internal class WorkspaceObject: WorkspaceEntity, CloudKitObjectWrapper {
 
     public var name: String {
         get {
-            return coreDataWorkspace.name ?? cloudKitWorkspace?.name.value ?? ""
+            return coreDataWorkspace.name ?? ""
         }
         set {
             coreDataWorkspace.name = newValue
-            cloudKitWorkspace?.name.value = newValue
             notifyObservers()
         }
     }
@@ -34,7 +31,6 @@ internal class WorkspaceObject: WorkspaceEntity, CloudKitObjectWrapper {
         }
         set {
             coreDataWorkspace.isEnabled = newValue
-            cloudKitWorkspace?.isEnabled.value = newValue ? 1 : 0
             notifyObservers()
         }
     }
@@ -48,27 +44,13 @@ internal class WorkspaceObject: WorkspaceEntity, CloudKitObjectWrapper {
     private var observers: [EntityObserver] = []
 
     internal let coreDataWorkspace: Workspace
-    internal var cloudKitWorkspace: CloudKitWorkspace? {
-        didSet {
-            notebooks.forEach({ notebook in
-                let ckNotebook = cloudKitWorkspace?.notebooks?.references.first(where: { $0.id.value == (try? notebook.getID())?.uuidString })
-                (notebook as? NotebookObject)?.cloudKitNotebook = ckNotebook
-            })
-        }
-    }
 
-    internal var cloudKitObject: CloudKitEntity? {
-        return cloudKitWorkspace
-    }
-
-    internal init(from workspace: Workspace, and ckWorkspace: CloudKitWorkspace? = nil) {
-        self.cloudKitWorkspace = ckWorkspace
+    internal init(from workspace: Workspace) {
         self.coreDataWorkspace = workspace
         
         if let notebooks = coreDataWorkspace.notebooks?.array as? [Notebook] {
             notebooks.forEach { (notebook) in
-                let ckObject = ckWorkspace?.notebooks?.first(where: { $0.record["id"] == notebook.id?.uuidString }) as? CloudKitNotebook
-                _ = NotebookObject(in: self, from: notebook, and: ckObject)
+                _ = NotebookObject(in: self, from: notebook)
             }
         }
     }
