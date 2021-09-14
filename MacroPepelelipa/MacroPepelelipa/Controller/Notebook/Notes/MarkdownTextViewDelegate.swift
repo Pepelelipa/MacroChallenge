@@ -9,7 +9,7 @@
 import UIKit
 import MarkdownText
 
-internal protocol MarkdownObserver: class {
+internal protocol MarkdownObserver: AnyObject {
     func didChangeSelection(_ textView: UITextView)
 }
 

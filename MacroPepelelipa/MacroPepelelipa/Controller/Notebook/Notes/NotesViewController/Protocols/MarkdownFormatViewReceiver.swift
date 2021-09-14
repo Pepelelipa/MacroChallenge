@@ -9,7 +9,7 @@
 import Foundation
 import MarkdownText
 
-internal protocol MarkdownFormatViewReceiver: class {
+internal protocol MarkdownFormatViewReceiver: AnyObject {
     func changeTextViewInput(isCustom: Bool)
     var markdownDelegate: AppMarkdownTextViewDelegate? { get set }
 }
