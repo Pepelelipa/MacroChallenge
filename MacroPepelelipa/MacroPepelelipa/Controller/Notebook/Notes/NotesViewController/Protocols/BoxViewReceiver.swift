@@ -8,7 +8,7 @@
 
 import Database
 
-internal protocol BoxViewReceiver: class {
+internal protocol BoxViewReceiver: AnyObject {
     func addTextBox(with textBoxEntity: TextBoxEntity)
     func addImageBox(with imageBoxEntity: ImageBoxEntity)
 }
