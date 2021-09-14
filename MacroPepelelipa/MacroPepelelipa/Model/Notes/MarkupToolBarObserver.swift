@@ -9,7 +9,7 @@
 import UIKit
 import Database
 
-internal protocol MarkupToolBarObserver: class {
+internal protocol MarkupToolBarObserver: AnyObject {
     func createTextBox(transcription: String?)
     func changeTextViewInput(isCustom: Bool)
     func presentPhotoPicker()

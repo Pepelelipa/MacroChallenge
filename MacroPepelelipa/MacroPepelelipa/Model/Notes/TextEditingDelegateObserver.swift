@@ -8,7 +8,7 @@
 
 import UIKit
 
-internal protocol TextEditingDelegateObserver: class {
+internal protocol TextEditingDelegateObserver: AnyObject {
     
     ////The method that is initialized when the observer sends the notification that the text editing has started
     func textEditingDidBegin()

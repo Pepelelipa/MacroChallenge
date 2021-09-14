@@ -8,6 +8,6 @@
 
 import Foundation
 
-protocol NoteAssignerObserver: class {
+protocol NoteAssignerObserver: AnyObject {
     func dismissLooseNoteViewController()
 }

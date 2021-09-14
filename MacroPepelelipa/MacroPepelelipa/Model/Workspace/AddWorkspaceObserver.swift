@@ -8,6 +8,6 @@
 
 import Foundation
 
-internal protocol AddWorkspaceObserver: class {
+internal protocol AddWorkspaceObserver: AnyObject {
     func addWorkspace()
 }
