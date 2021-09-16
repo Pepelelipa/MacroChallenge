@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-internal class PhotoEditingViewController: UIViewController {
+internal class PhotoEditingViewController: ViewController {
     
     // MARK: - Variables and Constants
     

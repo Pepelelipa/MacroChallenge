@@ -9,7 +9,7 @@
 import UIKit
 import Database
 
-internal class NotebooksSelectionViewController: UIViewController, EntityObserver {
+internal class NotebooksSelectionViewController: ViewController, EntityObserver {
     
     // MARK: - Variables and Constants
     

@@ -10,7 +10,7 @@ import UIKit
 import Database
 import StoreKit
 
-internal class WorkspaceSelectionViewController: UIViewController, 
+internal class WorkspaceSelectionViewController: ViewController, 
                                                  UISearchResultsUpdating,
                                                  UISearchBarDelegate,
                                                  EntityObserver {

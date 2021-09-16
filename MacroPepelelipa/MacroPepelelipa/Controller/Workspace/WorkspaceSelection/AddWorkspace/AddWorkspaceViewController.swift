@@ -9,7 +9,7 @@
 import UIKit
 import Database
 
-internal class AddWorkspaceViewController: UIViewController, AddWorkspaceObserver {
+internal class AddWorkspaceViewController: ViewController, AddWorkspaceObserver {
     
     // MARK: - Variables and Constants
     

@@ -9,7 +9,7 @@
 import UIKit
 import Database
 
-internal class AddNoteViewController: UIViewController, AddNoteObserver {
+internal class AddNoteViewController: ViewController, AddNoteObserver {
     
     // MARK: - Variables and Constants
     

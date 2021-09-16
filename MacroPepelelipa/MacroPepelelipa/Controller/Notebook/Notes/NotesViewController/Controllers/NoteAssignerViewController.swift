@@ -11,7 +11,7 @@ import UIKit
 import Database 
 import MarkdownText
 
-class NoteAssignerViewController: UIViewController, 
+class NoteAssignerViewController: ViewController, 
                                   NoteAssignerNotebookObserver {
     
     // MARK: - Internal properties

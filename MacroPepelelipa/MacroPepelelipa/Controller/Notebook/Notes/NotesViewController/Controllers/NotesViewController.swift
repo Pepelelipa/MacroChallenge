@@ -12,7 +12,7 @@ import Database
 import PhotosUI
 import MarkdownText
 
-internal class NotesViewController: UIViewController,
+internal class NotesViewController: ViewController,
                                     ResizeHandleReceiver,
                                     BoxViewReceiver {
     

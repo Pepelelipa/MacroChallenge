@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 import Database
 
-internal class NoteAssignerResultsViewController: UIViewController,
+internal class NoteAssignerResultsViewController: ViewController,
                                                   UISearchResultsUpdating {
     
     // MARK: - Variables and Constants
