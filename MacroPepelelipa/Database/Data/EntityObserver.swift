@@ -6,7 +6,7 @@
 //  Copyright © 2020 Pedro Giuliano Farina. All rights reserved.
 //
 
-public protocol EntityObserver: class {
+public protocol EntityObserver: AnyObject {
     func entityWasCreated(_ value: ObservableEntity)
     func entityDidChangeTo(_ value: ObservableEntity)
     func entityShouldDelete(_ value: ObservableEntity)

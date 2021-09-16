@@ -5,7 +5,6 @@
 //  Created by Leonardo Oliveira on 14/10/20.
 //  Copyright © 2020 Pedro Giuliano Farina. All rights reserved.
 //
-//swiftlint:disable multiple_closures_with_trailing_closure
 
 import UIKit
 import Database

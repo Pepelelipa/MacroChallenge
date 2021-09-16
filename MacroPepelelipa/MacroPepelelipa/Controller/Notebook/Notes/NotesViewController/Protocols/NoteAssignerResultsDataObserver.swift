@@ -9,6 +9,6 @@
 import Foundation
 import Database
 
-protocol NoteAssignerResultsDataObserver: class {
+protocol NoteAssignerResultsDataObserver: AnyObject {
     func noteAssignerFilteredWorkspaces(workspaces: [WorkspaceEntity])
 }

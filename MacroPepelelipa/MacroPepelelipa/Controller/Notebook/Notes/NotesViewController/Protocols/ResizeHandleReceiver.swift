@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 import MarkdownText
 
-internal protocol ResizeHandleReceiver: class {
+internal protocol ResizeHandleReceiver: AnyObject {
     var receiverView: UIView { get set }
     var textView: MarkdownTextView { get }
     func uptadeResizeHandles()

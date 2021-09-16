@@ -136,7 +136,6 @@ internal class NotesPageViewController: UIPageViewController,
         }
         #endif
         
-        
         notesViewController.setDeleteNoteButton {
             self.deleteNote()
         }
