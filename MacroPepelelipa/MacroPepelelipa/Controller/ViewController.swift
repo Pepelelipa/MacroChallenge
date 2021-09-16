@@ -20,12 +20,18 @@ internal protocol KeyboardShortcutDelegate: AnyObject {
 
 internal class ViewController: UIViewController {
 
+    // MARK: - Keyboard shortcuts
+    
     internal weak var keyboardShortcutDelegate: KeyboardShortcutDelegate?
         
+    // MARK: - Overridables
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         addObservers()
     }
+    
+    // MARK: - Notification handling
     
     private func addObservers() {
         for name in Notification.Name.keyboardShortcuts {
@@ -61,5 +67,13 @@ internal class ViewController: UIViewController {
         default:
             break
         }
+    }
+    
+    internal func triggerShortcut(_ command: UIKeyCommand) {
+        guard let commandName = command.propertyList as? String else {
+            return
+        }
+        
+        NotificationCenter.default.post(name: Notification.Name(commandName), object: nil)
     }
 }
