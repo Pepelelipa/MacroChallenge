@@ -22,7 +22,6 @@
 		02110785252F85170009D4E1 /* NotebookObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02110784252F85170009D4E1 /* NotebookObject.swift */; };
 		02110789252F86E60009D4E1 /* WorkspaceError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02110788252F86E60009D4E1 /* WorkspaceError.swift */; };
 		0211078F252F87F10009D4E1 /* NoteObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0211078E252F87F10009D4E1 /* NoteObject.swift */; };
-		02110793252F88540009D4E1 /* ModifiableEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02110792252F88540009D4E1 /* ModifiableEntity.swift */; };
 		02110797252F89530009D4E1 /* NotebookError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02110796252F89530009D4E1 /* NotebookError.swift */; };
 		0211079A252F89BB0009D4E1 /* NotebookIndexObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02110799252F89BB0009D4E1 /* NotebookIndexObject.swift */; };
 		0211079E252F89F10009D4E1 /* TextBoxObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0211079D252F89F10009D4E1 /* TextBoxObject.swift */; };
@@ -272,7 +271,6 @@
 		02110784252F85170009D4E1 /* NotebookObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotebookObject.swift; sourceTree = "<group>"; };
 		02110788252F86E60009D4E1 /* WorkspaceError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkspaceError.swift; sourceTree = "<group>"; };
 		0211078E252F87F10009D4E1 /* NoteObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteObject.swift; sourceTree = "<group>"; };
-		02110792252F88540009D4E1 /* ModifiableEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModifiableEntity.swift; sourceTree = "<group>"; };
 		02110796252F89530009D4E1 /* NotebookError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotebookError.swift; sourceTree = "<group>"; };
 		02110799252F89BB0009D4E1 /* NotebookIndexObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotebookIndexObject.swift; sourceTree = "<group>"; };
 		0211079D252F89F10009D4E1 /* TextBoxObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextBoxObject.swift; sourceTree = "<group>"; };
@@ -505,7 +503,6 @@
 			children = (
 				0292CE07255B24C200D05CA2 /* PersistentEntity.swift */,
 				022832FA252E6C4200DDD46B /* ObservableEntity.swift */,
-				02110792252F88540009D4E1 /* ModifiableEntity.swift */,
 				02077728251D191600D97B5A /* WorkspaceEntity.swift */,
 				0207772B251D191B00D97B5A /* NotebookEntity.swift */,
 				027D5930251E8213007BDD8C /* NotebookIndexEntity.swift */,
@@ -1446,7 +1443,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				021107A8252F8B060009D4E1 /* NoteError.swift in Sources */,
-				02110793252F88540009D4E1 /* ModifiableEntity.swift in Sources */,
 				021107A4252F8A9F0009D4E1 /* ImageBoxObject.swift in Sources */,
 				0211078F252F87F10009D4E1 /* NoteObject.swift in Sources */,
 				02A75293252E5282006D37B5 /* NSPersistantContainer.swift in Sources */,

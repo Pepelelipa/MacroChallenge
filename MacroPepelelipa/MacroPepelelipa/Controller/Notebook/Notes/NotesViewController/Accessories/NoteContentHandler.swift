@@ -47,11 +47,6 @@ internal class NoteContentHandler {
                     entity.height = Float(imageBox.frame.height)
                 }
             }
-            try note.save()
-        } catch {
-            let title = "Error saving the notebook".localized()
-            let message = "The Notebook could not be saved".localized()
-            ConflictHandlerObject().genericErrorHandling(title: title, message: message)
         }
     }
 }

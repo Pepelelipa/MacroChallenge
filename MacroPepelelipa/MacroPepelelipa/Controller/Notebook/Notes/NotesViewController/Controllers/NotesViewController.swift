@@ -142,8 +142,6 @@ internal class NotesViewController: UIViewController,
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        SceneDelegate.sensitiveContent = self
         
         #if !targetEnvironment(macCatalyst)
         addKeyCommand(NotesViewController.boldfaceKeyCommand)
@@ -605,16 +603,4 @@ extension NotesViewController: MarkupToolBarObserver {
     @objc internal func openPopOver() {}
     
     @objc internal func importImage() {}
-}
-
-// MARK: - SensitiveContentController
-extension NotesViewController: SensitiveContentController {
-    internal func saveSensitiveContent() {
-        guard !isSaving else {
-            return
-        }
-        isSaving = true
-        try? note?.save()
-        isSaving = false
-    }
 }

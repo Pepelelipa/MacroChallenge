@@ -65,21 +65,6 @@ internal class WorkspaceObject: WorkspaceEntity {
         }
     }
 
-    func save() throws {
-        try DataManager.shared().saveObjects(getSavable())
-    }
-
-    internal func getSavable() -> [PersistentEntity] {
-        var children: [PersistentEntity] = [self]
-        if let notebooks = notebooks as? [NotebookObject] {
-            for notebook in notebooks {
-                children.append(contentsOf: notebook.getSavable())
-            }
-        }
-        
-        return children
-    }
-
     internal func removeReferences() {
         for notebook in notebooks {
             if let notebook = notebook as? NotebookObject {
