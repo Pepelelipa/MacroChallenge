@@ -7,9 +7,7 @@
 //
 //swiftlint:disable identifier_name
 
-import CloudKit
-
-internal class TextBoxObject: TextBoxEntity, CloudKitObjectWrapper {
+internal class TextBoxObject: TextBoxEntity {
 
     func getID() throws -> UUID {
         if let id = coreDataTextBox.id {
@@ -18,8 +16,7 @@ internal class TextBoxObject: TextBoxEntity, CloudKitObjectWrapper {
         throw PersistentError.idWasNull
     }
 
-    internal init(in note: NoteObject, from coreDataObject: TextBox, and ckTextBox: CloudKitTextBox? = nil) {
-        self.cloudKitTextBox = ckTextBox
+    internal init(in note: NoteObject, from coreDataObject: TextBox) {
         self.note = note
         self.coreDataTextBox = coreDataObject
 
@@ -36,12 +33,11 @@ internal class TextBoxObject: TextBoxEntity, CloudKitObjectWrapper {
 
     public var text: NSAttributedString {
         get {
-            return coreDataTextBox.text?.toAttributedString() ?? (cloudKitTextBox?.text.value as Data?)?.toAttributedString() ?? NSAttributedString()
+            return coreDataTextBox.text?.toAttributedString() ?? NSAttributedString()
         }
         set {
             if let data = newValue.toData() {
                 coreDataTextBox.text = data
-                cloudKitTextBox?.text.value = NSData(data: data)
             }
         }
     }
@@ -51,7 +47,6 @@ internal class TextBoxObject: TextBoxEntity, CloudKitObjectWrapper {
         }
         set {
             coreDataTextBox.width = newValue
-            cloudKitTextBox?.width.value = Double(newValue)
         }
     }
     public var height: Float {
@@ -60,7 +55,6 @@ internal class TextBoxObject: TextBoxEntity, CloudKitObjectWrapper {
         }
         set {
             coreDataTextBox.height = newValue
-            cloudKitTextBox?.height.value = Double(newValue)
         }
     }
     public var x: Float {
@@ -69,7 +63,6 @@ internal class TextBoxObject: TextBoxEntity, CloudKitObjectWrapper {
         }
         set {
             coreDataTextBox.x = newValue
-            cloudKitTextBox?.x.value = Double(newValue)
         }
     }
     public var y: Float {
@@ -78,7 +71,6 @@ internal class TextBoxObject: TextBoxEntity, CloudKitObjectWrapper {
         }
         set {
             coreDataTextBox.y = newValue
-            cloudKitTextBox?.y.value = Double(newValue)
         }
     }
     public var z: Float {
@@ -87,15 +79,10 @@ internal class TextBoxObject: TextBoxEntity, CloudKitObjectWrapper {
         }
         set {
             coreDataTextBox.z = newValue
-            cloudKitTextBox?.z.value = Double(newValue)
         }
     }
 
     internal let coreDataTextBox: TextBox
-    internal var cloudKitTextBox: CloudKitTextBox?
-    var cloudKitObject: CloudKitEntity? {
-        return cloudKitTextBox
-    }
 
     internal func removeReferences() {
         if let note = self.note,

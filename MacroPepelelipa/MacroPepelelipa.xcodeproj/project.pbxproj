@@ -87,16 +87,10 @@
 		02919F4225531B1F00C03E27 /* MarkdownTextViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02919F4125531B1E00C03E27 /* MarkdownTextViewDelegate.swift */; };
 		02919F4825531BFA00C03E27 /* App String Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02919F4725531BFA00C03E27 /* App String Extensions.swift */; };
 		0292CE08255B24C200D05CA2 /* PersistentEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0292CE07255B24C200D05CA2 /* PersistentEntity.swift */; };
-		0292CE10255B273B00D05CA2 /* CloudKitObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0292CE0F255B273B00D05CA2 /* CloudKitObject.swift */; };
 		029847F2251D13D1004E0B62 /* Database.h in Headers */ = {isa = PBXBuildFile; fileRef = 029847F0251D13D1004E0B62 /* Database.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		029847F5251D13D1004E0B62 /* Database.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 029847EE251D13D1004E0B62 /* Database.framework */; };
 		029847F6251D13D1004E0B62 /* Database.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 029847EE251D13D1004E0B62 /* Database.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		029EFC892555D87600361F29 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 029EFC882555D87600361F29 /* CloudKit.framework */; };
-		029EFC8C2555DE3800361F29 /* CloudKitDataConnector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 029EFC8B2555DE3800361F29 /* CloudKitDataConnector.swift */; };
-		029EFC942555DEDC00361F29 /* Data Property.swift in Sources */ = {isa = PBXBuildFile; fileRef = 029EFC932555DEDC00361F29 /* Data Property.swift */; };
-		029EFC9B2555DF1100361F29 /* DataActionAnswer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 029EFC9A2555DF1100361F29 /* DataActionAnswer.swift */; };
-		029EFCA12555DF2600361F29 /* DataFetchAnswer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 029EFCA02555DF2600361F29 /* DataFetchAnswer.swift */; };
-		029EFCA62555DF6700361F29 /* CloudKitEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 029EFCA52555DF6700361F29 /* CloudKitEntity.swift */; };
 		029EFCAF2555E0BF00361F29 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 029EFCB12555E0BF00361F29 /* Localizable.strings */; };
 		02A75293252E5282006D37B5 /* NSPersistantContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A75292252E5282006D37B5 /* NSPersistantContainer.swift */; };
 		02A75297252E5316006D37B5 /* CoreDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A75296252E5316006D37B5 /* CoreDataController.swift */; };
@@ -107,17 +101,7 @@
 		02B1670D2565907100372EBB /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 020FFA37252502E30095266D /* Colors.swift */; };
 		02C21B34254B55BB0061CCBA /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C21B33254B55BB0061CCBA /* Font.swift */; };
 		02C3F61D255C70F00069670D /* Conflict Handler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C3F61C255C70F00069670D /* Conflict Handler.swift */; };
-		02CB8B50255C7A9000C0C04E /* CoreData-CloudKit Operators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02CB8B4F255C7A9000C0C04E /* CoreData-CloudKit Operators.swift */; };
-		02CB8B5C255DD4F500C0C04E /* DataSynchronizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02CB8B5B255DD4F500C0C04E /* DataSynchronizer.swift */; };
 		02CD7CA12523B48900A140A3 /* WorkspacesCollectionViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02CD7CA02523B48900A140A3 /* WorkspacesCollectionViewDelegate.swift */; };
-		02D20B5E2558DD9E00159AB0 /* CloudKitWorkspace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02D20B5D2558DD9E00159AB0 /* CloudKitWorkspace.swift */; };
-		02D20B622558E1E000159AB0 /* CloudKitNotebook.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02D20B612558E1E000159AB0 /* CloudKitNotebook.swift */; };
-		02D20B682558E29D00159AB0 /* CloudKitNote.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02D20B672558E29D00159AB0 /* CloudKitNote.swift */; };
-		02D20B6C2558E43800159AB0 /* CloudKitTextBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02D20B6B2558E43800159AB0 /* CloudKitTextBox.swift */; };
-		02D20B702558E51700159AB0 /* CloudKitImageBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02D20B6F2558E51700159AB0 /* CloudKitImageBox.swift */; };
-		02D20B762558E78500159AB0 /* ReferenceField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02D20B752558E78500159AB0 /* ReferenceField.swift */; };
-		02D20B7A2559B94800159AB0 /* ReferenceList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02D20B792559B94800159AB0 /* ReferenceList.swift */; };
-		02D20B7E2559C5D200159AB0 /* CloudKitDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02D20B7D2559C5D200159AB0 /* CloudKitDataController.swift */; };
 		02DC77D62553321700F0B4E4 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 02DC77D52553321700F0B4E4 /* Colors.xcassets */; };
 		02DC77DB2553328000F0B4E4 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 02DC77D52553321700F0B4E4 /* Colors.xcassets */; };
 		02DD09FC25114D6200B6696B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02DD09FB25114D6200B6696B /* AppDelegate.swift */; };
@@ -351,16 +335,10 @@
 		02919F4125531B1E00C03E27 /* MarkdownTextViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarkdownTextViewDelegate.swift; sourceTree = "<group>"; };
 		02919F4725531BFA00C03E27 /* App String Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "App String Extensions.swift"; sourceTree = "<group>"; };
 		0292CE07255B24C200D05CA2 /* PersistentEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistentEntity.swift; sourceTree = "<group>"; };
-		0292CE0F255B273B00D05CA2 /* CloudKitObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudKitObject.swift; sourceTree = "<group>"; };
 		029847EE251D13D1004E0B62 /* Database.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Database.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		029847F0251D13D1004E0B62 /* Database.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Database.h; sourceTree = "<group>"; };
 		029847F1251D13D1004E0B62 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		029EFC882555D87600361F29 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
-		029EFC8B2555DE3800361F29 /* CloudKitDataConnector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudKitDataConnector.swift; sourceTree = "<group>"; };
-		029EFC932555DEDC00361F29 /* Data Property.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data Property.swift"; sourceTree = "<group>"; };
-		029EFC9A2555DF1100361F29 /* DataActionAnswer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataActionAnswer.swift; sourceTree = "<group>"; };
-		029EFCA02555DF2600361F29 /* DataFetchAnswer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataFetchAnswer.swift; sourceTree = "<group>"; };
-		029EFCA52555DF6700361F29 /* CloudKitEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudKitEntity.swift; sourceTree = "<group>"; };
 		029EFCB02555E0BF00361F29 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		029EFCB42555E0C100361F29 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		02A75292252E5282006D37B5 /* NSPersistantContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSPersistantContainer.swift; sourceTree = "<group>"; };
@@ -371,17 +349,7 @@
 		02AD78F525475C7300C87D2B /* EditableCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditableCollectionViewCell.swift; sourceTree = "<group>"; };
 		02C21B33254B55BB0061CCBA /* Font.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Font.swift; sourceTree = "<group>"; };
 		02C3F61C255C70F00069670D /* Conflict Handler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Conflict Handler.swift"; sourceTree = "<group>"; };
-		02CB8B4F255C7A9000C0C04E /* CoreData-CloudKit Operators.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CoreData-CloudKit Operators.swift"; sourceTree = "<group>"; };
-		02CB8B5B255DD4F500C0C04E /* DataSynchronizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSynchronizer.swift; sourceTree = "<group>"; };
 		02CD7CA02523B48900A140A3 /* WorkspacesCollectionViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkspacesCollectionViewDelegate.swift; sourceTree = "<group>"; };
-		02D20B5D2558DD9E00159AB0 /* CloudKitWorkspace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudKitWorkspace.swift; sourceTree = "<group>"; };
-		02D20B612558E1E000159AB0 /* CloudKitNotebook.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudKitNotebook.swift; sourceTree = "<group>"; };
-		02D20B672558E29D00159AB0 /* CloudKitNote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudKitNote.swift; sourceTree = "<group>"; };
-		02D20B6B2558E43800159AB0 /* CloudKitTextBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudKitTextBox.swift; sourceTree = "<group>"; };
-		02D20B6F2558E51700159AB0 /* CloudKitImageBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudKitImageBox.swift; sourceTree = "<group>"; };
-		02D20B752558E78500159AB0 /* ReferenceField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReferenceField.swift; sourceTree = "<group>"; };
-		02D20B792559B94800159AB0 /* ReferenceList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReferenceList.swift; sourceTree = "<group>"; };
-		02D20B7D2559C5D200159AB0 /* CloudKitDataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudKitDataController.swift; sourceTree = "<group>"; };
 		02DC77D52553321700F0B4E4 /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		02DD09F825114D6200B6696B /* MacroPepelelipa.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MacroPepelelipa.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		02DD09FB25114D6200B6696B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -591,8 +559,6 @@
 				0211079D252F89F10009D4E1 /* TextBoxObject.swift */,
 				021107A3252F8A9F0009D4E1 /* ImageBoxObject.swift */,
 				022832D6252E545900DDD46B /* CoreData */,
-				029EFC912555DEB500361F29 /* CloudKit */,
-				02CB8B4F255C7A9000C0C04E /* CoreData-CloudKit Operators.swift */,
 				02870890254A207A0075235D /* Extensions.swift */,
 				029EFCB12555E0BF00361F29 /* Localizable.strings */,
 			);
@@ -853,67 +819,13 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		029EFC8A2555DE1D00361F29 /* CloudKit */ = {
-			isa = PBXGroup;
-			children = (
-				029EFC8B2555DE3800361F29 /* CloudKitDataConnector.swift */,
-				02D20B7D2559C5D200159AB0 /* CloudKitDataController.swift */,
-			);
-			path = CloudKit;
-			sourceTree = "<group>";
-		};
-		029EFC912555DEB500361F29 /* CloudKit */ = {
-			isa = PBXGroup;
-			children = (
-				029EFCA42555DF4A00361F29 /* Base */,
-				02D20B5D2558DD9E00159AB0 /* CloudKitWorkspace.swift */,
-				02D20B612558E1E000159AB0 /* CloudKitNotebook.swift */,
-				02D20B672558E29D00159AB0 /* CloudKitNote.swift */,
-				02D20B6B2558E43800159AB0 /* CloudKitTextBox.swift */,
-				02D20B6F2558E51700159AB0 /* CloudKitImageBox.swift */,
-			);
-			path = CloudKit;
-			sourceTree = "<group>";
-		};
-		029EFC922555DECC00361F29 /* Record Types */ = {
-			isa = PBXGroup;
-			children = (
-				029EFC932555DEDC00361F29 /* Data Property.swift */,
-				02D20B752558E78500159AB0 /* ReferenceField.swift */,
-				02D20B792559B94800159AB0 /* ReferenceList.swift */,
-			);
-			path = "Record Types";
-			sourceTree = "<group>";
-		};
-		029EFC992555DEF300361F29 /* QueryAnswers */ = {
-			isa = PBXGroup;
-			children = (
-				029EFC9A2555DF1100361F29 /* DataActionAnswer.swift */,
-				029EFCA02555DF2600361F29 /* DataFetchAnswer.swift */,
-			);
-			path = QueryAnswers;
-			sourceTree = "<group>";
-		};
-		029EFCA42555DF4A00361F29 /* Base */ = {
-			isa = PBXGroup;
-			children = (
-				029EFC992555DEF300361F29 /* QueryAnswers */,
-				029EFC922555DECC00361F29 /* Record Types */,
-				029EFCA52555DF6700361F29 /* CloudKitEntity.swift */,
-				0292CE0F255B273B00D05CA2 /* CloudKitObject.swift */,
-			);
-			path = Base;
-			sourceTree = "<group>";
-		};
 		02A75291252E5270006D37B5 /* Data */ = {
 			isa = PBXGroup;
 			children = (
 				022832F2252E5F9C00DDD46B /* DataManager.swift */,
-				02CB8B5B255DD4F500C0C04E /* DataSynchronizer.swift */,
 				02C3F61C255C70F00069670D /* Conflict Handler.swift */,
 				022832F6252E603800DDD46B /* EntityObserver.swift */,
 				0211078C252F87220009D4E1 /* Errors */,
-				029EFC8A2555DE1D00361F29 /* CloudKit */,
 				02A75299252E536A006D37B5 /* CoreData */,
 			);
 			path = Data;
@@ -1537,18 +1449,14 @@
 				02110793252F88540009D4E1 /* ModifiableEntity.swift in Sources */,
 				021107A4252F8A9F0009D4E1 /* ImageBoxObject.swift in Sources */,
 				0211078F252F87F10009D4E1 /* NoteObject.swift in Sources */,
-				02D20B762558E78500159AB0 /* ReferenceField.swift in Sources */,
 				02A75293252E5282006D37B5 /* NSPersistantContainer.swift in Sources */,
 				02110789252F86E60009D4E1 /* WorkspaceError.swift in Sources */,
 				02077735251D192D00D97B5A /* ImageBoxEntity.swift in Sources */,
 				A7026CDF25659B2400B8FC78 /* Font.swift in Sources */,
 				022832D9252E547200DDD46B /* DataModel.xcdatamodeld in Sources */,
-				0292CE10255B273B00D05CA2 /* CloudKitObject.swift in Sources */,
 				022832F7252E603800DDD46B /* EntityObserver.swift in Sources */,
 				021107C5252FADC90009D4E1 /* TextBoxError.swift in Sources */,
 				022832E7252E5CE900DDD46B /* Note+CoreDataProperties.swift in Sources */,
-				02D20B7A2559B94800159AB0 /* ReferenceList.swift in Sources */,
-				02CB8B50255C7A9000C0C04E /* CoreData-CloudKit Operators.swift in Sources */,
 				022832ED252E5CE900DDD46B /* Workspace+CoreDataProperties.swift in Sources */,
 				022832E8252E5CE900DDD46B /* TextBox+CoreDataClass.swift in Sources */,
 				022832EC252E5CE900DDD46B /* Workspace+CoreDataClass.swift in Sources */,
@@ -1556,11 +1464,7 @@
 				02110785252F85170009D4E1 /* NotebookObject.swift in Sources */,
 				02C3F61D255C70F00069670D /* Conflict Handler.swift in Sources */,
 				0207772C251D191B00D97B5A /* NotebookEntity.swift in Sources */,
-				02D20B682558E29D00159AB0 /* CloudKitNote.swift in Sources */,
 				026D4C7E251D1A8E00CBED5A /* App Database String Extension.swift in Sources */,
-				02D20B622558E1E000159AB0 /* CloudKitNotebook.swift in Sources */,
-				029EFC942555DEDC00361F29 /* Data Property.swift in Sources */,
-				029EFC8C2555DE3800361F29 /* CloudKitDataConnector.swift in Sources */,
 				022832EA252E5CE900DDD46B /* ImageBox+CoreDataClass.swift in Sources */,
 				02077729251D191600D97B5A /* WorkspaceEntity.swift in Sources */,
 				022832EF252E5CE900DDD46B /* Notebook+CoreDataProperties.swift in Sources */,
@@ -1568,12 +1472,9 @@
 				0211079E252F89F10009D4E1 /* TextBoxObject.swift in Sources */,
 				022832EB252E5CE900DDD46B /* ImageBox+CoreDataProperties.swift in Sources */,
 				022832FB252E6C4200DDD46B /* ObservableEntity.swift in Sources */,
-				02D20B5E2558DD9E00159AB0 /* CloudKitWorkspace.swift in Sources */,
 				02110797252F89530009D4E1 /* NotebookError.swift in Sources */,
-				02D20B702558E51700159AB0 /* CloudKitImageBox.swift in Sources */,
 				02A75297252E5316006D37B5 /* CoreDataController.swift in Sources */,
 				022832E9252E5CE900DDD46B /* TextBox+CoreDataProperties.swift in Sources */,
-				029EFCA12555DF2600361F29 /* DataFetchAnswer.swift in Sources */,
 				021107C8252FADE00009D4E1 /* ImageBoxError.swift in Sources */,
 				021107AE252F8EE30009D4E1 /* CoreDataError.swift in Sources */,
 				0282EB71253A2E9E009CB4AC /* FileHelper.swift in Sources */,
@@ -1581,14 +1482,9 @@
 				02077732251D192600D97B5A /* TextBoxEntity.swift in Sources */,
 				02870891254A207A0075235D /* Extensions.swift in Sources */,
 				022832EE252E5CE900DDD46B /* Notebook+CoreDataClass.swift in Sources */,
-				02CB8B5C255DD4F500C0C04E /* DataSynchronizer.swift in Sources */,
 				022832E6252E5CE900DDD46B /* Note+CoreDataClass.swift in Sources */,
-				02D20B6C2558E43800159AB0 /* CloudKitTextBox.swift in Sources */,
 				022832F3252E5F9C00DDD46B /* DataManager.swift in Sources */,
-				029EFC9B2555DF1100361F29 /* DataActionAnswer.swift in Sources */,
 				0292CE08255B24C200D05CA2 /* PersistentEntity.swift in Sources */,
-				02D20B7E2559C5D200159AB0 /* CloudKitDataController.swift in Sources */,
-				029EFCA62555DF6700361F29 /* CloudKitEntity.swift in Sources */,
 				0207772F251D192000D97B5A /* NoteEntity.swift in Sources */,
 				02398A962551FE8E009BFC32 /* PersistentError.swift in Sources */,
 			);
@@ -2021,7 +1917,7 @@
 				CODE_SIGN_ENTITLEMENTS = MacroPepelelipa/MacroPepelelipa.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 6YYZ79V57N;
+				DEVELOPMENT_TEAM = X54K5PJVGU;
 				INFOPLIST_FILE = MacroPepelelipa/Info.plist;
 				"IPHONEOS_DEPLOYMENT_TARGET[sdk=macosx*]" = 14.2;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -2045,7 +1941,7 @@
 				CODE_SIGN_ENTITLEMENTS = MacroPepelelipa/MacroPepelelipa.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 6YYZ79V57N;
+				DEVELOPMENT_TEAM = X54K5PJVGU;
 				INFOPLIST_FILE = MacroPepelelipa/Info.plist;
 				"IPHONEOS_DEPLOYMENT_TARGET[sdk=macosx*]" = 14.2;
 				LD_RUNPATH_SEARCH_PATHS = (
