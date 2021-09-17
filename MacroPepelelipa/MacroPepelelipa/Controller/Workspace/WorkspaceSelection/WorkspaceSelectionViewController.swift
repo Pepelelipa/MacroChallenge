@@ -233,6 +233,10 @@ internal class WorkspaceSelectionViewController: UIViewController,
             updateConstraintsForIpad()
         }
         collectionDelegate.frame = view.frame
+        
+        if UIDevice.current.userInterfaceIdiom == .mac {
+            showDemoLaunchOverlay()
+        }
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -253,6 +257,17 @@ internal class WorkspaceSelectionViewController: UIViewController,
         } else {
             navigationItem.leftBarButtonItem?.accessibilityValue = "Editing disabled".localized()
         }
+    }
+    
+    // MARK: - Demo Launch
+    
+    private func showDemoLaunchOverlay() {
+        let destination = DemoLaunchViewController(nibName: "DemoLaunchViewController", bundle: nil)
+        destination.isModalInPresentation = true
+        destination.modalTransitionStyle = .crossDissolve
+        destination.modalPresentationStyle = .overFullScreen
+        
+        self.present(destination, animated: false, completion: nil)
     }
     
     // MARK: - UISearchResultsUpdating Functions
