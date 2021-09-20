@@ -8,32 +8,10 @@
 
 import UIKit
 
-internal protocol KeyboardShortcutDelegate: AnyObject {
-    func commandN()
-    func commandF()
-    func commandB()
-    func commandI()
-    func commandU()
-    func commandDelete()
-    func commandShiftN()
-}
-
-extension KeyboardShortcutDelegate {
-    func commandN() {}
-    func commandF() {}
-    func commandB() {}
-    func commandI() {}
-    func commandU() {}
-    func commandDelete() {}
-    func commandShiftN() {}
-}
-
 internal class ViewController: UIViewController {
 
     // MARK: - Keyboard shortcuts
-    
-    internal weak var keyboardShortcutDelegate: KeyboardShortcutDelegate?
-    
+        
     internal var newCommand: UIKeyCommand = {
         return UIKeyCommand(title: "", action: #selector(triggerShortcut(_:)), input: "N", modifierFlags: .command, propertyList: Notification.Name.didPressCommandN.rawValue)
     }()
@@ -85,29 +63,43 @@ internal class ViewController: UIViewController {
                 
         switch Notification.Name(property) {
         case .didPressCommandN:
-            keyboardShortcutDelegate?.commandN()
+            self.commandN()
             
         case .didPressCommandF:
-            keyboardShortcutDelegate?.commandF()
+            self.commandF()
 
         case .didPressCommandB:
-            keyboardShortcutDelegate?.commandB()
+            self.commandB()
 
         case .didPressCommandI:
-            keyboardShortcutDelegate?.commandI()
+            self.commandI()
 
         case .didPressCommandU:
-            keyboardShortcutDelegate?.commandU()
+            self.commandU()
 
         case .didPressCommandDelete:
-            keyboardShortcutDelegate?.commandDelete()
+            self.commandDelete()
 
         case .didPressCommandShiftN:
-            keyboardShortcutDelegate?.commandShiftN()
+            self.commandShiftN()
             
         default:
             break
         }
         
     }
+    
+    func commandN() {}
+    
+    func commandF() {}
+    
+    func commandB() {}
+    
+    func commandI() {}
+    
+    func commandU() {}
+    
+    func commandDelete() {}
+    
+    func commandShiftN() {}
 }

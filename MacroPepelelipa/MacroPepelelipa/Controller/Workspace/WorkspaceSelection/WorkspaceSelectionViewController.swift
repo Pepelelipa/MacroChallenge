@@ -570,4 +570,14 @@ internal class WorkspaceSelectionViewController: ViewController,
         }
         self.present(alertController, animated: true, completion: nil)
     }
+
+    // MARK: - Keyboard shortcut handling
+    
+    override func commandN() {
+        btnAddTap()
+    }
+    
+    override func commandF() {
+        startSearch()
+    }
 }
