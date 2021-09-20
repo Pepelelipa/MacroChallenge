@@ -34,8 +34,7 @@ internal class MenuController {
         guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
               let sceneDelegate = windowScene.delegate as? SceneDelegate,
               let navigationController = sceneDelegate.window?.rootViewController as? UINavigationController,
-              let viewController = navigationController.visibleViewController else {
-            setupWorkspaceMenu(with: builder)
+              let viewController = navigationController.visibleViewController as? ViewController else {
             return
         }
         
@@ -44,12 +43,19 @@ internal class MenuController {
         builder.remove(menu: .text)
         
         if viewController is WorkspaceSelectionViewController {
-            setupWorkspaceMenu(with: builder)
+            setupWorkspaceMenu(with: builder, viewController)
         } else if viewController is NotebooksSelectionViewController {
-            setupNotebookMenu(with: builder)
+            setupNotebookMenu(with: builder, viewController)
         } else {
-            setupNoteMenu(with: builder)
+            setupNoteMenu(with: builder, viewController)
         }
+    }
+    
+    func createMenu(title: String, id: UIMenu.Identifier, command: [UIKeyCommand]) -> UIMenu {
+        return UIMenu(title: title,
+                      identifier: id,
+                      options: [.displayInline],
+                      children: command)
     }
     
     // MARK: - Workspace Menu
@@ -58,38 +64,22 @@ internal class MenuController {
      Sets the UIMenuBuilder to correspond with the WorkspaceSelectionViewController context.
      - Parameter builder: The UIMenuBuilder to be set.
      */
-    private func setupWorkspaceMenu(with builder: UIMenuBuilder) {
+    private func setupWorkspaceMenu(with builder: UIMenuBuilder, _ viewController: ViewController) {
         builder.remove(menu: UIMenu.Identifier(NotebookMenuId.new.rawValue))
         builder.remove(menu: UIMenu.Identifier(NoteMenuId.note.rawValue))
         builder.remove(menu: UIMenu.Identifier(NoteMenuId.importImage.rawValue))
         builder.remove(menu: UIMenu.Identifier(NoteMenuId.export.rawValue))
         
-        builder.insertChild(MenuController.findMenu(), atStartOfMenu: .file)
-        builder.insertChild(MenuController.newWorkspaceMenu(), atStartOfMenu: .file)
-    }
-    
-    /**
-     Creates a UIMenu to create a workspace.
-     - Returns: The new UIMenu.
-     */
-    private class func newWorkspaceMenu() -> UIMenu {
-        return UIMenu(title: "New workspace".localized(),
-                      image: nil,
-                      identifier: UIMenu.Identifier(WorkspaceMenuId.new.rawValue),
-                      options: [.destructive, .displayInline],
-                      children: [WorkspaceSelectionViewController.newWorspaceCommand])
-    }
-    
-    /**
-     Creates a UIMenu to start searching.
-     - Returns: The new UIMenu.
-     */
-    private class func findMenu() -> UIMenu {
-        return UIMenu(title: "Find".localized(),
-                      image: nil,
-                      identifier: UIMenu.Identifier(WorkspaceMenuId.find.rawValue),
-                      options: [.destructive, .displayInline],
-                      children: [WorkspaceSelectionViewController.findCommand])
+        let commandNMenu = createMenu(title: "New workspace".localized(),
+                                      id: UIMenu.Identifier(WorkspaceMenuId.new.rawValue),
+                                      command: [viewController.newCommand])
+        
+        let commandFMenu = createMenu(title: "Find".localized(),
+                                      id: UIMenu.Identifier(WorkspaceMenuId.find.rawValue),
+                                      command: [viewController.findCommand])
+                
+        builder.insertChild(commandNMenu, atStartOfMenu: .file)
+        builder.insertChild(commandFMenu, atStartOfMenu: .file)
     }
     
     // MARK: - Notebook Menu
@@ -98,26 +88,14 @@ internal class MenuController {
      Sets the UIMenuBuilder to correspond with the NotebooksSelectionViewController context.
      - Parameter builder: The UIMenuBuilder to be set.
      */
-    private func setupNotebookMenu(with builder: UIMenuBuilder) {
+    private func setupNotebookMenu(with builder: UIMenuBuilder, _ viewController: ViewController) {
         builder.remove(menu: UIMenu.Identifier(WorkspaceMenuId.new.rawValue))
         builder.remove(menu: UIMenu.Identifier(WorkspaceMenuId.find.rawValue))
         builder.remove(menu: UIMenu.Identifier(NoteMenuId.note.rawValue))
         builder.remove(menu: UIMenu.Identifier(NoteMenuId.importImage.rawValue))
         builder.remove(menu: UIMenu.Identifier(NoteMenuId.export.rawValue))
         
-        builder.insertChild(MenuController.newNotebookMenu(), atStartOfMenu: .file)
-    }
-    
-    /**
-     Creates a UIMenu to create a notebook.
-     - Returns: The new UIMenu.
-     */
-    private class func newNotebookMenu() -> UIMenu {
-        return UIMenu(title: "New notebook".localized(),
-                      image: nil,
-                      identifier: UIMenu.Identifier(NotebookMenuId.new.rawValue),
-                      options: [.destructive, .displayInline],
-                      children: [NotebooksSelectionViewController.newNotebookCommand])
+        builder.insertChild(createMenu(title: "New notebook".localized(), id: UIMenu.Identifier(NotebookMenuId.new.rawValue), command: [viewController.newCommand]), atStartOfMenu: .file)
     }
     
     // MARK: - Note Menu
@@ -126,29 +104,16 @@ internal class MenuController {
      Sets the UIMenuBuilder to correspond with the NotesSelectionViewController context.
      - Parameter builder: The UIMenuBuilder to be set.
      */
-    private func setupNoteMenu(with builder: UIMenuBuilder) {
+    private func setupNoteMenu(with builder: UIMenuBuilder, _ viewController: ViewController) {
         builder.remove(menu: UIMenu.Identifier(WorkspaceMenuId.new.rawValue))
         builder.remove(menu: UIMenu.Identifier(WorkspaceMenuId.find.rawValue))
         builder.remove(menu: UIMenu.Identifier(NotebookMenuId.new.rawValue))
         
+        let commandNMenu = createMenu(title: "Note".localized(), id: UIMenu.Identifier(NoteMenuId.note.rawValue), command: [viewController.newCommand, viewController.deleteCommand])
+        
         builder.insertChild(MenuController.exportMenu(), atStartOfMenu: .file)
         builder.insertChild(MenuController.importMenu(), atStartOfMenu: .file)
-        builder.insertChild(MenuController.noteMenu(), atStartOfMenu: .file)
-    }
-    
-    /**
-     Creates a UIMenu to handle notes.
-     - Returns: The new UIMenu.
-     */
-    private class func noteMenu() -> UIMenu {
-        return UIMenu(title: "Note".localized(),
-                      image: nil,
-                      identifier: UIMenu.Identifier(NoteMenuId.note.rawValue),
-                      options: [.destructive, .displayInline],
-                      children: [
-                        TextEditingContainerViewController.newNoteCommand,
-                        TextEditingContainerViewController.deleteCommand
-                      ])
+        builder.insertChild(commandNMenu, atStartOfMenu: .file)
     }
     
     /**
