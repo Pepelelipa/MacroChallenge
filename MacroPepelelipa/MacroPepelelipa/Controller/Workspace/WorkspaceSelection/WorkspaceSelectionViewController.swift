@@ -16,7 +16,8 @@ internal class WorkspaceSelectionViewController: UIViewController,
                                                  EntityObserver {
 
     // MARK: - Variables and Constants
-    
+    internal var overlayState = true
+
     internal static let newWorspaceCommand: UIKeyCommand = {
         let command = UIKeyCommand(title: "New workspace".localized(),
                      image: nil,
@@ -234,8 +235,9 @@ internal class WorkspaceSelectionViewController: UIViewController,
         }
         collectionDelegate.frame = view.frame
         
-        if UIDevice.current.userInterfaceIdiom == .mac {
+        if overlayState == true {
             showDemoLaunchOverlay()
+            overlayState=false
         }
     }
     
