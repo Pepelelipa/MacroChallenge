@@ -13,17 +13,6 @@ internal class NotebooksSelectionViewController: ViewController, EntityObserver 
     
     // MARK: - Variables and Constants
     
-    internal static let newNotebookCommand: UIKeyCommand = {
-        let command = UIKeyCommand(title: "New notebook".localized(),
-                                   image: nil,
-                                   action: #selector(btnAddTap),
-                                   input: "N",
-                                   modifierFlags: .command,
-                                   propertyList: nil)
-        command.discoverabilityTitle = "New notebook".localized()
-        return command
-    }()
-    
     private var collectionDataSource: NotebooksCollectionViewDataSource?
     private var compactRegularConstraints: [NSLayoutConstraint] = []
     private var regularCompactConstraints: [NSLayoutConstraint] = []
@@ -135,7 +124,8 @@ internal class NotebooksSelectionViewController: ViewController, EntityObserver 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        addKeyCommand(NotebooksSelectionViewController.newNotebookCommand)
+        newCommand.title = "New notebook".localized()
+        newCommand.discoverabilityTitle = "New notebook".localized()
         
         if workspace?.isEnabled ?? false {
             navigationItem.rightBarButtonItem = btnAdd

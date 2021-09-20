@@ -16,28 +16,6 @@ internal class TextEditingContainerViewController: ViewController,
 
     // MARK: - Variables and Constants
     
-    internal static let deleteCommand: UIKeyCommand = {
-        let command = UIKeyCommand(title: "Delete note".localized(),
-                                   image: nil,
-                                   action: #selector(deleteNote),
-                                   input: "\u{8}",
-                                   modifierFlags: .command,
-                                   propertyList: nil)
-        command.discoverabilityTitle = "Delete note".localized()
-        return command
-    }()
-    
-    internal static let newNoteCommand: UIKeyCommand = {
-        let command = UIKeyCommand(title: "New note".localized(),
-                                   image: nil,
-                                   action: #selector(createNote),
-                                   input: "N",
-                                   modifierFlags: .command,
-                                   propertyList: nil)
-        command.discoverabilityTitle = "New note".localized()
-        return command
-    }()
-    
     private var movement: CGFloat?
     private var isShowingIndex: Bool = false
     private var centerViewController: NotesPageViewController?
@@ -125,8 +103,11 @@ internal class TextEditingContainerViewController: ViewController,
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        addKeyCommand(TextEditingContainerViewController.deleteCommand)
-        addKeyCommand(TextEditingContainerViewController.newNoteCommand)
+        newCommand.title = "New note".localized()
+        newCommand.discoverabilityTitle = "New note".localized()
+        
+        deleteCommand.title = "Delete note".localized()
+        deleteCommand.discoverabilityTitle = "Delete note".localized()
         
         if let centerViewController = self.centerViewController {
             showCenterViewController(centerViewController)

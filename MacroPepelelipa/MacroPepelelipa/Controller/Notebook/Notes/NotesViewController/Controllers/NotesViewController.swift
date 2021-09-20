@@ -31,26 +31,6 @@ internal class NotesViewController: ViewController,
     
     typealias CustomView = NotesView
     
-    #if !targetEnvironment(macCatalyst)
-    private static let boldfaceKeyCommand: UIKeyCommand = {
-        let command = UIKeyCommand(input: "B", modifierFlags: .command, action: #selector(toggleFormat(_:)))
-        command.discoverabilityTitle = "Bold".localized()
-        return command
-    }()
-    
-    private static let italicsKeyCommand: UIKeyCommand = {
-        let command = UIKeyCommand(input: "I", modifierFlags: .command, action: #selector(toggleFormat(_:)))
-        command.discoverabilityTitle = "Italic".localized()
-        return command
-    }()
-    
-    static let underlineKeyCommand: UIKeyCommand = {
-        let command = UIKeyCommand(input: "U", modifierFlags: .command, action: #selector(toggleFormat(_:)))
-        command.discoverabilityTitle = "Underline".localized()
-        return command
-    }()
-    #endif
-    
     private var resizeHandles = [ResizeHandleView]()
     private var initialCenter = CGPoint()
     private var exclusionPaths: [UIBezierPath] = []
@@ -146,9 +126,14 @@ internal class NotesViewController: ViewController,
         SceneDelegate.sensitiveContent = self
         
         #if !targetEnvironment(macCatalyst)
-        addKeyCommand(NotesViewController.boldfaceKeyCommand)
-        addKeyCommand(NotesViewController.italicsKeyCommand)
-        addKeyCommand(NotesViewController.underlineKeyCommand)
+        boldCommand.title = "Bold".localized()
+        boldCommand.discoverabilityTitle = "Bold".localized()
+        
+        italicCommand.title = "Italic".localized()
+        italicCommand.discoverabilityTitle = "Italic".localized()
+        
+        underlineCommand.title = "Underline".localized()
+        underlineCommand.discoverabilityTitle = "Underline".localized()
         #endif
         
         NotificationCenter.default.addObserver(
