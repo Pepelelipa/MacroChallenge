@@ -9,9 +9,9 @@
 import UIKit
 
 internal struct HeaderElement: MarkdownElement {
-    // Non-capturing first group with start of string or (not word, not digit, not whitespace) or line feed, then 1 to 4 #,
+    // Non-capturing first group with start of string or line feed, then 1 to 4 #,
     // followed by a whitespace + everything till end of line
-    fileprivate static let regex = #"(?:^|[^\w\d\s]|\n)(#{1,4})( )(.{0,})"#
+    fileprivate static let regex = #"(?:^|\n)(#{1,4})( )(.{0,})"#
     func regularExpression() throws -> NSRegularExpression {
         try NSRegularExpression(pattern: HeaderElement.regex, options: [])
     }
