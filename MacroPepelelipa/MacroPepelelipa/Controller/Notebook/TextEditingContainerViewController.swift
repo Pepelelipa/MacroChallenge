@@ -363,4 +363,14 @@ internal class TextEditingContainerViewController: ViewController,
     @IBAction private func closeKeyboard() {
         self.view.endEditing(true)
     }
+    
+    // MARK: - Keyboard shortcut handling
+    
+    override func commandDelete() {
+       deleteNote()
+    }
+    
+    override func commandN() {
+        createNote()
+    }
 }
