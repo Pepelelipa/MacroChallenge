@@ -56,7 +56,7 @@ internal class ViewController: UIViewController {
     
     // MARK: - Command action handling
     
-    @objc internal func triggerShortcut(_ command: UIKeyCommand) {
+    @objc private func triggerShortcut(_ command: UIKeyCommand) {
         guard let property = command.propertyList as? String else {
             return
         }
