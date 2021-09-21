@@ -512,6 +512,26 @@ internal class NotesViewController: ViewController,
             self.present(alertController, animated: true, completion: nil)
         }
     }
+    
+    // MARK: - Keyboard shortcut handling
+    
+    override func commandB() {
+        #if !targetEnvironment(macCatalyst)
+        toggleFormat(boldCommand)
+        #endif
+    }
+    
+    override func commandI() {
+        #if !targetEnvironment(macCatalyst)
+        toggleFormat(italicCommand)
+        #endif
+    }
+    
+    override func commandU() {
+        #if !targetEnvironment(macCatalyst)
+        toggleFormat(underlineCommand)
+        #endif
+    }
 }
 
 // MARK: - TextEditingDelegateObserver functions
