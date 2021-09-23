@@ -122,6 +122,12 @@ internal class NotesViewController: ViewController,
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        newCommand.title = "New note".localized()
+        newCommand.discoverabilityTitle = "New note".localized()
+        
+        deleteCommand.title = "Delete note".localized()
+        deleteCommand.discoverabilityTitle = "Delete note".localized()
 
         SceneDelegate.sensitiveContent = self
         

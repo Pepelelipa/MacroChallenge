@@ -17,7 +17,10 @@ internal class ViewController: UIViewController {
     }()
     
     internal var newShiftCommand: UIKeyCommand = {
-        return UIKeyCommand(title: "", action: #selector(triggerShortcut(_:)), input: "N", modifierFlags: [.command, .shift], propertyList: Notification.Name.didPressCommandShiftN.rawValue)
+        return UIKeyCommand(title: "New window".localized(),
+                            action: #selector(triggerShortcut(_:)), input: "N",
+                            modifierFlags: [.command, .shift],
+                            propertyList: Notification.Name.didPressCommandShiftN.rawValue)
     }()
     
     internal var findCommand: UIKeyCommand = {
