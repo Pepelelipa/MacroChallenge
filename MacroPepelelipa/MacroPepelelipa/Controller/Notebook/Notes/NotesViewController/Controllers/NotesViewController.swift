@@ -515,6 +515,24 @@ internal class NotesViewController: ViewController,
     
     // MARK: - Keyboard shortcut handling
     
+    override func commandN() {
+        guard let navigationController = UIApplication.shared.windows.first?.rootViewController as? UINavigationController,
+              let viewController = navigationController.visibleViewController as? TextEditingContainerViewController else {
+            return
+        }
+        
+        viewController.commandN()
+    }
+    
+    override func commandDelete() {
+        guard let navigationController = UIApplication.shared.windows.first?.rootViewController as? UINavigationController,
+              let viewController = navigationController.visibleViewController as? TextEditingContainerViewController else {
+            return
+        }
+
+        viewController.commandDelete()
+    }
+    
     override func commandB() {
         #if !targetEnvironment(macCatalyst)
         toggleFormat(boldCommand)
