@@ -86,20 +86,35 @@ internal class ViewController: UIViewController {
         default:
             break
         }
-        
     }
     
-    func commandN() {}
+    func commandN() {
+        NSLog(String(describing: self) + ": ⌘ + N")
+    }
     
-    func commandF() {}
+    func commandF() {
+        NSLog(String(describing: self) + ": ⌘ + F")
+    }
     
-    func commandB() {}
+    func commandB() {
+        NSLog(String(describing: self) + ": ⌘ + B")
+    }
     
-    func commandI() {}
+    func commandI() {
+        NSLog(String(describing: self) + ": ⌘ + I")
+    }
     
-    func commandU() {}
+    func commandU() {
+        NSLog(String(describing: self) + ": ⌘ + U")
+    }
     
-    func commandDelete() {}
+    func commandDelete() {
+        NSLog(String(describing: self) + ": ⌘ + ⌫")
+    }
     
-    func commandShiftN() {}
+    func commandShiftN() {
+        NSLog(String(describing: self) + ": ⌘ + ⇧ Shift + N")
+        let activity = NSUserActivity(activityType: "panel")
+        UIApplication.shared.requestSceneSessionActivation(nil, userActivity: activity, options: nil)
+    }
 }
