@@ -15,7 +15,7 @@ internal extension NSAttributedString {
     }
 
     func getAttributeForKey(_ key: NSAttributedString.Key, at location: Int) -> Any? {
-        return attributes(at: location, effectiveRange: nil).first(where: { $0.key == key })
+        return attributes(at: location, effectiveRange: nil).first(where: { $0.key == key })?.value
     }
 
     func hasKern(at location: Int) -> Bool {
