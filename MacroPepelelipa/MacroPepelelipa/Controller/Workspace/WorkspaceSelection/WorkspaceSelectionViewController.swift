@@ -488,7 +488,9 @@ internal class WorkspaceSelectionViewController: ViewController,
     
     /// Makes the search controller first responder
     @IBAction func startSearch() {
-        self.searchController.isActive = true
+        DispatchQueue.main.async {
+            self.searchController.searchBar.becomeFirstResponder()
+        }
     }
     
     @IBAction func btnAddTap() {
