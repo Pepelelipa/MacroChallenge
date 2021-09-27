@@ -128,8 +128,6 @@ internal class NotesViewController: ViewController,
         
         deleteCommand.title = "Delete note".localized()
         deleteCommand.discoverabilityTitle = "Delete note".localized()
-
-        SceneDelegate.sensitiveContent = self
         
         #if !targetEnvironment(macCatalyst)
         boldCommand.title = "Bold".localized()
@@ -634,16 +632,4 @@ extension NotesViewController: MarkupToolBarObserver {
     @objc internal func openPopOver() {}
     
     @objc internal func importImage() {}
-}
-
-// MARK: - SensitiveContentController
-extension NotesViewController: SensitiveContentController {
-    internal func saveSensitiveContent() {
-        guard !isSaving else {
-            return
-        }
-        isSaving = true
-        try? note?.save()
-        isSaving = false
-    }
 }

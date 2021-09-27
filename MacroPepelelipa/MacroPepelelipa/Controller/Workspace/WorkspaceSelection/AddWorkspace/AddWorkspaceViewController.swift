@@ -169,7 +169,6 @@ internal class AddWorkspaceViewController: ViewController, AddWorkspaceObserver 
             do {
                 if let workspace = workspace {
                     workspace.name = text
-                    try workspace.save()
                 } else {
                     _ = try DataManager.shared().createWorkspace(named: text)
                 }

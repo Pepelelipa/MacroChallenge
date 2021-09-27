@@ -5,9 +5,6 @@
 //  Created by Pedro Giuliano Farina on 07/10/20.
 //  Copyright © 2020 Pedro Giuliano Farina. All rights reserved.
 //
-//swiftlint:disable cyclomatic_complexity function_body_length
-
-import CloudKit
 
 public enum ObservableCreationType {
     case workspace
@@ -20,25 +17,7 @@ public class DataManager {
     private lazy var dataSynchroninzer = DataSynchronizer(coreDataController: coreDataController, cloudKitController: cloudKitController, conflictHandler: { self.conflictHandler })
     #endif
     private let coreDataController = CoreDataController()
-    private let cloudKitController = CloudKitDataController()
     public var conflictHandler: ConflictHandler = DefaultConflictHandler()
-
-    ///Save all modified objects
-    /// - Throws: Throws if Core Data fails to save.
-    internal func saveObjects(_ entities: [PersistentEntity]) throws {
-        try coreDataController.saveContext()
-
-        #if !DEVELOP
-        var cloudKitEntities: [CloudKitEntity] = []
-        for persistentEntity in entities {
-            if let wrapper = persistentEntity as? CloudKitObjectWrapper,
-               let cloudKitEntity = wrapper.cloudKitObject {
-                cloudKitEntities.append(cloudKitEntity)
-            }
-        }
-        CloudKitDataConnector.saveData(database: .Private, entitiesToSave: cloudKitEntities)
-        #endif
-    }
 
     private var observers: [(EntityObserver, ObservableCreationType)] = []
     public func addCreationObserver(_ observer: EntityObserver, type: ObservableCreationType) {
@@ -83,140 +62,10 @@ public class DataManager {
     // MARK: Workspace
     public func fetchWorkspaces() throws -> [WorkspaceEntity] {
         let cdWorkspaces = try coreDataController.fetchWorkspaces()
-        var workspaceObjects = cdWorkspaces.map({ WorkspaceObject(from: $0) })
-        #if !DEVELOP
-        cloudKitController.fetchWorkspaces { (answer) in
-            switch answer {
-            case .successfulWith(let result as [CloudKitWorkspace]):
-                let count = workspaceObjects.count
-                self.fixDifferences(differentEntities: self.dataSynchroninzer.syncWorkspaces(&workspaceObjects, ckWorkspaces: result))
-                for i in count ..< workspaceObjects.count {
-                    self.notifyCreation(workspaceObjects[i], type: .workspace)
-                }
-            case .fail(let error, _):
-                self.conflictHandler.errDidOccur(err: error)
-            default:
-                self.conflictHandler.errDidOccur(err: WorkspaceError.failedToFetch)
-            }
-        }
-        #endif
+        let workspaceObjects = cdWorkspaces.map({ WorkspaceObject(from: $0) })
         return workspaceObjects
     }
 
-    private func fixDifferences(differentEntities: [PersistentEntity]) {
-        if differentEntities.isEmpty {
-            return
-        }
-        conflictHandler.chooseVersion { (version) in
-            for entity in differentEntities {
-                if let workspace = entity as? WorkspaceObject {
-                    guard let ckWorkspace = workspace.cloudKitWorkspace else {
-                        self.conflictHandler.errDidOccur(err: WorkspaceError.workspaceWasNull)
-                        return
-                    }
-                    if version == .local {
-                        ckWorkspace <- workspace.coreDataWorkspace
-                    } else {
-                        workspace.coreDataWorkspace <- ckWorkspace
-                    }
-                    try? workspace.save()
-                    workspace.internalObjectsChanged()
-                } else if let notebook = entity as? NotebookObject {
-                    guard let ckNotebook = notebook.cloudKitNotebook else {
-                        self.conflictHandler.errDidOccur(err: NotebookError.notebookWasNull)
-                        return
-                    }
-                    if version == .local {
-                        ckNotebook <- notebook.coreDataNotebook
-                    } else {
-                        notebook.coreDataNotebook <- ckNotebook
-                    }
-                    try? notebook.save()
-                    notebook.internalObjectsChanged()
-                } else if let note = entity as? NoteObject {
-                    guard let ckNote = note.cloudKitNote else {
-                        self.conflictHandler.errDidOccur(err: NoteError.noteWasNull)
-                        return
-                    }
-                    if version == .local {
-                        ckNote <- note.coreDataNote
-                    } else {
-                        note.coreDataNote <- ckNote
-                    }
-                    try? note.save()
-                    note.internalObjectsChanged()
-                } else if let textBox = entity as? TextBoxObject {
-                    guard let ckTextBox = textBox.cloudKitTextBox else {
-                        self.conflictHandler.errDidOccur(err: TextBoxError.textBoxWasNull)
-                        return
-                    }
-                    if version == .local {
-                        ckTextBox <- textBox.coreDataTextBox
-                    } else {
-                        textBox.coreDataTextBox <- ckTextBox
-                    }
-                    if let note = try? textBox.getNote() as? NoteObject {
-                        try? note.save()
-                        note.internalObjectsChanged()
-                    }
-                } else if let imageBox = entity as? ImageBoxObject {
-                    guard let ckImageBox = imageBox.cloudKitImageBox else {
-                        self.conflictHandler.errDidOccur(err: ImageBoxError.imageBoxWasNull)
-                        return
-                    }
-                    if version == .local {
-                        ckImageBox <- imageBox.coreDataImageBox
-                    } else {
-                        imageBox.coreDataImageBox <- ckImageBox
-                    }
-                    if let note = try? imageBox.getNote() as? NoteObject {
-                        try? note.save()
-                        note.internalObjectsChanged()
-                    }
-                }
-            }
-        }
-    }
-
-    #if !DEVELOP
-    public func handleNotification(_ notification: CKQueryNotification) throws {
-        guard let id = notification.recordFields?["id"] as? String else {
-            throw PersistentError.idWasNull
-        }
-        switch notification.category {
-        case "workspaceNotification":
-            if notification.queryNotificationReason == .recordDeleted {
-                try deleteObservableWithID(id, type: .workspace)
-            }
-        case "notebookNotification":
-            if notification.queryNotificationReason == .recordDeleted {
-                try deleteObservableWithID(id, type: .notebook)
-            }
-        case "noteNotification":
-            if notification.queryNotificationReason == .recordDeleted {
-                try deleteObservableWithID(id, type: .note)
-            }
-        case "textBoxNotification":
-            if notification.queryNotificationReason == .recordDeleted {
-                if let textBox = try coreDataController.fetchTextBox(id: id) {
-                    try coreDataController.deleteTextBox(textBox)
-                } else {
-                    throw TextBoxError.textBoxWasNull
-                }
-            }
-        case "imagBoxNotification":
-            if notification.queryNotificationReason == .recordDeleted {
-                if let imageBox = try coreDataController.fetchImageBox(id: id) {
-                    try coreDataController.deleteImageBox(imageBox)
-                } else {
-                    throw ImageBoxError.imageBoxWasNull
-                }
-            }
-        default:
-            break
-        }
-    }
-    #endif
     /**
      Creates a Workspace into the Database
      - Parameter name: The workspace's  name.
@@ -225,9 +74,8 @@ public class DataManager {
     public func createWorkspace(named name: String) throws -> WorkspaceEntity {
         let id = UUID()
         let cdWorkspace = try coreDataController.createWorkspace(named: name, id: id)
-        let ckWorkspace = cloudKitController.createWorkspace(named: name, id: id)
 
-        let workspaceObject = WorkspaceObject(from: cdWorkspace, and: ckWorkspace)
+        let workspaceObject = WorkspaceObject(from: cdWorkspace)
         defer {
             notifyCreation(workspaceObject, type: .workspace)
         }
@@ -247,9 +95,6 @@ public class DataManager {
         
         try coreDataController.deleteWorkspace(workspaceObject.coreDataWorkspace)
         workspaceObject.removeReferences()
-        if let ckWorkspace = workspaceObject.cloudKitWorkspace {
-            cloudKitController.deleteWorkspace(ckWorkspace)
-        }
         notifyDeletion(workspace, type: .workspace)
     }
 
@@ -265,19 +110,11 @@ public class DataManager {
         guard let workspaceObject = workspace as? WorkspaceObject else {
             throw WorkspaceError.failedToParse
         }
-        #if DEVELOP
-        let ckWorkspace: CloudKitWorkspace? = nil
-        #else
-        guard let ckWorkspace = workspaceObject.cloudKitWorkspace else {
-            throw WorkspaceError.workspaceWasNull
-        }
-        #endif
-
+        
         let id = UUID()
         let cdNotebook = try coreDataController.createNotebook(in: workspaceObject.coreDataWorkspace, id: id, named: name, colorName: colorName)
-        let ckNotebook = cloudKitController.createNotebook(in: ckWorkspace, id: id, named: name, colorName: colorName)
 
-        let notebookObject = NotebookObject(in: workspaceObject, from: cdNotebook, and: ckNotebook)
+        let notebookObject = NotebookObject(in: workspaceObject, from: cdNotebook)
         defer {
             notifyCreation(notebookObject, type: .notebook)
         }
@@ -297,9 +134,6 @@ public class DataManager {
 
         try coreDataController.deleteNotebook(notebookObject.coreDataNotebook)
         notebookObject.removeReferences()
-        if let ckNotebook = notebookObject.cloudKitNotebook {
-            try cloudKitController.deleteNotebook(ckNotebook)
-        }
         notifyDeletion(notebook, type: .notebook)
     }
 
@@ -334,20 +168,8 @@ public class DataManager {
         guard let noteObject = note as? NoteObject else {
             throw NoteError.failedToParse
         }
-        
-        #if !DEVELOP
-        guard let ckNotebook = notebookObject.cloudKitNotebook else {
-            throw NotebookError.notebookWasNull
-        }
-        let ckNote = cloudKitController.createNote(in: ckNotebook, id: try note.getID())
-        ckNote <- noteObject.coreDataNote
-        ckNote.setNotebook(ckNotebook)
-        ckNotebook.appendNote(ckNote)
-        noteObject.cloudKitNote = ckNote
-        #endif
 
         noteObject.setNotebook(notebookObject)
-        try note.save()
     }
 
     /**
@@ -359,19 +181,11 @@ public class DataManager {
         guard let notebookObject = notebook as? NotebookObject else {
             throw NotebookError.failedToParse
         }
-        #if DEVELOP
-        let ckNotebook: CloudKitNotebook? = nil
-        #else
-        guard let ckNotebook = notebookObject.cloudKitNotebook else {
-            throw NotebookError.notebookWasNull
-        }
-        #endif
 
         let id = UUID()
         let cdNote = try coreDataController.createNote(in: notebookObject.coreDataNotebook, id: id)
-        let ckNote = cloudKitController.createNote(in: ckNotebook, id: id)
 
-        let noteObject = NoteObject(in: notebookObject, from: cdNote, and: ckNote)
+        let noteObject = NoteObject(in: notebookObject, from: cdNote)
         defer {
             notifyCreation(noteObject, type: .note)
         }
@@ -391,9 +205,6 @@ public class DataManager {
 
         try coreDataController.deleteNote(noteObject.coreDataNote)
         noteObject.removeReferences()
-        if let ckNote = noteObject.cloudKitNote {
-            try cloudKitController.deleteNote(ckNote)
-        }
         notifyDeletion(note, type: .note)
     }
 
@@ -407,14 +218,10 @@ public class DataManager {
         guard let noteObject = note as? NoteObject else {
             throw NoteError.failedToParse
         }
-        guard let ckNote = noteObject.cloudKitNote else {
-            throw NoteError.noteWasNull
-        }
 
         let id = UUID()
         let cdTextBox = try coreDataController.createTextBox(in: noteObject.coreDataNote, id: id)
-        let ckTextBox = cloudKitController.createTextBox(in: ckNote, id: id)
-        return TextBoxObject(in: noteObject, from: cdTextBox, and: ckTextBox)
+        return TextBoxObject(in: noteObject, from: cdTextBox)
     }
 
     /**
@@ -429,9 +236,6 @@ public class DataManager {
 
         try coreDataController.deleteTextBox(textBoxObject.coreDataTextBox)
         textBoxObject.removeReferences()
-        if let ckTextBox = textBoxObject.cloudKitTextBox {
-            try cloudKitController.deleteTextBox(ckTextBox)
-        }
     }
 
     // MARK: ImageBox
@@ -444,18 +248,10 @@ public class DataManager {
         guard let noteObject = note as? NoteObject else {
             throw NoteError.failedToParse
         }
-        #if DEVELOP
-        let ckNote: CloudKitNote? = nil
-        #else
-        guard let ckNote = noteObject.cloudKitNote else {
-            throw NoteError.noteWasNull
-        }
-        #endif
 
         let id = UUID()
         let cdImageBox = try coreDataController.createImageBox(in: noteObject.coreDataNote, id: id, at: imagePath)
-        let ckImageBox = cloudKitController.createImageBox(in: ckNote, id: id, at: imagePath)
-        return ImageBoxObject(in: noteObject, from: cdImageBox, and: ckImageBox)
+        return ImageBoxObject(in: noteObject, from: cdImageBox)
     }
 
     /**
@@ -472,9 +268,6 @@ public class DataManager {
 
         try coreDataController.deleteImageBox(imageBoxObject.coreDataImageBox)
         imageBoxObject.removeReferences()
-        if let ckImageBox = imageBoxObject.cloudKitImageBox {
-            try cloudKitController.deleteImageBox(ckImageBox)
-        }
     }
 
     // MARK: Singleton Basic Properties

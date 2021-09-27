@@ -7,9 +7,8 @@
 //
 
 import UIKit
-import CloudKit
 
-internal class NotebookObject: NotebookEntity, CloudKitObjectWrapper {
+internal class NotebookObject: NotebookEntity {
 
     func getID() throws -> UUID {
         if let id = coreDataNotebook.id {
@@ -28,21 +27,19 @@ internal class NotebookObject: NotebookEntity, CloudKitObjectWrapper {
 
     public var name: String {
         get {
-            return coreDataNotebook.name ?? cloudKitNotebook?.name.value ?? ""
+            return coreDataNotebook.name ?? ""
         }
         set {
             coreDataNotebook.name = newValue
-            cloudKitNotebook?.name.value = newValue
             notifyObservers()
         }
     }
     public var colorName: String {
         get {
-            return coreDataNotebook.colorName ?? cloudKitNotebook?.colorName.value ?? ""
+            return coreDataNotebook.colorName ?? ""
         }
         set {
             coreDataNotebook.colorName = newValue
-            cloudKitNotebook?.colorName.value = newValue
             notifyObservers()
         }
     }
@@ -82,20 +79,8 @@ internal class NotebookObject: NotebookEntity, CloudKitObjectWrapper {
     private var observers: [EntityObserver] = []
 
     internal let coreDataNotebook: Notebook
-    internal var cloudKitNotebook: CloudKitNotebook? {
-        didSet {
-            notes.forEach { note in
-                let ckNote = cloudKitNotebook?.notes?.references.first(where: { $0.id.value == (try? note.getID())?.uuidString })
-                (note as? NoteObject)?.cloudKitNote = ckNote
-            }
-        }
-    }
-    var cloudKitObject: CloudKitEntity? {
-        return cloudKitNotebook
-    }
-
-    internal init(in workspace: WorkspaceObject, from notebook: Notebook, and ckNotebook: CloudKitNotebook? = nil) {
-        self.cloudKitNotebook = ckNotebook
+    
+    internal init(in workspace: WorkspaceObject, from notebook: Notebook) {
         self.workspace = workspace
         self.coreDataNotebook = notebook
         
@@ -103,8 +88,7 @@ internal class NotebookObject: NotebookEntity, CloudKitObjectWrapper {
 
         if let notes = coreDataNotebook.notes?.array as? [Note] {
             notes.forEach { (note) in
-                let ckObject = ckNotebook?.notes?.first(where: { $0.record["id"] == note.id?.uuidString }) as? CloudKitNote
-                _ = NoteObject(in: self, from: note, and: ckObject)
+                _ = NoteObject(in: self, from: note)
             }
         }
     }
@@ -117,21 +101,6 @@ internal class NotebookObject: NotebookEntity, CloudKitObjectWrapper {
         if let index = observers.firstIndex(where: { $0 === observer }) {
             observers.remove(at: index)
         }
-    }
-
-    func save() throws {
-        try DataManager.shared().saveObjects(getSavable())
-    }
-
-    internal func getSavable() -> [PersistentEntity] {
-        var children: [PersistentEntity] = [self]
-        if let notes = notes as? [NoteObject] {
-            for note in notes {
-                children.append(contentsOf: note.getSavable())
-            }
-        }
-        
-        return children
     }
 
     internal func removeReferences() {

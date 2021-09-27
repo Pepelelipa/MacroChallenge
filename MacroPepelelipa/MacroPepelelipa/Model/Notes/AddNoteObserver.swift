@@ -8,6 +8,6 @@
 
 import Foundation
 
-internal protocol AddNoteObserver: class {
+internal protocol AddNoteObserver: AnyObject {
     func addNote()
 }

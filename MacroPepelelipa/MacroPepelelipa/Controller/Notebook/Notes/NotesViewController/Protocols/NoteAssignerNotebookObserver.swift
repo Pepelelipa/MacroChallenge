@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 import Database
 
-protocol NoteAssignerNotebookObserver: class {
+protocol NoteAssignerNotebookObserver: AnyObject {
     /**
      Pass the chosen notebook     
      - Parameters

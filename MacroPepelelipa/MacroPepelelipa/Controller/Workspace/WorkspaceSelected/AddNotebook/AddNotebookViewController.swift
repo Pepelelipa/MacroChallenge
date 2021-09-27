@@ -273,7 +273,6 @@ internal class AddNotebookViewController: ViewController {
             if let notebook = notebook {
                 notebook.name = text
                 notebook.colorName = notebookColorName
-                try notebook.save()
             } else {
                 _ = try DataManager.shared().createNotebook(in: workspace, named: text, colorName: notebookColorName)
             }

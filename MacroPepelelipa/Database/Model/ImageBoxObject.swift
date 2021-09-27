@@ -7,9 +7,7 @@
 //
 //swiftlint:disable identifier_name
 
-import CloudKit
-
-internal class ImageBoxObject: ImageBoxEntity, CloudKitObjectWrapper {
+internal class ImageBoxObject: ImageBoxEntity {
 
     func getID() throws -> UUID {
         if let id = coreDataImageBox.id {
@@ -18,8 +16,7 @@ internal class ImageBoxObject: ImageBoxEntity, CloudKitObjectWrapper {
         throw PersistentError.idWasNull
     }
 
-    internal init(in note: NoteObject, from coreDataObject: ImageBox, and cloudKitImageBox: CloudKitImageBox?) {
-        self.cloudKitImageBox = cloudKitImageBox
+    internal init(in note: NoteObject, from coreDataObject: ImageBox) {
         self.coreDataImageBox = coreDataObject
         self.note = note
 
@@ -39,9 +36,6 @@ internal class ImageBoxObject: ImageBoxEntity, CloudKitObjectWrapper {
         }
         set {
             coreDataImageBox.imagePath = newValue
-            if let filePath = FileHelper.getFilePath(fileName: newValue) {
-                cloudKitImageBox?.image.value = CKAsset(fileURL: URL(fileURLWithPath: filePath))
-            }
         }
     }
     var width: Float {
@@ -50,7 +44,6 @@ internal class ImageBoxObject: ImageBoxEntity, CloudKitObjectWrapper {
         }
         set {
             coreDataImageBox.width = newValue
-            cloudKitImageBox?.width.value = Double(newValue)
         }
     }
     var height: Float {
@@ -59,7 +52,6 @@ internal class ImageBoxObject: ImageBoxEntity, CloudKitObjectWrapper {
         }
         set {
             coreDataImageBox.height = newValue
-            cloudKitImageBox?.height.value = Double(newValue)
         }
     }
     var x: Float {
@@ -68,7 +60,6 @@ internal class ImageBoxObject: ImageBoxEntity, CloudKitObjectWrapper {
         }
         set {
             coreDataImageBox.x = newValue
-            cloudKitImageBox?.x.value = Double(newValue)
         }
     }
     var y: Float {
@@ -77,7 +68,6 @@ internal class ImageBoxObject: ImageBoxEntity, CloudKitObjectWrapper {
         }
         set {
             coreDataImageBox.y = newValue
-            cloudKitImageBox?.y.value = Double(newValue)
         }
     }
     var z: Float {
@@ -86,15 +76,10 @@ internal class ImageBoxObject: ImageBoxEntity, CloudKitObjectWrapper {
         }
         set {
             coreDataImageBox.z = newValue
-            cloudKitImageBox?.z.value = Double(newValue)
         }
     }
 
     internal let coreDataImageBox: ImageBox
-    internal var cloudKitImageBox: CloudKitImageBox?
-    var cloudKitObject: CloudKitEntity? {
-        return cloudKitImageBox
-    }
 
     internal func removeReferences() {
         if let note = self.note,

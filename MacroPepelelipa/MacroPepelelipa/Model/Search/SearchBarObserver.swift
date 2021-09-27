@@ -9,7 +9,7 @@
 import Foundation
 import Database
 
-internal protocol SearchBarObserver: class {
+internal protocol SearchBarObserver: AnyObject {
     
     /**
     This method communicates the Data Source, from the UICollectionView, which text is inserted in the search bar and the type of the search category.

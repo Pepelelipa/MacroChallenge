@@ -16,6 +16,7 @@ internal class WorkspaceSelectionViewController: ViewController,
                                                  EntityObserver {
 
     // MARK: - Variables and Constants
+    internal var overlayState = true
     
     internal weak var filterObserver: SearchBarObserver?
     
@@ -202,6 +203,11 @@ internal class WorkspaceSelectionViewController: ViewController,
             updateConstraintsForIpad()
         }
         collectionDelegate.frame = view.frame
+        
+        if overlayState == true {
+            showDemoLaunchOverlay()
+            overlayState=false
+        }
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -222,6 +228,17 @@ internal class WorkspaceSelectionViewController: ViewController,
         } else {
             navigationItem.leftBarButtonItem?.accessibilityValue = "Editing disabled".localized()
         }
+    }
+    
+    // MARK: - Demo Launch
+    
+    private func showDemoLaunchOverlay() {
+        let destination = DemoLaunchViewController(nibName: "DemoLaunchViewController", bundle: nil)
+        destination.isModalInPresentation = true
+        destination.modalTransitionStyle = .crossDissolve
+        destination.modalPresentationStyle = .overFullScreen
+        
+        self.present(destination, animated: false, completion: nil)
     }
     
     // MARK: - UISearchResultsUpdating Functions

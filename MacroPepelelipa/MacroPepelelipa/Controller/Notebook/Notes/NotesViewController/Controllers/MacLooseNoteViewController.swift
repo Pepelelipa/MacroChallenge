@@ -39,7 +39,6 @@ class MacLooseNoteViewController: MacNotesViewController, NoteAssignerObserver {
         return mrkConf
     }()
     
-    
     private lazy var markupNavigationView: MarkdownNavigationView = {
         let mrkView = MarkdownNavigationView(frame: .zero, configurations: markupConfig)
         mrkView.backgroundColor = .clear
