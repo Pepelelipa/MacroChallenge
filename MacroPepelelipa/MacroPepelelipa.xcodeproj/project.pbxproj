@@ -124,6 +124,8 @@
 		1EE652C2252504400015E3D4 /* MarkdownContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EE652C1252504400015E3D4 /* MarkdownContainerView.swift */; };
 		1EE652C72525049E0015E3D4 /* MarkdownToggleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EE652C62525049E0015E3D4 /* MarkdownToggleButton.swift */; };
 		1EFA49CE252D15C500602904 /* MarkdownNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EFA49CD252D15C500602904 /* MarkdownNavigationView.swift */; };
+		2C6638E426F3FA660026A2C8 /* DemoLaunchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C6638E226F3FA660026A2C8 /* DemoLaunchViewController.swift */; };
+		2C6638E526F3FA660026A2C8 /* DemoLaunchViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2C6638E326F3FA660026A2C8 /* DemoLaunchViewController.xib */; };
 		5832E2F5260A86EF0003D783 /* MacLooseNoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5832E2F4260A86EF0003D783 /* MacLooseNoteViewController.swift */; };
 		8DDFEEAC264C55EC00AB9830 /* NoteWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDFEEAB264C55EC00AB9830 /* NoteWrapper.swift */; };
 		A7026CDF25659B2400B8FC78 /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C21B33254B55BB0061CCBA /* Font.swift */; };
@@ -373,6 +375,8 @@
 		1EE652C1252504400015E3D4 /* MarkdownContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkdownContainerView.swift; sourceTree = "<group>"; };
 		1EE652C62525049E0015E3D4 /* MarkdownToggleButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkdownToggleButton.swift; sourceTree = "<group>"; };
 		1EFA49CD252D15C500602904 /* MarkdownNavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkdownNavigationView.swift; sourceTree = "<group>"; };
+		2C6638E226F3FA660026A2C8 /* DemoLaunchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoLaunchViewController.swift; sourceTree = "<group>"; };
+		2C6638E326F3FA660026A2C8 /* DemoLaunchViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DemoLaunchViewController.xib; sourceTree = "<group>"; };
 		5832E2F4260A86EF0003D783 /* MacLooseNoteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacLooseNoteViewController.swift; sourceTree = "<group>"; };
 		58E145A32636F9EC0048C6AA /* MacroPepelelipaDevelop.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MacroPepelelipaDevelop.entitlements; sourceTree = "<group>"; };
 		8DDFEEAB264C55EC00AB9830 /* NoteWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteWrapper.swift; sourceTree = "<group>"; };
@@ -918,6 +922,7 @@
 		02DD0A1225114EA200B6696B /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				2C6638E126F3F9CD0026A2C8 /* Demo LaunchScreen */,
 				D9CE2D802568695E00DF4D2A /* Conflict Treatment */,
 				1E91D359255F2F72002FA8F1 /* Onboarding */,
 				D97EE7A5254B554F00A68B06 /* Search */,
@@ -977,6 +982,15 @@
 				A71E2C202538EF51000DA164 /* NotesPageViewControllerDataSource.swift */,
 			);
 			path = Notes;
+			sourceTree = "<group>";
+		};
+		2C6638E126F3F9CD0026A2C8 /* Demo LaunchScreen */ = {
+			isa = PBXGroup;
+			children = (
+				2C6638E226F3FA660026A2C8 /* DemoLaunchViewController.swift */,
+				2C6638E326F3FA660026A2C8 /* DemoLaunchViewController.xib */,
+			);
+			path = "Demo LaunchScreen";
 			sourceTree = "<group>";
 		};
 		A7BC781C253A2925006489CF /* Text Recognition */ = {
@@ -1388,6 +1402,7 @@
 				E40220DB253A1ED7009C08C4 /* DarkModeIcon-Small-40@2x.png in Resources */,
 				02DC77DB2553328000F0B4E4 /* Colors.xcassets in Resources */,
 				E40220D9253A1ED7009C08C4 /* DarkModeIcon-Small-40@3x.png in Resources */,
+				2C6638E526F3FA660026A2C8 /* DemoLaunchViewController.xib in Resources */,
 				E40220D0253A1ED7009C08C4 /* DarkModeIcon-Small.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1605,6 +1620,7 @@
 				D9F4A9A925277A6B00BFDC19 /* CornerEnum.swift in Sources */,
 				A71E2C1D2538EEB8000DA164 /* NotesPageViewController.swift in Sources */,
 				D996CEC3252FA608009D31F8 /* AddNewSpaceTextFieldDelegate.swift in Sources */,
+				2C6638E426F3FA660026A2C8 /* DemoLaunchViewController.swift in Sources */,
 				D9CE2D4C2565C00A00DF4D2A /* BoxViewReceiver.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2027,7 +2043,7 @@
 				CODE_SIGN_ENTITLEMENTS = MacroPepelelipa/MacroPepelelipaDevelop.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = BVZY57RJZG;
+				DEVELOPMENT_TEAM = P8ZMSZU6UR;
 				INFOPLIST_FILE = MacroPepelelipa/Info.plist;
 				"IPHONEOS_DEPLOYMENT_TARGET[sdk=macosx*]" = 14.2;
 				LD_RUNPATH_SEARCH_PATHS = (
