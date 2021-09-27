@@ -36,14 +36,4 @@ extension Notification.Name {
     static var didPressCommandU: Notification.Name {
         return .init(rawValue: "KeyCommand.didPressCommandU")
     }
-    
-    static var keyboardShortcuts: [Notification.Name] = [
-        didPressCommandN,
-        didPressCommandShiftN,
-        didPressCommandF,
-        didPressCommandDelete,
-        didPressCommandB,
-        didPressCommandI,
-        didPressCommandU
-    ]
 }
