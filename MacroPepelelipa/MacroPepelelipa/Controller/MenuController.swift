@@ -111,7 +111,6 @@ internal class MenuController {
         
         let commandNMenu = createMenu(title: "Note".localized(), id: UIMenu.Identifier(NoteMenuId.note.rawValue), command: [viewController.newCommand, viewController.deleteCommand])
         
-        builder.insertChild(MenuController.exportMenu(), atStartOfMenu: .file)
         builder.insertChild(MenuController.importMenu(), atStartOfMenu: .file)
         builder.insertChild(commandNMenu, atStartOfMenu: .file)
     }
@@ -133,24 +132,4 @@ internal class MenuController {
         return UIMenu()
         #endif
     }
-    
-    /**
-     Creates a UIMenu to handle image imports.
-     - Returns: The new UIMenu.
-     */
-    private class func exportMenu() -> UIMenu {
-        #if targetEnvironment(macCatalyst)
-        return UIMenu(title: "Export".localized(),
-                      image: nil,
-                      identifier: UIMenu.Identifier(NoteMenuId.export.rawValue),
-                      options: [.displayInline],
-                      children: [
-                        MacNotesViewController.exportNoteCommand,
-                        MacNotesViewController.exportNotebookCommand
-                      ])
-        #else
-        return UIMenu()
-        #endif
-    }
-    
 }
