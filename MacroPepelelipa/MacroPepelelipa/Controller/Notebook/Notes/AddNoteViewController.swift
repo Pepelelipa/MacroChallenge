@@ -203,7 +203,6 @@ internal class AddNoteViewController: UIViewController, AddNoteObserver {
                 }
                 let note = try DataManager.shared().createNote(in: guardedNotebook)
                 note.title = text.toStyle(font: .defaultHeader, .h1)
-                try note.save()
             } catch {
                 let title = "Error creating a new Note".localized()
                 let message = "A new Note could not be created".localized()

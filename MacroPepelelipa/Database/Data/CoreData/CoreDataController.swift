@@ -59,7 +59,6 @@ internal class CoreDataController {
         }
         workspace.id = id
         workspace.name = name
-        try saveContext()
 
         return workspace
     }
@@ -71,7 +70,6 @@ internal class CoreDataController {
      */
     internal func deleteWorkspace(_ workspace: Workspace) throws {
         context.delete(workspace)
-        try saveContext()
     }
 
     // MARK: Notebook
@@ -91,11 +89,8 @@ internal class CoreDataController {
         notebook.name = name
         notebook.colorName = colorName
 
-        try saveContext()
-
         return notebook
     }
-    
     /**
      Deletes a notebook from CoreData
      - Parameter notebook: Notebook to be deleted.
@@ -103,7 +98,6 @@ internal class CoreDataController {
      */
     internal func deleteNotebook(_ notebook: Notebook) throws {
         context.delete(notebook)
-        try saveContext()
     }
 
     // MARK: Note
@@ -120,8 +114,6 @@ internal class CoreDataController {
         note.id = id
         note.notebook = notebook
 
-        try saveContext()
-
         return note
     }
 
@@ -132,7 +124,6 @@ internal class CoreDataController {
      */
     internal func deleteNote(_ note: Note) throws {
         context.delete(note)
-        try saveContext()
     }
 
     // MARK: TextBox
@@ -149,8 +140,6 @@ internal class CoreDataController {
         textBox.id = id
         textBox.note = note
 
-        try saveContext()
-
         return textBox
     }
 
@@ -161,7 +150,6 @@ internal class CoreDataController {
      */
     internal func deleteTextBox(_ textBox: TextBox) throws {
         context.delete(textBox)
-        try saveContext()
     }
 
     // MARK: ImageBox
@@ -179,8 +167,6 @@ internal class CoreDataController {
         imageBox.imagePath = imagePath
         imageBox.note = note
 
-        try saveContext()
-
         return imageBox
     }
 
@@ -191,17 +177,5 @@ internal class CoreDataController {
      */
     internal func deleteImageBox(_ imageBox: ImageBox) throws {
         context.delete(imageBox)
-        try saveContext()
-    }
-
-    // MARK: Context
-    internal func saveContext() throws {
-        if context.hasChanges {
-            do {
-                try context.save()
-            } catch {
-                throw CoreDataError.failedToSaveContext
-            }
-        }
     }
 }

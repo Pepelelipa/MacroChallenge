@@ -5,7 +5,6 @@
 //  Created by Pedro Giuliano Farina on 07/10/20.
 //  Copyright © 2020 Pedro Giuliano Farina. All rights reserved.
 //
-//swiftlint:disable cyclomatic_complexity function_body_length
 
 public enum ObservableCreationType {
     case workspace
@@ -19,12 +18,6 @@ public class DataManager {
     #endif
     private let coreDataController = CoreDataController()
     public var conflictHandler: ConflictHandler = DefaultConflictHandler()
-
-    ///Save all modified objects
-    /// - Throws: Throws if Core Data fails to save.
-    internal func saveObjects(_ entities: [PersistentEntity]) throws {
-        try coreDataController.saveContext()
-    }
 
     private var observers: [(EntityObserver, ObservableCreationType)] = []
     public func addCreationObserver(_ observer: EntityObserver, type: ObservableCreationType) {
@@ -177,7 +170,6 @@ public class DataManager {
         }
 
         noteObject.setNotebook(notebookObject)
-        try note.save()
     }
 
     /**
