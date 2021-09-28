@@ -21,8 +21,12 @@ class DemoLaunchViewController: UIViewController {
         blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
 
         view.insertSubview(blurEffectView, at: 1)
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+        #if DEBUG || DEVELOP
+        let time = 0.5
+        #else
+        let time = 4
+        #endif
+        DispatchQueue.main.asyncAfter(deadline: .now() + time) {
             self.dismiss(animated: true, completion: nil)
         }
     }
