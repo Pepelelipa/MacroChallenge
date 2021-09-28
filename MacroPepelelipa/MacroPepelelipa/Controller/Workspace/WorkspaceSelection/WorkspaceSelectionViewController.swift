@@ -192,16 +192,6 @@ internal class WorkspaceSelectionViewController: UIViewController,
             .foregroundColor: UIColor.titleColor ?? .black
         ]
 
-        let time = UserDefaults.standard.integer(forKey: "numberOfTimes")
-        if time == 8 {
-            if let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
-                #if !DEBUG
-                SKStoreReviewController.requestReview(in: scene)
-                #endif
-            }
-        } else {
-            UserDefaults.standard.setValue(time + 1, forKey: "numberOfTimes")
-        }
         self.definesPresentationContext = true
         
         DataManager.shared().addCreationObserver(self, type: .workspace)
