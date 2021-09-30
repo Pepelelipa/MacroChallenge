@@ -223,6 +223,8 @@ public class MarkdownTextView: UITextView {
         let writeAction = {
             if text.suffix(1) == "\n" {
                 self.activeFont = self.activeFont.toStyle(.paragraph)
+                self.setHighlighted(false)
+                self.setUnderlined(false)
             }
             let newString = NSAttributedString(string: text, attributes: self.activeAttributes)
             mutableString.insert(newString, at: location)
