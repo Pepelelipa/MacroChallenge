@@ -218,6 +218,19 @@ internal class AddNotebookViewController: ViewController {
         }
     }
     
+    override func pressesBegan(_ presses: Set<UIPress>, with event: UIPressesEvent?) {
+        guard let key = presses.first?.key else {
+            return
+        }
+
+        switch key.keyCode {
+        case .keyboardEscape:
+            self.dismiss(animated: true, completion: nil)
+        default:
+            super.pressesBegan(presses, with: event)
+        }
+    }
+    
     // MARK: - Functions
 
     private func checkBtnEnabled() {
