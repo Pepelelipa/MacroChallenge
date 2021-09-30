@@ -9,16 +9,16 @@
 import UIKit
 
 internal struct UnderlineElement: MarkdownElement {
-    fileprivate static let regex = "(.?|^)(\\~\\~|__)(?=\\S)(.+?)(?<=\\S)(\\2)"
+    fileprivate static let regex = "(_)(.*?)(_)"
     func regularExpression() throws -> NSRegularExpression {
         try NSRegularExpression(pattern: UnderlineElement.regex, options: [])
     }
 
     func match(_ match: NSTextCheckingResult, attributedString: NSMutableAttributedString) -> ([NSRange], Any?) {
         // deleting trailing markdown
-        attributedString.deleteCharacters(in: match.range(at: 4))
+        attributedString.deleteCharacters(in: match.range(at: 3))
         // setting bold
-        let range = match.range(at: 3)
+        let range = match.range(at: 2)
         attributedString.enumerateAttribute(.underlineStyle, in: range, options: .longestEffectiveRangeNotRequired) { (value, range, _) in
             if value != nil {
                 attributedString.removeAttribute(.underlineStyle, range: range)
@@ -27,7 +27,7 @@ internal struct UnderlineElement: MarkdownElement {
             }
         }
         // deleting leading markdown
-        attributedString.deleteCharacters(in: match.range(at: 2))
-        return ([match.range(at: 4), match.range(at: 2)], nil)
+        attributedString.deleteCharacters(in: match.range(at: 1))
+        return ([match.range(at: 3), match.range(at: 1)], nil)
     }
 }
