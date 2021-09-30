@@ -5,7 +5,7 @@
 //  Created by Pedro Giuliano Farina on 03/11/20.
 //  Copyright © 2020 Pedro Giuliano Farina. All rights reserved.
 //
-//swiftlint:disable function_body_length cyclomatic_complexity
+//swiftlint:disable function_body_length cyclomatic_complexity switch_case_alignment
 
 import UIKit
 
@@ -27,6 +27,12 @@ public class MarkdownTextView: UITextView {
             activeAttributes[.font] = newValue
         }
     }
+
+    private lazy var hoverGesture: UIHoverGestureRecognizer = {
+        let gesture = UIHoverGestureRecognizer(target: self, action: #selector(hovering(_:)))
+        return gesture
+    }()
+
     ///Sets font value as active and adds font to selection
     public func setFont(to font: UIFont) {
         activeFont = font
@@ -174,6 +180,7 @@ public class MarkdownTextView: UITextView {
         isHighlighted = false
         isUnderlined = false
         activeFont = Fonts.defaultTextFont
+        addGestureRecognizer(hoverGesture)
     }
 
     public var markdownDelegate: MarkdownTextViewDelegate? {
@@ -524,6 +531,17 @@ public class MarkdownTextView: UITextView {
             toggleUnderline(nil)
         default:
             break
+        }
+    }
+
+    @objc internal func hovering(_ recognizer: UIHoverGestureRecognizer) {
+        switch recognizer.state {
+            case .began, .changed:
+                NSCursor.iBeam.set()
+            case .ended:
+                NSCursor.arrow.set()
+            default:
+                break
         }
     }
 }
