@@ -139,6 +139,8 @@ internal class NotesViewController: ViewController,
         underlineCommand.title = "Underline".localized()
         underlineCommand.discoverabilityTitle = "Underline".localized()
         #endif
+
+        textView.becomeFirstResponder()
         
         NotificationCenter.default.addObserver(
             self,

@@ -64,7 +64,7 @@ internal class NotesView: UIView, MarkdownFormatViewReceiver {
         
         let  markdownTextView = MarkdownTextView(frame: .zero)
         markdownTextView.markdownDelegate = markdownDelegate
-        markdownTextView.contentInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
+        markdownTextView.contentInset = UIEdgeInsets(top: 0, left: 20, bottom: 15, right: 20)
         markdownTextView.accessibilityLabel = "Note".localized()
         return markdownTextView
     }()
