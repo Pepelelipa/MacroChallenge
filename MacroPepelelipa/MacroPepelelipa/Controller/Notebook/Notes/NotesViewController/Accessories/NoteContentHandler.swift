@@ -21,7 +21,7 @@ internal class NoteContentHandler {
                 note.title = textField.attributedText ?? NSAttributedString()
             }
 
-            if textView.text.replacingOccurrences(of: " ", with: "") != "" && !textView.isShowingPlaceholder {
+            if textView.text.replacingOccurrences(of: " ", with: "") != "" {
                 note.text = textView.attributedText ?? NSAttributedString()
             } else {
                 note.text = NSAttributedString()

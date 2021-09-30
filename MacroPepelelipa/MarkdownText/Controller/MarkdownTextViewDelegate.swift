@@ -9,26 +9,11 @@
 import UIKit
 
 open class MarkdownTextViewDelegate: NSObject, UITextViewDelegate {
-    open func textViewDidBeginEditing(_ textView: UITextView) {
-        if (textView as? MarkdownTextView)?.isShowingPlaceholder ?? false {
-            textView.attributedText = "".toStyle(.paragraph)
-        }
-    }
-
-    open func textViewDidEndEditing(_ textView: UITextView) {
-        if let textView = textView as? MarkdownTextView,
-           textView.text == "" {
-            textView.isShowingPlaceholder = true
-            textView.attributedText = textView.placeholder?.toPlaceholder()
-        }
-    }
-
     var ignore: Bool = false
     open func textViewDidChangeSelection(_ textView: UITextView) {
         //always checks the one on the right
         guard !ignore,
-              textView.attributedText != nil,
-              !((textView as? MarkdownTextView)?.isShowingPlaceholder ?? true) else {
+              textView.attributedText != nil else {
             return
         }
         var newRange = NSRange(location: textView.selectedRange.location, length: 1)

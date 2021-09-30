@@ -12,14 +12,6 @@ import UIKit
 public class MarkdownTextView: UITextView {
 
     // MARK: - Variables and Constants
-    public var placeholder: String? {
-        didSet {
-            if isShowingPlaceholder {
-                attributedText = placeholder?.toPlaceholder()
-            }
-        }
-    }
-
     internal private(set) var activeAttributes: [NSAttributedString.Key: Any] = [:]
 
     public internal(set) var activeFont: UIFont {
@@ -150,9 +142,6 @@ public class MarkdownTextView: UITextView {
         }
     }
 
-    public private(set) var animator: UIDynamicAnimator?
-    public internal(set) var isShowingPlaceholder: Bool = true
-
     // MARK: - Initializers
 
     public init(frame: CGRect) {
@@ -166,14 +155,7 @@ public class MarkdownTextView: UITextView {
     }
 
     public func setText(_ attributedText: NSAttributedString?) {
-        if let text = attributedText,
-           text.string != "" {
-            isShowingPlaceholder = false
-            self.attributedText = attributedText
-        } else if self.attributedText.string == "" {
-            isShowingPlaceholder = true
-            self.attributedText = placeholder?.toPlaceholder()
-        }
+        self.attributedText = attributedText
     }
 
     private func setup() {
@@ -192,8 +174,6 @@ public class MarkdownTextView: UITextView {
         isHighlighted = false
         isUnderlined = false
         activeFont = Fonts.defaultTextFont
-
-        animator = UIDynamicAnimator(referenceView: self)
     }
 
     public var markdownDelegate: MarkdownTextViewDelegate? {
@@ -204,14 +184,9 @@ public class MarkdownTextView: UITextView {
 
     ///Inserts text in text view
     public override func insertText(_ text: String) {
-        if text != "" {
-            if isShowingPlaceholder {
-                self.text = ""
-            }
-        } else {
+        if text == "" {
             return
         }
-        isShowingPlaceholder = false
         let backText = attributedText.smallBackwardSample(1, location: selectedRange.location).string
         let space = (text == " " && backText != "#" && backText != "-" && backText != ".")
         let mutableString = textStorage
@@ -361,10 +336,6 @@ public class MarkdownTextView: UITextView {
      - type: The type of list to be added (bullet, numeric or quote)
      */
     public func addList(_ type: ListStyle, at location: Int? = nil) {
-        //Checkin not placeholder
-        if isShowingPlaceholder {
-            return
-        }
         //Where to start
         let targetLocation = location ?? selectedRange.location
 
