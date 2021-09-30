@@ -1939,7 +1939,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = X54K5PJVGU;
 				INFOPLIST_FILE = MacroPepelelipa/Info.plist;
-				"IPHONEOS_DEPLOYMENT_TARGET[sdk=macosx*]" = 14.2;
+				"IPHONEOS_DEPLOYMENT_TARGET[sdk=macosx*]" = 14.5;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1949,7 +1949,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTS_MACCATALYST = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2,6";
+				TARGETED_DEVICE_FAMILY = "2,6";
 			};
 			name = Debug;
 		};
@@ -1963,7 +1963,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = X54K5PJVGU;
 				INFOPLIST_FILE = MacroPepelelipa/Info.plist;
-				"IPHONEOS_DEPLOYMENT_TARGET[sdk=macosx*]" = 14.2;
+				"IPHONEOS_DEPLOYMENT_TARGET[sdk=macosx*]" = 14.5;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1973,7 +1973,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTS_MACCATALYST = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2,6";
+				TARGETED_DEVICE_FAMILY = "2,6";
 			};
 			name = Release;
 		};
@@ -2049,7 +2049,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = X54K5PJVGU;
 				INFOPLIST_FILE = MacroPepelelipa/Info.plist;
-				"IPHONEOS_DEPLOYMENT_TARGET[sdk=macosx*]" = 14.2;
+				"IPHONEOS_DEPLOYMENT_TARGET[sdk=macosx*]" = 14.5;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -2059,7 +2059,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTS_MACCATALYST = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2,6";
+				TARGETED_DEVICE_FAMILY = "2,6";
 			};
 			name = Develop;
 		};
