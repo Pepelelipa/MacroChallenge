@@ -9,7 +9,7 @@
 import UIKit
 import Database
 
-internal class NotebookIndexViewController: UIViewController {
+internal class NotebookIndexViewController: ViewController {
     
     // MARK: - Variables and Constants
     

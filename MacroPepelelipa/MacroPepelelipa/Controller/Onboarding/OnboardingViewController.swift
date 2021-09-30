@@ -8,7 +8,7 @@
 
 import UIKit
 
-class OnboardingViewController: UIViewController {
+class OnboardingViewController: ViewController {
 
     // MARK: - Variables and Constants
     

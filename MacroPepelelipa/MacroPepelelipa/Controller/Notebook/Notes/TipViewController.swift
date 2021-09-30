@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-internal class TipViewController: UIViewController {
+internal class TipViewController: ViewController {
     
     private let scrollView = UIScrollView()
     

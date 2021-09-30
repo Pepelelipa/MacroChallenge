@@ -9,7 +9,7 @@
 import UIKit
 import Database
 
-internal class AddNotebookViewController: UIViewController {
+internal class AddNotebookViewController: ViewController {
     
     // MARK: - Variables and Constants
 
@@ -215,6 +215,19 @@ internal class AddNotebookViewController: UIViewController {
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
             self.collectionView.collectionViewLayout.invalidateLayout()
+        }
+    }
+    
+    override func pressesBegan(_ presses: Set<UIPress>, with event: UIPressesEvent?) {
+        guard let key = presses.first?.key else {
+            return
+        }
+
+        switch key.keyCode {
+        case .keyboardEscape:
+            self.dismiss(animated: true, completion: nil)
+        default:
+            super.pressesBegan(presses, with: event)
         }
     }
     

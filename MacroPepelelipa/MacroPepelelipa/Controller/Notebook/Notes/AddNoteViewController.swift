@@ -9,7 +9,7 @@
 import UIKit
 import Database
 
-internal class AddNoteViewController: UIViewController, AddNoteObserver {
+internal class AddNoteViewController: ViewController, AddNoteObserver {
     
     // MARK: - Variables and Constants
     
@@ -154,6 +154,19 @@ internal class AddNoteViewController: UIViewController, AddNoteObserver {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         NSLayoutConstraint.activate(constraints)
+    }
+    
+    override func pressesBegan(_ presses: Set<UIPress>, with event: UIPressesEvent?) {
+        guard let key = presses.first?.key else {
+            return
+        }
+
+        switch key.keyCode {
+        case .keyboardEscape:
+            self.dismiss(animated: true, completion: nil)
+        default:
+            super.pressesBegan(presses, with: event)
+        }
     }
     
     // MARK: - AddNoteObserver functions

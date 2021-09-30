@@ -9,7 +9,7 @@
 import UIKit
 import MarkdownText
 
-internal class MarkupContainerViewController: UIViewController {
+internal class MarkupContainerViewController: ViewController {
     
     // MARK: - Variables and Constants
     

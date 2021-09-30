@@ -9,7 +9,7 @@
 import UIKit
 import Database
 
-internal class AddWorkspaceViewController: UIViewController, AddWorkspaceObserver {
+internal class AddWorkspaceViewController: ViewController, AddWorkspaceObserver {
     
     // MARK: - Variables and Constants
     
@@ -139,6 +139,19 @@ internal class AddWorkspaceViewController: UIViewController, AddWorkspaceObserve
         NSLayoutConstraint.activate(constraints)
     }
     
+    override func pressesBegan(_ presses: Set<UIPress>, with event: UIPressesEvent?) {
+        guard let key = presses.first?.key else {
+            return
+        }
+
+        switch key.keyCode {
+        case .keyboardEscape:
+            self.dismiss(animated: true, completion: nil)
+        default:
+            super.pressesBegan(presses, with: event)
+        }
+    }
+
     // MARK: - AddWorkspaceObserver functions
     
     ///A  method tthat calls btn Confirm Tap.

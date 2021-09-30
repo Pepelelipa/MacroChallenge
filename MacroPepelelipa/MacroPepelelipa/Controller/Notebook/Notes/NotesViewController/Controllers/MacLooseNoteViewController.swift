@@ -96,17 +96,6 @@ class MacLooseNoteViewController: MacNotesViewController, NoteAssignerObserver {
             }
         }
         
-        self.setShareButton { identifier in
-            switch identifier {
-            case .init("note"):
-                self.exportNote()
-            case .init("notebook"):
-                self.exportNotebook()
-            default:
-                break
-            }
-        }
-        
         navigationItem.largeTitleDisplayMode = .never
         navigationItem.titleView = markupNavigationView
     }
