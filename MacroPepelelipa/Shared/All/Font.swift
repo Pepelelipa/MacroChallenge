@@ -43,7 +43,7 @@ internal extension UIFont {
         case .pad:
             return UIFont(name: "Dancing Script", size: 23)
         default:
-            return UIFont(name: "Dancing Script", size: UIFont.labelFontSize + 3)
+            return UIFont(name: "Dancing Script", size: UIFont.labelFontSize + 6)
         }
     }()
 
