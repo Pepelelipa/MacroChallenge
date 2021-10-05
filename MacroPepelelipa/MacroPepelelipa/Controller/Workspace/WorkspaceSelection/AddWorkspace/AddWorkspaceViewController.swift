@@ -165,15 +165,8 @@ internal class AddWorkspaceViewController: ViewController, AddWorkspaceObserver 
     }
 
     @IBAction func selfTap() {
-        if txtName.isEditing {
-            txtName.resignFirstResponder()
-        } else {
-            self.dismiss(animated: true) { 
-                if self.txtName.isEditing {
-                    self.txtName.endEditing(true)
-                }
-            }
-        }
+        self.txtName.endEditing(true)
+        self.dismiss(animated: true)
     }
     
     @IBAction func btnConfirmTap() {
