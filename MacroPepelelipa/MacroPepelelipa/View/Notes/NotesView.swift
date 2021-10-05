@@ -64,8 +64,7 @@ internal class NotesView: UIView, MarkdownFormatViewReceiver {
         
         let  markdownTextView = MarkdownTextView(frame: .zero)
         markdownTextView.markdownDelegate = markdownDelegate
-        markdownTextView.contentInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
-        markdownTextView.placeholder = "Placeholder\(Int.random(in: 0...15))".localized()
+        markdownTextView.textContainerInset = UIEdgeInsets(top: 0, left: 20, bottom: 20, right: 20)
         markdownTextView.accessibilityLabel = "Note".localized()
         return markdownTextView
     }()
