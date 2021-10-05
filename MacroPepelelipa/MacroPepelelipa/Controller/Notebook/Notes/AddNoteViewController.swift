@@ -135,8 +135,7 @@ internal class AddNoteViewController: ViewController, AddNoteObserver {
         let selfTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(selfTap))
         selfTapGestureRecognizer.delegate = gestureDelegate
         view.addGestureRecognizer(selfTapGestureRecognizer)
-        
-        txtName.becomeFirstResponder()
+
         self.txtName.inputAccessoryView = keyboardToolBar
     }
     

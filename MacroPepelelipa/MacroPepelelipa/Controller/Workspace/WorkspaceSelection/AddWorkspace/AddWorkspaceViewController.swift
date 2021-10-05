@@ -120,7 +120,6 @@ internal class AddWorkspaceViewController: ViewController, AddWorkspaceObserver 
         selfTapGestureRecognizer.delegate = gestureDelegate
         view.addGestureRecognizer(selfTapGestureRecognizer)
         
-        txtName.becomeFirstResponder()
         self.txtName.inputAccessoryView = keyboardToolBar
 
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
