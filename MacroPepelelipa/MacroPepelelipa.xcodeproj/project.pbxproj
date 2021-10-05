@@ -125,6 +125,7 @@
 		1EFA49CE252D15C500602904 /* MarkdownNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EFA49CD252D15C500602904 /* MarkdownNavigationView.swift */; };
 		2C6638E426F3FA660026A2C8 /* DemoLaunchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C6638E226F3FA660026A2C8 /* DemoLaunchViewController.swift */; };
 		2C6638E526F3FA660026A2C8 /* DemoLaunchViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2C6638E326F3FA660026A2C8 /* DemoLaunchViewController.xib */; };
+		2CF09164270BBAF4007A890A /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C21B33254B55BB0061CCBA /* Font.swift */; };
 		5811077226F1603600C7B450 /* NotificationName+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5811077126F1603600C7B450 /* NotificationName+Extension.swift */; };
 		5832E2F5260A86EF0003D783 /* MacLooseNoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5832E2F4260A86EF0003D783 /* MacLooseNoteViewController.swift */; };
 		585718A626F3F7E70028A38D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 585718A526F3F7E70028A38D /* ViewController.swift */; };
@@ -1449,6 +1450,7 @@
 				02398A0F2551E95B009BFC32 /* HighlightElement.swift in Sources */,
 				023989FC2551E8C1009BFC32 /* MarkdownElement.swift in Sources */,
 				02398A072551E92E009BFC32 /* ItalicElement.swift in Sources */,
+				2CF09164270BBAF4007A890A /* Font.swift in Sources */,
 				02B1670D2565907100372EBB /* Colors.swift in Sources */,
 				02398A882551F878009BFC32 /* Font Style Extension.swift in Sources */,
 				02398A0B2551E94E009BFC32 /* UnderlineElement.swift in Sources */,
