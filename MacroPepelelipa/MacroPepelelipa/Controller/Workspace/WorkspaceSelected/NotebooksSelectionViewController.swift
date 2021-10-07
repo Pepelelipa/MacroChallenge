@@ -355,9 +355,21 @@ internal class NotebooksSelectionViewController: ViewController, EntityObserver 
             self.navigationController?.pushViewController(notesPageViewController, animated: true)
         
         } else {
-            let destination = TextEditingContainerViewController(centerViewController: notesPageViewController)
+            guard let firstNote = notebook.notes.first else {
+                return
+            }
             
-            self.navigationController?.pushViewController(destination, animated: true)
+            let notesContainerViewController = TextEditingContainerViewController(centerViewController: notesPageViewController)
+            let detailNavigationViewController = UINavigationController(rootViewController: notesContainerViewController)
+            
+            let indexViewController = NotebookIndexViewController(notebook: notebook, note: firstNote)
+            let mainNavigationViewController = UINavigationController(rootViewController: indexViewController)
+            
+            let splitViewController = UISplitViewController()
+            splitViewController.modalPresentationStyle = .fullScreen
+            splitViewController.viewControllers = [mainNavigationViewController, detailNavigationViewController]
+
+            self.present(splitViewController, animated: true, completion: nil)
         }
     }
     

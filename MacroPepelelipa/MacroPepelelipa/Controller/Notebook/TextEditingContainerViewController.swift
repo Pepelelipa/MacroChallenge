@@ -23,17 +23,6 @@ internal class TextEditingContainerViewController: ViewController,
     
     internal var widthConstraint: NSLayoutConstraint?
     
-    private lazy var notebookIndexButton: UIBarButtonItem = {
-        let item = UIBarButtonItem(ofType: .index, 
-                                   target: self, 
-                                   action: #selector(presentNotebookIndex))
-        
-        item.accessibilityLabel = "Index button label".localized()
-        item.accessibilityHint = "Index button hint".localized()
-        
-        return item
-    }()
-    
     private lazy var presentTipButton: UIBarButtonItem = {
         let item = UIBarButtonItem(image: UIImage(systemName: "info.circle"), style: .plain, target: self, action: #selector(presentTip))
 
@@ -116,9 +105,9 @@ internal class TextEditingContainerViewController: ViewController,
         }
 
         if (try? notesViewController?.note?.getNotebook().getWorkspace().isEnabled) ?? false {
-            navigationItem.rightBarButtonItems = [notebookIndexButton, presentTipButton]
+            navigationItem.rightBarButtonItems = [presentTipButton]
         } else {
-            navigationItem.rightBarButtonItems = [notebookIndexButton, presentTipButton]
+            navigationItem.rightBarButtonItems = [presentTipButton]
         }
         navigationItem.largeTitleDisplayMode = .never
         navigationItem.titleView = markupNavigationView

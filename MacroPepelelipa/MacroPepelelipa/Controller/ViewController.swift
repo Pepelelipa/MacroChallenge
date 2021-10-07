@@ -172,4 +172,21 @@ internal class ViewController: UIViewController {
         let activity = NSUserActivity(activityType: "panel")
         UIApplication.shared.requestSceneSessionActivation(nil, userActivity: activity, options: nil)
     }
+    
+    func addAsChildViewController(type controller: UIViewController, attached toView: UIView) {
+        
+        // Add Child View Controller
+        addChild(controller)
+        
+        // Add Child View as Subview
+        toView.addSubview(controller.view)
+        
+        // Configure Child View
+        controller.view.frame = toView.bounds
+        controller.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        
+        // Notify Child View Controller
+        controller.didMove(toParent: self)
+        
+    }
 }
