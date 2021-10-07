@@ -9,6 +9,7 @@
 import UIKit
 import Database
 import StoreKit
+import MarkdownText
 
 internal class WorkspaceSelectionViewController: ViewController, 
                                                  UISearchResultsUpdating,
@@ -163,6 +164,8 @@ internal class WorkspaceSelectionViewController: ViewController,
 
         self.definesPresentationContext = true
         
+        createOnboarding()
+        
         DataManager.shared().addCreationObserver(self, type: .workspace)
         setEditButtonItem()
     }
@@ -221,6 +224,50 @@ internal class WorkspaceSelectionViewController: ViewController,
     }
     
     // MARK: - Demo Launch
+    
+    private func createOnboarding() {
+        do {
+            let workspace = try DataManager.shared().createWorkspace(named: "Your first workspace".localized())
+            
+            let introductionNotebook = try DataManager.shared().createNotebook(in: workspace, named: "Introduction", colorName: "nb19")
+            let introductionNote = try DataManager.shared().createNote(in: introductionNotebook)
+            introductionNote.title = NSAttributedString(string: "Welcome Introduction Note")
+            let font = UIFont.merriweather?.toFirstHeaderFont()
+            let ok = "Ola".toFontWithDefaultColor(font: font)
+            let introductionParagraphs: [NSAttributedString] = [
+//                "Paragrafo1".
+                "Onboard intro".localized().toNoteDefaulText(),
+                "Workspaces".localized().toNoteH2Text(),
+                "Workspace text".localized().toNoteDefaulText(),
+                "Notebooks".localized().toNoteH2Text(),
+                "Notebook text".localized().toNoteDefaulText(),
+                "Note Taking".localized().toNoteH2Text(),
+                "Writing".localized().toNoteH3Text(),
+                "Writing text".localized().toNoteDefaulText(),
+                "Floating Boxes".localized().toNoteH3Text(),
+                "Floating boxes text".localized().toNoteDefaulText(),
+                "Markdown".localized().toNoteH3Text(),
+                "Markdown text".localized().toNoteDefaulText()
+            ]
+            
+            
+            let customizeNotebook = try DataManager.shared().createNotebook(in: workspace, named: "Customize", colorName: "nb5")
+            
+            
+            
+            let indexNotebook = try DataManager.shared().createNotebook(in: workspace, named: "Index", colorName: "nb18")
+            
+            
+            
+            let examplesNotebook = try DataManager.shared().createNotebook(in: workspace, named: "Examples", colorName: "nb9")
+            
+            
+            
+        } catch {
+            // Precisamos lidar com isso ainda
+            fatalError()
+        }
+    }
     
     private func showDemoLaunchOverlay() {
         let destination = DemoLaunchViewController(nibName: "DemoLaunchViewController", bundle: nil)

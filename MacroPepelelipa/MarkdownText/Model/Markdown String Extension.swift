@@ -18,7 +18,6 @@ internal extension String {
         let mutable = toFontWithDefaultColor(font: Fonts.defaultTextFont)
         return mutable.withForegroundColor(.placeholderColor ?? .placeholderText)
     }
-
     private func toFontWithDefaultColor(font: Any) -> NSMutableAttributedString {
         let range = NSRange(location: 0, length: self.count)
         let mutableString = NSMutableAttributedString(string: self)
