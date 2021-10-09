@@ -373,3 +373,34 @@
 "Transcript Image" = "Transcript Image Portuguese";
 "Markdown Image" = "Markdown Image Portuguese";
 
+// MARK: - Tutorial Notes
+
+// INTRODUCTION
+"Introduction Note Title" = "Introdução";
+"Introduction First Header" = "Apresentação do App";
+"Introduction First Paragraph" = "O PurpleNotebook é um aplicativo de anotações que ajuda estudantes a anotar durante suas aulas sem interrupções e de forma organizada. ";
+"Introduction Second Paragraph" = "Possui uma estrutura planejada para auxiliar na organização das notas ao longo do tempo. ";
+"Introduction Third Paragraph" = "O PurpleNotebook está disponível para Mac, iPhone e iPad. Suas notas são automaticamente sincronizadas e você pode continuar anotando de onde quiser! ";
+"Introduction Fourth Paragraph" = "Baixe na AppStore.";
+
+"Introduction Second Header" = "Hierarquia - Estantes, livros e notas";
+"Introduction Fifth Paragraph" = "Organize suas anotações agrupando-as em cadernos! E distribua seus cadernos em estantes. Tão fácil quanto na vida real. ";
+"Introduction Sixth Paragraph" = "Explore também o índice de cada nota, que é criado de forma automática de acordo com os títulos e subtítulos que você define. ";
+
+// CUSTOMIZE
+"Customize Note Title" = "Personalização";
+"Customize First Header" = "Introdução";
+"Customize First Paragraph" = "Personalize suas notas para destacar o pontos mais relevantes, organizá-las ou deixá-las com uma estética que combina com você. ";
+"Customize Second Paragraph" = "É possível mudar o estilo da escrita, a cor, destacar ou transformar o texto em negrito, itálico e sublinhado. Estas opções estão disponíveis na central de personalização ou através de markdown com os seguintes atalhos: ";
+"Customize Third Paragraph" = "Utilize as diferentes fontes para dar sua cara, marcar partes específicas do texto ou organizar suas notas. Atualmente existem três opções disponíveis *escrever o nome da fonte no tipo*. ";
+"Customize Fourth Paragraph" = "Além disso, não esqueça de utilizar os títulos e subtítulos. Além de tornar sua nota mais organizada, ajudam na criação do índice! ";
+
+// INDEX
+"Index Note Title" = "Indices";
+"Index First Header" = "Introdução";
+"Index First Paragraph" = "Lorem ipsum... ";
+
+// EXAMPLES
+"Examples Note Title" = "Exemplos";
+"Examples First Header" = "Introdução";
+"Examples First Paragraph" = "Lorem ipsum... ";

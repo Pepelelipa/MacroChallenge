@@ -125,6 +125,7 @@
 		1EFA49CE252D15C500602904 /* MarkdownNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EFA49CD252D15C500602904 /* MarkdownNavigationView.swift */; };
 		2C6638E426F3FA660026A2C8 /* DemoLaunchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C6638E226F3FA660026A2C8 /* DemoLaunchViewController.swift */; };
 		2C6638E526F3FA660026A2C8 /* DemoLaunchViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2C6638E326F3FA660026A2C8 /* DemoLaunchViewController.xib */; };
+		2C7AEBF4271229D3008C5217 /* TutorialNotesHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7AEBF3271229D3008C5217 /* TutorialNotesHelper.swift */; };
 		2CF09164270BBAF4007A890A /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C21B33254B55BB0061CCBA /* Font.swift */; };
 		5811077226F1603600C7B450 /* NotificationName+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5811077126F1603600C7B450 /* NotificationName+Extension.swift */; };
 		5832E2F5260A86EF0003D783 /* MacLooseNoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5832E2F4260A86EF0003D783 /* MacLooseNoteViewController.swift */; };
@@ -378,6 +379,7 @@
 		1EFA49CD252D15C500602904 /* MarkdownNavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkdownNavigationView.swift; sourceTree = "<group>"; };
 		2C6638E226F3FA660026A2C8 /* DemoLaunchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoLaunchViewController.swift; sourceTree = "<group>"; };
 		2C6638E326F3FA660026A2C8 /* DemoLaunchViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DemoLaunchViewController.xib; sourceTree = "<group>"; };
+		2C7AEBF3271229D3008C5217 /* TutorialNotesHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialNotesHelper.swift; sourceTree = "<group>"; };
 		5811077126F1603600C7B450 /* NotificationName+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotificationName+Extension.swift"; sourceTree = "<group>"; };
 		5832E2F4260A86EF0003D783 /* MacLooseNoteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacLooseNoteViewController.swift; sourceTree = "<group>"; };
 		585718A526F3F7E70028A38D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -969,6 +971,7 @@
 			isa = PBXGroup;
 			children = (
 				1E91D361255F30B5002FA8F1 /* OnboardingPageViewControllerDataSource.swift */,
+				2C7AEBF3271229D3008C5217 /* TutorialNotesHelper.swift */,
 			);
 			path = Onbording;
 			sourceTree = "<group>";
@@ -1550,6 +1553,7 @@
 				1E9EF4A925225B9B00CC623B /* TextEditingDelegateObserver.swift in Sources */,
 				8DDFEEAC264C55EC00AB9830 /* NoteWrapper.swift in Sources */,
 				D9CE2D4B2565C00A00DF4D2A /* NoteAssignerObserver.swift in Sources */,
+				2C7AEBF4271229D3008C5217 /* TutorialNotesHelper.swift in Sources */,
 				02CD7CA12523B48900A140A3 /* WorkspacesCollectionViewDelegate.swift in Sources */,
 				02919F4825531BFA00C03E27 /* App String Extensions.swift in Sources */,
 				D97EE7C2254B565600A68B06 /* SearchBarObserver.swift in Sources */,

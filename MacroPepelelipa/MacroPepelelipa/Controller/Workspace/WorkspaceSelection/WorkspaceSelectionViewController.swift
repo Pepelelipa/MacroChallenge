@@ -231,38 +231,24 @@ internal class WorkspaceSelectionViewController: ViewController,
             
             let introductionNotebook = try DataManager.shared().createNotebook(in: workspace, named: "Introduction", colorName: "nb19")
             let introductionNote = try DataManager.shared().createNote(in: introductionNotebook)
-            introductionNote.title = NSAttributedString(string: "Welcome Introduction Note")
-            let font = UIFont.merriweather?.toFirstHeaderFont()
-            let ok = "Ola".toFontWithDefaultColor(font: font)
-            let introductionParagraphs: [NSAttributedString] = [
-//                "Paragrafo1".
-                "Onboard intro".localized().toNoteDefaulText(),
-                "Workspaces".localized().toNoteH2Text(),
-                "Workspace text".localized().toNoteDefaulText(),
-                "Notebooks".localized().toNoteH2Text(),
-                "Notebook text".localized().toNoteDefaulText(),
-                "Note Taking".localized().toNoteH2Text(),
-                "Writing".localized().toNoteH3Text(),
-                "Writing text".localized().toNoteDefaulText(),
-                "Floating Boxes".localized().toNoteH3Text(),
-                "Floating boxes text".localized().toNoteDefaulText(),
-                "Markdown".localized().toNoteH3Text(),
-                "Markdown text".localized().toNoteDefaulText()
-            ]
-            
+            introductionNote.title = TutorialNotesHelper.buildIntroductionTitle()
+            introductionNote.text = TutorialNotesHelper.buildIntroductionText()
             
             let customizeNotebook = try DataManager.shared().createNotebook(in: workspace, named: "Customize", colorName: "nb5")
-            
-            
+            let customizeNote = try DataManager.shared().createNote(in: customizeNotebook)
+            customizeNote.title = TutorialNotesHelper.buildCustomizeTitle()
+            customizeNote.text = TutorialNotesHelper.buildCustomizeText()
             
             let indexNotebook = try DataManager.shared().createNotebook(in: workspace, named: "Index", colorName: "nb18")
-            
-            
+            let indexNote = try DataManager.shared().createNote(in: indexNotebook)
+            indexNote.title = TutorialNotesHelper.buildIndexTitle()
+            indexNote.text = TutorialNotesHelper.buildIndexText()
             
             let examplesNotebook = try DataManager.shared().createNotebook(in: workspace, named: "Examples", colorName: "nb9")
-            
-            
-            
+            let examplesNote = try DataManager.shared().createNote(in: examplesNotebook)
+            examplesNote.title = TutorialNotesHelper.buildExamplesTitle()
+            examplesNote.text = TutorialNotesHelper.buildExamplesText()
+                        
         } catch {
             // Precisamos lidar com isso ainda
             fatalError()
