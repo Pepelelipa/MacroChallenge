@@ -9,7 +9,7 @@
 import UIKit
 import Database
 
-internal class SearchResultViewController: UIViewController {
+internal class SearchResultViewController: ViewController {
 
     // MARK: - Variables and Constants
     

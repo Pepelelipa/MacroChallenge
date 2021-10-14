@@ -9,16 +9,16 @@
 import UIKit
 
 internal struct ItalicElement: MarkdownElement {
-    fileprivate static let regex = "(\\s|^)(\\*|_)(?![\\*_\\s])(.+?)(?<![\\*_\\s])(\\2)"
+    fileprivate static let regex = "(-)(.*?)(-)"
     func regularExpression() throws -> NSRegularExpression {
         try NSRegularExpression(pattern: ItalicElement.regex, options: [])
     }
 
     func match(_ match: NSTextCheckingResult, attributedString: NSMutableAttributedString) -> ([NSRange], Any?) {
         // deleting trailing markdown
-        attributedString.deleteCharacters(in: match.range(at: 4))
+        attributedString.deleteCharacters(in: match.range(at: 3))
         // setting bold
-        let range = match.range(at: 3)
+        let range = match.range(at: 2)
         attributedString.enumerateAttribute(.font, in: range, options: .longestEffectiveRangeNotRequired) { (value, atRange, _) in
             if var font = value as? UIFont {
                 if font.hasTrait(.traitItalic) {
@@ -30,7 +30,7 @@ internal struct ItalicElement: MarkdownElement {
             }
         }
         // deleting leading markdown
-        attributedString.deleteCharacters(in: match.range(at: 2))
-        return ([match.range(at: 4), match.range(at: 2)], nil)
+        attributedString.deleteCharacters(in: match.range(at: 1))
+        return ([match.range(at: 3), match.range(at: 1)], nil)
     }
 }

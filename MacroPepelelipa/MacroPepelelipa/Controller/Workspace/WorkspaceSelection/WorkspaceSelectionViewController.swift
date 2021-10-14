@@ -10,34 +10,13 @@ import UIKit
 import Database
 import StoreKit
 
-internal class WorkspaceSelectionViewController: UIViewController, 
+internal class WorkspaceSelectionViewController: ViewController, 
                                                  UISearchResultsUpdating,
                                                  UISearchBarDelegate,
                                                  EntityObserver {
 
     // MARK: - Variables and Constants
-    
-    internal static let newWorspaceCommand: UIKeyCommand = {
-        let command = UIKeyCommand(title: "New workspace".localized(),
-                     image: nil,
-                     action: #selector(btnAddTap),
-                     input: "N",
-                     modifierFlags: .command,
-                     propertyList: nil)
-        command.discoverabilityTitle = "New workspace".localized()
-        return command
-    }()
-    
-    internal static let findCommand: UIKeyCommand = {
-        let command = UIKeyCommand(title: "Find".localized(),
-                     image: nil,
-                     action: #selector(startSearch),
-                     input: "F",
-                     modifierFlags: .command,
-                     propertyList: nil)
-        command.discoverabilityTitle = "Find".localized()
-        return command
-    }()
+    internal var overlayState = true
     
     internal weak var filterObserver: SearchBarObserver?
     private var filterCategory: SearchResultEnum = .all
@@ -112,18 +91,6 @@ internal class WorkspaceSelectionViewController: UIViewController,
         let item = UIBarButtonItem(image: UIImage(systemName: "square.and.pencil"), style: .plain, target: self, action: #selector(addLooseNote))
         return item
     }()
-    
-    private lazy var newWorspaceCommand: UIKeyCommand = {
-        let command = UIKeyCommand(input: "N", modifierFlags: .command, action: #selector(btnAddTap))
-        command.discoverabilityTitle = "New workspace".localized()
-        return command
-    }()
-    
-    private lazy var findCommand: UIKeyCommand = {
-        let command = UIKeyCommand(input: "F", modifierFlags: .command, action: #selector(startSearch))
-        command.discoverabilityTitle = "Find".localized()
-        return command
-    }()
 
     private lazy var onboardingButton: UIBarButtonItem = {
         let item = UIBarButtonItem(ofType: .info, target: self, action: #selector(openOnboarding))
@@ -155,8 +122,11 @@ internal class WorkspaceSelectionViewController: UIViewController,
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        addKeyCommand(WorkspaceSelectionViewController.newWorspaceCommand)
-        addKeyCommand(WorkspaceSelectionViewController.findCommand)
+        newCommand.title = "New workspace".localized()
+        newCommand.discoverabilityTitle = "New workspace".localized()
+        
+        findCommand.title = "Find".localized()
+        findCommand.discoverabilityTitle = "Find".localized()
         
         view.backgroundColor = .rootColor
         navigationItem.rightBarButtonItems = [btnAdd, btnAddLooseNote, onboardingButton]
@@ -181,16 +151,6 @@ internal class WorkspaceSelectionViewController: UIViewController,
             .foregroundColor: UIColor.titleColor ?? .black
         ]
 
-        let time = UserDefaults.standard.integer(forKey: "numberOfTimes")
-        if time == 8 {
-            if let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
-                #if !DEBUG
-                SKStoreReviewController.requestReview(in: scene)
-                #endif
-            }
-        } else {
-            UserDefaults.standard.setValue(time + 1, forKey: "numberOfTimes")
-        }
         self.definesPresentationContext = true
         
         DataManager.shared().addCreationObserver(self, type: .workspace)
@@ -220,6 +180,11 @@ internal class WorkspaceSelectionViewController: UIViewController,
     
     override func viewDidLayoutSubviews() {
         collectionDelegate.frame = view.frame
+        
+        if overlayState == true {
+            showDemoLaunchOverlay()
+            overlayState=false
+        }
     }
 
     override func setEditing(_ editing: Bool, animated: Bool) {
@@ -231,6 +196,17 @@ internal class WorkspaceSelectionViewController: UIViewController,
         } else {
             navigationItem.leftBarButtonItem?.accessibilityValue = "Editing disabled".localized()
         }
+    }
+    
+    // MARK: - Demo Launch
+    
+    private func showDemoLaunchOverlay() {
+        let destination = DemoLaunchViewController(nibName: "DemoLaunchViewController", bundle: nil)
+        destination.isModalInPresentation = true
+        destination.modalTransitionStyle = .crossDissolve
+        destination.modalPresentationStyle = .overFullScreen
+        
+        self.present(destination, animated: false, completion: nil)
     }
     
     // MARK: - UISearchResultsUpdating Functions
@@ -362,7 +338,9 @@ internal class WorkspaceSelectionViewController: UIViewController,
     
     /// Makes the search controller first responder
     @IBAction func startSearch() {
-        self.searchController.isActive = true
+        DispatchQueue.main.async {
+            self.searchController.searchBar.becomeFirstResponder()
+        }
     }
     
     @IBAction func btnAddTap() {
@@ -460,5 +438,15 @@ internal class WorkspaceSelectionViewController: UIViewController,
             alertController.popoverPresentationController?.sourceView = cell
         }
         self.present(alertController, animated: true, completion: nil)
+    }
+
+    // MARK: - Keyboard shortcut handling
+    
+    override func commandN() {
+        btnAddTap()
+    }
+    
+    override func commandF() {
+        startSearch()
     }
 }

@@ -64,36 +64,6 @@ internal class NotesToolbar: UIToolbar {
         return button
     }()
     
-    private lazy var shareNoteButton: UIBarButtonItem = {
-        let button = UIBarButtonItem(image: UIImage(systemName: "square.and.arrow.up"), 
-                                     style: .plain, 
-                                     target: self, 
-                                     action: nil)
-        
-        button.accessibilityLabel = "Share note label".localized()
-        button.accessibilityHint = "Share note hint".localized()
-        
-        if UIDevice.current.userInterfaceIdiom == .mac {
-            let actions = [
-                UIAction(title: "Export note as PDF".localized(),
-                         image: UIImage(systemName: "doc"),
-                         identifier: .init("note"),
-                         state: .off,
-                         handler: shareFile(_:)),
-                UIAction(title: "Export notebook as PDF".localized(),
-                         image: UIImage(systemName: "book.closed"),
-                         identifier: .init("notebook"),
-                         state: .off,
-                         handler: shareFile(_:))
-            ]
-            button.menu = UIMenu(title: "Export".localized(), identifier: .share, children: actions)
-        } else {
-            button.action = #selector(shareNote)
-        }
-        
-        return button
-    }()
-    
     private lazy var newNoteButton: UIBarButtonItem = {
         let button = UIBarButtonItem(barButtonSystemItem: .compose, 
                                      target: self, 
@@ -132,9 +102,9 @@ internal class NotesToolbar: UIToolbar {
         let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         
         if UIDevice.current.userInterfaceIdiom == .phone {
-            self.items = [deleteNoteButton, flexibleSpace, addImageButton, flexibleSpace, shareNoteButton]
+            self.items = [deleteNoteButton, flexibleSpace, addImageButton, flexibleSpace]
         } else {
-            self.items = [deleteNoteButton, flexibleSpace, shareNoteButton]
+            self.items = [deleteNoteButton, flexibleSpace]
         }
         
         if hasNewNoteButton {
@@ -159,12 +129,6 @@ internal class NotesToolbar: UIToolbar {
     @IBAction private func shareNote(_ sender: UIBarButtonItem) {
         #if !targetEnvironment(macCatalyst)
         shareNoteTriggered?(sender)
-        #endif
-    }
-    
-    @IBAction private func shareFile(_ action: UIAction) {
-        #if targetEnvironment(macCatalyst)
-        shareFileTriggered?(action.identifier)
         #endif
     }
     

@@ -8,6 +8,6 @@
 
 import Database
 
-internal protocol IndexObserver: class {
+internal protocol IndexObserver: AnyObject {
     func didChangeIndex(to note: NoteEntity)
 }

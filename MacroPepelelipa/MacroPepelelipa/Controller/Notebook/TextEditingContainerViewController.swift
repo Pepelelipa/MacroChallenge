@@ -5,39 +5,16 @@
 //  Created by Leonardo Oliveira on 14/10/20.
 //  Copyright © 2020 Pedro Giuliano Farina. All rights reserved.
 //
-//swiftlint:disable multiple_closures_with_trailing_closure
 
 import UIKit
 import Database
 import PhotosUI
 
-internal class TextEditingContainerViewController: UIViewController, 
+internal class TextEditingContainerViewController: ViewController,
                                                    IndexObserver, 
                                                    MarkupToolBarObserver {
 
     // MARK: - Variables and Constants
-    
-    internal static let deleteCommand: UIKeyCommand = {
-        let command = UIKeyCommand(title: "Delete note".localized(),
-                                   image: nil,
-                                   action: #selector(deleteNote),
-                                   input: "\u{8}",
-                                   modifierFlags: .command,
-                                   propertyList: nil)
-        command.discoverabilityTitle = "Delete note".localized()
-        return command
-    }()
-    
-    internal static let newNoteCommand: UIKeyCommand = {
-        let command = UIKeyCommand(title: "New note".localized(),
-                                   image: nil,
-                                   action: #selector(createNote),
-                                   input: "N",
-                                   modifierFlags: .command,
-                                   propertyList: nil)
-        command.discoverabilityTitle = "New note".localized()
-        return command
-    }()
     
     private var movement: CGFloat?
     private var isShowingIndex: Bool = false
@@ -126,8 +103,11 @@ internal class TextEditingContainerViewController: UIViewController,
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        addKeyCommand(TextEditingContainerViewController.deleteCommand)
-        addKeyCommand(TextEditingContainerViewController.newNoteCommand)
+        newCommand.title = "New note".localized()
+        newCommand.discoverabilityTitle = "New note".localized()
+        
+        deleteCommand.title = "Delete note".localized()
+        deleteCommand.discoverabilityTitle = "Delete note".localized()
         
         if let centerViewController = self.centerViewController {
             showCenterViewController(centerViewController)
@@ -382,5 +362,15 @@ internal class TextEditingContainerViewController: UIViewController,
     // This method is called when the UIBarButton for the done button is pressed and it closes the keyboard
     @IBAction private func closeKeyboard() {
         self.view.endEditing(true)
+    }
+    
+    // MARK: - Keyboard shortcut handling
+    
+    override func commandDelete() {
+       deleteNote()
+    }
+    
+    override func commandN() {
+        createNote()
     }
 }

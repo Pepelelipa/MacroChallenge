@@ -9,7 +9,7 @@
 import UIKit
 import Database
 
-internal class AddNoteViewController: UIViewController, AddNoteObserver {
+internal class AddNoteViewController: ViewController, AddNoteObserver {
     
     // MARK: - Variables and Constants
     
@@ -156,6 +156,19 @@ internal class AddNoteViewController: UIViewController, AddNoteObserver {
         NSLayoutConstraint.activate(constraints)
     }
     
+    override func pressesBegan(_ presses: Set<UIPress>, with event: UIPressesEvent?) {
+        guard let key = presses.first?.key else {
+            return
+        }
+
+        switch key.keyCode {
+        case .keyboardEscape:
+            self.dismiss(animated: true, completion: nil)
+        default:
+            super.pressesBegan(presses, with: event)
+        }
+    }
+    
     // MARK: - AddNoteObserver functions
     
     /**
@@ -203,7 +216,6 @@ internal class AddNoteViewController: UIViewController, AddNoteObserver {
                 }
                 let note = try DataManager.shared().createNote(in: guardedNotebook)
                 note.title = text.toStyle(font: .defaultHeader, .h1)
-                try note.save()
             } catch {
                 let title = "Error creating a new Note".localized()
                 let message = "A new Note could not be created".localized()

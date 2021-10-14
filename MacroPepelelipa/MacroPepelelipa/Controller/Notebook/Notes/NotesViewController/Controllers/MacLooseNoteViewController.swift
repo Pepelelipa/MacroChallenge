@@ -39,7 +39,6 @@ class MacLooseNoteViewController: MacNotesViewController, NoteAssignerObserver {
         return mrkConf
     }()
     
-    
     private lazy var markupNavigationView: MarkdownNavigationView = {
         let mrkView = MarkdownNavigationView(frame: .zero, configurations: markupConfig)
         mrkView.backgroundColor = .clear
@@ -92,17 +91,6 @@ class MacLooseNoteViewController: MacNotesViewController, NoteAssignerObserver {
                 self.presentCameraPicker()
             case .init("library"):
                 self.presentPhotoPicker()
-            default:
-                break
-            }
-        }
-        
-        self.setShareButton { identifier in
-            switch identifier {
-            case .init("note"):
-                self.exportNote()
-            case .init("notebook"):
-                self.exportNotebook()
             default:
                 break
             }

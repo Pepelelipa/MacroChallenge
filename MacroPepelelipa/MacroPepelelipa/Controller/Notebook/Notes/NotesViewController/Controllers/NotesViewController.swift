@@ -12,7 +12,7 @@ import Database
 import PhotosUI
 import MarkdownText
 
-internal class NotesViewController: UIViewController,
+internal class NotesViewController: ViewController,
                                     ResizeHandleReceiver,
                                     BoxViewReceiver {
     
@@ -30,26 +30,6 @@ internal class NotesViewController: UIViewController,
     }
     
     typealias CustomView = NotesView
-    
-    #if !targetEnvironment(macCatalyst)
-    private static let boldfaceKeyCommand: UIKeyCommand = {
-        let command = UIKeyCommand(input: "B", modifierFlags: .command, action: #selector(toggleFormat(_:)))
-        command.discoverabilityTitle = "Bold".localized()
-        return command
-    }()
-    
-    private static let italicsKeyCommand: UIKeyCommand = {
-        let command = UIKeyCommand(input: "I", modifierFlags: .command, action: #selector(toggleFormat(_:)))
-        command.discoverabilityTitle = "Italic".localized()
-        return command
-    }()
-    
-    static let underlineKeyCommand: UIKeyCommand = {
-        let command = UIKeyCommand(input: "U", modifierFlags: .command, action: #selector(toggleFormat(_:)))
-        command.discoverabilityTitle = "Underline".localized()
-        return command
-    }()
-    #endif
     
     private var resizeHandles = [ResizeHandleView]()
     private var initialCenter = CGPoint()
@@ -142,14 +122,25 @@ internal class NotesViewController: UIViewController,
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        SceneDelegate.sensitiveContent = self
+        
+        newCommand.title = "New note".localized()
+        newCommand.discoverabilityTitle = "New note".localized()
+        
+        deleteCommand.title = "Delete note".localized()
+        deleteCommand.discoverabilityTitle = "Delete note".localized()
         
         #if !targetEnvironment(macCatalyst)
-        addKeyCommand(NotesViewController.boldfaceKeyCommand)
-        addKeyCommand(NotesViewController.italicsKeyCommand)
-        addKeyCommand(NotesViewController.underlineKeyCommand)
+        boldCommand.title = "Bold".localized()
+        boldCommand.discoverabilityTitle = "Bold".localized()
+        
+        italicCommand.title = "Italic".localized()
+        italicCommand.discoverabilityTitle = "Italic".localized()
+        
+        underlineCommand.title = "Underline".localized()
+        underlineCommand.discoverabilityTitle = "Underline".localized()
         #endif
+
+        textView.becomeFirstResponder()
         
         NotificationCenter.default.addObserver(
             self,
@@ -527,6 +518,44 @@ internal class NotesViewController: UIViewController,
             self.present(alertController, animated: true, completion: nil)
         }
     }
+    
+    // MARK: - Keyboard shortcut handling
+    
+    override func commandN() {
+        guard let navigationController = UIApplication.shared.windows.first?.rootViewController as? UINavigationController,
+              let viewController = navigationController.visibleViewController as? TextEditingContainerViewController else {
+            return
+        }
+        
+        viewController.commandN()
+    }
+    
+    override func commandDelete() {
+        guard let navigationController = UIApplication.shared.windows.first?.rootViewController as? UINavigationController,
+              let viewController = navigationController.visibleViewController as? TextEditingContainerViewController else {
+            return
+        }
+
+        viewController.commandDelete()
+    }
+    
+    override func commandB() {
+        #if !targetEnvironment(macCatalyst)
+        toggleFormat(boldCommand)
+        #endif
+    }
+    
+    override func commandI() {
+        #if !targetEnvironment(macCatalyst)
+        toggleFormat(italicCommand)
+        #endif
+    }
+    
+    override func commandU() {
+        #if !targetEnvironment(macCatalyst)
+        toggleFormat(underlineCommand)
+        #endif
+    }
 }
 
 // MARK: - TextEditingDelegateObserver functions
@@ -605,16 +634,4 @@ extension NotesViewController: MarkupToolBarObserver {
     @objc internal func openPopOver() {}
     
     @objc internal func importImage() {}
-}
-
-// MARK: - SensitiveContentController
-extension NotesViewController: SensitiveContentController {
-    internal func saveSensitiveContent() {
-        guard !isSaving else {
-            return
-        }
-        isSaving = true
-        try? note?.save()
-        isSaving = false
-    }
 }

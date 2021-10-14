@@ -32,7 +32,10 @@ public extension UIFont {
 
     func toFirstHeaderFont() -> UIFont {
         if UIDevice.current.userInterfaceIdiom == .pad || UIDevice.current.userInterfaceIdiom == .mac {
-            return self.withSize(32).bold() ?? .boldSystemFont(ofSize: 32)
+            if self.familyName == UIFont.dancingScript?.familyName {
+                return self.withSize(36).bold() ?? .boldSystemFont(ofSize: 36)
+            }
+            return self.withSize(30).bold() ?? .boldSystemFont(ofSize: 30)
         } else {
             return self.withSize(26).bold() ?? .boldSystemFont(ofSize: 26)
         }
@@ -40,6 +43,9 @@ public extension UIFont {
 
     func toSecondHeaderFont() -> UIFont {
         if UIDevice.current.userInterfaceIdiom == .pad || UIDevice.current.userInterfaceIdiom == .mac {
+            if self.familyName == UIFont.dancingScript?.familyName {
+                return self.withSize(30).bold() ?? .boldSystemFont(ofSize: 30)
+            }
             return self.withSize(26.5).bold() ?? .boldSystemFont(ofSize: 26.5)
         } else {
             return self.withSize(20).bold() ?? .boldSystemFont(ofSize: 20)
@@ -48,6 +54,9 @@ public extension UIFont {
 
     func toThirdHeaderFont() -> UIFont {
         if UIDevice.current.userInterfaceIdiom == .pad || UIDevice.current.userInterfaceIdiom == .mac {
+            if self.familyName == UIFont.dancingScript?.familyName {
+                return self.withSize(26).bold() ?? .boldSystemFont(ofSize: 26)
+            }
             return self.withSize(22).bold() ?? .boldSystemFont(ofSize: 22)
         } else {
             return self.withSize(18).bold() ?? .boldSystemFont(ofSize: 18)

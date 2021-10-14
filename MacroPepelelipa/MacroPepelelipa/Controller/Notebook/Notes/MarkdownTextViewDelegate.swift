@@ -9,7 +9,7 @@
 import UIKit
 import MarkdownText
 
-internal protocol MarkdownObserver: class {
+internal protocol MarkdownObserver: AnyObject {
     func didChangeSelection(_ textView: UITextView)
 }
 
@@ -41,15 +41,13 @@ internal class AppMarkdownTextViewDelegate: MarkdownTextViewDelegate {
         }
     }
 
-    override func textViewDidBeginEditing(_ textView: UITextView) {
-        super.textViewDidBeginEditing(textView)
+    func textViewDidBeginEditing(_ textView: UITextView) {
         for observer in textObservers {
             observer.textEditingDidBegin()
         }
     }
 
-    override func textViewDidEndEditing(_ textView: UITextView) {
-        super.textViewDidEndEditing(textView)
+    func textViewDidEndEditing(_ textView: UITextView) {
         for observer in textObservers {
             observer.textEditingDidEnd()
         }

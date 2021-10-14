@@ -9,6 +9,7 @@ What kind of change does your code introduce? Put an ```x``` in the box that app
 **NOTE: Please do not create MRs with different purposes. Each MR must have a single purpose: Hotfix, New Feature, or Structural Change.**
 
 - [ ] Hotfix.
+- [ ] Bugfix.
 - [ ] New Feature.
 - [ ] Structural Change.
 

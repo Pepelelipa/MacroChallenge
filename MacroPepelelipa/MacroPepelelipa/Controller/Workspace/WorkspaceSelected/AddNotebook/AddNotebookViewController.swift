@@ -9,7 +9,7 @@
 import UIKit
 import Database
 
-internal class AddNotebookViewController: UIViewController {
+internal class AddNotebookViewController: ViewController {
     
     // MARK: - Variables and Constants
 
@@ -218,6 +218,19 @@ internal class AddNotebookViewController: UIViewController {
         }
     }
     
+    override func pressesBegan(_ presses: Set<UIPress>, with event: UIPressesEvent?) {
+        guard let key = presses.first?.key else {
+            return
+        }
+
+        switch key.keyCode {
+        case .keyboardEscape:
+            self.dismiss(animated: true, completion: nil)
+        default:
+            super.pressesBegan(presses, with: event)
+        }
+    }
+    
     // MARK: - Functions
 
     private func checkBtnEnabled() {
@@ -273,7 +286,6 @@ internal class AddNotebookViewController: UIViewController {
             if let notebook = notebook {
                 notebook.name = text
                 notebook.colorName = notebookColorName
-                try notebook.save()
             } else {
                 _ = try DataManager.shared().createNotebook(in: workspace, named: text, colorName: notebookColorName)
             }

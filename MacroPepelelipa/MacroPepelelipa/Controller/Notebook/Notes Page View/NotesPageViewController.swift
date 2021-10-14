@@ -136,7 +136,6 @@ internal class NotesPageViewController: UIPageViewController,
         }
         #endif
         
-        
         notesViewController.setDeleteNoteButton {
             self.deleteNote()
         }
@@ -152,18 +151,7 @@ internal class NotesPageViewController: UIPageViewController,
             }
         }
         
-        #if targetEnvironment(macCatalyst)
-        notesViewController.setShareButton { identifier in
-            switch identifier {
-            case .init("note"):
-                notesViewController.exportNote()
-            case .init("notebook"):
-                notesViewController.exportNotebook()
-            default:
-                break
-            }
-        }
-        #else
+        #if !targetEnvironment(macCatalyst)
         notesViewController.setShareButton { (sender) in
             guard let userNotebook = self.notebook else {
                 return

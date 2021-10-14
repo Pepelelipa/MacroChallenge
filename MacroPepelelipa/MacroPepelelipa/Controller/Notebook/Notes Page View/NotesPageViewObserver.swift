@@ -8,6 +8,6 @@
 
 import Database
 
-internal protocol NotesPageViewObserver: class {
+internal protocol NotesPageViewObserver: AnyObject {
     func updateNotes(from notebook: NotebookEntity)
 }

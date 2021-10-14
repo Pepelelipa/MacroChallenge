@@ -21,7 +21,7 @@ internal class NoteContentHandler {
                 note.title = textField.attributedText ?? NSAttributedString()
             }
 
-            if textView.text.replacingOccurrences(of: " ", with: "") != "" && !textView.isShowingPlaceholder {
+            if textView.text.replacingOccurrences(of: " ", with: "") != "" {
                 note.text = textView.attributedText ?? NSAttributedString()
             } else {
                 note.text = NSAttributedString()
@@ -47,11 +47,6 @@ internal class NoteContentHandler {
                     entity.height = Float(imageBox.frame.height)
                 }
             }
-            try note.save()
-        } catch {
-            let title = "Error saving the notebook".localized()
-            let message = "The Notebook could not be saved".localized()
-            ConflictHandlerObject().genericErrorHandling(title: title, message: message)
         }
     }
 }

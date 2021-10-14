@@ -5,21 +5,13 @@
 //  Created by Pedro Giuliano Farina on 03/11/20.
 //  Copyright © 2020 Pedro Giuliano Farina. All rights reserved.
 //
-//swiftlint:disable function_body_length cyclomatic_complexity
+//swiftlint:disable function_body_length cyclomatic_complexity switch_case_alignment
 
 import UIKit
 
 public class MarkdownTextView: UITextView {
 
     // MARK: - Variables and Constants
-    public var placeholder: String? {
-        didSet {
-            if isShowingPlaceholder {
-                attributedText = placeholder?.toPlaceholder()
-            }
-        }
-    }
-
     internal private(set) var activeAttributes: [NSAttributedString.Key: Any] = [:]
 
     public internal(set) var activeFont: UIFont {
@@ -35,6 +27,12 @@ public class MarkdownTextView: UITextView {
             activeAttributes[.font] = newValue
         }
     }
+
+    private lazy var hoverGesture: UIHoverGestureRecognizer = {
+        let gesture = UIHoverGestureRecognizer(target: self, action: #selector(hovering(_:)))
+        return gesture
+    }()
+
     ///Sets font value as active and adds font to selection
     public func setFont(to font: UIFont) {
         activeFont = font
@@ -150,9 +148,6 @@ public class MarkdownTextView: UITextView {
         }
     }
 
-    public private(set) var animator: UIDynamicAnimator?
-    public internal(set) var isShowingPlaceholder: Bool = true
-
     // MARK: - Initializers
 
     public init(frame: CGRect) {
@@ -166,14 +161,7 @@ public class MarkdownTextView: UITextView {
     }
 
     public func setText(_ attributedText: NSAttributedString?) {
-        if let text = attributedText,
-           text.string != "" {
-            isShowingPlaceholder = false
-            self.attributedText = attributedText
-        } else if self.attributedText.string == "" {
-            isShowingPlaceholder = true
-            self.attributedText = placeholder?.toPlaceholder()
-        }
+        self.attributedText = attributedText
     }
 
     private func setup() {
@@ -192,8 +180,7 @@ public class MarkdownTextView: UITextView {
         isHighlighted = false
         isUnderlined = false
         activeFont = Fonts.defaultTextFont
-
-        animator = UIDynamicAnimator(referenceView: self)
+        addGestureRecognizer(hoverGesture)
     }
 
     public var markdownDelegate: MarkdownTextViewDelegate? {
@@ -204,14 +191,9 @@ public class MarkdownTextView: UITextView {
 
     ///Inserts text in text view
     public override func insertText(_ text: String) {
-        if text != "" {
-            if isShowingPlaceholder {
-                self.text = ""
-            }
-        } else {
+        if text == "" {
             return
         }
-        isShowingPlaceholder = false
         let backText = attributedText.smallBackwardSample(1, location: selectedRange.location).string
         let space = (text == " " && backText != "#" && backText != "-" && backText != ".")
         let mutableString = textStorage
@@ -223,6 +205,8 @@ public class MarkdownTextView: UITextView {
         let writeAction = {
             if text.suffix(1) == "\n" {
                 self.activeFont = self.activeFont.toStyle(.paragraph)
+                self.setHighlighted(false)
+                self.setUnderlined(false)
             }
             let newString = NSAttributedString(string: text, attributes: self.activeAttributes)
             mutableString.insert(newString, at: location)
@@ -359,10 +343,6 @@ public class MarkdownTextView: UITextView {
      - type: The type of list to be added (bullet, numeric or quote)
      */
     public func addList(_ type: ListStyle, at location: Int? = nil) {
-        //Checkin not placeholder
-        if isShowingPlaceholder {
-            return
-        }
         //Where to start
         let targetLocation = location ?? selectedRange.location
 
@@ -551,6 +531,17 @@ public class MarkdownTextView: UITextView {
             toggleUnderline(nil)
         default:
             break
+        }
+    }
+
+    @objc internal func hovering(_ recognizer: UIHoverGestureRecognizer) {
+        switch recognizer.state {
+            case .began, .changed:
+                NSCursor.iBeam.set()
+            case .ended:
+                NSCursor.arrow.set()
+            default:
+                break
         }
     }
 }
