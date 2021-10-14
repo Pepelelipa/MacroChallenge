@@ -14,10 +14,6 @@ internal class NotebooksSelectionViewController: ViewController, EntityObserver 
     // MARK: - Variables and Constants
     
     private var collectionDataSource: NotebooksCollectionViewDataSource?
-    private var compactRegularConstraints: [NSLayoutConstraint] = []
-    private var regularCompactConstraints: [NSLayoutConstraint] = []
-    private var regularConstraints: [NSLayoutConstraint] = []
-    private var sharedConstraints: [NSLayoutConstraint] = []
     
     internal private(set) weak var workspace: WorkspaceEntity?
 
@@ -136,10 +132,6 @@ internal class NotebooksSelectionViewController: ViewController, EntityObserver 
         view.addSubview(emptyScreenView)
         
         setConstraints()
-        NSLayoutConstraint.activate(sharedConstraints)
-        if UIDevice.current.userInterfaceIdiom != .pad && UIDevice.current.userInterfaceIdiom != .mac {
-            layoutTrait(traitCollection: UIScreen.main.traitCollection)
-        }
         
         DataManager.shared().addCreationObserver(self, type: .notebook)
         setEditButtonItem()
@@ -164,12 +156,6 @@ internal class NotebooksSelectionViewController: ViewController, EntityObserver 
         collectionDelegate.frame = CGRect(origin: view.frame.origin, size: size)
         collectionView.collectionViewLayout.invalidateLayout()
     }
-    
-    override func viewDidLayoutSubviews() {
-        if UIDevice.current.userInterfaceIdiom == .pad || UIDevice.current.userInterfaceIdiom == .mac {
-            updateConstraintsForIpad()
-        }
-    }
 
     override func setEditing(_ editing: Bool, animated: Bool) {
         super.setEditing(editing, animated: animated)
@@ -185,7 +171,7 @@ internal class NotebooksSelectionViewController: ViewController, EntityObserver 
     // MARK: - Functions
     
     private func setConstraints() {
-        sharedConstraints.append(contentsOf: [
+        NSLayoutConstraint.activate([
             collectionView.topAnchor.constraint(equalTo: view.topAnchor),
             collectionView.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
             collectionView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
@@ -193,29 +179,10 @@ internal class NotebooksSelectionViewController: ViewController, EntityObserver 
             collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             
             emptyScreenView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
-            emptyScreenView.centerYAnchor.constraint(equalTo: self.view.centerYAnchor)
-        ])
-        
-        compactRegularConstraints.append(contentsOf: [
-            emptyScreenView.heightAnchor.constraint(equalTo: self.view.heightAnchor, multiplier: 0.5),
-            emptyScreenView.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 0.75)
-        ])
-        
-        if UIDevice.current.userInterfaceIdiom == .phone {
-            regularCompactConstraints.append(contentsOf: [
-                emptyScreenView.heightAnchor.constraint(equalTo: self.view.heightAnchor),
-                emptyScreenView.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 0.5)
-            ])
-        } else {
-            regularCompactConstraints.append(contentsOf: [
-                emptyScreenView.heightAnchor.constraint(equalTo: self.view.heightAnchor, multiplier: 0.35),
-                emptyScreenView.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 0.35)
-            ])
-        }
-        
-        regularConstraints.append(contentsOf: [
-            emptyScreenView.heightAnchor.constraint(equalTo: self.view.heightAnchor, multiplier: 0.5),
-            emptyScreenView.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 0.25)
+            emptyScreenView.centerYAnchor.constraint(equalTo: self.view.centerYAnchor),
+            emptyScreenView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+                        emptyScreenView.centerYAnchor.constraint(equalTo: view.centerYAnchor,
+                                                                 constant: navigationController?.navigationBar.frame.height ?? 0)
         ])
     }
     
@@ -233,105 +200,6 @@ internal class NotebooksSelectionViewController: ViewController, EntityObserver 
             navigationItem.leftBarButtonItem = nil
             setEditing(false, animated: true)
         }
-    }
-    
-    /**
-     This method layouts the appropriate constraits based on the current trait collection.
-     - Parameter traitCollection: The UITraitCollection that will be used as reference to layout the constraints.
-     */
-    private func layoutTrait(traitCollection: UITraitCollection) {
-        if !sharedConstraints[0].isActive {
-            NSLayoutConstraint.activate(sharedConstraints)
-        }
-        
-        if UIDevice.current.userInterfaceIdiom == .phone {
-            updateConstraintsForIphone(with: traitCollection)
-        } else {
-            updateConstraintsForIpad()
-        }
-    }
-    
-    /**
-     This method updates the view's constraints for an iPhone based on a trait collection.
-     - Parameter traitCollection: The UITraitCollection that will be used as reference to layout the constraints.
-     */
-    private func updateConstraintsForIphone(with traitCollection: UITraitCollection) {
-        var activate = [NSLayoutConstraint]()
-        var deactivate = [NSLayoutConstraint]()
-        
-        if traitCollection.horizontalSizeClass == .compact {
-            deactivate.append(contentsOf: regularConstraints[0].isActive ? regularConstraints : [])
-            deactivate.append(contentsOf: regularCompactConstraints[0].isActive ? regularCompactConstraints : [])
-            activate.append(contentsOf: compactRegularConstraints)
-        } else {
-            deactivate.append(contentsOf: regularConstraints[0].isActive ? regularConstraints : [])
-            deactivate.append(contentsOf: compactRegularConstraints[0].isActive ? compactRegularConstraints : [])
-            activate.append(contentsOf: regularCompactConstraints)
-        }
-        
-        NSLayoutConstraint.deactivate(deactivate)
-        NSLayoutConstraint.activate(activate)
-    }
-    
-    /**
-     This method updates the view's constraints for an iPad based on the device orientation.
-     */
-    private func updateConstraintsForIpad() {
-        var activate = [NSLayoutConstraint]()
-        var deactivate = [NSLayoutConstraint]()
-        
-        let isLandscape = UIDevice.current.orientation.isActuallyLandscape
-        
-        if isLandscape {
-            
-            if view.frame.width+5 == UIScreen.main.bounds.width/2 {
-                // Multitasking half screen
-                deactivate.append(contentsOf: regularConstraints[0].isActive ? regularConstraints : [])
-                deactivate.append(contentsOf: regularCompactConstraints[0].isActive ? regularCompactConstraints : [])
-                activate.append(contentsOf: compactRegularConstraints)
-                
-            } else if view.frame.width < UIScreen.main.bounds.width/2 {
-                // Multitasking less than half screen
-                deactivate.append(contentsOf: regularConstraints[0].isActive ? regularConstraints : [])
-                deactivate.append(contentsOf: regularCompactConstraints[0].isActive ? regularCompactConstraints : [])
-                activate.append(contentsOf: compactRegularConstraints)
-                
-            } else if view.frame.width == UIScreen.main.bounds.width {
-                // Full screen
-                deactivate.append(contentsOf: compactRegularConstraints[0].isActive ? compactRegularConstraints : [])
-                deactivate.append(contentsOf: regularCompactConstraints[0].isActive ? regularCompactConstraints : [])
-                activate.append(contentsOf: regularConstraints)
-                
-            } else {
-                // Multitasking more than half screen
-                deactivate.append(contentsOf: compactRegularConstraints[0].isActive ? compactRegularConstraints : [])
-                deactivate.append(contentsOf: regularConstraints[0].isActive ? regularConstraints : [])
-                activate.append(contentsOf: regularCompactConstraints)
-            }
-            
-        } else {
-            
-            if view.frame.width < UIScreen.main.bounds.width/2 {
-                // Multitasking less than half screen
-                deactivate.append(contentsOf: regularConstraints[0].isActive ? regularConstraints : [])
-                deactivate.append(contentsOf: regularCompactConstraints[0].isActive ? regularCompactConstraints : [])
-                activate.append(contentsOf: compactRegularConstraints)
-            
-            } else if view.frame.width == UIScreen.main.bounds.width {
-                // Full screen
-                deactivate.append(contentsOf: compactRegularConstraints[0].isActive ? compactRegularConstraints : [])
-                deactivate.append(contentsOf: regularConstraints[0].isActive ? regularConstraints : [])
-                activate.append(contentsOf: regularCompactConstraints)
-            } else {
-                // Multitasking more than half screen
-                deactivate.append(contentsOf: regularConstraints[0].isActive ? regularConstraints : [])
-                deactivate.append(contentsOf: regularCompactConstraints[0].isActive ? regularCompactConstraints : [])
-                activate.append(contentsOf: compactRegularConstraints)
-            }
-        }
-        
-        NSLayoutConstraint.deactivate(deactivate)
-        NSLayoutConstraint.activate(activate)
     }
     
     private func presentDestination(for device: UIUserInterfaceIdiom, notebook: NotebookEntity) {
