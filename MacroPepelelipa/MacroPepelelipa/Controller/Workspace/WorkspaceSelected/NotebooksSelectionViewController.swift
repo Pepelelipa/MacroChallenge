@@ -81,10 +81,6 @@ internal class NotebooksSelectionViewController: UIViewController, EntityObserve
         view.isHidden = true
         view.translatesAutoresizingMaskIntoConstraints = false
         
-        if UIDevice.current.userInterfaceIdiom == .phone {
-            view.isLandscape = UIDevice.current.orientation.isActuallyLandscape
-        }
-        
         return view
     }()
 
@@ -182,15 +178,6 @@ internal class NotebooksSelectionViewController: UIViewController, EntityObserve
     override func viewDidLayoutSubviews() {
         if UIDevice.current.userInterfaceIdiom == .pad || UIDevice.current.userInterfaceIdiom == .mac {
             updateConstraintsForIpad()
-        }
-    }
-    
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
-        layoutTrait(traitCollection: traitCollection)
-        
-        if UIDevice.current.userInterfaceIdiom == .phone {
-            emptyScreenView.isLandscape = UIDevice.current.orientation.isActuallyLandscape
         }
     }
 

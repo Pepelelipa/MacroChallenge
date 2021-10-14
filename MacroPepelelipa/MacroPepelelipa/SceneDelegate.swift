@@ -35,7 +35,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window?.makeKeyAndVisible()
         
         if UIDevice.current.userInterfaceIdiom == .mac {
-            scene.sizeRestrictions?.minimumSize = CGSize(width: UIScreen.main.bounds.width/2, height: UIScreen.main.bounds.height/2)
+            scene.sizeRestrictions?.minimumSize = CGSize(width: UIScreen.main.bounds.width/3,
+                                                         height: UIScreen.main.bounds.height/1.5)
         }
     }
 

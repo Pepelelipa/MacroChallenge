@@ -95,7 +95,7 @@
 "Error fetching the workspaces" = "Erro ao buscar as estantes";
 "The database could not fetch the workspace" = "A data-base não foi capaz de buscar as estantes";
 "The Workspaces could not be fetched" = "As estantes não puderam ser buscadas";
-"No workspace" = "Você não tem nenhuma estante. Que tal criar uma para começar?";
+"No workspace" = "Você não tem nenhuma estante. \nQue tal criar uma para começar?";
 "Create workspace" = "Criar estante";
 "No notebook" = "Você não tem nenhum caderno nesta estante. Crie um para começar!";
 "Create notebook" = "Criar caderno";
