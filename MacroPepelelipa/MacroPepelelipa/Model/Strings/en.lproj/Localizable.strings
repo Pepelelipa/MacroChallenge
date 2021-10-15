@@ -373,16 +373,35 @@
 // MARK: - Tutorial Notes
 
 // INTRODUCTION
-"Introduction Note Title" = "Introduction";
-"Introduction First Header" = "Apresentação do App";
-"Introduction First Paragraph" = "O PurpleNotebook é um aplicativo de anotações que ajuda estudantes a anotar durante suas aulas sem interrupções e de forma organizada. ";
-"Introduction Second Paragraph" = "Possui uma estrutura planejada para auxiliar na organização das notas ao longo do tempo. ";
-"Introduction Third Paragraph" = "O PurpleNotebook está disponível para Mac, iPhone e iPad. Suas notas são automaticamente sincronizadas e você pode continuar anotando de onde quiser! ";
-"Introduction Fourth Paragraph" = "Baixe na AppStore.";
+"Introduction Note Title" = "Presentation";
+"Introduction First Paragraph 01" = "O PurpleNotebook é um aplicativo de ";
+"Introduction First Paragraph 02" = "anotações";
+"Introduction First Paragraph 03" = " que ajuda estudantes a anotar durante suas aulas sem ";
+"Introduction First Paragraph 04" = "interrupções";
+"Introduction First Paragraph 05" = " e de forma ";
+"Introduction First Paragraph 06" = "organizada.";
 
-"Introduction Second Header" = "Hierarquia - Estantes, livros e notas";
-"Introduction Fifth Paragraph" = "Organize suas anotações agrupando-as em cadernos! E distribua seus cadernos em estantes. Tão fácil quanto na vida real. ";
-"Introduction Sixth Paragraph" = "Explore também o índice de cada nota, que é criado de forma automática de acordo com os títulos e subtítulos que você define. ";
+"Introduction Second Paragraph 01" = "Possui uma estrutura planejada para auxiliar na ";
+"Introduction Second Paragraph 02" = "organização";
+"Introduction Second Paragraph 03" = " das notas ao longo do tempo. ";
+
+"Introduction Third Paragraph 01" = "O PurpleNotebook está disponível para ";
+"Introduction Third Paragraph 02" = "Mac, iPhone e iPad";
+"Introduction Third Paragraph 03" = ". Suas notas são ";
+"Introduction Third Paragraph 04" = "automaticamente";
+"Introduction Third Paragraph 05" = "sincronizadas e você pode continuar anotando de onde quiser! ";
+
+"Introduction Fourth Paragraph 01" = "Baixe ";
+"Introduction Fourth Paragraph 02" = "agora";
+"Introduction Fourth Paragraph 03" = " mesmo na AppStore e aproveite todos os recursos do ";
+"Introduction Fourth Paragraph 04" = "PurpleNotebook!";
+
+"Introduction Fifth Paragraph 01" = "Ainda com dúvidas? Veja os ";
+"Introduction Fifth Paragraph 02" = "outros cadernos";
+"Introduction Fifth Paragraph 03" = " e descubra mais sobre as ";
+"Introduction Fifth Paragraph 04" = "funcionalidades";
+"Introduction Fifth Paragraph 05" = ".";
+
 
 // CUSTOMIZE
 "Customize Note Title" = "Customization";

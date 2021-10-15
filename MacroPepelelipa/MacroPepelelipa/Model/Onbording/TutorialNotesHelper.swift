@@ -13,6 +13,9 @@ struct TutorialNotesHelper {
     static let breakLine = NSAttributedString(string: "\n")
     static let headerFont = UIFont.merriweather?.toFirstHeaderFont() ?? UIFont.defaultHeader
     static let paragraphFont = UIFont.merriweather?.toParagraphFont() ?? UIFont.defaultFont
+    static let paragraphBoldFont = UIFont.merriweather?.toParagraphFont().bold() ?? UIFont.defaultFont
+    static let paragraphUnderlinedFont = UIFont.merriweather?.toParagraphFont() ?? UIFont.defaultFont
+    static let paragraphItalicFont = UIFont.merriweather?.toParagraphFont().italic() ?? UIFont.defaultFont
     
     static func buildIntroductionTitle() -> NSAttributedString {
         return "Introduction Note Title".localized().toFontWithDefaultColor(font: headerFont)
@@ -20,14 +23,21 @@ struct TutorialNotesHelper {
     
     static func buildIntroductionText() -> NSAttributedString {
         let resultText = NSMutableAttributedString()
+        let underlineNumber = NSNumber.init(value: NSUnderlineStyle.single.rawValue)
         
-        resultText.append("Introduction First Header".localized().toFontWithDefaultColor(font: headerFont))
+        resultText.append("Introduction First Paragraph 01".localized().toFontWithDefaultColor(font: paragraphFont))
+        resultText.append("Introduction First Paragraph 02".localized().toFontWithDefaultColor(font: paragraphBoldFont))
+        resultText.append("Introduction First Paragraph 03".localized().toFontWithDefaultColor(font: paragraphFont))
+        resultText.append("Introduction First Paragraph 04".localized().toFontWithDefaultColor(font: paragraphItalicFont))
+        resultText.append("Introduction First Paragraph 05".localized().toFontWithDefaultColor(font: paragraphFont))
+        resultText.append("Introduction First Paragraph 06".localized().toFontWithDefaultColor(font: paragraphItalicFont))
         resultText.append(breakLine)
         resultText.append(breakLine)
-        resultText.append("Introduction First Paragraph".localized().toFontWithDefaultColor(font: paragraphFont))
-        resultText.append(breakLine)
-        resultText.append(breakLine)
-        resultText.append("Introduction Second Paragraph".localized().toFontWithDefaultColor(font: paragraphFont))
+        resultText.append("Introduction Second Paragraph 01".localized().toFontWithDefaultColor(font: paragraphFont))
+        let intro2P_02 = "Introduction Second Paragraph 02".localized().toFontWithDefaultColor(font: paragraphFont)
+        intro2P_02.addAttribute(.underlineStyle, value: underlineNumber, range: NSRange(location: 0, length: intro2P_02.length))
+        resultText.append(intro2P_02)
+        resultText.append("Introduction Second Paragraph 03".localized().toFontWithDefaultColor(font: paragraphFont))
         resultText.append(breakLine)
         resultText.append(breakLine)
         resultText.append("Introduction Third Paragraph".localized().toFontWithDefaultColor(font: paragraphFont))
@@ -35,9 +45,6 @@ struct TutorialNotesHelper {
         resultText.append(breakLine)
         resultText.append("Introduction Fourth Paragraph".localized().toFontWithDefaultColor(font: paragraphFont))
         
-        resultText.append(breakLine)
-        resultText.append(breakLine)
-        resultText.append("Introduction Second Header".localized().toFontWithDefaultColor(font: headerFont))
         resultText.append(breakLine)
         resultText.append(breakLine)
         resultText.append("Introduction Fifth Paragraph".localized().toFontWithDefaultColor(font: paragraphFont))
@@ -103,3 +110,4 @@ struct TutorialNotesHelper {
     }
     
 }
+
