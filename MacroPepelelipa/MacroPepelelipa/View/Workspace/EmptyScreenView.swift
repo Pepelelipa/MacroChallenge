@@ -19,7 +19,6 @@ class EmptyScreenView: UIView {
     
     private var portraitConstraints = [NSLayoutConstraint]()
     private var landscapeConstraints = [NSLayoutConstraint]()
-
     internal var isLandscape: Bool = false {
         didSet {
             imageView.isHidden = isLandscape
@@ -33,7 +32,7 @@ class EmptyScreenView: UIView {
             }
         }
     }
-    
+
     private lazy var stackView: UIStackView = {
         let stack = UIStackView(frame: .zero)
         
@@ -43,6 +42,7 @@ class EmptyScreenView: UIView {
         
         stack.addArrangedSubview(descriptionLabel)
         stack.addArrangedSubview(imageView)
+
         stack.addArrangedSubview(button)
         stack.spacing = 1
         
@@ -76,7 +76,7 @@ class EmptyScreenView: UIView {
         imageView.setContentCompressionResistancePriority(UILayoutPriority(rawValue: 749), for: .vertical)
         return imageView
     }()
-    
+
     private lazy var button: UIButton = {
         let button = RoundCornerButton(textColor: UIColor(named: "Action"), fillColor: .clear, borderColor: UIColor(named: "Action"), cornerRadius: 10)
         button.setTitle(buttonTitle, for: .normal)
@@ -124,7 +124,7 @@ class EmptyScreenView: UIView {
             
             imageView.widthAnchor.constraint(equalTo: widthAnchor),
             imageView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.6),
-            
+
             descriptionLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
             imageView.centerXAnchor.constraint(equalTo: centerXAnchor),
             button.centerXAnchor.constraint(equalTo: centerXAnchor)
@@ -138,7 +138,7 @@ class EmptyScreenView: UIView {
         landscapeConstraints = [
             descriptionLabel.widthAnchor.constraint(equalTo: widthAnchor),
             descriptionLabel.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.45),
-            
+
             button.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.5),
             button.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.15)
         ]
