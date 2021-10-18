@@ -129,6 +129,7 @@
 		5811077226F1603600C7B450 /* NotificationName+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5811077126F1603600C7B450 /* NotificationName+Extension.swift */; };
 		5832E2F5260A86EF0003D783 /* MacLooseNoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5832E2F4260A86EF0003D783 /* MacLooseNoteViewController.swift */; };
 		585718A626F3F7E70028A38D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 585718A526F3F7E70028A38D /* ViewController.swift */; };
+		8D79BFE22718E95500891844 /* RoundCornerButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D79BFE12718E95500891844 /* RoundCornerButton.swift */; };
 		8DDFEEAC264C55EC00AB9830 /* NoteWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDFEEAB264C55EC00AB9830 /* NoteWrapper.swift */; };
 		A7026CDF25659B2400B8FC78 /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C21B33254B55BB0061CCBA /* Font.swift */; };
 		A71E2C1D2538EEB8000DA164 /* NotesPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71E2C1B2538EEB8000DA164 /* NotesPageViewController.swift */; };
@@ -382,6 +383,7 @@
 		5832E2F4260A86EF0003D783 /* MacLooseNoteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacLooseNoteViewController.swift; sourceTree = "<group>"; };
 		585718A526F3F7E70028A38D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		58E145A32636F9EC0048C6AA /* MacroPepelelipaDevelop.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MacroPepelelipaDevelop.entitlements; sourceTree = "<group>"; };
+		8D79BFE12718E95500891844 /* RoundCornerButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundCornerButton.swift; sourceTree = "<group>"; };
 		8DDFEEAB264C55EC00AB9830 /* NoteWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteWrapper.swift; sourceTree = "<group>"; };
 		A71E2C1B2538EEB8000DA164 /* NotesPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotesPageViewController.swift; sourceTree = "<group>"; };
 		A71E2C1C2538EEB8000DA164 /* NotesPageViewControllerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotesPageViewControllerDelegate.swift; sourceTree = "<group>"; };
@@ -890,6 +892,7 @@
 		02DD0A1025114E9800B6696B /* View */ = {
 			isa = PBXGroup;
 			children = (
+				8D79BFE12718E95500891844 /* RoundCornerButton.swift */,
 				E4F88C85252FA524003AD037 /* Fonts */,
 				D97EE7B9254B558B00A68B06 /* Search */,
 				02E4E99425266F3900290A39 /* NotebookView.swift */,
@@ -1608,6 +1611,7 @@
 				D9CE2D492565C00A00DF4D2A /* NoteAssignerViewController.swift in Sources */,
 				1E477550255F008600E3B141 /* OnboardingViewController.swift in Sources */,
 				A7FC9BF4255F2C7900330283 /* ItemSizeHelper.swift in Sources */,
+				8D79BFE22718E95500891844 /* RoundCornerButton.swift in Sources */,
 				D9CE2D422565C00A00DF4D2A /* NoteContentHandler.swift in Sources */,
 				585718A626F3F7E70028A38D /* ViewController.swift in Sources */,
 				A7BDD5FF2513F83F00DDB6A0 /* IndexViewController.swift in Sources */,

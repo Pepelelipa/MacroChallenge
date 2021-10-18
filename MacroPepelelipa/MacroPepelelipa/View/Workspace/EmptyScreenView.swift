@@ -19,13 +19,6 @@ class EmptyScreenView: UIView {
     
     private var portraitConstraints = [NSLayoutConstraint]()
     private var landscapeConstraints = [NSLayoutConstraint]()
-
-    override var isHidden: Bool {
-        didSet {
-            backgroundButtonView.layer.cornerRadius = backgroundButtonView.frame.height / 2
-        }
-    }
-
     internal var isLandscape: Bool = false {
         didSet {
             imageView.isHidden = isLandscape
@@ -39,18 +32,7 @@ class EmptyScreenView: UIView {
             }
         }
     }
-    
-    override var bounds: CGRect {
-        didSet {
-            var multiplier: CGFloat = 0.1
-            if isLandscape {
-                multiplier = 0.15
-            }
-            
-            backgroundButtonView.layer.cornerRadius = (bounds.height * multiplier) / 2
-        }
-    }
-    
+
     private lazy var stackView: UIStackView = {
         let stack = UIStackView(frame: .zero)
         
@@ -60,7 +42,8 @@ class EmptyScreenView: UIView {
         
         stack.addArrangedSubview(descriptionLabel)
         stack.addArrangedSubview(imageView)
-        stack.addArrangedSubview(backgroundButtonView)
+
+        stack.addArrangedSubview(button)
         stack.spacing = 1
         
         stack.translatesAutoresizingMaskIntoConstraints = false
@@ -93,17 +76,9 @@ class EmptyScreenView: UIView {
         imageView.setContentCompressionResistancePriority(UILayoutPriority(rawValue: 749), for: .vertical)
         return imageView
     }()
-    
-    private lazy var backgroundButtonView: UIView = {
-        let view = UIView(frame: .zero)
-        view.backgroundColor = UIColor.actionColor
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
-    
+
     private lazy var button: UIButton = {
-        let button = UIButton(frame: .zero)
-        button.tintColor = UIColor.backgroundColor
+        let button = RoundCornerButton(textColor: UIColor(named: "Action"), fillColor: .clear, borderColor: UIColor(named: "Action"), cornerRadius: 10)
         button.setTitle(buttonTitle, for: .normal)
         button.titleLabel?.font = UIFont.defaultHeader.toStyle(.h3)
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -129,7 +104,6 @@ class EmptyScreenView: UIView {
         
         super.init(frame: frame)
         self.addSubview(stackView)
-        self.addSubview(button)
         setConstraints()
     }
     
@@ -150,28 +124,23 @@ class EmptyScreenView: UIView {
             
             imageView.widthAnchor.constraint(equalTo: widthAnchor),
             imageView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.6),
-            
-            button.centerXAnchor.constraint(equalTo: backgroundButtonView.centerXAnchor),
-            button.centerYAnchor.constraint(equalTo: backgroundButtonView.centerYAnchor),
-            button.widthAnchor.constraint(equalTo: backgroundButtonView.widthAnchor),
-            button.heightAnchor.constraint(equalTo: backgroundButtonView.heightAnchor),
-            
+
             descriptionLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
             imageView.centerXAnchor.constraint(equalTo: centerXAnchor),
-            backgroundButtonView.centerXAnchor.constraint(equalTo: centerXAnchor)
+            button.centerXAnchor.constraint(equalTo: centerXAnchor)
         ])
         
         portraitConstraints = [
-            backgroundButtonView.widthAnchor.constraint(equalTo: widthAnchor),
-            backgroundButtonView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.1)
+            button.widthAnchor.constraint(equalTo: widthAnchor),
+            button.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.1)
         ]
         
         landscapeConstraints = [
             descriptionLabel.widthAnchor.constraint(equalTo: widthAnchor),
             descriptionLabel.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.45),
-            
-            backgroundButtonView.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.5),
-            backgroundButtonView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.15)
+
+            button.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.5),
+            button.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.15)
         ]
         
         if isLandscape {
