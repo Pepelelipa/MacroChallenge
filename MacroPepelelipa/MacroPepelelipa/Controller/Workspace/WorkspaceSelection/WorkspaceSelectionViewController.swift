@@ -19,11 +19,6 @@ internal class WorkspaceSelectionViewController: ViewController,
     internal var overlayState = true
     
     internal weak var filterObserver: SearchBarObserver?
-    
-    private var compactRegularConstraints: [NSLayoutConstraint] = []
-    private var regularCompactConstraints: [NSLayoutConstraint] = []
-    private var regularConstraints: [NSLayoutConstraint] = []
-    private var sharedConstraints: [NSLayoutConstraint] = []
     private var filterCategory: SearchResultEnum = .all
     private lazy var searchResultController = SearchResultViewController(owner: self)
     
@@ -107,20 +102,17 @@ internal class WorkspaceSelectionViewController: ViewController,
     }()
     
     private lazy var emptyScreenView: EmptyScreenView = {
-        let view = EmptyScreenView(
-            frame: .zero,
-            descriptionText: "No workspace".localized(),
-            imageName: "Default-workspace",
-            buttonTitle: "Create workspace".localized()) {
-            self.btnAddTap()
+        
+        let view = EmptyScreenView(frame: .zero,
+                                   descriptionText: "No workspace".localized(),
+                                   imageName: "Default-workspace",
+                                   buttonTitle: "Create workspace".localized()) { [weak self] in
+            self?.btnAddTap()
         }
+        
         view.alpha = 0
         view.isHidden = true
         view.translatesAutoresizingMaskIntoConstraints = false
-        
-        if UIDevice.current.userInterfaceIdiom == .phone {
-            view.isLandscape = UIDevice.current.orientation.isActuallyLandscape
-        }
         
         return view
     }()
@@ -146,8 +138,6 @@ internal class WorkspaceSelectionViewController: ViewController,
         navigationItem.searchController = searchController
         
         setConstraints()
-        NSLayoutConstraint.activate(sharedConstraints)
-        layoutTrait(traitCollection: UIScreen.main.traitCollection)
         
         let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress(gesture:)))
         self.collectionView.addGestureRecognizer(longPressGesture)
@@ -189,23 +179,11 @@ internal class WorkspaceSelectionViewController: ViewController,
     }
     
     override func viewDidLayoutSubviews() {
-        if UIDevice.current.userInterfaceIdiom == .pad || UIDevice.current.userInterfaceIdiom == .mac {
-            updateConstraintsForIpad()
-        }
         collectionDelegate.frame = view.frame
         
         if overlayState == true {
             showDemoLaunchOverlay()
             overlayState=false
-        }
-    }
-    
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
-        layoutTrait(traitCollection: traitCollection)
-        
-        if UIDevice.current.userInterfaceIdiom == .phone {
-            emptyScreenView.isLandscape = UIDevice.current.orientation.isActuallyLandscape
         }
     }
 
@@ -271,36 +249,15 @@ internal class WorkspaceSelectionViewController: ViewController,
 
     ///This private method sets the constraints for different size classes and devices.
     private func setConstraints() {
-        sharedConstraints.append(contentsOf: [
+        NSLayoutConstraint.activate([
             collectionView.topAnchor.constraint(equalTo: view.topAnchor),
             collectionView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
             collectionView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
             collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             
-            emptyScreenView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
-            emptyScreenView.centerYAnchor.constraint(equalTo: self.view.centerYAnchor)
-        ])
-        
-        compactRegularConstraints.append(contentsOf: [
-            emptyScreenView.heightAnchor.constraint(equalTo: self.view.heightAnchor, multiplier: 0.5),
-            emptyScreenView.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 0.75)
-        ])
-        
-        if UIDevice.current.userInterfaceIdiom == .phone {
-            regularCompactConstraints.append(contentsOf: [
-                emptyScreenView.heightAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.heightAnchor),
-                emptyScreenView.widthAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.widthAnchor, multiplier: 0.5)
-            ])
-        } else {
-            regularCompactConstraints.append(contentsOf: [
-                emptyScreenView.heightAnchor.constraint(equalTo: self.view.heightAnchor, multiplier: 0.35),
-                emptyScreenView.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 0.35)
-            ])
-        }
-        
-        regularConstraints.append(contentsOf: [
-            emptyScreenView.heightAnchor.constraint(equalTo: self.view.heightAnchor, multiplier: 0.5),
-            emptyScreenView.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 0.25)
+            emptyScreenView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            emptyScreenView.centerYAnchor.constraint(equalTo: view.centerYAnchor,
+                                                     constant: navigationController?.navigationBar.frame.height ?? 0)
         ])
     }
     
@@ -328,107 +285,10 @@ internal class WorkspaceSelectionViewController: ViewController,
         workspaceEditingController.workspace = workspace
         self.present(workspaceEditingController, animated: true)
     }
-    
-    /**
-     This method layouts the appropriate constraits based on the current trait collection.
-     - Parameter traitCollection: The UITraitCollection that will be used as reference to layout the constraints.
-     */
-    private func layoutTrait(traitCollection: UITraitCollection) {
-        if !sharedConstraints[0].isActive {
-            NSLayoutConstraint.activate(sharedConstraints)
-        }
-        
-        if UIDevice.current.userInterfaceIdiom == .phone {
-            updateConstraintsForIphone(with: traitCollection)
-        } else {
-            updateConstraintsForIpad()
-        }
-    }
-    
-    /**
-     This method updates the view's constraints for an iPhone based on a trait collection.
-     - Parameter traitCollection: The UITraitCollection that will be used as reference to layout the constraints.
-     */
-    private func updateConstraintsForIphone(with traitCollection: UITraitCollection) {
-        var activate = [NSLayoutConstraint]()
-        var deactivate = [NSLayoutConstraint]()
-        
-        if traitCollection.horizontalSizeClass == .compact {
-            deactivate.append(contentsOf: regularConstraints[0].isActive ? regularConstraints : [])
-            deactivate.append(contentsOf: regularCompactConstraints[0].isActive ? regularCompactConstraints : [])
-            activate.append(contentsOf: compactRegularConstraints)
-        } else {
-            deactivate.append(contentsOf: regularConstraints[0].isActive ? regularConstraints : [])
-            deactivate.append(contentsOf: compactRegularConstraints[0].isActive ? compactRegularConstraints : [])
-            activate.append(contentsOf: regularCompactConstraints)
-        }
-        
-        NSLayoutConstraint.deactivate(deactivate)
-        NSLayoutConstraint.activate(activate)
-    }
-    
-    /// This method updates the view's constraints for an iPad based on the device orientation.
-    private func updateConstraintsForIpad() {
-        var activate = [NSLayoutConstraint]()
-        var deactivate = [NSLayoutConstraint]()
-        
-        let isLandscape = UIDevice.current.orientation.isActuallyLandscape
-        
-        if isLandscape {
-            
-            if view.frame.width+5 == UIScreen.main.bounds.width/2 {
-                // Multitasking half screen
-                deactivate.append(contentsOf: regularConstraints[0].isActive ? regularConstraints : [])
-                deactivate.append(contentsOf: regularCompactConstraints[0].isActive ? regularCompactConstraints : [])
-                activate.append(contentsOf: compactRegularConstraints)
-                
-            } else if view.frame.width < UIScreen.main.bounds.width/2 {
-                // Multitasking less than half screen
-                deactivate.append(contentsOf: regularConstraints[0].isActive ? regularConstraints : [])
-                deactivate.append(contentsOf: regularCompactConstraints[0].isActive ? regularCompactConstraints : [])
-                activate.append(contentsOf: compactRegularConstraints)
-                
-            } else if view.frame.width == UIScreen.main.bounds.width {
-                // Full screen
-                deactivate.append(contentsOf: compactRegularConstraints[0].isActive ? compactRegularConstraints : [])
-                deactivate.append(contentsOf: regularCompactConstraints[0].isActive ? regularCompactConstraints : [])
-                activate.append(contentsOf: regularConstraints)
-                
-            } else {
-                // Multitasking more than half screen
-                deactivate.append(contentsOf: compactRegularConstraints[0].isActive ? compactRegularConstraints : [])
-                deactivate.append(contentsOf: regularConstraints[0].isActive ? regularConstraints : [])
-                activate.append(contentsOf: regularCompactConstraints)
-            }
-            
-        } else {
-            
-            if view.frame.width < UIScreen.main.bounds.width/2 {
-                // Multitasking less than half screen
-                deactivate.append(contentsOf: regularConstraints[0].isActive ? regularConstraints : [])
-                deactivate.append(contentsOf: regularCompactConstraints[0].isActive ? regularCompactConstraints : [])
-                activate.append(contentsOf: compactRegularConstraints)
-            
-            } else if view.frame.width == UIScreen.main.bounds.width {
-                // Full screen
-                deactivate.append(contentsOf: compactRegularConstraints[0].isActive ? compactRegularConstraints : [])
-                deactivate.append(contentsOf: regularConstraints[0].isActive ? regularConstraints : [])
-                activate.append(contentsOf: regularCompactConstraints)
-            } else {
-                // Multitasking more than half screen
-                deactivate.append(contentsOf: regularConstraints[0].isActive ? regularConstraints : [])
-                deactivate.append(contentsOf: regularCompactConstraints[0].isActive ? regularCompactConstraints : [])
-                activate.append(contentsOf: compactRegularConstraints)
-            }
-        }
-        
-        NSLayoutConstraint.deactivate(deactivate)
-        NSLayoutConstraint.activate(activate)
-    }
-    
+
     /**
      This method displays or hides the placeholder view when called.
-     - Parameter sholdBeHidden: A boolean indicating if the view shold or not be hidden. It is false by default.
+     - Parameter shouldBeHidden: A boolean indicating if the view should be hidden or not. It is false by default.
      */
     internal func switchEmptyScreenView(shouldBeHidden: Bool = false) {
         let alpha: CGFloat = shouldBeHidden ? 0 : 1
@@ -444,7 +304,7 @@ internal class WorkspaceSelectionViewController: ViewController,
     }
     
     /**
-     This method enables or disenables the button to add a Loose Note.
+     This method enables or disables the button to add a Loose Note.
      - Parameter shouldBeEnabled: A boolean indicating if the button should or not be enabled. It is true by default.
      */
     internal func enableLooseNote(_ shouldBeEnabled: Bool = true) {

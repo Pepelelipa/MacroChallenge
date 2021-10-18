@@ -22,7 +22,7 @@ class EmptyScreenView: UIView {
 
     override var isHidden: Bool {
         didSet {
-            backgoundButtonView.layer.cornerRadius = backgoundButtonView.frame.height / 2
+            backgroundButtonView.layer.cornerRadius = backgroundButtonView.frame.height / 2
         }
     }
 
@@ -47,7 +47,7 @@ class EmptyScreenView: UIView {
                 multiplier = 0.15
             }
             
-            backgoundButtonView.layer.cornerRadius = (bounds.height * multiplier) / 2
+            backgroundButtonView.layer.cornerRadius = (bounds.height * multiplier) / 2
         }
     }
     
@@ -60,7 +60,7 @@ class EmptyScreenView: UIView {
         
         stack.addArrangedSubview(descriptionLabel)
         stack.addArrangedSubview(imageView)
-        stack.addArrangedSubview(backgoundButtonView)
+        stack.addArrangedSubview(backgroundButtonView)
         stack.spacing = 1
         
         stack.translatesAutoresizingMaskIntoConstraints = false
@@ -94,7 +94,7 @@ class EmptyScreenView: UIView {
         return imageView
     }()
     
-    private lazy var backgoundButtonView: UIView = {
+    private lazy var backgroundButtonView: UIView = {
         let view = UIView(frame: .zero)
         view.backgroundColor = UIColor.actionColor
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -151,27 +151,27 @@ class EmptyScreenView: UIView {
             imageView.widthAnchor.constraint(equalTo: widthAnchor),
             imageView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.6),
             
-            button.centerXAnchor.constraint(equalTo: backgoundButtonView.centerXAnchor),
-            button.centerYAnchor.constraint(equalTo: backgoundButtonView.centerYAnchor),
-            button.widthAnchor.constraint(equalTo: backgoundButtonView.widthAnchor),
-            button.heightAnchor.constraint(equalTo: backgoundButtonView.heightAnchor),
+            button.centerXAnchor.constraint(equalTo: backgroundButtonView.centerXAnchor),
+            button.centerYAnchor.constraint(equalTo: backgroundButtonView.centerYAnchor),
+            button.widthAnchor.constraint(equalTo: backgroundButtonView.widthAnchor),
+            button.heightAnchor.constraint(equalTo: backgroundButtonView.heightAnchor),
             
             descriptionLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
             imageView.centerXAnchor.constraint(equalTo: centerXAnchor),
-            backgoundButtonView.centerXAnchor.constraint(equalTo: centerXAnchor)
+            backgroundButtonView.centerXAnchor.constraint(equalTo: centerXAnchor)
         ])
         
         portraitConstraints = [
-            backgoundButtonView.widthAnchor.constraint(equalTo: widthAnchor),
-            backgoundButtonView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.1)
+            backgroundButtonView.widthAnchor.constraint(equalTo: widthAnchor),
+            backgroundButtonView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.1)
         ]
         
         landscapeConstraints = [
             descriptionLabel.widthAnchor.constraint(equalTo: widthAnchor),
             descriptionLabel.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.45),
             
-            backgoundButtonView.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.5),
-            backgoundButtonView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.15)
+            backgroundButtonView.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.5),
+            backgroundButtonView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.15)
         ]
         
         if isLandscape {

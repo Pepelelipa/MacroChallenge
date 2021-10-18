@@ -95,9 +95,9 @@
 "Error fetching the workspaces" = "Error fetching the shelves";
 "The database could not fetch the workspace" = "The database could not fetch the shelf";
 "The Workspaces could not be fetched" = "The shelves could not be fetched";
-"No workspace" = "You don't have any shelves yet. How about creating one to begin with?";
+"No workspace" = "You don't have any shelves yet.\nHow about creating one to begin with?";
 "Create workspace" = "Create shelf";
-"No notebook" = "You don't have any notebooks in this shelf. Create a new one to begin with!";
+"No notebook" = "You don't have any notebooks in this\nshelf. Create a new one to begin with!";
 "Create notebook" = "Create notebook";
 "Image or text?" = "Image or text?";
 "Import the media as an image or as a text transcription (Beta version)" = "Import the media as an image or as a text transcription (Beta version)";
