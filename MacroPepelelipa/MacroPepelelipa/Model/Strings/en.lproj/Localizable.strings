@@ -405,18 +405,144 @@
 
 // CUSTOMIZE
 "Customize Note Title" = "Customization";
-"Customize First Header" = "Introdução";
-"Customize First Paragraph" = "Personalize suas notas para destacar o pontos mais relevantes, organizá-las ou deixá-las com uma estética que combina com você. ";
-"Customize Second Paragraph" = "É possível mudar o estilo da escrita, a cor, destacar ou transformar o texto em negrito, itálico e sublinhado. Estas opções estão disponíveis na central de personalização ou através de markdown com os seguintes atalhos: ";
-"Customize Third Paragraph" = "Utilize as diferentes fontes para dar sua cara, marcar partes específicas do texto ou organizar suas notas. Atualmente existem três opções disponíveis *escrever o nome da fonte no tipo*. ";
-"Customize Fourth Paragraph" = "Além disso, não esqueça de utilizar os títulos e subtítulos. Além de tornar sua nota mais organizada, ajudam na criação do índice! ";
+"Customize Note First Paragraph 01" = "Introdução";
+"Customize Note First Paragraph 02" = "Personalize suas notas para ";
+"Customize Note First Paragraph 03" = "destacar os pontos mais relevantes";
+"Customize Note First Paragraph 04" = ", organizá-las ou deixá-las com uma ";
+"Customize Note First Paragraph 05" = "estética que combina com você.";
+
+"Customize Note Second Paragraph 01" = "É possível mudar o estilo da ";
+"Customize Note Second Paragraph 02" = "escrita";
+"Customize Note Second Paragraph 03" = ", a cor";
+"Customize Note Second Paragraph 04" = ", destacar";
+"Customize Note Second Paragraph 05" = " ou transformar o texto em ";
+"Customize Note Second Paragraph 06" = "negrito,";
+"Customize Note Second Paragraph 07" = " itálico ";
+"Customize Note Second Paragraph 08" = "e ";
+"Customize Note Second Paragraph 09" = "sublinhado";
+"Customize Note Second Paragraph 10" = ". Estas opções estão disponíveis na ";
+"Customize Note Second Paragraph 11" = "central de personalização";
+"Customize Note Second Paragraph 12" = " ou através de ";
+"Customize Note Second Paragraph 13" = "markdown.";
+
+"Customize Note Third Paragraph 01" = "Utilize as diferentes fontes para personalizar mais ainda suas notas, marcar partes específicas do texto ou organizá-las. Atualmente existem três opções disponíveis: A ";
+"Customize Note Third Paragraph 02" = "Dancing Script,";
+"Customize Note Third Paragraph 03" = " que é uma fonte cursiva, inspirada nas letras escritas a mão.";
+"Customize Note Third Paragraph 04" = " Merriweather,";
+"Customize Note Third Paragraph 05" = " que é uma fonte mais clássica e boa para leitura. ";
+"Customize Note Third Paragraph 06" = "E a ";
+"Customize Note Third Paragraph 07" = "OpenSans";
+"Customize Note Third Paragraph 08" = ", com um estilo mais moderno e simples.";
+
+"Customize Note Fourth Paragraph 01" = "Além disso, não esqueça de utilizar os cabeçalhos de diferentes tamanhos: use o H1, H2 e H3. Além de tornar sua nota mais organizada, ajudam na criação do índice! ";
+
+"Customize Note Fifth Paragraph 01" = "Markdown";
+"Customize Note Fifth Paragraph 02" = "Para quem gosta de priorizar o uso do teclado, sugerimos explorar o nosso Markdown";
+"Customize Note Fifth Paragraph 03" = "Os atalhos são simples e objetivos:";
+"Customize Note Fifth Paragraph 04" = "_ texto _ : ";
+"Customize Note Fifth Paragraph 05" = "para sublinhado";
+"Customize Note Fifth Paragraph 06" = "* texto *:  ";
+"Customize Note Fifth Paragraph 07" = "para bold";
+"Customize Note Fifth Paragraph 08" = "- texto -: ";
+"Customize Note Fifth Paragraph 09" = "para itálico";
+"Customize Note Fifth Paragraph 10" = ":: texto :: : ";
+"Customize Note Fifth Paragraph 11" = "para destacar";
+
+
 
 // INDEX
-"Index Note Title" = "Index";
-"Index First Header" = "Introduction";
-"Index First Paragraph" = "Lorem ipsum... ";
+"Index Note Title" = "Organização";
+"Index First Paragraph 01" = "Os índices são gerados com base nos seus cabeçalhos. Então, sempre que você usar um";
+"Index First Paragraph 02" = "cabeçalho H1";
+"Index First Paragraph 03" = ", ";
+"Index First Paragraph 04" = "o PurpleNotebook um tópico na lista da esquerda será criado.";
+"Index First Paragraph 05" = "Com este recurso você pode navegar ao longo da sua nota mais rapidamente.";
+"Index First Paragraph 06" = "Você pode criar vários cabeçalhos ";
+"Index First Paragraph 07" = "ao longo da sua nota para ";
+"Index First Paragraph 08" = "criar sessões";
+"Index First Paragraph 09" = " e ";
+"Index First Paragraph 10" = "facilitar a identificações ";
+"Index First Paragraph 11" = "de partes importantes do seu texto.";
+
+"Index Second Paragraph 01" = "Vamos lá! Experimente criar mais cabeçalhos nesta nota para ver na prática o Índice sendo criado. (: ";
+
+
+"Index Hierarchy Title" = "Hierarquia - Estantes, livros e notas";
+"Index Hierarchy First Paragraph 01" = "Organize suas anotações agrupando-as em cadernos! ";
+"Index Hierarchy First Paragraph 02" = "E distribua seus cadernos em estantes. ";
+"Index Hierarchy First Paragraph 03" = "Tão fácil quanto na vida real.";
+
+"Index Hierarchy Second Paragraph 01" = "Não há limite ";
+"Index Hierarchy Second Paragraph 02" = "de ";
+"Index Hierarchy Second Paragraph 03" = "uantidade de notas, cadernos ou estantes.";
+"Index Hierarchy Second Paragraph 04" = " Explore esse recurso para criar estantes organizadas e cadernos com temas específicos. ";
+"Index Hierarchy Second Paragraph 05" = "Desta forma sempre que você precisar encontrar uma nota antiga será fácil e sem complicações.";
+
+"Index Hierarchy Third Paragraph 01" = "Explore também o índice de cada nota, que é ";
+"Index Hierarchy Third Paragraph 02" = "criado de forma automática";
+"Index Hierarchy Third Paragraph 03" = " de acordo com os títulos e subtítulos que você define.";
+
 
 // EXAMPLES
-"Examples Note Title" = "Examples";
-"Examples First Header" = "Introduction";
-"Examples First Paragraph" = "Lorem ipsum... ";
+"Examples Note 1 Title" = "Como organizar suas notas como um especialista!";
+"Examples First Paragraph 01" = "Nós tomamos notas sobre muitas coisas: ";
+"Examples First Paragraph 02" = "vida, planos, estudos, trabalhos, receitas...";
+"Examples First Paragraph 03" = " e muitos outros temas. ";
+"Examples First Paragraph 04" = "Aprender a organizá-las no ajuda a otimizar nossas rotinas.";
+"Examples First Paragraph 05" = " Queremos deixar algumas dicas de como você pode dominar a arte de organizar suas anotações.";
+
+"Examples Second Header H2" = "Primeiramente: Escolha seu método";
+"Examples Second Paragraph 02" = "Pense sobre suas preferências e como você anota mais rapidamente";
+"Examples Second Paragraph 03" = " O mais importante é ";
+"Examples Second Paragraph 04" = "concentrar-se em armazenar o conteúdo que você precisa";
+"Examples Second Paragraph 05" = " de uma forma que você consiga ";
+"Examples Second Paragraph 06" = "recuperar facilmente sempre que precisar.";
+
+"Examples Third Paragraph 01" = "Faça a seguintes perguntas:";
+"Examples Third Paragraph 03" = "Eu anoto mais rápido usando o markdown ou não? ";
+"Examples Third Paragraph 04" = "Eu estou escolhendo bons cabeçalhos para as sessões de minhas notas? ";
+"Examples Third Paragraph 05" = "Os índices representam o conteúdo das minhas notas?";
+
+"Examples Fourth Paragraph 01" = "E tente fazer:";
+"Examples Fourth Paragraph 03" = "Usar destaques para tópicos que você precisa rever em algum momento posterior";
+"Examples Fourth Paragraph 04" = "Destacar informações relevantes com um negrito";
+"Examples Fourth Paragraph 05" = "Use cabeçalhos para criar sessões de assuntos ao longo de sua nota";
+"Examples Fourth Paragraph 06" = "Use diferentes estilos visuais para personalizar sua nota";
+"Examples Fourth Paragraph 07" = "Dê significado às cores";
+
+
+
+
+"Examples Note 2 Title" = "Em segundo lugar: Inclua seus pensamentos!";
+"Examples First Paragraph 01" = "Inclua o que você tá pensando";
+"Examples First Paragraph 02" = "sobre o tópico que está anotando. ";
+"Examples First Paragraph 03" = "Principalmente se estiver durante uma aula";
+"Examples First Paragraph 04" = ", deixe dúvidas, comentários e conclusões importantes sobre o que você está estudando ao longo de sua nota. ";
+
+"Examples Second Paragraph 01" = "Desta forma, ";
+"Examples Second Paragraph 02" = "o seu EU do futuro";
+"Examples Second Paragraph 03" = " pode recuperar essas informações que foram essenciais para a compreensão do assunto.";
+
+"Examples Third Paragraph H3" = "Mas não se esqueça: Diferencie estes elementos.";
+"Examples Third Paragraph 01" = "O ideal é deixar claro que estas anotações são ";
+"Examples Third Paragraph 02" = "tópicos paralelos ao conteúdo principal,";
+"Examples Third Paragraph 03" = " a dica é colocá-las em ";
+"Examples Third Paragraph 04" = "\"itálico e entre aspas.\"";
+
+
+
+"Examples Note 3 Title" = "Não faça notas muitos grandes";
+"Examples First Paragraph 01" = "Divida suas notas por ";
+"Examples First Paragraph 02" = "temas, aulas, dias de trabalho ou uma viajem específica. ";
+"Examples First Paragraph 03" = "Desta forma, você";
+"Examples First Paragraph 04" = " e complexos de serem consumidos posteriormente.";
+
+"Examples Second Paragraph 01" = "Pense em criar ";
+"Examples Second Paragraph 02" = "cápsulas de conteúdo";
+"Examples Second Paragraph 03" = " que podem ser consumidas rapidamente. Além disso, ";
+"Examples Second Paragraph 03" = "criando mais divisões é mais fácil encontrar aquela nota";
+"Examples Second Paragraph 03" = " de dois anos atrás sobre aquele assunto aleatório que você mal lembra. ";
+
+
+
+
