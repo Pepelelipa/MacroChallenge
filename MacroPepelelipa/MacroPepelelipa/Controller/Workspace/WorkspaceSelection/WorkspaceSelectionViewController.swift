@@ -86,11 +86,6 @@ internal class WorkspaceSelectionViewController: ViewController,
         item.accessibilityLabel = "Add workspace label".localized()
         return item
     }()
-    
-    private lazy var btnAddLooseNote: UIBarButtonItem = {
-        let item = UIBarButtonItem(image: UIImage(systemName: "square.and.pencil"), style: .plain, target: self, action: #selector(addLooseNote))
-        return item
-    }()
 
     private lazy var onboardingButton: UIBarButtonItem = {
         let item = UIBarButtonItem(ofType: .info, target: self, action: #selector(openOnboarding))
@@ -129,7 +124,7 @@ internal class WorkspaceSelectionViewController: ViewController,
         findCommand.discoverabilityTitle = "Find".localized()
         
         view.backgroundColor = .rootColor
-        navigationItem.rightBarButtonItems = [btnAdd, btnAddLooseNote, onboardingButton]
+        navigationItem.rightBarButtonItems = [btnAdd, onboardingButton]
 
         navigationItem.largeTitleDisplayMode = .always
         navigationItem.title = "Workspaces".localized()
@@ -164,7 +159,6 @@ internal class WorkspaceSelectionViewController: ViewController,
         super.viewWillAppear(animated)
         collectionDelegate.frame = view.frame
         collectionView.collectionViewLayout.invalidateLayout()
-        self.enableLooseNote(collectionDataSource.hasNotebooks())
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -303,14 +297,6 @@ internal class WorkspaceSelectionViewController: ViewController,
         })
     }
     
-    /**
-     This method enables or disables the button to add a Loose Note.
-     - Parameter shouldBeEnabled: A boolean indicating if the button should or not be enabled. It is true by default.
-     */
-    internal func enableLooseNote(_ shouldBeEnabled: Bool = true) {
-        self.btnAddLooseNote.isEnabled = shouldBeEnabled
-    }
-    
     // MARK: - EntityObserver functions
     
     internal func entityWasCreated(_ value: ObservableEntity) {
@@ -353,40 +339,6 @@ internal class WorkspaceSelectionViewController: ViewController,
         
         self.present(destination, animated: true) { 
             self.btnAdd.isEnabled = true
-        }
-    }
-    
-    @IBAction func addLooseNote() {
-        var looseNote: NoteEntity?
-        
-        do {
-            looseNote = try DataManager.shared().createLooseNote()
-        } catch {
-            let title = "Failed to create Loose Note".localized()
-            let message = "The database could not create the Loose Note".localized()
-            ConflictHandlerObject().genericErrorHandling(title: title, message: message)
-        }
-        
-        if let note = looseNote {
-            #if !targetEnvironment(macCatalyst)
-            let looseNoteViewController = LooseNoteViewController(
-                note: note,
-                notebook: collectionDataSource.getLastNotebook(),
-                workspaces: { self.collectionDataSource.workspaces }
-            )
-            #else
-            let looseNoteViewController = MacLooseNoteViewController(
-                note: note,
-                notebook: collectionDataSource.getLastNotebook(),
-                workspaces: { self.collectionDataSource.workspaces }
-            )
-            #endif
-            
-            let destination = UINavigationController(rootViewController: looseNoteViewController)
-            destination.isModalInPresentation = true
-            destination.modalTransitionStyle = .crossDissolve
-            destination.modalPresentationStyle = .overFullScreen
-            self.navigationController?.present(destination, animated: true, completion: nil)
         }
     }
     

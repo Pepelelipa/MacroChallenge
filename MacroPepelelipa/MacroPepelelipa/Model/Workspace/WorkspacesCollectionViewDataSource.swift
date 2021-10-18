@@ -145,7 +145,6 @@ internal class WorkspacesCollectionViewDataSource: NSObject,
         }
         if workspaces.isEmpty {
             viewController.switchEmptyScreenView()
-            viewController.enableLooseNote(false)
         }
     }
 }

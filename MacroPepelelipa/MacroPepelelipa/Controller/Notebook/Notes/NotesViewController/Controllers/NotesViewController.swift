@@ -175,22 +175,6 @@ internal class NotesViewController: ViewController,
         }
         updateExclusionPaths()
         
-        #if targetEnvironment(macCatalyst)
-        if !(self is MacLooseNoteViewController) {
-            if !((try? notebook?.getWorkspace().isEnabled) ?? false) {
-                customView.textView.isEditable = false
-                customView.textView.inputAccessoryView = nil
-            }
-        }
-        #else
-        if !(self is LooseNoteViewController) {
-            if !((try? notebook?.getWorkspace().isEnabled) ?? false) {
-                customView.textView.isEditable = false
-                customView.textView.inputAccessoryView = nil
-            }
-        }
-        #endif
-        
         let dropInteraction = UIDropInteraction(delegate: dropInteractionDelegate)
         customView.textView.addInteraction(dropInteraction)
     }
