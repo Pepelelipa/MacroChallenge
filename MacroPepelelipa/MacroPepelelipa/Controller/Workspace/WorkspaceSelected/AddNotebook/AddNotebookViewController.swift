@@ -184,7 +184,6 @@ internal class AddNotebookViewController: ViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        txtName.becomeFirstResponder()
         AppUtility.setOrientation(.portrait, andRotateTo: .portrait)
         if let notebook = notebook {
             txtName.text = notebook.name
@@ -241,15 +240,8 @@ internal class AddNotebookViewController: ViewController {
     }
     
     @IBAction func selfTap() {
-        if txtName.isEditing {
-            txtName.resignFirstResponder()
-        } else {
-            self.dismiss(animated: true) { 
-                if self.txtName.isEditing {
-                    self.txtName.endEditing(true)
-                }
-            }
-        }
+        self.txtName.endEditing(true)
+        self.dismiss(animated: true)
     }
 
     @IBAction func textChanged(_ textField: UITextField) {
