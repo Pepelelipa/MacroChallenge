@@ -54,24 +54,6 @@ internal class NotebookObject: NotebookEntity {
         
         for note in notes {
             indexes.append(NotebookIndexObject(index: note.title.string, note: note, isTitle: true))
-            
-            let lenght = note.text.length
-            
-            note.text.enumerateAttribute(.font, 
-                                         in: NSRange(0..<lenght), 
-                                         options: .longestEffectiveRangeNotRequired) { (font, range, _) in
-                
-                if let font = font as? UIFont, 
-                   font.pointSize == 32 || font.pointSize == 26 {
-                    let text = note.text.attributedSubstring(from: range)
-                    let headers = text.string.components(separatedBy: "\n")
-                    
-                    for header in headers {
-                        let notebookIndexObject = NotebookIndexObject(index: header, note: note, isTitle: false)
-                        indexes.append(notebookIndexObject)
-                    }
-                }
-            }
         }
         return indexes
     }
