@@ -120,7 +120,6 @@ internal class AddWorkspaceViewController: ViewController, AddWorkspaceObserver 
         selfTapGestureRecognizer.delegate = gestureDelegate
         view.addGestureRecognizer(selfTapGestureRecognizer)
         
-        txtName.becomeFirstResponder()
         self.txtName.inputAccessoryView = keyboardToolBar
 
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
@@ -166,15 +165,8 @@ internal class AddWorkspaceViewController: ViewController, AddWorkspaceObserver 
     }
 
     @IBAction func selfTap() {
-        if txtName.isEditing {
-            txtName.resignFirstResponder()
-        } else {
-            self.dismiss(animated: true) { 
-                if self.txtName.isEditing {
-                    self.txtName.endEditing(true)
-                }
-            }
-        }
+        self.txtName.endEditing(true)
+        self.dismiss(animated: true)
     }
     
     @IBAction func btnConfirmTap() {
