@@ -18,6 +18,7 @@ class OnboardingPageViewController: UIPageViewController {
         if let viewController = self.viewControllers?.first,
            let index = self.onboardingPageViewDataSource.indexFor(viewController) {
             self.pageControl.currentPage = index
+            self.pageControl.isHidden = index == 4
             self.startButton.isHidden = index != 4
         }
     }
@@ -35,7 +36,6 @@ class OnboardingPageViewController: UIPageViewController {
     }()
     
     private lazy var skipButton: UIBarButtonItem = {
-        
         let btn = UIBarButtonItem(title: "Skip".localized(), style: .plain, target: self, action: #selector(openWorkspace))
         btn.tintColor = UIColor.actionColor
         
@@ -56,9 +56,7 @@ class OnboardingPageViewController: UIPageViewController {
     }()
     
     private lazy var startButton: UIButton = {
-        let button = UIButton(frame: .zero)
-        button.tintColor = UIColor.bodyColor
-        button.backgroundColor = UIColor.actionColor
+        let button = RoundCornerButton(textColor: UIColor(named: "Action"), fillColor: .clear, borderColor: UIColor(named: "Action"), cornerRadius: 10)
         button.setTitle("Begin".localized(), for: .normal)
         button.titleLabel?.font = UIFont.defaultHeader.toParagraphFont()
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -131,10 +129,6 @@ class OnboardingPageViewController: UIPageViewController {
         view.backgroundColor = UIColor.formatColor
     }
     
-    override func viewDidLayoutSubviews() {
-        startButton.layer.cornerRadius = startButton.frame.height / 2
-    }
-    
     // MARK: - @objc functions
 
     @objc func dismiss(_ sender: UIButton) {
@@ -169,8 +163,10 @@ class OnboardingPageViewController: UIPageViewController {
         
         if sender.currentPage == 4 {
             self.startButton.isHidden = false
+            self.pageControl.isHidden = true
         } else {
             self.startButton.isHidden = true
+            self.pageControl.isHidden = false
         }
     }
     

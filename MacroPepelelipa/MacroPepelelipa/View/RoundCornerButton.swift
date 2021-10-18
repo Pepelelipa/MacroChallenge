@@ -46,8 +46,10 @@ internal class RoundCornerButton: UIButton {
          borderColor: UIColor? = nil,
          cornerRadius: CGFloat = 18) {
         self.textColor = textColor
+        self._textColor = textColor
         self.fillColor = fillColor
         self.borderColor =  borderColor
+        self._borderColor = borderColor
         self.cornerRadius = cornerRadius
         super.init(frame: .zero)
         initializing = false
