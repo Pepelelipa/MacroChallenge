@@ -54,4 +54,10 @@ internal extension NSAttributedString {
 
         return mutableString
     }
+
+    func addingBulletList() -> NSAttributedString {
+        let mutableAttributedString = NSMutableAttributedString(attributedString: self)
+        mutableAttributedString.insert(NSAttributedString(string: "\u{2022}"), at: 0)
+        return mutableAttributedString.withExtraAttribute((.kern, 0), in: NSRange(location: 0, length: 1))
+    }
 }

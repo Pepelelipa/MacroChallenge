@@ -44,7 +44,7 @@ struct TutorialNotesHelper {
         resultText.append(breakLine)
         // Precisa adicionar o highlight em "Mac, iPhone e iPad"
         resultText.append("Introduction Third Paragraph 01".localized().toFontWithColor(font: paragraphFont))
-        resultText.append("Introduction Third Paragraph 02".localized().toFontWithColor(font: paragraphFont))
+        resultText.append("Introduction Third Paragraph 02".localized().toFontWithColor(backgroundColor: .highlightColor, font: paragraphFont))
         resultText.append("Introduction Third Paragraph 03".localized().toFontWithColor(font: paragraphFont))
         resultText.append("Introduction Third Paragraph 04".localized().toFontWithColor(font: paragraphBoldFont))
         resultText.append("Introduction Third Paragraph 05".localized().toFontWithColor(font: paragraphFont))
@@ -57,7 +57,7 @@ struct TutorialNotesHelper {
         // Fazer highlight
         resultText.append(intro4P02)
         resultText.append("Introduction Fourth Paragraph 03".localized().toFontWithColor(font: paragraphFont))
-        let intro4P04 = "Introduction Fourth Paragraph 04".localized().toFontWithColor(font: paragraphItalicFont)
+        let intro4P04 = "Introduction Fourth Paragraph 04".localized().toFontWithColor(backgroundColor: .highlightColor, font: paragraphItalicFont)
         intro4P04.addAttribute(.underlineStyle, value: underlineNumber, range: NSRange(location: 0, length: intro4P04.length))
         resultText.append(intro4P04)
         
@@ -133,7 +133,7 @@ struct TutorialNotesHelper {
         // A partir daqui precisa ser bullet
         resultText.append(breakLine)
         resultText.append(breakLine)
-        resultText.append("Customize Note Fifth Paragraph 04".localized().toFontWithColor(font: paragraphFont))
+        resultText.append("Customize Note Fifth Paragraph 04".localized().toFontWithBullet(font: paragraphFont))
         let customize4P04 = "Customize Note Fifth Paragraph 05".localized().toFontWithColor(font: paragraphFont)
         customize4P04.addAttribute(.underlineStyle, value: underlineNumber, range: NSRange(location: 0, length: customize4P04.length))
         resultText.append(customize4P04)
