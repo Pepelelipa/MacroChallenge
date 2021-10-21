@@ -58,8 +58,8 @@ internal class TipViewController: ViewController {
         let text = NSMutableAttributedString()
 
         let attributedStringsParts: [NSAttributedString] = [
-            "Bold".localized().toFontWithDefaultColor(font: boldFont),
-            "Italic".localized().toFontWithDefaultColor(font: italicFont)
+            "Bold".localized().toFontWithColor(font: boldFont),
+            "Italic".localized().toFontWithColor(font: italicFont)
         ]
         
         let mutableattributedStringsParts: [NSMutableAttributedString] = [
