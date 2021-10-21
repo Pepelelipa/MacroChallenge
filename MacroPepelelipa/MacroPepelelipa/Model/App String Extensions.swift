@@ -32,4 +32,14 @@ internal extension String {
         
         return mutableString
     }
+
+    func toFontWithBullet(font: UIFont? = nil) -> NSMutableAttributedString {
+        let range = NSRange(location: 0, length: self.count)
+        let mutableString = NSMutableAttributedString(string: "\u{2022}" + self)
+        if let font = font {
+            mutableString.addAttribute(.font, value: font, range: range)
+        }
+        mutableString.addAttribute(.kern, value: 0, range: NSRange(location: 0, length: 1))
+        return mutableString
+    }
 }
