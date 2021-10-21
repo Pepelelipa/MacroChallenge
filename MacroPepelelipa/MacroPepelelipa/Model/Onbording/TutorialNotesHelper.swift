@@ -88,9 +88,6 @@ struct TutorialNotesHelper {
         // Adicionar highlight
         resultText.append("Customize Note First Paragraph 04".localized().toFontWithColor(font: paragraphFont))
         resultText.append("Customize Note First Paragraph 05".localized().toFontWithColor(font: paragraphFont))
-        let customize1P06 = "Customize Note First Paragraph 06".localized().toFontWithColor(font: paragraphFont)
-        customize1P06.addAttribute(.underlineStyle, value: underlineNumber, range: NSRange(location: 0, length: customize1P06.length))
-        resultText.append(customize1P06)
         resultText.append(breakLine)
         resultText.append(breakLine)
         resultText.append("Customize Note Second Paragraph 01".localized().toFontWithColor(font: paragraphFont))
@@ -203,11 +200,6 @@ struct TutorialNotesHelper {
         resultText.append("Index Hierarchy Second Paragraph 05".localized().toFontWithColor(font: paragraphFont))
         resultText.append(breakLine)
         resultText.append(breakLine)
-        resultText.append("Index Hierarchy Third Paragraph 01".localized().toFontWithColor(font: paragraphFont))
-        let indexHierarchy3P02 = "Index Hierarchy Third Paragraph 02".localized().toFontWithColor(font: paragraphFont)
-        indexHierarchy3P02.addAttribute(.underlineStyle, value: underlineNumber, range: NSRange(location: 0, length: indexHierarchy3P02.length))
-        resultText.append(indexHierarchy3P02)
-        resultText.append("Index Hierarchy Third Paragraph 03".localized().toFontWithColor(font: paragraphFont))
         
         return resultText
     }
