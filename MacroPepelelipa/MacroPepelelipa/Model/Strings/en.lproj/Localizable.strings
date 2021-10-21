@@ -374,174 +374,174 @@
 
 // INTRODUCTION
 "Introduction Note Title" = "Presentation";
-"Introduction First Paragraph 01" = "O PurpleNotebook é um aplicativo de ";
-"Introduction First Paragraph 02" = "anotações";
-"Introduction First Paragraph 03" = " que ajuda estudantes a anotar durante suas aulas sem ";
-"Introduction First Paragraph 04" = "interrupções";
-"Introduction First Paragraph 05" = " e de forma ";
-"Introduction First Paragraph 06" = "organizada.";
+"Introduction First Paragraph 01" = "The PurpleNotebook is a ";
+"Introduction First Paragraph 02" = "note-taking";
+"Introduction First Paragraph 03" = " app that helps students take notes during class ";
+"Introduction First Paragraph 04" = "without interruptions";
+"Introduction First Paragraph 05" = " and in an ";
+"Introduction First Paragraph 06" = "organized way.";
 
-"Introduction Second Paragraph 01" = "Possui uma estrutura planejada para auxiliar na ";
-"Introduction Second Paragraph 02" = "organização";
-"Introduction Second Paragraph 03" = " das notas ao longo do tempo. ";
+"Introduction Second Paragraph 01" = "It has a well thought out structure that helps in the ";
+"Introduction Second Paragraph 02" = "organization";
+"Introduction Second Paragraph 03" = " of notes throughout time.";
 
-"Introduction Third Paragraph 01" = "O PurpleNotebook está disponível para ";
-"Introduction Third Paragraph 02" = "Mac, iPhone e iPad";
-"Introduction Third Paragraph 03" = ". Suas notas são ";
-"Introduction Third Paragraph 04" = "automaticamente";
-"Introduction Third Paragraph 05" = "sincronizadas e você pode continuar anotando de onde quiser! ";
+"Introduction Third Paragraph 01" = "The PurpleNotebook is available on the ";
+"Introduction Third Paragraph 02" = "Mac, iPhone and iPad.";
+"Introduction Third Paragraph 03" = "Your notes are ";
+"Introduction Third Paragraph 04" = "automatically";
+"Introduction Third Paragraph 05" = " synchronized and you can continue your note-taking from wherever you might like!";
 
-"Introduction Fourth Paragraph 01" = "Baixe ";
-"Introduction Fourth Paragraph 02" = "agora";
-"Introduction Fourth Paragraph 03" = " mesmo na AppStore e aproveite todos os recursos do ";
-"Introduction Fourth Paragraph 04" = "PurpleNotebook!";
+"Introduction Fourth Paragraph 01" = "Download it ";
+"Introduction Fourth Paragraph 02" = "now";
+"Introduction Fourth Paragraph 03" = " on the AppStore and take advantage of every ";
+"Introduction Fourth Paragraph 04" = "PurpleNotebook feature!!";
 
-"Introduction Fifth Paragraph 01" = "Ainda com dúvidas? Veja os ";
-"Introduction Fifth Paragraph 02" = "outros cadernos";
-"Introduction Fifth Paragraph 03" = " e descubra mais sobre as ";
-"Introduction Fifth Paragraph 04" = "funcionalidades";
+"Introduction Fifth Paragraph 01" = "Do you still have questions? Go check out our ";
+"Introduction Fifth Paragraph 02" = "other notebooks";
+"Introduction Fifth Paragraph 03" = " and get an inside look at our";
+"Introduction Fifth Paragraph 04" = "functionalities";
 "Introduction Fifth Paragraph 05" = ". :)";
 
 
 // CUSTOMIZE
 "Customize Note Title" = "Customization";
-"Customize Note First Paragraph 01" = "Introdução";
-"Customize Note First Paragraph 02" = "Personalize suas notas para ";
-"Customize Note First Paragraph 03" = "destacar os pontos mais relevantes";
-"Customize Note First Paragraph 04" = ", organizá-las ou deixá-las com uma ";
-"Customize Note First Paragraph 05" = "estética que combina com você.";
+"Customize Note First Paragraph 01" = "Introduction";
+"Customize Note First Paragraph 02" = "PPersonalize your notes to ";
+"Customize Note First Paragraph 03" = "emphasize the relevant points, ";
+"Customize Note First Paragraph 04" = "organize them ";
+"Customize Note First Paragraph 05" = " or give them your own aesthetic.";
 
-"Customize Note Second Paragraph 01" = "É possível mudar o estilo da ";
-"Customize Note Second Paragraph 02" = "escrita";
-"Customize Note Second Paragraph 03" = ", a cor";
-"Customize Note Second Paragraph 04" = ", destacar";
-"Customize Note Second Paragraph 05" = " ou transformar o texto em ";
-"Customize Note Second Paragraph 06" = "negrito,";
-"Customize Note Second Paragraph 07" = " itálico ";
-"Customize Note Second Paragraph 08" = "e ";
-"Customize Note Second Paragraph 09" = "sublinhado";
-"Customize Note Second Paragraph 10" = ". Estas opções estão disponíveis na ";
-"Customize Note Second Paragraph 11" = "central de personalização";
-"Customize Note Second Paragraph 12" = " ou através de ";
-"Customize Note Second Paragraph 13" = "markdown.";
+"Customize Note Second Paragraph 01" = "You can change the ";
+"Customize Note Second Paragraph 02" = "style of text, ";
+"Customize Note Second Paragraph 03" = "add color, ";
+"Customize Note Second Paragraph 04" = "highlight";
+"Customize Note Second Paragraph 05" = "  or ";
+"Customize Note Second Paragraph 06" = "add bold";
+"Customize Note Second Paragraph 07" = " , italic and ";
+"Customize Note Second Paragraph 08" = "underline";
+"Customize Note Second Paragraph 09" = " to your text.";
+"Customize Note Second Paragraph 10" = "These options are available in the toolbar ";
+"Customize Note Second Paragraph 11" = "or";
+"Customize Note Second Paragraph 12" = " with the markdown.";
 
-"Customize Note Third Paragraph 01" = "Utilize as diferentes fontes para personalizar mais ainda suas notas, marcar partes específicas do texto ou organizá-las. Atualmente existem três opções disponíveis: A ";
+"Customize Note Third Paragraph 01" = "Use the different fonts to personalize your notes, mark specific parts of the text or organize them. There are currently three options available: ";
 "Customize Note Third Paragraph 02" = "Dancing Script,";
-"Customize Note Third Paragraph 03" = " que é uma fonte cursiva, inspirada nas letras escritas a mão.";
-"Customize Note Third Paragraph 04" = " Merriweather,";
-"Customize Note Third Paragraph 05" = " que é uma fonte mais clássica e boa para leitura. ";
-"Customize Note Third Paragraph 06" = "E a ";
+"Customize Note Third Paragraph 03" = "which is a cursive font, inspired by handwritten letters. ";
+"Customize Note Third Paragraph 04" = "Merriweather,";
+"Customize Note Third Paragraph 05" = " which is a more classic and readable font. ";
+"Customize Note Third Paragraph 06" = "And ";
 "Customize Note Third Paragraph 07" = "OpenSans";
-"Customize Note Third Paragraph 08" = ", com um estilo mais moderno e simples.";
+"Customize Note Third Paragraph 08" = ", with a more modern and simpler style.";
 
-"Customize Note Fourth Paragraph 01" = "Além disso, não esqueça de utilizar os cabeçalhos de diferentes tamanhos: use o H1, H2 e H3. Além de tornar sua nota mais organizada, ajudam na criação do índice! ";
+"Customize Note Fourth Paragraph 01" = "Also, don't forget to use headers of different sizes: use H1, H2 and H3. In addition to making your note more organized, they help in creating the index!";
 
 "Customize Note Fifth Paragraph 01" = "Markdown";
-"Customize Note Fifth Paragraph 02" = "Para quem gosta de priorizar o uso do teclado, sugerimos explorar o nosso Markdown";
-"Customize Note Fifth Paragraph 03" = "Os atalhos são simples e objetivos:";
-"Customize Note Fifth Paragraph 04" = "_ texto _ : ";
-"Customize Note Fifth Paragraph 05" = "para sublinhado";
-"Customize Note Fifth Paragraph 06" = "* texto *:  ";
-"Customize Note Fifth Paragraph 07" = "para bold";
-"Customize Note Fifth Paragraph 08" = "- texto -: ";
-"Customize Note Fifth Paragraph 09" = "para itálico";
-"Customize Note Fifth Paragraph 10" = ":: texto :: : ";
-"Customize Note Fifth Paragraph 11" = "para destacar";
+"Customize Note Fifth Paragraph 02" = "For those who like to prioritize the use of the keyboard, we suggest exploring our Markdown";
+"Customize Note Fifth Paragraph 03" = "Shortcuts are simple and straightforward:";
+"Customize Note Fifth Paragraph 04" = "_ text _ : ";
+"Customize Note Fifth Paragraph 05" = "to underline";
+"Customize Note Fifth Paragraph 06" = "* text *:  ";
+"Customize Note Fifth Paragraph 07" = "to bold";
+"Customize Note Fifth Paragraph 08" = "- text -: ";
+"Customize Note Fifth Paragraph 09" = "to italic";
+"Customize Note Fifth Paragraph 10" = ":: text :: : ";
+"Customize Note Fifth Paragraph 11" = "to highlight";
 
 
 
 // INDEX
-"Index Note Title" = "Organização";
-"Index First Paragraph 01" = "Os índices são gerados com base nos seus cabeçalhos. Então, sempre que você usar um";
-"Index First Paragraph 02" = "cabeçalho H1";
+"Index Note Title" = "Organization";
+"Index First Paragraph 01" = "Indexes are generated based on headers. So whenever you use an ";
+"Index First Paragraph 02" = "H1 header";
 "Index First Paragraph 03" = ", ";
-"Index First Paragraph 04" = "o PurpleNotebook um tópico na lista da esquerda será criado.";
-"Index First Paragraph 05" = "Com este recurso você pode navegar ao longo da sua nota mais rapidamente.";
-"Index First Paragraph 06" = "Você pode criar vários cabeçalhos ";
-"Index First Paragraph 07" = "ao longo da sua nota para ";
-"Index First Paragraph 08" = "criar sessões";
-"Index First Paragraph 09" = " e ";
-"Index First Paragraph 10" = "facilitar a identificações ";
-"Index First Paragraph 11" = "de partes importantes do seu texto.";
+"Index First Paragraph 04" = "in PurpleNotebook a topic in the list on the right will be created.";
+"Index First Paragraph 05" = "With this feature you can navigate through your note faster. ";
+"Index First Paragraph 06" = "You can create multiple headers ";
+"Index First Paragraph 07" = " throughout your note to ";
+"Index First Paragraph 08" = "create sections";
+"Index First Paragraph 09" = " and ";
+"Index First Paragraph 10" = "make it easy to ";
+"Index First Paragraph 11" = "identify important parts of your text.";
 
-"Index Second Paragraph 01" = "Vamos lá! Experimente criar mais cabeçalhos nesta nota para ver na prática o Índice sendo criado. (: ";
+"Index Second Paragraph 01" = "Come on! Try creating more headings in this note to see the Table of Contents being created in practice. (:";
 
 
-"Index Hierarchy Title" = "Hierarquia - Estantes, livros e notas";
-"Index Hierarchy First Paragraph 01" = "Organize suas anotações agrupando-as em cadernos! ";
-"Index Hierarchy First Paragraph 02" = "E distribua seus cadernos em estantes. ";
-"Index Hierarchy First Paragraph 03" = "Tão fácil quanto na vida real.";
+"Index Hierarchy Title" = "Hierarchy - Shelves, books and notes";
+"Index Hierarchy First Paragraph 01" = "Organize your notes by grouping them into notebooks! ";
+"Index Hierarchy First Paragraph 02" = "And distribute your notebooks on shelves. ";
+"Index Hierarchy First Paragraph 03" = "As easy as in real life.";
 
-"Index Hierarchy Second Paragraph 01" = "Não há limite ";
-"Index Hierarchy Second Paragraph 02" = "de ";
-"Index Hierarchy Second Paragraph 03" = "uantidade de notas, cadernos ou estantes.";
-"Index Hierarchy Second Paragraph 04" = " Explore esse recurso para criar estantes organizadas e cadernos com temas específicos. ";
-"Index Hierarchy Second Paragraph 05" = "Desta forma sempre que você precisar encontrar uma nota antiga será fácil e sem complicações.";
+"Index Hierarchy Second Paragraph 01" = "There is no limit ";
+"Index Hierarchy Second Paragraph 02" = "on ";
+"Index Hierarchy Second Paragraph 03" = "amount of notes, notebooks or bookshelves.";
+"Index Hierarchy Second Paragraph 04" = "  Explore this feature to create organized shelves and notebooks with specific theme.";
+"Index Hierarchy Second Paragraph 05" = " This way whenever you need to find an old note it will be easy and hassle free.";
 
-"Index Hierarchy Third Paragraph 01" = "Explore também o índice de cada nota, que é ";
-"Index Hierarchy Third Paragraph 02" = "criado de forma automática";
-"Index Hierarchy Third Paragraph 03" = " de acordo com os títulos e subtítulos que você define.";
+"Index Hierarchy Third Paragraph 01" = "Also explore the index of each note, which is ";
+"Index Hierarchy Third Paragraph 02" = "automatically created";
+"Index Hierarchy Third Paragraph 03" = " according to the titles and subtitles you define.";
 
 
 // EXAMPLES
-"Examples Note 1 Title" = "Como organizar suas notas como um especialista!";
-"Examples First Paragraph 01" = "Nós tomamos notas sobre muitas coisas: ";
-"Examples First Paragraph 02" = "vida, planos, estudos, trabalhos, receitas...";
-"Examples First Paragraph 03" = " e muitos outros temas. ";
-"Examples First Paragraph 04" = "Aprender a organizá-las no ajuda a otimizar nossas rotinas.";
-"Examples First Paragraph 05" = " Queremos deixar algumas dicas de como você pode dominar a arte de organizar suas anotações.";
+"Examples Note 1 Title" = "How to organize your notes like an expert!";
+"Examples Note 1 First Paragraph 01" = "We take notes on many things: ";
+"Examples Note 1 First Paragraph 02" = "life, plans, studies, jobs, recipes... ";
+"Examples Note 1 First Paragraph 03" = "and many other topics. ";
+"Examples Note 1 First Paragraph 04" = "Learning to organize them helps us to optimize our routines. ";
+"Examples Note 1 First Paragraph 05" = "We want to leave some tips on how you can master the art of organizing your notes";
 
-"Examples Second Header H2" = "Primeiramente: Escolha seu método";
-"Examples Second Paragraph 02" = "Pense sobre suas preferências e como você anota mais rapidamente";
-"Examples Second Paragraph 03" = " O mais importante é ";
-"Examples Second Paragraph 04" = "concentrar-se em armazenar o conteúdo que você precisa";
-"Examples Second Paragraph 05" = " de uma forma que você consiga ";
-"Examples Second Paragraph 06" = "recuperar facilmente sempre que precisar.";
+"Examples Note 1 Second Header H2" = "First: Choose your method";
+"Examples Second Paragraph 02" = "Think about your preferences and how you take notes faster.";
+"Examples Note 1 Second Paragraph 03" = " Most importantly, ";
+"Examples Note 1 Second Paragraph 04" = "focus on storing the content you need";
+"Examples Note 1 Second Paragraph 05" = " in a way that you can ";
+"Examples Note 1 Second Paragraph 06" = "easily retrieve whenever you need it.";
 
-"Examples Third Paragraph 01" = "Faça a seguintes perguntas:";
-"Examples Third Paragraph 03" = "Eu anoto mais rápido usando o markdown ou não? ";
-"Examples Third Paragraph 04" = "Eu estou escolhendo bons cabeçalhos para as sessões de minhas notas? ";
-"Examples Third Paragraph 05" = "Os índices representam o conteúdo das minhas notas?";
-
-"Examples Fourth Paragraph 01" = "E tente fazer:";
-"Examples Fourth Paragraph 03" = "Usar destaques para tópicos que você precisa rever em algum momento posterior";
-"Examples Fourth Paragraph 04" = "Destacar informações relevantes com um negrito";
-"Examples Fourth Paragraph 05" = "Use cabeçalhos para criar sessões de assuntos ao longo de sua nota";
-"Examples Fourth Paragraph 06" = "Use diferentes estilos visuais para personalizar sua nota";
-"Examples Fourth Paragraph 07" = "Dê significado às cores";
+"Examples Note 1 Third Paragraph 01" = "Ask the following questions:";
+"Examples Note 1 Third Paragraph 03" = "Do I take notes faster using markdown or not?";
+"Examples Note 1 Third Paragraph 04" = "Am I choosing good headers for my note sessions?";
+"Examples Note 1 Third Paragraph 05" = "Do the indexes represent the content of my notes?";
 
 
+"Examples Note 1 Fourth Paragraph 01" = "And try to do:";
+"Examples Note 1 Fourth Paragraph 03" = "Use highlights for topics you need to review at some later time";
+"Examples Note 1 Fourth Paragraph 04" = "Highlight relevant information with a bold font";
+"Examples Note 1 Fourth Paragraph 05" = "Use headers to create subject sections throughout your note";
+"Examples Note 1 Fourth Paragraph 06" = "Use different visual styles to customize your grade";
+"Examples Note 1 Fourth Paragraph 07" = "Give meaning to colors";
 
 
-"Examples Note 2 Title" = "Em segundo lugar: Inclua seus pensamentos!";
-"Examples First Paragraph 01" = "Inclua o que você tá pensando";
-"Examples First Paragraph 02" = "sobre o tópico que está anotando. ";
-"Examples First Paragraph 03" = "Principalmente se estiver durante uma aula";
-"Examples First Paragraph 04" = ", deixe dúvidas, comentários e conclusões importantes sobre o que você está estudando ao longo de sua nota. ";
 
-"Examples Second Paragraph 01" = "Desta forma, ";
-"Examples Second Paragraph 02" = "o seu EU do futuro";
-"Examples Second Paragraph 03" = " pode recuperar essas informações que foram essenciais para a compreensão do assunto.";
 
-"Examples Third Paragraph H3" = "Mas não se esqueça: Diferencie estes elementos.";
-"Examples Third Paragraph 01" = "O ideal é deixar claro que estas anotações são ";
-"Examples Third Paragraph 02" = "tópicos paralelos ao conteúdo principal,";
-"Examples Third Paragraph 03" = " a dica é colocá-las em ";
-"Examples Third Paragraph 04" = "\"itálico e entre aspas.\"";
+"Examples Note 2 Title" = "Second: Include your thoughts!";
+"Examples Note 2 First Paragraph 01" = "Inclua o que você tá pensando";
+"Examples Note 2 First Paragraph 02" = "sobre o tópico que está anotando. ";
+"Examples Note 2 First Paragraph 03" = "Principalmente se estiver durante uma aula";
+"Examples Note 2 First Paragraph 04" = ", deixe dúvidas, comentários e conclusões importantes sobre o que você está estudando ao longo de sua nota. ";
+
+"Examples Note 2 Second Paragraph 01" = "Desta forma, ";
+"Examples Note 2 Second Paragraph 02" = "o seu EU do futuro";
+"Examples Note 2 Second Paragraph 03" = " pode recuperar essas informações que foram essenciais para a compreensão do assunto.";
+
+"Examples Note 2 Third Paragraph H3" = "Mas não se esqueça: Diferencie estes elementos.";
+"Examples Note 2 Third Paragraph 01" = "O ideal é deixar claro que estas anotações são ";
+"Examples Note 2 Third Paragraph 02" = "tópicos paralelos ao conteúdo principal,";
+"Examples Note 2 Third Paragraph 03" = " a dica é colocá-las em ";
+"Examples Note 2 Third Paragraph 04" = "\"itálico e entre aspas.\"";
 
 
 
 "Examples Note 3 Title" = "Não faça notas muitos grandes";
-"Examples First Paragraph 01" = "Divida suas notas por ";
-"Examples First Paragraph 02" = "temas, aulas, dias de trabalho ou uma viajem específica. ";
-"Examples First Paragraph 03" = "Desta forma, você";
-"Examples First Paragraph 04" = " e complexos de serem consumidos posteriormente.";
+"Examples Note 3 First Paragraph 01" = "Divida suas notas por ";
+"Examples Note 3 First Paragraph 02" = "temas, aulas, dias de trabalho ou uma viajem específica. ";
+"Examples Note 3 First Paragraph 03" = "Desta forma, você";
+"Examples Note 3 First Paragraph 04" = " e complexos de serem consumidos posteriormente.";
 
-"Examples Second Paragraph 01" = "Pense em criar ";
-"Examples Second Paragraph 02" = "cápsulas de conteúdo";
-"Examples Second Paragraph 03" = " que podem ser consumidas rapidamente. Além disso, ";
-"Examples Second Paragraph 03" = "criando mais divisões é mais fácil encontrar aquela nota";
-"Examples Second Paragraph 03" = " de dois anos atrás sobre aquele assunto aleatório que você mal lembra. ";
+"Examples Note 3 Second Paragraph 01" = "Pense em criar ";
+"Examples Note 3 Second Paragraph 02" = "cápsulas de conteúdo";
+"Examples Note 3 Second Paragraph 03" = " que podem ser consumidas rapidamente. Além disso, ";
+"Examples Note 3 Second Paragraph 03" = "criando mais divisões é mais fácil encontrar aquela nota";
+"Examples Note 3 Second Paragraph 03" = " de dois anos atrás sobre aquele assunto aleatório que você mal lembra. ";
 
 
 
