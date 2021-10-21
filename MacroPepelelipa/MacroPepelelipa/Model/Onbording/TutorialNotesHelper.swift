@@ -25,7 +25,6 @@ struct TutorialNotesHelper {
         let resultText = NSMutableAttributedString()
         let underlineNumber = NSNumber.init(value: NSUnderlineStyle.single.rawValue)
         
-        resultText.append("Introduction First Paragraph 01".localized().toFontWithDefaultColor(font: paragraphFont))
         resultText.append("Introduction First Paragraph 01".localized().toFontWithColor(font: paragraphFont))
         resultText.append("Introduction First Paragraph 02".localized().toFontWithColor(font: paragraphBoldFont))
         resultText.append("Introduction First Paragraph 03".localized().toFontWithColor(font: paragraphFont))
