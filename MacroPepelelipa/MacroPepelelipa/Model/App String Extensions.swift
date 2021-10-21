@@ -20,13 +20,16 @@ internal extension String {
         return mutable.withForegroundColor(.placeholderColor ?? .placeholderText)
     }
 
-    func toFontWithColor(color: UIColor = UIColor.bodyColor ?? .black, font: Any) -> NSMutableAttributedString {
+    func toFontWithColor(color: UIColor = UIColor.bodyColor ?? .black, backgroundColor: UIColor? = nil, font: Any) -> NSMutableAttributedString {
         let range = NSRange(location: 0, length: self.count)
         let mutableString = NSMutableAttributedString(string: self)
 
         mutableString.addAttribute(.font, value: font, range: range)
         mutableString.addAttribute(.foregroundColor, value: color, range: range)
-
+        if let backgroundColor = backgroundColor {
+            mutableString.addAttribute(.backgroundColor, value: backgroundColor, range: range)
+        }
+        
         return mutableString
     }
 }
