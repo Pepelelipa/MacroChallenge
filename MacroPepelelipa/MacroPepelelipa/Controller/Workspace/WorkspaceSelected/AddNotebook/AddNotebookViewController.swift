@@ -20,8 +20,6 @@ internal class AddNotebookViewController: ViewController {
     private let notebookView = NotebookView(frame: .zero)
     private var referenceView = UIView(frame: .zero)
     
-    private var popupViewViewConstraints: [NSLayoutConstraint] = []
-    
     private lazy var keyboardToolBar = AddNewSpaceToolBar(frame: .zero, owner: txtName)
     private lazy var collectionViewDataSource = ColorSelectionCollectionViewDataSource()
     private lazy var gestureDelegate: GestureDelegate = GestureDelegate(popup: popupView, textField: txtName)
@@ -97,22 +95,15 @@ internal class AddNotebookViewController: ViewController {
     }()
     
     private var ratio: CGFloat {
-        if UIDevice.current.userInterfaceIdiom != .phone {
-            if UIDevice.current.orientation.isActuallyLandscape {
-                if view.frame.width > UIScreen.main.bounds.width/2 {
-                    return view.frame.width / 2
-                }
-            } else {
-                if view.frame.width == UIScreen.main.bounds.width {
-                    return view.frame.width / 2
-                }
-            }
-        } 
-        return view.frame.width - 40
+        return view.frame.width / 2
     }
     
     private lazy var constraints: [NSLayoutConstraint] = {
         [
+            popupView.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width/3.5),
+            popupView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            popupView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            
             dismissButton.topAnchor.constraint(equalTo: popupView.topAnchor, constant: 16),
             dismissButton.trailingAnchor.constraint(equalTo: popupView.trailingAnchor, constant: -16),
             dismissButton.widthAnchor.constraint(equalTo: popupView.heightAnchor, multiplier: 0.06),
@@ -174,6 +165,8 @@ internal class AddNotebookViewController: ViewController {
         popupView.addSubview(btnConfirm)
         popupView.addSubview(dismissButton)
         
+        NSLayoutConstraint.activate(constraints)
+        
         btnConfirm.isEnabled = false
         
         let selfTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(selfTap))
@@ -195,23 +188,6 @@ internal class AddNotebookViewController: ViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         AppUtility.setOrientation(.all)
-    }
-
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        NSLayoutConstraint.activate(constraints)
-        
-        NSLayoutConstraint.deactivate(popupViewViewConstraints)
-        popupViewViewConstraints.removeAll()
-        
-        popupViewViewConstraints.append(popupView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor))
-        popupViewViewConstraints.append(popupView.centerYAnchor.constraint(equalTo: self.view.centerYAnchor))
-        popupViewViewConstraints.append(popupView.widthAnchor.constraint(equalToConstant: ratio))
-        NSLayoutConstraint.activate(popupViewViewConstraints)
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
-            self.collectionView.collectionViewLayout.invalidateLayout()
-        }
     }
     
     override func pressesBegan(_ presses: Set<UIPress>, with event: UIPressesEvent?) {
