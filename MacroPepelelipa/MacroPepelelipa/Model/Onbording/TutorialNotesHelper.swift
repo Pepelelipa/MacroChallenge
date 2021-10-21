@@ -133,7 +133,7 @@ struct TutorialNotesHelper {
         // A partir daqui precisa ser bullet
         resultText.append(breakLine)
         resultText.append(breakLine)
-        resultText.append("Customize Note Fifth Paragraph 04".localized().toFontWithColor(font: paragraphFont))
+        resultText.append("Customize Note Fifth Paragraph 04".localized().toFontWithBullet(font: paragraphFont))
         let customize4P04 = "Customize Note Fifth Paragraph 05".localized().toFontWithColor(font: paragraphFont)
         customize4P04.addAttribute(.underlineStyle, value: underlineNumber, range: NSRange(location: 0, length: customize4P04.length))
         resultText.append(customize4P04)

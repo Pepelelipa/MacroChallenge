@@ -39,6 +39,7 @@ internal extension String {
         if let font = font {
             mutableString.addAttribute(.font, value: font, range: range)
         }
+        mutableString.addAttribute(.foregroundColor, value: UIColor.bodyColor ?? .black, range: range)
         mutableString.addAttribute(.kern, value: 0, range: NSRange(location: 0, length: 1))
         return mutableString
     }
