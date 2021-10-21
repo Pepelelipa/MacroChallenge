@@ -62,15 +62,12 @@ internal class AddWorkspaceViewController: ViewController, AddWorkspaceObserver 
     private lazy var keyboardToolBar = AddNewSpaceToolBar(frame: .zero, owner: txtName)
     
     private lazy var btnConfirm: UIButton = {
-        let btnConfirm = UIButton()
+        let btnConfirm = RoundCornerButton(textColor: UIColor(named: "Action"), fillColor: .clear, borderColor: UIColor(named: "Action"), cornerRadius: 10)
         btnConfirm.translatesAutoresizingMaskIntoConstraints = false
         btnConfirm.setTitle("Create new workspace".localized(), for: .normal)
         btnConfirm.titleLabel?.adjustsFontSizeToFitWidth = true
         btnConfirm.addTarget(self, action: #selector(btnConfirmTap), for: .touchUpInside)
-        btnConfirm.tintColor = .white
-        btnConfirm.setBackgroundImage(UIImage(named: "btnWorkspaceBackground"), for: .normal)
-        btnConfirm.layer.cornerRadius = 22
-        btnConfirm.titleLabel?.font = UIFont.defaultHeader.toStyle(.h3)
+        btnConfirm.titleLabel?.font = UIFont.defaultHeader.toStyle(.h3).removeTrait(.traitBold)
         btnConfirm.contentEdgeInsets = UIEdgeInsets(top: 10, left: 15, bottom: 10, right: 15)
 
         return btnConfirm
@@ -120,7 +117,6 @@ internal class AddWorkspaceViewController: ViewController, AddWorkspaceObserver 
         selfTapGestureRecognizer.delegate = gestureDelegate
         view.addGestureRecognizer(selfTapGestureRecognizer)
         
-        txtName.becomeFirstResponder()
         self.txtName.inputAccessoryView = keyboardToolBar
 
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
@@ -166,15 +162,8 @@ internal class AddWorkspaceViewController: ViewController, AddWorkspaceObserver 
     }
 
     @IBAction func selfTap() {
-        if txtName.isEditing {
-            txtName.resignFirstResponder()
-        } else {
-            self.dismiss(animated: true) { 
-                if self.txtName.isEditing {
-                    self.txtName.endEditing(true)
-                }
-            }
-        }
+        self.txtName.endEditing(true)
+        self.dismiss(animated: true)
     }
     
     @IBAction func btnConfirmTap() {
