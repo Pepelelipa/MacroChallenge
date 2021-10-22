@@ -22,7 +22,6 @@ internal class AddNotebookViewController: ViewController {
     
     private lazy var keyboardToolBar = AddNewSpaceToolBar(frame: .zero, owner: txtName)
     private lazy var collectionViewDataSource = ColorSelectionCollectionViewDataSource()
-    private lazy var gestureDelegate: GestureDelegate = GestureDelegate(popup: popupView, textField: txtName)
     
     private lazy var popupView: UIView = {
         let view = UIView()
@@ -169,10 +168,6 @@ internal class AddNotebookViewController: ViewController {
         
         btnConfirm.isEnabled = false
         
-        let selfTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(selfTap))
-        selfTapGestureRecognizer.delegate = gestureDelegate
-        view.addGestureRecognizer(selfTapGestureRecognizer)
-        
         self.txtName.inputAccessoryView = keyboardToolBar
     }
     
@@ -213,11 +208,6 @@ internal class AddNotebookViewController: ViewController {
     
     @IBAction func dismissPopUpView() {
         self.dismiss(animated: true, completion: nil)
-    }
-    
-    @IBAction func selfTap() {
-        self.txtName.endEditing(true)
-        self.dismiss(animated: true)
     }
 
     @IBAction func textChanged(_ textField: UITextField) {
