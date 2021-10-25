@@ -24,7 +24,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         let time = UserDefaults.standard.integer(forKey: "numberOfTimes")
         if time == 0 {
-            navController.viewControllers = [OnboardingPageViewController()]
             UserDefaults.standard.setValue(time + 1, forKey: "numberOfTimes")
         } else {
             navController.viewControllers = [WorkspaceSelectionViewController()]
