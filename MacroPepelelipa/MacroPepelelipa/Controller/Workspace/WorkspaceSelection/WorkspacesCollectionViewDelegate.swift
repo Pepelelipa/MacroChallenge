@@ -42,12 +42,7 @@ internal class WorkspacesCollectionViewDelegate: NSObject,
     }
     
     internal func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        switch UIDevice.current.userInterfaceIdiom {
-        case .pad, .mac:
-            return collectionView.isEditing ? 15 : 50
-        default:
-            return 20
-        }
+        return 40
     }
     
     internal func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
