@@ -39,12 +39,6 @@ internal class NotesPageViewController: UIPageViewController,
         return item
     }()
     
-    private lazy var presentTipButton: UIBarButtonItem = {
-        let item = UIBarButtonItem(image: UIImage(systemName: "info.circle"), style: .plain, target: self, action: #selector(presentTip))
-
-        return item
-    }()
-    
     private lazy var doneButton: UIBarButtonItem = {
         let item = UIBarButtonItem(ofType: .done,
                                    target: self,
@@ -103,7 +97,7 @@ internal class NotesPageViewController: UIPageViewController,
         view.backgroundColor = .rootColor
         
         navigationItem.largeTitleDisplayMode = .never
-        navigationItem.rightBarButtonItems = [notebookIndexButton, presentTipButton]
+        navigationItem.rightBarButtonItems = [notebookIndexButton]
                 
         NotificationCenter.default.addObserver(
             self,
@@ -313,13 +307,6 @@ internal class NotesPageViewController: UIPageViewController,
                                                                           note: notes[index])
             notebookIndexViewController.observer = self
             self.present(notebookIndexViewController, animated: true, completion: nil)
-        }
-    }
-    
-    @IBAction private func presentTip() {
-        if self.notebook != nil {
-            let tipNaviationController = UINavigationController(rootViewController: TipViewController())
-            self.present(tipNaviationController, animated: true, completion: nil)
         }
     }
     
