@@ -372,6 +372,12 @@
 
 // MARK: - Tutorial Notes
 
+// NOTEBOOKS TITLES
+"Notebook 1" = "Introduction";
+"Notebook 2" = "Customize";
+"Notebook 3" = "Index";
+"Notebook 4" = "Examples";
+
 // INTRODUCTION
 "Introduction Note Title" = "Presentation";
 "Introduction First Paragraph 01" = "The PurpleNotebook is a ";
