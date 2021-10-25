@@ -369,3 +369,189 @@
 "Format Image" = "Format Image English";
 "Transcript Image" = "Transcript Image English";
 "Markdown Image" = "Markdown Image English";
+
+// MARK: - Tutorial Notes
+
+// NOTEBOOKS TITLES
+"Notebook 1" = "Introduction";
+"Notebook 2" = "Customize";
+"Notebook 3" = "Index";
+"Notebook 4" = "Examples";
+
+// INTRODUCTION
+"Introduction Note Title" = "Presentation";
+"Introduction First Paragraph 01" = "The PurpleNotebook is a ";
+"Introduction First Paragraph 02" = "note-taking";
+"Introduction First Paragraph 03" = " app that helps students take notes during class ";
+"Introduction First Paragraph 04" = "without interruptions";
+"Introduction First Paragraph 05" = " and in an ";
+"Introduction First Paragraph 06" = "organized way.";
+
+"Introduction Second Paragraph 01" = "It has a well thought out structure that helps in the ";
+"Introduction Second Paragraph 02" = "organization";
+"Introduction Second Paragraph 03" = " of notes throughout time.";
+
+"Introduction Third Paragraph 01" = "The PurpleNotebook is available on the ";
+"Introduction Third Paragraph 02" = "Mac, iPhone and iPad.";
+"Introduction Third Paragraph 03" = " Your notes are ";
+"Introduction Third Paragraph 04" = "automatically";
+"Introduction Third Paragraph 05" = " synchronized and you can continue your note-taking from wherever you might like!";
+
+"Introduction Fourth Paragraph 01" = "Download it ";
+"Introduction Fourth Paragraph 02" = "now";
+"Introduction Fourth Paragraph 03" = " on the AppStore and take advantage of every ";
+"Introduction Fourth Paragraph 04" = "PurpleNotebook feature!!";
+
+"Introduction Fifth Paragraph 01" = "Do you still have questions? Go check out our ";
+"Introduction Fifth Paragraph 02" = "other notebooks";
+"Introduction Fifth Paragraph 03" = " and get an inside look at our ";
+"Introduction Fifth Paragraph 04" = "functionalities";
+"Introduction Fifth Paragraph 05" = ". :)";
+
+
+// CUSTOMIZE
+"Customize Note Title" = "Customization";
+"Customize Note First Paragraph 01" = "Introduction";
+"Customize Note First Paragraph 02" = "Personalize your notes to ";
+"Customize Note First Paragraph 03" = "emphasize the relevant points, ";
+"Customize Note First Paragraph 04" = "organize them";
+"Customize Note First Paragraph 05" = " or give them your own aesthetic.";
+
+"Customize Note Second Paragraph 01" = "You can change the ";
+"Customize Note Second Paragraph 02" = "style of text, ";
+"Customize Note Second Paragraph 03" = "add color, ";
+"Customize Note Second Paragraph 04" = "highlight";
+"Customize Note Second Paragraph 05" = "  or ";
+"Customize Note Second Paragraph 06" = "add bold";
+"Customize Note Second Paragraph 07" = " , italic and ";
+"Customize Note Second Paragraph 08" = "underline";
+"Customize Note Second Paragraph 09" = " to your text.";
+"Customize Note Second Paragraph 10" = " These options are available in the toolbar ";
+"Customize Note Second Paragraph 11" = "or";
+"Customize Note Second Paragraph 12" = " with the markdown.";
+
+"Customize Note Third Paragraph 01" = "Use the different fonts to personalize your notes, mark specific parts of the text or organize them. There are currently three options available: ";
+"Customize Note Third Paragraph 02" = " Dancing Script,";
+"Customize Note Third Paragraph 03" = "which is a cursive font, inspired by handwritten letters. ";
+"Customize Note Third Paragraph 04" = "Merriweather,";
+"Customize Note Third Paragraph 05" = " which is a more classic and readable font. ";
+"Customize Note Third Paragraph 06" = "And ";
+"Customize Note Third Paragraph 07" = "OpenSans";
+"Customize Note Third Paragraph 08" = ", with a modern and simple style.";
+
+"Customize Note Fourth Paragraph 01" = "Also, don't forget to use headers of different sizes: use H1, H2 and H3. They help to organize your note!";
+
+"Customize Note Fifth Paragraph 01" = "Markdown";
+"Customize Note Fifth Paragraph 02" = "For those who like to prioritize the use of the keyboard, we suggest exploring our Markdown";
+"Customize Note Fifth Paragraph 03" = "Shortcuts are simple and straightforward:";
+"Customize Note Fifth Paragraph 04" = " _ text _ : ";
+"Customize Note Fifth Paragraph 05" = "to underline";
+"Customize Note Fifth Paragraph 06" = " * text *:  ";
+"Customize Note Fifth Paragraph 07" = "to bold";
+"Customize Note Fifth Paragraph 08" = " - text -: ";
+"Customize Note Fifth Paragraph 09" = "to italic";
+"Customize Note Fifth Paragraph 10" = " :: text :: : ";
+"Customize Note Fifth Paragraph 11" = "to highlight";
+
+
+
+// INDEX
+"Index Note Title" = "Organization";
+"Index Note H2" = "Index";
+"Index First Paragraph 01" = "Indexes are generated based on the ";
+"Index First Paragraph 02" = "title";
+"Index First Paragraph 03" = " of your note.";
+"Index First Paragraph 04" = " For each note title, a topic will be created on the right section.";
+"Index First Paragraph 05" = "With this feature you can navigate through your notes faster. ";
+"Index First Paragraph 06" = "You can create multiple headers ";
+"Index First Paragraph 07" = "throughout your note to ";
+"Index First Paragraph 08" = "create sections";
+"Index First Paragraph 09" = " and ";
+"Index First Paragraph 10" = "make it easy to identify ";
+"Index First Paragraph 11" = "important parts of your text.";
+
+"Index Second Paragraph 01" = "Try creating more headings in this note to see how it looks good. (:";
+
+
+"Index Hierarchy Title" = "Hierarchy - Shelves, books and notes";
+"Index Hierarchy First Paragraph 01" = "Organize your notes by grouping them into notebooks! ";
+"Index Hierarchy First Paragraph 02" = "And distribute your notebooks on shelves. ";
+"Index Hierarchy First Paragraph 03" = "As easy as in real life.";
+
+"Index Hierarchy Second Paragraph 01" = "There is no limit ";
+"Index Hierarchy Second Paragraph 02" = "on how many";
+"Index Hierarchy Second Paragraph 03" = " notes, notebooks or bookshelves you can create.";
+"Index Hierarchy Second Paragraph 04" = "  Explore this feature to create organized shelves and notebooks with specific theme.";
+"Index Hierarchy Second Paragraph 05" = " This way whenever you need to find an old note it will be easy and hassle free.";
+
+"Index Hierarchy Third Paragraph 01" = "Also explore the index of each note, which is ";
+"Index Hierarchy Third Paragraph 02" = "created automatically";
+"Index Hierarchy Third Paragraph 03" = " based on the titles and subtitles you defined.";
+
+
+
+// EXAMPLES
+"Examples Notebook Title" = "Example";
+"Examples Note 1 Title" = "How to organize your notes like an expert!";
+"Examples Note 1 First Paragraph 01" = "We take notes on many things: ";
+"Examples Note 1 First Paragraph 02" = "life, plans, studies, jobs, recipes... ";
+"Examples Note 1 First Paragraph 03" = "and many other topics. ";
+"Examples Note 1 First Paragraph 04" = "Learning to organize them helps us to optimize our routines. ";
+"Examples Note 1 First Paragraph 05" = "Here are some tips on how you can master the art of organizing your notes";
+
+"Examples Note 1 Second Header H2" = "First: Choose your method";
+"Examples Note 1 Second Paragraph 02" = "Think about your preferences and how you take notes faster.";
+"Examples Note 1 Second Paragraph 03" = " Most importantly, ";
+"Examples Note 1 Second Paragraph 04" = "focus on storing the content you need";
+"Examples Note 1 Second Paragraph 05" = " in a way that you can ";
+"Examples Note 1 Second Paragraph 06" = "easily retrieve whenever you need it.";
+
+"Examples Note 1 Third Paragraph 01" = "Ask the following questions:";
+"Examples Note 1 Third Paragraph 03" = " Do I take notes faster using markdown or not? ";
+"Examples Note 1 Third Paragraph 04" = " Am I choosing good headers for my note sessions? ";
+"Examples Note 1 Third Paragraph 05" = " Do the indexes represent the content of my notes? ";
+
+
+"Examples Note 1 Fourth Paragraph 01" = "Try to:";
+"Examples Note 1 Fourth Paragraph 03" = " Use highlights for topics you need to review at some later time ";
+"Examples Note 1 Fourth Paragraph 04" = " Highlight relevant information with a bold font ";
+"Examples Note 1 Fourth Paragraph 05" = " Use headers to create subject sections throughout your note ";
+"Examples Note 1 Fourth Paragraph 06" = " Use different visual styles to customize your grade ";
+"Examples Note 1 Fourth Paragraph 07" = " Give meaning to colors ";
+
+
+
+
+"Examples Note 2 Title" = "In second place: Make it personal!";
+"Examples Note 2 First Paragraph 01" = "Take notes based on what you're thinking, ";
+"Examples Note 2 First Paragraph 02" = "about the topic you're writing down. ";
+"Examples Note 2 First Paragraph 03" = "Especially if you are taking notes during a class";
+"Examples Note 2 First Paragraph 04" = ", leave important questions, comments and conclusions about what you are studying throughout your note.";
+
+"Examples Note 2 Second Paragraph 01" = "In this way, ";
+"Examples Note 2 Second Paragraph 02" = "in the future you can";
+"Examples Note 2 Second Paragraph 03" = " retrieve information that was essential to understanding the subject.";
+
+"Examples Note 2 Third Paragraph H3" = "But don't forget: Differentiate these elements.";
+"Examples Note 2 Third Paragraph 01" = "The ideal is to make it clear that these notes are ";
+"Examples Note 2 Third Paragraph 02" = "parallel topics to the main content,";
+"Examples Note 2 Third Paragraph 03" = " the tip is to put them in ";
+"Examples Note 2 Third Paragraph 04" = "\"italics or in quotes\"";
+
+
+
+"Examples Note 3 Title" = "Don't make giant notes";
+"Examples Note 3 First Paragraph 01" = "Divide your notes by ";
+"Examples Note 3 First Paragraph 02" = " themes, classes, workdays or a specific trip. ";
+"Examples Note 3 First Paragraph 03" = "This way, you ";
+"Examples Note 3 First Paragraph 04" = "avoid creating long and complex notes to be consumed later.";
+
+"Examples Note 3 Second Paragraph 01" = "Think about creating ";
+"Examples Note 3 Second Paragraph 02" = "content capsules";
+"Examples Note 3 Second Paragraph 03" = " that can be consumed quickly. And also, ";
+"Examples Note 3 Second Paragraph 04" = "creating more divisions makes it easier to find that note";
+"Examples Note 3 Second Paragraph 05" = " from two years ago on that random subject you barely remember. ";
+
+
+
+

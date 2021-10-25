@@ -35,7 +35,7 @@ internal class InputViewTipsStack: UIStackView {
         }
         switch stackType {
         case .bold:
-            let attributedText = NSMutableAttributedString(attributedString: "Bold".localized().toFontWithDefaultColor(font: boldFont))
+            let attributedText = NSMutableAttributedString(attributedString: "Bold".localized().toFontWithColor(font: boldFont))
             
             tipLabel.attributedText = attributedText
             tipImageView.image = UIImage(named: "Bold Tip")
@@ -43,7 +43,7 @@ internal class InputViewTipsStack: UIStackView {
             self.addArrangedSubview(tipImageView)
             self.addArrangedSubview(tipLabel)            
         case .highlighted:
-            let attributedText = NSMutableAttributedString(attributedString: "Highlighted".localized().toFontWithDefaultColor(font: italicFont))
+            let attributedText = NSMutableAttributedString(attributedString: "Highlighted".localized().toFontWithColor(font: italicFont))
             attributedText.addAttributes([NSAttributedString.Key.backgroundColor: UIColor.highlightColor ?? .systemYellow], range: NSRange(location: 0, length: attributedText.length))
             
             tipLabel.attributedText = attributedText

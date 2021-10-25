@@ -9,6 +9,7 @@
 import UIKit
 import Database
 import StoreKit
+import MarkdownText
 
 internal class WorkspaceSelectionViewController: ViewController, 
                                                  UISearchResultsUpdating,
@@ -148,6 +149,8 @@ internal class WorkspaceSelectionViewController: ViewController,
 
         self.definesPresentationContext = true
         
+        createOnboarding()
+        
         DataManager.shared().addCreationObserver(self, type: .workspace)
         setEditButtonItem()
     }
@@ -193,6 +196,36 @@ internal class WorkspaceSelectionViewController: ViewController,
     }
     
     // MARK: - Demo Launch
+    
+    private func createOnboarding() {
+        do {
+            let workspace = try DataManager.shared().createWorkspace(named: "Your first workspace".localized())
+            
+            let introductionNotebook = try DataManager.shared().createNotebook(in: workspace, named: "Notebook 1".localized(), colorName: "nb19")
+            let introductionNote = try DataManager.shared().createNote(in: introductionNotebook)
+            introductionNote.title = TutorialNotesHelper.buildIntroductionTitle()
+            introductionNote.text = TutorialNotesHelper.buildIntroductionText()
+            
+            let customizeNotebook = try DataManager.shared().createNotebook(in: workspace, named: "Notebook 2".localized(), colorName: "nb5")
+            let customizeNote = try DataManager.shared().createNote(in: customizeNotebook)
+            customizeNote.title = TutorialNotesHelper.buildCustomizeTitle()
+            customizeNote.text = TutorialNotesHelper.buildCustomizeText()
+            
+            let indexNotebook = try DataManager.shared().createNotebook(in: workspace, named: "Notebook 3".localized(), colorName: "nb6")
+            let indexNote = try DataManager.shared().createNote(in: indexNotebook)
+            indexNote.title = TutorialNotesHelper.buildIndexTitle()
+            indexNote.text = TutorialNotesHelper.buildIndexText()
+            
+            let examplesNotebook = try DataManager.shared().createNotebook(in: workspace, named: "Notebook 4".localized(), colorName: "nb11")
+            let examplesNote = try DataManager.shared().createNote(in: examplesNotebook)
+            examplesNote.title = TutorialNotesHelper.buildExamplesTitle()
+            examplesNote.text = TutorialNotesHelper.buildExamplesText()
+                        
+        } catch {
+            // Precisamos lidar com isso ainda
+            fatalError()
+        }
+    }
     
     private func showDemoLaunchOverlay() {
         let destination = DemoLaunchViewController(nibName: "DemoLaunchViewController", bundle: nil)

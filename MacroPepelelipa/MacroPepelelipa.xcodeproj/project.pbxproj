@@ -125,6 +125,7 @@
 		1EFA49CE252D15C500602904 /* MarkdownNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EFA49CD252D15C500602904 /* MarkdownNavigationView.swift */; };
 		2C6638E426F3FA660026A2C8 /* DemoLaunchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C6638E226F3FA660026A2C8 /* DemoLaunchViewController.swift */; };
 		2C6638E526F3FA660026A2C8 /* DemoLaunchViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2C6638E326F3FA660026A2C8 /* DemoLaunchViewController.xib */; };
+		2C7AEBF4271229D3008C5217 /* TutorialNotesHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7AEBF3271229D3008C5217 /* TutorialNotesHelper.swift */; };
 		2CF09164270BBAF4007A890A /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C21B33254B55BB0061CCBA /* Font.swift */; };
 		5811077226F1603600C7B450 /* NotificationName+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5811077126F1603600C7B450 /* NotificationName+Extension.swift */; };
 		585718A626F3F7E70028A38D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 585718A526F3F7E70028A38D /* ViewController.swift */; };
@@ -148,7 +149,6 @@
 		A7FC9BF4255F2C7900330283 /* ItemSizeHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7FC9BF3255F2C7900330283 /* ItemSizeHelper.swift */; };
 		A7FD9B13253BACF500235D20 /* NotesPageViewObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7FD9B12253BACF500235D20 /* NotesPageViewObserver.swift */; };
 		D925934E255986F1000529B4 /* InputViewTipsStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = D925934D255986F1000529B4 /* InputViewTipsStack.swift */; };
-		D925935225598700000529B4 /* TipViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D925935125598700000529B4 /* TipViewController.swift */; };
 		D96DAA09252F9F4B00552AB1 /* AddNewSpaceToolBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = D96DAA08252F9F4B00552AB1 /* AddNewSpaceToolBar.swift */; };
 		D97EE7AC254B554F00A68B06 /* SearchResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D97EE7A7254B554F00A68B06 /* SearchResultViewController.swift */; };
 		D97EE7AD254B554F00A68B06 /* SearchResultCollectionViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D97EE7A8254B554F00A68B06 /* SearchResultCollectionViewDelegate.swift */; };
@@ -377,6 +377,7 @@
 		1EFA49CD252D15C500602904 /* MarkdownNavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkdownNavigationView.swift; sourceTree = "<group>"; };
 		2C6638E226F3FA660026A2C8 /* DemoLaunchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoLaunchViewController.swift; sourceTree = "<group>"; };
 		2C6638E326F3FA660026A2C8 /* DemoLaunchViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DemoLaunchViewController.xib; sourceTree = "<group>"; };
+		2C7AEBF3271229D3008C5217 /* TutorialNotesHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialNotesHelper.swift; sourceTree = "<group>"; };
 		5811077126F1603600C7B450 /* NotificationName+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotificationName+Extension.swift"; sourceTree = "<group>"; };
 		585718A526F3F7E70028A38D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		58E145A32636F9EC0048C6AA /* MacroPepelelipaDevelop.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MacroPepelelipaDevelop.entitlements; sourceTree = "<group>"; };
@@ -400,7 +401,6 @@
 		A7FC9BF3255F2C7900330283 /* ItemSizeHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemSizeHelper.swift; sourceTree = "<group>"; };
 		A7FD9B12253BACF500235D20 /* NotesPageViewObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesPageViewObserver.swift; sourceTree = "<group>"; };
 		D925934D255986F1000529B4 /* InputViewTipsStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InputViewTipsStack.swift; sourceTree = "<group>"; };
-		D925935125598700000529B4 /* TipViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TipViewController.swift; sourceTree = "<group>"; };
 		D96DAA08252F9F4B00552AB1 /* AddNewSpaceToolBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewSpaceToolBar.swift; sourceTree = "<group>"; };
 		D97EE7A7254B554F00A68B06 /* SearchResultViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchResultViewController.swift; sourceTree = "<group>"; };
 		D97EE7A8254B554F00A68B06 /* SearchResultCollectionViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchResultCollectionViewDelegate.swift; sourceTree = "<group>"; };
@@ -752,7 +752,6 @@
 			isa = PBXGroup;
 			children = (
 				D9CE2D302565C00A00DF4D2A /* NotesViewController */,
-				D925935125598700000529B4 /* TipViewController.swift */,
 				02919F4125531B1E00C03E27 /* MarkdownTextViewDelegate.swift */,
 				D9F04BEB25377D5D001C6551 /* AddNoteViewController.swift */,
 				1E9EF4AC2522609400CC623B /* MarkupTextFieldDelegate.swift */,
@@ -968,6 +967,7 @@
 			isa = PBXGroup;
 			children = (
 				1E91D361255F30B5002FA8F1 /* OnboardingPageViewControllerDataSource.swift */,
+				2C7AEBF3271229D3008C5217 /* TutorialNotesHelper.swift */,
 			);
 			path = Onbording;
 			sourceTree = "<group>";
@@ -1541,12 +1541,12 @@
 				02AC9ADA251BF35200A067D0 /* NotebooksCollectionViewDelegate.swift in Sources */,
 				1E117804255DC6090095A339 /* OnboardingPageViewController.swift in Sources */,
 				D97EE7BB254B558B00A68B06 /* SearchResultCollectionReusableView.swift in Sources */,
-				D925935225598700000529B4 /* TipViewController.swift in Sources */,
 				024C5BB4252E41D8009549CE /* ColorSelectionCollectionViewDelegate.swift in Sources */,
 				02AD78F225475C5800C87D2B /* EditableCollectionView.swift in Sources */,
 				1E9EF4A925225B9B00CC623B /* TextEditingDelegateObserver.swift in Sources */,
 				8DDFEEAC264C55EC00AB9830 /* NoteWrapper.swift in Sources */,
 				D9CE2D4B2565C00A00DF4D2A /* NoteAssignerObserver.swift in Sources */,
+				2C7AEBF4271229D3008C5217 /* TutorialNotesHelper.swift in Sources */,
 				02CD7CA12523B48900A140A3 /* WorkspacesCollectionViewDelegate.swift in Sources */,
 				02919F4825531BFA00C03E27 /* App String Extensions.swift in Sources */,
 				D97EE7C2254B565600A68B06 /* SearchBarObserver.swift in Sources */,
