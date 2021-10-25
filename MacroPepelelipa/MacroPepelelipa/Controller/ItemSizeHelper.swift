@@ -18,90 +18,46 @@ internal struct ItemSizeHelper {
      - Returns the size for the collectionView items.
      */
     static internal func workspaceItemSize(at collectionView: UICollectionView, for frame: CGRect) -> CGSize {
-        let isLandscape = UIDevice.current.orientation.isActuallyLandscape
+
         let width: CGFloat
         let height: CGFloat
         
         let titleSpace: CGFloat = 20 + 30 + 20 + 20
         
-        if UIDevice.current.userInterfaceIdiom == .phone {
-            // iPhone
+        // Mac
+        
+        if collectionView.isEditing {
+            // Editing mode
             
-            if collectionView.isEditing {
-                // Editing mode
+            if frame.width == UIScreen.main.bounds.width {
+                // Full screen
+                width = collectionView.bounds.width/2.1
+                height = 90
+            } else {
+                // All others
                 width = collectionView.bounds.width
                 height = 70
-                
-            } else {
-                // Normal mode
-                if isLandscape {
-                    // Landscape
-                    width = collectionView.bounds.width/2.1
-                } else {
-                    // Portrait
-                    width = collectionView.bounds.width
-                }
-                height = (width * 0.42) + titleSpace
             }
-            
+        
         } else {
-            // iPad
             
-            if collectionView.isEditing {
-                // Editing mode
+            if frame.width < UIScreen.main.bounds.width/2.25 {
                 
-                if frame.width == UIScreen.main.bounds.width {
-                    // Full screen
-                    width = collectionView.bounds.width/2.1
-                    height = 90
-                } else {
-                    // All others
-                    width = collectionView.bounds.width
-                    height = 70
-                }
+                width = collectionView.bounds.width
+                height = (width * 0.42) + titleSpace
+                
+            } else if frame.width < UIScreen.main.bounds.width/1.25 {
+                
+                width = collectionView.bounds.width/2.2
+                height = (width * 0.44) + titleSpace
             
             } else {
-                // Normal mode
                 
-                if isLandscape {
-                    // Landscape
-                    
-                    if frame.width+5 == UIScreen.main.bounds.width/2 {
-                        // Multitasking half screen
-                        width = collectionView.bounds.width
-                        height = (width * 0.45) + titleSpace
-                        
-                    } else if frame.width < UIScreen.main.bounds.width/2 {
-                        // Multitasking less than half screen
-                        width = collectionView.bounds.width
-                        height = (width * 0.42) + titleSpace
-                        
-                    } else {
-                        // Full screen and Multitasking more than half screen
-                        width = collectionView.bounds.width/2.1
-                        height = (width * 0.44) + titleSpace
-                    }
-                    
-                } else {
-                    // Portrait
-                    
-                    if frame.width < UIScreen.main.bounds.width/2 {
-                        // Multitasking less than half screen
-                        width = collectionView.bounds.width
-                        height = (width * 0.42) + titleSpace
-                    
-                    } else if frame.width == UIScreen.main.bounds.width {
-                        // Full screen
-                        width = collectionView.bounds.width/2.1
-                        height = (width * 0.44) + titleSpace
-                    } else {
-                        // Multitasking more than half screen
-                        width = collectionView.bounds.width
-                        height = (width * 0.45) + titleSpace
-                    }
-                }
+                width = collectionView.bounds.width/3.2
+                height = (width * 0.44) + titleSpace
             }
         }
+        
         return CGSize(width: width, height: height)
     }
     
