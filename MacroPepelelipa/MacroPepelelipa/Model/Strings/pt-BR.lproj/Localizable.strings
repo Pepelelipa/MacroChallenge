@@ -407,7 +407,7 @@
 
 
 // CUSTOMIZE
-"Customize Note Title" = "Customization";
+"Customize Note Title" = "Personalização";
 "Customize Note First Paragraph 01" = "Introdução";
 "Customize Note First Paragraph 02" = "Personalize suas notas para ";
 "Customize Note First Paragraph 03" = "destacar os pontos mais relevantes";
@@ -454,11 +454,11 @@
 
 // INDEX
 "Index Note Title" = "Organização";
-"Index First Paragraph 01" = "Os índices são gerados com base nos seus cabeçalhos. Então, sempre que você usar um";
-"Index First Paragraph 02" = "cabeçalho H1";
-"Index First Paragraph 03" = ", ";
-"Index First Paragraph 04" = "o PurpleNotebook um tópico na lista da direita será criado.";
-"Index First Paragraph 05" = "Com este recurso você pode navegar ao longo da sua nota mais rapidamente.";
+"Index First Paragraph 01" = "Os índices são gerados com os";
+"Index First Paragraph 02" = " títulos ";
+"Index First Paragraph 03" = "de suas notas. ";
+"Index First Paragraph 04" = "Para cada nota, um ítem na lista da direita será criado!";
+"Index First Paragraph 05" = "Com este recurso você pode navegar ao longo de suas anotações rapidamente.";
 "Index First Paragraph 06" = "Você pode criar vários cabeçalhos ";
 "Index First Paragraph 07" = "ao longo da sua nota para ";
 "Index First Paragraph 08" = "criar sessões";
@@ -466,7 +466,7 @@
 "Index First Paragraph 10" = "facilitar a identificações ";
 "Index First Paragraph 11" = "de partes importantes do seu texto.";
 
-"Index Second Paragraph 01" = "Vamos lá! Experimente criar mais cabeçalhos nesta nota para ver na prática o Índice sendo criado. (: ";
+"Index Second Paragraph 01" = "Vamos lá! Experimente criar mais cabeçalhos nesta nota para ver como fica bonito (: ";
 
 
 "Index Hierarchy Title" = "Hierarquia - Estantes, livros e notas";
@@ -479,10 +479,6 @@
 "Index Hierarchy Second Paragraph 03" = "quantidade de notas, cadernos ou estantes.";
 "Index Hierarchy Second Paragraph 04" = " Explore esse recurso para criar estantes organizadas e cadernos com temas específicos. ";
 "Index Hierarchy Second Paragraph 05" = "Desta forma sempre que você precisar encontrar uma nota antiga será fácil e sem complicações.";
-
-"Index Hierarchy Third Paragraph 01" = "Explore também o índice de cada nota, que é ";
-"Index Hierarchy Third Paragraph 02" = "criado de forma automática";
-"Index Hierarchy Third Paragraph 03" = " de acordo com os títulos e subtítulos que você define.";
 
 
 // EXAMPLES
@@ -512,10 +508,7 @@
 "Examples Note 1 Fourth Paragraph 06" = "Use diferentes estilos visuais para personalizar sua nota";
 "Examples Note 1 Fourth Paragraph 07" = "Dê significado às cores";
 
-
-
-
-"Examples Note 2 Title" = "Em segundo lugar: Inclua seus pensamentos!";
+"Examples Note 2 Title" = "Inclua seus pensamentos!";
 "Examples Note 2 First Paragraph 01" = "Inclua o que você tá pensando";
 "Examples Note 2 First Paragraph 02" = "sobre o tópico que está anotando. ";
 "Examples Note 2 First Paragraph 03" = "Principalmente se estiver durante uma aula";

@@ -431,9 +431,9 @@
 "Customize Note Third Paragraph 05" = " which is a more classic and readable font. ";
 "Customize Note Third Paragraph 06" = "And ";
 "Customize Note Third Paragraph 07" = "OpenSans";
-"Customize Note Third Paragraph 08" = ", with a more modern and simpler style.";
+"Customize Note Third Paragraph 08" = ", with a modern and simple style.";
 
-"Customize Note Fourth Paragraph 01" = "Also, don't forget to use headers of different sizes: use H1, H2 and H3. In addition to making your note more organized, they help in creating the index!";
+"Customize Note Fourth Paragraph 01" = "Also, don't forget to use headers of different sizes: use H1, H2 and H3. They help to organize your note!";
 
 "Customize Note Fifth Paragraph 01" = "Markdown";
 "Customize Note Fifth Paragraph 02" = "For those who like to prioritize the use of the keyboard, we suggest exploring our Markdown";
@@ -451,11 +451,11 @@
 
 // INDEX
 "Index Note Title" = "Organization";
-"Index First Paragraph 01" = "Indexes are generated based on headers. So whenever you use an ";
-"Index First Paragraph 02" = "H1 header";
-"Index First Paragraph 03" = ", ";
-"Index First Paragraph 04" = "in PurpleNotebook a topic in the list on the right will be created.";
-"Index First Paragraph 05" = "With this feature you can navigate through your note faster. ";
+"Index First Paragraph 01" = "Indexes are generated based on the ";
+"Index First Paragraph 02" = "title";
+"Index First Paragraph 03" = " of your note.";
+"Index First Paragraph 04" = "For each note title, a topic will be created on the right section.";
+"Index First Paragraph 05" = "With this feature you can navigate through your notes faster. ";
 "Index First Paragraph 06" = "You can create multiple headers ";
 "Index First Paragraph 07" = " throughout your note to ";
 "Index First Paragraph 08" = "create sections";
@@ -463,7 +463,7 @@
 "Index First Paragraph 10" = "make it easy to ";
 "Index First Paragraph 11" = "identify important parts of your text.";
 
-"Index Second Paragraph 01" = "Come on! Try creating more headings in this note to see the Table of Contents being created in practice. (:";
+"Index Second Paragraph 01" = "Try creating more headings in this note to see how it looks good. (:";
 
 
 "Index Hierarchy Title" = "Hierarchy - Shelves, books and notes";
@@ -472,14 +472,11 @@
 "Index Hierarchy First Paragraph 03" = "As easy as in real life.";
 
 "Index Hierarchy Second Paragraph 01" = "There is no limit ";
-"Index Hierarchy Second Paragraph 02" = "on ";
-"Index Hierarchy Second Paragraph 03" = "amount of notes, notebooks or bookshelves.";
+"Index Hierarchy Second Paragraph 02" = "on how many";
+"Index Hierarchy Second Paragraph 03" = " notes, notebooks or bookshelves you can create.";
 "Index Hierarchy Second Paragraph 04" = "  Explore this feature to create organized shelves and notebooks with specific theme.";
 "Index Hierarchy Second Paragraph 05" = " This way whenever you need to find an old note it will be easy and hassle free.";
 
-"Index Hierarchy Third Paragraph 01" = "Also explore the index of each note, which is ";
-"Index Hierarchy Third Paragraph 02" = "automatically created";
-"Index Hierarchy Third Paragraph 03" = " according to the titles and subtitles you define.";
 
 
 // EXAMPLES
@@ -488,7 +485,7 @@
 "Examples Note 1 First Paragraph 02" = "life, plans, studies, jobs, recipes... ";
 "Examples Note 1 First Paragraph 03" = "and many other topics. ";
 "Examples Note 1 First Paragraph 04" = "Learning to organize them helps us to optimize our routines. ";
-"Examples Note 1 First Paragraph 05" = "We want to leave some tips on how you can master the art of organizing your notes";
+"Examples Note 1 First Paragraph 05" = "Here are some tips on how you can master the art of organizing your notes";
 
 "Examples Note 1 Second Header H2" = "First: Choose your method";
 "Examples Second Paragraph 02" = "Think about your preferences and how you take notes faster.";
@@ -503,7 +500,7 @@
 "Examples Note 1 Third Paragraph 05" = "Do the indexes represent the content of my notes?";
 
 
-"Examples Note 1 Fourth Paragraph 01" = "And try to do:";
+"Examples Note 1 Fourth Paragraph 01" = "Try to:";
 "Examples Note 1 Fourth Paragraph 03" = "Use highlights for topics you need to review at some later time";
 "Examples Note 1 Fourth Paragraph 04" = "Highlight relevant information with a bold font";
 "Examples Note 1 Fourth Paragraph 05" = "Use headers to create subject sections throughout your note";
@@ -513,33 +510,33 @@
 
 
 
-"Examples Note 2 Title" = "Second: Include your thoughts!";
-"Examples Note 2 First Paragraph 01" = "Include what you're thinking ";
+"Examples Note 2 Title" = "Make it personal!";
+"Examples Note 2 First Paragraph 01" = "Take notes based on what you're thinking, ";
 "Examples Note 2 First Paragraph 02" = "about the topic you're writing down. ";
-"Examples Note 2 First Paragraph 03" = "Especially if you are during a class";
-"Examples Note 2 First Paragraph 04" = ", leave important questions, comments and conclusions about what you are studying throughout your grade.";
+"Examples Note 2 First Paragraph 03" = "Especially if you are taking notes during a class";
+"Examples Note 2 First Paragraph 04" = ", leave important questions, comments and conclusions about what you are studying throughout your note.";
 
 "Examples Note 2 Second Paragraph 01" = "In this way, ";
 "Examples Note 2 Second Paragraph 02" = "in the future you can";
 "Examples Note 2 Second Paragraph 03" = " retrieve information that was essential to understanding the subject.";
 
 "Examples Note 2 Third Paragraph H3" = "But don't forget: Differentiate these elements.";
-"Examples Note 2 Third Paragraph 01" = "The ideal is to make it clear that these annotations are ";
+"Examples Note 2 Third Paragraph 01" = "The ideal is to make it clear that these notes are ";
 "Examples Note 2 Third Paragraph 02" = "parallel topics to the main content,";
 "Examples Note 2 Third Paragraph 03" = " the tip is to put them in ";
-"Examples Note 2 Third Paragraph 04" = "\"italics and in quotes\"";
+"Examples Note 2 Third Paragraph 04" = "\"italics or in quotes\"";
 
 
 
-"Examples Note 3 Title" = "Don't make too big notes";
+"Examples Note 3 Title" = "Don't make giant notes";
 "Examples Note 3 First Paragraph 01" = "Divide your notes by ";
 "Examples Note 3 First Paragraph 02" = " themes, classes, workdays or a specific trip. ";
 "Examples Note 3 First Paragraph 03" = "This way, you ";
-"Examples Note 3 First Paragraph 04" = "avoid creating long and complex texts to be consumed later.";
+"Examples Note 3 First Paragraph 04" = "avoid creating long and complex notes to be consumed later.";
 
 "Examples Note 3 Second Paragraph 01" = "Think about creating ";
 "Examples Note 3 Second Paragraph 02" = "content capsules";
-"Examples Note 3 Second Paragraph 03" = " that can be consumed quickly. Also, ";
+"Examples Note 3 Second Paragraph 03" = " that can be consumed quickly. And also, ";
 "Examples Note 3 Second Paragraph 03" = "creating more divisions makes it easier to find that note";
 "Examples Note 3 Second Paragraph 03" = " from two years ago on that random subject you barely remember. ";
 
