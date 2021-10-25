@@ -239,12 +239,12 @@ internal class WorkspaceSelectionViewController: ViewController,
             customizeNote.title = TutorialNotesHelper.buildCustomizeTitle()
             customizeNote.text = TutorialNotesHelper.buildCustomizeText()
             
-            let indexNotebook = try DataManager.shared().createNotebook(in: workspace, named: "Index", colorName: "nb18")
+            let indexNotebook = try DataManager.shared().createNotebook(in: workspace, named: "Index", colorName: "nb6")
             let indexNote = try DataManager.shared().createNote(in: indexNotebook)
             indexNote.title = TutorialNotesHelper.buildIndexTitle()
             indexNote.text = TutorialNotesHelper.buildIndexText()
             
-            let examplesNotebook = try DataManager.shared().createNotebook(in: workspace, named: "Examples", colorName: "nb9")
+            let examplesNotebook = try DataManager.shared().createNotebook(in: workspace, named: "Examples", colorName: "nb11")
             let examplesNote = try DataManager.shared().createNote(in: examplesNotebook)
             examplesNote.title = TutorialNotesHelper.buildExamplesTitle()
             examplesNote.text = TutorialNotesHelper.buildExamplesText()
