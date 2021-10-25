@@ -406,9 +406,9 @@
 // CUSTOMIZE
 "Customize Note Title" = "Customization";
 "Customize Note First Paragraph 01" = "Introduction";
-"Customize Note First Paragraph 02" = "PPersonalize your notes to ";
+"Customize Note First Paragraph 02" = "Personalize your notes to ";
 "Customize Note First Paragraph 03" = "emphasize the relevant points, ";
-"Customize Note First Paragraph 04" = "organize them ";
+"Customize Note First Paragraph 04" = "organize them";
 "Customize Note First Paragraph 05" = " or give them your own aesthetic.";
 
 "Customize Note Second Paragraph 01" = "You can change the ";
@@ -420,12 +420,12 @@
 "Customize Note Second Paragraph 07" = " , italic and ";
 "Customize Note Second Paragraph 08" = "underline";
 "Customize Note Second Paragraph 09" = " to your text.";
-"Customize Note Second Paragraph 10" = "These options are available in the toolbar ";
+"Customize Note Second Paragraph 10" = " These options are available in the toolbar ";
 "Customize Note Second Paragraph 11" = "or";
 "Customize Note Second Paragraph 12" = " with the markdown.";
 
 "Customize Note Third Paragraph 01" = "Use the different fonts to personalize your notes, mark specific parts of the text or organize them. There are currently three options available: ";
-"Customize Note Third Paragraph 02" = "Dancing Script,";
+"Customize Note Third Paragraph 02" = " Dancing Script,";
 "Customize Note Third Paragraph 03" = "which is a cursive font, inspired by handwritten letters. ";
 "Customize Note Third Paragraph 04" = "Merriweather,";
 "Customize Note Third Paragraph 05" = " which is a more classic and readable font. ";
@@ -438,13 +438,13 @@
 "Customize Note Fifth Paragraph 01" = "Markdown";
 "Customize Note Fifth Paragraph 02" = "For those who like to prioritize the use of the keyboard, we suggest exploring our Markdown";
 "Customize Note Fifth Paragraph 03" = "Shortcuts are simple and straightforward:";
-"Customize Note Fifth Paragraph 04" = "_ text _ : ";
+"Customize Note Fifth Paragraph 04" = " _ text _ : ";
 "Customize Note Fifth Paragraph 05" = "to underline";
-"Customize Note Fifth Paragraph 06" = "* text *:  ";
+"Customize Note Fifth Paragraph 06" = " * text *:  ";
 "Customize Note Fifth Paragraph 07" = "to bold";
-"Customize Note Fifth Paragraph 08" = "- text -: ";
+"Customize Note Fifth Paragraph 08" = " - text -: ";
 "Customize Note Fifth Paragraph 09" = "to italic";
-"Customize Note Fifth Paragraph 10" = ":: text :: : ";
+"Customize Note Fifth Paragraph 10" = " :: text :: : ";
 "Customize Note Fifth Paragraph 11" = "to highlight";
 
 
