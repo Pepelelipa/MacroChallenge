@@ -451,17 +451,18 @@
 
 // INDEX
 "Index Note Title" = "Organization";
+"Index Note H2" = "Index";
 "Index First Paragraph 01" = "Indexes are generated based on the ";
 "Index First Paragraph 02" = "title";
 "Index First Paragraph 03" = " of your note.";
-"Index First Paragraph 04" = "For each note title, a topic will be created on the right section.";
+"Index First Paragraph 04" = " For each note title, a topic will be created on the right section.";
 "Index First Paragraph 05" = "With this feature you can navigate through your notes faster. ";
 "Index First Paragraph 06" = "You can create multiple headers ";
-"Index First Paragraph 07" = " throughout your note to ";
+"Index First Paragraph 07" = "throughout your note to ";
 "Index First Paragraph 08" = "create sections";
 "Index First Paragraph 09" = " and ";
-"Index First Paragraph 10" = "make it easy to ";
-"Index First Paragraph 11" = "identify important parts of your text.";
+"Index First Paragraph 10" = "make it easy to identify ";
+"Index First Paragraph 11" = "important parts of your text.";
 
 "Index Second Paragraph 01" = "Try creating more headings in this note to see how it looks good. (:";
 
@@ -477,9 +478,14 @@
 "Index Hierarchy Second Paragraph 04" = "  Explore this feature to create organized shelves and notebooks with specific theme.";
 "Index Hierarchy Second Paragraph 05" = " This way whenever you need to find an old note it will be easy and hassle free.";
 
+"Index Hierarchy Third Paragraph 01" = "Also explore the index of each note, which is ";
+"Index Hierarchy Third Paragraph 02" = "created automatically";
+"Index Hierarchy Third Paragraph 03" = " based on the titles and subtitles you defined.";
+
 
 
 // EXAMPLES
+"Examples Notebook Title" = "Example";
 "Examples Note 1 Title" = "How to organize your notes like an expert!";
 "Examples Note 1 First Paragraph 01" = "We take notes on many things: ";
 "Examples Note 1 First Paragraph 02" = "life, plans, studies, jobs, recipes... ";
@@ -510,7 +516,7 @@
 
 
 
-"Examples Note 2 Title" = "Make it personal!";
+"Examples Note 2 Title" = "In second place: Make it personal!";
 "Examples Note 2 First Paragraph 01" = "Take notes based on what you're thinking, ";
 "Examples Note 2 First Paragraph 02" = "about the topic you're writing down. ";
 "Examples Note 2 First Paragraph 03" = "Especially if you are taking notes during a class";
@@ -537,8 +543,8 @@
 "Examples Note 3 Second Paragraph 01" = "Think about creating ";
 "Examples Note 3 Second Paragraph 02" = "content capsules";
 "Examples Note 3 Second Paragraph 03" = " that can be consumed quickly. And also, ";
-"Examples Note 3 Second Paragraph 03" = "creating more divisions makes it easier to find that note";
-"Examples Note 3 Second Paragraph 03" = " from two years ago on that random subject you barely remember. ";
+"Examples Note 3 Second Paragraph 04" = "creating more divisions makes it easier to find that note";
+"Examples Note 3 Second Paragraph 05" = " from two years ago on that random subject you barely remember. ";
 
 
 
