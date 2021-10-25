@@ -22,12 +22,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         navController.navigationBar.tintColor = .actionColor
         navController.navigationBar.prefersLargeTitles = true
         
-        let time = UserDefaults.standard.integer(forKey: "numberOfTimes")
-        if time == 0 {
-            UserDefaults.standard.setValue(time + 1, forKey: "numberOfTimes")
-        } else {
-            navController.viewControllers = [WorkspaceSelectionViewController()]
-        }
+        navController.viewControllers = [WorkspaceSelectionViewController()]
         
         window = UIWindow(windowScene: scene)
         window?.rootViewController = navController
