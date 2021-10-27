@@ -13,9 +13,6 @@ public enum ObservableCreationType {
 }
 
 public class DataManager {
-    #if !DEVELOP
-    private lazy var dataSynchroninzer = DataSynchronizer(coreDataController: coreDataController, cloudKitController: cloudKitController, conflictHandler: { self.conflictHandler })
-    #endif
     private let coreDataController = CoreDataController()
     public var conflictHandler: ConflictHandler = DefaultConflictHandler()
 
