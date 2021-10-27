@@ -12,7 +12,7 @@ internal class CoreDataController {
 
     ///Persistent container of our CoreData
     private lazy var persistentContainer: NSPersistentContainer = {
-        let container = NSCustomPersistentContainer(name: "DataModel")
+        let container = NSPersistentContainer(name: "DataModel")
 
         container.loadPersistentStores(completionHandler: { (_, error) in
             if let error = error as NSError? {
