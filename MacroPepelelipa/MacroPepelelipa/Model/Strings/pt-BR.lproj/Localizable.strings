@@ -375,6 +375,9 @@
 
 // MARK: - Tutorial Notes
 
+// ERROR
+"Onboarding Creation Error" = "Sentimos muito mas algo deu errado na criação do tutorial, parece que você terá que explorar o app.";
+
 // NOTEBOOKS TITLES
 "Notebook 1" = "Introdução";
 "Notebook 2" = "Personalização";

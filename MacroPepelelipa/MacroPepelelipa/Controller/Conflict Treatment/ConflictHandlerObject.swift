@@ -35,7 +35,6 @@ internal final class ConflictHandlerObject: ConflictHandler {
     }
     
     func errDidOccur(err: Error) {
-        
         if let error = err as? WorkspaceError {
             workspaceErrorHandling(error: error)
         } else if let error = err as? NotebookError {

@@ -18,11 +18,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let scene = scene as? UIWindowScene else {
             return
         }
-        let navController = UINavigationController()
+
+        let workspaceSelectionVC = WorkspaceSelectionViewController()
+
+        let navController = UINavigationController(rootViewController: workspaceSelectionVC)
         navController.navigationBar.tintColor = .actionColor
         navController.navigationBar.prefersLargeTitles = true
-        
-        navController.viewControllers = [WorkspaceSelectionViewController()]
         
         window = UIWindow(windowScene: scene)
         window?.rootViewController = navController

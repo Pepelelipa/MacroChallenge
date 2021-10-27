@@ -372,6 +372,9 @@
 
 // MARK: - Tutorial Notes
 
+// ERROR
+"Onboarding Creation Error" = "Sorry, something went wrong creating the tutorial, it seems you're on your own";
+
 // NOTEBOOKS TITLES
 "Notebook 1" = "Introduction";
 "Notebook 2" = "Customize";
