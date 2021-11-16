@@ -16,6 +16,10 @@ public class DataManager {
     private let coreDataController = CoreDataController()
     public var conflictHandler: ConflictHandler = DefaultConflictHandler()
 
+    public func resetData() {
+        coreDataController.resetContext()
+    }
+
     private var observers: [(EntityObserver, ObservableCreationType)] = []
     public func addCreationObserver(_ observer: EntityObserver, type: ObservableCreationType) {
         observers.append((observer, type))

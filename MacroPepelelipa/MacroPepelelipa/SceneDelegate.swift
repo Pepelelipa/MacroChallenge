@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Database
 
 @available(iOS 14, *)
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
@@ -37,6 +38,18 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     func sceneDidDisconnect(_ scene: UIScene) {
         SceneDelegate.sensitiveContent?.saveSensitiveContent()
+        guard let window = window else {
+            return
+        }
+        DataManager.shared().resetData()
+        let workspaceSelectionVC = WorkspaceSelectionViewController()
+
+        let navController = UINavigationController(rootViewController: workspaceSelectionVC)
+        navController.navigationBar.tintColor = .actionColor
+        navController.navigationBar.prefersLargeTitles = true
+
+        window.rootViewController = navController
+        window.makeKeyAndVisible()
     }
 
     func sceneDidBecomeActive(_ scene: UIScene) {
