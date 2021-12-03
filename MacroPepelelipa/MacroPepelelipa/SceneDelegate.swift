@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Database
 
 @available(iOS 14, *)
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
@@ -18,17 +19,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let scene = scene as? UIWindowScene else {
             return
         }
-        let navController = UINavigationController()
+
+        let workspaceSelectionVC = WorkspaceSelectionViewController()
+
+        let navController = UINavigationController(rootViewController: workspaceSelectionVC)
         navController.navigationBar.tintColor = .actionColor
         navController.navigationBar.prefersLargeTitles = true
-        
-        let time = UserDefaults.standard.integer(forKey: "numberOfTimes")
-        if time == 0 {
-            navController.viewControllers = [OnboardingPageViewController()]
-            UserDefaults.standard.setValue(time + 1, forKey: "numberOfTimes")
-        } else {
-            navController.viewControllers = [WorkspaceSelectionViewController()]
-        }
         
         window = UIWindow(windowScene: scene)
         window?.rootViewController = navController
@@ -42,6 +38,18 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     func sceneDidDisconnect(_ scene: UIScene) {
         SceneDelegate.sensitiveContent?.saveSensitiveContent()
+        guard let window = window else {
+            return
+        }
+        DataManager.shared().resetData()
+        let workspaceSelectionVC = WorkspaceSelectionViewController()
+
+        let navController = UINavigationController(rootViewController: workspaceSelectionVC)
+        navController.navigationBar.tintColor = .actionColor
+        navController.navigationBar.prefersLargeTitles = true
+
+        window.rootViewController = navController
+        window.makeKeyAndVisible()
     }
 
     func sceneDidBecomeActive(_ scene: UIScene) {

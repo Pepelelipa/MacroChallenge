@@ -9,7 +9,6 @@
 import UIKit
 import MarkdownText
 import Database
-import CloudKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -26,22 +25,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             Fonts.availableFonts.append(dancingScript)
         }
         
-        let errorHandling: (Error?) -> Void = {
-            if ($0 as? CKError)?.errorCode != 15, let error = $0 {
-                ConflictHandlerObject().errDidOccur(err: error)
-            }
-        }
-
-        #if !DEVELOP
-        CKSubscriptionController.createWorkspaceSubscription(errorHandler: errorHandling)
-        CKSubscriptionController.createNotebookSubscription(errorHandler: errorHandling)
-        CKSubscriptionController.createNoteSubscription(errorHandler: errorHandling)
-        CKSubscriptionController.createTextBoxSubscription(errorHandler: errorHandling)
-        CKSubscriptionController.createImageBoxSubscription(errorHandler: errorHandling)
-        #endif
-        
-        application.registerForRemoteNotifications()
-        
         DataManager.shared().conflictHandler = ConflictHandlerObject()
         
         return true
@@ -50,28 +33,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {
         return UISceneConfiguration(name: "Default Configuration", sessionRole: connectingSceneSession.role)
     }
-
+    
     /// set orientations you want to be allowed in this property by default
     var orientationLock = UIInterfaceOrientationMask.all
 
     func application(_ application: UIApplication, supportedInterfaceOrientationsFor window: UIWindow?) -> UIInterfaceOrientationMask {
         return self.orientationLock
-    }
-
-    // MARK: Notifications
-    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
-        if let notification = CKNotification(fromRemoteNotificationDictionary: userInfo) as? CKQueryNotification {
-            do {
-                #if !DEVELOP
-                try DataManager.shared().handleNotification(notification)
-                #endif
-                completionHandler(.newData)
-            } catch {
-                completionHandler(.failed)
-            }
-        } else {
-            completionHandler(.noData)
-        }
     }
     
     // MARK: - Menus

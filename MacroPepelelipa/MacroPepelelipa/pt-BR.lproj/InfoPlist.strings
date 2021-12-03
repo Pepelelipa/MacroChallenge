@@ -5,6 +5,6 @@
   Created by Pedro Giuliano Farina on 22/10/20.
   Copyright © 2020 Pedro Giuliano Farina. All rights reserved.
 */
-"CFBundleDisplayName" = "Caderno Roxo";
-"CFBundleName" = "Caderno Roxo";
+"CFBundleDisplayName" = "PurpleNotebook";
+"CFBundleName" = "PurpleNotebook";
 "NSCameraUsageDescription" = "Sua camera é usada para tirar fotos para adicionar a suas notas";

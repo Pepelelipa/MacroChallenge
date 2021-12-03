@@ -24,7 +24,7 @@ class DemoLaunchViewController: UIViewController {
         #if DEBUG || DEVELOP
         let time = 0.5
         #else
-        let time = 4
+        let time = 4.0
         #endif
         DispatchQueue.main.asyncAfter(deadline: .now() + time) {
             self.dismiss(animated: true, completion: nil)

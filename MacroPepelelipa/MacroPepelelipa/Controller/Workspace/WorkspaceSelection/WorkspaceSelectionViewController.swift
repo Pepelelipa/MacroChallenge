@@ -148,9 +148,9 @@ internal class WorkspaceSelectionViewController: ViewController,
         ]
 
         self.definesPresentationContext = true
-        
+
         createOnboarding()
-        
+
         DataManager.shared().addCreationObserver(self, type: .workspace)
         setEditButtonItem()
     }
@@ -198,6 +198,9 @@ internal class WorkspaceSelectionViewController: ViewController,
     // MARK: - Demo Launch
     
     private func createOnboarding() {
+        guard collectionDataSource.isEmpty else {
+            return
+        }
         do {
             let workspace = try DataManager.shared().createWorkspace(named: "Your first workspace".localized())
             
@@ -222,8 +225,7 @@ internal class WorkspaceSelectionViewController: ViewController,
             examplesNote.text = TutorialNotesHelper.buildExamplesText()
                         
         } catch {
-            // Precisamos lidar com isso ainda
-            fatalError()
+            ConflictHandlerObject().genericErrorHandling(title: "Oops!", message: "Onboarding Creation Error".localized())
         }
     }
     

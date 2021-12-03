@@ -9,7 +9,6 @@
 import Foundation
 import Database
 import UIKit
-import CloudKit
 
 internal final class ConflictHandlerObject: ConflictHandler {
     
@@ -36,7 +35,6 @@ internal final class ConflictHandlerObject: ConflictHandler {
     }
     
     func errDidOccur(err: Error) {
-        
         if let error = err as? WorkspaceError {
             workspaceErrorHandling(error: error)
         } else if let error = err as? NotebookError {
@@ -49,8 +47,6 @@ internal final class ConflictHandlerObject: ConflictHandler {
             textBoxErrorHandling(error: error)
         } else if let error = err as? ImageBoxError {
             imageBoxErrorHandling(error: error)
-        } else if let error = err as? CKError {
-            cloudKitErrorHandling(error: error)
         }
     }
     
@@ -109,27 +105,6 @@ internal final class ConflictHandlerObject: ConflictHandler {
             presentAlertController(title: title, message: "Failed to Parse".localized())
         case .imageBoxWasNull:
             presentAlertController(title: title, message: "Image Box was Null".localized())
-        }
-    }
-    
-    private func cloudKitErrorHandling(error: CKError) {
-        let title: String = "Error with Cloud Database".localized()
-        DispatchQueue.main.async { 
-            let alertController = UIAlertController(title: title, message: error.localizedDescription, preferredStyle: .alert).makeErrorMessage(with: error.localizedDescription)
-            if error.errorCode == 9 {
-                let settingsAction = UIAlertAction(title: "Open Settings".localized(), style: .default) { _ in 
-                    guard let settingsUrl = URL(string: UIApplication.openSettingsURLString) else {
-                        return
-                    }
-                    
-                    if UIApplication.shared.canOpenURL(settingsUrl) {
-                        UIApplication.shared.open(settingsUrl, completionHandler: nil)
-                    }
-                }
-                
-                alertController.addAction(settingsAction)
-            }
-            self.controller?.present(alertController, animated: true, completion: nil)
         }
     }
     

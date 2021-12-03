@@ -13,11 +13,12 @@ public enum ObservableCreationType {
 }
 
 public class DataManager {
-    #if !DEVELOP
-    private lazy var dataSynchroninzer = DataSynchronizer(coreDataController: coreDataController, cloudKitController: cloudKitController, conflictHandler: { self.conflictHandler })
-    #endif
     private let coreDataController = CoreDataController()
     public var conflictHandler: ConflictHandler = DefaultConflictHandler()
+
+    public func resetData() {
+        coreDataController.resetContext()
+    }
 
     private var observers: [(EntityObserver, ObservableCreationType)] = []
     public func addCreationObserver(_ observer: EntityObserver, type: ObservableCreationType) {

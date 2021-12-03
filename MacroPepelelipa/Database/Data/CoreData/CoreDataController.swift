@@ -24,6 +24,10 @@ internal class CoreDataController {
     ///Context of our CoreData
     private lazy var context: NSManagedObjectContext = persistentContainer.viewContext
 
+    internal func resetContext() {
+        context.reset()
+    }
+
     // MARK: Fetches
     
     internal func fetchWorkspaces() throws -> [Workspace] {
