@@ -141,6 +141,8 @@
 		1EE652C72525049E0015E3D4 /* MarkdownToggleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EE652C62525049E0015E3D4 /* MarkdownToggleButton.swift */; };
 		1EFA49CE252D15C500602904 /* MarkdownNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EFA49CD252D15C500602904 /* MarkdownNavigationView.swift */; };
 		5832E2F5260A86EF0003D783 /* MacLooseNoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5832E2F4260A86EF0003D783 /* MacLooseNoteViewController.swift */; };
+		8D890F3426876ECD00547D6B /* CloudKitRemoteConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D890F3326876ECD00547D6B /* CloudKitRemoteConfig.swift */; };
+		8DAE88BA26A38E0700B57E6F /* RemoteConfigManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DAE88B926A38E0700B57E6F /* RemoteConfigManager.swift */; };
 		8DDFEEAC264C55EC00AB9830 /* NoteWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDFEEAB264C55EC00AB9830 /* NoteWrapper.swift */; };
 		A7026CDF25659B2400B8FC78 /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C21B33254B55BB0061CCBA /* Font.swift */; };
 		A71E2C1D2538EEB8000DA164 /* NotesPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71E2C1B2538EEB8000DA164 /* NotesPageViewController.swift */; };
@@ -407,6 +409,8 @@
 		1EFA49CD252D15C500602904 /* MarkdownNavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkdownNavigationView.swift; sourceTree = "<group>"; };
 		5832E2F4260A86EF0003D783 /* MacLooseNoteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacLooseNoteViewController.swift; sourceTree = "<group>"; };
 		58E145A32636F9EC0048C6AA /* MacroPepelelipaDevelop.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MacroPepelelipaDevelop.entitlements; sourceTree = "<group>"; };
+		8D890F3326876ECD00547D6B /* CloudKitRemoteConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudKitRemoteConfig.swift; sourceTree = "<group>"; };
+		8DAE88B926A38E0700B57E6F /* RemoteConfigManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteConfigManager.swift; sourceTree = "<group>"; };
 		8DDFEEAB264C55EC00AB9830 /* NoteWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteWrapper.swift; sourceTree = "<group>"; };
 		A71E2C1B2538EEB8000DA164 /* NotesPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotesPageViewController.swift; sourceTree = "<group>"; };
 		A71E2C1C2538EEB8000DA164 /* NotesPageViewControllerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotesPageViewControllerDelegate.swift; sourceTree = "<group>"; };
@@ -856,6 +860,7 @@
 		029EFC8A2555DE1D00361F29 /* CloudKit */ = {
 			isa = PBXGroup;
 			children = (
+				8DAE88B926A38E0700B57E6F /* RemoteConfigManager.swift */,
 				029EFC8B2555DE3800361F29 /* CloudKitDataConnector.swift */,
 				02D20B7D2559C5D200159AB0 /* CloudKitDataController.swift */,
 			);
@@ -865,6 +870,7 @@
 		029EFC912555DEB500361F29 /* CloudKit */ = {
 			isa = PBXGroup;
 			children = (
+				8D890F3326876ECD00547D6B /* CloudKitRemoteConfig.swift */,
 				029EFCA42555DF4A00361F29 /* Base */,
 				02D20B5D2558DD9E00159AB0 /* CloudKitWorkspace.swift */,
 				02D20B612558E1E000159AB0 /* CloudKitNotebook.swift */,
@@ -1536,6 +1542,7 @@
 				021107A8252F8B060009D4E1 /* NoteError.swift in Sources */,
 				02110793252F88540009D4E1 /* ModifiableEntity.swift in Sources */,
 				021107A4252F8A9F0009D4E1 /* ImageBoxObject.swift in Sources */,
+				8D890F3426876ECD00547D6B /* CloudKitRemoteConfig.swift in Sources */,
 				0211078F252F87F10009D4E1 /* NoteObject.swift in Sources */,
 				02D20B762558E78500159AB0 /* ReferenceField.swift in Sources */,
 				02A75293252E5282006D37B5 /* NSPersistantContainer.swift in Sources */,
@@ -1549,6 +1556,7 @@
 				022832E7252E5CE900DDD46B /* Note+CoreDataProperties.swift in Sources */,
 				02D20B7A2559B94800159AB0 /* ReferenceList.swift in Sources */,
 				02CB8B50255C7A9000C0C04E /* CoreData-CloudKit Operators.swift in Sources */,
+				8DAE88BA26A38E0700B57E6F /* RemoteConfigManager.swift in Sources */,
 				022832ED252E5CE900DDD46B /* Workspace+CoreDataProperties.swift in Sources */,
 				022832E8252E5CE900DDD46B /* TextBox+CoreDataClass.swift in Sources */,
 				022832EC252E5CE900DDD46B /* Workspace+CoreDataClass.swift in Sources */,
@@ -2021,7 +2029,7 @@
 				CODE_SIGN_ENTITLEMENTS = MacroPepelelipa/MacroPepelelipa.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 6YYZ79V57N;
+				DEVELOPMENT_TEAM = X54K5PJVGU;
 				INFOPLIST_FILE = MacroPepelelipa/Info.plist;
 				"IPHONEOS_DEPLOYMENT_TARGET[sdk=macosx*]" = 14.2;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -2045,7 +2053,7 @@
 				CODE_SIGN_ENTITLEMENTS = MacroPepelelipa/MacroPepelelipa.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 6YYZ79V57N;
+				DEVELOPMENT_TEAM = X54K5PJVGU;
 				INFOPLIST_FILE = MacroPepelelipa/Info.plist;
 				"IPHONEOS_DEPLOYMENT_TARGET[sdk=macosx*]" = 14.2;
 				LD_RUNPATH_SEARCH_PATHS = (
